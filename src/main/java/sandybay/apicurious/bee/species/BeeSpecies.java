@@ -1,23 +1,50 @@
 package sandybay.apicurious.bee.species;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import sandybay.apicurious.bee.characteristics.*;
+import sandybay.apicurious.bee.characteristics.HumidityPreference;
+import sandybay.apicurious.bee.characteristics.HumidityTolerance;
+import sandybay.apicurious.bee.characteristics.Lifespan;
+import sandybay.apicurious.bee.characteristics.PollinationRate;
+import sandybay.apicurious.bee.characteristics.ProductionSpeed;
+import sandybay.apicurious.bee.characteristics.TemperaturePreference;
+import sandybay.apicurious.bee.characteristics.TemperatureTolerance;
+import sandybay.apicurious.bee.characteristics.WorkCycle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class BeeSpecies implements IBeeSpecies {
+
+  public static final Codec<BeeSpecies> CODEC = RecordCodecBuilder.create(
+          instance -> instance.group(
+                  Lifespan.CODEC.fieldOf("lifespan").forGetter(BeeSpecies::getLifespan),
+                  ProductionSpeed.CODEC.fieldOf("productionSpeed").forGetter(BeeSpecies::getProductionSpeed),
+                  PollinationRate.CODEC.fieldOf("pollinationRate").forGetter(BeeSpecies::getPollinationRate),
+                  TagKey.codec(Registries.BLOCK).fieldOf("flowers").forGetter(BeeSpecies::getFlowers),
+                  Codec.INT.fieldOf("workRadius").forGetter(BeeSpecies::getWorkRadius),
+                  Codec.list(MobEffectInstance.CODEC).fieldOf("effects").forGetter(BeeSpecies::getEffects),
+                  TemperaturePreference.CODEC.fieldOf("temperaturePreference").forGetter(BeeSpecies::getTemperaturePreference),
+                  TemperatureTolerance.CODEC.fieldOf("temperatureTolerance").forGetter(BeeSpecies::getTemperatureTolerance),
+                  HumidityPreference.CODEC.fieldOf("humidityPreference").forGetter(BeeSpecies::getHumidityPreference),
+                  HumidityTolerance.CODEC.fieldOf("humidityTolerance").forGetter(BeeSpecies::getHumidityTolerance),
+                  WorkCycle.CODEC.fieldOf("workcycle").forGetter(BeeSpecies::getWorkCycle),
+                  Codec.BOOL.fieldOf("ignoresRain").forGetter(BeeSpecies::ignoresRain),
+                  Codec.BOOL.fieldOf("ignoresSky").forGetter(BeeSpecies::ignoresSky)
+                  ).apply(instance, BeeSpecies::new)
+  );
 
   private final Lifespan lifespan;
   private final ProductionSpeed productionSpeed;
   private final PollinationRate pollinationRate;
   private final TagKey<Block> flowers;
   private final int workRadius;
-  private final Set<MobEffectInstance> effects;
+  private final List<MobEffectInstance> effects;
   private final TemperaturePreference temperaturePreference;
   private final TemperatureTolerance temperatureTolerance;
   private final HumidityPreference humidityPreference;
@@ -30,7 +57,7 @@ public class BeeSpecies implements IBeeSpecies {
                     ProductionSpeed productionSpeed, PollinationRate pollinationRate,
                     TagKey<Block> flowers,
                     int workRadius,
-                    Set<MobEffectInstance> effects,
+                    List<MobEffectInstance> effects,
                     TemperaturePreference temperaturePreference, TemperatureTolerance temperatureTolerance,
                     HumidityPreference humidityPreference, HumidityTolerance humidityTolerance,
                     WorkCycle workCycle,
@@ -76,7 +103,7 @@ public class BeeSpecies implements IBeeSpecies {
   }
 
   @Override
-  public Set<MobEffectInstance> getEffects() {
+  public List<MobEffectInstance> getEffects() {
     return effects;
   }
 
@@ -116,13 +143,12 @@ public class BeeSpecies implements IBeeSpecies {
   }
 
   public static class Builder {
-
     private Lifespan lifespan = Lifespan.NORMAL;
     private ProductionSpeed productionSpeed = ProductionSpeed.NORMAL;
     private PollinationRate pollinationRate = PollinationRate.NORMAL;
     private TagKey<Block> flowers = null; // TODO: Define default flower tag here
     private int workRadius = 4;
-    private final Set<MobEffectInstance> effects = new HashSet<>();
+    private final List<MobEffectInstance> effects = new ArrayList<>();
     private TemperaturePreference temperaturePreference = TemperaturePreference.NORMAL;
     private TemperatureTolerance temperatureTolerance = TemperatureTolerance.NO_TOLERANCE;
     private HumidityPreference humidityPreference = HumidityPreference.NORMAL;

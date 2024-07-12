@@ -1,41 +1,98 @@
 package sandybay.apicurious.bee.characteristics;
 
-import java.util.function.Function;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.chat.Component;
 
-public enum WorkCycle {
+import java.util.List;
+
+public class WorkCycle {
     /**
      * Matutinal (Dawn Time)
      * Bees will only produce between 4000 and 10000 time-wise.
      */
-    MATUTINAL(time -> time >= 4000 && time <= 10000),   // Active 04000-10000,
+    public static final WorkCycle MATUTINAL = new WorkCycle(List.of(new Interval(4000, 10000)), "apicurious.workcycle.matutinal");
     /**
      * Diurnal (Day Time)
      * Bees will only produce between 6000 and 18000 time-wise.
      */
-    DIURNAL(time -> time >= 6000 && time <= 18000),     // Active 06000-18000
+    public static final WorkCycle DIURNAL = new WorkCycle(List.of(new Interval(6000, 18000)), "apicurious.workcycle.diurnal");
     /**
      * Vespertinal (Evening Time)
      * Bees will only produce between 14000 and 20000 time-wise.
      */
-    VESPERTINAL(time -> time >= 14000 && time <= 20000), // Active 14000-20000
+    public static final WorkCycle VESPERTINAL = new WorkCycle(List.of(new Interval(14000, 20000)), "apicurious.workcycle.vespertinal");
     /**
      * Nocturnal (Night Time)
-     * Bees will only produce between 18000 and 24000 time-wise.
+     * Bees will only produce between 18000 and 6000 time-wise.
      */
-    NOCTURNAL(time -> (time >= 18000 && time <= 24000) || time >= 0 && time <= 6000),   // Active 18000-06000
+    public static final WorkCycle NOCTURNAL = new WorkCycle(List.of(new Interval(18000, 24000), new Interval(0, 6000)), "apicurious.workcycle.nocturnal");
     /**
      * Always active work cycle.
      * Bees will always produce an output.
      */
-    ALWAYS(time -> true);       // Active 00000 - 24000
+    public static final WorkCycle ALWAYS = new WorkCycle(List.of(new Interval(0, 24000)), "apicurious.workcycle.always");
 
-    private final Function<int, boolean> isActive;
+    public static final Codec<WorkCycle> CODEC = RecordCodecBuilder.create(
+            instance -> instance.group(
+                            Codec.list(Interval.CODEC)
+                                    .fieldOf("activeTimes")
+                                    .forGetter(workCycle -> workCycle.activeTimes),
+                            Codec.STRING
+                                    .fieldOf("name")
+                                    .forGetter(workCycle -> workCycle.name)
+                    )
+                    .apply(instance, WorkCycle::new)
+    );
 
-    WorkCycle(Function<int, boolean> isActive) {
-        this.isActive = isActive;
+    private final List<Interval> activeTimes;
+    private final String name;
+    private Component component;
+
+    public WorkCycle(List<Interval> activeTimes, String name) {
+        this.activeTimes = activeTimes;
+        this.name = name;
     }
 
-    public boolean isActive(int time) {
-        return this.isActive.apply(time);
+    public boolean isValidTime(int time) {
+        boolean isValid = false;
+        for (Interval period : activeTimes) {
+            if (period.isValid(time)) {
+                isValid = true;
+                break;
+            }
+        }
+        return isValid;
+    }
+
+    public Component getName() {
+        if (component == null) {
+            this.component = Component.translatable(this.name);
+        }
+        return this.component;
+    }
+
+    public static class Interval {
+        public static Codec<Interval> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                        Codec.INT.fieldOf("minTime").forGetter(interval -> interval.minTime),
+                        Codec.INT.fieldOf("maxTime").forGetter(interval -> interval.maxTime)
+                ).apply(instance, Interval::new)
+        );
+
+        private final int minTime;
+        private final int maxTime;
+
+        public Interval(int minTime, int maxTime) {
+            this.minTime = minTime;
+            this.maxTime = maxTime;
+        }
+
+        public boolean isValid(int time) {
+            if (minTime > maxTime) {
+                return (time >= minTime && time <= 24000) || (time >= 0 && time <= maxTime);
+            }
+            return time >= minTime && time <= maxTime;
+        }
     }
 }

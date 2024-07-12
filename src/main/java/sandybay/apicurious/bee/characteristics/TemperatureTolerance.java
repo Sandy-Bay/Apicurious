@@ -1,9 +1,18 @@
 package sandybay.apicurious.bee.characteristics;
 
-public enum TemperatureTolerance {
-  NO_TOLERANCE(0),
-  LOW_TOLERANCE(1),
-  HIGH_TOLERANCE(2);
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+public class TemperatureTolerance {
+  public static final TemperatureTolerance NO_TOLERANCE = new TemperatureTolerance(0);
+  public static final TemperatureTolerance LOW_TOLERANCE = new TemperatureTolerance(1);
+  public static final TemperatureTolerance HIGH_TOLERANCE = new TemperatureTolerance(2);
+
+  public static final Codec<TemperatureTolerance> CODEC = RecordCodecBuilder.create(
+          instance -> instance.group(
+                  Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier)
+          ).apply(instance, TemperatureTolerance::new)
+  );
 
   private final int toleranceModifier;
 
