@@ -41,8 +41,6 @@ public class BeeSpecies implements IBeeSpecies {
                   ).apply(instance, BeeSpecies::new)
   );
 
- 
-
   private final Lifespan lifespan;
   private final ProductionSpeed productionSpeed;
   private final PollinationRate pollinationRate;
