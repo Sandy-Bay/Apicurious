@@ -1,37 +1,42 @@
-package sandybay.apicurious.bee.characteristics;
+package sandybay.apicurious.api.bee.characteristics;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
-import sandybay.apicurious.bee.species.IBeeSpecies;
+import sandybay.apicurious.api.bee.species.IBeeSpecies;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class HumidityPreference {
   // TODO: Add proper group tags.
-  public static final HumidityPreference HELLISH = new HumidityPreference(1, null);
-  public static final HumidityPreference ARID = new HumidityPreference(2, null);
-  public static final HumidityPreference NORMAL = new HumidityPreference(3, null);
-  public static final HumidityPreference DAMP = new HumidityPreference(4, null);
-  public static final HumidityPreference AQUATIC = new HumidityPreference(5, null);
+  public static final HumidityPreference HELLISH = new HumidityPreference(1, null, "apicurious.preference.humidity.hellish");
+  public static final HumidityPreference ARID = new HumidityPreference(2, null, "apicurious.preference.humidity.arid");
+  public static final HumidityPreference NORMAL = new HumidityPreference(3, null, "apicurious.preference.humidity.normal");
+  public static final HumidityPreference DAMP = new HumidityPreference(4, null, "apicurious.preference.humidity.damp");
+  public static final HumidityPreference AQUATIC = new HumidityPreference(5, null, "apicurious.preference.humidity.aquatic");
 
   public static final Codec<HumidityPreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.INT.fieldOf("humidity").forGetter(HumidityPreference::getHumidity),
-                  TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(HumidityPreference::getGroupTag)
+                  TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(HumidityPreference::getGroupTag),
+                  Codec.STRING.fieldOf("name").forGetter(HumidityPreference::getName)
           ).apply(instance, HumidityPreference::new)
   );
 
   private final int humidity;
   private final TagKey<Biome> groupTag;
+  private final String name;
+  private Component readableName;
 
-  public HumidityPreference(int humidity, TagKey<Biome> groupTag) {
+  public HumidityPreference(int humidity, TagKey<Biome> groupTag, String name) {
     this.humidity = humidity;
     this.groupTag = groupTag;
+    this.name = name;
   }
 
   private int getHumidity() {
@@ -40,6 +45,14 @@ public class HumidityPreference {
 
   private TagKey<Biome> getGroupTag() {
     return groupTag;
+  }
+
+  private String getName() {
+    return name;
+  }
+
+  public Component getReadableName() {
+    return readableName;
   }
 
   public boolean isValidHumidity(IBeeSpecies bee, Holder<Biome> biome) {

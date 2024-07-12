@@ -1,4 +1,4 @@
-package sandybay.apicurious.bee.characteristics;
+package sandybay.apicurious.api.bee.characteristics;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -47,7 +47,7 @@ public class WorkCycle {
 
     private final List<Interval> activeTimes;
     private final String name;
-    private Component component;
+    private Component readableName;
 
     public WorkCycle(List<Interval> activeTimes, String name) {
         this.activeTimes = activeTimes;
@@ -65,11 +65,9 @@ public class WorkCycle {
         return isValid;
     }
 
-    public Component getName() {
-        if (component == null) {
-            this.component = Component.translatable(this.name);
-        }
-        return this.component;
+    public Component getReadableName() {
+        if (readableName == null) this.readableName = Component.translatable(this.name);
+        return this.readableName;
     }
 
     public static class Interval {

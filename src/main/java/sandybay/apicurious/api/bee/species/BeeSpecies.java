@@ -1,19 +1,21 @@
-package sandybay.apicurious.bee.species;
+package sandybay.apicurious.api.bee.species;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.block.Block;
-import sandybay.apicurious.bee.characteristics.HumidityPreference;
-import sandybay.apicurious.bee.characteristics.HumidityTolerance;
-import sandybay.apicurious.bee.characteristics.Lifespan;
-import sandybay.apicurious.bee.characteristics.PollinationRate;
-import sandybay.apicurious.bee.characteristics.ProductionSpeed;
-import sandybay.apicurious.bee.characteristics.TemperaturePreference;
-import sandybay.apicurious.bee.characteristics.TemperatureTolerance;
-import sandybay.apicurious.bee.characteristics.WorkCycle;
+import sandybay.apicurious.api.bee.characteristics.HumidityPreference;
+import sandybay.apicurious.api.bee.characteristics.HumidityTolerance;
+import sandybay.apicurious.api.bee.characteristics.Lifespan;
+import sandybay.apicurious.api.bee.characteristics.PollinationRate;
+import sandybay.apicurious.api.bee.characteristics.ProductionSpeed;
+import sandybay.apicurious.api.bee.characteristics.TemperaturePreference;
+import sandybay.apicurious.api.bee.characteristics.TemperatureTolerance;
+import sandybay.apicurious.api.bee.characteristics.WorkCycle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +40,8 @@ public class BeeSpecies implements IBeeSpecies {
                   Codec.BOOL.fieldOf("ignoresSky").forGetter(BeeSpecies::ignoresSky)
                   ).apply(instance, BeeSpecies::new)
   );
+
+ 
 
   private final Lifespan lifespan;
   private final ProductionSpeed productionSpeed;

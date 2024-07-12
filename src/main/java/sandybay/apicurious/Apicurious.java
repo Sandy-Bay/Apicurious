@@ -1,5 +1,10 @@
 package sandybay.apicurious;
 
+import net.minecraft.data.registries.RegistriesDatapackGenerator;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.*;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -29,10 +34,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Apicurious.MODID)
@@ -45,17 +46,34 @@ public class Apicurious
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-    public Apicurious(IEventBus modEventBus, ModContainer modContainer)
-    {
+    public Apicurious(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::generateData);
+    }
 
-        }
-
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
 
+    }
+
+    private void generateData(final GatherDataEvent event) {
+        if (event.includeClient()) {
+
+        }
+
+        if (event.includeServer()) {
+
+        }
+        event.getGenerator()
+    }
+
+    private void dataRegistries(final DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry();
+    }
+
+    public static ResourceLocation createResourceLocation(String path) {
+        return ResourceLocation.tryBuild(MODID, path);
     }
 }
