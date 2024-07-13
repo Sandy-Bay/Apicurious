@@ -21,6 +21,26 @@ import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Checklist:
+ * - Bees
+ *  - Species
+ *  - Traits
+ *  - Genetics
+ *  - Mutations
+ *  - Queen/Princess/Drone Variants
+ * - Combs
+ * - Centrifuge
+ *  - Manual/Mechanical(?)/Powered(?)
+ * - Hives
+ *  - Naturally Spawning
+ *  - Configurable with Tags
+ * - Apiary
+ * - Frames
+ *  - Modifies Apiary behaviour
+ *  - Modifies production behaviour / outputs
+ */
+
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Apicurious.MODID)
 public class Apicurious

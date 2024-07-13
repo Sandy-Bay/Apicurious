@@ -2,8 +2,10 @@ package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
@@ -17,6 +19,12 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
                   Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier),
                   Codec.STRING.fieldOf("name").forGetter(TemperatureTolerance::getName)
           ).apply(instance, TemperatureTolerance::new)
+  );
+
+  public static final StreamCodec<ByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.INT, TemperatureTolerance::getToleranceModifier,
+          ByteBufCodecs.STRING_UTF8, TemperatureTolerance::getName,
+          TemperatureTolerance::new
   );
 
   private final int toleranceModifier;

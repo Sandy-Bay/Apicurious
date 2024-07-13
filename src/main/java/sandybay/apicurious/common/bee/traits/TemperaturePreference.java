@@ -2,10 +2,12 @@ package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -29,6 +31,13 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
                   TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(TemperaturePreference::getGroupTag),
                   Codec.STRING.fieldOf("name").forGetter(TemperaturePreference::getName)
           ).apply(instance, TemperaturePreference::new)
+  );
+
+  public static final StreamCodec<ByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.INT, TemperaturePreference::getTemperature,
+          ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), TemperaturePreference::getGroupTag,
+          ByteBufCodecs.STRING_UTF8, TemperaturePreference::getName,
+          TemperaturePreference::new
   );
 
   private final int temperature;

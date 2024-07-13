@@ -2,11 +2,14 @@ package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorkCycle implements ITrait<WorkCycle> {
@@ -48,6 +51,12 @@ public class WorkCycle implements ITrait<WorkCycle> {
                     .apply(instance, WorkCycle::new)
     );
 
+    public static final StreamCodec<ByteBuf, WorkCycle> NETWORK_CODEC = StreamCodec.composite(
+            ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), WorkCycle::getActiveTimes,
+            ByteBufCodecs.STRING_UTF8, WorkCycle::getName,
+            WorkCycle::new
+    );
+
     private final List<Interval> activeTimes;
     private final String name;
     private Component readableName;
@@ -66,6 +75,14 @@ public class WorkCycle implements ITrait<WorkCycle> {
             }
         }
         return isValid;
+    }
+
+    private List<Interval> getActiveTimes() {
+        return this.activeTimes;
+    }
+
+    private String getName() {
+        return this.name;
     }
 
     public Component getReadableName() {
@@ -89,6 +106,12 @@ public class WorkCycle implements ITrait<WorkCycle> {
                         Codec.INT.fieldOf("minTime").forGetter(interval -> interval.minTime),
                         Codec.INT.fieldOf("maxTime").forGetter(interval -> interval.maxTime)
                 ).apply(instance, Interval::new)
+        );
+
+        public static final StreamCodec<ByteBuf, Interval> NETWORK_CODEC = StreamCodec.composite(
+                ByteBufCodecs.INT, interval -> interval.minTime,
+                ByteBufCodecs.INT, interval -> interval.maxTime,
+                Interval::new
         );
 
         private final int minTime;

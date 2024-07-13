@@ -2,8 +2,10 @@ package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
@@ -21,6 +23,12 @@ public class ProductionSpeed implements ITrait<ProductionSpeed> {
                   Codec.INT.fieldOf("productionDuration").forGetter(ProductionSpeed::getProductionDuration),
                   Codec.STRING.fieldOf("name").forGetter(ProductionSpeed::getName)
           ).apply(instance, ProductionSpeed::new)
+  );
+
+  public static final StreamCodec<ByteBuf, ProductionSpeed> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.INT, ProductionSpeed::getProductionDuration,
+          ByteBufCodecs.STRING_UTF8, ProductionSpeed::getName,
+          ProductionSpeed::new
   );
 
   private final int productionDuration;

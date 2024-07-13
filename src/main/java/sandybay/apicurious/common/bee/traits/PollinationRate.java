@@ -2,8 +2,10 @@ package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
@@ -21,6 +23,12 @@ public class PollinationRate implements ITrait<PollinationRate> {
                   Codec.INT.fieldOf("pollinationDuration").forGetter(PollinationRate::getPollinationDuration),
                   Codec.STRING.fieldOf("name").forGetter(PollinationRate::getName)
           ).apply(instance, PollinationRate::new)
+  );
+
+  public static final StreamCodec<ByteBuf, PollinationRate> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.INT, PollinationRate::getPollinationDuration,
+          ByteBufCodecs.STRING_UTF8, PollinationRate::getName,
+          PollinationRate::new
   );
 
   private final int pollinationDuration;

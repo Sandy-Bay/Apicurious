@@ -2,9 +2,13 @@ package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.TagKey;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
 public class HumidityTolerance implements ITrait<HumidityTolerance> {
@@ -18,6 +22,12 @@ public class HumidityTolerance implements ITrait<HumidityTolerance> {
                     Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier),
                     Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)
             ).apply(instance, HumidityTolerance::new)
+    );
+
+    public static final StreamCodec<ByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(
+            ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier,
+            ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName,
+            HumidityTolerance::new
     );
 
     private final int toleranceModifier;
