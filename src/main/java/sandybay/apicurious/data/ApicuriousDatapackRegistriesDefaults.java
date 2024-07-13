@@ -2,7 +2,7 @@ package sandybay.apicurious.data;
 
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
-import sandybay.apicurious.api.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousHolder;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;

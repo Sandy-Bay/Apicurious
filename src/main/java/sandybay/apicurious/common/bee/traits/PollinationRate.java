@@ -1,10 +1,13 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
-public class PollinationRate {
+public class PollinationRate implements ITrait<PollinationRate> {
   public static final PollinationRate SLOWEST = new PollinationRate(600, "apicurious.pollination_rate.slowest");
   public static final PollinationRate SLOWER = new PollinationRate(500, "apicurious.pollination_rate.slower");
   public static final PollinationRate SLOW = new PollinationRate(400, "apicurious.pollination_rate.slow");
@@ -40,5 +43,15 @@ public class PollinationRate {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public Codec<PollinationRate> getCodec() {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<FriendlyByteBuf, PollinationRate> getStreamCodec() {
+    return null;
   }
 }

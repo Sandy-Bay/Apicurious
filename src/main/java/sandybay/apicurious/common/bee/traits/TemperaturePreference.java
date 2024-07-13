@@ -1,18 +1,21 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.bee.species.IBeeSpecies;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class TemperaturePreference {
+public class TemperaturePreference implements ITrait<TemperaturePreference> {
   // TODO: Add proper group tags.
   public static final TemperaturePreference INFERNAL = new TemperaturePreference(1, null, "apicurious.preference.temperature.infernal");
   public static final TemperaturePreference HOT = new TemperaturePreference(2, null, "apicurious.preference.temperature.hot");
@@ -54,6 +57,16 @@ public class TemperaturePreference {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public Codec<TemperaturePreference> getCodec() {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<FriendlyByteBuf, TemperaturePreference> getStreamCodec() {
+    return null;
   }
 
   public boolean isValidTemperature(IBeeSpecies bee, Holder<Biome> biome) {

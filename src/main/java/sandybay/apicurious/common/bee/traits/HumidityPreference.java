@@ -1,18 +1,21 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.bee.species.IBeeSpecies;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class HumidityPreference {
+public class HumidityPreference implements ITrait<HumidityPreference> {
   // TODO: Add proper group tags.
   public static final HumidityPreference HELLISH = new HumidityPreference(1, null, "apicurious.preference.humidity.hellish");
   public static final HumidityPreference ARID = new HumidityPreference(2, null, "apicurious.preference.humidity.arid");
@@ -53,6 +56,16 @@ public class HumidityPreference {
 
   public Component getReadableName() {
     return readableName;
+  }
+
+  @Override
+  public Codec<HumidityPreference> getCodec() {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<FriendlyByteBuf, HumidityPreference> getStreamCodec() {
+    return null;
   }
 
   public boolean isValidHumidity(IBeeSpecies bee, Holder<Biome> biome) {

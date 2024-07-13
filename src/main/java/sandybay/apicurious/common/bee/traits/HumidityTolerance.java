@@ -1,10 +1,13 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
-public class HumidityTolerance {
+public class HumidityTolerance implements ITrait<HumidityTolerance> {
     // TODO: Add proper group tags.
     public static final HumidityTolerance NO_TOLERANCE = new HumidityTolerance(0, "apicurious.tolerance.humidity.none");
     public static final HumidityTolerance LOW_TOLERANCE = new HumidityTolerance(1, "apicurious.tolerance.humidity.low");
@@ -37,5 +40,15 @@ public class HumidityTolerance {
     public Component getReadableName() {
         if (readableName == null) readableName = Component.translatable(this.name);
         return readableName;
+    }
+
+    @Override
+    public Codec<HumidityTolerance> getCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public StreamCodec<FriendlyByteBuf, HumidityTolerance> getStreamCodec() {
+        return null;
     }
 }

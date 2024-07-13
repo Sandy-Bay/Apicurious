@@ -1,7 +1,7 @@
 package sandybay.apicurious.api.item;
 
 import net.minecraft.world.item.Item;
-import sandybay.apicurious.api.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 /**
  * Implement the following:

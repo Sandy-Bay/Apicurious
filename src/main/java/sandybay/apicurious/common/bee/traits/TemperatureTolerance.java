@@ -1,10 +1,13 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
-public class TemperatureTolerance {
+public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
   public static final TemperatureTolerance NO_TOLERANCE = new TemperatureTolerance(0, "apicurious.tolerance.temperature.none");
   public static final TemperatureTolerance LOW_TOLERANCE = new TemperatureTolerance(1, "apicurious.tolerance.temperature.low");
   public static final TemperatureTolerance HIGH_TOLERANCE = new TemperatureTolerance(2, "apicurious.tolerance.temperature.high");
@@ -36,5 +39,15 @@ public class TemperatureTolerance {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public Codec<TemperatureTolerance> getCodec() {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<FriendlyByteBuf, TemperatureTolerance> getStreamCodec() {
+    return null;
   }
 }

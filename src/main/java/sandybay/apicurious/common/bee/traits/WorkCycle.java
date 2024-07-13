@@ -1,12 +1,15 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
 import java.util.List;
 
-public class WorkCycle {
+public class WorkCycle implements ITrait<WorkCycle> {
     /**
      * Matutinal (Dawn Time)
      * Bees will only produce between 4000 and 10000 time-wise.
@@ -68,6 +71,16 @@ public class WorkCycle {
     public Component getReadableName() {
         if (readableName == null) this.readableName = Component.translatable(this.name);
         return this.readableName;
+    }
+
+    @Override
+    public Codec<WorkCycle> getCodec() {
+        return CODEC;
+    }
+
+    @Override
+    public StreamCodec<FriendlyByteBuf, WorkCycle> getStreamCodec() {
+        return null;
     }
 
     public static class Interval {

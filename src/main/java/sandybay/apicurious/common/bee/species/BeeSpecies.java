@@ -1,21 +1,20 @@
-package sandybay.apicurious.api.bee.species;
+package sandybay.apicurious.common.bee.species;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.block.Block;
-import sandybay.apicurious.api.bee.characteristics.HumidityPreference;
-import sandybay.apicurious.api.bee.characteristics.HumidityTolerance;
-import sandybay.apicurious.api.bee.characteristics.Lifespan;
-import sandybay.apicurious.api.bee.characteristics.PollinationRate;
-import sandybay.apicurious.api.bee.characteristics.ProductionSpeed;
-import sandybay.apicurious.api.bee.characteristics.TemperaturePreference;
-import sandybay.apicurious.api.bee.characteristics.TemperatureTolerance;
-import sandybay.apicurious.api.bee.characteristics.WorkCycle;
+import sandybay.apicurious.api.bee.species.IBeeSpecies;
+import sandybay.apicurious.common.bee.traits.HumidityPreference;
+import sandybay.apicurious.common.bee.traits.HumidityTolerance;
+import sandybay.apicurious.common.bee.traits.Lifespan;
+import sandybay.apicurious.common.bee.traits.PollinationRate;
+import sandybay.apicurious.common.bee.traits.ProductionSpeed;
+import sandybay.apicurious.common.bee.traits.TemperaturePreference;
+import sandybay.apicurious.common.bee.traits.TemperatureTolerance;
+import sandybay.apicurious.common.bee.traits.WorkCycle;
 
 import java.util.ArrayList;
 import java.util.Arrays;

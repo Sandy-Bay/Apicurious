@@ -1,11 +1,10 @@
 package sandybay.apicurious.api.registry;
 
 import net.minecraft.core.Registry;
-import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 public class ApicuriousRegistries {
 

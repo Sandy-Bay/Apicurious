@@ -70,8 +70,6 @@ public class Apicurious
         ));
     }
 
-    private void registerDatapackRegistryDefaults(final DatapackBuiltinEntriesProvider)
-
     public static ResourceLocation createResourceLocation(String path) {
         return ResourceLocation.tryBuild(MODID, path);
     }

@@ -1,10 +1,13 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
-public class Lifespan {
+public class Lifespan implements ITrait<Lifespan> {
   public static final Lifespan SHORTEST = new Lifespan(400, "apicurious.lifespan.shortest");
   public static final Lifespan SHORTER = new Lifespan(900, "apicurious.lifespan.shorter");
   public static final Lifespan SHORT = new Lifespan(1200, "apicurious.lifespan.short");
@@ -40,5 +43,15 @@ public class Lifespan {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public Codec<Lifespan> getCodec() {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<FriendlyByteBuf, Lifespan> getStreamCodec() {
+    return null;
   }
 }

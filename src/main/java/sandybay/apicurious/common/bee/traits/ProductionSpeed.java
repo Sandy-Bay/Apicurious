@@ -1,10 +1,13 @@
-package sandybay.apicurious.api.bee.characteristics;
+package sandybay.apicurious.common.bee.traits;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.bee.traits.ITrait;
 
-public class ProductionSpeed {
+public class ProductionSpeed implements ITrait<ProductionSpeed> {
   public static final ProductionSpeed SLOWEST = new ProductionSpeed(600, "apicurious.production_speed.slowest");
   public static final ProductionSpeed SLOWER = new ProductionSpeed(500, "apicurious.production_speed.slower");
   public static final ProductionSpeed SLOW = new ProductionSpeed(400, "apicurious.production_speed.slow");
@@ -40,5 +43,15 @@ public class ProductionSpeed {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public Codec<ProductionSpeed> getCodec() {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<FriendlyByteBuf, ProductionSpeed> getStreamCodec() {
+    return null;
   }
 }

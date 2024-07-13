@@ -1,9 +1,8 @@
 package sandybay.apicurious.common.bee;
 
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.animal.Bee;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousHolder;
 
