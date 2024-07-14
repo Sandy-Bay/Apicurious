@@ -11,7 +11,7 @@ public class ApicuriousRegistries {
   public static final ResourceKey<Registry<BeeSpecies>> BEE_SPECIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("bee_species_registry"));
 
   public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event) {
-    event.dataPackRegistry(BEE_SPECIES, BeeSpecies.CODEC);
+    event.dataPackRegistry(BEE_SPECIES, BeeSpecies.CODEC, BeeSpecies.CODEC);
   }
 
 

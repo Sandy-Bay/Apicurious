@@ -16,6 +16,7 @@ public class ApicuriousDatapackRegistriesDefaults {
   }
 
   public static void registerBeeSpeciesDefaults(BootstrapContext<BeeSpecies> bootstrap) {
+    ApicuriousSpecies.load();
     register(bootstrap,
             ApicuriousSpecies.FOREST, ApicuriousSpecies.MEADOW, ApicuriousSpecies.COMMON, ApicuriousSpecies.CULTIVATED
     );

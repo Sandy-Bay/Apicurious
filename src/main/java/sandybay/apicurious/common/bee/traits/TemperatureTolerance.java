@@ -55,7 +55,7 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
   }
 
   @Override
-  public StreamCodec<FriendlyByteBuf, TemperatureTolerance> getStreamCodec() {
-    return null;
+  public StreamCodec<ByteBuf, TemperatureTolerance> getStreamCodec() {
+    return NETWORK_CODEC;
   }
 }

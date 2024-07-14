@@ -58,7 +58,7 @@ public class HumidityTolerance implements ITrait<HumidityTolerance> {
     }
 
     @Override
-    public StreamCodec<FriendlyByteBuf, HumidityTolerance> getStreamCodec() {
-        return null;
+    public StreamCodec<ByteBuf, HumidityTolerance> getStreamCodec() {
+        return NETWORK_CODEC;
     }
 }

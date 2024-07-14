@@ -9,6 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.bee.species.IBeeSpecies;
@@ -19,11 +20,11 @@ import java.util.Set;
 
 public class TemperaturePreference implements ITrait<TemperaturePreference> {
   // TODO: Add proper group tags.
-  public static final TemperaturePreference INFERNAL = new TemperaturePreference(1, null, "apicurious.preference.temperature.infernal");
-  public static final TemperaturePreference HOT = new TemperaturePreference(2, null, "apicurious.preference.temperature.hot");
-  public static final TemperaturePreference NORMAL = new TemperaturePreference(3, null, "apicurious.preference.temperature.normal");
-  public static final TemperaturePreference COLD = new TemperaturePreference(4, null, "apicurious.preference.temperature.cold");
-  public static final TemperaturePreference FREEZING = new TemperaturePreference(5, null, "apicurious.preference.temperature.freezing");
+  public static final TemperaturePreference INFERNAL = new TemperaturePreference(1, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.infernal");
+  public static final TemperaturePreference HOT = new TemperaturePreference(2, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.hot");
+  public static final TemperaturePreference NORMAL = new TemperaturePreference(3, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.normal");
+  public static final TemperaturePreference COLD = new TemperaturePreference(4, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.cold");
+  public static final TemperaturePreference FREEZING = new TemperaturePreference(5, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.freezing");
 
   public static final Codec<TemperaturePreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -74,8 +75,8 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
   }
 
   @Override
-  public StreamCodec<FriendlyByteBuf, TemperaturePreference> getStreamCodec() {
-    return null;
+  public StreamCodec<ByteBuf, TemperaturePreference> getStreamCodec() {
+    return NETWORK_CODEC;
   }
 
   public boolean isValidTemperature(IBeeSpecies bee, Holder<Biome> biome) {

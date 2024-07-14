@@ -59,7 +59,7 @@ public class ProductionSpeed implements ITrait<ProductionSpeed> {
   }
 
   @Override
-  public StreamCodec<FriendlyByteBuf, ProductionSpeed> getStreamCodec() {
-    return null;
+  public StreamCodec<ByteBuf, ProductionSpeed> getStreamCodec() {
+    return NETWORK_CODEC;
   }
 }

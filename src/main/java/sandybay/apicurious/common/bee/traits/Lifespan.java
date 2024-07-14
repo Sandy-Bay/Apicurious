@@ -59,7 +59,7 @@ public class Lifespan implements ITrait<Lifespan> {
   }
 
   @Override
-  public StreamCodec<FriendlyByteBuf, Lifespan> getStreamCodec() {
-    return null;
+  public StreamCodec<ByteBuf, Lifespan> getStreamCodec() {
+    return NETWORK_CODEC;
   }
 }

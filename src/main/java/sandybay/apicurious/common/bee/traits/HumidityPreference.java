@@ -9,6 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.bee.species.IBeeSpecies;
@@ -19,11 +20,11 @@ import java.util.Set;
 
 public class HumidityPreference implements ITrait<HumidityPreference> {
   // TODO: Add proper group tags.
-  public static final HumidityPreference HELLISH = new HumidityPreference(1, null, "apicurious.preference.humidity.hellish");
-  public static final HumidityPreference ARID = new HumidityPreference(2, null, "apicurious.preference.humidity.arid");
-  public static final HumidityPreference NORMAL = new HumidityPreference(3, null, "apicurious.preference.humidity.normal");
-  public static final HumidityPreference DAMP = new HumidityPreference(4, null, "apicurious.preference.humidity.damp");
-  public static final HumidityPreference AQUATIC = new HumidityPreference(5, null, "apicurious.preference.humidity.aquatic");
+  public static final HumidityPreference HELLISH = new HumidityPreference(1, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.hellish");
+  public static final HumidityPreference ARID = new HumidityPreference(2, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.arid");
+  public static final HumidityPreference NORMAL = new HumidityPreference(3, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.normal");
+  public static final HumidityPreference DAMP = new HumidityPreference(4, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.damp");
+  public static final HumidityPreference AQUATIC = new HumidityPreference(5, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.aquatic");
 
   public static final Codec<HumidityPreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -73,8 +74,8 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
   }
 
   @Override
-  public StreamCodec<FriendlyByteBuf, HumidityPreference> getStreamCodec() {
-    return null;
+  public StreamCodec<ByteBuf, HumidityPreference> getStreamCodec() {
+    return NETWORK_CODEC;
   }
 
   public boolean isValidHumidity(IBeeSpecies bee, Holder<Biome> biome) {

@@ -96,8 +96,8 @@ public class WorkCycle implements ITrait<WorkCycle> {
     }
 
     @Override
-    public StreamCodec<FriendlyByteBuf, WorkCycle> getStreamCodec() {
-        return null;
+    public StreamCodec<ByteBuf, WorkCycle> getStreamCodec() {
+        return NETWORK_CODEC;
     }
 
     public static class Interval {

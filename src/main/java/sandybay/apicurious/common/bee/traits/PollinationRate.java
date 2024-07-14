@@ -59,7 +59,7 @@ public class PollinationRate implements ITrait<PollinationRate> {
   }
 
   @Override
-  public StreamCodec<FriendlyByteBuf, PollinationRate> getStreamCodec() {
-    return null;
+  public StreamCodec<ByteBuf, PollinationRate> getStreamCodec() {
+    return NETWORK_CODEC;
   }
 }
