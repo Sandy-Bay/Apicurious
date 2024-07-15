@@ -10,12 +10,10 @@ public class ApicuriousSpecies {
 
   public static void load() {}
 
-
   public static final ApicuriousHolder<BeeSpecies> FOREST = species("forest", BeeSpecies.Builder.create().build(speciesString("forest")));
   public static final ApicuriousHolder<BeeSpecies> MEADOW = species("meadow", BeeSpecies.Builder.create().build(speciesString("forest")));
   public static final ApicuriousHolder<BeeSpecies> COMMON = species("common", BeeSpecies.Builder.create().build(speciesString("forest")));
   public static final ApicuriousHolder<BeeSpecies> CULTIVATED = species("cultivated", BeeSpecies.Builder.create().build(speciesString("forest")));
-
 
   public static String speciesString(String species) {
     return "apicurious.species." + species;

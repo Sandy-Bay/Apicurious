@@ -10,9 +10,12 @@ import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
 public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
-  public static final TemperatureTolerance NO_TOLERANCE = new TemperatureTolerance(0, "apicurious.tolerance.temperature.none");
-  public static final TemperatureTolerance LOW_TOLERANCE = new TemperatureTolerance(1, "apicurious.tolerance.temperature.low");
-  public static final TemperatureTolerance HIGH_TOLERANCE = new TemperatureTolerance(2, "apicurious.tolerance.temperature.high");
+  public static final TemperatureTolerance ZERO_TOLERANCE = new TemperatureTolerance(0, "apicurious.tolerance.temperature.zero");
+  public static final TemperatureTolerance ONE_TOLERANCE = new TemperatureTolerance(1, "apicurious.tolerance.temperature.one");
+  public static final TemperatureTolerance TWO_TOLERANCE = new TemperatureTolerance(2, "apicurious.tolerance.temperature.two");
+  public static final TemperatureTolerance THREE_TOLERANCE = new TemperatureTolerance(3, "apicurious.tolerance.temperature.three");
+  public static final TemperatureTolerance FOUR_TOLERANCE = new TemperatureTolerance(4, "apicurious.tolerance.temperature.four");
+  public static final TemperatureTolerance FIVE_TOLERANCE = new TemperatureTolerance(5, "apicurious.tolerance.temperature.five");
 
   public static final Codec<TemperatureTolerance> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

@@ -5,68 +5,59 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import sandybay.apicurious.common.bee.traits.HumidityPreference;
-import sandybay.apicurious.common.bee.traits.HumidityTolerance;
-import sandybay.apicurious.common.bee.traits.TemperaturePreference;
-import sandybay.apicurious.common.bee.traits.TemperatureTolerance;
+import sandybay.apicurious.common.bee.traits.*;
+
+import java.util.concurrent.Flow;
 
 public class EnvironmentalData {
 
   public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  HumidityPreference.CODEC.fieldOf("humidityPreference").forGetter(EnvironmentalData::getHumidityPreference),
-                  HumidityTolerance.CODEC.fieldOf("humidityTolerance").forGetter(EnvironmentalData::getHumidityTolerance),
-                  TemperaturePreference.CODEC.fieldOf("temperaturePreference").forGetter(EnvironmentalData::getTemperaturePreference),
-                  TemperatureTolerance.CODEC.fieldOf("temperatureTolerance").forGetter(EnvironmentalData::getTemperatureTolerance),
+                  Flowers.CODEC.fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
+                  HumidityData.CODEC.fieldOf("humidityData").forGetter(EnvironmentalData::getHumidityData),
+                  TemperatureData.CODEC.fieldOf("temperatureData").forGetter(EnvironmentalData::getTemperatureData),
                   Codec.BOOL.fieldOf("ignoresRain").forGetter(EnvironmentalData::ignoresRain),
                   Codec.BOOL.fieldOf("ignoresSky").forGetter(EnvironmentalData::ignoresSky)
           ).apply(instance, EnvironmentalData::new)
   );
 
   public static final StreamCodec<ByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(
-    HumidityPreference.NETWORK_CODEC, EnvironmentalData::getHumidityPreference,
-    HumidityTolerance.NETWORK_CODEC, EnvironmentalData::getHumidityTolerance,
-    TemperaturePreference.NETWORK_CODEC, EnvironmentalData::getTemperaturePreference,
-    TemperatureTolerance.NETWORK_CODEC, EnvironmentalData::getTemperatureTolerance,
+    Flowers.NETWORK_CODEC, EnvironmentalData::getFlowers,
+    HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData,
+    TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData,
     ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain,
     ByteBufCodecs.BOOL, EnvironmentalData::ignoresSky,
     EnvironmentalData::new
   );
 
-  private final HumidityPreference humidityPreference;
-  private final HumidityTolerance humidityTolerance;
+  private final Flowers flowers;
 
-  private final TemperaturePreference temperaturePreference;
-  private final TemperatureTolerance temperatureTolerance;
+  private final HumidityData humidityData;
+  private final TemperatureData temperatureData;
 
   private final boolean ignoresRain;
   private final boolean ignoresSky;
 
-  private EnvironmentalData(HumidityPreference humidityPreference, HumidityTolerance humidityTolerance,
-                            TemperaturePreference temperaturePreference, TemperatureTolerance temperatureTolerance,
+  private EnvironmentalData(Flowers flowers,
+                            HumidityData humidityData, TemperatureData temperatureData,
                             boolean ignoresRain, boolean ignoresSky) {
-    this.humidityPreference = humidityPreference;
-    this.humidityTolerance = humidityTolerance;
-    this.temperaturePreference = temperaturePreference;
-    this.temperatureTolerance = temperatureTolerance;
+    this.flowers = flowers;
+    this.humidityData = humidityData;
+    this.temperatureData = temperatureData;
     this.ignoresRain = ignoresRain;
     this.ignoresSky = ignoresSky;
   }
 
-  public HumidityPreference getHumidityPreference() {
-    return humidityPreference;
+  public Flowers getFlowers() {
+    return flowers;
   }
 
-  public HumidityTolerance getHumidityTolerance() {
-    return humidityTolerance;
+  public HumidityData getHumidityData() {
+    return humidityData;
   }
 
-  public TemperaturePreference getTemperaturePreference() {
-    return temperaturePreference;
-  }
-
-  public TemperatureTolerance getTemperatureTolerance() {
-    return temperatureTolerance;
+  public TemperatureData getTemperatureData() {
+    return temperatureData;
   }
 
   public boolean ignoresRain() {
@@ -79,8 +70,9 @@ public class EnvironmentalData {
 
   public static class Builder {
 
+    private Flowers flowers = Flowers.NORMAL_FLOWERS;
     private TemperaturePreference temperaturePreference = TemperaturePreference.NORMAL;
-    private TemperatureTolerance temperatureTolerance = TemperatureTolerance.NO_TOLERANCE;
+    private TemperatureTolerance temperatureTolerance = TemperatureTolerance.ZERO_TOLERANCE;
     private HumidityPreference humidityPreference = HumidityPreference.NORMAL;
     private HumidityTolerance humidityTolerance = HumidityTolerance.NO_TOLERANCE;
     private boolean ignoresRain = false;
@@ -90,6 +82,11 @@ public class EnvironmentalData {
 
     public static Builder create() {
       return new Builder();
+    }
+
+    public Builder withFlowers(Flowers flowers) {
+      this.flowers = flowers;
+      return this;
     }
 
     public Builder withTemperaturePreference(TemperaturePreference temperaturePreference) {
@@ -124,8 +121,9 @@ public class EnvironmentalData {
 
     public EnvironmentalData build() {
       return new EnvironmentalData(
-              humidityPreference, humidityTolerance,
-              temperaturePreference, temperatureTolerance,
+              flowers,
+              new HumidityData(humidityPreference, humidityTolerance),
+              new TemperatureData(temperaturePreference, temperatureTolerance),
               ignoresRain, ignoresSky
       );
     }

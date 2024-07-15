@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -19,12 +18,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TemperaturePreference implements ITrait<TemperaturePreference> {
+
   // TODO: Add proper group tags.
-  public static final TemperaturePreference INFERNAL = new TemperaturePreference(1, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.infernal");
+  public static final TemperaturePreference HELLISH = new TemperaturePreference(1, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.infernal");
   public static final TemperaturePreference HOT = new TemperaturePreference(2, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.hot");
-  public static final TemperaturePreference NORMAL = new TemperaturePreference(3, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.normal");
-  public static final TemperaturePreference COLD = new TemperaturePreference(4, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.cold");
-  public static final TemperaturePreference FREEZING = new TemperaturePreference(5, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.freezing");
+  public static final TemperaturePreference WARM = new TemperaturePreference(3, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.warm");
+  public static final TemperaturePreference NORMAL = new TemperaturePreference(4, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.normal");
+  public static final TemperaturePreference CHILLY = new TemperaturePreference(5, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.chilly");
+  public static final TemperaturePreference COLD = new TemperaturePreference(6, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.cold");
+  public static final TemperaturePreference FREEZING = new TemperaturePreference(7, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.freezing");
 
   public static final Codec<TemperaturePreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -98,7 +100,7 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
     TemperaturePreference preference = null;
     switch (ordinal) {
       case 1:
-        preference = TemperaturePreference.INFERNAL;
+        preference = TemperaturePreference.HELLISH;
       case 2:
         preference = TemperaturePreference.HOT;
       case 3:

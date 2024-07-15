@@ -10,13 +10,16 @@ import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.traits.ITrait;
 
 public class Lifespan implements ITrait<Lifespan> {
-  public static final Lifespan SHORTEST = new Lifespan(400, "apicurious.lifespan.shortest");
-  public static final Lifespan SHORTER = new Lifespan(900, "apicurious.lifespan.shorter");
-  public static final Lifespan SHORT = new Lifespan(1200, "apicurious.lifespan.short");
-  public static final Lifespan NORMAL = new Lifespan(1500, "apicurious.lifespan.normal");
-  public static final Lifespan LONG = new Lifespan(1800, "apicurious.lifespan.long");
-  public static final Lifespan LONGER = new Lifespan(2100, "apicurious.lifespan.longer");
-  public static final Lifespan LONGEST = new Lifespan(2400, "apicurious.lifespan.longest");
+
+  public static final Lifespan SHORTEST = new Lifespan(10, "apicurious.lifespan.shortest");
+  public static final Lifespan SHORTER = new Lifespan(20, "apicurious.lifespan.shorter");
+  public static final Lifespan SHORT = new Lifespan(30, "apicurious.lifespan.short");
+  public static final Lifespan SHORTENED = new Lifespan(35, "apicurious.lifespan.shortened");
+  public static final Lifespan NORMAL = new Lifespan(40, "apicurious.lifespan.normal");
+  public static final Lifespan ELONGATED = new Lifespan(45, "apicurious.lifespan.elongated");
+  public static final Lifespan LONG = new Lifespan(50, "apicurious.lifespan.long");
+  public static final Lifespan LONGER = new Lifespan(60, "apicurious.lifespan.longer");
+  public static final Lifespan LONGEST = new Lifespan(70, "apicurious.lifespan.longest");
 
   public static final Codec<Lifespan> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
