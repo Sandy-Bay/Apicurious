@@ -6,16 +6,29 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 public class Pollination implements ITrait<Pollination> {
-  public static final Pollination SLOWEST = new Pollination(0.05f, "apicurious.pollination.slowest");
-  public static final Pollination SLOWER = new Pollination(0.1f, "apicurious.pollination.slower");
-  public static final Pollination SLOW = new Pollination(0.15f, "apicurious.pollination.slow");
-  public static final Pollination AVERAGE = new Pollination(0.2f, "apicurious.pollination.average");
-  public static final Pollination FAST = new Pollination(0.25f, "apicurious.pollination.fast");
-  public static final Pollination FASTER = new Pollination(0.3f, "apicurious.pollination.faster");
-  public static final Pollination FASTEST = new Pollination(0.35f, "apicurious.pollination.fastest");
+
+  public static void load() {}
+
+  public static final ApicuriousHolder<Pollination> SLOWEST = create(0.05f, "slowest");
+  public static final ApicuriousHolder<Pollination> SLOWER = create(0.1f, "slower");
+  public static final ApicuriousHolder<Pollination> SLOW = create(0.15f, "slow");
+  public static final ApicuriousHolder<Pollination> AVERAGE = create(0.2f, "average");
+  public static final ApicuriousHolder<Pollination> FAST = create(0.25f, "fast");
+  public static final ApicuriousHolder<Pollination> FASTER = create(0.3f, "faster");
+  public static final ApicuriousHolder<Pollination> FASTEST = create(0.35f, "fastest");
+
+  private static ApicuriousHolder<Pollination> create(float pollinationChance, String name) {
+    ResourceKey<Pollination> key = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation(name));
+    Pollination area = new Pollination(pollinationChance, "apicurious.pollination." + name);
+    return new ApicuriousHolder<>(key, area);
+  }
 
   public static final Codec<Pollination> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -23,7 +36,6 @@ public class Pollination implements ITrait<Pollination> {
                   Codec.STRING.fieldOf("name").forGetter(Pollination::getName)
           ).apply(instance, Pollination::new)
   );
-
   public static final StreamCodec<ByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.FLOAT, Pollination::getPollinationChance,
           ByteBufCodecs.STRING_UTF8, Pollination::getName,

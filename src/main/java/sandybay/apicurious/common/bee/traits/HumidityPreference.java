@@ -9,22 +9,36 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.species.IBeeSpecies;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class HumidityPreference implements ITrait<HumidityPreference> {
+
+  public static void load() {}
+
   // TODO: Add proper group tags.
-  public static final HumidityPreference HELLISH = new HumidityPreference(1, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.hellish");
-  public static final HumidityPreference ARID = new HumidityPreference(2, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.arid");
-  public static final HumidityPreference NORMAL = new HumidityPreference(3, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.normal");
-  public static final HumidityPreference DAMP = new HumidityPreference(4, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.damp");
-  public static final HumidityPreference AQUATIC = new HumidityPreference(5, BiomeTags.HAS_IGLOO, "apicurious.preference.humidity.aquatic");
+  public static final ApicuriousHolder<HumidityPreference> HELLISH = create(1, BiomeTags.HAS_IGLOO, "hellish");
+  public static final ApicuriousHolder<HumidityPreference> ARID = create(2, BiomeTags.HAS_IGLOO, "arid");
+  public static final ApicuriousHolder<HumidityPreference> NORMAL = create(3, BiomeTags.HAS_IGLOO, "normal");
+  public static final ApicuriousHolder<HumidityPreference> DAMP = create(4, BiomeTags.HAS_IGLOO, "damp");
+  public static final ApicuriousHolder<HumidityPreference> AQUATIC = create(5, BiomeTags.HAS_IGLOO, "aquatic");
+
+  private static ApicuriousHolder<HumidityPreference> create(int humidity, TagKey<Biome> groupTag, String name) {
+    ResourceKey<HumidityPreference> key = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation(name));
+    HumidityPreference area = new HumidityPreference(humidity, groupTag, "apicurious.preference.humidity." + name);
+    return new ApicuriousHolder<>(key, area);
+  }
 
   public static final Codec<HumidityPreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -97,15 +111,15 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
     HumidityPreference preference = null;
     switch (ordinal) {
       case 1:
-        preference = HumidityPreference.HELLISH;
+        preference = HumidityPreference.HELLISH.value();
       case 2:
-        preference = HumidityPreference.ARID;
+        preference = HumidityPreference.ARID.value();
       case 3:
-        preference = HumidityPreference.NORMAL;
+        preference = HumidityPreference.NORMAL.value();
       case 4:
-        preference = HumidityPreference.DAMP;
+        preference = HumidityPreference.DAMP.value();
       case 5:
-        preference = HumidityPreference.AQUATIC;
+        preference = HumidityPreference.AQUATIC.value();
     }
     return preference;
   }

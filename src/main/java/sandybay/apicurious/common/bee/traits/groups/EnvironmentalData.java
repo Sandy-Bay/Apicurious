@@ -2,18 +2,19 @@ package sandybay.apicurious.common.bee.traits.groups;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
+import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.traits.*;
-
-import java.util.concurrent.Flow;
 
 public class EnvironmentalData {
 
   public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  Flowers.CODEC.fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
+                  RegistryFixedCodec.create(ApicuriousRegistries.FLOWERS).fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
                   HumidityData.CODEC.fieldOf("humidityData").forGetter(EnvironmentalData::getHumidityData),
                   TemperatureData.CODEC.fieldOf("temperatureData").forGetter(EnvironmentalData::getTemperatureData),
                   Codec.BOOL.fieldOf("ignoresRain").forGetter(EnvironmentalData::ignoresRain),
@@ -21,8 +22,8 @@ public class EnvironmentalData {
           ).apply(instance, EnvironmentalData::new)
   );
 
-  public static final StreamCodec<ByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(
-    Flowers.NETWORK_CODEC, EnvironmentalData::getFlowers,
+  public static final StreamCodec<RegistryFriendlyByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(
+    ByteBufCodecs.holderRegistry(ApicuriousRegistries.FLOWERS), EnvironmentalData::getFlowers,
     HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData,
     TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData,
     ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain,
@@ -30,7 +31,7 @@ public class EnvironmentalData {
     EnvironmentalData::new
   );
 
-  private final Flowers flowers;
+  private final Holder<Flowers> flowers;
 
   private final HumidityData humidityData;
   private final TemperatureData temperatureData;
@@ -38,7 +39,7 @@ public class EnvironmentalData {
   private final boolean ignoresRain;
   private final boolean ignoresSky;
 
-  private EnvironmentalData(Flowers flowers,
+  private EnvironmentalData(Holder<Flowers> flowers,
                             HumidityData humidityData, TemperatureData temperatureData,
                             boolean ignoresRain, boolean ignoresSky) {
     this.flowers = flowers;
@@ -48,7 +49,7 @@ public class EnvironmentalData {
     this.ignoresSky = ignoresSky;
   }
 
-  public Flowers getFlowers() {
+  public Holder<Flowers> getFlowers() {
     return flowers;
   }
 
@@ -70,11 +71,11 @@ public class EnvironmentalData {
 
   public static class Builder {
 
-    private Flowers flowers = Flowers.NORMAL_FLOWERS;
-    private TemperaturePreference temperaturePreference = TemperaturePreference.NORMAL;
-    private TemperatureTolerance temperatureTolerance = TemperatureTolerance.ZERO_TOLERANCE;
-    private HumidityPreference humidityPreference = HumidityPreference.NORMAL;
-    private HumidityTolerance humidityTolerance = HumidityTolerance.NO_TOLERANCE;
+    private Flowers flowers = Flowers.NORMAL_FLOWERS.value();
+    private TemperaturePreference temperaturePreference = TemperaturePreference.NORMAL.value();
+    private TemperatureTolerance temperatureTolerance = TemperatureTolerance.NO_TOLERANCE.value();
+    private HumidityPreference humidityPreference = HumidityPreference.NORMAL.value();
+    private HumidityTolerance humidityTolerance = HumidityTolerance.NO_TOLERANCE.value();
     private boolean ignoresRain = false;
     private boolean ignoresSky = false;
 
@@ -121,9 +122,9 @@ public class EnvironmentalData {
 
     public EnvironmentalData build() {
       return new EnvironmentalData(
-              flowers,
-              new HumidityData(humidityPreference, humidityTolerance),
-              new TemperatureData(temperaturePreference, temperatureTolerance),
+              Holder.direct(flowers),
+              new HumidityData(Holder.direct(humidityPreference), Holder.direct(humidityTolerance)),
+              new TemperatureData(Holder.direct(temperaturePreference), Holder.direct(temperatureTolerance)),
               ignoresRain, ignoresSky
       );
     }

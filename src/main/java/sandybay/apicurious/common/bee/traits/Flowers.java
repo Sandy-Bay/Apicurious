@@ -7,16 +7,28 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 public class Flowers implements ITrait<Flowers> {
 
-  public static final Flowers NORMAL_FLOWERS = new Flowers(BlockTags.FLOWERS, "");
-  public static final Flowers ROCK = new Flowers(BlockTags.BASE_STONE_OVERWORLD, "");
-  public static final Flowers NETHER_ROCK = new Flowers(BlockTags.BASE_STONE_NETHER, "");
+  public static void load() {}
+
+  public static final ApicuriousHolder<Flowers> NORMAL_FLOWERS = create(BlockTags.FLOWERS, "normal_flowers");
+  public static final ApicuriousHolder<Flowers> ROCK = create(BlockTags.BASE_STONE_OVERWORLD, "overworld_rocks");
+  public static final ApicuriousHolder<Flowers> NETHER_ROCK = create(BlockTags.BASE_STONE_NETHER, "nether_rocks");
+
+  private static ApicuriousHolder<Flowers> create(TagKey<Block> flowers, String name) {
+    ResourceKey<Flowers> key = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation(name));
+    Flowers area = new Flowers(flowers, "apicurious.flowers." + name);
+    return new ApicuriousHolder<>(key, area);
+  }
 
   public static final Codec<Flowers> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

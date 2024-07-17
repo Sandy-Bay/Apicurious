@@ -3,21 +3,26 @@ package sandybay.apicurious.common.bee.traits.groups;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.traits.TemperaturePreference;
 import sandybay.apicurious.common.bee.traits.TemperatureTolerance;
 
-public record TemperatureData(TemperaturePreference preference, TemperatureTolerance tolerance) {
+public record TemperatureData(Holder<TemperaturePreference> preference, Holder<TemperatureTolerance> tolerance) {
   public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  TemperaturePreference.CODEC.fieldOf("preference").forGetter(TemperatureData::preference),
-                  TemperatureTolerance.CODEC.fieldOf("tolerance").forGetter(TemperatureData::tolerance)
+                  RegistryFixedCodec.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES).fieldOf("preference").forGetter(TemperatureData::preference),
+                  RegistryFixedCodec.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES).fieldOf("tolerance").forGetter(TemperatureData::tolerance)
           ).apply(instance, TemperatureData::new)
   );
 
-  public static final StreamCodec<ByteBuf, TemperatureData> NETWORK_CODEC = StreamCodec.composite(
-          TemperaturePreference.NETWORK_CODEC, TemperatureData::preference,
-          TemperatureTolerance.NETWORK_CODEC, TemperatureData::tolerance,
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureData> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.TEMPERATURE_PREFERENCES), TemperatureData::preference,
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.TEMPERATURE_TOLERANCES), TemperatureData::tolerance,
           TemperatureData::new
   );
 }

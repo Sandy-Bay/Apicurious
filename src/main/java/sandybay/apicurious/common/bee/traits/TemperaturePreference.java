@@ -8,25 +8,37 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.species.IBeeSpecies;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class TemperaturePreference implements ITrait<TemperaturePreference> {
 
+  public static void load() {}
+
   // TODO: Add proper group tags.
-  public static final TemperaturePreference HELLISH = new TemperaturePreference(1, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.infernal");
-  public static final TemperaturePreference HOT = new TemperaturePreference(2, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.hot");
-  public static final TemperaturePreference WARM = new TemperaturePreference(3, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.warm");
-  public static final TemperaturePreference NORMAL = new TemperaturePreference(4, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.normal");
-  public static final TemperaturePreference CHILLY = new TemperaturePreference(5, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.chilly");
-  public static final TemperaturePreference COLD = new TemperaturePreference(6, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.cold");
-  public static final TemperaturePreference FREEZING = new TemperaturePreference(7, BiomeTags.HAS_IGLOO, "apicurious.preference.temperature.freezing");
+  public static final ApicuriousHolder<TemperaturePreference> HELLISH = create(1, BiomeTags.HAS_IGLOO, "infernal");
+  public static final ApicuriousHolder<TemperaturePreference> HOT = create(2, BiomeTags.HAS_IGLOO, "hot");
+  public static final ApicuriousHolder<TemperaturePreference> WARM = create(3, BiomeTags.HAS_IGLOO, "warm");
+  public static final ApicuriousHolder<TemperaturePreference> NORMAL = create(4, BiomeTags.HAS_IGLOO, "normal");
+  public static final ApicuriousHolder<TemperaturePreference> CHILLY = create(5, BiomeTags.HAS_IGLOO, "chilly");
+  public static final ApicuriousHolder<TemperaturePreference> COLD = create(6, BiomeTags.HAS_IGLOO, "cold");
+  public static final ApicuriousHolder<TemperaturePreference> FREEZING = create(7, BiomeTags.HAS_IGLOO, "freezing");
+
+  private static ApicuriousHolder<TemperaturePreference> create(int humidity, TagKey<Biome> groupTag, String name) {
+    ResourceKey<TemperaturePreference> key = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation(name));
+    TemperaturePreference area = new TemperaturePreference(humidity, groupTag, "apicurious.preference.temperature." + name);
+    return new ApicuriousHolder<>(key, area);
+  }
 
   public static final Codec<TemperaturePreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -35,7 +47,6 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
                   Codec.STRING.fieldOf("name").forGetter(TemperaturePreference::getName)
           ).apply(instance, TemperaturePreference::new)
   );
-
   public static final StreamCodec<ByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, TemperaturePreference::getTemperature,
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), TemperaturePreference::getGroupTag,
@@ -100,15 +111,15 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
     TemperaturePreference preference = null;
     switch (ordinal) {
       case 1:
-        preference = TemperaturePreference.HELLISH;
+        preference = TemperaturePreference.HELLISH.value();
       case 2:
-        preference = TemperaturePreference.HOT;
+        preference = TemperaturePreference.HOT.value();
       case 3:
-        preference = TemperaturePreference.NORMAL;
+        preference = TemperaturePreference.NORMAL.value();
       case 4:
-        preference = TemperaturePreference.COLD;
+        preference = TemperaturePreference.COLD.value();
       case 5:
-        preference = TemperaturePreference.FREEZING;
+        preference = TemperaturePreference.FREEZING.value();
     }
     return preference;
   }

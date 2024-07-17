@@ -7,15 +7,28 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
-  public static final TemperatureTolerance ZERO_TOLERANCE = new TemperatureTolerance(0, "apicurious.tolerance.temperature.zero");
-  public static final TemperatureTolerance ONE_TOLERANCE = new TemperatureTolerance(1, "apicurious.tolerance.temperature.one");
-  public static final TemperatureTolerance TWO_TOLERANCE = new TemperatureTolerance(2, "apicurious.tolerance.temperature.two");
-  public static final TemperatureTolerance THREE_TOLERANCE = new TemperatureTolerance(3, "apicurious.tolerance.temperature.three");
-  public static final TemperatureTolerance FOUR_TOLERANCE = new TemperatureTolerance(4, "apicurious.tolerance.temperature.four");
-  public static final TemperatureTolerance FIVE_TOLERANCE = new TemperatureTolerance(5, "apicurious.tolerance.temperature.five");
+
+  public static void load() {}
+
+  public static final ApicuriousHolder<TemperatureTolerance> NO_TOLERANCE = create(0, "none");
+  public static final ApicuriousHolder<TemperatureTolerance> LOWEST_TOLERANCE = create(1, "lowest");
+  public static final ApicuriousHolder<TemperatureTolerance> LOW_TOLERANCE = create(2, "low");
+  public static final ApicuriousHolder<TemperatureTolerance> AVERAGE_TOLERANCE = create(3, "average");
+  public static final ApicuriousHolder<TemperatureTolerance> HIGH_TOLERANCE = create(4, "high");
+  public static final ApicuriousHolder<TemperatureTolerance> MAX_TOLERANCE = create(5, "max");
+
+  private static ApicuriousHolder<TemperatureTolerance> create(int toleranceModifier, String name) {
+    ResourceKey<TemperatureTolerance> key = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, Apicurious.createResourceLocation(name));
+    TemperatureTolerance area = new TemperatureTolerance(toleranceModifier, "apicurious.tolerance.temperature." + name);
+    return new ApicuriousHolder<>(key, area);
+  }
 
   public static final Codec<TemperatureTolerance> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

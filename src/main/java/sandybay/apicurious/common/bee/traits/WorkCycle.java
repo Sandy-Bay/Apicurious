@@ -7,37 +7,52 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkCycle implements ITrait<WorkCycle> {
+
+    public static void load() {}
+
     /**
      * Matutinal (Dawn Time)
      * Bees will only produce between 4000 and 10000 time-wise.
      */
-    public static final WorkCycle MATUTINAL = new WorkCycle(List.of(new Interval(4000, 10000)), "apicurious.workcycle.matutinal");
+    public static final ApicuriousHolder<WorkCycle> MATUTINAL = create(List.of(new Interval(4000, 10000)), "matutinal");
     /**
      * Diurnal (Day Time)
      * Bees will only produce between 6000 and 18000 time-wise.
      */
-    public static final WorkCycle DIURNAL = new WorkCycle(List.of(new Interval(6000, 18000)), "apicurious.workcycle.diurnal");
+    public static final ApicuriousHolder<WorkCycle> DIURNAL = create(List.of(new Interval(6000, 18000)), "diurnal");
     /**
      * Vespertinal (Evening Time)
      * Bees will only produce between 14000 and 20000 time-wise.
      */
-    public static final WorkCycle VESPERTINAL = new WorkCycle(List.of(new Interval(14000, 20000)), "apicurious.workcycle.vespertinal");
+    public static final ApicuriousHolder<WorkCycle> VESPERTINAL = create(List.of(new Interval(14000, 20000)), "vespertinal");
     /**
      * Nocturnal (Night Time)
      * Bees will only produce between 18000 and 6000 time-wise.
      */
-    public static final WorkCycle NOCTURNAL = new WorkCycle(List.of(new Interval(18000, 24000), new Interval(0, 6000)), "apicurious.workcycle.nocturnal");
+    public static final ApicuriousHolder<WorkCycle> NOCTURNAL = create(List.of(new Interval(18000, 24000), new Interval(0, 6000)), "nocturnal");
     /**
      * Always active work cycle.
      * Bees will always produce an output.
      */
-    public static final WorkCycle ALWAYS = new WorkCycle(List.of(new Interval(0, 24000)), "apicurious.workcycle.always");
+    public static final ApicuriousHolder<WorkCycle> ALWAYS = create(List.of(new Interval(0, 24000)), "always");
+
+    private static ApicuriousHolder<WorkCycle> create(List<Interval> activeTimes, String name) {
+        ResourceKey<WorkCycle> key = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation(name));
+        WorkCycle area = new WorkCycle(activeTimes, "apicurious.preference.temperature." + name);
+        return new ApicuriousHolder<>(key, area);
+    }
 
     public static final Codec<WorkCycle> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
@@ -50,7 +65,6 @@ public class WorkCycle implements ITrait<WorkCycle> {
                     )
                     .apply(instance, WorkCycle::new)
     );
-
     public static final StreamCodec<ByteBuf, WorkCycle> NETWORK_CODEC = StreamCodec.composite(
             ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), WorkCycle::getActiveTimes,
             ByteBufCodecs.STRING_UTF8, WorkCycle::getName,

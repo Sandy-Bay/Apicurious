@@ -6,17 +6,29 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.traits.ITrait;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousHolder;
 
 public class Area implements ITrait<Area> {
 
-  public static final Area SMALLEST = new Area(1, 1, "apicurious.area.smallest"); // 3x3x3
-  public static final Area SMALLER = new Area(2, 2, "apicurious.area.smaller");   // 5x5x5
-  public static final Area SMALL = new Area(3, 3, "apicurious.area.small");       // 7x7x7
-  public static final Area AVERAGE = new Area(4, 4, "apicurious.area.average");   // 9x9x9
-  public static final Area LARGE = new Area(5, 5, "apicurious.area.large");       // 11x11x11
-  public static final Area LARGER = new Area(6, 6, "apicurious.area.larger");     // 13x13x13
-  public static final Area LARGEST = new Area(7, 7, "apicurious.area.largest");   // 15x15x15
+  public static void load() {}
+
+  public static final ApicuriousHolder<Area> SMALLEST = create(1,1,"smallest"); // 3x3x3,
+  public static final ApicuriousHolder<Area> SMALLER = create(2,2,"smaller");   // 5x5x5
+  public static final ApicuriousHolder<Area> SMALL = create(3,3,"small");       // 7x7x7
+  public static final ApicuriousHolder<Area> AVERAGE = create(4,4,"average");   // 9x9x9
+  public static final ApicuriousHolder<Area> LARGE = create(5,5,"large");       // 11x11x11
+  public static final ApicuriousHolder<Area> LARGER = create(6,6,"larger");     // 13x13x13
+  public static final ApicuriousHolder<Area> LARGEST = create(7,7,"largest");   // 15x15x15
+
+  private static ApicuriousHolder<Area> create(int xz, int y, String name) {
+    ResourceKey<Area> key = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation(name));
+    Area area = new Area(xz, y, "apicurious.area." + name);
+    return new ApicuriousHolder<>(key, area);
+  }
 
   public static final Codec<Area> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

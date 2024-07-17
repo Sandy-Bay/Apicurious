@@ -2,38 +2,44 @@ package sandybay.apicurious.common.bee.traits.groups;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.traits.*;
 
 public class ProductionData {
 
   public static final Codec<ProductionData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  Lifespan.CODEC.fieldOf("lifespan").forGetter(ProductionData::getLifespan),
-                  WorkCycle.CODEC.fieldOf("workCycle").forGetter(ProductionData::getWorkCycle),
-                  Area.CODEC.fieldOf("area").forGetter(ProductionData::getArea),
-                  Speed.CODEC.fieldOf("speed").forGetter(ProductionData::getProductionSpeed),
-                  Pollination.CODEC.fieldOf("pollination").forGetter(ProductionData::getPollinationRate)
+                  RegistryFixedCodec.create(ApicuriousRegistries.LIFESPANS).fieldOf("lifespan").forGetter(ProductionData::getLifespan),
+                  RegistryFixedCodec.create(ApicuriousRegistries.WORKCYCLES).fieldOf("workCycle").forGetter(ProductionData::getWorkCycle),
+                  RegistryFixedCodec.create(ApicuriousRegistries.AREAS).fieldOf("area").forGetter(ProductionData::getArea),
+                  RegistryFixedCodec.create(ApicuriousRegistries.SPEEDS).fieldOf("speed").forGetter(ProductionData::getSpeed),
+                  RegistryFixedCodec.create(ApicuriousRegistries.POLLINATIONS).fieldOf("pollination").forGetter(ProductionData::getPollination)
           ).apply(instance, ProductionData::new)
   );
 
-  public static final StreamCodec<ByteBuf, ProductionData> NETWORK_CODEC = StreamCodec.composite(
-          Lifespan.NETWORK_CODEC, ProductionData::getLifespan,
-          WorkCycle.NETWORK_CODEC, ProductionData::getWorkCycle,
-          Area.NETWORK_CODEC, ProductionData::getArea,
-          Speed.NETWORK_CODEC, ProductionData::getProductionSpeed,
-          Pollination.NETWORK_CODEC, ProductionData::getPollinationRate,
+  public static final StreamCodec<RegistryFriendlyByteBuf, ProductionData> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.LIFESPANS), ProductionData::getLifespan,
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.WORKCYCLES), ProductionData::getWorkCycle,
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.AREAS), ProductionData::getArea,
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.SPEEDS), ProductionData::getSpeed,
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.POLLINATIONS), ProductionData::getPollination,
           ProductionData::new
   );
 
-  private final Lifespan lifespan;
-  private final WorkCycle workCycle;
-  private final Area area;
-  private final Speed speed;
-  private final Pollination pollination;
+  private final Holder<Lifespan> lifespan;
+  private final Holder<WorkCycle> workCycle;
+  private final Holder<Area> area;
+  private final Holder<Speed> speed;
+  private final Holder<Pollination> pollination;
 
-  public ProductionData(Lifespan lifespan, WorkCycle workCycle, Area area, Speed speed, Pollination pollination) {
+  public ProductionData(Holder<Lifespan> lifespan, Holder<WorkCycle> workCycle, Holder<Area> area, Holder<Speed> speed, Holder<Pollination> pollination) {
     this.lifespan = lifespan;
     this.workCycle = workCycle;
     this.area = area;
@@ -41,33 +47,33 @@ public class ProductionData {
     this.pollination = pollination;
   }
 
-  public Lifespan getLifespan() {
+  public Holder<Lifespan> getLifespan() {
     return lifespan;
   }
 
-  public Area getArea() {
+  public Holder<Area> getArea() {
     return area;
   }
 
-  public Speed getProductionSpeed() {
+  public Holder<Speed> getSpeed() {
     return speed;
   }
 
-  public Pollination getPollinationRate() {
+  public Holder<Pollination> getPollination() {
     return pollination;
   }
 
-  public WorkCycle getWorkCycle() {
+  public Holder<WorkCycle> getWorkCycle() {
     return workCycle;
   }
 
   public static class Builder {
 
-    private Lifespan lifespan = Lifespan.NORMAL;
-    private WorkCycle workCycle = WorkCycle.DIURNAL;
-    private Area area = Area.AVERAGE;
-    private Speed speed = Speed.NORMAL;
-    private Pollination pollination = Pollination.AVERAGE;
+    private Lifespan lifespan = Lifespan.AVERAGE.value();
+    private WorkCycle workCycle = WorkCycle.DIURNAL.value();
+    private Area area = Area.AVERAGE.value();
+    private Speed speed = Speed.NORMAL.value();
+    private Pollination pollination = Pollination.AVERAGE.value();
 
     private Builder() {}
 
@@ -101,7 +107,7 @@ public class ProductionData {
     }
 
     public ProductionData build() {
-      return new ProductionData(lifespan, workCycle, area, speed, pollination);
+      return new ProductionData(Holder.direct(lifespan), Holder.direct(workCycle), Holder.direct(area), Holder.direct(speed), Holder.direct(pollination));
     }
 
   }
