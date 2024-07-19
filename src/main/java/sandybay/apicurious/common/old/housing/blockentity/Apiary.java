@@ -5,11 +5,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import sandybay.apicurious.api.housing.old.BaseHousing;
 import sandybay.apicurious.api.housing.old.HousingValidation;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.old.traits.Area;
 import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
 
 public class Apiary extends BlockEntity {
@@ -91,14 +89,14 @@ public class Apiary extends BlockEntity {
     return input.getStackInSlot(0).get(ApicuriousDataComponents.BEE_SPECIES);
   }
 
-  private boolean isValidEnvironment(BeeSpecies genome, Area area) {
-    return validator.validate(
-            input.getStackInSlot(0),
-            level,
-            worldPosition,
-            BaseHousing.getTerritory(worldPosition, area.getXZOffset(), area.getYOffset())
-    );
-  }
+//  private boolean isValidEnvironment(BeeSpecies genome, Area area) {
+//    return validator.validate(
+//            input.getStackInSlot(0),
+//            level,
+//            worldPosition,
+//            BaseHousing.getTerritory(worldPosition, area.getXZOffset(), area.getYOffset())
+//    );
+//  }
 
   private boolean shouldPollinate() {
     return (ApicuriousConstants.WORKCYCLE - workDuration) % 200 == 0;

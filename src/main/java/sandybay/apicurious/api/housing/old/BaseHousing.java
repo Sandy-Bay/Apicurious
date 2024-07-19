@@ -1,10 +1,8 @@
 package sandybay.apicurious.api.housing.old;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import sandybay.apicurious.common.old.traits.Pollination;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +30,8 @@ public class BaseHousing extends Block {
     return territory;
   }
 
-  public boolean shouldSpawnFlower(RandomSource random, Pollination pollination) {
-    return random.nextFloat() > Math.clamp(pollinationBase * pollination.getPollinationChance(), 0.0f, 1.0f);
-  }
+//  public boolean shouldSpawnFlower(RandomSource random, Pollination pollination) {
+//    return random.nextFloat() > Math.clamp(pollinationBase * pollination.getPollinationChance(), 0.0f, 1.0f);
+//  }
 
 }

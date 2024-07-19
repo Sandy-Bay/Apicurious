@@ -21,21 +21,28 @@ import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
 
 import java.util.List;
 
-public class ApicuriousSpeciesFunction implements LootItemFunction {
+public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
+
+  public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(
+          instance -> commonFields(instance)
+                  .and(ResourceKey.codec(ApicuriousRegistries.BEE_SPECIES).fieldOf("speciesKey").forGetter(func -> func.speciesKey))
+          .apply(instance, ApicuriousSpeciesFunction::new)
+  );
 
   private final ResourceKey<BeeSpecies> speciesKey;
 
-  public ApicuriousSpeciesFunction(ResourceKey<BeeSpecies> speciesKey) {
+  public ApicuriousSpeciesFunction(List<LootItemCondition> conditions, ResourceKey<BeeSpecies> speciesKey) {
+    super(conditions);
     this.speciesKey = speciesKey;
   }
 
   @Override
   public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
-    return null;
+    return ApicuriousLootItemFunctions.SPECIES_FUNCTION.get();
   }
 
   @Override
-  public ItemStack apply(ItemStack stack, LootContext lootContext) {
+  protected ItemStack run(ItemStack stack, LootContext context) {
     ClientPacketListener connection = Minecraft.getInstance().getConnection();
     if (connection != null) {
       connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
@@ -44,5 +51,28 @@ public class ApicuriousSpeciesFunction implements LootItemFunction {
       });
     }
     return stack;
+  }
+
+  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<BeeSpecies> speciesKey) {
+    return new Builder(speciesKey);
+  }
+
+  public static class Builder extends LootItemConditionalFunction.Builder<ApicuriousSpeciesFunction.Builder> {
+
+    private final ResourceKey<BeeSpecies> speciesKey;
+
+    Builder(ResourceKey<BeeSpecies> speciesKey) {
+      this.speciesKey = speciesKey;
+    }
+
+    @Override
+    public LootItemFunction build() {
+      return new ApicuriousSpeciesFunction(this.getConditions(), this.speciesKey);
+    }
+
+    @Override
+    protected Builder getThis() {
+      return this;
+    }
   }
 }

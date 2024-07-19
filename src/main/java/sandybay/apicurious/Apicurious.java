@@ -25,6 +25,7 @@ import sandybay.apicurious.common.creativetab.ApicuriousCreativeTabs;
 import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
 import sandybay.apicurious.common.item.ApicuriousItemRegistration;
 import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
+import sandybay.apicurious.data.ApicuriousLootTables;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -66,6 +67,7 @@ public class Apicurious
     private void generateData(final GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
+
         generator.addProvider(
                 // Only run datapack generation when server data is being generated
                 event.includeServer(),
@@ -75,6 +77,10 @@ public class Apicurious
                         ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(),
                         Set.of(MODID)
         ));
+        generator.addProvider(
+                event.includeServer(),
+                new ApicuriousLootTables(output, event.getLookupProvider())
+        );
     }
 
     public static ResourceLocation createResourceLocation(String path) {
