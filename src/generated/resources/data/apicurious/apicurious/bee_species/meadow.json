@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.meadow",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "e9ce17",
+      "outlineTint": "c72b20",
+      "wingTint": "ed2d1f"
+    }
+  }
+}

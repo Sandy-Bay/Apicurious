@@ -1,0 +1,15 @@
+{
+  "loader": "neoforge:item_layers",
+  "textures": {
+    "layer0": "apicurious:item/drone_outline",
+    "layer1": "apicurious:item/drone_body",
+    "layer2": "apicurious:item/drone_body_stripes",
+    "layer3": "apicurious:item/drone_wing_fill",
+    "layer4": "apicurious:item/drone_wing_tint",
+    "layer5": "apicurious:item/queen_crown"
+  },
+  "render_types": {
+    "minecraft:cutout": [0, 1, 2, 3, 4, 5]
+  },
+  "gui_light": "front"
+}

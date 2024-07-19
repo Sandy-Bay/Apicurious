@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.cultivated",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "e9ce17",
+      "outlineTint": "813885",
+      "wingTint": "ae4fb3"
+    }
+  }
+}

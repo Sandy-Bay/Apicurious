@@ -1,0 +1,11 @@
+{
+  "name": "apicurious.species.industrious",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "e9ce17",
+      "outlineTint": "d1d5d4",
+      "wingTint": "eceeee"
+    },
+    "hasEffect": true
+  }
+}

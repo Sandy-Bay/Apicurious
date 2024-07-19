@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.forest",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "e9ce17",
+      "outlineTint": "62c1e5",
+      "wingTint": "a0d9ef"
+    }
+  }
+}

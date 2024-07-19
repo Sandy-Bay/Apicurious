@@ -1,0 +1,15 @@
+{
+  "apicurious.item.bee": "Bee",
+  "apicurious.species.undefined": "Undefined",
+  "apicurious.species.forest": "Forest",
+  "apicurious.species.meadow": "Meadow",
+  "apicurious.species.common": "Common",
+  "apicurious.species.cultivated": "Cultivated",
+  "apicurious.species.industrious": "Industrious",
+  "apicurious.species.imperial": "Imperial",
+  "apicurious.species.austere": "Austere",
+  "apicurious.item.bee.drone": "Drone",
+  "apicurious.item.bee.princess": "Princess",
+  "apicurious.item.bee.queen": "Queen",
+  "itemGroup.apicurious.bee": "Apicurious: Bee"
+}

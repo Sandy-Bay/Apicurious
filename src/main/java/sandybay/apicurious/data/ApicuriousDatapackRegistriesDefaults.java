@@ -1,27 +1,25 @@
 package sandybay.apicurious.data;
 
 import net.minecraft.core.RegistrySetBuilder;
-import net.minecraft.data.worldgen.BootstrapContext;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousHolder;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
-import sandybay.apicurious.common.bee.traits.*;
 
 public class ApicuriousDatapackRegistriesDefaults {
 
   public static RegistrySetBuilder registerDataPackRegistryDefaults() {
-    init();
     RegistrySetBuilder builder = new RegistrySetBuilder();
+    /*
     builder.add(ApicuriousRegistries.AREAS, bootstrap -> {
       register(bootstrap,
-              Area.create(1,1,"smallest"),
-              Area.create(2,2,"smaller"),
-              Area.create(3,3,"small"),
-              Area.create(4,4,"average"),
-              Area.create(5,5,"large"),
-              Area.create(6,6,"larger"),
-              Area.create(7,7,"largest")
+              Area.SMALL,
+              Area.SMALLER,
+              Area.SMALLEST,
+              Area.AVERAGE,
+              Area.LARGE,
+              Area.LARGER,
+              Area.LARGEST
       );
     });
     builder.add(ApicuriousRegistries.FLOWERS, bootstrap -> {
@@ -114,38 +112,42 @@ public class ApicuriousDatapackRegistriesDefaults {
               WorkCycle.NOCTURNAL,
               WorkCycle.ALWAYS
       );
-    });
+    });*/
     builder.add(ApicuriousRegistries.BEE_SPECIES, bootstrap -> {
-      register(bootstrap,
-              ApicuriousSpecies.FOREST,
-              ApicuriousSpecies.MEADOW,
-              ApicuriousSpecies.COMMON,
-              ApicuriousSpecies.CULTIVATED
-      );
+      bootstrap.register(ApicuriousSpecies.EMPTY, getSpeciesBuilder("undefined").build());
+      bootstrap.register(ApicuriousSpecies.FOREST, getSpeciesBuilder("forest")
+              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.FOREST))
+              .build());
+      bootstrap.register(ApicuriousSpecies.MEADOW, getSpeciesBuilder("meadow")
+              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.MEADOW))
+              .build());
+      bootstrap.register(ApicuriousSpecies.COMMON, getSpeciesBuilder("common")
+              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.COMMON))
+              .build());
+      bootstrap.register(ApicuriousSpecies.CULTIVATED, getSpeciesBuilder("cultivated")
+              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.CULTIVATED))
+              .build());
+      bootstrap.register(ApicuriousSpecies.INDUSTRIOUS, getSpeciesBuilder("industrious")
+              .withVisualData(visual -> visual
+                      .withBeeColor(ApicuriousConstants.INDUSTRIOUS)
+                      .hasEffect()
+              ).build());
+      bootstrap.register(ApicuriousSpecies.IMPERIAL, getSpeciesBuilder("imperial")
+              .withVisualData(visual -> visual
+                      .withBeeColor(ApicuriousConstants.IMPERIAL)
+                      .hasEffect()
+              ).build());
+      bootstrap.register(ApicuriousSpecies.AUSTERE, getSpeciesBuilder("austere")
+              .withVisualData(visual -> visual
+                      .withBeeColor(ApicuriousConstants.AUSTERE)
+                      .hasEffect()
+              ).build());
     });
     return builder;
   }
 
-  @SafeVarargs
-  private static <T> void register(BootstrapContext<T> bootstrap, ApicuriousHolder<T>... holders) {
-    for (ApicuriousHolder<T> holder : holders) {
-      bootstrap.register(holder.key(), holder.value());
-    }
+  private static BeeSpecies.Builder getSpeciesBuilder(String name) {
+    return BeeSpecies.Builder.create(name);
   }
-
-  public static void init() {
-    Area.load();
-    Flowers.load();
-    HumidityPreference.load();
-    HumidityTolerance.load();
-    Lifespan.load();
-    Pollination.load();
-    Speed.load();
-    TemperaturePreference.load();
-    TemperatureTolerance.load();
-    WorkCycle.load();
-    ApicuriousSpecies.load();
-  }
-
 
 }
