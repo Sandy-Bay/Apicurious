@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.rocky",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "999999",
+      "outlineTint": "a8a8a8",
+      "wingTint": "999999"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.wintry",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "daf5f3",
+      "outlineTint": "a0ffc8",
+      "wingTint": "daf5f3"
+    }
+  }
+}

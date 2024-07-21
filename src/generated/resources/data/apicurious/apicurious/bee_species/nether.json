@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.nether",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "9a2323",
+      "outlineTint": "8c6969",
+      "wingTint": "9a2323"
+    }
+  }
+}

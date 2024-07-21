@@ -1,16 +1,12 @@
 package sandybay.apicurious;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -21,14 +17,16 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
+import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.creativetab.ApicuriousCreativeTabs;
 import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
 import sandybay.apicurious.common.item.ApicuriousItemRegistration;
 import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
 import sandybay.apicurious.data.ApicuriousLootTables;
+import sandybay.apicurious.data.ApicuriousTagProvider;
+import sandybay.apicurious.data.loot.ApicuriousLootItemFunctions;
 
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 // TODO: Finish Bees, including Genetics (Allele, Genome, Mutations) and Items
 // TODO: Finish Housing, including Apiary & BeeHousing, excluding Alveary
@@ -50,9 +48,11 @@ public class Apicurious
         bus.addListener(this::commonSetup);
         bus.addListener(this::generateData);
         bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
+        ApicuriousBlockRegistration.register(bus);
         ApicuriousItemRegistration.register(bus);
         ApicuriousDataComponents.register(bus);
         ApicuriousCreativeTabs.register(bus);
+        ApicuriousLootItemFunctions.register(bus);
         if (FMLLoader.getDist() == Dist.CLIENT) {
             ApicuriousClientEvents.registerClientEvents(bus);
         }
@@ -67,7 +67,14 @@ public class Apicurious
     private void generateData(final GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
-
+        generator.addProvider(
+                event.includeServer(),
+                new ApicuriousTagProvider.BlocksProvider(output, event.getLookupProvider(), event.getExistingFileHelper())
+        );
+        generator.addProvider(
+                event.includeServer(),
+                new ApicuriousTagProvider.ItemsProvider(output, event.getLookupProvider(), event.getExistingFileHelper())
+        );
         generator.addProvider(
                 // Only run datapack generation when server data is being generated
                 event.includeServer(),

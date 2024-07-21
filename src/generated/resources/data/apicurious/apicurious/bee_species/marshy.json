@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.marshy",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "546626",
+      "wingTint": "ffdc16"
+    }
+  }
+}

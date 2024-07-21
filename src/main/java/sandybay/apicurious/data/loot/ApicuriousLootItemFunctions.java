@@ -13,7 +13,7 @@ public class ApicuriousLootItemFunctions {
 
   public static final DeferredRegister<LootItemFunctionType<?>> FUNCTION_TYPES = DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, Apicurious.MODID);
 
-  public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<? extends LootItemConditionalFunction>> SPECIES_FUNCTION = FUNCTION_TYPES.register("specices", () -> new LootItemFunctionType<>(ApicuriousSpeciesFunction.CODEC));
+  public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<? extends LootItemConditionalFunction>> SPECIES_FUNCTION = FUNCTION_TYPES.register("species", () -> new LootItemFunctionType<>(ApicuriousSpeciesFunction.CODEC));
 
   public static void register(IEventBus bus) {
     FUNCTION_TYPES.register(bus);

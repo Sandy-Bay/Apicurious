@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.modest",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "c5be86",
+      "wingTint": "ffdc16"
+    }
+  }
+}

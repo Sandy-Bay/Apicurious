@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.item;
+package sandybay.apicurious.common.item.bee;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -15,6 +15,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
+import sandybay.apicurious.common.item.ApicuriousItemRegistration;
 
 public class DroneBeeItem extends BaseBeeItem {
 

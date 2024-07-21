@@ -1,10 +1,30 @@
 package sandybay.apicurious.data;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.TreeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+
+import java.util.List;
 
 public class ApicuriousDatapackRegistriesDefaults {
 
@@ -115,39 +135,35 @@ public class ApicuriousDatapackRegistriesDefaults {
     });*/
     builder.add(ApicuriousRegistries.BEE_SPECIES, bootstrap -> {
       bootstrap.register(ApicuriousSpecies.EMPTY, getSpeciesBuilder("undefined").build());
-      bootstrap.register(ApicuriousSpecies.FOREST, getSpeciesBuilder("forest")
-              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.FOREST))
-              .build());
-      bootstrap.register(ApicuriousSpecies.MEADOW, getSpeciesBuilder("meadow")
-              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.MEADOW))
-              .build());
-      bootstrap.register(ApicuriousSpecies.COMMON, getSpeciesBuilder("common")
-              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.COMMON))
-              .build());
-      bootstrap.register(ApicuriousSpecies.CULTIVATED, getSpeciesBuilder("cultivated")
-              .withVisualData(visual -> visual.withBeeColor(ApicuriousConstants.CULTIVATED))
-              .build());
-      bootstrap.register(ApicuriousSpecies.INDUSTRIOUS, getSpeciesBuilder("industrious")
-              .withVisualData(visual -> visual
-                      .withBeeColor(ApicuriousConstants.INDUSTRIOUS)
-                      .hasEffect()
-              ).build());
-      bootstrap.register(ApicuriousSpecies.IMPERIAL, getSpeciesBuilder("imperial")
-              .withVisualData(visual -> visual
-                      .withBeeColor(ApicuriousConstants.IMPERIAL)
-                      .hasEffect()
-              ).build());
-      bootstrap.register(ApicuriousSpecies.AUSTERE, getSpeciesBuilder("austere")
-              .withVisualData(visual -> visual
-                      .withBeeColor(ApicuriousConstants.AUSTERE)
-                      .hasEffect()
-              ).build());
+      bootstrap.register(ApicuriousSpecies.FOREST, speciesWithColor("forest", ApicuriousConstants.FOREST));
+      bootstrap.register(ApicuriousSpecies.MEADOW, speciesWithColor("meadow", ApicuriousConstants.MEADOW));
+      bootstrap.register(ApicuriousSpecies.MODEST, speciesWithColor("modest", ApicuriousConstants.MODEST));
+      bootstrap.register(ApicuriousSpecies.TROPICAL, speciesWithColor("tropical", ApicuriousConstants.TROPICAL));
+      bootstrap.register(ApicuriousSpecies.WINTRY, speciesWithColor("wintry", ApicuriousConstants.WINTRY));
+      bootstrap.register(ApicuriousSpecies.MARSHY, speciesWithColor("marshy", ApicuriousConstants.MARSHY));
+      bootstrap.register(ApicuriousSpecies.ROCKY, speciesWithColor("rocky", ApicuriousConstants.ROCKY));
+      bootstrap.register(ApicuriousSpecies.NETHER, speciesWithColor("nether", ApicuriousConstants.NETHER));
+      bootstrap.register(ApicuriousSpecies.ENDER, speciesWithColor("ender", ApicuriousConstants.ENDER));
     });
+    builder.add(Registries.CONFIGURED_FEATURE, bootstrap -> {
+      // TODO: Implement generation for the bee hives
+    });
+    builder.add(Registries.PLACED_FEATURE, bootstrap -> {
+      // TODO: Implement generation for the bee hives
+    });
+
     return builder;
+  }
+
+  // TODO: Build out more robust creation methods
+  private static BeeSpecies speciesWithColor(String name, BeeColor color) {
+    return BeeSpecies.Builder.create(name).withVisualData(visual -> visual.withBeeColor(color).build()).build();
   }
 
   private static BeeSpecies.Builder getSpeciesBuilder(String name) {
     return BeeSpecies.Builder.create(name);
   }
+
+
 
 }

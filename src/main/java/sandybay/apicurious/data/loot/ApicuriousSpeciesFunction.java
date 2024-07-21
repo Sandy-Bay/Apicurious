@@ -43,13 +43,10 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
 
   @Override
   protected ItemStack run(ItemStack stack, LootContext context) {
-    ClientPacketListener connection = Minecraft.getInstance().getConnection();
-    if (connection != null) {
-      connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
+    context.getLevel().registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
         BeeSpecies species = registry.get(speciesKey);
         stack.set(ApicuriousDataComponents.BEE_SPECIES, species);
-      });
-    }
+    });
     return stack;
   }
 

@@ -1,20 +1,25 @@
 package sandybay.apicurious.data;
 
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
@@ -27,6 +32,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 public class ApicuriousLootTables extends LootTableProvider {
 
@@ -47,9 +53,15 @@ public class ApicuriousLootTables extends LootTableProvider {
 
     @Override
     protected void generate() {
-      provider.asGetterLookup().get(Registries.BLOCK, ApicuriousBlockRegistration.FOREST_HIVE.getKey());
-      this.add(ApicuriousBlockRegistration.FOREST_HIVE.get(), block -> beeTable(ApicuriousSpecies.FOREST));
-      this.add(ApicuriousBlockRegistration.MEADOW_HIVE.get(), block -> beeTable(ApicuriousSpecies.MEADOW));
+      this.add(ApicuriousBlockRegistration.FOREST_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.FOREST));
+      this.add(ApicuriousBlockRegistration.MEADOW_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.MEADOW));
+      this.add(ApicuriousBlockRegistration.MODEST_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.MODEST));
+      this.add(ApicuriousBlockRegistration.TROPICAL_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.TROPICAL));
+      this.add(ApicuriousBlockRegistration.WINTRY_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.WINTRY));
+      this.add(ApicuriousBlockRegistration.MARSHY_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.MARSHY));
+      this.add(ApicuriousBlockRegistration.ROCKY_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.ROCKY));
+      this.add(ApicuriousBlockRegistration.NETHER_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.NETHER));
+      this.add(ApicuriousBlockRegistration.ENDER_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.ENDER));
     }
 
     @Override
@@ -67,15 +79,40 @@ public class ApicuriousLootTables extends LootTableProvider {
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
                               .lootTableItem(ApicuriousItemRegistration.PRINCESS.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.FOREST))
+                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
+                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))) // TODO: Replace this with net item
                       )
               ).withPool(LootPool.lootPool()
-                      .setRolls(ConstantValue.exactly(2.0f))
+                      .setRolls(ConstantValue.exactly(1.0f))
+                      .add(LootItem
+                              .lootTableItem(ApicuriousItemRegistration.DRONE.get())
+                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
+                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))) // TODO: Replace this with net item
+                      )
+              )
+              .withPool(LootPool.lootPool()
+                      .setRolls(ConstantValue.exactly(1.0f))
+                      .add(LootItem
+                              .lootTableItem(ApicuriousItemRegistration.DRONE.get())
+                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
+                              .when(LootItemRandomChanceCondition.randomChance(0.5f))
+                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))) // TODO: Replace this with net item
+                      )
+              )
+              .withPool(LootPool.lootPool()
+                      .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
                               .lootTableItem(ApicuriousItemRegistration.DRONE.get())
                               .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.FOREST))
+                              .when(LootItemRandomChanceCondition.randomChance(0.333f))
+                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))) // TODO: Replace this with net item
                       )
               );
+    }
+
+    @Override
+    protected Iterable<Block> getKnownBlocks() {
+      return ApicuriousBlockRegistration.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
   }
 

@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.item;
+package sandybay.apicurious.common.item.bee;
 
 import sandybay.apicurious.api.item.BaseBeeItem;
 import sandybay.apicurious.common.bee.species.BeeSpecies;

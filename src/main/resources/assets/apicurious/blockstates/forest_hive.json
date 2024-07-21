@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "apicurious:block/hive"
+    },
+    "facing=east": {
+      "model": "apicurious:block/hive",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "apicurious:block/hive",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "apicurious:block/hive",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.ender",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "d9de9e",
+      "outlineTint": "e079fa",
+      "wingTint": "d9de9e"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": "#apicurious:is_sieve_tool"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "apicurious:species",
+              "speciesKey": "apicurious:marshy"
+            }
+          ],
+          "name": "apicurious:princess"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": "#apicurious:is_sieve_tool"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "apicurious:species",
+              "speciesKey": "apicurious:marshy"
+            }
+          ],
+          "name": "apicurious:drone"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.5,
+              "condition": "minecraft:random_chance"
+            },
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": "#apicurious:is_sieve_tool"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "apicurious:species",
+              "speciesKey": "apicurious:marshy"
+            }
+          ],
+          "name": "apicurious:drone"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.333,
+              "condition": "minecraft:random_chance"
+            },
+            {
+              "condition": "minecraft:match_tool",
+              "predicate": {
+                "items": "#apicurious:is_sieve_tool"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "apicurious:species",
+              "speciesKey": "apicurious:forest"
+            }
+          ],
+          "name": "apicurious:drone"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "apicurious:blocks/marshy_hive"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "apicurious.species.tropical",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "388020",
+      "wingTint": "ffdc16"
+    }
+  }
+}
