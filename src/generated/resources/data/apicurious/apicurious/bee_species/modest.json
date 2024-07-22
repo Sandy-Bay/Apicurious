@@ -5,6 +5,7 @@
       "bodyTint": "ffdc16",
       "outlineTint": "c5be86",
       "wingTint": "ffdc16"
-    }
+    },
+    "hasCustomRender": false
   }
 }

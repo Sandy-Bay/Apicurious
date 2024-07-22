@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "apicurious:block/bee_housing"
+    },
+    "active=true": {
+      "model": "apicurious:block/bee_housing_active"
+    }
+  }
+}

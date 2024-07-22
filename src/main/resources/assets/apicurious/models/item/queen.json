@@ -1,41 +1,4 @@
 {
-  "loader": "neoforge:item_layers",
-  "textures": {
-    "layer0": "apicurious:item/drone_outline",
-    "layer1": "apicurious:item/drone_body",
-    "layer2": "apicurious:item/drone_body_stripes",
-    "layer3": "apicurious:item/drone_wing_fill",
-    "layer4": "apicurious:item/drone_wing_tint",
-    "layer5": "apicurious:item/queen_crown"
-  },
-  "render_types": {
-    "minecraft:cutout": [0, 1, 2, 3, 4, 5]
-  },
-  "gui_light": "front",
-  "display": {
-    "ground": {
-      "rotation": [ 0, 0, 0 ],
-      "translation": [ 0, 2, 0],
-      "scale":[ 0.5, 0.5, 0.5 ]
-    },
-    "head": {
-      "rotation": [ 0, 180, 0 ],
-      "translation": [ 0, 13, 7],
-      "scale":[ 1, 1, 1]
-    },
-    "thirdperson_righthand": {
-      "rotation": [ 0, 0, 0 ],
-      "translation": [ 0, 3, 1 ],
-      "scale": [ 0.55, 0.55, 0.55 ]
-    },
-    "firstperson_righthand": {
-      "rotation": [ 0, -90, 25 ],
-      "translation": [ 1.13, 3.2, 1.13],
-      "scale": [ 0.68, 0.68, 0.68 ]
-    },
-    "fixed": {
-      "rotation": [ 0, 180, 0 ],
-      "scale": [ 1, 1, 1 ]
-    }
-  }
+  "parent": "minecraft:builtin/entity",
+  "gui_light": "front"
 }

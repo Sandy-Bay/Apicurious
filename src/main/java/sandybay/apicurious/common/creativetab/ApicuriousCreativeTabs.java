@@ -33,6 +33,10 @@ public class ApicuriousCreativeTabs {
           .icon(() -> new ItemStack(ApicuriousBlockRegistration.FOREST_HIVE.item().get())) // TODO: Replace this with a Sieve Net tool item later
           .displayItems((parameters, output) -> {
             output.accept(new ItemStack(ApicuriousItemRegistration.SIEVE.get()));
+            output.acceptAll(List.of(
+                    ApicuriousBlockRegistration.BEE_HOUSING.asItemStack(),
+                    ApicuriousBlockRegistration.APIARY.asItemStack()
+            ));
             registerHives(output);
           }).build());
 
@@ -65,15 +69,15 @@ public class ApicuriousCreativeTabs {
 
   public static void registerHives(CreativeModeTab.Output output) {
     output.acceptAll(List.of(
-            new ItemStack(ApicuriousBlockRegistration.FOREST_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.MEADOW_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.MODEST_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.TROPICAL_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.WINTRY_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.MARSHY_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.ROCKY_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.NETHER_HIVE.item().get()),
-            new ItemStack(ApicuriousBlockRegistration.ENDER_HIVE.item().get())
+            ApicuriousBlockRegistration.FOREST_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.MEADOW_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.MODEST_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.TROPICAL_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.WINTRY_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.MARSHY_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.ROCKY_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.NETHER_HIVE.asItemStack(),
+            ApicuriousBlockRegistration.ENDER_HIVE.asItemStack()
     ));
   }
 

@@ -1,30 +1,12 @@
 package sandybay.apicurious.data;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.features.MiscOverworldFeatures;
-import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.TreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
-
-import java.util.List;
 
 public class ApicuriousDatapackRegistriesDefaults {
 
@@ -144,6 +126,11 @@ public class ApicuriousDatapackRegistriesDefaults {
       bootstrap.register(ApicuriousSpecies.ROCKY, speciesWithColor("rocky", ApicuriousConstants.ROCKY));
       bootstrap.register(ApicuriousSpecies.NETHER, speciesWithColor("nether", ApicuriousConstants.NETHER));
       bootstrap.register(ApicuriousSpecies.ENDER, speciesWithColor("ender", ApicuriousConstants.ENDER));
+      bootstrap.register(ApicuriousSpecies.DEBUG, getSpeciesBuilder("debug")
+              .withVisualData(visual -> {
+                visual.hasEffect().hasCustomRender().build();
+              }).build()
+      );
     });
     builder.add(Registries.CONFIGURED_FEATURE, bootstrap -> {
       // TODO: Implement generation for the bee hives

@@ -1,0 +1,12 @@
+{
+  "name": "apicurious.species.debug",
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "999999",
+      "wingTint": "bcbcbc"
+    },
+    "hasEffect": true,
+    "hasCustomRender": true
+  }
+}

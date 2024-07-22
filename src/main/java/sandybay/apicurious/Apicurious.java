@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.creativetab.ApicuriousCreativeTabs;
 import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
 import sandybay.apicurious.common.item.ApicuriousItemRegistration;
+import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
 import sandybay.apicurious.data.ApicuriousLootTables;
 import sandybay.apicurious.data.ApicuriousTagProvider;
@@ -53,6 +55,7 @@ public class Apicurious
         ApicuriousDataComponents.register(bus);
         ApicuriousCreativeTabs.register(bus);
         ApicuriousLootItemFunctions.register(bus);
+        NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
         if (FMLLoader.getDist() == Dist.CLIENT) {
             ApicuriousClientEvents.registerClientEvents(bus);
         }

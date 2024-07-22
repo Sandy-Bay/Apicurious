@@ -9,8 +9,9 @@ public class ApicuriousSpecies {
 
   public static void load() {}
 
-  // Undefined
+  // Debug
   public static final ResourceKey<BeeSpecies> EMPTY = ResourceKey.create(ApicuriousRegistries.BEE_SPECIES, Apicurious.createResourceLocation("undefined"));
+  public static final ResourceKey<BeeSpecies> DEBUG = ResourceKey.create(ApicuriousRegistries.BEE_SPECIES, Apicurious.createResourceLocation("debug"));
 
   // Base Types
   public static final ResourceKey<BeeSpecies> FOREST = ResourceKey.create(ApicuriousRegistries.BEE_SPECIES, Apicurious.createResourceLocation("forest"));

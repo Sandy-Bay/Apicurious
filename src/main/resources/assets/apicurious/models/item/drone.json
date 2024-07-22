@@ -1,10 +1,4 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "apicurious:item/drone_outline",
-    "layer1": "apicurious:item/drone_body",
-    "layer2": "apicurious:item/drone_body_stripes",
-    "layer3": "apicurious:item/drone_wing_fill",
-    "layer4": "apicurious:item/drone_wing_tint"
-  }
+  "parent": "minecraft:builtin/entity",
+  "gui_light": "front"
 }

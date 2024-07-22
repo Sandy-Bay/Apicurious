@@ -15,25 +15,25 @@ public class VisualData {
           instance -> instance.group(
             BeeColor.CODEC.optionalFieldOf("beeColor", ApicuriousConstants.UNDEFINED).forGetter(VisualData::getBeeColor),
             Codec.BOOL.optionalFieldOf("hasEffect", false).forGetter(VisualData::hasEffect),
-            Codec.BOOL.optionalFieldOf("isTintable", true).forGetter(VisualData::isTintable)
+            Codec.BOOL.optionalFieldOf("hasCustomRender", true).forGetter(VisualData::hasCustomRender)
           ).apply(instance, VisualData::new)
   );
 
   public static final StreamCodec<ByteBuf, VisualData> NETWORK_CODEC = StreamCodec.composite(
           BeeColor.NETWORK_CODEC, VisualData::getBeeColor,
           ByteBufCodecs.BOOL, VisualData::hasEffect,
-          ByteBufCodecs.BOOL, VisualData::isTintable,
+          ByteBufCodecs.BOOL, VisualData::hasCustomRender,
           VisualData::new
   );
 
   private final BeeColor beeColor;
   private final boolean hasEffect;
-  private final boolean isTintable;
+  private final boolean hasCustomRender;
 
-  public VisualData(BeeColor beeColor, boolean hasEffect, boolean isTintable) {
+  public VisualData(BeeColor beeColor, boolean hasEffect, boolean hasCustomRender) {
     this.beeColor = beeColor;
     this.hasEffect = hasEffect;
-    this.isTintable = isTintable;
+    this.hasCustomRender = hasCustomRender;
   }
 
   public BeeColor getBeeColor() {
@@ -44,8 +44,8 @@ public class VisualData {
     return hasEffect;
   }
 
-  public boolean isTintable() {
-    return isTintable;
+  public boolean hasCustomRender() {
+    return hasCustomRender;
   }
 
   public static class Builder {
@@ -55,7 +55,7 @@ public class VisualData {
     private BeeColor beeColor;
     private boolean hasPredefinedColor;
     private boolean hasEffect = false;
-    private boolean isTintable = true;
+    private boolean hasCustomRender = false;
 
     private Builder() {}
 
@@ -89,15 +89,15 @@ public class VisualData {
       return this;
     }
 
-    public Builder isNotTintable() {
-      this.isTintable = false;
+    public Builder hasCustomRender() {
+      this.hasCustomRender = true;
       return this;
     }
 
     public VisualData build() {
       return hasPredefinedColor ?
-              new VisualData(beeColor, hasEffect, isTintable) :
-              new VisualData(new BeeColor(outlineTint, wingTint, bodyTint), hasEffect, isTintable);
+              new VisualData(beeColor, hasEffect, hasCustomRender) :
+              new VisualData(new BeeColor(outlineTint, wingTint, bodyTint), hasEffect, hasCustomRender);
     }
   }
 }

@@ -3,17 +3,22 @@ package sandybay.apicurious.api.item;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.VisualData;
 import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
+
+import java.util.function.Consumer;
 
 /**
  * Implement the following:
@@ -66,5 +71,15 @@ public abstract class BaseBeeItem extends Item {
     BeeSpecies species = stack.get(ApicuriousDataComponents.BEE_SPECIES);
     if (species == null) return false;
     return species.getVisualData().hasEffect();
+  }
+
+  @Override
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(new IClientItemExtensions() {
+      @Override
+      public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+        return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+      }
+    });
   }
 }

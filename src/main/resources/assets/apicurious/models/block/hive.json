@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "bottom": "apicurious:block/hive_bottom",
-    "front": "apicurious:block/hive_front",
-    "particle": "apicurious:block/hive_side",
-    "side": "apicurious:block/hive_side",
-    "top": "apicurious:block/hive_top"
+    "bottom": "apicurious:block/hive/hive_bottom",
+    "front": "apicurious:block/hive/hive_front",
+    "particle": "apicurious:block/hive/hive_side",
+    "side": "apicurious:block/hive/hive_side",
+    "top": "apicurious:block/hive/hive_top"
   },
   "elements": [
     {

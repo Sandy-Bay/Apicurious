@@ -1,0 +1,10 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "apicurious:item/bee/drone_outline",
+    "layer1": "apicurious:item/bee/drone_body",
+    "layer2": "apicurious:item/bee/drone_body_stripes",
+    "layer3": "apicurious:item/bee/drone_wing_fill",
+    "layer4": "apicurious:item/bee/drone_wing_tint"
+  }
+}

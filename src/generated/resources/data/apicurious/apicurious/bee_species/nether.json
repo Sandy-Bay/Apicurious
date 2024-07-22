@@ -5,6 +5,7 @@
       "bodyTint": "9a2323",
       "outlineTint": "8c6969",
       "wingTint": "9a2323"
-    }
+    },
+    "hasCustomRender": false
   }
 }

@@ -1,18 +1,21 @@
 package sandybay.apicurious.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.FileToIdConverter;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
@@ -21,8 +24,7 @@ import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
 import sandybay.apicurious.common.item.ApicuriousItemRegistration;
 
 import javax.annotation.Nullable;
-import javax.swing.text.html.Option;
-import java.util.Objects;
+import java.util.Locale;
 import java.util.Optional;
 
 public class ApicuriousClientEvents {
@@ -30,6 +32,7 @@ public class ApicuriousClientEvents {
   public static void registerClientEvents(IEventBus bus) {
     bus.addListener(ApicuriousClientEvents::handleItemTint);
     bus.addListener(ApicuriousClientEvents::handleBlockTint);
+    bus.addListener(ApicuriousClientEvents::registerAlternativeBeeModels);
   }
 
   private static void handleBlockTint(final RegisterColorHandlersEvent.Block event) {
@@ -66,6 +69,13 @@ public class ApicuriousClientEvents {
             ApicuriousBlockRegistration.NETHER_HIVE.item().get(),
             ApicuriousBlockRegistration.ENDER_HIVE.item().get()
     );
+  }
+
+  private static void registerAlternativeBeeModels(final ModelEvent.RegisterAdditional event) {
+    FileToIdConverter converter = FileToIdConverter.json("models/item/species");
+    converter.listMatchingResources(Minecraft.getInstance().getResourceManager()).forEach((name, resource) -> {
+      event.register(ModelResourceLocation.standalone(converter.fileToId(name).withPrefix("item/species/")));
+    });
   }
 
   private static int registerBeeTintHandler(ItemStack stack, int tintIndex) {
@@ -109,7 +119,7 @@ public class ApicuriousClientEvents {
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody) {
     BeeSpecies species = stack.get(ApicuriousDataComponents.BEE_SPECIES);
-    if (species == null || species.getVisualData() == null) return 0xffffff;
+    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender()) return 0xffffff;
     return isOutline ?
             species.getVisualData().getBeeColor().getOutlineTint().getIntColor() : isBody ?
             species.getVisualData().getBeeColor().getBodyTint().getIntColor() :
