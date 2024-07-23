@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.block;
+package sandybay.apicurious.common.register;
 
 import com.google.common.collect.Sets;
 import net.minecraft.core.registries.Registries;
@@ -15,6 +15,9 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.block.housing.ApiaryBlock;
+import sandybay.apicurious.common.block.housing.BeeHousingBlock;
+import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.block.blockentity.BasicBeeHousingBE;
 
@@ -95,14 +98,29 @@ public class ApicuriousBlockRegistration {
   }
 
   public record BlockItemHolder<BLOCK extends Block, ITEM extends BlockItem>(DeferredHolder<Block, BLOCK> block, DeferredHolder<Item, ITEM> item) {
+    public BLOCK asBlock() {
+      return block.get();
+    }
+    public ITEM asItem() {
+      return item.get();
+    }
     public ItemStack asItemStack() {
       return new ItemStack(item.get());
     }
   }
   public record BlockHolderWithTile<BLOCK extends Block, ITEM extends BlockItem, TYPE extends BlockEntity>
           (DeferredHolder<Block, BLOCK> block, DeferredHolder<Item, ITEM> item, DeferredHolder<BlockEntityType<?>, BlockEntityType<TYPE>> entityType) {
+    public BLOCK asBlock() {
+      return block.get();
+    }
+    public ITEM asItem() {
+      return item.get();
+    }
     public ItemStack asItemStack() {
       return new ItemStack(item.get());
+    }
+    public BlockEntityType<TYPE> getType() {
+      return entityType.get();
     }
   }
 }

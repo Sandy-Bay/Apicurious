@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.util.ApicuriousTags;
-import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.item.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
+import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
 import java.util.concurrent.CompletableFuture;
 

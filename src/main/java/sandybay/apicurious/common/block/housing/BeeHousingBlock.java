@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.block;
+package sandybay.apicurious.common.block.housing;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;

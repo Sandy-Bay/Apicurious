@@ -1,6 +1,5 @@
-package sandybay.apicurious.common.creativetab;
+package sandybay.apicurious.common.register;
 
-import com.sun.jna.platform.win32.Psapi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.registries.Registries;
@@ -17,32 +16,29 @@ import sandybay.apicurious.api.item.BaseBeeItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
-import sandybay.apicurious.common.item.ApicuriousItemRegistration;
 
 import java.util.List;
 
-public class ApicuriousCreativeTabs {
+public class ApicuriousCreativeTabRegistration {
 
   public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Apicurious.MODID);
 
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GENERAL_TAB = CREATIVE_MODE_TABS.register("apicurious", () -> CreativeModeTab.builder()
           .title(Component.translatable("itemGroup.apicurious.general"))
           .withTabsBefore(CreativeModeTabs.COMBAT)
-          .icon(() -> new ItemStack(ApicuriousBlockRegistration.FOREST_HIVE.item().get())) // TODO: Replace this with a Sieve Net tool item later
+          .icon(() -> new ItemStack(ApicuriousItemRegistration.SIEVE.get()))
           .displayItems((parameters, output) -> {
             output.accept(new ItemStack(ApicuriousItemRegistration.SIEVE.get()));
             output.acceptAll(List.of(
-                    ApicuriousBlockRegistration.BEE_HOUSING.asItemStack(),
-                    ApicuriousBlockRegistration.APIARY.asItemStack()
+                    ApicuriousBlockRegistration.APIARY.asItemStack(),
+                    ApicuriousBlockRegistration.BEE_HOUSING.asItemStack()
             ));
             registerHives(output);
           }).build());
 
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder()
           .title(Component.translatable("itemGroup.apicurious.bee"))
-          .withTabsBefore(ApicuriousCreativeTabs.GENERAL_TAB.getKey())
+          .withTabsBefore(ApicuriousCreativeTabRegistration.GENERAL_TAB.getKey())
           .icon(() -> BaseBeeItem.getBeeWithSpecies(null, ApicuriousSpecies.FOREST, ApicuriousItemRegistration.QUEEN))
           .displayItems((parameters, output) -> {
             registerBees(output);
@@ -60,7 +56,7 @@ public class ApicuriousCreativeTabs {
                   new ItemStack(ApicuriousItemRegistration.QUEEN)
           );
           BeeSpecies species = registry.get(rl);
-          bees.forEach(stack -> stack.set(ApicuriousDataComponents.BEE_SPECIES, species));
+          bees.forEach(stack -> stack.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species));
           output.acceptAll(bees);
         }
       });

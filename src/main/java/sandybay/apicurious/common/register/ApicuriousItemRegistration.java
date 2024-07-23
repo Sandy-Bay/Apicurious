@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.item;
+package sandybay.apicurious.common.register;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
@@ -7,6 +7,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.common.item.SieveItem;
 import sandybay.apicurious.common.item.bee.DroneBeeItem;
 import sandybay.apicurious.common.item.bee.PrincessBeeItem;
 import sandybay.apicurious.common.item.bee.QueenBeeItem;

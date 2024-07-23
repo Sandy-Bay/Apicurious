@@ -22,8 +22,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.item.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
+import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 import sandybay.apicurious.data.loot.ApicuriousSpeciesFunction;
 
 import java.util.Collections;
@@ -53,15 +53,15 @@ public class ApicuriousLootTables extends LootTableProvider {
 
     @Override
     protected void generate() {
-      this.add(ApicuriousBlockRegistration.FOREST_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.FOREST));
-      this.add(ApicuriousBlockRegistration.MEADOW_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.MEADOW));
-      this.add(ApicuriousBlockRegistration.MODEST_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.MODEST));
-      this.add(ApicuriousBlockRegistration.TROPICAL_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.TROPICAL));
-      this.add(ApicuriousBlockRegistration.WINTRY_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.WINTRY));
-      this.add(ApicuriousBlockRegistration.MARSHY_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.MARSHY));
-      this.add(ApicuriousBlockRegistration.ROCKY_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.ROCKY));
-      this.add(ApicuriousBlockRegistration.NETHER_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.NETHER));
-      this.add(ApicuriousBlockRegistration.ENDER_HIVE.block().get(), block -> beeTable(ApicuriousSpecies.ENDER));
+      this.add(ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.FOREST));
+      this.add(ApicuriousBlockRegistration.MEADOW_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MEADOW));
+      this.add(ApicuriousBlockRegistration.MODEST_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MODEST));
+      this.add(ApicuriousBlockRegistration.TROPICAL_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.TROPICAL));
+      this.add(ApicuriousBlockRegistration.WINTRY_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.WINTRY));
+      this.add(ApicuriousBlockRegistration.MARSHY_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MARSHY));
+      this.add(ApicuriousBlockRegistration.ROCKY_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.ROCKY));
+      this.add(ApicuriousBlockRegistration.NETHER_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.NETHER));
+      this.add(ApicuriousBlockRegistration.ENDER_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.ENDER));
     }
 
     @Override

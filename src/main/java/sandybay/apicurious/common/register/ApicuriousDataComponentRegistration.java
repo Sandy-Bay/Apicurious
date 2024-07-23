@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.datacomponent;
+package sandybay.apicurious.common.register;
 
 import net.minecraft.core.component.DataComponentType;
 import net.neoforged.bus.api.IEventBus;
@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
-public class ApicuriousDataComponents {
+public class ApicuriousDataComponentRegistration {
 
   public static final DeferredRegister.DataComponents REGISTRAR = DeferredRegister.createDataComponents(Apicurious.MODID);
 

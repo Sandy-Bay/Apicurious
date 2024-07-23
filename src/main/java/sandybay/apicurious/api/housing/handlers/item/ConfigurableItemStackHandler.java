@@ -13,16 +13,14 @@ import java.util.function.BiPredicate;
 
 public class ConfigurableItemStackHandler extends ItemStackHandler {
 
-  private BlockEntity ref;
+  private final BlockEntity ref;
   private BiPredicate<ItemStack, Integer> insertPredicate;
   private BiPredicate<ItemStack, Integer> extractPredicate;
   private BiConsumer<ItemStack, Integer> onSlotChanged;
-  private Map<Integer, Integer> slotAmountFilter;
+  private final Map<Integer, Integer> slotAmountFilter;
   private int slotLimit;
 
   private boolean hasChanged;
-
-
 
   public ConfigurableItemStackHandler(int size, BlockEntity ref) {
     super(size);
@@ -76,7 +74,7 @@ public class ConfigurableItemStackHandler extends ItemStackHandler {
   @Override
   protected void onContentsChanged(int slot) {
     hasChanged = true;
-    ref.setChanged();
+    if (ref != null) ref.setChanged();
     onSlotChanged.accept(getStackInSlot(slot), slot);
   }
 

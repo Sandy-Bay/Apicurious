@@ -18,10 +18,11 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
-import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.creativetab.ApicuriousCreativeTabs;
-import sandybay.apicurious.common.datacomponent.ApicuriousDataComponents;
-import sandybay.apicurious.common.item.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
+import sandybay.apicurious.common.register.ApicuriousCreativeTabRegistration;
+import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.common.register.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
 import sandybay.apicurious.data.ApicuriousLootTables;
@@ -52,9 +53,10 @@ public class Apicurious
         bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
         ApicuriousBlockRegistration.register(bus);
         ApicuriousItemRegistration.register(bus);
-        ApicuriousDataComponents.register(bus);
-        ApicuriousCreativeTabs.register(bus);
+        ApicuriousDataComponentRegistration.register(bus);
+        ApicuriousCreativeTabRegistration.register(bus);
         ApicuriousLootItemFunctions.register(bus);
+        ApicuriousMenuRegistration.register(bus);
         NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
         if (FMLLoader.getDist() == Dist.CLIENT) {
             ApicuriousClientEvents.registerClientEvents(bus);

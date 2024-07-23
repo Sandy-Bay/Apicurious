@@ -17,7 +17,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
-import sandybay.apicurious.common.block.ApicuriousBlockRegistration;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.block.HiveBlock;
 
 import java.util.Collections;
@@ -39,15 +39,15 @@ public class ApicuriousWorldGen {
         TreeConfiguration configuration = (TreeConfiguration) configuredFeature.config();
         switch (id.getPath()) {
           case "fancy_oak_bees", "super_birch_bees" ->
-                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.block().get(), 1f));
+                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), 1f));
           case "cherry_bees_005", "fancy_oak_bees_005", "birch_bees_005", "oak_bees_005" ->
-                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.block().get(), 0.05f));
+                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), 0.05f));
           case "fancy_oak_bees_002", "birch_bees_002", "oak_bees_002" ->
-                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.block().get(), 0.02f));
+                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), 0.02f));
           case "fancy_oak_bees_0002", "birch_bees_0002", "oak_bees_0002", "super_birch_bees_0002" ->
-                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.block().get(), 0.002f));
+                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), 0.002f));
           case "mangrove", "tall_mangrove", "swamp_oak" ->
-                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.MARSHY_HIVE.block().get(), 0.01f)); // Replace with appropriate biome tag.
+                  configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.MARSHY_HIVE.asBlock(), 0.01f)); // Replace with appropriate biome tag.
         }
       });
     });

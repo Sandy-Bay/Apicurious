@@ -1,11 +1,11 @@
 package sandybay.apicurious.common.menu;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.items.SlotItemHandler;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.common.item.bee.DroneBeeItem;
@@ -21,30 +21,64 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   // 12, ..., 38 = Player Inventory
   // 39, ..., 47 = Hotbar
 
-  private final Inventory playerInventory;
-  private final ContainerLevelAccess access;
-  private final ConfigurableItemStackHandler input;
-  private final ConfigurableItemStackHandler frames;
-  private final ConfigurableItemStackHandler output;
+  // TODO: Figure out coordinates
+  private static final Pair<Integer, Integer> baseInputCoords = Pair.of(29,39);
+  private static final int inputOffset = 26;
+  private static final Pair<Integer, Integer> baseFrameCoords = Pair.of(66,23);
+  private static final int frameOffset = 29;
 
-  protected AbstractHousingMenu(int containerId, Inventory playerInventory) {
-    super(menuType, containerId);
-    this.playerInventory = playerInventory;
-    this.access = ContainerLevelAccess.NULL;
-    this.input = null;
-    this.frames = null;
-    this.output = null;
+  private final ContainerLevelAccess access;
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory) {
+    this(type, containerId, playerInventory, ContainerLevelAccess.NULL,
+            new ConfigurableItemStackHandler(2, null),
+            new ConfigurableItemStackHandler(3, null),
+            new ConfigurableItemStackHandler(7, null)
+    );
   }
 
-  protected AbstractHousingMenu(
-          int containerId, Inventory playerInventory, ContainerLevelAccess access,
-          ConfigurableItemStackHandler input, ConfigurableItemStackHandler frames, ConfigurableItemStackHandler output) {
-    super(menuType, containerId);
-    this.playerInventory = playerInventory;
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
+                             ConfigurableItemStackHandler input,
+                             ConfigurableItemStackHandler frames,
+                             ConfigurableItemStackHandler output
+  ) {
+    super(type, containerId);
     this.access = access;
-    this.input = input;
-    this.frames = frames;
-    this.output = output;
+    addApiarySlots(input, frames, output);
+    addInventorySlots(playerInventory);
+    addHotbarSlots(playerInventory);
+  }
+
+  private void addApiarySlots(ConfigurableItemStackHandler input, ConfigurableItemStackHandler frames, ConfigurableItemStackHandler output) {
+    this.addSlot(new SlotItemHandler(input, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
+    this.addSlot(new SlotItemHandler(input, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
+    this.addSlot(new SlotItemHandler(frames, 0, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
+    this.addSlot(new SlotItemHandler(frames, 1, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
+    this.addSlot(new SlotItemHandler(frames, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
+
+    // Because of the wierd offset of these, do the coordination positioning manually.
+    this.addSlot(new SlotItemHandler(output, 0, 0, 0));
+    this.addSlot(new SlotItemHandler(output, 1, 0, 0));
+    this.addSlot(new SlotItemHandler(output, 2, 0, 0));
+    this.addSlot(new SlotItemHandler(output, 3, 0, 0));
+    this.addSlot(new SlotItemHandler(output, 4, 0, 0));
+    this.addSlot(new SlotItemHandler(output, 5, 0, 0));
+    this.addSlot(new SlotItemHandler(output, 6, 0, 0));
+  }
+
+  private void addInventorySlots(Inventory playerInventory) {
+    //8,108
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 9; j++) {
+        this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
+      }
+    }
+  }
+
+  private void addHotbarSlots(Inventory playerInventory) {
+    //8, 166
+    for (int k = 0; k < 9; k++) {
+      this.addSlot(new Slot(playerInventory, k + 38, 8 + k * 18, 166));
+    }
   }
 
   @Override
@@ -137,4 +171,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     return stack.getItem() instanceof QueenBeeItem;
   }
 
+  public ContainerLevelAccess getAccess() {
+    return access;
+  }
 }

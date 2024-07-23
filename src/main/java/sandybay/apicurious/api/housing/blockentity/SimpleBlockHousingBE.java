@@ -61,4 +61,16 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
       if (alwaysSave || apiaryData.contains("output")) output.deserializeNBT(registries, apiaryData.getCompound("output"));
     }
   }
+
+  public ConfigurableItemStackHandler getInput() {
+    return input;
+  }
+
+  public ConfigurableItemStackHandler getFrames() {
+    return frames;
+  }
+
+  public ConfigurableItemStackHandler getOutput() {
+    return output;
+  }
 }
