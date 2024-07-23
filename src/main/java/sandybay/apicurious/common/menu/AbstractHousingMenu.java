@@ -49,20 +49,20 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   }
 
   private void addApiarySlots(ConfigurableItemStackHandler input, ConfigurableItemStackHandler frames, ConfigurableItemStackHandler output) {
-    this.addSlot(new SlotItemHandler(input, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
-    this.addSlot(new SlotItemHandler(input, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
-    this.addSlot(new SlotItemHandler(frames, 0, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
-    this.addSlot(new SlotItemHandler(frames, 1, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
-    this.addSlot(new SlotItemHandler(frames, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
+    this.slots.add(new SlotItemHandler(input, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
+    this.slots.add(new SlotItemHandler(input, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
+    this.slots.add(new SlotItemHandler(frames, 0, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
+    this.slots.add(new SlotItemHandler(frames, 1, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
+    this.slots.add(new SlotItemHandler(frames, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
 
     // Because of the wierd offset of these, do the coordination positioning manually.
-    this.addSlot(new SlotItemHandler(output, 0, 0, 0));
-    this.addSlot(new SlotItemHandler(output, 1, 0, 0));
-    this.addSlot(new SlotItemHandler(output, 2, 0, 0));
-    this.addSlot(new SlotItemHandler(output, 3, 0, 0));
-    this.addSlot(new SlotItemHandler(output, 4, 0, 0));
-    this.addSlot(new SlotItemHandler(output, 5, 0, 0));
-    this.addSlot(new SlotItemHandler(output, 6, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 0, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 1, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 2, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 3, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 4, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 5, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 6, 0, 0));
   }
 
   private void addInventorySlots(Inventory playerInventory) {
