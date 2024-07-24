@@ -19,7 +19,7 @@ import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
-public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
+public class ApiaryBlock extends BaseHousingBlock {
 
   public ApiaryBlock(Properties properties) {
     super(properties, 1.0f);
@@ -41,7 +41,7 @@ public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
     return InteractionResult.sidedSuccess(level.isClientSide);
   }
 
-  @Override
+  //@Override
   public Component getDisplayName() {
     return Component.translatable("apicurious.menu.apiary");
   }
@@ -56,11 +56,5 @@ public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
       ), getDisplayName());
     }
     return null;
-  }
-
-  @Nullable
-  @Override
-  public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-    return new SimpleMenuProvider(ApiaryMenu::new, getDisplayName()).createMenu(containerId, playerInventory, player);
   }
 }

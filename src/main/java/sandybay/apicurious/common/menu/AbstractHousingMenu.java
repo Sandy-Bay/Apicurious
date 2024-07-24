@@ -56,13 +56,13 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     this.slots.add(new SlotItemHandler(frames, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
 
     // Because of the wierd offset of these, do the coordination positioning manually.
-    this.slots.add(new SlotItemHandler(output, 0, 0, 0));
-    this.slots.add(new SlotItemHandler(output, 1, 0, 0));
-    this.slots.add(new SlotItemHandler(output, 2, 0, 0));
-    this.slots.add(new SlotItemHandler(output, 3, 0, 0));
-    this.slots.add(new SlotItemHandler(output, 4, 0, 0));
-    this.slots.add(new SlotItemHandler(output, 5, 0, 0));
-    this.slots.add(new SlotItemHandler(output, 6, 0, 0));
+    this.slots.add(new SlotItemHandler(output, 0, 116, 52));
+    this.slots.add(new SlotItemHandler(output, 1, 94, 39));
+    this.slots.add(new SlotItemHandler(output, 2, 116, 25));
+    this.slots.add(new SlotItemHandler(output, 3, 136, 39));
+    this.slots.add(new SlotItemHandler(output, 4, 136, 65));
+    this.slots.add(new SlotItemHandler(output, 5, 116, 78));
+    this.slots.add(new SlotItemHandler(output, 6, 94, 65));
   }
 
   private void addInventorySlots(Inventory playerInventory) {
