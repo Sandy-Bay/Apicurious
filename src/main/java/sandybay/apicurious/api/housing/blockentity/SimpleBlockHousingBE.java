@@ -16,6 +16,7 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
 
   // Server-sided Data
   private final ConfigurableItemStackHandler inventory;
+
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
     this.inventory = new ConfigurableItemStackHandler(12)
@@ -35,6 +36,7 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
   @Override
   public void saveData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave) {
     CompoundTag apiaryData = new CompoundTag();
+
     if (clientOnly) {
       // TODO: Add Client-data here
     } else {
@@ -47,11 +49,12 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
   @Override
   public void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave) {
     CompoundTag apiaryData = tag.getCompound("apiary_data");
+    inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));
+
     if (clientOnly) {
       // TODO: Add Client-data here
     } else {
       // TODO: Add Client-data here
-      if (alwaysSave || inventory.hasChanged())  apiaryData.put("inventory",  inventory.serializeNBT(registries));
     }
   }
 
