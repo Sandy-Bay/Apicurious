@@ -60,17 +60,12 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer {
       if (!stack.isEmpty()) {
         poseStack.popPose();
         poseStack.pushPose();
+        //This was not needed in the loop below, and if you scale do it before the translate
+        if (displayContext != ItemDisplayContext.GUI) poseStack.scale(0.5F, 0.5F, 0.5F);
         poseStack.translate(-0.5F, -0.5F, -0.5F);
+
         for (var bakedModel : model.getRenderPasses(stack, false)) {
           for (var rendertype : bakedModel.getRenderTypes(stack, false)) {
-            if (stack.hasFoil()) {
-              PoseStack.Pose posestack$pose = poseStack.last().copy();
-              if (displayContext == ItemDisplayContext.GUI) {
-                MatrixUtil.mulComponentWise(posestack$pose.pose(), 0.5F);
-              } else if (displayContext.firstPerson()) {
-                MatrixUtil.mulComponentWise(posestack$pose.pose(), 0.75F);
-              }
-            }
             renderer.renderModelLists(bakedModel, stack, packedLight, packedOverlay, poseStack, ItemRenderer.getFoilBuffer(buffer, rendertype, true, stack.hasFoil()));
           }
         }
