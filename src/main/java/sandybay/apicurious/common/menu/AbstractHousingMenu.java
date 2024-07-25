@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
+import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.item.bee.DroneBeeItem;
 import sandybay.apicurious.common.item.bee.PrincessBeeItem;
 import sandybay.apicurious.common.item.bee.QueenBeeItem;
@@ -29,19 +30,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
 
   private final ContainerLevelAccess access;
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory) {
-    this(type, containerId, playerInventory, ContainerLevelAccess.NULL,
-            new ConfigurableItemStackHandler(12)
-                    .setInputFilter((stack, slot) -> {
-                      if (slot == 0 && (stack.getItem() instanceof PrincessBeeItem || stack.getItem() instanceof QueenBeeItem)) return true;
-                      if (slot == 1 && stack.getItem() instanceof DroneBeeItem) return true;
-                      return (slot == 2 || slot == 3 || slot == 4) && stack.getItem() instanceof IFrameItem;
-                    })
-                    .setOutputFilter((stack, slot) -> slot > 4)
-                    .setSlotLimit(0, 1)
-                    .setSlotLimit(2, 1)
-                    .setSlotLimit(3, 1)
-                    .setSlotLimit(4, 1)
-    );
+    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12));
   }
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory) {
@@ -53,20 +42,20 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   }
 
   private void addApiarySlots(ConfigurableItemStackHandler inventory) {
-    this.slots.add(new SlotItemHandler(inventory, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
-    this.slots.add(new SlotItemHandler(inventory, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
-    this.slots.add(new SlotItemHandler(inventory, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
-    this.slots.add(new SlotItemHandler(inventory, 3, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
-    this.slots.add(new SlotItemHandler(inventory, 4, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
+    this.addSlot(new SlotItemHandler(inventory, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
+    this.addSlot(new SlotItemHandler(inventory, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
+    this.addSlot(new SlotItemHandler(inventory, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
+    this.addSlot(new SlotItemHandler(inventory, 3, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
+    this.addSlot(new SlotItemHandler(inventory, 4, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
 
     // Because of the wierd offset of these, do the coordination positioning manually.
-    this.slots.add(new SlotItemHandler(inventory, 5, 116, 52));
-    this.slots.add(new SlotItemHandler(inventory, 6, 94, 39));
-    this.slots.add(new SlotItemHandler(inventory, 7, 116, 25));
-    this.slots.add(new SlotItemHandler(inventory, 8, 136, 39));
-    this.slots.add(new SlotItemHandler(inventory, 9, 136, 65));
-    this.slots.add(new SlotItemHandler(inventory, 10, 116, 78));
-    this.slots.add(new SlotItemHandler(inventory, 11, 94, 65));
+    this.addSlot(new SlotItemHandler(inventory, 5, 116, 52));
+    this.addSlot(new SlotItemHandler(inventory, 6, 94, 39));
+    this.addSlot(new SlotItemHandler(inventory, 7, 116, 25));
+    this.addSlot(new SlotItemHandler(inventory, 8, 136, 39));
+    this.addSlot(new SlotItemHandler(inventory, 9, 136, 65));
+    this.addSlot(new SlotItemHandler(inventory, 10, 116, 78));
+    this.addSlot(new SlotItemHandler(inventory, 11, 94, 65));
   }
 
   private void addInventorySlots(Inventory playerInventory) {
