@@ -19,7 +19,7 @@ import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
-public class ApiaryBlock extends BaseHousingBlock {
+public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
 
   public ApiaryBlock(Properties properties) {
     super(properties, 1.0f);
@@ -59,5 +59,11 @@ public class ApiaryBlock extends BaseHousingBlock {
               ), getDisplayName());
     }
     return null;
+  }
+
+  @Nullable
+  @Override
+  public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+    return new SimpleMenuProvider(ApiaryMenu::new, getDisplayName()).createMenu(pContainerId, pPlayerInventory, pPlayer);
   }
 }

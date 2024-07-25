@@ -60,19 +60,20 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     this.slots.add(new SlotItemHandler(inventory, 4, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
 
     // Because of the wierd offset of these, do the coordination positioning manually.
-    this.slots.add(new SlotItemHandler(output, 0, 116, 52));
-    this.slots.add(new SlotItemHandler(output, 1, 94, 39));
-    this.slots.add(new SlotItemHandler(output, 2, 116, 25));
-    this.slots.add(new SlotItemHandler(output, 3, 136, 39));
-    this.slots.add(new SlotItemHandler(output, 4, 136, 65));
-    this.slots.add(new SlotItemHandler(output, 5, 116, 78));
-    this.slots.add(new SlotItemHandler(output, 6, 94, 65));
+    this.slots.add(new SlotItemHandler(inventory, 5, 116, 52));
+    this.slots.add(new SlotItemHandler(inventory, 6, 94, 39));
+    this.slots.add(new SlotItemHandler(inventory, 7, 116, 25));
+    this.slots.add(new SlotItemHandler(inventory, 8, 136, 39));
+    this.slots.add(new SlotItemHandler(inventory, 9, 136, 65));
+    this.slots.add(new SlotItemHandler(inventory, 10, 116, 78));
+    this.slots.add(new SlotItemHandler(inventory, 11, 94, 65));
   }
 
   private void addInventorySlots(Inventory playerInventory) {
     //8,108
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 9; j++) {
+        if (j + i * 9 + 9 == 36) return;
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
       }
     }

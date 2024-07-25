@@ -24,9 +24,10 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
               if (slot == 1 && stack.getItem() instanceof DroneBeeItem) return true;
               return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
             })
-            .setOutputFilter((stack, slot) ->
-                     slot == 0 && stack.getItem() instanceof QueenBeeItem ||
-                     slot >= 2 && slot <= 4 && this.getBlockState().getValue(ApiaryBlock.ACTIVE))
+            .setOutputFilter((stack, slot) -> {
+                      if (!(slot == 0 && stack.getItem() instanceof QueenBeeItem)) return false;
+                      return !(slot >= 2 && slot <= 4) && this.getBlockState().getValue(ApiaryBlock.ACTIVE);
+            })
             .setSlotLimit(0, 1)
             .setSlotLimit(2, 1)
             .setSlotLimit(3, 1)
