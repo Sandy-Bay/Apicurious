@@ -30,30 +30,34 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   private final ContainerLevelAccess access;
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory) {
     this(type, containerId, playerInventory, ContainerLevelAccess.NULL,
-            new ConfigurableItemStackHandler(2, null),
-            new ConfigurableItemStackHandler(3, null),
-            new ConfigurableItemStackHandler(7, null)
+            new ConfigurableItemStackHandler(12)
+                    .setInputFilter((stack, slot) -> {
+                      if (slot == 0 && (stack.getItem() instanceof PrincessBeeItem || stack.getItem() instanceof QueenBeeItem)) return true;
+                      if (slot == 1 && stack.getItem() instanceof DroneBeeItem) return true;
+                      return (slot == 2 || slot == 3 || slot == 4) && stack.getItem() instanceof IFrameItem;
+                    })
+                    .setOutputFilter((stack, slot) -> slot > 4)
+                    .setSlotLimit(0, 1)
+                    .setSlotLimit(2, 1)
+                    .setSlotLimit(3, 1)
+                    .setSlotLimit(4, 1)
     );
   }
 
-  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
-                             ConfigurableItemStackHandler input,
-                             ConfigurableItemStackHandler frames,
-                             ConfigurableItemStackHandler output
-  ) {
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory) {
     super(type, containerId);
     this.access = access;
-    addApiarySlots(input, frames, output);
+    addApiarySlots(inventory);
     addInventorySlots(playerInventory);
     addHotbarSlots(playerInventory);
   }
 
-  private void addApiarySlots(ConfigurableItemStackHandler input, ConfigurableItemStackHandler frames, ConfigurableItemStackHandler output) {
-    this.slots.add(new SlotItemHandler(input, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
-    this.slots.add(new SlotItemHandler(input, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
-    this.slots.add(new SlotItemHandler(frames, 0, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
-    this.slots.add(new SlotItemHandler(frames, 1, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
-    this.slots.add(new SlotItemHandler(frames, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
+  private void addApiarySlots(ConfigurableItemStackHandler inventory) {
+    this.slots.add(new SlotItemHandler(inventory, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
+    this.slots.add(new SlotItemHandler(inventory, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
+    this.slots.add(new SlotItemHandler(inventory, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
+    this.slots.add(new SlotItemHandler(inventory, 3, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset));
+    this.slots.add(new SlotItemHandler(inventory, 4, baseFrameCoords.getFirst(), baseFrameCoords.getSecond() + frameOffset * 2));
 
     // Because of the wierd offset of these, do the coordination positioning manually.
     this.slots.add(new SlotItemHandler(output, 0, 116, 52));
@@ -77,7 +81,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   private void addHotbarSlots(Inventory playerInventory) {
     //8, 166
     for (int k = 0; k < 9; k++) {
-      this.addSlot(new Slot(playerInventory, k + 38, 8 + k * 18, 166));
+      this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 166));
     }
   }
 

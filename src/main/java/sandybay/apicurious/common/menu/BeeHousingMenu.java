@@ -14,8 +14,8 @@ public class BeeHousingMenu extends AbstractHousingMenu {
     super(ApicuriousMenuRegistration.BEE_HOUSING.get(), containerId, playerInventory);
   }
 
-  public BeeHousingMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler input, ConfigurableItemStackHandler frames, ConfigurableItemStackHandler output) {
-    super(ApicuriousMenuRegistration.BEE_HOUSING.get(), containerId, playerInventory, access, input, frames, output);
+  public BeeHousingMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory) {
+    super(ApicuriousMenuRegistration.BEE_HOUSING.get(), containerId, playerInventory, access, inventory);
   }
 
   @Override

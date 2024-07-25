@@ -50,10 +50,13 @@ public class ApiaryBlock extends BaseHousingBlock {
   @Override
   protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
     if (level.getBlockEntity(pos) instanceof ApiaryHousingBE apiary) {
-      return new SimpleMenuProvider((id, inventory, player) -> new ApiaryMenu(
-              id, inventory, ContainerLevelAccess.create(level, pos),
-              apiary.getInput(), apiary.getFrames(), apiary.getOutput()
-      ), getDisplayName());
+      return new SimpleMenuProvider(
+              (id, inventory, player) -> new ApiaryMenu(
+                      id,
+                      inventory,
+                      ContainerLevelAccess.create(level, pos),
+                      apiary.getInventory()
+              ), getDisplayName());
     }
     return null;
   }

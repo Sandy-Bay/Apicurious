@@ -14,8 +14,8 @@ public class ApiaryMenu extends AbstractHousingMenu {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
   }
 
-  public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler input, ConfigurableItemStackHandler frames, ConfigurableItemStackHandler output) {
-    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, input, frames, output);
+  public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory) {
+    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, inventory);
   }
 
   public ApiaryMenu(int containedId, Inventory inventory, Player player) {
