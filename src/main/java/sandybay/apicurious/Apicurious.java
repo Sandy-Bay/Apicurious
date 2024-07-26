@@ -1,13 +1,9 @@
 package sandybay.apicurious;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -24,12 +20,7 @@ import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
-import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
-import sandybay.apicurious.data.ApicuriousLootTables;
-import sandybay.apicurious.data.ApicuriousTagProvider;
 import sandybay.apicurious.data.loot.ApicuriousLootItemFunctions;
-
-import java.util.Set;
 
 // TODO: Finish Bees, including Genetics (Allele, Genome, Mutations) and Items
 // TODO: Finish Housing, including Apiary & BeeHousing, excluding Alveary
@@ -49,7 +40,6 @@ public class Apicurious
     public Apicurious(IEventBus bus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         bus.addListener(this::commonSetup);
-        bus.addListener(this::generateData);
         bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
         ApicuriousBlockRegistration.register(bus);
         ApicuriousItemRegistration.register(bus);
@@ -67,32 +57,6 @@ public class Apicurious
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
 
-    }
-
-    private void generateData(final GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        PackOutput output = generator.getPackOutput();
-        generator.addProvider(
-                event.includeServer(),
-                new ApicuriousTagProvider.BlocksProvider(output, event.getLookupProvider(), event.getExistingFileHelper())
-        );
-        generator.addProvider(
-                event.includeServer(),
-                new ApicuriousTagProvider.ItemsProvider(output, event.getLookupProvider(), event.getExistingFileHelper())
-        );
-        generator.addProvider(
-                // Only run datapack generation when server data is being generated
-                event.includeServer(),
-                new DatapackBuiltinEntriesProvider(
-                        output,
-                        event.getLookupProvider(),
-                        ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(),
-                        Set.of(MODID)
-        ));
-        generator.addProvider(
-                event.includeServer(),
-                new ApicuriousLootTables(output, event.getLookupProvider())
-        );
     }
 
     public static ResourceLocation createResourceLocation(String path) {
