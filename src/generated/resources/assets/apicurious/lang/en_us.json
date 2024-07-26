@@ -96,6 +96,6 @@
   "item.apicurious.princess": "Princess",
   "item.apicurious.queen": "Queen",
   "item.apicurious.sieve": "Sieve",
-  "itemgroup.apicurious.bee": "Apicurious: Bee",
-  "itemgroup.apicurious.general": "Apicurious"
+  "itemGroup.apicurious.bee": "Apicurious: Bee",
+  "itemGroup.apicurious.general": "Apicurious"
 }

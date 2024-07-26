@@ -168,7 +168,7 @@ public class ApicuriousLangProvider extends LanguageProvider
 
     // Creative Tabs
     public void tab(String definition, String translation) {
-        add("itemgroup.apicurious." + definition, translation);
+        add("itemGroup.apicurious." + definition, translation);
     }
 
     // Menu

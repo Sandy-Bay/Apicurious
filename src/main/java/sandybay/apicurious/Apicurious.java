@@ -1,9 +1,18 @@
 package sandybay.apicurious;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.telemetry.events.WorldLoadEvent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -14,6 +23,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
+import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousCreativeTabRegistration;
 import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
@@ -48,8 +60,27 @@ public class Apicurious
         ApicuriousLootItemFunctions.register(bus);
         ApicuriousMenuRegistration.register(bus);
         NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
+        NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);
         if (FMLLoader.getDist() == Dist.CLIENT) {
             ApicuriousClientEvents.registerClientEvents(bus);
+        }
+    }
+
+    private static void loadEmptySpecies(final EntityJoinLevelEvent event) {
+        if (BaseBeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player) {
+            Level level = event.getLevel();
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
+                    BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY);
+                });
+            } else if (level instanceof ClientLevel) {
+                ClientPacketListener connection = Minecraft.getInstance().getConnection();
+                if (connection != null) {
+                    connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
+                        BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY);
+                    });
+                }
+            }
         }
     }
 

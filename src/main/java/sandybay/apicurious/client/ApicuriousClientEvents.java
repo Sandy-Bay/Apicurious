@@ -120,9 +120,10 @@ public class ApicuriousClientEvents {
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody) {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender()) return 0xffffff;
+    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender()) return 0xFFFFFFFF;
     return isOutline ?
-            species.getVisualData().getBeeColor().getOutlineTint().getIntColor() : isBody ?
+            species.getVisualData().getBeeColor().getOutlineTint().getIntColor() :
+            isBody ?
             species.getVisualData().getBeeColor().getBodyTint().getIntColor() :
             species.getVisualData().getBeeColor().getWingTint().getIntColor();
   }

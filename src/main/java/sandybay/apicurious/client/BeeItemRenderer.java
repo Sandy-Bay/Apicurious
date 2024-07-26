@@ -3,6 +3,7 @@ package sandybay.apicurious.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
@@ -16,8 +17,11 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 
 import java.util.Locale;
 

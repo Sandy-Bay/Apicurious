@@ -36,18 +36,13 @@ public class BaseBeeItem extends Item implements IBeeItem
 {
 
   // TODO: Figure out how to do this without the bootstrap context...
-//  private static final BeeSpecies EMPTY_SPECIES = new BeeSpecies(
-//          "apicurious.species.undefined",
-//          VisualData.Builder.create().build(),
-//          ProductionData.Builder.create().build(),
-//          EnvironmentalData.Builder.create().build()
-//  );
+  public static BeeSpecies EMPTY_SPECIES = null;
 
   public final EnumBeeType beeType;
 
   public BaseBeeItem(Properties properties, EnumBeeType beeType) {
     // TODO: Fix this component stuff >->
-    super(properties);//.component(ApicuriousDataComponentRegistration.BEE_SPECIES, null));
+    super(properties.component(ApicuriousDataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
     this.beeType = beeType;
   }
 
