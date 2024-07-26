@@ -1,6 +1,6 @@
 package sandybay.apicurious.old.genetics;
 
-import sandybay.apicurious.old.traits.ITrait;
+import sandybay.apicurious.api.bee.genetic.ITrait;
 
 import java.util.Set;
 

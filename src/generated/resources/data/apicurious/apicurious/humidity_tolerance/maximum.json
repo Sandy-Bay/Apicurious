@@ -1,0 +1,4 @@
+{
+  "humidityTolerance": "apicurious.tolerance.humidity.maximum",
+  "toleranceModifier": 5
+}

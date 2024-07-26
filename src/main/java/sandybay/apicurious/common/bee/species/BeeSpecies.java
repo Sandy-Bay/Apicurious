@@ -2,11 +2,16 @@ package sandybay.apicurious.common.bee.species;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.animal.Bee;
 import sandybay.apicurious.api.bee.IBeeSpecies;
+import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
+import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
+import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -17,9 +22,9 @@ public class BeeSpecies implements IBeeSpecies {
   public static final Codec<BeeSpecies> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName),
-                  VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData)
-                  //ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
-                  //EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData)
+                  VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
+                  ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
+                  EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData)
                   //Codec.list(MobEffectInstance.CODEC).fieldOf("effects").forGetter(BeeSpecies::getEffects)
                   ).apply(instance, BeeSpecies::new)
   );
@@ -27,8 +32,8 @@ public class BeeSpecies implements IBeeSpecies {
   public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(
     ByteBufCodecs.STRING_UTF8, BeeSpecies::getName,
     VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
-    //ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
-    //EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
+    ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
+    EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
     //ByteBufCodecs.collection(ArrayList::new, MobEffectInstance.STREAM_CODEC), BeeSpecies::getEffects,
     BeeSpecies::new
   );
@@ -36,19 +41,18 @@ public class BeeSpecies implements IBeeSpecies {
   private final String name;
   private Component readableName;
   private final VisualData visualData;
-
-  //private final ProductionData productionData;
-  //private final EnvironmentalData environmentalData;
+  private final ProductionData productionData;
+  private final EnvironmentalData environmentalData;
   //private final List<MobEffectInstance> effects;
 
-  public BeeSpecies(String name, VisualData visualData)
-                    //ProductionData productionData,
-                    //EnvironmentalData environmentalData)
+  public BeeSpecies(String name, VisualData visualData,
+                    ProductionData productionData,
+                    EnvironmentalData environmentalData)
   {
     this.name = name;
     this.visualData = visualData;
-    //this.productionData = productionData;
-    //this.environmentalData = environmentalData;
+    this.productionData = productionData;
+    this.environmentalData = environmentalData;
     //this.effects = effects;
   }
 
@@ -59,6 +63,16 @@ public class BeeSpecies implements IBeeSpecies {
   @Override
   public VisualData getVisualData() {
     return this.visualData;
+  }
+
+  @Override
+  public ProductionData getProductionData() {
+    return productionData;
+  }
+
+  @Override
+  public EnvironmentalData getEnvironmentalData() {
+    return environmentalData;
   }
 
   @Override
@@ -80,14 +94,6 @@ public class BeeSpecies implements IBeeSpecies {
     return Objects.hash(name, visualData);
   }
 
-  //public ProductionData getProductionData() {
-  //  return productionData;
-  //}
-
-  //public EnvironmentalData getEnvironmentalData() {
-  //  return environmentalData;
-  //}
-
   //public List<MobEffectInstance> getEffects() {
   //  return effects;
   //}
@@ -97,19 +103,20 @@ public class BeeSpecies implements IBeeSpecies {
   //}
 
   public static class Builder {
+    private final BootstrapContext<BeeSpecies> context;
     private String name;
     private VisualData visualData = VisualData.Builder.create().build();
-
-    //private ProductionData productionData;
-    //private EnvironmentalData environmentalData;
+    private ProductionData productionData;
+    private EnvironmentalData environmentalData;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
 
-    private Builder(String name) {
+    private Builder(BootstrapContext<BeeSpecies> context, String name) {
+      this.context = context;
       this.name = name;
     }
 
-    public static Builder create(String name) {
-      return new Builder("apicurious.species." + name);
+    public static Builder create(BootstrapContext<BeeSpecies> context, String name) {
+      return new Builder(context, "apicurious.species." + name);
     }
 
     public Builder withVisualData(Consumer<VisualData.Builder> consumer) {
@@ -119,21 +126,20 @@ public class BeeSpecies implements IBeeSpecies {
       return this;
     }
 
+    public Builder withProductionData(Consumer<ProductionData.Builder> consumer) {
+      ProductionData.Builder builder = ProductionData.Builder.create(context);
+      consumer.accept(builder);
+      this.productionData = builder.build();
+      return this;
+    }
 
-//    public Builder withProductionData(Consumer<ProductionData.Builder> consumer) {
-//      ProductionData.Builder builder = ProductionData.Builder.create();
-//      consumer.accept(builder);
-//      this.productionData = builder.build();
-//      return this;
-//    }
-//
-//    public Builder withEnvironmentalData(Consumer<EnvironmentalData.Builder> consumer) {
-//      EnvironmentalData.Builder builder = EnvironmentalData.Builder.create();
-//      consumer.accept(builder);
-//      this.environmentalData = builder.build();
-//      return this;
-//    }
-//
+    public Builder withEnvironmentalData(Consumer<EnvironmentalData.Builder> consumer) {
+      EnvironmentalData.Builder builder = EnvironmentalData.Builder.create(context);
+      consumer.accept(builder);
+      this.environmentalData = builder.build();
+      return this;
+    }
+
 //    public Builder withEffects(MobEffectInstance... effects) {
 //      this.effects.addAll(Arrays.asList(effects));
 //      return this;
@@ -141,8 +147,8 @@ public class BeeSpecies implements IBeeSpecies {
 
     public BeeSpecies build() {
       return new BeeSpecies(
-              name, visualData
-              //this.productionData, this.environmentalData
+              this.name, this.visualData,
+              this.productionData, this.environmentalData
               //this.effects
       );
     }

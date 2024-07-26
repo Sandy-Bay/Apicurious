@@ -1,7 +1,7 @@
 package sandybay.apicurious.old.genetics;
 
 import net.minecraft.network.chat.Component;
-import sandybay.apicurious.old.traits.ITrait;
+import sandybay.apicurious.api.bee.genetic.ITrait;
 
 public interface IAllele<T extends ITrait<T>> {
   T getTrait();

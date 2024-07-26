@@ -2,131 +2,139 @@ package sandybay.apicurious.data;
 
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.common.bee.species.trait.*;
 import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 
+import java.util.List;
+
 public class ApicuriousDatapackRegistriesDefaults {
 
   public static RegistrySetBuilder registerDataPackRegistryDefaults() {
     RegistrySetBuilder builder = new RegistrySetBuilder();
-    /*
+
     builder.add(ApicuriousRegistries.AREAS, bootstrap -> {
-      register(bootstrap,
-              Area.SMALL,
-              Area.SMALLER,
-              Area.SMALLEST,
-              Area.AVERAGE,
-              Area.LARGE,
-              Area.LARGER,
-              Area.LARGEST
-      );
+      bootstrap.register(Area.SMALLEST, area(1, 1, "smallest"));
+      bootstrap.register(Area.SMALLER, area(2, 2, "smaller"));
+      bootstrap.register(Area.SMALL, area(3, 3, "small"));
+      bootstrap.register(Area.AVERAGE, area(4, 4, "average"));
+      bootstrap.register(Area.LARGE, area(5, 5, "large"));
+      bootstrap.register(Area.LARGER, area(6, 6, "larger"));
+      bootstrap.register(Area.LARGEST, area(7, 7, "largest"));
     });
+
+    builder.add(ApicuriousRegistries.FERTILITIES, bootstrap -> {
+      bootstrap.register(Fertility.LOW_FERTILITY, fertility(1, "low"));
+      bootstrap.register(Fertility.AVERAGE_FERTILITY, fertility(2, "average"));
+      bootstrap.register(Fertility.HIGH_FERTILITY, fertility(3, "high"));
+      bootstrap.register(Fertility.MAXIMUM_FERTILITY, fertility(4, "maximum"));
+    });
+
     builder.add(ApicuriousRegistries.FLOWERS, bootstrap -> {
-      register(bootstrap,
-              Flowers.NORMAL_FLOWERS,
-              Flowers.ROCK,
-              Flowers.NETHER_ROCK
-      );
+      bootstrap.register(Flowers.NORMAL_FLOWERS, flowers(BlockTags.FLOWERS, "normal_flowers"));
+      bootstrap.register(Flowers.ROCK, flowers(BlockTags.BASE_STONE_OVERWORLD, "overworld_rocks"));
+      bootstrap.register(Flowers.NETHER_ROCK, flowers(BlockTags.BASE_STONE_NETHER, "nether_rocks"));
     });
+
+    // TODO: Add proper group tags.
     builder.add(ApicuriousRegistries.HUMIDITY_PREFERENCES, bootstrap -> {
-      register(bootstrap,
-              HumidityPreference.ARID,
-              HumidityPreference.HELLISH,
-              HumidityPreference.NORMAL,
-              HumidityPreference.DAMP,
-              HumidityPreference.AQUATIC
-      );
+      bootstrap.register(HumidityPreference.HELLISH, humidityPreference(0, BiomeTags.HAS_IGLOO, "hellish"));
+      bootstrap.register(HumidityPreference.ARID, humidityPreference(1, BiomeTags.HAS_IGLOO, "arid"));
+      bootstrap.register(HumidityPreference.AVERAGE, humidityPreference(2, BiomeTags.HAS_IGLOO, "average"));
+      bootstrap.register(HumidityPreference.DAMP, humidityPreference(3, BiomeTags.HAS_IGLOO, "damp"));
+      bootstrap.register(HumidityPreference.AQUATIC, humidityPreference(4, BiomeTags.HAS_IGLOO, "aquatic"));
     });
+
     builder.add(ApicuriousRegistries.HUMIDITY_TOLERANCES, bootstrap -> {
-      register(bootstrap,
-              HumidityTolerance.NO_TOLERANCE,
-              HumidityTolerance.LOWEST_TOLERANCE,
-              HumidityTolerance.LOW_TOLERANCE,
-              HumidityTolerance.AVERAGE_TOLERANCE,
-              HumidityTolerance.HIGH_TOLERANCE,
-              HumidityTolerance.MAX_TOLERANCE
-      );
+      bootstrap.register(HumidityTolerance.NO_TOLERANCE, humidityTolerance(0, "none"));
+      bootstrap.register(HumidityTolerance.LOWEST_TOLERANCE, humidityTolerance(1, "lowest"));
+      bootstrap.register(HumidityTolerance.LOW_TOLERANCE, humidityTolerance(2, "low"));
+      bootstrap.register(HumidityTolerance.AVERAGE_TOLERANCE, humidityTolerance(3, "average"));
+      bootstrap.register(HumidityTolerance.HIGH_TOLERANCE, humidityTolerance(4, "high"));
+      bootstrap.register(HumidityTolerance.MAXIMUM_TOLERANCE, humidityTolerance(5, "maximum"));
     });
+
     builder.add(ApicuriousRegistries.LIFESPANS, bootstrap -> {
-      register(bootstrap,
-              Lifespan.SHORTEST,
-              Lifespan.SHORTER,
-              Lifespan.SHORT,
-              Lifespan.SHORTENED,
-              Lifespan.AVERAGE,
-              Lifespan.ELONGATED,
-              Lifespan.LONG,
-              Lifespan.LONGER,
-              Lifespan.LONGEST
-      );
+      bootstrap.register(Lifespan.SHOREST, lifespan(10, "shortest"));
+      bootstrap.register(Lifespan.SHORTER, lifespan(20, "shortest"));
+      bootstrap.register(Lifespan.SHORT, lifespan(30, "shortest"));
+      bootstrap.register(Lifespan.SHORTENED, lifespan(35, "shortest"));
+      bootstrap.register(Lifespan.AVERAGE, lifespan(40, "shortest"));
+      bootstrap.register(Lifespan.ELONGATED, lifespan(45, "shortest"));
+      bootstrap.register(Lifespan.LONG, lifespan(50, "shortest"));
+      bootstrap.register(Lifespan.LONGER, lifespan(60, "shortest"));
+      bootstrap.register(Lifespan.LONGEST, lifespan(70, "shortest"));
     });
+
     builder.add(ApicuriousRegistries.POLLINATIONS, bootstrap -> {
-      register(bootstrap,
-              Pollination.SLOW,
-              Pollination.SLOWER,
-              Pollination.SLOWEST,
-              Pollination.AVERAGE,
-              Pollination.FAST,
-              Pollination.FASTER,
-              Pollination.FASTEST
-      );
+      bootstrap.register(Pollination.SLOWEST, pollination(0.05f, "slowest"));
+      bootstrap.register(Pollination.SLOWER, pollination(0.1f, "slower"));
+      bootstrap.register(Pollination.SLOW, pollination(0.15f, "slow"));
+      bootstrap.register(Pollination.AVERAGE, pollination(0.2f, "average"));
+      bootstrap.register(Pollination.FAST, pollination(0.25f, "fast"));
+      bootstrap.register(Pollination.FASTER, pollination(0.3f, "faster"));
+      bootstrap.register(Pollination.FASTEST, pollination(0.35f, "fastest"));
     });
+
     builder.add(ApicuriousRegistries.SPEEDS, bootstrap -> {
-      register(bootstrap,
-              Speed.SLOW,
-              Speed.SLOWER,
-              Speed.SLOWEST,
-              Speed.NORMAL,
-              Speed.FAST,
-              Speed.FASTER,
-              Speed.FASTEST
-      );
+      bootstrap.register(Speed.SLOWEST, speed(-0.7f, "slowest"));
+      bootstrap.register(Speed.SLOWER, speed(-0.4f, "slower"));
+      bootstrap.register(Speed.SLOW, speed(-0.2f, "slow"));
+      bootstrap.register(Speed.AVERAGE, speed(0.0f, "average"));
+      bootstrap.register(Speed.FAST, speed(0.2f, "fast"));
+      bootstrap.register(Speed.FASTER, speed(0.4f, "faster"));
+      bootstrap.register(Speed.FASTEST, speed(0.7f, "fastest"));
     });
+
+    // TODO: Add proper group tags.
     builder.add(ApicuriousRegistries.TEMPERATURE_PREFERENCES, bootstrap -> {
-      register(bootstrap,
-              TemperaturePreference.WARM,
-              TemperaturePreference.HOT,
-              TemperaturePreference.HELLISH,
-              TemperaturePreference.NORMAL,
-              TemperaturePreference.CHILLY,
-              TemperaturePreference.COLD,
-              TemperaturePreference.FREEZING
-      );
+      bootstrap.register(TemperaturePreference.INFERNAL, temperaturePreference(7, BiomeTags.HAS_IGLOO, "infernal"));
+      bootstrap.register(TemperaturePreference.HOT, temperaturePreference(6, BiomeTags.HAS_IGLOO, "hot"));
+      bootstrap.register(TemperaturePreference.WARM, temperaturePreference(5, BiomeTags.HAS_IGLOO, "warm"));
+      bootstrap.register(TemperaturePreference.AVERAGE, temperaturePreference(4, BiomeTags.HAS_IGLOO, "average"));
+      bootstrap.register(TemperaturePreference.CHILLY, temperaturePreference(3, BiomeTags.HAS_IGLOO, "chilly"));
+      bootstrap.register(TemperaturePreference.COLD, temperaturePreference(2, BiomeTags.HAS_IGLOO, "cold"));
+      bootstrap.register(TemperaturePreference.FREEZING, temperaturePreference(1, BiomeTags.HAS_IGLOO, "freezing"));
     });
+
     builder.add(ApicuriousRegistries.TEMPERATURE_TOLERANCES, bootstrap -> {
-      register(bootstrap,
-              TemperatureTolerance.NO_TOLERANCE,
-              TemperatureTolerance.LOW_TOLERANCE,
-              TemperatureTolerance.LOWEST_TOLERANCE,
-              TemperatureTolerance.AVERAGE_TOLERANCE,
-              TemperatureTolerance.HIGH_TOLERANCE,
-              TemperatureTolerance.MAX_TOLERANCE
-      );
+      bootstrap.register(TemperatureTolerance.NO_TOLERANCE, temperatureTolerance(0, "none"));
+      bootstrap.register(TemperatureTolerance.LOWEST_TOLERANCE, temperatureTolerance(1, "lowest"));
+      bootstrap.register(TemperatureTolerance.LOW_TOLERANCE, temperatureTolerance(2, "low"));
+      bootstrap.register(TemperatureTolerance.AVERAGE_TOLERANCE, temperatureTolerance(3, "average"));
+      bootstrap.register(TemperatureTolerance.HIGH_TOLERANCE, temperatureTolerance(4, "high"));
+      bootstrap.register(TemperatureTolerance.MAXIMUM_TOLERANCE, temperatureTolerance(5, "maximum"));
     });
+
     builder.add(ApicuriousRegistries.WORKCYCLES, bootstrap -> {
-      register(bootstrap,
-              WorkCycle.MATUTINAL,
-              WorkCycle.DIURNAL,
-              WorkCycle.VESPERTINAL,
-              WorkCycle.NOCTURNAL,
-              WorkCycle.ALWAYS
-      );
-    });*/
+      bootstrap.register(WorkCycle.MATUTINAL, workcycle(List.of(new WorkCycle.Interval(4000, 10000)), "matutinal"));
+      bootstrap.register(WorkCycle.DIURNAL, workcycle(List.of(new WorkCycle.Interval(6000, 18000)), "diurnal"));
+      bootstrap.register(WorkCycle.VESPERTINAL, workcycle(List.of(new WorkCycle.Interval(14000, 20000)), "vespertinal"));
+      bootstrap.register(WorkCycle.NOCTURNAL, workcycle(List.of(new WorkCycle.Interval(18000, 24000), new WorkCycle.Interval(0, 6000)), "nocturnal"));
+      bootstrap.register(WorkCycle.ALWAYS, workcycle(List.of(new WorkCycle.Interval(0, 24000)), "always"));
+    });
+
     builder.add(ApicuriousRegistries.BEE_SPECIES, bootstrap -> {
-      bootstrap.register(ApicuriousSpecies.EMPTY, getSpeciesBuilder("undefined").build());
-      bootstrap.register(ApicuriousSpecies.FOREST, speciesWithColor("forest", ApicuriousConstants.FOREST));
-      bootstrap.register(ApicuriousSpecies.MEADOW, speciesWithColor("meadow", ApicuriousConstants.MEADOW));
-      bootstrap.register(ApicuriousSpecies.MODEST, speciesWithColor("modest", ApicuriousConstants.MODEST));
-      bootstrap.register(ApicuriousSpecies.TROPICAL, speciesWithColor("tropical", ApicuriousConstants.TROPICAL));
-      bootstrap.register(ApicuriousSpecies.WINTRY, speciesWithColor("wintry", ApicuriousConstants.WINTRY));
-      bootstrap.register(ApicuriousSpecies.MARSHY, speciesWithColor("marshy", ApicuriousConstants.MARSHY));
-      bootstrap.register(ApicuriousSpecies.ROCKY, speciesWithColor("rocky", ApicuriousConstants.ROCKY));
-      bootstrap.register(ApicuriousSpecies.NETHER, speciesWithColor("nether", ApicuriousConstants.NETHER));
-      bootstrap.register(ApicuriousSpecies.ENDER, speciesWithColor("ender", ApicuriousConstants.ENDER));
-      bootstrap.register(ApicuriousSpecies.DEBUG, getSpeciesBuilder("debug")
+      bootstrap.register(ApicuriousSpecies.EMPTY, getSpeciesBuilder(bootstrap, "undefined").build());
+      bootstrap.register(ApicuriousSpecies.FOREST, speciesWithColor(bootstrap, "forest", ApicuriousConstants.FOREST));
+      bootstrap.register(ApicuriousSpecies.MEADOW, speciesWithColor(bootstrap, "meadow", ApicuriousConstants.MEADOW));
+      bootstrap.register(ApicuriousSpecies.MODEST, speciesWithColor(bootstrap, "modest", ApicuriousConstants.MODEST));
+      bootstrap.register(ApicuriousSpecies.TROPICAL, speciesWithColor(bootstrap, "tropical", ApicuriousConstants.TROPICAL));
+      bootstrap.register(ApicuriousSpecies.WINTRY, speciesWithColor(bootstrap, "wintry", ApicuriousConstants.WINTRY));
+      bootstrap.register(ApicuriousSpecies.MARSHY, speciesWithColor(bootstrap, "marshy", ApicuriousConstants.MARSHY));
+      bootstrap.register(ApicuriousSpecies.ROCKY, speciesWithColor(bootstrap, "rocky", ApicuriousConstants.ROCKY));
+      bootstrap.register(ApicuriousSpecies.NETHER, speciesWithColor(bootstrap, "nether", ApicuriousConstants.NETHER));
+      bootstrap.register(ApicuriousSpecies.ENDER, speciesWithColor(bootstrap, "ender", ApicuriousConstants.ENDER));
+      bootstrap.register(ApicuriousSpecies.DEBUG, getSpeciesBuilder(bootstrap, "debug")
               .withVisualData(visual -> {
                 visual.hasEffect().hasCustomRender().build();
               }).build()
@@ -143,14 +151,65 @@ public class ApicuriousDatapackRegistriesDefaults {
   }
 
   // TODO: Build out more robust creation methods
-  private static BeeSpecies speciesWithColor(String name, BeeColor color) {
-    return BeeSpecies.Builder.create(name).withVisualData(visual -> visual.withBeeColor(color).build()).build();
+  // Bee Species
+  private static BeeSpecies speciesWithColor(BootstrapContext<BeeSpecies> context, String name, BeeColor color) {
+    return BeeSpecies.Builder.create(context, name).withVisualData(visual -> visual.withBeeColor(color).build()).build();
   }
 
-  private static BeeSpecies.Builder getSpeciesBuilder(String name) {
-    return BeeSpecies.Builder.create(name);
+  private static BeeSpecies.Builder getSpeciesBuilder(BootstrapContext<BeeSpecies> context, String name) {
+    return BeeSpecies.Builder.create(context, name);
   }
 
+  // Area
+  private static Area area(int xzOffset, int yOffset, String name) {
+    return new Area(xzOffset, yOffset, "apicurious.area." + name);
+  }
 
+  // Fertility
+  private static Fertility fertility(int offspring, String name) {
+    return new Fertility(offspring, "apicurious.fertility." + name);
+  }
+
+  // Flowers
+  private static Flowers flowers(TagKey<Block> flowers, String name) {
+    return new Flowers(flowers, "apicurious.flowers." + name);
+  }
+
+  // Humidity Preference / Tolerance
+  private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, String name) {
+    return new HumidityPreference(humidity, groupTag, "apicurious.preference.humidity." + name);
+  }
+  private static HumidityTolerance humidityTolerance(int toleranceModifier, String name) {
+    return new HumidityTolerance(toleranceModifier, "apicurious.tolerance.humidity." + name);
+  }
+
+  // Lifespan
+  private static Lifespan lifespan(int cycles, String name) {
+    return new Lifespan(cycles, "apicurious.lifespan." + name);
+  }
+
+  // Pollination
+  private static Pollination pollination(float pollinationChance, String name) {
+    return new Pollination(pollinationChance, "apicurious.pollination." + name);
+  }
+
+  // Speed
+  private static Speed speed(float productionModifier, String name) {
+    return new Speed(productionModifier, "apicurious.speed." + name);
+  }
+
+  // Temperature Preference / Tolerance
+  private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag, String name) {
+    return new TemperaturePreference(temperature, groupTag, "apicurious.preference.temperature." + name);
+  }
+
+  private static TemperatureTolerance temperatureTolerance(int toleranceModifier, String name) {
+    return new TemperatureTolerance(toleranceModifier, "apicurious.tolerance.temperature." + name);
+  }
+
+  // WorkCycle
+  private static WorkCycle workcycle(List<WorkCycle.Interval> activeTimes, String name) {
+    return new WorkCycle(activeTimes, "apicurious.workcycle." + name);
+  }
 
 }

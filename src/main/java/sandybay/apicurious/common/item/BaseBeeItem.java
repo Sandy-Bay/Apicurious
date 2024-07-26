@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -18,7 +19,9 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.VisualData;
+import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
+import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
+import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
 import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 
 import java.util.function.Consumer;
@@ -32,11 +35,19 @@ import java.util.function.Consumer;
 public class BaseBeeItem extends Item implements IBeeItem
 {
 
-  private static final BeeSpecies EMPTY_SPECIES = new BeeSpecies("apicurious.species.undefined", VisualData.Builder.create().build());
+  // TODO: Figure out how to do this without the bootstrap context...
+  private static final BeeSpecies EMPTY_SPECIES = new BeeSpecies(
+          "apicurious.species.undefined",
+          VisualData.Builder.create().build(),
+          ProductionData.Builder.create().build(),
+          EnvironmentalData.Builder.create().build()
+  );
+
   public final EnumBeeType beeType;
 
   public BaseBeeItem(Properties properties, EnumBeeType beeType) {
-    super(properties.component(ApicuriousDataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
+    // TODO: Fix this component stuff >->
+    super(properties);//.component(ApicuriousDataComponentRegistration.BEE_SPECIES, null));
     this.beeType = beeType;
   }
 
@@ -63,6 +74,8 @@ public class BaseBeeItem extends Item implements IBeeItem
     }
     return bee;
   }
+
+
 
   public EnumBeeType getBeeType()
   {

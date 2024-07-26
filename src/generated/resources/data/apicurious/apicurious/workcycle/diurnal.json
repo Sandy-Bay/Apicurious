@@ -1,0 +1,9 @@
+{
+  "activeTimes": [
+    {
+      "maxTime": 18000,
+      "minTime": 6000
+    }
+  ],
+  "name": "apicurious.workcycle.diurnal"
+}

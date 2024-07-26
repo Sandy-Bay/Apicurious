@@ -6,6 +6,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.IBeeColor;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.api.util.Coloring;
 
 import javax.annotation.Nullable;
@@ -33,7 +35,7 @@ public class BeeColor implements IBeeColor {
   public BeeColor(String outlineTint, @Nullable String wingTint, @Nullable String bodyTint) {
     this.outlineTint = outlineTint;
     this.wingTint = wingTint == null || wingTint.isEmpty() ? outlineTint : wingTint;
-    this.bodyTint = bodyTint == null || bodyTint.isEmpty() ? "e9ce17" : bodyTint;
+    this.bodyTint = bodyTint == null || bodyTint.isEmpty() ? ApicuriousConstants.DEFAULT_BODY : bodyTint;
   }
 
   private String getOutlineTintInternal() {
