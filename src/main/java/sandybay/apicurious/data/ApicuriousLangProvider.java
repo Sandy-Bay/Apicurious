@@ -17,8 +17,8 @@ public class ApicuriousLangProvider extends LanguageProvider
     protected void addTranslations()
     {
         add(ApicuriousItemRegistration.DRONE.get(), "Drone");
-        add(ApicuriousItemRegistration.PRINCESS.get(), "Drone");
-        add(ApicuriousItemRegistration.QUEEN.get(), "Drone");
+        add(ApicuriousItemRegistration.PRINCESS.get(), "Princess");
+        add(ApicuriousItemRegistration.QUEEN.get(), "Queen");
         add(ApicuriousItemRegistration.SIEVE.get(), "Sieve");
 
         add(ApicuriousBlockRegistration.APIARY.asItem(), "Apiary");
