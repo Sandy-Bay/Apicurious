@@ -1,4 +1,4 @@
-// 1.21	2024-07-26T15:00:57.8935379	Registries
+// 1.21	2024-07-26T20:09:08.4257831	Registries
 36640e7253791a5bdb6cd3dd778974fd7d966f89 data/apicurious/apicurious/area/average.json
 f5365332d584366106ecf15e99aaa805c1bd5d93 data/apicurious/apicurious/area/large.json
 3cc8bff1c4998b5f74e8e9f689990846eefca86f data/apicurious/apicurious/area/larger.json
@@ -6,17 +6,17 @@ f5365332d584366106ecf15e99aaa805c1bd5d93 data/apicurious/apicurious/area/large.j
 3f52ed76ba7a30fcfc42a34e1ee1604bb27ead64 data/apicurious/apicurious/area/small.json
 eff11159c79a87600012089e536a155d76d25b91 data/apicurious/apicurious/area/smaller.json
 60b45e0bf56d9bbdfc6082a27cbb48d8ab467c11 data/apicurious/apicurious/area/smallest.json
-73f8521ddb64caecad288aa656b9af5fa91459d4 data/apicurious/apicurious/bee_species/debug.json
-c6a56008dd0fe46609adf7ba8e1f68ad79a4dedf data/apicurious/apicurious/bee_species/ender.json
-926b2814ad4cc83a0184227dbd5d07fb354b4434 data/apicurious/apicurious/bee_species/forest.json
-b84092a46d7aa300f3d8d88ba249fac128a8f161 data/apicurious/apicurious/bee_species/marshy.json
-0e13b13eeb9a8b714a13ca9bd3010f4b10b28c66 data/apicurious/apicurious/bee_species/meadow.json
-0b66a86ccd5bc28530789a3afabcb7ff1184010f data/apicurious/apicurious/bee_species/modest.json
-9debce373212981259ebeb6b8f7831b0f72e267c data/apicurious/apicurious/bee_species/nether.json
-93707d9cc4e3c8ca0dbaaf9676a18d0a4b0971f7 data/apicurious/apicurious/bee_species/rocky.json
-593182313cfd30630f76f71fd44b3495498bbe72 data/apicurious/apicurious/bee_species/tropical.json
-91b75bea45dd66749a1c8554ed2f98b6395a262e data/apicurious/apicurious/bee_species/undefined.json
-0de65208e00c58bf02e821537965b6e1bfc54aa3 data/apicurious/apicurious/bee_species/wintry.json
+03afd1acdaec911ec15eb81ae0cd9933830691d6 data/apicurious/apicurious/bee_species/debug.json
+c3a9a593111313f7ec8f40be353c5ffd4b3f1e1a data/apicurious/apicurious/bee_species/ender.json
+21152a6941c7c459200f15dfb676b9d553e7a4b4 data/apicurious/apicurious/bee_species/forest.json
+5dc4057466007e619b714bca7c480d627a55831a data/apicurious/apicurious/bee_species/marshy.json
+54058151529c5c13d2440d806873b8aea2572500 data/apicurious/apicurious/bee_species/meadow.json
+91bcd0d8b5ddc5d0a64a0ab2f478963daa6f240b data/apicurious/apicurious/bee_species/modest.json
+2b5ff92cb9d2a7f0cb2e3ec179e144d33043afe4 data/apicurious/apicurious/bee_species/nether.json
+6c475f5e8e6f234bda06289acb88d1e36e95d886 data/apicurious/apicurious/bee_species/rocky.json
+f84457be49c140ba32c0bdfe989b23420381031e data/apicurious/apicurious/bee_species/tropical.json
+27a36daf5e7e16a4280044cac2ebf35513e09faf data/apicurious/apicurious/bee_species/undefined.json
+155f57c1764ae582f45eb6e16805610f39aa3132 data/apicurious/apicurious/bee_species/wintry.json
 c9ef2130245c4ccb8c320ed3bc67629bf694c756 data/apicurious/apicurious/fertility/average.json
 27fbb04942acbb363e2b8c8eedbbc450af7f5550 data/apicurious/apicurious/fertility/high.json
 1b402d0decb308aed2a57d77aa87d978943b1d71 data/apicurious/apicurious/fertility/low.json

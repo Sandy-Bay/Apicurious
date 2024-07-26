@@ -1,0 +1,31 @@
+{
+  "environmentalData": {
+    "flowers": "apicurious:normal_flowers",
+    "humidityData": {
+      "preference": "apicurious:normal",
+      "tolerance": "apicurious:none"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preference": "apicurious:average",
+      "tolerance": "apicurious:none"
+    }
+  },
+  "name": "apicurious.species.rocky",
+  "productionData": {
+    "area": "apicurious:average",
+    "lifespan": "apicurious:average",
+    "pollination": "apicurious:average",
+    "speed": "apicurious:average",
+    "workCycle": "apicurious:diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "999999",
+      "outlineTint": "a8a8a8",
+      "wingTint": "999999"
+    },
+    "hasCustomRender": false
+  }
+}

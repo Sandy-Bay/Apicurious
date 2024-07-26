@@ -105,7 +105,7 @@ public class BeeSpecies implements IBeeSpecies {
   public static class Builder {
     private final BootstrapContext<BeeSpecies> context;
     private String name;
-    private VisualData visualData = VisualData.Builder.create().build();
+    private VisualData visualData;
     private ProductionData productionData;
     private EnvironmentalData environmentalData;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
@@ -113,6 +113,9 @@ public class BeeSpecies implements IBeeSpecies {
     private Builder(BootstrapContext<BeeSpecies> context, String name) {
       this.context = context;
       this.name = name;
+      this.visualData = VisualData.Builder.create().build();
+      this.productionData = ProductionData.Builder.create(context).build();
+      this.environmentalData = EnvironmentalData.Builder.create(context).build();
     }
 
     public static Builder create(BootstrapContext<BeeSpecies> context, String name) {

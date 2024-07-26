@@ -36,12 +36,12 @@ public class BaseBeeItem extends Item implements IBeeItem
 {
 
   // TODO: Figure out how to do this without the bootstrap context...
-  private static final BeeSpecies EMPTY_SPECIES = new BeeSpecies(
-          "apicurious.species.undefined",
-          VisualData.Builder.create().build(),
-          ProductionData.Builder.create().build(),
-          EnvironmentalData.Builder.create().build()
-  );
+//  private static final BeeSpecies EMPTY_SPECIES = new BeeSpecies(
+//          "apicurious.species.undefined",
+//          VisualData.Builder.create().build(),
+//          ProductionData.Builder.create().build(),
+//          EnvironmentalData.Builder.create().build()
+//  );
 
   public final EnumBeeType beeType;
 
