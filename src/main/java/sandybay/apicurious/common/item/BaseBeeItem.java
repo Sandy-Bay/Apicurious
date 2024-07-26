@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.item;
+package sandybay.apicurious.common.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -12,6 +12,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jetbrains.annotations.NotNull;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -26,18 +29,22 @@ import java.util.function.Consumer;
  * Mutation, which is the deviation
  * Mate, which is after a bee has "mated" and contains both their specific and mutation info
  */
-public abstract class BaseBeeItem extends Item {
+public class BaseBeeItem extends Item implements IBeeItem
+{
 
   private static final BeeSpecies EMPTY_SPECIES = new BeeSpecies("apicurious.species.undefined", VisualData.Builder.create().build());
+  public final EnumBeeType beeType;
 
-  public BaseBeeItem(Properties properties) {
+  public BaseBeeItem(Properties properties, EnumBeeType beeType) {
     super(properties.component(ApicuriousDataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
+    this.beeType = beeType;
   }
 
   public static BeeSpecies getSpecies(ItemStack stack) {
     return stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
   }
 
+  //This should be in the API so other mods can access it if needed
   public static <T extends BaseBeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<BeeSpecies> speciesKey, DeferredHolder<Item, T> item) {
     ItemStack bee = new ItemStack(item.get());
     if (level instanceof ServerLevel serverLevel) {
@@ -57,13 +64,16 @@ public abstract class BaseBeeItem extends Item {
     return bee;
   }
 
-  public abstract String getType();
+  public EnumBeeType getBeeType()
+  {
+    return beeType;
+  }
 
   @Override
-  public Component getName(ItemStack stack) {
+  public @NotNull Component getName(ItemStack stack) {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return Component.literal("ERROR");
-    return species.getReadableName().copy().append(" ").append(Component.translatable("apicurious.item.bee." + getType()));
+    return species.getReadableName().copy().append(" ").append(Component.translatable("apicurious.item.bee." + getBeeType().toString().toLowerCase()));
   }
 
   @Override
@@ -77,7 +87,7 @@ public abstract class BaseBeeItem extends Item {
   public void initializeClient(Consumer<IClientItemExtensions> consumer) {
     consumer.accept(new IClientItemExtensions() {
       @Override
-      public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+      public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }
     });

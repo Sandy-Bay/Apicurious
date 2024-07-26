@@ -11,6 +11,7 @@ public class ApicuriousDataComponentRegistration {
 
   public static final DeferredRegister.DataComponents REGISTRAR = DeferredRegister.createDataComponents(Apicurious.MODID);
 
+  //This can go in the API so other mods can access it if needed
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<BeeSpecies>> BEE_SPECIES = REGISTRAR.registerComponentType(
           "bee_species",
           builder -> builder
