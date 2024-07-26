@@ -5,13 +5,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.common.block.housing.ApiaryBlock;
-import sandybay.apicurious.common.item.bee.DroneBeeItem;
-import sandybay.apicurious.common.item.bee.PrincessBeeItem;
-import sandybay.apicurious.common.item.bee.QueenBeeItem;
 
+//This does not need to be in the api
 public class SimpleBlockHousingBE extends BaseHousingBE {
 
   // Server-sided Data
@@ -21,11 +20,11 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
     super(type, pos, state);
     this.inventory = new ConfigurableItemStackHandler(12)
             .setInputFilter((stack, slot) -> {
-              if (slot == 0 && (stack.getItem() instanceof PrincessBeeItem || stack.getItem() instanceof QueenBeeItem)) return true;
-              if (slot == 1 && stack.getItem() instanceof DroneBeeItem) return true;
+              if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE)) return true;
+              if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE) return true;
               return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
             })
-            .setOutputFilter((stack, slot) -> !(slot == 0 && stack.getItem() instanceof QueenBeeItem))
+            .setOutputFilter((stack, slot) -> !(slot == 0 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN))
             .setSlotLimit(0, 1)
             .setSlotLimit(2, 1)
             .setSlotLimit(3, 1)

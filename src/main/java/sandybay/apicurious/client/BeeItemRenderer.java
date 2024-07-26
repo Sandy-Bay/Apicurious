@@ -1,7 +1,6 @@
 package sandybay.apicurious.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.MatrixUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -13,12 +12,12 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.item.BaseBeeItem;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.item.bee.DroneBeeItem;
-import sandybay.apicurious.common.item.bee.PrincessBeeItem;
-import sandybay.apicurious.common.item.bee.QueenBeeItem;
 
 import java.util.Locale;
 
@@ -29,24 +28,25 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer {
   }
 
   @Override
-  public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
-    if (stack.getItem() instanceof BaseBeeItem) {
+  public void renderByItem(ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay) {
+    if (stack.getItem() instanceof IBeeItem beeItem) {
       ModelResourceLocation fallback = null;
       ModelResourceLocation mrl = null;
       BakedModel model;
       BeeSpecies species = BaseBeeItem.getSpecies(stack);
       ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
       ModelManager manager = renderer.getItemModelShaper().getModelManager();
-      switch (stack.getItem()) {
-        case DroneBeeItem drone -> {
+
+      switch (beeItem.getBeeType()) {
+        case EnumBeeType.DRONE -> {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_drone"));
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_drone"));
         }
-        case PrincessBeeItem princess -> {
+        case EnumBeeType.PRINCESS -> {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_princess"));
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_princess"));
         }
-        case QueenBeeItem queen -> {
+        case EnumBeeType.QUEEN -> {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_queen"));
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_queen"));
         }

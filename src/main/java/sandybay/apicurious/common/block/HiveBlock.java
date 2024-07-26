@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
@@ -33,7 +34,7 @@ public class HiveBlock extends Block {
   }
 
   @Override
-  protected MapCodec<? extends Block> codec() {
+  protected @NotNull MapCodec<? extends Block> codec() {
     return CODEC;
   }
 

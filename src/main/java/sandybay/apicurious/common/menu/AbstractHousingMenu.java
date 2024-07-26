@@ -6,12 +6,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.common.block.housing.ApiaryBlock;
-import sandybay.apicurious.common.item.bee.DroneBeeItem;
-import sandybay.apicurious.common.item.bee.PrincessBeeItem;
-import sandybay.apicurious.common.item.bee.QueenBeeItem;
 
 public abstract class AbstractHousingMenu extends AbstractContainerMenu {
 
@@ -76,7 +75,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   }
 
   @Override
-  public ItemStack quickMoveStack(Player player, int index) {
+  public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
     ItemStack quickMovedStack = ItemStack.EMPTY;
     Slot quickMovedSlot = this.slots.get(index);
     ItemStack primaryBeeItem = this.slots.get(0).getItem();
@@ -90,7 +89,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
       if (index == 0) {
         // Fail to quick move if the Item in the slot is a Queen.
         // Since this indicates the housing is active.
-        if (quickMovedStack.getItem() instanceof QueenBeeItem) return ItemStack.EMPTY;
+        if (quickMovedStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN) return ItemStack.EMPTY;
         // Else return the result of 'moveToPlayerInventory'
         return moveToPlayerInventory(rawStack);
 
@@ -114,14 +113,14 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
       // If it's any of the Inventory or Hotbar slots.
       } else if (index >= 12 && index <= 47) {
         // If the housing is Inactive & the moved stack is a Princess.
-        if (!isHousingActive(primaryBeeItem) && rawStack.getItem() instanceof PrincessBeeItem) {
+        if (!isHousingActive(primaryBeeItem) && rawStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.PRINCESS) {
           // Then try to insert to the primary Bee slot.
           if (!moveItemStackTo(rawStack, 0,0, true)) {
             return ItemStack.EMPTY;
           }
 
         // If the moved stack is a Drone.
-        } else if (rawStack.getItem() instanceof DroneBeeItem) {
+        } else if (rawStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE) {
           // Then try to insert to the secondary Bee slot.
           if (!moveItemStackTo(rawStack, 1,1, true)) {
             return ItemStack.EMPTY;
@@ -162,7 +161,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   }
 
   public boolean isHousingActive(ItemStack stack) {
-    return stack.getItem() instanceof QueenBeeItem;
+    return stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN;
   }
 
   public ContainerLevelAccess getAccess() {

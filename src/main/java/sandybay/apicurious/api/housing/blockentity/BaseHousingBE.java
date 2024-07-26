@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.ITickingApiary;
 
+//This does not really need to be in the API, we can just fire events for the users
 public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary {
 
   public BaseHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {

@@ -1,7 +1,7 @@
 package sandybay.apicurious.api.util;
 
 public class Coloring {
-  private int color;
+  private final int color;
 
   private Coloring(int color) {
     this.color = color;
