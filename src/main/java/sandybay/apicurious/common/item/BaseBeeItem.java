@@ -73,7 +73,7 @@ public class BaseBeeItem extends Item implements IBeeItem
   public @NotNull Component getName(ItemStack stack) {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return Component.literal("ERROR");
-    return species.getReadableName().copy().append(" ").append(Component.translatable("apicurious.item.bee." + getBeeType().toString().toLowerCase()));
+    return species.getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
   }
 
   @Override
