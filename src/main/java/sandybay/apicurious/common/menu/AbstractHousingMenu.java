@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
@@ -74,7 +75,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   }
 
   @Override
-  public ItemStack quickMoveStack(Player player, int index) {
+  public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
     ItemStack quickMovedStack = ItemStack.EMPTY;
     Slot quickMovedSlot = this.slots.get(index);
     ItemStack primaryBeeItem = this.slots.get(0).getItem();

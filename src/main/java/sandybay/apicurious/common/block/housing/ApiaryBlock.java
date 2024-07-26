@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
@@ -27,14 +28,14 @@ public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+  public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
     return new ApiaryHousingBE(pos, state);
   }
 
   @Override
-  protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+  protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult) {
     if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-      if (level.getBlockEntity(pos) instanceof ApiaryHousingBE apiary) {
+      if (level.getBlockEntity(pos) instanceof ApiaryHousingBE) {
         serverPlayer.openMenu(state.getMenuProvider(level, pos));
       }
     }
@@ -42,13 +43,13 @@ public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
   }
 
   //@Override
-  public Component getDisplayName() {
+  public @NotNull Component getDisplayName() {
     return Component.translatable("apicurious.menu.apiary");
   }
 
   @Nullable
   @Override
-  protected MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
+  protected MenuProvider getMenuProvider(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
     if (level.getBlockEntity(pos) instanceof ApiaryHousingBE apiary) {
       return new SimpleMenuProvider(
               (id, inventory, player) -> new ApiaryMenu(
@@ -63,7 +64,7 @@ public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
 
   @Nullable
   @Override
-  public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+  public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pPlayerInventory, @NotNull Player pPlayer) {
     return new SimpleMenuProvider(ApiaryMenu::new, getDisplayName()).createMenu(pContainerId, pPlayerInventory, pPlayer);
   }
 }
