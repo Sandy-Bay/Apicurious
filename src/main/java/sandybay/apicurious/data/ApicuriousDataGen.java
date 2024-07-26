@@ -14,7 +14,7 @@ import java.util.Set;
 public class ApicuriousDataGen
 {
     @SubscribeEvent
-    private void generateData(final GatherDataEvent event)
+    private static void generateData(final GatherDataEvent event)
     {
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
@@ -25,5 +25,7 @@ public class ApicuriousDataGen
                         ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(), Set.of(Apicurious.MODID)));
 
         generator.addProvider(event.includeServer(), new ApicuriousLootTables(output, event.getLookupProvider()));
+
+        generator.addProvider(event.includeClient(), new ApicuriousLangProvider(output));
     }
 }
