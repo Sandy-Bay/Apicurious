@@ -1,8 +1,6 @@
 package sandybay.apicurious.api.housing.handlers.item;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -13,10 +11,10 @@ import java.util.function.BiPredicate;
 
 public class ConfigurableItemStackHandler extends ItemStackHandler {
 
+  private final Map<Integer, Integer> slotAmountFilter;
   private BiPredicate<ItemStack, Integer> insertPredicate;
   private BiPredicate<ItemStack, Integer> extractPredicate;
   private BiConsumer<ItemStack, Integer> onSlotChanged;
-  private final Map<Integer, Integer> slotAmountFilter;
   private int slotLimit;
 
   private boolean hasChanged;

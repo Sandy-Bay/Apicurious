@@ -17,13 +17,13 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
  */
 public class Speed implements ITrait<Speed> {
 
-    public static final ResourceKey<Speed> SLOWEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slowest"));
-    public static final ResourceKey<Speed> SLOWER = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slower"));
-    public static final ResourceKey<Speed> SLOW = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slow"));
-    public static final ResourceKey<Speed> AVERAGE = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("average"));
-    public static final ResourceKey<Speed> FAST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("fast"));
-    public static final ResourceKey<Speed> FASTER = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("faster"));
-    public static final ResourceKey<Speed> FASTEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("fastest"));
+  public static final ResourceKey<Speed> SLOWEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slowest"));
+  public static final ResourceKey<Speed> SLOWER = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slower"));
+  public static final ResourceKey<Speed> SLOW = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slow"));
+  public static final ResourceKey<Speed> AVERAGE = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("average"));
+  public static final ResourceKey<Speed> FAST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("fast"));
+  public static final ResourceKey<Speed> FASTER = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("faster"));
+  public static final ResourceKey<Speed> FASTEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("fastest"));
 
 
   public static final Codec<Speed> CODEC = RecordCodecBuilder.create(

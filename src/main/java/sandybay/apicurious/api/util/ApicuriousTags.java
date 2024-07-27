@@ -11,6 +11,10 @@ import sandybay.apicurious.Apicurious;
 
 public class ApicuriousTags {
 
+  private static <T> TagKey<T> bind(ResourceKey<Registry<T>> registry, String path) {
+    return TagKey.create(registry, Apicurious.createResourceLocation(path));
+  }
+
   public static class BlockTags {
     public static final TagKey<Block> HIVE = create("hive");
 
@@ -22,6 +26,22 @@ public class ApicuriousTags {
   public static class BiomeTags {
 
     public static final TagKey<Biome> IS_MEADOW = create("is_meadow");
+
+    // HumidityPreference
+    public static final TagKey<Biome> HELLISH_HUMIDITY = create("humidity/hellish");
+    public static final TagKey<Biome> ARID_HUMIDITY = create("humidity/arid");
+    public static final TagKey<Biome> AVERAGE_HUMIDITY = create("humidity/average");
+    public static final TagKey<Biome> DAMP_HUMIDITY = create("humidity/damp");
+    public static final TagKey<Biome> AQUATIC_HUMIDITY = create("humidity/aquatic");
+
+    // TemperaturePreference
+    public static final TagKey<Biome> INFERNAL_TEMPERATURE = create("temperature/infernal");
+    public static final TagKey<Biome> HOT_TEMPERATURE = create("temperature/hot");
+    public static final TagKey<Biome> WARM_TEMPERATURE = create("temperature/warm");
+    public static final TagKey<Biome> AVERAGE_TEMPERATURE = create("temperature/average");
+    public static final TagKey<Biome> CHILLY_TEMPERATURE = create("temperature/chilly");
+    public static final TagKey<Biome> COLD_TEMPERATURE = create("temperature/cold");
+    public static final TagKey<Biome> FREEZING_TEMPERATURE = create("temperature/freezing");
 
     private static TagKey<Biome> create(String path) {
       return bind(Registries.BIOME, path);
@@ -35,9 +55,5 @@ public class ApicuriousTags {
     private static TagKey<Item> create(String path) {
       return bind(Registries.ITEM, path);
     }
-  }
-
-  private static <T> TagKey<T> bind(ResourceKey<Registry<T>> registry, String path) {
-    return TagKey.create(registry, Apicurious.createResourceLocation(path));
   }
 }

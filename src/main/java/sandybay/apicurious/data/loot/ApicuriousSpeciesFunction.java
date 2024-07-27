@@ -20,7 +20,7 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
   public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(
           instance -> commonFields(instance)
                   .and(ResourceKey.codec(ApicuriousRegistries.BEE_SPECIES).fieldOf("speciesKey").forGetter(func -> func.speciesKey))
-          .apply(instance, ApicuriousSpeciesFunction::new)
+                  .apply(instance, ApicuriousSpeciesFunction::new)
   );
 
   private final ResourceKey<BeeSpecies> speciesKey;
@@ -28,6 +28,10 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
   public ApicuriousSpeciesFunction(List<LootItemCondition> conditions, ResourceKey<BeeSpecies> speciesKey) {
     super(conditions);
     this.speciesKey = speciesKey;
+  }
+
+  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<BeeSpecies> speciesKey) {
+    return new Builder(speciesKey);
   }
 
   @Override
@@ -38,14 +42,10 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
   @Override
   protected ItemStack run(ItemStack stack, LootContext context) {
     context.getLevel().registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
-        BeeSpecies species = registry.get(speciesKey);
-        stack.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+      BeeSpecies species = registry.get(speciesKey);
+      stack.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
     });
     return stack;
-  }
-
-  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<BeeSpecies> speciesKey) {
-    return new Builder(speciesKey);
   }
 
   public static class Builder extends LootItemConditionalFunction.Builder<ApicuriousSpeciesFunction.Builder> {

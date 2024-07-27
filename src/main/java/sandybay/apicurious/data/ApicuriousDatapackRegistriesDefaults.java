@@ -8,12 +8,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousConstants;
-import sandybay.apicurious.common.bee.species.trait.*;
+import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.species.trait.*;
 
 import java.util.List;
 
@@ -179,6 +179,7 @@ public class ApicuriousDatapackRegistriesDefaults {
   private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, String name) {
     return new HumidityPreference(humidity, groupTag, "apicurious.preference.humidity." + name);
   }
+
   private static HumidityTolerance humidityTolerance(int toleranceModifier, String name) {
     return new HumidityTolerance(toleranceModifier, "apicurious.tolerance.humidity." + name);
   }

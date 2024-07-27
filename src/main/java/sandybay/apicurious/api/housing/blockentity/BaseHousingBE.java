@@ -77,5 +77,6 @@ public abstract class BaseHousingBE extends BlockEntity implements ITickingApiar
 
   // Utility Methods
   public abstract void saveData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave);
+
   public abstract void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave);
 }

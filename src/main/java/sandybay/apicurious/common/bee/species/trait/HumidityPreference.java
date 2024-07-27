@@ -8,20 +8,23 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HumidityPreference implements ITrait<HumidityPreference> {
 
-    public static final ResourceKey<HumidityPreference> HELLISH = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("hellish"));
-    public static final ResourceKey<HumidityPreference> ARID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("arid"));
-    public static final ResourceKey<HumidityPreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("normal"));
-    public static final ResourceKey<HumidityPreference> DAMP = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("damp"));
-    public static final ResourceKey<HumidityPreference> AQUATIC = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("aquatic"));
-
+  public static final ResourceKey<HumidityPreference> HELLISH = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("hellish"));
+  public static final ResourceKey<HumidityPreference> ARID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("arid"));
+  public static final ResourceKey<HumidityPreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("normal"));
+  public static final ResourceKey<HumidityPreference> DAMP = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("damp"));
+  public static final ResourceKey<HumidityPreference> AQUATIC = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("aquatic"));
 
 
   public static final Codec<HumidityPreference> CODEC = RecordCodecBuilder.create(
@@ -74,5 +77,34 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
   @Override
   public StreamCodec<ByteBuf, HumidityPreference> getStreamCodec() {
     return NETWORK_CODEC;
+  }
+
+  private TagKey<Biome> getTagByOrdinal(int ordinal) {
+    // TODO: Replace with proper tags.
+    // TODO: Figure out a more dynamic way to do this...
+    return switch (ordinal) {
+      case 0:
+        yield BiomeTags.HAS_IGLOO;
+      case 1:
+        yield BiomeTags.HAS_IGLOO;
+      case 2:
+        yield BiomeTags.HAS_IGLOO;
+      case 3:
+        yield BiomeTags.HAS_IGLOO;
+      case 4:
+        yield BiomeTags.HAS_IGLOO;
+      default:
+        yield null;
+    };
+  }
+
+  public List<TagKey<Biome>> getHumidityWithTolerance(HumidityTolerance tolerance) {
+    List<TagKey<Biome>> humidityTags = new ArrayList<>();
+    int minValue = Math.max(humidity - tolerance.getToleranceModifier(), 0);
+    int maxValue = Math.min(humidity + tolerance.getToleranceModifier(), 4);
+    for (int i = minValue; i <= maxValue; i++) {
+      humidityTags.add(getTagByOrdinal(i));
+    }
+    return humidityTags;
   }
 }

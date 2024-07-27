@@ -68,7 +68,6 @@ public class ProductionData {
     return workCycle;
   }
 
-  // TODO: Figure out how to fill these holder values with defaults...
   public static class Builder {
 
     private final BootstrapContext<BeeSpecies> context;

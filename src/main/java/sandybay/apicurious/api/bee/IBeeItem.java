@@ -1,6 +1,5 @@
 package sandybay.apicurious.api.bee;
 
-public interface IBeeItem
-{
-    EnumBeeType getBeeType();
+public interface IBeeItem {
+  EnumBeeType getBeeType();
 }

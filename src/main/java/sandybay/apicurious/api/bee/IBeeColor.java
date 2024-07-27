@@ -4,6 +4,8 @@ import sandybay.apicurious.api.util.Coloring;
 
 public interface IBeeColor {
   Coloring getOutlineTint();
+
   Coloring getWingTint();
+
   Coloring getBodyTint();
 }

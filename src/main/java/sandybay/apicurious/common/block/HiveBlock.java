@@ -1,6 +1,5 @@
 package sandybay.apicurious.common.block;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Direction;
@@ -18,13 +17,13 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 public class HiveBlock extends Block {
 
+  public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
   public static final MapCodec<HiveBlock> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   ResourceKey.codec(ApicuriousRegistries.BEE_SPECIES).fieldOf("speciesKey").forGetter(HiveBlock::getSpecies),
                   BlockBehaviour.propertiesCodec()
           ).apply(instance, HiveBlock::new)
   );
-  public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
   private final ResourceKey<BeeSpecies> species;
 
   public HiveBlock(ResourceKey<BeeSpecies> species, Properties properties) {

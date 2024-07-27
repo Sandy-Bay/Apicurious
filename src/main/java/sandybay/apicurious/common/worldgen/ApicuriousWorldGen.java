@@ -17,8 +17,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.block.HiveBlock;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 
 import java.util.Collections;
 import java.util.List;
@@ -55,16 +55,15 @@ public class ApicuriousWorldGen {
 
   public static class HiveDecorator extends TreeDecorator {
 
-    private final ServerLevel level;
-    private final TagKey<Biome> biomeTagKey;
-    private final HiveBlock hive;
-    private final float probability;
-
     private static final Direction WORLDGEN_FACING = Direction.SOUTH;
     private static final Direction[] SPAWN_DIRECTIONS = Direction.Plane.HORIZONTAL
             .stream()
             .filter(p_202307_ -> p_202307_ != WORLDGEN_FACING.getOpposite())
             .toArray(Direction[]::new);
+    private final ServerLevel level;
+    private final TagKey<Biome> biomeTagKey;
+    private final HiveBlock hive;
+    private final float probability;
 
     public HiveDecorator(ServerLevel level, TagKey<Biome> biomeTagKey, HiveBlock hive, float probability) {
       this.level = level;

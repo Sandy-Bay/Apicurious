@@ -7,13 +7,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.animal.Bee;
 import sandybay.apicurious.api.bee.IBeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
 import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
 
-import java.util.*;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 // TODO: Implement custom effect system, not just potion effects.
@@ -26,29 +25,28 @@ public class BeeSpecies implements IBeeSpecies {
                   ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
                   EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData)
                   //Codec.list(MobEffectInstance.CODEC).fieldOf("effects").forGetter(BeeSpecies::getEffects)
-                  ).apply(instance, BeeSpecies::new)
+          ).apply(instance, BeeSpecies::new)
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(
-    ByteBufCodecs.STRING_UTF8, BeeSpecies::getName,
-    VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
-    ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
-    EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
-    //ByteBufCodecs.collection(ArrayList::new, MobEffectInstance.STREAM_CODEC), BeeSpecies::getEffects,
-    BeeSpecies::new
+          ByteBufCodecs.STRING_UTF8, BeeSpecies::getName,
+          VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
+          ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
+          EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
+          //ByteBufCodecs.collection(ArrayList::new, MobEffectInstance.STREAM_CODEC), BeeSpecies::getEffects,
+          BeeSpecies::new
   );
 
   private final String name;
-  private Component readableName;
   private final VisualData visualData;
   private final ProductionData productionData;
   private final EnvironmentalData environmentalData;
+  private Component readableName;
   //private final List<MobEffectInstance> effects;
 
   public BeeSpecies(String name, VisualData visualData,
                     ProductionData productionData,
-                    EnvironmentalData environmentalData)
-  {
+                    EnvironmentalData environmentalData) {
     this.name = name;
     this.visualData = visualData;
     this.productionData = productionData;
@@ -104,7 +102,7 @@ public class BeeSpecies implements IBeeSpecies {
 
   public static class Builder {
     private final BootstrapContext<BeeSpecies> context;
-    private String name;
+    private final String name;
     private VisualData visualData;
     private ProductionData productionData;
     private EnvironmentalData environmentalData;

@@ -3,7 +3,6 @@ package sandybay.apicurious.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
@@ -17,11 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.ApicuriousSpecies;
-import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.common.item.BaseBeeItem;
 
 import java.util.Locale;
 
@@ -29,6 +25,10 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer {
 
   public BeeItemRenderer(BlockEntityRenderDispatcher blockEntityRenderDispatcher, EntityModelSet entityModelSet) {
     super(blockEntityRenderDispatcher, entityModelSet);
+  }
+
+  private static boolean isLeftHand(ItemDisplayContext type) {
+    return type == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || type == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
   }
 
   @Override
@@ -54,7 +54,8 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_queen"));
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_queen"));
         }
-        default -> {}
+        default -> {
+        }
       }
       if (fallback == null) return;
       model = manager.getModel(mrl);
@@ -75,10 +76,5 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer {
         }
       }
     }
-  }
-
-  private static boolean isLeftHand(ItemDisplayContext type)
-  {
-    return type == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || type == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
   }
 }

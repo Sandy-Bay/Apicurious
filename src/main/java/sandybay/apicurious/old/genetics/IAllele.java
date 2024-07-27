@@ -5,6 +5,8 @@ import sandybay.apicurious.api.bee.genetic.ITrait;
 
 public interface IAllele<T extends ITrait<T>> {
   T getTrait();
+
   boolean isDominant();
+
   Component getRenderableName();
 }

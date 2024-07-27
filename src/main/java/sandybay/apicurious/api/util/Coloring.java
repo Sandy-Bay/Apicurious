@@ -11,7 +11,7 @@ public class Coloring {
     if (text.length() == 6) {
       text = "FF" + text;
     }
-    return new Coloring((int)Long.parseLong(text, 16));
+    return new Coloring((int) Long.parseLong(text, 16));
   }
 
   public static Coloring fromInt(int number) {

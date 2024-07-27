@@ -72,6 +72,26 @@ public class ApicuriousTagProvider {
               Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU,
               Biomes.WINDSWEPT_HILLS, Biomes.CHERRY_GROVE
       );
+      registerHumidityPreferences();
+      registerTemperaturePreferences();
+    }
+
+    public void registerHumidityPreferences() {
+      this.tag(ApicuriousTags.BiomeTags.HELLISH_HUMIDITY);
+      this.tag(ApicuriousTags.BiomeTags.ARID_HUMIDITY);
+      this.tag(ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY);
+      this.tag(ApicuriousTags.BiomeTags.DAMP_HUMIDITY);
+      this.tag(ApicuriousTags.BiomeTags.AQUATIC_HUMIDITY);
+    }
+
+    public void registerTemperaturePreferences() {
+      this.tag(ApicuriousTags.BiomeTags.INFERNAL_TEMPERATURE);
+      this.tag(ApicuriousTags.BiomeTags.HOT_TEMPERATURE);
+      this.tag(ApicuriousTags.BiomeTags.WARM_TEMPERATURE);
+      this.tag(ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE);
+      this.tag(ApicuriousTags.BiomeTags.CHILLY_TEMPERATURE);
+      this.tag(ApicuriousTags.BiomeTags.COLD_TEMPERATURE);
+      this.tag(ApicuriousTags.BiomeTags.FREEZING_TEMPERATURE);
     }
   }
 }

@@ -13,53 +13,53 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class Fertility implements ITrait<Fertility> {
 
-    public static final ResourceKey<Fertility> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("low"));
-    public static final ResourceKey<Fertility> AVERAGE_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("average"));
-    public static final ResourceKey<Fertility> HIGH_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("high"));
-    public static final ResourceKey<Fertility> MAXIMUM_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("maximum"));
+  public static final ResourceKey<Fertility> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("low"));
+  public static final ResourceKey<Fertility> AVERAGE_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("average"));
+  public static final ResourceKey<Fertility> HIGH_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("high"));
+  public static final ResourceKey<Fertility> MAXIMUM_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("maximum"));
 
-    public static final Codec<Fertility> CODEC = RecordCodecBuilder.create(
-            instance -> instance.group(
-                    Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring),
-                    Codec.STRING.fieldOf("name").forGetter(Fertility::getName)
-            ).apply(instance, Fertility::new)
-    );
-    public static final StreamCodec<ByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT, Fertility::getOffspring,
-            ByteBufCodecs.STRING_UTF8, Fertility::getName,
-            Fertility::new
-    );
+  public static final Codec<Fertility> CODEC = RecordCodecBuilder.create(
+          instance -> instance.group(
+                  Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring),
+                  Codec.STRING.fieldOf("name").forGetter(Fertility::getName)
+          ).apply(instance, Fertility::new)
+  );
+  public static final StreamCodec<ByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.INT, Fertility::getOffspring,
+          ByteBufCodecs.STRING_UTF8, Fertility::getName,
+          Fertility::new
+  );
 
-    public final int offspring;
-    public final String name;
-    public Component readableName;
+  public final int offspring;
+  public final String name;
+  public Component readableName;
 
-    public Fertility(int offspring, String name) {
-        this.offspring = offspring;
-        this.name = name;
-    }
+  public Fertility(int offspring, String name) {
+    this.offspring = offspring;
+    this.name = name;
+  }
 
-    public int getOffspring() {
-        return offspring;
-    }
+  public int getOffspring() {
+    return offspring;
+  }
 
-    private String getName() {
-        return name;
-    }
+  private String getName() {
+    return name;
+  }
 
-    @Override
-    public Component getReadableName() {
-        if (readableName == null) readableName = Component.translatable(this.name);
-        return readableName;
-    }
+  @Override
+  public Component getReadableName() {
+    if (readableName == null) readableName = Component.translatable(this.name);
+    return readableName;
+  }
 
-    @Override
-    public Codec<Fertility> getCodec() {
-        return CODEC;
-    }
+  @Override
+  public Codec<Fertility> getCodec() {
+    return CODEC;
+  }
 
-    @Override
-    public StreamCodec<ByteBuf, Fertility> getStreamCodec() {
-        return NETWORK_CODEC;
-    }
+  @Override
+  public StreamCodec<ByteBuf, Fertility> getStreamCodec() {
+    return NETWORK_CODEC;
+  }
 }

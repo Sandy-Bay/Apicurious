@@ -3,7 +3,10 @@ package sandybay.apicurious.common.menu;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
@@ -21,13 +24,13 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   // 12, ..., 38 = Player Inventory
   // 39, ..., 47 = Hotbar
 
-  // TODO: Figure out coordinates
-  private static final Pair<Integer, Integer> baseInputCoords = Pair.of(29,39);
+  private static final Pair<Integer, Integer> baseInputCoords = Pair.of(29, 39);
   private static final int inputOffset = 26;
-  private static final Pair<Integer, Integer> baseFrameCoords = Pair.of(66,23);
+  private static final Pair<Integer, Integer> baseFrameCoords = Pair.of(66, 23);
   private static final int frameOffset = 29;
 
   private final ContainerLevelAccess access;
+
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory) {
     this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12));
   }
@@ -89,44 +92,45 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
       if (index == 0) {
         // Fail to quick move if the Item in the slot is a Queen.
         // Since this indicates the housing is active.
-        if (quickMovedStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN) return ItemStack.EMPTY;
+        if (quickMovedStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN)
+          return ItemStack.EMPTY;
         // Else return the result of 'moveToPlayerInventory'
         return moveToPlayerInventory(rawStack);
 
-      // If it's the secondary Bee slot for Drones.
+        // If it's the secondary Bee slot for Drones.
       } else if (index == 1) {
         // Return the result of 'moveToPlayerInventory'.
         return moveToPlayerInventory(rawStack);
 
-      // If it's any of the frame slots.
+        // If it's any of the frame slots.
       } else if (index >= 2 && index <= 4) {
         // Fail to quick move if the housing is active.
         if (isHousingActive(primaryBeeItem)) return ItemStack.EMPTY;
         // Else return the result of 'moveToPlayerInventory'
         return moveToPlayerInventory(rawStack);
 
-      // If it's any of the output slots.
+        // If it's any of the output slots.
       } else if (index >= 5 && index <= 11) {
         // Return the result of 'moveToPlayerInventory'
         return moveToPlayerInventory(rawStack);
 
-      // If it's any of the Inventory or Hotbar slots.
+        // If it's any of the Inventory or Hotbar slots.
       } else if (index >= 12 && index <= 47) {
         // If the housing is Inactive & the moved stack is a Princess.
         if (!isHousingActive(primaryBeeItem) && rawStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.PRINCESS) {
           // Then try to insert to the primary Bee slot.
-          if (!moveItemStackTo(rawStack, 0,0, true)) {
+          if (!moveItemStackTo(rawStack, 0, 0, true)) {
             return ItemStack.EMPTY;
           }
 
-        // If the moved stack is a Drone.
+          // If the moved stack is a Drone.
         } else if (rawStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE) {
           // Then try to insert to the secondary Bee slot.
-          if (!moveItemStackTo(rawStack, 1,1, true)) {
+          if (!moveItemStackTo(rawStack, 1, 1, true)) {
             return ItemStack.EMPTY;
           }
 
-        // If the housing is Inactive & the moved stack is a Frame.
+          // If the housing is Inactive & the moved stack is a Frame.
         } else if (!isHousingActive(primaryBeeItem) && rawStack.getItem() instanceof IFrameItem) {
           // Then try to insert to the Frame slots.
           if (!moveItemStackTo(rawStack, 2, 4, true)) {

@@ -7,6 +7,8 @@ import net.minecraft.network.codec.StreamCodec;
 
 public interface ITrait<T> {
   Component getReadableName();
+
   Codec<T> getCodec();
+
   StreamCodec<ByteBuf, T> getStreamCodec();
 }

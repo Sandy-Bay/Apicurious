@@ -16,9 +16,9 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class Flowers implements ITrait<Flowers> {
 
-    public static final ResourceKey<Flowers> NORMAL_FLOWERS = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("normal_flowers"));
-    public static final ResourceKey<Flowers> ROCK = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("overworld_rocks"));
-    public static final ResourceKey<Flowers> NETHER_ROCK = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("nether_rocks"));
+  public static final ResourceKey<Flowers> NORMAL_FLOWERS = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("normal_flowers"));
+  public static final ResourceKey<Flowers> ROCK = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("overworld_rocks"));
+  public static final ResourceKey<Flowers> NETHER_ROCK = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("nether_rocks"));
 
   public static final Codec<Flowers> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

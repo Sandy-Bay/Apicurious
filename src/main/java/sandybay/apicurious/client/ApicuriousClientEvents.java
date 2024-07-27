@@ -15,12 +15,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.block.HiveBlock;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
@@ -120,12 +119,13 @@ public class ApicuriousClientEvents {
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody) {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender()) return 0xFFFFFFFF;
+    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender())
+      return 0xFFFFFFFF;
     return isOutline ?
             species.getVisualData().getBeeColor().getOutlineTint().getIntColor() :
             isBody ?
-            species.getVisualData().getBeeColor().getBodyTint().getIntColor() :
-            species.getVisualData().getBeeColor().getWingTint().getIntColor();
+                    species.getVisualData().getBeeColor().getBodyTint().getIntColor() :
+                    species.getVisualData().getBeeColor().getWingTint().getIntColor();
   }
 
 

@@ -13,15 +13,15 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class Lifespan implements ITrait<Lifespan> {
 
-    public static final ResourceKey<Lifespan> SHOREST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorest"));
-    public static final ResourceKey<Lifespan> SHORTER = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorter"));
-    public static final ResourceKey<Lifespan> SHORT = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("short"));
-    public static final ResourceKey<Lifespan> SHORTENED = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shortened"));
-    public static final ResourceKey<Lifespan> AVERAGE = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("average"));
-    public static final ResourceKey<Lifespan> ELONGATED = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("elongated"));
-    public static final ResourceKey<Lifespan> LONG = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("long"));
-    public static final ResourceKey<Lifespan> LONGER = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("longer"));
-    public static final ResourceKey<Lifespan> LONGEST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("longest"));
+  public static final ResourceKey<Lifespan> SHOREST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorest"));
+  public static final ResourceKey<Lifespan> SHORTER = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorter"));
+  public static final ResourceKey<Lifespan> SHORT = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("short"));
+  public static final ResourceKey<Lifespan> SHORTENED = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shortened"));
+  public static final ResourceKey<Lifespan> AVERAGE = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("average"));
+  public static final ResourceKey<Lifespan> ELONGATED = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("elongated"));
+  public static final ResourceKey<Lifespan> LONG = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("long"));
+  public static final ResourceKey<Lifespan> LONGER = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("longer"));
+  public static final ResourceKey<Lifespan> LONGEST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("longest"));
 
   public static final Codec<Lifespan> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

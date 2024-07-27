@@ -6,8 +6,11 @@ import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
 import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
 
 public interface IBeeSpecies {
-    Component getReadableName();
-    VisualData getVisualData();
-    ProductionData getProductionData();
-    EnvironmentalData getEnvironmentalData();
+  Component getReadableName();
+
+  VisualData getVisualData();
+
+  ProductionData getProductionData();
+
+  EnvironmentalData getEnvironmentalData();
 }

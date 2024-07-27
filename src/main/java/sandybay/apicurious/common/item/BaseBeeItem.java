@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -19,9 +18,6 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
-import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
-import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
 import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 
 import java.util.function.Consumer;
@@ -32,16 +28,13 @@ import java.util.function.Consumer;
  * Mutation, which is the deviation
  * Mate, which is after a bee has "mated" and contains both their specific and mutation info
  */
-public class BaseBeeItem extends Item implements IBeeItem
-{
+public class BaseBeeItem extends Item implements IBeeItem {
 
-  // TODO: Figure out how to do this without the bootstrap context...
   public static BeeSpecies EMPTY_SPECIES = null;
 
   public final EnumBeeType beeType;
 
   public BaseBeeItem(Properties properties, EnumBeeType beeType) {
-    // TODO: Fix this component stuff >->
     super(properties.component(ApicuriousDataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
     this.beeType = beeType;
   }
@@ -71,9 +64,7 @@ public class BaseBeeItem extends Item implements IBeeItem
   }
 
 
-
-  public EnumBeeType getBeeType()
-  {
+  public EnumBeeType getBeeType() {
     return beeType;
   }
 

@@ -20,8 +20,10 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
     super(type, pos, state);
     this.inventory = new ConfigurableItemStackHandler(12)
             .setInputFilter((stack, slot) -> {
-              if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE)) return true;
-              if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE) return true;
+              if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
+                return true;
+              if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
+                return true;
               return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
             })
             .setOutputFilter((stack, slot) -> !(slot == 0 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN))
@@ -37,10 +39,8 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
     CompoundTag apiaryData = new CompoundTag();
 
     if (clientOnly) {
-      // TODO: Add Client-data here
     } else {
-      // TODO: Add Client-data here
-      if (alwaysSave || inventory.hasChanged())  apiaryData.put("inventory",  inventory.serializeNBT(registries));
+      if (alwaysSave || inventory.hasChanged()) apiaryData.put("inventory", inventory.serializeNBT(registries));
     }
     tag.put("apiary_data", apiaryData);
   }
@@ -51,9 +51,7 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
     inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));
 
     if (clientOnly) {
-      // TODO: Add Client-data here
     } else {
-      // TODO: Add Client-data here
     }
   }
 

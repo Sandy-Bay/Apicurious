@@ -4,8 +4,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.common.bee.species.trait.*;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.trait.*;
 
 public class ApicuriousRegistries {
 

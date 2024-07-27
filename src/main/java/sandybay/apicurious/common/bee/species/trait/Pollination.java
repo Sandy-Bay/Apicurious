@@ -13,13 +13,13 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class Pollination implements ITrait<Pollination> {
 
-    public static final ResourceKey<Pollination> SLOWEST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slowest"));
-    public static final ResourceKey<Pollination> SLOWER = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slower"));
-    public static final ResourceKey<Pollination> SLOW = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slow"));
-    public static final ResourceKey<Pollination> AVERAGE = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("average"));
-    public static final ResourceKey<Pollination> FAST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("fast"));
-    public static final ResourceKey<Pollination> FASTER = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("faster"));
-    public static final ResourceKey<Pollination> FASTEST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("fastest"));
+  public static final ResourceKey<Pollination> SLOWEST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slowest"));
+  public static final ResourceKey<Pollination> SLOWER = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slower"));
+  public static final ResourceKey<Pollination> SLOW = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slow"));
+  public static final ResourceKey<Pollination> AVERAGE = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("average"));
+  public static final ResourceKey<Pollination> FAST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("fast"));
+  public static final ResourceKey<Pollination> FASTER = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("faster"));
+  public static final ResourceKey<Pollination> FASTEST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("fastest"));
 
   public static final Codec<Pollination> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

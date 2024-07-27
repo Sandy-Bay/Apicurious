@@ -8,11 +8,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TemperaturePreference implements ITrait<TemperaturePreference> {
 
@@ -74,5 +78,34 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
   @Override
   public StreamCodec<ByteBuf, TemperaturePreference> getStreamCodec() {
     return NETWORK_CODEC;
+  }
+
+  private TagKey<Biome> getTagByOrdinal(int ordinal) {
+    // TODO: Replace with proper tags.
+    // TODO: Figure out a more dynamic way to do this...
+    return switch (ordinal) {
+      case 0:
+        yield BiomeTags.HAS_IGLOO;
+      case 1:
+        yield BiomeTags.HAS_IGLOO;
+      case 2:
+        yield BiomeTags.HAS_IGLOO;
+      case 3:
+        yield BiomeTags.HAS_IGLOO;
+      case 4:
+        yield BiomeTags.HAS_IGLOO;
+      default:
+        yield null;
+    };
+  }
+
+  public List<TagKey<Biome>> getTemperatureWithTolerance(TemperatureTolerance tolerance) {
+    List<TagKey<Biome>> temperatureTags = new ArrayList<>();
+    int minValue = Math.max(temperature - tolerance.getToleranceModifier(), 0);
+    int maxValue = Math.min(temperature + tolerance.getToleranceModifier(), 4);
+    for (int i = minValue; i <= maxValue; i++) {
+      temperatureTags.add(getTagByOrdinal(i));
+    }
+    return temperatureTags;
   }
 }

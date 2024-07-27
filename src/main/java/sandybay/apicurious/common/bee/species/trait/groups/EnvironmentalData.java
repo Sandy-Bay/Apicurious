@@ -26,12 +26,12 @@ public class EnvironmentalData {
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(
-    ByteBufCodecs.holderRegistry(ApicuriousRegistries.FLOWERS), EnvironmentalData::getFlowers,
-    HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData,
-    TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData,
-    ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain,
-    ByteBufCodecs.BOOL, EnvironmentalData::ignoresSky,
-    EnvironmentalData::new
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.FLOWERS), EnvironmentalData::getFlowers,
+          HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData,
+          TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData,
+          ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain,
+          ByteBufCodecs.BOOL, EnvironmentalData::ignoresSky,
+          EnvironmentalData::new
   );
 
   private final Holder<Flowers> flowers;

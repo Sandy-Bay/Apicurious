@@ -14,13 +14,13 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 public class Area implements ITrait<Area> {
 
 
-    public static final ResourceKey<Area> SMALLEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smallest"));
-    public static final ResourceKey<Area> SMALLER = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smaller"));
-    public static final ResourceKey<Area> SMALL = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("small"));
-    public static final ResourceKey<Area> AVERAGE = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("average"));
-    public static final ResourceKey<Area> LARGE = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("large"));
-    public static final ResourceKey<Area> LARGER = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("larger"));
-    public static final ResourceKey<Area> LARGEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("largest"));
+  public static final ResourceKey<Area> SMALLEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smallest"));
+  public static final ResourceKey<Area> SMALLER = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smaller"));
+  public static final ResourceKey<Area> SMALL = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("small"));
+  public static final ResourceKey<Area> AVERAGE = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("average"));
+  public static final ResourceKey<Area> LARGE = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("large"));
+  public static final ResourceKey<Area> LARGER = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("larger"));
+  public static final ResourceKey<Area> LARGEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("largest"));
 
 
   public static final Codec<Area> CODEC = RecordCodecBuilder.create(

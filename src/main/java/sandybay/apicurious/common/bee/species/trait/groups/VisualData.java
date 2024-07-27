@@ -14,9 +14,9 @@ public class VisualData {
 
   public static final Codec<VisualData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-            BeeColor.CODEC.optionalFieldOf("beeColor", ApicuriousConstants.UNDEFINED).forGetter(VisualData::getBeeColor),
-            Codec.BOOL.optionalFieldOf("hasEffect", false).forGetter(VisualData::hasEffect),
-            Codec.BOOL.optionalFieldOf("hasCustomRender", true).forGetter(VisualData::hasCustomRender)
+                  BeeColor.CODEC.optionalFieldOf("beeColor", ApicuriousConstants.UNDEFINED).forGetter(VisualData::getBeeColor),
+                  Codec.BOOL.optionalFieldOf("hasEffect", false).forGetter(VisualData::hasEffect),
+                  Codec.BOOL.optionalFieldOf("hasCustomRender", true).forGetter(VisualData::hasCustomRender)
           ).apply(instance, VisualData::new)
   );
 
@@ -58,7 +58,8 @@ public class VisualData {
     private boolean hasEffect = false;
     private boolean hasCustomRender = false;
 
-    private Builder() {}
+    private Builder() {
+    }
 
     public static Builder create() {
       return new Builder();
