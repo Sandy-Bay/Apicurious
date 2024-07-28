@@ -49,9 +49,11 @@ public class ApicuriousDatapackRegistriesDefaults {
     builder.add(ApicuriousRegistries.HUMIDITY_PREFERENCES, bootstrap -> {
       bootstrap.register(HumidityPreference.HELLISH, humidityPreference(0, BiomeTags.HAS_IGLOO, "hellish"));
       bootstrap.register(HumidityPreference.ARID, humidityPreference(1, BiomeTags.HAS_IGLOO, "arid"));
-      bootstrap.register(HumidityPreference.AVERAGE, humidityPreference(2, BiomeTags.HAS_IGLOO, "average"));
-      bootstrap.register(HumidityPreference.DAMP, humidityPreference(3, BiomeTags.HAS_IGLOO, "damp"));
-      bootstrap.register(HumidityPreference.AQUATIC, humidityPreference(4, BiomeTags.HAS_IGLOO, "aquatic"));
+      bootstrap.register(HumidityPreference.DRY, humidityPreference(2, BiomeTags.HAS_IGLOO, "dry"));
+      bootstrap.register(HumidityPreference.AVERAGE, humidityPreference(3, BiomeTags.HAS_IGLOO, "average"));
+      bootstrap.register(HumidityPreference.HUMID, humidityPreference(4, BiomeTags.HAS_IGLOO, "humid"));
+      bootstrap.register(HumidityPreference.DAMP, humidityPreference(5, BiomeTags.HAS_IGLOO, "damp"));
+      bootstrap.register(HumidityPreference.AQUATIC, humidityPreference(6, BiomeTags.HAS_IGLOO, "aquatic"));
     });
 
     builder.add(ApicuriousRegistries.HUMIDITY_TOLERANCES, bootstrap -> {

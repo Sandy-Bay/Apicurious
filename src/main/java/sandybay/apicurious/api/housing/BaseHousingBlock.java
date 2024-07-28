@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Pollination;
 import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;

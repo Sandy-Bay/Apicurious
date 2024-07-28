@@ -35,13 +35,11 @@ public class ApicuriousTags {
     public static final TagKey<Biome> AQUATIC_HUMIDITY = create("humidity/aquatic");
 
     // TemperaturePreference
-    public static final TagKey<Biome> INFERNAL_TEMPERATURE = create("temperature/infernal");
+    public static final TagKey<Biome> HELLISH_TEMPERATURE = create("temperature/infernal");
     public static final TagKey<Biome> HOT_TEMPERATURE = create("temperature/hot");
-    public static final TagKey<Biome> WARM_TEMPERATURE = create("temperature/warm");
     public static final TagKey<Biome> AVERAGE_TEMPERATURE = create("temperature/average");
-    public static final TagKey<Biome> CHILLY_TEMPERATURE = create("temperature/chilly");
     public static final TagKey<Biome> COLD_TEMPERATURE = create("temperature/cold");
-    public static final TagKey<Biome> FREEZING_TEMPERATURE = create("temperature/freezing");
+    public static final TagKey<Biome> ICY_TEMPERATURE = create("temperature/icy");
 
     private static TagKey<Biome> create(String path) {
       return bind(Registries.BIOME, path);

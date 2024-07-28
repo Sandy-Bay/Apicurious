@@ -3,18 +3,23 @@ package sandybay.apicurious.api.housing.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 
 //This does not need to be in the api
-public class SimpleBlockHousingBE extends BaseHousingBE {
+public abstract class SimpleBlockHousingBE extends BaseHousingBE {
 
   // Server-sided Data
   private final ConfigurableItemStackHandler inventory;
+
+  public boolean isActive = false;
+  public int work = 0;
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
@@ -26,7 +31,6 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
                 return true;
               return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
             })
-            .setOutputFilter((stack, slot) -> !(slot == 0 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN))
             .setSlotLimit(0, 1)
             .setSlotLimit(2, 1)
             .setSlotLimit(3, 1)
@@ -37,7 +41,7 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
   @Override
   public void saveData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave) {
     CompoundTag apiaryData = new CompoundTag();
-
+    apiaryData.putBoolean("isActive", isActive);
     if (clientOnly) {
     } else {
       if (alwaysSave || inventory.hasChanged()) apiaryData.put("inventory", inventory.serializeNBT(registries));
@@ -48,14 +52,23 @@ public class SimpleBlockHousingBE extends BaseHousingBE {
   @Override
   public void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave) {
     CompoundTag apiaryData = tag.getCompound("apiary_data");
-    inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));
-
-    if (clientOnly) {
-    } else {
-    }
+    this.isActive = apiaryData.getBoolean("isActive");
+    if (apiaryData.contains("inventory")) inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));
   }
 
   public ConfigurableItemStackHandler getInventory() {
     return inventory;
+  }
+
+  public void changeActiveState(BlockState state, boolean shouldBeActive) {
+    if (this.level == null) return;
+    this.level.sendBlockUpdated(worldPosition, state, state.setValue(BaseHousingBlock.ACTIVE, shouldBeActive), Block.UPDATE_IMMEDIATE);
+    this.setChanged();
+    this.isActive = true;
+  }
+
+  public boolean isValidForStartup() {
+    return getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS &&
+            getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE && this.work == 0;
   }
 }

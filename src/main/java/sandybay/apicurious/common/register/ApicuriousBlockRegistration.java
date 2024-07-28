@@ -17,7 +17,7 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
-import sandybay.apicurious.common.block.blockentity.BasicBeeHousingBE;
+import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.block.housing.BeeHousingBlock;
 
@@ -74,11 +74,11 @@ public class ApicuriousBlockRegistration {
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
     DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> t = BLOCK_ENTITY_TYPES.register(id, type.apply(factory, b));
     return new BlockHolderWithTile<>(b, i, t);
-  }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BasicBeeHousingBE> BEE_HOUSING = registerBlockWithTile(
+  }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",
           () -> new BeeHousingBlock(HOUSING_PROPS),
           ApicuriousBlockRegistration::getDefaultBlockItem,
-          BasicBeeHousingBE::new,
+          BeeHousingBE::new,
           ApicuriousBlockRegistration::getDefaultType
   );
 

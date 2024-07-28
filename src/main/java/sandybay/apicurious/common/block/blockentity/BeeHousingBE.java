@@ -1,14 +1,24 @@
 package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 
-public class BasicBeeHousingBE extends SimpleBlockHousingBE {
+public class BeeHousingBE extends SimpleBlockHousingBE {
 
-  public BasicBeeHousingBE(BlockPos pos, BlockState blockState) {
+  public BeeHousingBE(BlockPos pos, BlockState blockState) {
     super(ApicuriousBlockRegistration.BEE_HOUSING.getType(), pos, blockState);
   }
 
+  @Override
+  public void serverTick(Level level, BlockPos pos, BlockState state) {
+
+  }
+
+  @Override
+  public void clientTick(Level level, BlockPos pos, BlockState state) {
+
+  }
 }

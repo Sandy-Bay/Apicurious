@@ -21,17 +21,6 @@ public abstract class BaseHousingBE extends BlockEntity implements ITickingApiar
     super(type, pos, blockState);
   }
 
-  // Logic Methods
-  @Override
-  public void serverTick(Level level, BlockPos pos, BlockState state) {
-
-  }
-
-  @Override
-  public void clientTick(Level level, BlockPos pos, BlockState state) {
-
-  }
-
   // World Save / Read Methods
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
