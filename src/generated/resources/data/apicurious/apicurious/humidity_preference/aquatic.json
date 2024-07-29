@@ -1,5 +1,5 @@
 {
-  "groupTag": "minecraft:has_structure/igloo",
-  "humidity": 4,
+  "groupTag": "apicurious:humidity/aquatic",
+  "humidity": 5,
   "name": "apicurious.preference.humidity.aquatic"
 }

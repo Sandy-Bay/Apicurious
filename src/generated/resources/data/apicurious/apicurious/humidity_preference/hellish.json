@@ -1,5 +1,5 @@
 {
-  "groupTag": "minecraft:has_structure/igloo",
-  "humidity": 0,
+  "groupTag": "apicurious:humidity/hellish",
+  "humidity": 1,
   "name": "apicurious.preference.humidity.hellish"
 }

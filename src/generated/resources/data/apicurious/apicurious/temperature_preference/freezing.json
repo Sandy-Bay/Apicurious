@@ -1,5 +1,5 @@
 {
-  "groupTag": "minecraft:has_structure/igloo",
-  "name": "apicurious.preference.temperature.freezing",
+  "groupTag": "apicurious:temperature/icy",
+  "name": "apicurious.preference.temperature.icy",
   "temperature": 1
 }

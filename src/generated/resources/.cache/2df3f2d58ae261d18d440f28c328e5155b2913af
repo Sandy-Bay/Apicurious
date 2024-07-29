@@ -1,0 +1,12 @@
+// 1.21	2024-07-29T15:51:46.758458	Tags for minecraft:worldgen/biome mod id apicurious
+6a44d93c61de351f3d5ceab2da6c780a52437fbf data/apicurious/tags/worldgen/biome/humidity/aquatic.json
+b35e71a33d5e5a0a01121c864667d57760c6bf90 data/apicurious/tags/worldgen/biome/humidity/arid.json
+1d323b53f1c9bb7817ad6bb5d340a0e2b35a2e74 data/apicurious/tags/worldgen/biome/humidity/average.json
+7f55acdfe94ff3a75731d79801bd5d16f68eb11c data/apicurious/tags/worldgen/biome/humidity/damp.json
+572c035ad1f2d75a33928f9e27615facaf035f71 data/apicurious/tags/worldgen/biome/humidity/hellish.json
+3e13ac61d199791aa02fd8ada666196218528c6a data/apicurious/tags/worldgen/biome/is_meadow.json
+3f9f3c8a61fb3edaecb298a67c77ce4076b6a6f1 data/apicurious/tags/worldgen/biome/temperature/average.json
+9460fcd668e930acb6716df8dffd932521798999 data/apicurious/tags/worldgen/biome/temperature/cold.json
+94e88bc633e8bb184c7f368fee689cb332461c0b data/apicurious/tags/worldgen/biome/temperature/hot.json
+d42f9ead16e169816a47a74cab0b63c7060e6134 data/apicurious/tags/worldgen/biome/temperature/icy.json
+7d869e6db9b2436261d1974d29baa684de1e5670 data/apicurious/tags/worldgen/biome/temperature/infernal.json

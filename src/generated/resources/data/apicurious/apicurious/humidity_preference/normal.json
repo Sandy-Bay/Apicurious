@@ -1,5 +1,5 @@
 {
-  "groupTag": "minecraft:has_structure/igloo",
-  "humidity": 2,
+  "groupTag": "apicurious:humidity/average",
+  "humidity": 3,
   "name": "apicurious.preference.humidity.average"
 }

@@ -18,6 +18,7 @@ public class ApicuriousDataGen {
     PackOutput output = generator.getPackOutput();
     generator.addProvider(event.includeServer(), new ApicuriousTagProvider.BlocksProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
     generator.addProvider(event.includeServer(), new ApicuriousTagProvider.ItemsProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
+    generator.addProvider(event.includeServer(), new ApicuriousTagProvider.BiomesProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
     generator.addProvider(// Only run datapack generation when server data is being generated
             event.includeServer(), new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(),
                     ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(), Set.of(Apicurious.MODID)));

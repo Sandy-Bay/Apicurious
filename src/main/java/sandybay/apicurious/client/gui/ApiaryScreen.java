@@ -5,15 +5,18 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
 public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
 
   public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/apiary.png");
+  private final Player player;
 
   public ApiaryScreen(ApiaryMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
+    this.player = pPlayerInventory.player;
     this.imageWidth = 176;
     this.imageHeight = 190;
     this.titleLabelX = this.titleLabelX + this.imageWidth / 2;
@@ -25,6 +28,14 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
     this.renderBackground(guiGraphics, mouseX, mouseY, partial);
     super.render(guiGraphics, mouseX, mouseY, partial);
     this.renderTooltip(guiGraphics, mouseX, mouseY);
+    var level = player.level();
+    var tags = level.getBiome(player.blockPosition()).tags();
+    int y = 0;
+    for (var biomeTagKey : tags.toList())
+    {
+      guiGraphics.drawString(this.font, biomeTagKey.location().toString(), 150, y, -1, false);
+      y+=20;
+    }
   }
 
   @Override

@@ -1,5 +1,5 @@
 {
-  "groupTag": "minecraft:has_structure/igloo",
+  "groupTag": "apicurious:temperature/average",
   "name": "apicurious.preference.temperature.average",
-  "temperature": 4
+  "temperature": 3
 }
