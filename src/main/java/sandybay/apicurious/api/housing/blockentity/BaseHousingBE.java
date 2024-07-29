@@ -7,12 +7,20 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.ITickingApiary;
+import sandybay.apicurious.api.util.ApicuriousTags;
+
+import java.util.List;
 
 //This does not really need to be in the API, we can just fire events for the users
 public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary {
@@ -68,4 +76,34 @@ public abstract class BaseHousingBE extends BlockEntity implements ITickingApiar
   public abstract void saveData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave);
 
   public abstract void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave);
+
+  //Not sure where to put this I would say the API but it goes here for now
+  public static TagKey<Biome> getCurrentHumidity(Level level, BlockPos pos)
+  {
+    var keys = getOurTags(level, pos);
+    //This is lazy and can be optimized later
+    for (TagKey<Biome> key : keys)
+    {
+      if(key.location().toString().contains("humidity"))
+        return key;
+    }
+    return ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY;
+  }
+
+  public static TagKey<Biome> getCurrentTemperature(Level level, BlockPos pos)
+  {
+    var keys = getOurTags(level, pos);
+    //This is lazy and can be optimized later
+    for (TagKey<Biome> key : keys)
+    {
+      if(key.location().toString().contains("temperature"))
+        return key;
+    }
+    return ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE;
+  }
+
+  public static List<TagKey<Biome>> getOurTags(Level level, BlockPos pos)
+  {
+      return level.getBiome(pos).tags().filter(biomeTagKey -> biomeTagKey.location().getNamespace().startsWith(Apicurious.MODID)).toList();
+  }
 }

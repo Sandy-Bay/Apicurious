@@ -6,7 +6,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
 public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
@@ -24,18 +26,15 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
   }
 
   @Override
-  public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
+  public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
     this.renderBackground(guiGraphics, mouseX, mouseY, partial);
     super.render(guiGraphics, mouseX, mouseY, partial);
     this.renderTooltip(guiGraphics, mouseX, mouseY);
-    var level = player.level();
-    var tags = level.getBiome(player.blockPosition()).tags();
-    int y = 0;
-    for (var biomeTagKey : tags.toList())
-    {
-      guiGraphics.drawString(this.font, biomeTagKey.location().toString(), 150, y, -1, false);
-      y+=20;
-    }
+    guiGraphics.drawString(this.font, "Temperature:", leftPos + imageWidth + 10, 50, -1, false);
+    guiGraphics.drawString(this.font, BaseHousingBE.getCurrentTemperature(player.level(), player.blockPosition()).location().getPath(), leftPos + imageWidth + 10, 60, -1, false);
+
+    guiGraphics.drawString(this.font, "Humidity:", leftPos + imageWidth + 10, 70, -1, false);
+    guiGraphics.drawString(this.font, BaseHousingBE.getCurrentHumidity(player.level(), player.blockPosition()).location().getPath(), leftPos + imageWidth + 10, 80, -1, false);
   }
 
   @Override
