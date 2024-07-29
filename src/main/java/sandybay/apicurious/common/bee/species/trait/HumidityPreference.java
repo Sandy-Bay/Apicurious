@@ -22,6 +22,9 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
 
   public static final ResourceKey<HumidityPreference> HELLISH = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("hellish"));
   public static final ResourceKey<HumidityPreference> ARID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("arid"));
+  public static final ResourceKey<HumidityPreference> DRY = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("dry"));
+  public static final ResourceKey<HumidityPreference> HUMID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("humid"));
+
   public static final ResourceKey<HumidityPreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("normal"));
   public static final ResourceKey<HumidityPreference> DAMP = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("damp"));
   public static final ResourceKey<HumidityPreference> AQUATIC = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("aquatic"));
