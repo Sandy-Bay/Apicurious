@@ -100,7 +100,7 @@ public class ApicuriousTagProvider {
                       Biomes.SNOWY_SLOPES,
                       Biomes.JAGGED_PEAKS, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
                       Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST,
-                      Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA,
+                      Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA
               ).addTag(Tags.Biomes.IS_DRY_END);
       this.tag(ApicuriousTags.BiomeTags.DAMP_HUMIDITY)
               .add(
