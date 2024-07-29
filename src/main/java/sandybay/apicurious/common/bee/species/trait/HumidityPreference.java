@@ -69,6 +69,7 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
   }
 
   public Component getReadableName() {
+    if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
