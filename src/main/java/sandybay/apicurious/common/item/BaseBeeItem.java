@@ -1,6 +1,8 @@
 package sandybay.apicurious.common.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -9,6 +11,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -20,6 +23,8 @@ import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 
+import java.awt.*;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -90,5 +95,32 @@ public class BaseBeeItem extends Item implements IBeeItem {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }
     });
+  }
+
+  @Override
+  public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag)
+  {
+    super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+    if(Screen.hasShiftDown())
+    {
+      BeeSpecies species = getSpecies(pStack);
+      pTooltipComponents.add(species.getProductionData().getLifespan().value().getReadableName());
+      pTooltipComponents.add(species.getProductionData().getSpeed().value().getReadableName());
+
+      var tempData = species.getEnvironmentalData().getTemperatureData();
+      pTooltipComponents.add(Component.literal("T: ").append(tempData.preference().value().getReadableName()).append(" / ")
+              .append(tempData.tolerance().value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+
+      var humidData = species.getEnvironmentalData().getHumidityData();
+      pTooltipComponents.add(Component.literal("H: ").append(humidData.preference().value().getReadableName()).append(" / ")
+              .append(humidData.tolerance().value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+
+      pTooltipComponents.add(species.getEnvironmentalData().getFlowers().value().getReadableName());
+
+    }
+    else
+    {
+      pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
+    }
   }
 }

@@ -25,6 +25,8 @@ public class ApicuriousLangProvider extends LanguageProvider {
     add(ApicuriousBlockRegistration.APIARY.asItem(), "Apiary");
     add(ApicuriousBlockRegistration.BEE_HOUSING.asItem(), "Bee Housing");
 
+    add("apicurious.bee.shiftdown", "<Hold Shift for details>");
+
     // Hives
     addHives();
     addTabs();
