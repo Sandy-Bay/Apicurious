@@ -10,6 +10,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -45,15 +46,12 @@ public class ApicuriousDatapackRegistriesDefaults {
       bootstrap.register(Flowers.NETHER_ROCK, flowers(BlockTags.BASE_STONE_NETHER, "nether_rocks"));
     });
 
-    // TODO: Add proper group tags.
     builder.add(ApicuriousRegistries.HUMIDITY_PREFERENCES, bootstrap -> {
-      bootstrap.register(HumidityPreference.HELLISH, humidityPreference(0, BiomeTags.HAS_IGLOO, "hellish"));
-      bootstrap.register(HumidityPreference.ARID, humidityPreference(1, BiomeTags.HAS_IGLOO, "arid"));
-      bootstrap.register(HumidityPreference.DRY, humidityPreference(2, BiomeTags.HAS_IGLOO, "dry"));
-      bootstrap.register(HumidityPreference.AVERAGE, humidityPreference(3, BiomeTags.HAS_IGLOO, "average"));
-      bootstrap.register(HumidityPreference.HUMID, humidityPreference(4, BiomeTags.HAS_IGLOO, "humid"));
-      bootstrap.register(HumidityPreference.DAMP, humidityPreference(5, BiomeTags.HAS_IGLOO, "damp"));
-      bootstrap.register(HumidityPreference.AQUATIC, humidityPreference(6, BiomeTags.HAS_IGLOO, "aquatic"));
+      bootstrap.register(HumidityPreference.HELLISH, humidityPreference(1, ApicuriousTags.BiomeTags.HELLISH_HUMIDITY, "hellish"));
+      bootstrap.register(HumidityPreference.ARID, humidityPreference(2, ApicuriousTags.BiomeTags.ARID_HUMIDITY, "arid"));
+      bootstrap.register(HumidityPreference.AVERAGE, humidityPreference(3, ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY, "average"));
+      bootstrap.register(HumidityPreference.DAMP, humidityPreference(4, ApicuriousTags.BiomeTags.DAMP_HUMIDITY, "damp"));
+      bootstrap.register(HumidityPreference.AQUATIC, humidityPreference(5, ApicuriousTags.BiomeTags.AQUATIC_HUMIDITY, "aquatic"));
     });
 
     builder.add(ApicuriousRegistries.HUMIDITY_TOLERANCES, bootstrap -> {
@@ -97,15 +95,12 @@ public class ApicuriousDatapackRegistriesDefaults {
       bootstrap.register(Speed.FASTEST, speed(0.7f, "fastest"));
     });
 
-    // TODO: Add proper group tags.
     builder.add(ApicuriousRegistries.TEMPERATURE_PREFERENCES, bootstrap -> {
-      bootstrap.register(TemperaturePreference.INFERNAL, temperaturePreference(7, BiomeTags.HAS_IGLOO, "infernal"));
-      bootstrap.register(TemperaturePreference.HOT, temperaturePreference(6, BiomeTags.HAS_IGLOO, "hot"));
-      bootstrap.register(TemperaturePreference.WARM, temperaturePreference(5, BiomeTags.HAS_IGLOO, "warm"));
-      bootstrap.register(TemperaturePreference.AVERAGE, temperaturePreference(4, BiomeTags.HAS_IGLOO, "average"));
-      bootstrap.register(TemperaturePreference.CHILLY, temperaturePreference(3, BiomeTags.HAS_IGLOO, "chilly"));
-      bootstrap.register(TemperaturePreference.COLD, temperaturePreference(2, BiomeTags.HAS_IGLOO, "cold"));
-      bootstrap.register(TemperaturePreference.FREEZING, temperaturePreference(1, BiomeTags.HAS_IGLOO, "freezing"));
+      bootstrap.register(TemperaturePreference.INFERNAL, temperaturePreference(5, ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE, "hellish"));
+      bootstrap.register(TemperaturePreference.HOT, temperaturePreference(4, ApicuriousTags.BiomeTags.HOT_TEMPERATURE, "hot"));
+      bootstrap.register(TemperaturePreference.AVERAGE, temperaturePreference(3, ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE, "average"));
+      bootstrap.register(TemperaturePreference.COLD, temperaturePreference(2, ApicuriousTags.BiomeTags.COLD_TEMPERATURE, "cold"));
+      bootstrap.register(TemperaturePreference.FREEZING, temperaturePreference(1, ApicuriousTags.BiomeTags.ICY_TEMPERATURE, "icy"));
     });
 
     builder.add(ApicuriousRegistries.TEMPERATURE_TOLERANCES, bootstrap -> {
