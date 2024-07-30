@@ -43,7 +43,7 @@ public class ClimateHelper {
     Holder<HumidityPreference> preferenceHolder = species.getEnvironmentalData().getHumidityData().preference();
     Holder<HumidityTolerance> toleranceHolder = species.getEnvironmentalData().getHumidityData().tolerance();
     if (!preferenceHolder.isBound() || !toleranceHolder.isBound()) throw new IllegalArgumentException("Preference or Tolerance was not bound! REPORT THIS!");
-    return isCorrectHumidity(preferenceHolder.value(), toleranceHolder.value(), pos)
+    return isCorrectHumidity(preferenceHolder.value(), toleranceHolder.value(), pos);
   }
 
   private boolean isCorrectTemperature(TemperaturePreference preference, TemperatureTolerance tolerance, BlockPos pos) {

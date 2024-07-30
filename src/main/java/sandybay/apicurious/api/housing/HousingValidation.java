@@ -1,10 +1,13 @@
 package sandybay.apicurious.api.housing;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.checkerframework.checker.units.qual.C;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -42,9 +45,12 @@ public class HousingValidation {
     if (!key.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return false;
     BeeSpecies species = key.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return false;
-    Flowers flowers = species.getEnvironmentalData().getFlowers().value();
+    Holder<Flowers> flowersHolder = species.getEnvironmentalData().getFlowers();
+    if (!flowersHolder.isBound()) throw new IllegalArgumentException("BeeSpecies flowers were unbound! REPORT THIS!");
+    TagKey<Block> flowers = flowersHolder.value().getFlowers();
     for (BlockPos pos : territory) {
-      if (level.getBlockState(pos).is(flowers.getFlowers())) {
+      BlockState state = level.getBlockState(pos);
+      if (level.isLoaded(pos) && !state.isAir() && state.is(flowers)) {
         foundValid = true;
         break;
       }
