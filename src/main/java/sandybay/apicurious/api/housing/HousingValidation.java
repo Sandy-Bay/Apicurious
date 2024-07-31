@@ -29,7 +29,7 @@ public class HousingValidation {
   public boolean validate(ItemStack key, Level level, BlockPos housingPosition, List<BlockPos> territory) {
     if (helper == null && level != null) helper = new ClimateHelper(level);
     if (key.isEmpty()) return false;
-    if (this.key != key) {
+    if (!this.isValid || this.key != key) {
       this.key = key;
       revalidate(level, housingPosition, territory);
     }

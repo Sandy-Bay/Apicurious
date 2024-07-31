@@ -14,6 +14,7 @@ import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,7 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
 
   public static final ResourceKey<HumidityPreference> HELLISH = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("hellish"));
   public static final ResourceKey<HumidityPreference> ARID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("arid"));
-  public static final ResourceKey<HumidityPreference> DRY = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("dry"));
-  public static final ResourceKey<HumidityPreference> HUMID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("humid"));
-
-  public static final ResourceKey<HumidityPreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("normal"));
+  public static final ResourceKey<HumidityPreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("average"));
   public static final ResourceKey<HumidityPreference> DAMP = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("damp"));
   public static final ResourceKey<HumidityPreference> AQUATIC = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("aquatic"));
 
@@ -84,19 +82,17 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
   }
 
   private TagKey<Biome> getTagByOrdinal(int ordinal) {
-    // TODO: Replace with proper tags.
-    // TODO: Figure out a more dynamic way to do this...
     return switch (ordinal) {
-      case 0:
-        yield BiomeTags.HAS_IGLOO;
       case 1:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.HELLISH_HUMIDITY;
       case 2:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.ARID_HUMIDITY;
       case 3:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY;
       case 4:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.DAMP_HUMIDITY;
+      case 5:
+        yield ApicuriousTags.BiomeTags.AQUATIC_HUMIDITY;
       default:
         yield null;
     };

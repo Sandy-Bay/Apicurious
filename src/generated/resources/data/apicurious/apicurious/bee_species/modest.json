@@ -2,7 +2,7 @@
   "environmentalData": {
     "flowers": "apicurious:normal_flowers",
     "humidityData": {
-      "preference": "apicurious:normal",
+      "preference": "apicurious:average",
       "tolerance": "apicurious:none"
     },
     "ignoresRain": false,
@@ -15,6 +15,7 @@
   "name": "apicurious.species.modest",
   "productionData": {
     "area": "apicurious:average",
+    "fertility": "apicurious:average",
     "lifespan": "apicurious:average",
     "pollination": "apicurious:average",
     "speed": "apicurious:average",

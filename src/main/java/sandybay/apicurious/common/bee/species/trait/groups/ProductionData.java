@@ -21,6 +21,7 @@ public class ProductionData {
                   RegistryFixedCodec.create(ApicuriousRegistries.WORKCYCLES).fieldOf("workCycle").forGetter(ProductionData::getWorkCycle),
                   RegistryFixedCodec.create(ApicuriousRegistries.AREAS).fieldOf("area").forGetter(ProductionData::getArea),
                   RegistryFixedCodec.create(ApicuriousRegistries.SPEEDS).fieldOf("speed").forGetter(ProductionData::getSpeed),
+                  RegistryFixedCodec.create(ApicuriousRegistries.FERTILITIES).fieldOf("fertility").forGetter(ProductionData::getFertility),
                   RegistryFixedCodec.create(ApicuriousRegistries.POLLINATIONS).fieldOf("pollination").forGetter(ProductionData::getPollination)
           ).apply(instance, ProductionData::new)
   );
@@ -30,6 +31,7 @@ public class ProductionData {
           ByteBufCodecs.holderRegistry(ApicuriousRegistries.WORKCYCLES), ProductionData::getWorkCycle,
           ByteBufCodecs.holderRegistry(ApicuriousRegistries.AREAS), ProductionData::getArea,
           ByteBufCodecs.holderRegistry(ApicuriousRegistries.SPEEDS), ProductionData::getSpeed,
+          ByteBufCodecs.holderRegistry(ApicuriousRegistries.FERTILITIES), ProductionData::getFertility,
           ByteBufCodecs.holderRegistry(ApicuriousRegistries.POLLINATIONS), ProductionData::getPollination,
           ProductionData::new
   );
@@ -38,13 +40,15 @@ public class ProductionData {
   private final Holder<WorkCycle> workCycle;
   private final Holder<Area> area;
   private final Holder<Speed> speed;
+  private final Holder<Fertility> fertility;
   private final Holder<Pollination> pollination;
 
-  public ProductionData(Holder<Lifespan> lifespan, Holder<WorkCycle> workCycle, Holder<Area> area, Holder<Speed> speed, Holder<Pollination> pollination) {
+  public ProductionData(Holder<Lifespan> lifespan, Holder<WorkCycle> workCycle, Holder<Area> area, Holder<Speed> speed, Holder<Fertility> fertility, Holder<Pollination> pollination) {
     this.lifespan = lifespan;
     this.workCycle = workCycle;
     this.area = area;
     this.speed = speed;
+    this.fertility = fertility;
     this.pollination = pollination;
   }
 
@@ -58,6 +62,10 @@ public class ProductionData {
 
   public Holder<Speed> getSpeed() {
     return speed;
+  }
+
+  public Holder<Fertility> getFertility() {
+    return fertility;
   }
 
   public Holder<Pollination> getPollination() {
@@ -76,6 +84,7 @@ public class ProductionData {
     private Holder<WorkCycle> workCycle;
     private Holder<Area> area;
     private Holder<Speed> speed;
+    private Holder<Fertility> fertility;
     private Holder<Pollination> pollination;
 
     private Builder(BootstrapContext<BeeSpecies> context) {
@@ -84,6 +93,7 @@ public class ProductionData {
       this.workCycle = context.lookup(ApicuriousRegistries.WORKCYCLES).getOrThrow(WorkCycle.DIURNAL);
       this.area = context.lookup(ApicuriousRegistries.AREAS).getOrThrow(Area.AVERAGE);
       this.speed = context.lookup(ApicuriousRegistries.SPEEDS).getOrThrow(Speed.AVERAGE);
+      this.fertility = context.lookup(ApicuriousRegistries.FERTILITIES).getOrThrow(Fertility.AVERAGE_FERTILITY);
       this.pollination = context.lookup(ApicuriousRegistries.POLLINATIONS).getOrThrow(Pollination.AVERAGE);
     }
 
@@ -121,8 +131,13 @@ public class ProductionData {
       return this;
     }
 
+    public Builder withFertility(ResourceKey<Fertility> fertility) {
+      this.fertility = context.lookup(ApicuriousRegistries.FERTILITIES).getOrThrow(fertility);
+      return this;
+    }
+
     public ProductionData build() {
-      return new ProductionData(lifespan, workCycle, area, speed, pollination);
+      return new ProductionData(lifespan, workCycle, area, speed, fertility, pollination);
     }
 
   }

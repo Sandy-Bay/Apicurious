@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
@@ -69,17 +70,20 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE {
         this.maxWork = currentWork;
         return;
       }
-      this.currentWork--;
-      if (this.currentWork == 0) {
-        ItemStack princess = getInventory().getStackInSlot(0);
-        BeeSpecies species = princess.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-        ItemStack queen = new ItemStack(ApicuriousItemRegistration.QUEEN);
-        queen.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-        getInventory().extractItem(0, 1, false);
-        getInventory().extractItem(1, 1, false);
-        getInventory().setStackInSlot(0, queen);
-        changeActiveState(state, true);
-        this.maxWork = 0;
+      if (this.currentWork != 0){
+        this.currentWork--;
+        if (this.currentWork == 0) {
+          ItemStack princess = getInventory().getStackInSlot(0);
+          BeeSpecies species = princess.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+          ItemStack queen = new ItemStack(ApicuriousItemRegistration.QUEEN);
+          queen.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+          getInventory().extractItem(0, 1, false);
+          getInventory().extractItem(1, 1, false);
+          getInventory().setStackInSlot(0, queen);
+          changeActiveState(state, true);
+          this.maxWork = 0;
+          Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName(), species.getReadableName()));
+        }
       }
     } else {
       ItemStack stack = getInventory().getStackInSlot(0);
@@ -92,22 +96,37 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE {
             if (this.currentWork == 0 && this.maxWork == 0) {
               Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
               if (!lifespanHolder.isBound()) throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName()));
-              this.currentWork = ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
-              this.maxWork = this.currentWork;
+              this.currentWork = 75; //ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
+              this.maxWork = 75; //this.currentWork;
             }
             this.currentWork--;
-            if (this.currentWork - this.maxWork % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack)) {
+            if (Math.abs(this.currentWork - this.maxWork) % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack)) {
               Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT), 7);
               List<BlockPos> found = this.territory.stream().filter(filter).toList();
               for (BlockPos f : found) {
+                // TODO: Figure out a better way to both find valid blocks and generate random flowers.
                 level.setBlock(f.above(), Blocks.POPPY.defaultBlockState(), Block.UPDATE_ALL);
               }
             }
+            // TODO: Implement effect occurrences here.
             if (this.currentWork - this.maxWork % ApicuriousConstants.WORKCYCLE == 0) {
               // TODO: Implement output creation
             }
             if (this.currentWork == 0) {
               // TODO: Handle new princess & drone creation
+              changeActiveState(state, false);
+              this.currentWork = 0;
+              this.maxWork = 0;
+              this.territory = null;
+              getInventory().extractItem(0, 1, false);
+              ItemStack princess = new ItemStack(ApicuriousItemRegistration.PRINCESS.get(), 1);
+              ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), 3); // TODO: Take fertility into account
+              princess.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+              drones.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+              // TODO: Change this so it inserts into any available free slot in the
+              getInventory().insertItem(5, princess, false);
+              getInventory().insertItem(6, drones, false);
+              Apicurious.LOGGER.info("Successfully completed full Queen cycle!");
             }
           }
         }

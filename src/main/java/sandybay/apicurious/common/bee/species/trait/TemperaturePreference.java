@@ -14,6 +14,7 @@ import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,6 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
 
   public static final ResourceKey<TemperaturePreference> INFERNAL = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("infernal"));
   public static final ResourceKey<TemperaturePreference> HOT = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("hot"));
-  public static final ResourceKey<TemperaturePreference> WARM = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("warm"));
-  public static final ResourceKey<TemperaturePreference> CHILLY = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("chilly"));
-
   public static final ResourceKey<TemperaturePreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("average"));
   public static final ResourceKey<TemperaturePreference> COLD = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("cold"));
   public static final ResourceKey<TemperaturePreference> FREEZING = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("freezing"));
@@ -82,19 +80,17 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
   }
 
   private TagKey<Biome> getTagByOrdinal(int ordinal) {
-    // TODO: Replace with proper tags.
-    // TODO: Figure out a more dynamic way to do this...
     return switch (ordinal) {
-      case 0:
-        yield BiomeTags.HAS_IGLOO;
       case 1:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE;
       case 2:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.HOT_TEMPERATURE;
       case 3:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE;
       case 4:
-        yield BiomeTags.HAS_IGLOO;
+        yield ApicuriousTags.BiomeTags.COLD_TEMPERATURE;
+      case 5:
+        yield ApicuriousTags.BiomeTags.ICY_TEMPERATURE;
       default:
         yield null;
     };

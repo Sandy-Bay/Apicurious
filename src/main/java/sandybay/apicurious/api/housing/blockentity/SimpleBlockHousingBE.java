@@ -73,7 +73,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE {
     if (this.level == null) return;
     this.level.sendBlockUpdated(worldPosition, state, state.setValue(BaseHousingBlock.ACTIVE, shouldBeActive), Block.UPDATE_IMMEDIATE);
     this.setChanged();
-    this.isActive = true;
+    this.isActive = shouldBeActive;
   }
 
   public boolean isValidForStartup() {
