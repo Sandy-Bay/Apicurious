@@ -9,8 +9,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
+import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
+import sandybay.apicurious.api.util.ApicuriousConstants;
+
+import java.util.List;
 
 //This does not need to be in the api
 public abstract class SimpleBlockHousingBE extends BaseHousingBE {
@@ -18,8 +22,12 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE {
   // Server-sided Data
   private final ConfigurableItemStackHandler inventory;
 
+  public final HousingValidation validation;
+  public List<BlockPos> territory;
+
   public boolean isActive = false;
-  public int work = 0;
+  public int currentWork;
+  public int maxWork;
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state);
@@ -36,6 +44,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE {
             .setSlotLimit(3, 1)
             .setSlotLimit(4, 1)
             .setOnSlotChanged((stack, slot) -> this.setChanged());
+    this.validation = new HousingValidation();
   }
 
   @Override
@@ -69,6 +78,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE {
 
   public boolean isValidForStartup() {
     return getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS &&
-            getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE && this.work == 0;
+            getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE &&
+            this.currentWork == 0 && this.maxWork == 0;
   }
 }
