@@ -59,6 +59,12 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
     this.renderBackground(guiGraphics, mouseX, mouseY, partial);
     super.render(guiGraphics, mouseX, mouseY, partial);
     this.renderTooltip(guiGraphics, mouseX, mouseY);
+
+    int maxProgress = this.menu.getMaxProgress(), height = 75;
+    if (maxProgress > 0) {
+      int remaining = (this.menu.getProgress() * height) / maxProgress;
+      guiGraphics.blit(SCREEN_LOCATION, leftPos + 21, topPos + 83 - remaining, 177, 45 - remaining, 2, remaining);
+    }
   }
 
   @Override
@@ -70,6 +76,5 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
   protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
     guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
     guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
-
   }
 }

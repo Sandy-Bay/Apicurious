@@ -57,6 +57,7 @@ public class ApiaryBlock extends BaseHousingBlock implements MenuProvider {
                       id,
                       inventory,
                       ContainerLevelAccess.create(level, pos),
+                      apiary.containerData,
                       apiary.getInventory()
               ), getDisplayName());
     }

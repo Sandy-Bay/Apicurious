@@ -3,6 +3,7 @@ package sandybay.apicurious.common.block.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +28,32 @@ import java.util.stream.Collectors;
 
 public class ApiaryHousingBE extends SimpleBlockHousingBE {
 
+  public ContainerData containerData = new ContainerData()
+  {
+    @Override
+    public int get(int pIndex)
+    {
+      return switch (pIndex)
+      {
+        case 0 -> isActive ? 1 : 0;
+        case 1 -> currentWork;
+        case 2 -> maxWork;
+        default -> throw new IllegalArgumentException("Invalid index: " + pIndex);
+      };
+    }
+
+    @Override
+    public void set(int pIndex, int pValue)
+    {
+      throw new IllegalStateException("Cannot set values through IIntArray");
+    }
+
+    @Override
+    public int getCount()
+    {
+      return 3;
+    }
+  };
   public ApiaryHousingBE(BlockPos pos, BlockState blockState) {
     super(ApicuriousBlockRegistration.APIARY.getType(), pos, blockState);
   }

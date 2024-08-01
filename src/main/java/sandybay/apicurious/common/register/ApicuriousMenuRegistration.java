@@ -22,9 +22,4 @@ public class ApicuriousMenuRegistration {
   private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenu(String id, MenuType.MenuSupplier<T> supplier) {
     return MENU_TYPES.register(id, () -> new MenuType<>(supplier, FeatureFlags.DEFAULT_FLAGS));
   }  public static final DeferredHolder<MenuType<?>, MenuType<BeeHousingMenu>> BEE_HOUSING = registerMenu("bee_housing", BeeHousingMenu::new);
-
-
-
-
-
 }
