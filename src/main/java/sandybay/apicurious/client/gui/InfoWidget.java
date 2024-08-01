@@ -24,6 +24,7 @@ public class InfoWidget extends AbstractWidget
     private boolean isOpen;
     private final boolean openLeft;
     private List<Component> info;
+    private int defaultX;
 
 
     public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft, List<Component> info)
@@ -36,6 +37,7 @@ public class InfoWidget extends AbstractWidget
         this.openLeft = openLeft;
         this.info = info;
         this.isOpen = false;
+        this.defaultX = pX;
     }
 
     @Override
@@ -65,6 +67,7 @@ public class InfoWidget extends AbstractWidget
         {
             if (width < openSizeWidth)
             {
+                if(openLeft) setX(getX() - moveAmount);
                 width += moveAmount;
             }
 
@@ -78,10 +81,12 @@ public class InfoWidget extends AbstractWidget
         {
             if(width > closedSizeWidth)
             {
+                if(openLeft) setX(getX() + moveAmount);
                 width -= moveAmount;
             }
             else
             {
+                if(openLeft) setX(defaultX);
                 width = closedSizeWidth;
             }
 
