@@ -122,5 +122,11 @@ public class BaseBeeItem extends Item implements IBeeItem {
     {
       pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
     }
+
+    if(pTooltipFlag.isAdvanced())
+    {
+      BeeSpecies species = getSpecies(pStack);
+      pTooltipComponents.add(Component.literal(species.toString()));
+    }
   }
 }

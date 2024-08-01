@@ -41,6 +41,8 @@ public class ConfigurableItemStackHandler extends ItemStackHandler {
     int limit = slotAmountFilter.getOrDefault(slot, slotLimit);
     if (!existingStack.isEmpty()) {
       if (!ItemStack.isSameItemSameComponents(stack, existingStack)) {
+        System.out.println("new " + stack.getDisplayName().getString() + " " + stack.getComponents().toString());
+        System.out.println("existing: " + stack.getDisplayName().getString() + " " + existingStack.getComponents().toString());
         return stack;
       }
       limit -= existingStack.getCount();

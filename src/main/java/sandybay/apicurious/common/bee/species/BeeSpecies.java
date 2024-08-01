@@ -57,7 +57,7 @@ public class BeeSpecies implements IBeeSpecies {
   @Override
   public String toString()
   {
-    return super.toString() + " BeeSpecies{" + "name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
+    return super.toString(); //+ " BeeSpecies{" + "name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
   }
 
   private String getName() {
