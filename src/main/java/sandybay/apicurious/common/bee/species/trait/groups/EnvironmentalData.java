@@ -52,6 +52,12 @@ public class EnvironmentalData {
     this.ignoresSky = ignoresSky;
   }
 
+  @Override
+  public String toString()
+  {
+    return "EnvironmentalData{" + "flowers=" + flowers + ", humidityData=" + humidityData + ", temperatureData=" + temperatureData + ", ignoresRain=" + ignoresRain + ", ignoresSky=" + ignoresSky + '}';
+  }
+
   public Holder<Flowers> getFlowers() {
     return flowers;
   }

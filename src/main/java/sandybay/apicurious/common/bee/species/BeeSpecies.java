@@ -54,6 +54,12 @@ public class BeeSpecies implements IBeeSpecies {
     //this.effects = effects;
   }
 
+  @Override
+  public String toString()
+  {
+    return "BeeSpecies{" + "name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
+  }
+
   private String getName() {
     return name;
   }

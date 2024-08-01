@@ -37,6 +37,12 @@ public class VisualData {
     this.hasCustomRender = hasCustomRender;
   }
 
+  @Override
+  public String toString()
+  {
+    return "VisualData{" + "beeColor=" + beeColor + ", hasEffect=" + hasEffect + ", hasCustomRender=" + hasCustomRender + '}';
+  }
+
   public BeeColor getBeeColor() {
     return beeColor;
   }

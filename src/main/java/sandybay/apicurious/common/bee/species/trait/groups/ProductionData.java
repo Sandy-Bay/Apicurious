@@ -52,6 +52,12 @@ public class ProductionData {
     this.pollination = pollination;
   }
 
+  @Override
+  public String toString()
+  {
+    return "ProductionData{" + "lifespan=" + lifespan + ", workCycle=" + workCycle + ", area=" + area + ", speed=" + speed + ", fertility=" + fertility + ", pollination=" + pollination + '}';
+  }
+
   public Holder<Lifespan> getLifespan() {
     return lifespan;
   }
