@@ -26,8 +26,14 @@ public class InfoWidget extends AbstractWidget
     private List<Component> info;
     private int defaultX;
 
+    private final float red;
+    private final float green;
+    private final float blue;
 
-    public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft, List<Component> info)
+    private final ResourceLocation icon;
+
+
+    public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft, float red, float green, float blue, ResourceLocation icon, List<Component> info)
     {
         super(pX, pY, pWidth, pHeight, Component.empty());
         this.closedSizeWidth = pWidth;
@@ -38,6 +44,10 @@ public class InfoWidget extends AbstractWidget
         this.info = info;
         this.isOpen = false;
         this.defaultX = pX;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.icon = icon;
     }
 
     @Override
@@ -105,17 +115,25 @@ public class InfoWidget extends AbstractWidget
     {
         update();
 
+        pGuiGraphics.setColor(red, green, blue, this.alpha);
+
+
+
         pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY() + 4, 0, 256 - height + 4, 4, height - 4); // left edge
         pGuiGraphics.blit(SCREEN_LOCATION, getX() + 4, getY(), 256 - width + 4, 0, width - 4, 4); // top edge
         pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY(), 0, 0, 4, 4); // top left corner
 
         pGuiGraphics.blit(SCREEN_LOCATION, getX() + 4, getY() + 4, 256 - width + 4, 256 - height + 4, width - 4, height - 4); // body + bottom + right
+
+        pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+
+
+        pGuiGraphics.blit(icon, getX() + 4, getY() + 4, 0, 0, 16, 16, 16, 16);
     }
 
     @Override
     protected void renderWidget(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick)
     {
-        pGuiGraphics.setColor(1.0F, 0.0F, 0.0F, this.alpha);
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
 
