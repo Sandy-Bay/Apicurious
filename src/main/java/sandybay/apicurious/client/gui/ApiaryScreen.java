@@ -43,13 +43,13 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
   {
     List<Component> tempTab = new ArrayList<>();
     tempTab.add(Component.literal("Climate").withColor(ChatFormatting.YELLOW.getColor()));
-    tempTab.add(Component.literal("Temperature:"));
+    tempTab.add(Component.literal("Temperature:").withColor(ChatFormatting.GRAY.getColor()));
     ClimateHelper climateHelper = new ClimateHelper(player.level());
     var temp = climateHelper.getTemperatureAtPosition(player.blockPosition()).location().getPath();
-    tempTab.add(Component.literal(temp.toString()));
-    tempTab.add(Component.literal("Humidity:"));
+    tempTab.add(Component.literal(temp.toString()).withColor(ChatFormatting.BLACK.getColor()));
+    tempTab.add(Component.literal("Humidity:").withColor(ChatFormatting.GRAY.getColor()));
     var humid = climateHelper.getHumidityAtPosition(player.blockPosition()).location().getPath();
-    tempTab.add(Component.literal(humid.toString()));
+    tempTab.add(Component.literal(humid.toString()).withColor(ChatFormatting.BLACK.getColor()));
 
     return tempTab;
   }

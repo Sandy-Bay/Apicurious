@@ -67,7 +67,7 @@ public class InfoWidget extends AbstractWidget
 
                 for (Component component : info)
                 {
-                    pGuiGraphics.drawString(Minecraft.getInstance().font, component, getX() + xOffset, getY() + 5 + yOffset, -1);
+                    pGuiGraphics.drawString(Minecraft.getInstance().font, component, getX() + xOffset, getY() + 5 + yOffset, -1, false);
                     yOffset += 10;
                 }
             }
