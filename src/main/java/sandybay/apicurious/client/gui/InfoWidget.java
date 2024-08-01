@@ -99,7 +99,12 @@ public class InfoWidget extends AbstractWidget
     private void renderBackground(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick)
     {
         update();
-        pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY(), 0, 0, width, height);
+
+        pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY() + 4, 0, 256 - height + 4, 4, height - 4); // left edge
+        pGuiGraphics.blit(SCREEN_LOCATION, getX() + 4, getY(), 256 - width + 4, 0, width - 4, 4); // top edge
+        pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY(), 0, 0, 4, 4); // top left corner
+
+        pGuiGraphics.blit(SCREEN_LOCATION, getX() + 4, getY() + 4, 256 - width + 4, 256 - height + 4, width - 4, height - 4); // body + bottom + right
     }
 
     @Override
