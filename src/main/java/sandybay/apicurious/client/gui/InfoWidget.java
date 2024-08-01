@@ -80,10 +80,18 @@ public class InfoWidget extends AbstractWidget
             {
                 width -= moveAmount;
             }
+            else
+            {
+                width = closedSizeWidth;
+            }
 
             if(height > closedSizeHeight)
             {
                 height -= moveAmount;
+            }
+            else
+            {
+                height = closedSizeHeight;
             }
         }
     }
