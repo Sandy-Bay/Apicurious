@@ -11,6 +11,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
 
   public static final ResourceKey<TemperatureTolerance> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, Apicurious.createResourceLocation("none"));
@@ -54,6 +56,19 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TemperatureTolerance that = (TemperatureTolerance) o;
+    return toleranceModifier == that.toleranceModifier && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(toleranceModifier, name, readableName);
   }
 
   @Override

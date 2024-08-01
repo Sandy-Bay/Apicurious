@@ -13,6 +13,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WorkCycle implements ITrait<WorkCycle> {
 
@@ -97,6 +98,19 @@ public class WorkCycle implements ITrait<WorkCycle> {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WorkCycle workCycle = (WorkCycle) o;
+    return Objects.equals(activeTimes, workCycle.activeTimes) && Objects.equals(name, workCycle.name) && Objects.equals(readableName, workCycle.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(activeTimes, name, readableName);
+  }
+
+  @Override
   public Codec<WorkCycle> getCodec() {
     return CODEC;
   }
@@ -131,6 +145,19 @@ public class WorkCycle implements ITrait<WorkCycle> {
         return (time >= minTime && time <= 24000) || (time >= 0 && time <= maxTime);
       }
       return time >= minTime && time <= maxTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      Interval interval = (Interval) o;
+      return minTime == interval.minTime && maxTime == interval.maxTime;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(minTime, maxTime);
     }
   }
 }

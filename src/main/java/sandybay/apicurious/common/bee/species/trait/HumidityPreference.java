@@ -18,6 +18,7 @@ import sandybay.apicurious.api.util.ApicuriousTags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HumidityPreference implements ITrait<HumidityPreference> {
 
@@ -106,5 +107,18 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
       humidityTags.add(getTagByOrdinal(i));
     }
     return humidityTags;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    HumidityPreference that = (HumidityPreference) o;
+    return humidity == that.humidity && Objects.equals(groupTag, that.groupTag) && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(humidity, groupTag, name, readableName);
   }
 }

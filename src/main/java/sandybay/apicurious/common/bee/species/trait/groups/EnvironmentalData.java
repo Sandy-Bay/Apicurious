@@ -13,6 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.*;
 
+import java.util.Objects;
+
 public class EnvironmentalData {
 
   public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
@@ -76,6 +78,19 @@ public class EnvironmentalData {
 
   public boolean ignoresSky() {
     return ignoresSky;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EnvironmentalData that = (EnvironmentalData) o;
+    return ignoresRain == that.ignoresRain && ignoresSky == that.ignoresSky && Objects.equals(flowers, that.flowers) && Objects.equals(humidityData, that.humidityData) && Objects.equals(temperatureData, that.temperatureData);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(flowers, humidityData, temperatureData, ignoresRain, ignoresSky);
   }
 
   public static class Builder {

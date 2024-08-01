@@ -13,6 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.*;
 
+import java.util.Objects;
+
 public class ProductionData {
 
   public static final Codec<ProductionData> CODEC = RecordCodecBuilder.create(
@@ -80,6 +82,19 @@ public class ProductionData {
 
   public Holder<WorkCycle> getWorkCycle() {
     return workCycle;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ProductionData that = (ProductionData) o;
+    return Objects.equals(lifespan, that.lifespan) && Objects.equals(workCycle, that.workCycle) && Objects.equals(area, that.area) && Objects.equals(speed, that.speed) && Objects.equals(fertility, that.fertility) && Objects.equals(pollination, that.pollination);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(lifespan, workCycle, area, speed, fertility, pollination);
   }
 
   public static class Builder {

@@ -11,6 +11,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 /**
  * Speed is a trait inherited by Bees which alters the chance of a bee to produce output.
  * The faster the speed, the higher the chance of a bee creating a product per bee cycle update.
@@ -58,6 +60,19 @@ public class Speed implements ITrait<Speed> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Speed speed = (Speed) o;
+    return Float.compare(productionModifier, speed.productionModifier) == 0 && Objects.equals(name, speed.name) && Objects.equals(readableName, speed.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(productionModifier, name, readableName);
   }
 
   @Override

@@ -10,6 +10,7 @@ import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.api.util.Coloring;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class BeeColor implements IBeeColor {
 
@@ -70,4 +71,16 @@ public class BeeColor implements IBeeColor {
     return Coloring.fromHex(wingTint);
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BeeColor beeColor = (BeeColor) o;
+    return Objects.equals(outlineTint, beeColor.outlineTint) && Objects.equals(wingTint, beeColor.wingTint) && Objects.equals(bodyTint, beeColor.bodyTint);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(outlineTint, wingTint, bodyTint);
+  }
 }

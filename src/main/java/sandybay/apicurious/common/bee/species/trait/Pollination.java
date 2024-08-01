@@ -11,6 +11,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 public class Pollination implements ITrait<Pollination> {
 
   public static final ResourceKey<Pollination> SLOWEST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slowest"));
@@ -53,6 +55,19 @@ public class Pollination implements ITrait<Pollination> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Pollination that = (Pollination) o;
+    return Float.compare(pollinationChance, that.pollinationChance) == 0 && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pollinationChance, name, readableName);
   }
 
   @Override

@@ -11,6 +11,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 public class Fertility implements ITrait<Fertility> {
 
   public static final ResourceKey<Fertility> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("low"));
@@ -51,6 +53,19 @@ public class Fertility implements ITrait<Fertility> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Fertility fertility = (Fertility) o;
+    return offspring == fertility.offspring && Objects.equals(name, fertility.name) && Objects.equals(readableName, fertility.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(offspring, name, readableName);
   }
 
   @Override

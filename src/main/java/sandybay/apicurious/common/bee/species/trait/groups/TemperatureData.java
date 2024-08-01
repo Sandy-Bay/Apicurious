@@ -11,6 +11,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.trait.TemperaturePreference;
 import sandybay.apicurious.common.bee.species.trait.TemperatureTolerance;
 
+import java.util.Objects;
+
 public record TemperatureData(Holder<TemperaturePreference> preference, Holder<TemperatureTolerance> tolerance) {
   public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -24,4 +26,17 @@ public record TemperatureData(Holder<TemperaturePreference> preference, Holder<T
           ByteBufCodecs.holderRegistry(ApicuriousRegistries.TEMPERATURE_TOLERANCES), TemperatureData::tolerance,
           TemperatureData::new
   );
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TemperatureData that = (TemperatureData) o;
+    return Objects.equals(preference, that.preference) && Objects.equals(tolerance, that.tolerance);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(preference, tolerance);
+  }
 }

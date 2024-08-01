@@ -90,12 +90,16 @@ public class BeeSpecies implements IBeeSpecies {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     BeeSpecies species = (BeeSpecies) o;
-    return Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData);
+    return Objects.equals(name, species.name) &&
+            Objects.equals(visualData, species.visualData) &&
+            Objects.equals(productionData, species.productionData) &&
+            Objects.equals(environmentalData, species.environmentalData) &&
+            Objects.equals(readableName, species.readableName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, visualData);
+    return Objects.hash(name, visualData, productionData, environmentalData, readableName);
   }
 
   //public List<MobEffectInstance> getEffects() {

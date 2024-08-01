@@ -14,6 +14,7 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
@@ -113,19 +114,30 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE {
               // TODO: Implement output creation
             }
             if (this.currentWork == 0) {
-              // TODO: Handle new princess & drone creation
+              // TODO: Improve the below code
               changeActiveState(state, false);
               this.currentWork = 0;
               this.maxWork = 0;
               this.territory = null;
               getInventory().extractItem(0, 1, false);
               ItemStack princess = new ItemStack(ApicuriousItemRegistration.PRINCESS.get(), 1);
-              ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), 3); // TODO: Take fertility into account
+              Fertility fertility = species.getProductionData().getFertility().value();
+              ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), fertility.getOffspring());
               princess.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
               drones.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
               // TODO: Change this so it inserts into any available free slot in the
-              getInventory().insertItem(5, princess, false);
-              getInventory().insertItem(6, drones, false);
+              for (int i = 5; i < 12; i++) {
+                if (getInventory().insertItem(i, princess, true) != princess) {
+                  getInventory().insertItem(i, princess, false);
+                  break;
+                }
+              }
+              for (int i = 5; i < 12; i++) {
+                if (getInventory().insertItem(i, drones, true) != drones) {
+                  getInventory().insertItem(i, drones, false);
+                  break;
+                }
+              }
               Apicurious.LOGGER.info("Successfully completed full Queen cycle!");
             }
           }

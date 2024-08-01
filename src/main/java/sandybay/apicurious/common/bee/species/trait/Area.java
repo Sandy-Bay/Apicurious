@@ -11,6 +11,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 public class Area implements ITrait<Area> {
 
 
@@ -64,6 +66,19 @@ public class Area implements ITrait<Area> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Area area = (Area) o;
+    return xzOffset == area.xzOffset && yOffset == area.yOffset && Objects.equals(name, area.name) && Objects.equals(readableName, area.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(xzOffset, yOffset, name, readableName);
   }
 
   @Override

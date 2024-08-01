@@ -11,6 +11,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 public class Lifespan implements ITrait<Lifespan> {
 
   public static final ResourceKey<Lifespan> SHOREST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorest"));
@@ -55,6 +57,19 @@ public class Lifespan implements ITrait<Lifespan> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Lifespan lifespan = (Lifespan) o;
+    return cycles == lifespan.cycles && Objects.equals(name, lifespan.name) && Objects.equals(readableName, lifespan.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cycles, name, readableName);
   }
 
   @Override

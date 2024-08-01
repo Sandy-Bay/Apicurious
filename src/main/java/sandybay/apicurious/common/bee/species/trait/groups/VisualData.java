@@ -8,6 +8,8 @@ import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeColor;
 
+import java.util.Objects;
+
 public class VisualData {
 
   public static final VisualData DEFAULT = VisualData.Builder.create().build();
@@ -53,6 +55,19 @@ public class VisualData {
 
   public boolean hasCustomRender() {
     return hasCustomRender;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    VisualData that = (VisualData) o;
+    return hasEffect == that.hasEffect && hasCustomRender == that.hasCustomRender && Objects.equals(beeColor, that.beeColor);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(beeColor, hasEffect, hasCustomRender);
   }
 
   public static class Builder {

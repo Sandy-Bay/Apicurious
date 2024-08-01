@@ -14,6 +14,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
+import java.util.Objects;
+
 public class Flowers implements ITrait<Flowers> {
 
   public static final ResourceKey<Flowers> NORMAL_FLOWERS = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("normal_flowers"));
@@ -53,6 +55,19 @@ public class Flowers implements ITrait<Flowers> {
   public Component getReadableName() {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Flowers flowers1 = (Flowers) o;
+    return Objects.equals(flowers, flowers1.flowers) && Objects.equals(name, flowers1.name) && Objects.equals(readableName, flowers1.readableName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(flowers, name, readableName);
   }
 
   @Override
