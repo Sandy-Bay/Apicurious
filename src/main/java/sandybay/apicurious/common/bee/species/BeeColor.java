@@ -37,6 +37,12 @@ public class BeeColor implements IBeeColor {
     this.bodyTint = bodyTint == null || bodyTint.isEmpty() ? ApicuriousConstants.DEFAULT_BODY : bodyTint;
   }
 
+  @Override
+  public String toString()
+  {
+    return super.toString() + " BeeColor{" + "outlineTint='" + outlineTint + '\'' + ", wingTint='" + wingTint + '\'' + ", bodyTint='" + bodyTint + '\'' + '}';
+  }
+
   private String getOutlineTintInternal() {
     return outlineTint;
   }

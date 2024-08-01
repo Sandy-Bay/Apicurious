@@ -40,7 +40,7 @@ public class VisualData {
   @Override
   public String toString()
   {
-    return "VisualData{" + "beeColor=" + beeColor + ", hasEffect=" + hasEffect + ", hasCustomRender=" + hasCustomRender + '}';
+    return super.toString() +  " VisualData{" + "beeColor=" + beeColor + ", hasEffect=" + hasEffect + ", hasCustomRender=" + hasCustomRender + '}';
   }
 
   public BeeColor getBeeColor() {

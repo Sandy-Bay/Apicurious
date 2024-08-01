@@ -126,7 +126,7 @@ public class BaseBeeItem extends Item implements IBeeItem {
     if(pTooltipFlag.isAdvanced())
     {
       BeeSpecies species = getSpecies(pStack);
-      pTooltipComponents.add(Component.literal(species.toString()));
+      pTooltipComponents.add(Component.literal(species.getVisualData().toString()));
       //      pTooltipComponents.add(Component.literal(pStack.getComponents().toString()));
     }
   }

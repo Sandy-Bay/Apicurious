@@ -55,7 +55,7 @@ public class EnvironmentalData {
   @Override
   public String toString()
   {
-    return "EnvironmentalData{" + "flowers=" + flowers + ", humidityData=" + humidityData + ", temperatureData=" + temperatureData + ", ignoresRain=" + ignoresRain + ", ignoresSky=" + ignoresSky + '}';
+    return super.toString() + " EnvironmentalData{" + "flowers=" + flowers + ", humidityData=" + humidityData + ", temperatureData=" + temperatureData + ", ignoresRain=" + ignoresRain + ", ignoresSky=" + ignoresSky + '}';
   }
 
   public Holder<Flowers> getFlowers() {

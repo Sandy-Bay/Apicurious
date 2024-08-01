@@ -55,7 +55,7 @@ public class ProductionData {
   @Override
   public String toString()
   {
-    return "ProductionData{" + "lifespan=" + lifespan + ", workCycle=" + workCycle + ", area=" + area + ", speed=" + speed + ", fertility=" + fertility + ", pollination=" + pollination + '}';
+    return super.toString() + " ProductionData{" + "lifespan=" + lifespan + ", workCycle=" + workCycle + ", area=" + area + ", speed=" + speed + ", fertility=" + fertility + ", pollination=" + pollination + '}';
   }
 
   public Holder<Lifespan> getLifespan() {
