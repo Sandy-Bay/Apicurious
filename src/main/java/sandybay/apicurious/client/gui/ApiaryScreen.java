@@ -60,7 +60,7 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
     super.render(guiGraphics, mouseX, mouseY, partial);
     this.renderTooltip(guiGraphics, mouseX, mouseY);
 
-    int maxProgress = this.menu.getMaxProgress(), height = 75;
+    int maxProgress = this.menu.getMaxProgress(), height = 46;
     if (maxProgress > 0) {
       int remaining = (this.menu.getProgress() * height) / maxProgress;
       guiGraphics.blit(SCREEN_LOCATION, leftPos + 21, topPos + 83 - remaining, 177, 45 - remaining, 2, remaining);
