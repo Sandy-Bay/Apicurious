@@ -1,5 +1,6 @@
 package sandybay.apicurious.client.gui;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -9,7 +10,11 @@ import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
+import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.menu.ApiaryMenu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
 
@@ -26,15 +31,34 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu> {
   }
 
   @Override
+  protected void init()
+  {
+    super.init();
+    addRenderableWidget(new InfoWidget(leftPos - 25, topPos + 10, 25, 25, 120, 80, true, new ArrayList<>()));
+    addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, getTempTabInfo()));
+
+  }
+
+  private List<Component> getTempTabInfo()
+  {
+    List<Component> tempTab = new ArrayList<>();
+    tempTab.add(Component.literal("Climate").withColor(ChatFormatting.YELLOW.getColor()));
+    tempTab.add(Component.literal("Temperature:"));
+    ClimateHelper climateHelper = new ClimateHelper(player.level());
+    var temp = climateHelper.getTemperatureAtPosition(player.blockPosition()).location().getPath();
+    tempTab.add(Component.literal(temp.toString()));
+    tempTab.add(Component.literal("Humidity:"));
+    var humid = climateHelper.getHumidityAtPosition(player.blockPosition()).location().getPath();
+    tempTab.add(Component.literal(humid.toString()));
+
+    return tempTab;
+  }
+
+  @Override
   public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partial) {
     this.renderBackground(guiGraphics, mouseX, mouseY, partial);
     super.render(guiGraphics, mouseX, mouseY, partial);
     this.renderTooltip(guiGraphics, mouseX, mouseY);
-    guiGraphics.drawString(this.font, "Temperature:", leftPos + imageWidth + 10, 50, -1, false);
-    guiGraphics.drawString(this.font, BaseHousingBE.getCurrentTemperature(player.level(), player.blockPosition()).location().getPath(), leftPos + imageWidth + 10, 60, -1, false);
-
-    guiGraphics.drawString(this.font, "Humidity:", leftPos + imageWidth + 10, 70, -1, false);
-    guiGraphics.drawString(this.font, BaseHousingBE.getCurrentHumidity(player.level(), player.blockPosition()).location().getPath(), leftPos + imageWidth + 10, 80, -1, false);
   }
 
   @Override
