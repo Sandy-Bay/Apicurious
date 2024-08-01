@@ -77,91 +77,123 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     }
   }
 
+  /**
+   * Determines if two @link {@link ItemStack} match and can be merged into a single slot
+   */
+  public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
+  {
+    if (stack1.isEmpty() || stack2.isEmpty()) return false;
+    return ItemStack.isSameItemSameComponents(stack1, stack2);
+  }
+
+  /**
+   * Logic to figure out where/if a shift-clicked slot can move its @link {@link ItemStack} to another @link {@link Slot}
+   */
   @Override
-  public @NotNull ItemStack quickMoveStack(@NotNull Player player, int index) {
-    ItemStack quickMovedStack = ItemStack.EMPTY;
-    Slot quickMovedSlot = this.slots.get(index);
-    ItemStack primaryBeeItem = this.slots.get(0).getItem();
-    // Check that slot exists and has an item
-    if (quickMovedSlot != null && quickMovedSlot.hasItem()) {
-      // Grab the raw item from the slot & make a copy
-      ItemStack rawStack = quickMovedSlot.getItem();
-      quickMovedStack = rawStack.copy();
-
-      // If it's the primary Bee slot for Queens and Princess bees.
-      if (index == 0) {
-        // Fail to quick move if the Item in the slot is a Queen.
-        // Since this indicates the housing is active.
-        if (quickMovedStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN)
+  public @NotNull ItemStack quickMoveStack(@NotNull Player player, int slotIndex)
+  {
+    ItemStack originalStack = ItemStack.EMPTY;
+    Slot slot = (Slot) slots.get(slotIndex);
+    int numSlots = slots.size();
+    if (slot != null && slot.hasItem())
+    {
+      ItemStack stackInSlot = slot.getItem();
+      originalStack = stackInSlot.copy();
+      if (slotIndex >= numSlots - 9 * 4 && tryShiftItem(stackInSlot, numSlots))
+      {
+        // NOOP
+      } else if (slotIndex >= numSlots - 9 * 4 && slotIndex < numSlots - 9)
+      {
+        if (!shiftItemStack(stackInSlot, numSlots - 9, numSlots))
+        {
           return ItemStack.EMPTY;
-        // Else return the result of 'moveToPlayerInventory'
-        return moveToPlayerInventory(rawStack);
+        }
+      } else if (slotIndex >= numSlots - 9 && slotIndex < numSlots)
+      {
+        if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots - 9))
+        {
+          return ItemStack.EMPTY;
+        }
+      } else if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots))
+      {
+        return ItemStack.EMPTY;
+      }
+      slot.onQuickCraft(stackInSlot, originalStack);
+      if (stackInSlot.getCount() <= 0)
+      {
+        slot.set(ItemStack.EMPTY);
+      } else
+      {
+        slot.setChanged();
+      }
+      if (stackInSlot.getCount() == originalStack.getCount())
+      {
+        return ItemStack.EMPTY;
+      }
+      slot.onTake(player, stackInSlot);
+    }
+    return originalStack;
+  }
 
-        // If it's the secondary Bee slot for Drones.
-      } else if (index == 1) {
-        // Return the result of 'moveToPlayerInventory'.
-        return moveToPlayerInventory(rawStack);
-
-        // If it's any of the frame slots.
-      } else if (index >= 2 && index <= 4) {
-        // Fail to quick move if the housing is active.
-        if (isHousingActive(primaryBeeItem)) return ItemStack.EMPTY;
-        // Else return the result of 'moveToPlayerInventory'
-        return moveToPlayerInventory(rawStack);
-
-        // If it's any of the output slots.
-      } else if (index >= 5 && index <= 11) {
-        // Return the result of 'moveToPlayerInventory'
-        return moveToPlayerInventory(rawStack);
-
-        // If it's any of the Inventory or Hotbar slots.
-      } else if (index >= 12 && index <= 47) {
-        // If the housing is Inactive & the moved stack is a Princess.
-        if (!isHousingActive(primaryBeeItem) && rawStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.PRINCESS) {
-          // Then try to insert to the primary Bee slot.
-          if (!moveItemStackTo(rawStack, 0, 0, true)) {
-            return ItemStack.EMPTY;
-          }
-
-          // If the moved stack is a Drone.
-        } else if (rawStack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE) {
-          // Then try to insert to the secondary Bee slot.
-          if (!moveItemStackTo(rawStack, 1, 1, true)) {
-            return ItemStack.EMPTY;
-          }
-
-          // If the housing is Inactive & the moved stack is a Frame.
-        } else if (!isHousingActive(primaryBeeItem) && rawStack.getItem() instanceof IFrameItem) {
-          // Then try to insert to the Frame slots.
-          if (!moveItemStackTo(rawStack, 2, 4, true)) {
-            return ItemStack.EMPTY;
+  public boolean shiftItemStack(ItemStack stackToShift, int start, int end)
+  {
+    boolean changed = false;
+    if (stackToShift.isStackable())
+    {
+      for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++)
+      {
+        Slot slot = (Slot) slots.get(slotIndex);
+        ItemStack stackInSlot = slot.getItem();
+        if (!stackInSlot.isEmpty() && canStacksMerge(stackInSlot, stackToShift))
+        {
+          int resultingStackSize = stackInSlot.getCount() + stackToShift.getCount();
+          int max = Math.min(stackToShift.getMaxStackSize(), slot.getMaxStackSize());
+          if (resultingStackSize <= max)
+          {
+            stackToShift.setCount(0);
+            stackInSlot.setCount(resultingStackSize);
+            slot.setChanged();
+            changed = true;
+          } else if (stackInSlot.getCount() < max)
+          {
+            stackToShift.setCount(stackToShift.getCount() - (max - stackInSlot.getCount()));
+            stackInSlot.setCount(max);
+            slot.setChanged();
+            changed = true;
           }
         }
       }
-      // If the raw stack has completely been moved out of the slot.
-      if (rawStack.isEmpty()) {
-        // Set the slot to an empty stack.
-        quickMovedSlot.set(ItemStack.EMPTY);
-      } else {
-        // Otherwise, notify the slot that the stack count has changed.
-        quickMovedSlot.setChanged();
-      }
-
-      // If the raw stack was not able to be moved to another slot, no longer quick move
-      if (rawStack.getCount() == quickMovedStack.getCount())
-        return ItemStack.EMPTY;
-
-      // Execute logic on what to do post move with the remaining stack.
-      quickMovedSlot.onTake(player, rawStack);
     }
-    return quickMovedStack;
+    if (stackToShift.getCount() > 0)
+    {
+      for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++)
+      {
+        Slot slot = (Slot) slots.get(slotIndex);
+        ItemStack stackInSlot = slot.getItem();
+        if (stackInSlot.isEmpty())
+        {
+          int max = Math.min(stackToShift.getMaxStackSize(), slot.getMaxStackSize());
+          stackInSlot = stackToShift.copy();
+          stackInSlot.setCount(Math.min(stackToShift.getCount(), max));
+          stackToShift.setCount(stackToShift.getCount() - stackInSlot.getCount());
+          slot.set(stackInSlot);
+          slot.setChanged();
+          changed = true;
+        }
+      }
+    }
+    return changed;
   }
 
-  private ItemStack moveToPlayerInventory(ItemStack stack) {
-    if (!moveItemStackTo(stack, 12, 47, true)) {
-      return ItemStack.EMPTY;
+  public boolean tryShiftItem(ItemStack stackToShift, int numSlots)
+  {
+    for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
+    {
+      Slot slot = (Slot) slots.get(machineIndex);
+      if (!slot.mayPlace(stackToShift)) continue;
+      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) return true;
     }
-    return stack;
+    return false;
   }
 
   public boolean isHousingActive(ItemStack stack) {
