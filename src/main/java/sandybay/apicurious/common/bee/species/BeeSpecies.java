@@ -26,7 +26,7 @@ public class BeeSpecies implements IBeeSpecies
                   VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
                   ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
                   EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData),
-                  OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputs)
+                  OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData)
                   //Codec.list(MobEffectInstance.CODEC).fieldOf("effects").forGetter(BeeSpecies::getEffects)
           ).apply(instance, BeeSpecies::new)
   );
@@ -36,7 +36,7 @@ public class BeeSpecies implements IBeeSpecies
           VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
           ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
           EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
-          OutputData.NETWORK_CODEC, BeeSpecies::getOutputs,
+          OutputData.NETWORK_CODEC, BeeSpecies::getOutputData,
           //ByteBufCodecs.collection(ArrayList::new, MobEffectInstance.STREAM_CODEC), BeeSpecies::getEffects,
           BeeSpecies::new
   );
@@ -93,7 +93,7 @@ public class BeeSpecies implements IBeeSpecies
   }
 
   @Override
-  public OutputData getOutputs()
+  public OutputData getOutputData()
   {
     return outputs;
   }

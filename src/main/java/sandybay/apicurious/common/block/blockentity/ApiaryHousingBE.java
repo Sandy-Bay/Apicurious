@@ -152,9 +152,21 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
               }
             }
             // TODO: Implement effect occurrences here.
-            if (this.currentWork - this.maxWork % ApicuriousConstants.WORKCYCLE == 0)
+            if (Math.abs(this.currentWork - this.maxWork) % 5 == 0) // Change this back to WorkCycle later
             {
-              // TODO: Implement output creation
+              List<ItemStack> outputs = species.getOutputData().getOutputs();
+              for (ItemStack output : outputs) {
+                ItemStack out = output;
+                for (int i = 5; i < 12; i++)
+                {
+                  if (getInventory().insertItem(i, out, true) != out) {
+                      out = getInventory().insertItem(i, out, false);
+                      if (out.isEmpty()) {
+                        break;
+                      }
+                  }
+                }
+              }
             }
             if (this.currentWork == 0)
             {

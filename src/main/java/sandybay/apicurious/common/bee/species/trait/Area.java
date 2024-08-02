@@ -33,6 +33,7 @@ public class Area implements ITrait<Area>
                   Codec.STRING.fieldOf("name").forGetter(Area::getName)
           ).apply(instance, Area::new)
   );
+
   public static final StreamCodec<ByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, Area::getXZOffset,
           ByteBufCodecs.INT, Area::getYOffset,

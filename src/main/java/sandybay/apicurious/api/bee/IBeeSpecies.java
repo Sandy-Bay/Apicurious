@@ -16,5 +16,5 @@ public interface IBeeSpecies
 
   EnvironmentalData getEnvironmentalData();
 
-  OutputData getOutputs();
+  OutputData getOutputData();
 }
