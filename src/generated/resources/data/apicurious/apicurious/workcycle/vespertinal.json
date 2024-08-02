@@ -1,0 +1,9 @@
+{
+  "activeTimes": [
+    {
+      "maxTime": 20000,
+      "minTime": 14000
+    }
+  ],
+  "name": "apicurious.workcycle.vespertinal"
+}

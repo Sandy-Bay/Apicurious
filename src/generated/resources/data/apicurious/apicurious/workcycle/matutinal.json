@@ -1,0 +1,9 @@
+{
+  "activeTimes": [
+    {
+      "maxTime": 10000,
+      "minTime": 4000
+    }
+  ],
+  "name": "apicurious.workcycle.matutinal"
+}

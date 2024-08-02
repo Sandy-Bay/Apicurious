@@ -1,12 +1,32 @@
 {
+  "environmentalData": {
+    "flowers": "apicurious:normal_flowers",
+    "humidityData": {
+      "preference": "apicurious:average",
+      "tolerance": "apicurious:none"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preference": "apicurious:average",
+      "tolerance": "apicurious:none"
+    }
+  },
   "name": "apicurious.species.debug",
+  "productionData": {
+    "area": "apicurious:average",
+    "fertility": "apicurious:average",
+    "lifespan": "apicurious:average",
+    "pollination": "apicurious:average",
+    "speed": "apicurious:average",
+    "workCycle": "apicurious:diurnal"
+  },
   "visualData": {
     "beeColor": {
       "bodyTint": "ffdc16",
       "outlineTint": "999999",
       "wingTint": "bcbcbc"
     },
-    "hasEffect": true,
-    "hasCustomRender": true
+    "hasEffect": true
   }
 }

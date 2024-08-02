@@ -6,17 +6,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
-import sandybay.apicurious.common.block.blockentity.BasicBeeHousingBE;
+import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
 
-public class BeeHousingBlock extends BaseHousingBlock {
+public class BeeHousingBlock extends BaseHousingBlock
+{
 
-  public BeeHousingBlock(Properties properties) {
+  public BeeHousingBlock(Properties properties)
+  {
     super(properties, 3.0f);
   }
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-    return new BasicBeeHousingBE(pos, state);
+  public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state)
+  {
+    return new BeeHousingBE(pos, state);
   }
 }

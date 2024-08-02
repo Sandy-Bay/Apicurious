@@ -9,18 +9,22 @@ import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandle
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 
-public class BeeHousingMenu extends AbstractHousingMenu {
+public class BeeHousingMenu extends AbstractHousingMenu
+{
 
-  public BeeHousingMenu(int containerId, Inventory playerInventory) {
+  public BeeHousingMenu(int containerId, Inventory playerInventory)
+  {
     super(ApicuriousMenuRegistration.BEE_HOUSING.get(), containerId, playerInventory);
   }
 
-  public BeeHousingMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory) {
+  public BeeHousingMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory)
+  {
     super(ApicuriousMenuRegistration.BEE_HOUSING.get(), containerId, playerInventory, access, inventory);
   }
 
   @Override
-  public boolean stillValid(@NotNull Player player) {
+  public boolean stillValid(@NotNull Player player)
+  {
     return AbstractContainerMenu.stillValid(getAccess(), player, ApicuriousBlockRegistration.BEE_HOUSING.asBlock());
   }
 }

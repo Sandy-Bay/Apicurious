@@ -1,4 +1,5 @@
 package sandybay.apicurious.api.item;
 
-public interface IFrameItem {
+public interface IFrameItem
+{
 }

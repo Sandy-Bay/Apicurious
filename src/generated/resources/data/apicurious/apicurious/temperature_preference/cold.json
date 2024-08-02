@@ -1,0 +1,5 @@
+{
+  "groupTag": "apicurious:temperature/cold",
+  "name": "apicurious.preference.temperature.cold",
+  "temperature": 2
+}
