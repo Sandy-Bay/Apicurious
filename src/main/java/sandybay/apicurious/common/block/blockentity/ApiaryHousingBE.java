@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
@@ -22,6 +23,7 @@ import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -54,6 +56,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       return 3;
     }
   };
+
+  public List<EnumApiaryError> errorList = new ArrayList<>();
 
   public ApiaryHousingBE(BlockPos pos, BlockState blockState)
   {
