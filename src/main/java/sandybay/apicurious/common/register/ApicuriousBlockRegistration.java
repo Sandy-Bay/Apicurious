@@ -25,7 +25,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class ApicuriousBlockRegistration {
+public class ApicuriousBlockRegistration
+{
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
   public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, Apicurious.MODID);
@@ -44,19 +45,38 @@ public class ApicuriousBlockRegistration {
   public static final BlockItemHolder<HiveBlock, BlockItem> ENDER_HIVE = registerBlock("ender_hive", () -> new HiveBlock(ApicuriousSpecies.ENDER, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
   private static final Item.Properties DEFAULT_ITEM_BLOCK_PROPERTIES = new Item.Properties();
 
-  public static void register(IEventBus bus) {
+  public static void register(IEventBus bus)
+  {
     BLOCKS.register(bus);
     ITEMS.register(bus);
     BLOCK_ENTITY_TYPES.register(bus);
   }
 
   public static <BLOCK extends Block, BLOCKITEM extends BlockItem> BlockItemHolder<BLOCK, BLOCKITEM> registerBlock
-          (String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item) {
+          (String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item)
+  {
     DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
     return new BlockItemHolder<>(b, i);
   }  //Bee Housing
-  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
+
+  public static <BLOCK extends Block, BLOCKITEM extends BlockItem, T extends BlockEntity>
+  BlockHolderWithTile<BLOCK, BLOCKITEM, T> registerBlockWithTile(String id,
+                                                                 Supplier<BLOCK> block,
+                                                                 Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item,
+                                                                 BlockEntityType.BlockEntitySupplier<T> factory,
+                                                                 BiFunction<BlockEntityType.BlockEntitySupplier<T>, DeferredHolder<Block, BLOCK>, Supplier<BlockEntityType<T>>> type)
+  {
+    DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
+    DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
+    DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> t = BLOCK_ENTITY_TYPES.register(id, type.apply(factory, b));
+    return new BlockHolderWithTile<>(b, i, t);
+  }
+
+  private static <BLOCK extends Block> Supplier<BlockItem> getDefaultBlockItem(DeferredHolder<Block, BLOCK> block)
+  {
+    return () -> new BlockItem(block.get(), DEFAULT_ITEM_BLOCK_PROPERTIES);
+  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
           "apiary",
           () -> new ApiaryBlock(HOUSING_PROPS),
           ApicuriousBlockRegistration::getDefaultBlockItem,
@@ -64,16 +84,54 @@ public class ApicuriousBlockRegistration {
           ApicuriousBlockRegistration::getDefaultType
   );
 
-  public static <BLOCK extends Block, BLOCKITEM extends BlockItem, T extends BlockEntity>
-  BlockHolderWithTile<BLOCK, BLOCKITEM, T> registerBlockWithTile(String id,
-                                                                 Supplier<BLOCK> block,
-                                                                 Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item,
-                                                                 BlockEntityType.BlockEntitySupplier<T> factory,
-                                                                 BiFunction<BlockEntityType.BlockEntitySupplier<T>, DeferredHolder<Block, BLOCK>, Supplier<BlockEntityType<T>>> type) {
-    DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
-    DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
-    DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> t = BLOCK_ENTITY_TYPES.register(id, type.apply(factory, b));
-    return new BlockHolderWithTile<>(b, i, t);
+  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType
+          (BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
+  {
+    return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()), null);
+  }
+
+  public record BlockItemHolder<BLOCK extends Block, ITEM extends BlockItem>(DeferredHolder<Block, BLOCK> block,
+                                                                             DeferredHolder<Item, ITEM> item)
+  {
+    public BLOCK asBlock()
+    {
+      return block.get();
+    }
+
+    public ITEM asItem()
+    {
+      return item.get();
+    }
+
+    public ItemStack asItemStack()
+    {
+      return new ItemStack(item.get());
+    }
+  }
+
+  public record BlockHolderWithTile<BLOCK extends Block, ITEM extends BlockItem, TYPE extends BlockEntity>
+          (DeferredHolder<Block, BLOCK> block, DeferredHolder<Item, ITEM> item,
+           DeferredHolder<BlockEntityType<?>, BlockEntityType<TYPE>> entityType)
+  {
+    public BLOCK asBlock()
+    {
+      return block.get();
+    }
+
+    public ITEM asItem()
+    {
+      return item.get();
+    }
+
+    public ItemStack asItemStack()
+    {
+      return new ItemStack(item.get());
+    }
+
+    public BlockEntityType<TYPE> getType()
+    {
+      return entityType.get();
+    }
   }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",
           () -> new BeeHousingBlock(HOUSING_PROPS),
@@ -82,49 +140,7 @@ public class ApicuriousBlockRegistration {
           ApicuriousBlockRegistration::getDefaultType
   );
 
-  private static <BLOCK extends Block> Supplier<BlockItem> getDefaultBlockItem(DeferredHolder<Block, BLOCK> block) {
-    return () -> new BlockItem(block.get(), DEFAULT_ITEM_BLOCK_PROPERTIES);
-  }
 
-  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType
-          (BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block) {
-    return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()), null);
-  }
-
-  public record BlockItemHolder<BLOCK extends Block, ITEM extends BlockItem>(DeferredHolder<Block, BLOCK> block,
-                                                                             DeferredHolder<Item, ITEM> item) {
-    public BLOCK asBlock() {
-      return block.get();
-    }
-
-    public ITEM asItem() {
-      return item.get();
-    }
-
-    public ItemStack asItemStack() {
-      return new ItemStack(item.get());
-    }
-  }
-
-  public record BlockHolderWithTile<BLOCK extends Block, ITEM extends BlockItem, TYPE extends BlockEntity>
-          (DeferredHolder<Block, BLOCK> block, DeferredHolder<Item, ITEM> item,
-           DeferredHolder<BlockEntityType<?>, BlockEntityType<TYPE>> entityType) {
-    public BLOCK asBlock() {
-      return block.get();
-    }
-
-    public ITEM asItem() {
-      return item.get();
-    }
-
-    public ItemStack asItemStack() {
-      return new ItemStack(item.get());
-    }
-
-    public BlockEntityType<TYPE> getType() {
-      return entityType.get();
-    }
-  }
 
 
 

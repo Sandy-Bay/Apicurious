@@ -13,7 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Pollination implements ITrait<Pollination> {
+public class Pollination implements ITrait<Pollination>
+{
 
   public static final ResourceKey<Pollination> SLOWEST = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slowest"));
   public static final ResourceKey<Pollination> SLOWER = ResourceKey.create(ApicuriousRegistries.POLLINATIONS, Apicurious.createResourceLocation("slower"));
@@ -39,26 +40,31 @@ public class Pollination implements ITrait<Pollination> {
   private final String name;
   private Component readableName;
 
-  public Pollination(float pollinationChance, String name) {
+  public Pollination(float pollinationChance, String name)
+  {
     this.pollinationChance = pollinationChance;
     this.name = name;
   }
 
-  public float getPollinationChance() {
+  public float getPollinationChance()
+  {
     return pollinationChance;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Pollination that = (Pollination) o;
@@ -66,17 +72,20 @@ public class Pollination implements ITrait<Pollination> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(pollinationChance, name, readableName);
   }
 
   @Override
-  public Codec<Pollination> getCodec() {
+  public Codec<Pollination> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, Pollination> getStreamCodec() {
+  public StreamCodec<ByteBuf, Pollination> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

@@ -7,7 +7,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.*;
 
-public class ApicuriousRegistries {
+public class ApicuriousRegistries
+{
 
   // Trait Registries
   public static final ResourceKey<Registry<Area>> AREAS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("area"));
@@ -25,7 +26,8 @@ public class ApicuriousRegistries {
   // Species Registry
   public static final ResourceKey<Registry<BeeSpecies>> BEE_SPECIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("bee_species"));
 
-  public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event) {
+  public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event)
+  {
     // Traits
     event.dataPackRegistry(AREAS, Area.CODEC, Area.CODEC);
     event.dataPackRegistry(FERTILITIES, Fertility.CODEC, Fertility.CODEC);

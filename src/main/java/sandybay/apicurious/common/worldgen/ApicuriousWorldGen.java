@@ -26,18 +26,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ApicuriousWorldGen {
+public class ApicuriousWorldGen
+{
 
   //TODO: Figure out Worldgen because this approach didnt work :feelsbadman:
-  public static void hackTheHives(final ServerAboutToStartEvent event) {
+  public static void hackTheHives(final ServerAboutToStartEvent event)
+  {
     MinecraftServer serverRef = event.getServer();
-    serverRef.getAllLevels().forEach(server -> {
+    serverRef.getAllLevels().forEach(server ->
+    {
       Registry<ConfiguredFeature<?, ?>> registry = server.registryAccess().registryOrThrow(Registries.CONFIGURED_FEATURE);
-      registry.keySet().forEach(id -> {
+      registry.keySet().forEach(id ->
+      {
         ConfiguredFeature<?, ?> configuredFeature = registry.get(id);
         if (configuredFeature == null || !(configuredFeature.feature() instanceof TreeFeature treeFeature)) return;
         TreeConfiguration configuration = (TreeConfiguration) configuredFeature.config();
-        switch (id.getPath()) {
+        switch (id.getPath())
+        {
           case "fancy_oak_bees", "super_birch_bees" ->
                   configuration.decorators.add(new HiveDecorator(server, BiomeTags.IS_FOREST, ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), 1f));
           case "cherry_bees_005", "fancy_oak_bees_005", "birch_bees_005", "oak_bees_005" ->
@@ -53,7 +58,8 @@ public class ApicuriousWorldGen {
     });
   }
 
-  public static class HiveDecorator extends TreeDecorator {
+  public static class HiveDecorator extends TreeDecorator
+  {
 
     private static final Direction WORLDGEN_FACING = Direction.SOUTH;
     private static final Direction[] SPAWN_DIRECTIONS = Direction.Plane.HORIZONTAL
@@ -65,7 +71,8 @@ public class ApicuriousWorldGen {
     private final HiveBlock hive;
     private final float probability;
 
-    public HiveDecorator(ServerLevel level, TagKey<Biome> biomeTagKey, HiveBlock hive, float probability) {
+    public HiveDecorator(ServerLevel level, TagKey<Biome> biomeTagKey, HiveBlock hive, float probability)
+    {
       this.level = level;
       this.biomeTagKey = biomeTagKey;
       this.hive = hive;
@@ -73,15 +80,18 @@ public class ApicuriousWorldGen {
     }
 
     @Override
-    protected TreeDecoratorType<?> type() {
+    protected TreeDecoratorType<?> type()
+    {
       return null;
     }
 
     @Override
-    public void place(Context context) {
+    public void place(Context context)
+    {
       if (!level.getBiome(context.logs().get(0)).is(biomeTagKey)) return;
       RandomSource randomsource = context.random();
-      if (!(randomsource.nextFloat() >= this.probability)) {
+      if (!(randomsource.nextFloat() >= this.probability))
+      {
         List<BlockPos> leaves = context.leaves();
         List<BlockPos> logs = context.logs();
         int targetY = !leaves.isEmpty()
@@ -91,7 +101,8 @@ public class ApicuriousWorldGen {
                 .filter(pos -> pos.getY() == targetY)
                 .flatMap(pos -> Stream.of(SPAWN_DIRECTIONS).map(pos::relative))
                 .collect(Collectors.toList());
-        if (!validPositions.isEmpty()) {
+        if (!validPositions.isEmpty())
+        {
           Collections.shuffle(validPositions);
           Optional<BlockPos> randomlyChosenPosition = validPositions.stream()
                   .filter(pos -> context.isAir(pos) && context.isAir(pos.relative(WORLDGEN_FACING)))

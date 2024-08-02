@@ -13,7 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class HumidityTolerance implements ITrait<HumidityTolerance> {
+public class HumidityTolerance implements ITrait<HumidityTolerance>
+{
 
   public static final ResourceKey<HumidityTolerance> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, Apicurious.createResourceLocation("none"));
   public static final ResourceKey<HumidityTolerance> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, Apicurious.createResourceLocation("lowest"));
@@ -39,26 +40,31 @@ public class HumidityTolerance implements ITrait<HumidityTolerance> {
   private final String name;
   private Component readableName;
 
-  public HumidityTolerance(int toleranceModifier, String name) {
+  public HumidityTolerance(int toleranceModifier, String name)
+  {
     this.toleranceModifier = toleranceModifier;
     this.name = name;
   }
 
-  public int getToleranceModifier() {
+  public int getToleranceModifier()
+  {
     return toleranceModifier;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     HumidityTolerance that = (HumidityTolerance) o;
@@ -66,17 +72,20 @@ public class HumidityTolerance implements ITrait<HumidityTolerance> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(toleranceModifier, name, readableName);
   }
 
   @Override
-  public Codec<HumidityTolerance> getCodec() {
+  public Codec<HumidityTolerance> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, HumidityTolerance> getStreamCodec() {
+  public StreamCodec<ByteBuf, HumidityTolerance> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

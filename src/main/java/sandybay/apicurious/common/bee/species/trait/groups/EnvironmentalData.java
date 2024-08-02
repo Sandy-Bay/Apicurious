@@ -15,7 +15,8 @@ import sandybay.apicurious.common.bee.species.trait.*;
 
 import java.util.Objects;
 
-public class EnvironmentalData {
+public class EnvironmentalData
+{
 
   public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -46,7 +47,8 @@ public class EnvironmentalData {
 
   private EnvironmentalData(Holder<Flowers> flowers,
                             HumidityData humidityData, TemperatureData temperatureData,
-                            boolean ignoresRain, boolean ignoresSky) {
+                            boolean ignoresRain, boolean ignoresSky)
+  {
     this.flowers = flowers;
     this.humidityData = humidityData;
     this.temperatureData = temperatureData;
@@ -60,28 +62,34 @@ public class EnvironmentalData {
     return super.toString() + " EnvironmentalData{" + "flowers=" + flowers + ", humidityData=" + humidityData + ", temperatureData=" + temperatureData + ", ignoresRain=" + ignoresRain + ", ignoresSky=" + ignoresSky + '}';
   }
 
-  public Holder<Flowers> getFlowers() {
+  public Holder<Flowers> getFlowers()
+  {
     return flowers;
   }
 
-  public HumidityData getHumidityData() {
+  public HumidityData getHumidityData()
+  {
     return humidityData;
   }
 
-  public TemperatureData getTemperatureData() {
+  public TemperatureData getTemperatureData()
+  {
     return temperatureData;
   }
 
-  public boolean ignoresRain() {
+  public boolean ignoresRain()
+  {
     return ignoresRain;
   }
 
-  public boolean ignoresSky() {
+  public boolean ignoresSky()
+  {
     return ignoresSky;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EnvironmentalData that = (EnvironmentalData) o;
@@ -89,11 +97,13 @@ public class EnvironmentalData {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(flowers, humidityData, temperatureData, ignoresRain, ignoresSky);
   }
 
-  public static class Builder {
+  public static class Builder
+  {
 
     private final BootstrapContext<BeeSpecies> context;
     private Holder<Flowers> flowers;
@@ -104,7 +114,8 @@ public class EnvironmentalData {
     private boolean ignoresRain = false;
     private boolean ignoresSky = false;
 
-    private Builder(BootstrapContext<BeeSpecies> context) {
+    private Builder(BootstrapContext<BeeSpecies> context)
+    {
       this.context = context;
       this.flowers = context.lookup(ApicuriousRegistries.FLOWERS).getOrThrow(Flowers.NORMAL_FLOWERS);
       this.temperaturePreference = context.lookup(ApicuriousRegistries.TEMPERATURE_PREFERENCES).getOrThrow(TemperaturePreference.AVERAGE);
@@ -113,46 +124,55 @@ public class EnvironmentalData {
       this.humidityTolerance = context.lookup(ApicuriousRegistries.HUMIDITY_TOLERANCES).getOrThrow(HumidityTolerance.NO_TOLERANCE);
     }
 
-    public static Builder create(BootstrapContext<BeeSpecies> context) {
+    public static Builder create(BootstrapContext<BeeSpecies> context)
+    {
       return new Builder(context);
     }
 
-    public Builder withFlowers(ResourceKey<Flowers> flowers) {
+    public Builder withFlowers(ResourceKey<Flowers> flowers)
+    {
       this.flowers = context.lookup(ApicuriousRegistries.FLOWERS).getOrThrow(flowers);
       return this;
     }
 
-    public Builder withTemperaturePreference(ResourceKey<TemperaturePreference> temperaturePreference) {
+    public Builder withTemperaturePreference(ResourceKey<TemperaturePreference> temperaturePreference)
+    {
       this.temperaturePreference = context.lookup(ApicuriousRegistries.TEMPERATURE_PREFERENCES).getOrThrow(temperaturePreference);
       return this;
     }
 
-    public Builder withTemperatureTolerance(ResourceKey<TemperatureTolerance> temperatureTolerance) {
+    public Builder withTemperatureTolerance(ResourceKey<TemperatureTolerance> temperatureTolerance)
+    {
       this.temperatureTolerance = context.lookup(ApicuriousRegistries.TEMPERATURE_TOLERANCES).getOrThrow(temperatureTolerance);
       return this;
     }
 
-    public Builder withHumidityPreference(ResourceKey<HumidityPreference> humidityPreference) {
+    public Builder withHumidityPreference(ResourceKey<HumidityPreference> humidityPreference)
+    {
       this.humidityPreference = context.lookup(ApicuriousRegistries.HUMIDITY_PREFERENCES).getOrThrow(humidityPreference);
       return this;
     }
 
-    public Builder withHumidityTolerance(ResourceKey<HumidityTolerance> humidityTolerance) {
+    public Builder withHumidityTolerance(ResourceKey<HumidityTolerance> humidityTolerance)
+    {
       this.humidityTolerance = context.lookup(ApicuriousRegistries.HUMIDITY_TOLERANCES).getOrThrow(humidityTolerance);
       return this;
     }
 
-    public Builder ignoresRain() {
+    public Builder ignoresRain()
+    {
       this.ignoresRain = true;
       return this;
     }
 
-    public Builder ignoresSky() {
+    public Builder ignoresSky()
+    {
       this.ignoresSky = true;
       return this;
     }
 
-    public EnvironmentalData build() {
+    public EnvironmentalData build()
+    {
       return new EnvironmentalData(
               flowers,
               new HumidityData(humidityPreference, humidityTolerance),

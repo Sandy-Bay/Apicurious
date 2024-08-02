@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
@@ -20,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HumidityPreference implements ITrait<HumidityPreference> {
+public class HumidityPreference implements ITrait<HumidityPreference>
+{
 
   public static final ResourceKey<HumidityPreference> HELLISH = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("hellish"));
   public static final ResourceKey<HumidityPreference> ARID = ResourceKey.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, Apicurious.createResourceLocation("arid"));
@@ -49,41 +49,50 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
   private final String name;
   private Component readableName;
 
-  public HumidityPreference(int humidity, TagKey<Biome> groupTag, String name) {
+  public HumidityPreference(int humidity, TagKey<Biome> groupTag, String name)
+  {
     this.humidity = humidity;
     this.groupTag = groupTag;
     this.name = name;
   }
 
-  private int getHumidity() {
+  private int getHumidity()
+  {
     return humidity;
   }
 
-  private TagKey<Biome> getGroupTag() {
+  private TagKey<Biome> getGroupTag()
+  {
     return groupTag;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public Codec<HumidityPreference> getCodec() {
+  public Codec<HumidityPreference> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, HumidityPreference> getStreamCodec() {
+  public StreamCodec<ByteBuf, HumidityPreference> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 
-  private TagKey<Biome> getTagByOrdinal(int ordinal) {
-    return switch (ordinal) {
+  private TagKey<Biome> getTagByOrdinal(int ordinal)
+  {
+    return switch (ordinal)
+    {
       case 1:
         yield ApicuriousTags.BiomeTags.HELLISH_HUMIDITY;
       case 2:
@@ -99,18 +108,21 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
     };
   }
 
-  public List<TagKey<Biome>> getHumidityWithTolerance(HumidityTolerance tolerance) {
+  public List<TagKey<Biome>> getHumidityWithTolerance(HumidityTolerance tolerance)
+  {
     List<TagKey<Biome>> humidityTags = new ArrayList<>();
     int minValue = Math.max(humidity - tolerance.getToleranceModifier(), 0);
     int maxValue = Math.min(humidity + tolerance.getToleranceModifier(), 4);
-    for (int i = minValue; i <= maxValue; i++) {
+    for (int i = minValue; i <= maxValue; i++)
+    {
       humidityTags.add(getTagByOrdinal(i));
     }
     return humidityTags;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     HumidityPreference that = (HumidityPreference) o;
@@ -118,7 +130,8 @@ public class HumidityPreference implements ITrait<HumidityPreference> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(humidity, groupTag, name, readableName);
   }
 }

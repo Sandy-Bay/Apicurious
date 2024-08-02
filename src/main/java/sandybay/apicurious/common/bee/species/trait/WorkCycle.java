@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class WorkCycle implements ITrait<WorkCycle> {
+public class WorkCycle implements ITrait<WorkCycle>
+{
 
   /**
    * Matutinal (Dawn Time)
@@ -68,15 +69,19 @@ public class WorkCycle implements ITrait<WorkCycle> {
   private final String name;
   private Component readableName;
 
-  public WorkCycle(List<Interval> activeTimes, String name) {
+  public WorkCycle(List<Interval> activeTimes, String name)
+  {
     this.activeTimes = activeTimes;
     this.name = name;
   }
 
-  public boolean isValidTime(int time) {
+  public boolean isValidTime(int time)
+  {
     boolean isValid = false;
-    for (Interval period : activeTimes) {
-      if (period.isValid(time)) {
+    for (Interval period : activeTimes)
+    {
+      if (period.isValid(time))
+      {
         isValid = true;
         break;
       }
@@ -84,21 +89,25 @@ public class WorkCycle implements ITrait<WorkCycle> {
     return isValid;
   }
 
-  private List<Interval> getActiveTimes() {
+  private List<Interval> getActiveTimes()
+  {
     return this.activeTimes;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return this.name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) this.readableName = Component.translatable(this.name);
     return this.readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     WorkCycle workCycle = (WorkCycle) o;
@@ -106,21 +115,25 @@ public class WorkCycle implements ITrait<WorkCycle> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(activeTimes, name, readableName);
   }
 
   @Override
-  public Codec<WorkCycle> getCodec() {
+  public Codec<WorkCycle> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, WorkCycle> getStreamCodec() {
+  public StreamCodec<ByteBuf, WorkCycle> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 
-  public static class Interval {
+  public static class Interval
+  {
     public static final StreamCodec<ByteBuf, Interval> NETWORK_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, interval -> interval.minTime,
             ByteBufCodecs.INT, interval -> interval.maxTime,
@@ -135,20 +148,24 @@ public class WorkCycle implements ITrait<WorkCycle> {
     private final int minTime;
     private final int maxTime;
 
-    public Interval(int minTime, int maxTime) {
+    public Interval(int minTime, int maxTime)
+    {
       this.minTime = minTime;
       this.maxTime = maxTime;
     }
 
-    public boolean isValid(int time) {
-      if (minTime > maxTime) {
+    public boolean isValid(int time)
+    {
+      if (minTime > maxTime)
+      {
         return (time >= minTime && time <= 24000) || (time >= 0 && time <= maxTime);
       }
       return time >= minTime && time <= maxTime;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       Interval interval = (Interval) o;
@@ -156,7 +173,8 @@ public class WorkCycle implements ITrait<WorkCycle> {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
       return Objects.hash(minTime, maxTime);
     }
   }

@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.loot;
+package sandybay.apicurious.common.loot.function;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -9,13 +9,15 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.data.ApicuriousLootItemFunctions;
 
 import java.util.List;
 
-public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
+public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
+{
 
   public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(
           instance -> commonFields(instance)
@@ -25,44 +27,53 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction {
 
   private final ResourceKey<BeeSpecies> speciesKey;
 
-  public ApicuriousSpeciesFunction(List<LootItemCondition> conditions, ResourceKey<BeeSpecies> speciesKey) {
+  public ApicuriousSpeciesFunction(List<LootItemCondition> conditions, ResourceKey<BeeSpecies> speciesKey)
+  {
     super(conditions);
     this.speciesKey = speciesKey;
   }
 
-  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<BeeSpecies> speciesKey) {
+  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<BeeSpecies> speciesKey)
+  {
     return new Builder(speciesKey);
   }
 
   @Override
-  public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
+  public LootItemFunctionType<? extends LootItemConditionalFunction> getType()
+  {
     return ApicuriousLootItemFunctions.SPECIES_FUNCTION.get();
   }
 
   @Override
-  protected ItemStack run(ItemStack stack, LootContext context) {
-    context.getLevel().registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
+  protected ItemStack run(ItemStack stack, LootContext context)
+  {
+    context.getLevel().registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+    {
       BeeSpecies species = registry.get(speciesKey);
       stack.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
     });
     return stack;
   }
 
-  public static class Builder extends LootItemConditionalFunction.Builder<ApicuriousSpeciesFunction.Builder> {
+  public static class Builder extends LootItemConditionalFunction.Builder<ApicuriousSpeciesFunction.Builder>
+  {
 
     private final ResourceKey<BeeSpecies> speciesKey;
 
-    Builder(ResourceKey<BeeSpecies> speciesKey) {
+    Builder(ResourceKey<BeeSpecies> speciesKey)
+    {
       this.speciesKey = speciesKey;
     }
 
     @Override
-    public LootItemFunction build() {
+    public LootItemFunction build()
+    {
       return new ApicuriousSpeciesFunction(this.getConditions(), this.speciesKey);
     }
 
     @Override
-    protected Builder getThis() {
+    protected Builder getThis()
+    {
       return this;
     }
   }

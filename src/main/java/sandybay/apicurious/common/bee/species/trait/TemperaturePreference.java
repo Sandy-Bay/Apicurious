@@ -8,7 +8,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
@@ -20,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TemperaturePreference implements ITrait<TemperaturePreference> {
+public class TemperaturePreference implements ITrait<TemperaturePreference>
+{
 
   public static final ResourceKey<TemperaturePreference> INFERNAL = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("infernal"));
   public static final ResourceKey<TemperaturePreference> HOT = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("hot"));
@@ -47,31 +47,37 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
   private final String name;
   private Component readableName;
 
-  public TemperaturePreference(int temperature, TagKey<Biome> groupTag, String name) {
+  public TemperaturePreference(int temperature, TagKey<Biome> groupTag, String name)
+  {
     this.temperature = temperature;
     this.groupTag = groupTag;
     this.name = name;
   }
 
-  private int getTemperature() {
+  private int getTemperature()
+  {
     return temperature;
   }
 
-  private TagKey<Biome> getGroupTag() {
+  private TagKey<Biome> getGroupTag()
+  {
     return groupTag;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TemperaturePreference that = (TemperaturePreference) o;
@@ -79,22 +85,27 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(temperature, groupTag, name, readableName);
   }
 
   @Override
-  public Codec<TemperaturePreference> getCodec() {
+  public Codec<TemperaturePreference> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, TemperaturePreference> getStreamCodec() {
+  public StreamCodec<ByteBuf, TemperaturePreference> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 
-  private TagKey<Biome> getTagByOrdinal(int ordinal) {
-    return switch (ordinal) {
+  private TagKey<Biome> getTagByOrdinal(int ordinal)
+  {
+    return switch (ordinal)
+    {
       case 1:
         yield ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE;
       case 2:
@@ -110,11 +121,13 @@ public class TemperaturePreference implements ITrait<TemperaturePreference> {
     };
   }
 
-  public List<TagKey<Biome>> getTemperatureWithTolerance(TemperatureTolerance tolerance) {
+  public List<TagKey<Biome>> getTemperatureWithTolerance(TemperatureTolerance tolerance)
+  {
     List<TagKey<Biome>> temperatureTags = new ArrayList<>();
     int minValue = Math.max(temperature - tolerance.getToleranceModifier(), 0);
     int maxValue = Math.min(temperature + tolerance.getToleranceModifier(), 4);
-    for (int i = minValue; i <= maxValue; i++) {
+    for (int i = minValue; i <= maxValue; i++)
+    {
       temperatureTags.add(getTagByOrdinal(i));
     }
     return temperatureTags;

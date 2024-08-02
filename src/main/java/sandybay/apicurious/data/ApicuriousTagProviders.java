@@ -20,22 +20,27 @@ import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class ApicuriousTagProvider {
+public class ApicuriousTagProviders
+{
 
-  public ApicuriousTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+  public ApicuriousTagProviders(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
+  {
     new BlocksProvider(output, lookupProvider, existingFileHelper);
     new ItemsProvider(output, lookupProvider, existingFileHelper);
     new BiomesProvider(output, lookupProvider, existingFileHelper);
   }
 
-  public static class BlocksProvider extends TagsProvider<Block> {
+  public static class BlocksProvider extends TagsProvider<Block>
+  {
 
-    public BlocksProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+    public BlocksProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
+    {
       super(output, Registries.BLOCK, lookupProvider, Apicurious.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.Provider provider)
+    {
       this.tag(ApicuriousTags.BlockTags.HIVE).add(
               ApicuriousBlockRegistration.FOREST_HIVE.block().getKey(),
               ApicuriousBlockRegistration.MEADOW_HIVE.block().getKey(),
@@ -48,28 +53,34 @@ public class ApicuriousTagProvider {
     }
   }
 
-  public static class ItemsProvider extends TagsProvider<Item> {
+  public static class ItemsProvider extends TagsProvider<Item>
+  {
 
-    public ItemsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+    public ItemsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
+    {
       super(output, Registries.ITEM, lookupProvider, Apicurious.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.Provider provider)
+    {
       this.tag(ApicuriousTags.ItemTags.IS_SIEVE_TOOL).add(
               ApicuriousItemRegistration.SIEVE.getKey()
       );
     }
   }
 
-  public static class BiomesProvider extends TagsProvider<Biome> {
+  public static class BiomesProvider extends TagsProvider<Biome>
+  {
 
-    protected BiomesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+    protected BiomesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
+    {
       super(output, Registries.BIOME, lookupProvider, Apicurious.MODID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.Provider provider)
+    {
       this.tag(ApicuriousTags.BiomeTags.IS_MEADOW).add(
               Biomes.MEADOW,
               Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS,
@@ -80,7 +91,8 @@ public class ApicuriousTagProvider {
       registerTemperaturePreferences();
     }
 
-    public void registerHumidityPreferences() {
+    public void registerHumidityPreferences()
+    {
       this.tag(ApicuriousTags.BiomeTags.HELLISH_HUMIDITY)
               .add(Biomes.BASALT_DELTAS, Biomes.CRIMSON_FOREST, Biomes.NETHER_WASTES, Biomes.SOUL_SAND_VALLEY, Biomes.WARPED_FOREST)
               .add(Biomes.THE_END, Biomes.SMALL_END_ISLANDS, Biomes.END_MIDLANDS, Biomes.END_HIGHLANDS, Biomes.END_BARRENS)
@@ -122,7 +134,8 @@ public class ApicuriousTagProvider {
     }
 
     @SuppressWarnings("unchecked")
-    public void registerTemperaturePreferences() {
+    public void registerTemperaturePreferences()
+    {
       this.tag(ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE)
               .addTag(Tags.Biomes.IS_HOT_NETHER);
       this.tag(ApicuriousTags.BiomeTags.HOT_TEMPERATURE)
@@ -155,8 +168,10 @@ public class ApicuriousTagProvider {
               );
     }
 
-    public List<ResourceKey<Biome>> getBiomesWithHumidity(HolderLookup.RegistryLookup<Biome> lookup, float minHumidity, float maxHumidity) {
-      return lookup.filterElements(biome -> {
+    public List<ResourceKey<Biome>> getBiomesWithHumidity(HolderLookup.RegistryLookup<Biome> lookup, float minHumidity, float maxHumidity)
+    {
+      return lookup.filterElements(biome ->
+      {
         Biome.ClimateSettings climate = biome.getModifiedClimateSettings();
         return climate.downfall() > minHumidity && climate.downfall() < maxHumidity;
       }).listElements().map(Holder.Reference::getKey).toList();

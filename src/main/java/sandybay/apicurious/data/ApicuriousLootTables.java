@@ -22,9 +22,9 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.loot.function.ApicuriousSpeciesFunction;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
-import sandybay.apicurious.data.loot.ApicuriousSpeciesFunction;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,24 +34,29 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
-public class ApicuriousLootTables extends LootTableProvider {
+public class ApicuriousLootTables extends LootTableProvider
+{
 
-  public ApicuriousLootTables(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+  public ApicuriousLootTables(PackOutput output, CompletableFuture<HolderLookup.Provider> registries)
+  {
     super(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ApicuriousBlockLoot::new, LootContextParamSets.BLOCK)), registries);
   }
 
-  public static class ApicuriousBlockLoot extends BlockLootSubProvider {
+  public static class ApicuriousBlockLoot extends BlockLootSubProvider
+  {
 
     private static final Set<Item> EXPLOSION_RESISTANT = Collections.emptySet();
     private final HolderLookup.Provider provider;
 
-    protected ApicuriousBlockLoot(HolderLookup.Provider provider) {
+    protected ApicuriousBlockLoot(HolderLookup.Provider provider)
+    {
       super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags(), provider);
       this.provider = provider;
 
     }
 
-    public static LootTable.Builder beeTable(ResourceKey<BeeSpecies> speciesKey) {
+    public static LootTable.Builder beeTable(ResourceKey<BeeSpecies> speciesKey)
+    {
       return LootTable.lootTable()
               .setParamSet(LootContextParamSet.builder().required(LootContextParams.TOOL).build())
               .withPool(LootPool.lootPool()
@@ -90,7 +95,8 @@ public class ApicuriousLootTables extends LootTableProvider {
     }
 
     @Override
-    protected void generate() {
+    protected void generate()
+    {
       this.add(ApicuriousBlockRegistration.FOREST_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.FOREST));
       this.add(ApicuriousBlockRegistration.MEADOW_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MEADOW));
       this.add(ApicuriousBlockRegistration.MODEST_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MODEST));
@@ -103,15 +109,18 @@ public class ApicuriousLootTables extends LootTableProvider {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output)
+    {
       this.generate();
-      for (Map.Entry<ResourceKey<LootTable>, LootTable.Builder> entry : this.map.entrySet()) {
+      for (Map.Entry<ResourceKey<LootTable>, LootTable.Builder> entry : this.map.entrySet())
+      {
         output.accept(entry.getKey(), entry.getValue());
       }
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected Iterable<Block> getKnownBlocks()
+    {
       return ApicuriousBlockRegistration.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
   }

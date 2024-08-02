@@ -13,7 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
+public class TemperatureTolerance implements ITrait<TemperatureTolerance>
+{
 
   public static final ResourceKey<TemperatureTolerance> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, Apicurious.createResourceLocation("none"));
   public static final ResourceKey<TemperatureTolerance> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, Apicurious.createResourceLocation("lowest"));
@@ -40,26 +41,31 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
   private final String name;
   private Component readableName;
 
-  public TemperatureTolerance(int toleranceModifier, String name) {
+  public TemperatureTolerance(int toleranceModifier, String name)
+  {
     this.toleranceModifier = toleranceModifier;
     this.name = name;
   }
 
-  public int getToleranceModifier() {
+  public int getToleranceModifier()
+  {
     return toleranceModifier;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TemperatureTolerance that = (TemperatureTolerance) o;
@@ -67,17 +73,20 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(toleranceModifier, name, readableName);
   }
 
   @Override
-  public Codec<TemperatureTolerance> getCodec() {
+  public Codec<TemperatureTolerance> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, TemperatureTolerance> getStreamCodec() {
+  public StreamCodec<ByteBuf, TemperatureTolerance> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

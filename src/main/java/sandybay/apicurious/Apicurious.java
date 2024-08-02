@@ -17,17 +17,22 @@ import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import org.slf4j.Logger;
+import sandybay.apicurious.api.register.ApicuriousCreativeTabRegistration;
+import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.item.BaseBeeItem;
-import sandybay.apicurious.common.register.*;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
+import sandybay.apicurious.common.register.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
-import sandybay.apicurious.data.loot.ApicuriousLootItemFunctions;
+import sandybay.apicurious.data.ApicuriousLootItemFunctions;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Apicurious.MODID)
-public class Apicurious {
+public class Apicurious
+{
   // Define mod id in a common place for everything to reference
   public static final String MODID = "apicurious";
   // Directly reference a slf4j logger
@@ -35,7 +40,8 @@ public class Apicurious {
 
   // The constructor for the mod class is the first code that is run when your mod is loaded.
   // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
-  public Apicurious(IEventBus bus, ModContainer modContainer) {
+  public Apicurious(IEventBus bus, ModContainer modContainer)
+  {
     // Register the commonSetup method for modloading
     bus.addListener(this::commonSetup);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
@@ -47,34 +53,40 @@ public class Apicurious {
     ApicuriousMenuRegistration.register(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);
-    if (FMLLoader.getDist() == Dist.CLIENT) {
+    if (FMLLoader.getDist() == Dist.CLIENT)
+    {
       ApicuriousClientEvents.registerClientEvents(bus);
     }
   }
 
-  private static void loadEmptySpecies(final EntityJoinLevelEvent event) {
-    if (BaseBeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player) {
+  private static void loadEmptySpecies(final EntityJoinLevelEvent event)
+  {
+    if (BaseBeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player)
+    {
       Level level = event.getLevel();
-      if (level instanceof ServerLevel serverLevel) {
-        serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
-          BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY);
-        });
-      } else if (level instanceof ClientLevel) {
+      if (level instanceof ServerLevel serverLevel)
+      {
+        serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+                BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY));
+      } else if (level instanceof ClientLevel)
+      {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
-        if (connection != null) {
-          connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
-            BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY);
-          });
+        if (connection != null)
+        {
+          connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+                  BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY));
         }
       }
     }
   }
 
-  public static ResourceLocation createResourceLocation(String path) {
+  public static ResourceLocation createResourceLocation(String path)
+  {
     return ResourceLocation.tryBuild(MODID, path);
   }
 
-  private void commonSetup(final FMLCommonSetupEvent event) {
+  private void commonSetup(final FMLCommonSetupEvent event)
+  {
     // Some common setup code
     LOGGER.info("HELLO FROM COMMON SETUP");
 

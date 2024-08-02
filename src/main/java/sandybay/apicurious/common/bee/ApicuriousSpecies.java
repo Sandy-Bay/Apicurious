@@ -5,7 +5,8 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
-public class ApicuriousSpecies {
+public class ApicuriousSpecies
+{
 
   // Debug
   public static final ResourceKey<BeeSpecies> EMPTY = ResourceKey.create(ApicuriousRegistries.BEE_SPECIES, Apicurious.createResourceLocation("undefined"));
@@ -27,7 +28,8 @@ public class ApicuriousSpecies {
   public static final ResourceKey<BeeSpecies> INDUSTRIOUS = ResourceKey.create(ApicuriousRegistries.BEE_SPECIES, Apicurious.createResourceLocation("industrious"));
   public static final ResourceKey<BeeSpecies> AUSTERE = ResourceKey.create(ApicuriousRegistries.BEE_SPECIES, Apicurious.createResourceLocation("austere"));
 
-  public static void load() {
+  public static void load()
+  {
   }
 
 }

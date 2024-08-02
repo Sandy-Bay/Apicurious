@@ -11,7 +11,8 @@ import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.item.SieveItem;
 
-public class ApicuriousItemRegistration {
+public class ApicuriousItemRegistration
+{
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
 
@@ -23,7 +24,8 @@ public class ApicuriousItemRegistration {
 
   public static final DeferredHolder<Item, SieveItem> SIEVE = ITEMS.register("sieve", () -> new SieveItem(Tiers.WOOD, new Item.Properties().durability(32)));
 
-  public static void register(IEventBus bus) {
+  public static void register(IEventBus bus)
+  {
     ITEMS.register(bus);
   }
 

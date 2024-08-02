@@ -13,7 +13,8 @@ import sandybay.apicurious.common.bee.species.trait.HumidityTolerance;
 
 import java.util.Objects;
 
-public record HumidityData(Holder<HumidityPreference> preference, Holder<HumidityTolerance> tolerance) {
+public record HumidityData(Holder<HumidityPreference> preference, Holder<HumidityTolerance> tolerance)
+{
   public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   RegistryFixedCodec.create(ApicuriousRegistries.HUMIDITY_PREFERENCES).fieldOf("preference").forGetter(HumidityData::preference),
@@ -28,7 +29,8 @@ public record HumidityData(Holder<HumidityPreference> preference, Holder<Humidit
   );
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     HumidityData that = (HumidityData) o;
@@ -36,7 +38,8 @@ public record HumidityData(Holder<HumidityPreference> preference, Holder<Humidit
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(preference, tolerance);
   }
 }

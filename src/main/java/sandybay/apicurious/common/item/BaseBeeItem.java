@@ -18,12 +18,11 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 
-import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -33,33 +32,42 @@ import java.util.function.Consumer;
  * Mutation, which is the deviation
  * Mate, which is after a bee has "mated" and contains both their specific and mutation info
  */
-public class BaseBeeItem extends Item implements IBeeItem {
+public class BaseBeeItem extends Item implements IBeeItem
+{
 
   public static BeeSpecies EMPTY_SPECIES = null;
 
   public final EnumBeeType beeType;
 
-  public BaseBeeItem(Properties properties, EnumBeeType beeType) {
+  public BaseBeeItem(Properties properties, EnumBeeType beeType)
+  {
     super(properties.component(ApicuriousDataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
     this.beeType = beeType;
   }
 
-  public static BeeSpecies getSpecies(ItemStack stack) {
+  public static BeeSpecies getSpecies(ItemStack stack)
+  {
     return stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
   }
 
   //This should be in the API so other mods can access it if needed
-  public static <T extends BaseBeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<BeeSpecies> speciesKey, DeferredHolder<Item, T> item) {
+  public static <T extends BaseBeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<BeeSpecies> speciesKey, DeferredHolder<Item, T> item)
+  {
     ItemStack bee = new ItemStack(item.get());
-    if (level instanceof ServerLevel serverLevel) {
-      serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
+    if (level instanceof ServerLevel serverLevel)
+    {
+      serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+      {
         BeeSpecies species = registry.get(speciesKey);
         bee.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
       });
-    } else if (level instanceof ClientLevel || level == null) {
+    } else if (level instanceof ClientLevel || level == null)
+    {
       ClientPacketListener connection = Minecraft.getInstance().getConnection();
-      if (connection != null) {
-        connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
+      if (connection != null)
+      {
+        connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+        {
           BeeSpecies species = registry.get(speciesKey);
           bee.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
         });
@@ -69,29 +77,35 @@ public class BaseBeeItem extends Item implements IBeeItem {
   }
 
 
-  public EnumBeeType getBeeType() {
+  public EnumBeeType getBeeType()
+  {
     return beeType;
   }
 
   @Override
-  public @NotNull Component getName(ItemStack stack) {
+  public @NotNull Component getName(ItemStack stack)
+  {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return Component.literal("ERROR");
     return species.getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
   }
 
   @Override
-  public boolean isFoil(ItemStack stack) {
+  public boolean isFoil(ItemStack stack)
+  {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return false;
     return species.getVisualData().hasEffect();
   }
 
   @Override
-  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-    consumer.accept(new IClientItemExtensions() {
+  public void initializeClient(Consumer<IClientItemExtensions> consumer)
+  {
+    consumer.accept(new IClientItemExtensions()
+    {
       @Override
-      public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+      public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer()
+      {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }
     });
@@ -101,7 +115,7 @@ public class BaseBeeItem extends Item implements IBeeItem {
   public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag)
   {
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-    if(Screen.hasShiftDown())
+    if (Screen.hasShiftDown())
     {
       BeeSpecies species = getSpecies(pStack);
       pTooltipComponents.add(species.getProductionData().getLifespan().value().getReadableName());
@@ -117,13 +131,12 @@ public class BaseBeeItem extends Item implements IBeeItem {
 
       pTooltipComponents.add(species.getEnvironmentalData().getFlowers().value().getReadableName());
 
-    }
-    else
+    } else
     {
       pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
     }
 
-    if(pTooltipFlag.isAdvanced())
+    if (pTooltipFlag.isAdvanced())
     {
       BeeSpecies species = getSpecies(pStack);
       pTooltipComponents.add(Component.literal(species.toString()));

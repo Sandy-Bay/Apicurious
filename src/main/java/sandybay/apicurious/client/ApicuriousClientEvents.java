@@ -15,28 +15,31 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class ApicuriousClientEvents {
+public class ApicuriousClientEvents
+{
 
-  public static void registerClientEvents(IEventBus bus) {
+  public static void registerClientEvents(IEventBus bus)
+  {
     bus.addListener(ApicuriousClientEvents::handleItemTint);
     bus.addListener(ApicuriousClientEvents::handleBlockTint);
     bus.addListener(ApicuriousClientEvents::registerAlternativeBeeModels);
     bus.addListener(ApicuriousClientEvents::registerScreens);
   }
 
-  private static void handleBlockTint(final RegisterColorHandlersEvent.Block event) {
+  private static void handleBlockTint(final RegisterColorHandlersEvent.Block event)
+  {
     event.register(
             ApicuriousClientEvents::registerHiveTintHandler,
             ApicuriousBlockRegistration.FOREST_HIVE.asBlock(),
@@ -51,7 +54,8 @@ public class ApicuriousClientEvents {
     );
   }
 
-  private static void handleItemTint(final RegisterColorHandlersEvent.Item event) {
+  private static void handleItemTint(final RegisterColorHandlersEvent.Item event)
+  {
     event.register(
             ApicuriousClientEvents::registerBeeTintHandler,
             ApicuriousItemRegistration.DRONE.get(),
@@ -72,18 +76,22 @@ public class ApicuriousClientEvents {
     );
   }
 
-  private static void registerAlternativeBeeModels(final ModelEvent.RegisterAdditional event) {
+  private static void registerAlternativeBeeModels(final ModelEvent.RegisterAdditional event)
+  {
     FileToIdConverter converter = FileToIdConverter.json("models/item/species");
-    converter.listMatchingResources(Minecraft.getInstance().getResourceManager()).forEach((name, resource) -> {
+    converter.listMatchingResources(Minecraft.getInstance().getResourceManager()).forEach((name, resource) ->
+    {
       event.register(ModelResourceLocation.standalone(converter.fileToId(name).withPrefix("item/species/")));
     });
   }
 
-  private static void registerScreens(RegisterMenuScreensEvent event) {
+  private static void registerScreens(RegisterMenuScreensEvent event)
+  {
     event.register(ApicuriousMenuRegistration.APIARY.get(), ApiaryScreen::new);
   }
 
-  private static int registerBeeTintHandler(ItemStack stack, int tintIndex) {
+  private static int registerBeeTintHandler(ItemStack stack, int tintIndex)
+  {
     int tint = 0xFFFFFFFF;
     if (tintIndex == 0) tint = getColor(stack, true, false);
     if (tintIndex == 1) tint = getColor(stack, false, true);
@@ -91,24 +99,30 @@ public class ApicuriousClientEvents {
     return tint;
   }
 
-  private static int registerHiveItemTintHandler(ItemStack stack, int tintIndex) {
+  private static int registerHiveItemTintHandler(ItemStack stack, int tintIndex)
+  {
     int tint = 0xFFFFFFFF;
-    if (stack.getItem() instanceof BlockItem blockItem) {
+    if (stack.getItem() instanceof BlockItem blockItem)
+    {
       Block block = blockItem.getBlock();
       tint = getHiveTint(block);
     }
     return tint;
   }
 
-  private static int registerHiveTintHandler(BlockState state, @Nullable BlockAndTintGetter level, @Nullable BlockPos pos, int tintIndex) {
+  private static int registerHiveTintHandler(BlockState state, @Nullable BlockAndTintGetter level, @Nullable BlockPos pos, int tintIndex)
+  {
     return getHiveTint(state.getBlock());
   }
 
-  private static int getHiveTint(Block block) {
+  private static int getHiveTint(Block block)
+  {
     ClientPacketListener connection = Minecraft.getInstance().getConnection();
-    if (connection != null && block instanceof HiveBlock hiveBlock) {
+    if (connection != null && block instanceof HiveBlock hiveBlock)
+    {
       Optional<Registry<BeeSpecies>> optional = connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES);
-      if (optional.isPresent()) {
+      if (optional.isPresent())
+      {
         BeeSpecies species = optional.get().get(hiveBlock.getSpecies());
         if (species == null) return 0xFFFFFFFF;
         return species.getVisualData().getBeeColor().getOutlineTint().getIntColor();
@@ -117,7 +131,8 @@ public class ApicuriousClientEvents {
     return 0xFFFFFFFF;
   }
 
-  private static int getColor(ItemStack stack, boolean isOutline, boolean isBody) {
+  private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
+  {
     BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender())
       return 0xFFFFFFFF;

@@ -15,7 +15,8 @@ import sandybay.apicurious.common.bee.species.trait.*;
 
 import java.util.Objects;
 
-public class ProductionData {
+public class ProductionData
+{
 
   public static final Codec<ProductionData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -45,7 +46,8 @@ public class ProductionData {
   private final Holder<Fertility> fertility;
   private final Holder<Pollination> pollination;
 
-  public ProductionData(Holder<Lifespan> lifespan, Holder<WorkCycle> workCycle, Holder<Area> area, Holder<Speed> speed, Holder<Fertility> fertility, Holder<Pollination> pollination) {
+  public ProductionData(Holder<Lifespan> lifespan, Holder<WorkCycle> workCycle, Holder<Area> area, Holder<Speed> speed, Holder<Fertility> fertility, Holder<Pollination> pollination)
+  {
     this.lifespan = lifespan;
     this.workCycle = workCycle;
     this.area = area;
@@ -60,32 +62,39 @@ public class ProductionData {
     return super.toString() + " ProductionData{" + "lifespan=" + lifespan + ", workCycle=" + workCycle + ", area=" + area + ", speed=" + speed + ", fertility=" + fertility + ", pollination=" + pollination + '}';
   }
 
-  public Holder<Lifespan> getLifespan() {
+  public Holder<Lifespan> getLifespan()
+  {
     return lifespan;
   }
 
-  public Holder<Area> getArea() {
+  public Holder<Area> getArea()
+  {
     return area;
   }
 
-  public Holder<Speed> getSpeed() {
+  public Holder<Speed> getSpeed()
+  {
     return speed;
   }
 
-  public Holder<Fertility> getFertility() {
+  public Holder<Fertility> getFertility()
+  {
     return fertility;
   }
 
-  public Holder<Pollination> getPollination() {
+  public Holder<Pollination> getPollination()
+  {
     return pollination;
   }
 
-  public Holder<WorkCycle> getWorkCycle() {
+  public Holder<WorkCycle> getWorkCycle()
+  {
     return workCycle;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ProductionData that = (ProductionData) o;
@@ -93,11 +102,13 @@ public class ProductionData {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(lifespan, workCycle, area, speed, fertility, pollination);
   }
 
-  public static class Builder {
+  public static class Builder
+  {
 
     private final BootstrapContext<BeeSpecies> context;
 
@@ -108,7 +119,8 @@ public class ProductionData {
     private Holder<Fertility> fertility;
     private Holder<Pollination> pollination;
 
-    private Builder(BootstrapContext<BeeSpecies> context) {
+    private Builder(BootstrapContext<BeeSpecies> context)
+    {
       this.context = context;
       this.lifespan = context.lookup(ApicuriousRegistries.LIFESPANS).getOrThrow(Lifespan.AVERAGE);
       this.workCycle = context.lookup(ApicuriousRegistries.WORKCYCLES).getOrThrow(WorkCycle.DIURNAL);
@@ -118,46 +130,55 @@ public class ProductionData {
       this.pollination = context.lookup(ApicuriousRegistries.POLLINATIONS).getOrThrow(Pollination.AVERAGE);
     }
 
-    public static Builder create(BootstrapContext<BeeSpecies> context) {
+    public static Builder create(BootstrapContext<BeeSpecies> context)
+    {
       return new Builder(context);
     }
 
-    public Builder withLifespan(ResourceKey<Lifespan> lifespan) {
+    public Builder withLifespan(ResourceKey<Lifespan> lifespan)
+    {
       this.lifespan = context.lookup(ApicuriousRegistries.LIFESPANS).getOrThrow(lifespan);
       return this;
     }
 
-    public Builder withArea(Area area) {
+    public Builder withArea(Area area)
+    {
       this.area = Holder.direct(area);
       return this;
     }
 
-    public Builder withArea(ResourceKey<Area> area) {
+    public Builder withArea(ResourceKey<Area> area)
+    {
       this.area = context.lookup(ApicuriousRegistries.AREAS).getOrThrow(area);
       return this;
     }
 
-    public Builder withProductionSpeed(ResourceKey<Speed> speed) {
+    public Builder withProductionSpeed(ResourceKey<Speed> speed)
+    {
       this.speed = context.lookup(ApicuriousRegistries.SPEEDS).getOrThrow(speed);
       return this;
     }
 
-    public Builder withPollinationRate(ResourceKey<Pollination> pollination) {
+    public Builder withPollinationRate(ResourceKey<Pollination> pollination)
+    {
       this.pollination = context.lookup(ApicuriousRegistries.POLLINATIONS).getOrThrow(pollination);
       return this;
     }
 
-    public Builder withWorkCycle(ResourceKey<WorkCycle> workCycle) {
+    public Builder withWorkCycle(ResourceKey<WorkCycle> workCycle)
+    {
       this.workCycle = context.lookup(ApicuriousRegistries.WORKCYCLES).getOrThrow(workCycle);
       return this;
     }
 
-    public Builder withFertility(ResourceKey<Fertility> fertility) {
+    public Builder withFertility(ResourceKey<Fertility> fertility)
+    {
       this.fertility = context.lookup(ApicuriousRegistries.FERTILITIES).getOrThrow(fertility);
       return this;
     }
 
-    public ProductionData build() {
+    public ProductionData build()
+    {
       return new ProductionData(lifespan, workCycle, area, speed, fertility, pollination);
     }
 

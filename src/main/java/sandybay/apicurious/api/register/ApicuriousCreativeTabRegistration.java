@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.register;
+package sandybay.apicurious.api.register;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -16,10 +16,13 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.item.BaseBeeItem;
+import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
+import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
 import java.util.List;
 
-public class ApicuriousCreativeTabRegistration {
+public class ApicuriousCreativeTabRegistration
+{
 
   public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Apicurious.MODID);
 
@@ -27,7 +30,8 @@ public class ApicuriousCreativeTabRegistration {
           .title(Component.translatable("itemGroup.apicurious.general"))
           .withTabsBefore(CreativeModeTabs.COMBAT)
           .icon(() -> new ItemStack(ApicuriousItemRegistration.SIEVE.get()))
-          .displayItems((parameters, output) -> {
+          .displayItems((parameters, output) ->
+          {
             output.accept(new ItemStack(ApicuriousItemRegistration.SIEVE.get()));
             output.acceptAll(List.of(
                     ApicuriousBlockRegistration.APIARY.asItemStack(),
@@ -40,15 +44,20 @@ public class ApicuriousCreativeTabRegistration {
           .title(Component.translatable("itemGroup.apicurious.bee"))
           .withTabsBefore(ApicuriousCreativeTabRegistration.GENERAL_TAB.getKey())
           .icon(() -> BaseBeeItem.getBeeWithSpecies(null, ApicuriousSpecies.FOREST, ApicuriousItemRegistration.QUEEN))
-          .displayItems((parameters, output) -> {
+          .displayItems((parameters, output) ->
+          {
             registerBees(output);
           }).build());
 
-  public static void registerBees(CreativeModeTab.Output output) {
+  public static void registerBees(CreativeModeTab.Output output)
+  {
     ClientPacketListener connection = Minecraft.getInstance().getConnection();
-    if (connection != null) {
-      connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry -> {
-        for (ResourceLocation rl : registry.keySet()) {
+    if (connection != null)
+    {
+      connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+      {
+        for (ResourceLocation rl : registry.keySet())
+        {
           if (rl.getPath().equals("undefined")) continue;
           List<ItemStack> bees = List.of(
                   new ItemStack(ApicuriousItemRegistration.DRONE),
@@ -63,7 +72,8 @@ public class ApicuriousCreativeTabRegistration {
     }
   }
 
-  public static void registerHives(CreativeModeTab.Output output) {
+  public static void registerHives(CreativeModeTab.Output output)
+  {
     output.acceptAll(List.of(
             ApicuriousBlockRegistration.FOREST_HIVE.asItemStack(),
             ApicuriousBlockRegistration.MEADOW_HIVE.asItemStack(),
@@ -77,7 +87,8 @@ public class ApicuriousCreativeTabRegistration {
     ));
   }
 
-  public static void register(IEventBus bus) {
+  public static void register(IEventBus bus)
+  {
     CREATIVE_MODE_TABS.register(bus);
   }
 

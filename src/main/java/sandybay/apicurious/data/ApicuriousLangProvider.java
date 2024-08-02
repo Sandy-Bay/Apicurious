@@ -8,13 +8,16 @@ import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
 import java.util.Locale;
 
-public class ApicuriousLangProvider extends LanguageProvider {
-  public ApicuriousLangProvider(PackOutput output) {
+public class ApicuriousLangProvider extends LanguageProvider
+{
+  public ApicuriousLangProvider(PackOutput output)
+  {
     super(output, Apicurious.MODID, "en_us");
   }
 
   @Override
-  protected void addTranslations() {
+  protected void addTranslations()
+  {
     // Items
     add(ApicuriousItemRegistration.DRONE.get(), "Drone");
     add(ApicuriousItemRegistration.PRINCESS.get(), "Princess");
@@ -36,7 +39,8 @@ public class ApicuriousLangProvider extends LanguageProvider {
   }
 
   // Collection-methods
-  public void addHives() {
+  public void addHives()
+  {
     add(ApicuriousBlockRegistration.FOREST_HIVE.asItem(), "Forest Hive");
     add(ApicuriousBlockRegistration.MEADOW_HIVE.asItem(), "Meadow Hive");
     add(ApicuriousBlockRegistration.TROPICAL_HIVE.asItem(), "Tropical Hive");
@@ -47,16 +51,19 @@ public class ApicuriousLangProvider extends LanguageProvider {
     add(ApicuriousBlockRegistration.ENDER_HIVE.asItem(), "Ender Hive");
   }
 
-  public void addTabs() {
+  public void addTabs()
+  {
     tab("general", "Apicurious");
     tab("bee", "Apicurious: Bee");
   }
 
-  public void addMenus() {
+  public void addMenus()
+  {
     menu("apiary", "Apiary");
   }
 
-  public void addTraits() {
+  public void addTraits()
+  {
     /// Area
     area("Smallest");
     area("Smaller");
@@ -146,7 +153,8 @@ public class ApicuriousLangProvider extends LanguageProvider {
     workcycle("Vespertinal");
   }
 
-  public void addSpecies() {
+  public void addSpecies()
+  {
     species("Undefined");
     species("Debug");
     species("Forest");
@@ -166,66 +174,81 @@ public class ApicuriousLangProvider extends LanguageProvider {
   }
 
   // Creative Tabs
-  public void tab(String definition, String translation) {
+  public void tab(String definition, String translation)
+  {
     add("itemGroup.apicurious." + definition, translation);
   }
 
   // Menu
-  public void menu(String definition, String translation) {
+  public void menu(String definition, String translation)
+  {
     add("apicurious.menu." + definition, translation);
   }
 
   // Traits
-  public void area(String translation) {
+  public void area(String translation)
+  {
     add("apicurious.area." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void fertility(String translation) {
+  public void fertility(String translation)
+  {
     add("apicurious.fertility." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void flower(String definition, String translation) {
+  public void flower(String definition, String translation)
+  {
     add("apicurious.flower." + definition, translation);
   }
 
-  public void humidityPreference(String translation) {
+  public void humidityPreference(String translation)
+  {
     add("apicurious.preference.humidity." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void humidityTolerance(String translation) {
+  public void humidityTolerance(String translation)
+  {
     add("apicurious.tolerance.humidity." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void lifespan(String translation) {
+  public void lifespan(String translation)
+  {
     add("apicurious.lifespan." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void pollination(String translation) {
+  public void pollination(String translation)
+  {
     add("apicurious.pollination." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void speed(String translation) {
+  public void speed(String translation)
+  {
     add("apicurious.speed." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void temperaturePreference(String translation) {
+  public void temperaturePreference(String translation)
+  {
     add("apicurious.preference.temperature." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void temperatureTolerance(String translation) {
+  public void temperatureTolerance(String translation)
+  {
     add("apicurious.tolerance.temperature." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void workcycle(String translation) {
+  public void workcycle(String translation)
+  {
     add("apicurious.workcycle." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   // Species
-  public void species(String translation) {
+  public void species(String translation)
+  {
     species(translation.toLowerCase(Locale.ROOT), translation);
   }
 
-  public void species(String definition, String translation) {
+  public void species(String definition, String translation)
+  {
     add("apicurious.species." + definition, translation);
   }
 

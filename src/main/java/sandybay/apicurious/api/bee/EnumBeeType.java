@@ -1,6 +1,7 @@
 package sandybay.apicurious.api.bee;
 
-public enum EnumBeeType {
+public enum EnumBeeType
+{
   QUEEN,
   PRINCESS,
   DRONE

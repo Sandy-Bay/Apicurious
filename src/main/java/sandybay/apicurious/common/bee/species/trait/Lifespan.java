@@ -13,7 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Lifespan implements ITrait<Lifespan> {
+public class Lifespan implements ITrait<Lifespan>
+{
 
   public static final ResourceKey<Lifespan> SHOREST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorest"));
   public static final ResourceKey<Lifespan> SHORTER = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorter"));
@@ -41,26 +42,31 @@ public class Lifespan implements ITrait<Lifespan> {
   private final String name;
   private Component readableName;
 
-  public Lifespan(int cycles, String name) {
+  public Lifespan(int cycles, String name)
+  {
     this.cycles = cycles;
     this.name = name;
   }
 
-  public int getCycles() {
+  public int getCycles()
+  {
     return cycles;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Lifespan lifespan = (Lifespan) o;
@@ -68,17 +74,20 @@ public class Lifespan implements ITrait<Lifespan> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(cycles, name, readableName);
   }
 
   @Override
-  public Codec<Lifespan> getCodec() {
+  public Codec<Lifespan> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, Lifespan> getStreamCodec() {
+  public StreamCodec<ByteBuf, Lifespan> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

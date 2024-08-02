@@ -10,7 +10,8 @@ import sandybay.apicurious.common.bee.species.BeeColor;
 
 import java.util.Objects;
 
-public class VisualData {
+public class VisualData
+{
 
   public static final VisualData DEFAULT = VisualData.Builder.create().build();
 
@@ -33,7 +34,8 @@ public class VisualData {
   private final boolean hasEffect;
   private final boolean hasCustomRender;
 
-  public VisualData(BeeColor beeColor, boolean hasEffect, boolean hasCustomRender) {
+  public VisualData(BeeColor beeColor, boolean hasEffect, boolean hasCustomRender)
+  {
     this.beeColor = beeColor;
     this.hasEffect = hasEffect;
     this.hasCustomRender = hasCustomRender;
@@ -42,23 +44,27 @@ public class VisualData {
   @Override
   public String toString()
   {
-    return super.toString() +  " VisualData{" + "beeColor=" + beeColor + ", hasEffect=" + hasEffect + ", hasCustomRender=" + hasCustomRender + '}';
+    return super.toString() + " VisualData{" + "beeColor=" + beeColor + ", hasEffect=" + hasEffect + ", hasCustomRender=" + hasCustomRender + '}';
   }
 
-  public BeeColor getBeeColor() {
+  public BeeColor getBeeColor()
+  {
     return beeColor;
   }
 
-  public boolean hasEffect() {
+  public boolean hasEffect()
+  {
     return hasEffect;
   }
 
-  public boolean hasCustomRender() {
+  public boolean hasCustomRender()
+  {
     return hasCustomRender;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     VisualData that = (VisualData) o;
@@ -66,11 +72,13 @@ public class VisualData {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(beeColor, hasEffect, hasCustomRender);
   }
 
-  public static class Builder {
+  public static class Builder
+  {
     private String outlineTint = ApicuriousConstants.UNDEFIEND_OUTLINE;
     private String wingTint = ApicuriousConstants.UNDEFINED_WING;
     private String bodyTint = ApicuriousConstants.DEFAULT_BODY;
@@ -79,45 +87,54 @@ public class VisualData {
     private boolean hasEffect = false;
     private boolean hasCustomRender = false;
 
-    private Builder() {
+    private Builder()
+    {
     }
 
-    public static Builder create() {
+    public static Builder create()
+    {
       return new Builder();
     }
 
-    public Builder withBeeColor(BeeColor predefined) {
+    public Builder withBeeColor(BeeColor predefined)
+    {
       this.beeColor = predefined;
       this.hasPredefinedColor = true;
       return this;
     }
 
-    public Builder withOutlineTint(String outlineTint) {
+    public Builder withOutlineTint(String outlineTint)
+    {
       this.outlineTint = outlineTint;
       return this;
     }
 
-    public Builder withWingTint(String wingTint) {
+    public Builder withWingTint(String wingTint)
+    {
       this.wingTint = wingTint;
       return this;
     }
 
-    public Builder withBodyTint(String bodyTint) {
+    public Builder withBodyTint(String bodyTint)
+    {
       this.bodyTint = bodyTint;
       return this;
     }
 
-    public Builder hasEffect() {
+    public Builder hasEffect()
+    {
       this.hasEffect = true;
       return this;
     }
 
-    public Builder hasCustomRender() {
+    public Builder hasCustomRender()
+    {
       this.hasCustomRender = true;
       return this;
     }
 
-    public VisualData build() {
+    public VisualData build()
+    {
       return hasPredefinedColor ?
               new VisualData(beeColor, hasEffect, hasCustomRender) :
               new VisualData(new BeeColor(outlineTint, wingTint, bodyTint), hasEffect, hasCustomRender);

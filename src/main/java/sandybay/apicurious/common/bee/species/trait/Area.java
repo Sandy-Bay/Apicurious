@@ -13,7 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Area implements ITrait<Area> {
+public class Area implements ITrait<Area>
+{
 
 
   public static final ResourceKey<Area> SMALLEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smallest"));
@@ -44,32 +45,38 @@ public class Area implements ITrait<Area> {
   private final String name;
   private Component readableName;
 
-  public Area(int xzOffset, int yOffset, String name) {
+  public Area(int xzOffset, int yOffset, String name)
+  {
     this.xzOffset = xzOffset;
     this.yOffset = yOffset;
     this.name = name;
   }
 
-  public int getXZOffset() {
+  public int getXZOffset()
+  {
     return xzOffset;
   }
 
-  public int getYOffset() {
+  public int getYOffset()
+  {
     return yOffset;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
   @Override
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Area area = (Area) o;
@@ -77,17 +84,20 @@ public class Area implements ITrait<Area> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(xzOffset, yOffset, name, readableName);
   }
 
   @Override
-  public Codec<Area> getCodec() {
+  public Codec<Area> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, Area> getStreamCodec() {
+  public StreamCodec<ByteBuf, Area> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

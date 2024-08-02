@@ -13,7 +13,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Fertility implements ITrait<Fertility> {
+public class Fertility implements ITrait<Fertility>
+{
 
   public static final ResourceKey<Fertility> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("low"));
   public static final ResourceKey<Fertility> AVERAGE_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("average"));
@@ -36,27 +37,32 @@ public class Fertility implements ITrait<Fertility> {
   public final String name;
   public Component readableName;
 
-  public Fertility(int offspring, String name) {
+  public Fertility(int offspring, String name)
+  {
     this.offspring = offspring;
     this.name = name;
   }
 
-  public int getOffspring() {
+  public int getOffspring()
+  {
     return offspring;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
   @Override
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Fertility fertility = (Fertility) o;
@@ -64,17 +70,20 @@ public class Fertility implements ITrait<Fertility> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(offspring, name, readableName);
   }
 
   @Override
-  public Codec<Fertility> getCodec() {
+  public Codec<Fertility> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, Fertility> getStreamCodec() {
+  public StreamCodec<ByteBuf, Fertility> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

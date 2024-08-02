@@ -4,7 +4,8 @@ import sandybay.apicurious.api.bee.genetic.ITrait;
 
 import java.util.Set;
 
-public interface IGenome {
+public interface IGenome
+{
   Set<IAllele<?>> getAlleles();
 
   boolean addAllele();

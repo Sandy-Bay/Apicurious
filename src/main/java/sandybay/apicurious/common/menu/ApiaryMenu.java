@@ -11,24 +11,28 @@ import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandle
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 
-public class ApiaryMenu extends AbstractHousingMenu {
+public class ApiaryMenu extends AbstractHousingMenu
+{
 
   private final ContainerData containerData;
 
-  public ApiaryMenu(int containerId, Inventory playerInventory) {
+  public ApiaryMenu(int containerId, Inventory playerInventory)
+  {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
     containerData = new SimpleContainerData(3);
     addDataSlots(containerData);
   }
 
-  public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ContainerData containerData, ConfigurableItemStackHandler inventory) {
+  public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ContainerData containerData, ConfigurableItemStackHandler inventory)
+  {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, inventory);
 
     this.containerData = containerData;
     addDataSlots(containerData);
   }
 
-  public ApiaryMenu(int containedId, Inventory inventory, Player player) {
+  public ApiaryMenu(int containedId, Inventory inventory, Player player)
+  {
     this(containedId, inventory);
   }
 
@@ -48,7 +52,8 @@ public class ApiaryMenu extends AbstractHousingMenu {
   }
 
   @Override
-  public boolean stillValid(@NotNull Player player) {
+  public boolean stillValid(@NotNull Player player)
+  {
     return AbstractContainerMenu.stillValid(getAccess(), player, ApicuriousBlockRegistration.APIARY.asBlock());
   }
 }

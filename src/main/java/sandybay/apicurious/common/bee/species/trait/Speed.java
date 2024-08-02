@@ -17,7 +17,8 @@ import java.util.Objects;
  * Speed is a trait inherited by Bees which alters the chance of a bee to produce output.
  * The faster the speed, the higher the chance of a bee creating a product per bee cycle update.
  */
-public class Speed implements ITrait<Speed> {
+public class Speed implements ITrait<Speed>
+{
 
   public static final ResourceKey<Speed> SLOWEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slowest"));
   public static final ResourceKey<Speed> SLOWER = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slower"));
@@ -44,26 +45,31 @@ public class Speed implements ITrait<Speed> {
   private final String name;
   private Component readableName;
 
-  public Speed(float productionModifier, String name) {
+  public Speed(float productionModifier, String name)
+  {
     this.productionModifier = productionModifier;
     this.name = name;
   }
 
-  public float getProductionModifier() {
+  public float getProductionModifier()
+  {
     return productionModifier;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Speed speed = (Speed) o;
@@ -71,17 +77,20 @@ public class Speed implements ITrait<Speed> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(productionModifier, name, readableName);
   }
 
   @Override
-  public Codec<Speed> getCodec() {
+  public Codec<Speed> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, Speed> getStreamCodec() {
+  public StreamCodec<ByteBuf, Speed> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }

@@ -16,7 +16,8 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 // TODO: Implement custom effect system, not just potion effects.
-public class BeeSpecies implements IBeeSpecies {
+public class BeeSpecies implements IBeeSpecies
+{
 
   public static final Codec<BeeSpecies> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -46,7 +47,8 @@ public class BeeSpecies implements IBeeSpecies {
 
   public BeeSpecies(String name, VisualData visualData,
                     ProductionData productionData,
-                    EnvironmentalData environmentalData) {
+                    EnvironmentalData environmentalData)
+  {
     this.name = name;
     this.visualData = visualData;
     this.productionData = productionData;
@@ -60,33 +62,40 @@ public class BeeSpecies implements IBeeSpecies {
     return super.toString(); //+ " BeeSpecies{" + "name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
   }
 
-  private String getName() {
+
+  private String getName()
+  {
     return name;
   }
 
   @Override
-  public VisualData getVisualData() {
+  public VisualData getVisualData()
+  {
     return this.visualData;
   }
 
   @Override
-  public ProductionData getProductionData() {
+  public ProductionData getProductionData()
+  {
     return productionData;
   }
 
   @Override
-  public EnvironmentalData getEnvironmentalData() {
+  public EnvironmentalData getEnvironmentalData()
+  {
     return environmentalData;
   }
 
   @Override
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     BeeSpecies species = (BeeSpecies) o;
@@ -98,7 +107,8 @@ public class BeeSpecies implements IBeeSpecies {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(name, visualData, productionData, environmentalData, readableName);
   }
 
@@ -110,7 +120,8 @@ public class BeeSpecies implements IBeeSpecies {
   //  return null;
   //}
 
-  public static class Builder {
+  public static class Builder
+  {
     private final BootstrapContext<BeeSpecies> context;
     private final String name;
     private VisualData visualData;
@@ -118,7 +129,8 @@ public class BeeSpecies implements IBeeSpecies {
     private EnvironmentalData environmentalData;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
 
-    private Builder(BootstrapContext<BeeSpecies> context, String name) {
+    private Builder(BootstrapContext<BeeSpecies> context, String name)
+    {
       this.context = context;
       this.name = name;
       this.visualData = VisualData.Builder.create().build();
@@ -126,25 +138,29 @@ public class BeeSpecies implements IBeeSpecies {
       this.environmentalData = EnvironmentalData.Builder.create(context).build();
     }
 
-    public static Builder create(BootstrapContext<BeeSpecies> context, String name) {
+    public static Builder create(BootstrapContext<BeeSpecies> context, String name)
+    {
       return new Builder(context, "apicurious.species." + name);
     }
 
-    public Builder withVisualData(Consumer<VisualData.Builder> consumer) {
+    public Builder withVisualData(Consumer<VisualData.Builder> consumer)
+    {
       VisualData.Builder builder = VisualData.Builder.create();
       consumer.accept(builder);
       this.visualData = builder.build();
       return this;
     }
 
-    public Builder withProductionData(Consumer<ProductionData.Builder> consumer) {
+    public Builder withProductionData(Consumer<ProductionData.Builder> consumer)
+    {
       ProductionData.Builder builder = ProductionData.Builder.create(context);
       consumer.accept(builder);
       this.productionData = builder.build();
       return this;
     }
 
-    public Builder withEnvironmentalData(Consumer<EnvironmentalData.Builder> consumer) {
+    public Builder withEnvironmentalData(Consumer<EnvironmentalData.Builder> consumer)
+    {
       EnvironmentalData.Builder builder = EnvironmentalData.Builder.create(context);
       consumer.accept(builder);
       this.environmentalData = builder.build();
@@ -156,7 +172,8 @@ public class BeeSpecies implements IBeeSpecies {
 //      return this;
 //    }
 
-    public BeeSpecies build() {
+    public BeeSpecies build()
+    {
       return new BeeSpecies(
               this.name, this.visualData,
               this.productionData, this.environmentalData

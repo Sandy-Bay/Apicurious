@@ -16,7 +16,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Flowers implements ITrait<Flowers> {
+public class Flowers implements ITrait<Flowers>
+{
 
   public static final ResourceKey<Flowers> NORMAL_FLOWERS = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("normal_flowers"));
   public static final ResourceKey<Flowers> ROCK = ResourceKey.create(ApicuriousRegistries.FLOWERS, Apicurious.createResourceLocation("overworld_rocks"));
@@ -38,27 +39,32 @@ public class Flowers implements ITrait<Flowers> {
   private final String name;
   private Component readableName;
 
-  public Flowers(TagKey<Block> flowers, String name) {
+  public Flowers(TagKey<Block> flowers, String name)
+  {
     this.flowers = flowers;
     this.name = name;
   }
 
-  public TagKey<Block> getFlowers() {
+  public TagKey<Block> getFlowers()
+  {
     return flowers;
   }
 
-  private String getName() {
+  private String getName()
+  {
     return name;
   }
 
   @Override
-  public Component getReadableName() {
+  public Component getReadableName()
+  {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Flowers flowers1 = (Flowers) o;
@@ -66,17 +72,20 @@ public class Flowers implements ITrait<Flowers> {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(flowers, name, readableName);
   }
 
   @Override
-  public Codec<Flowers> getCodec() {
+  public Codec<Flowers> getCodec()
+  {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<ByteBuf, Flowers> getStreamCodec() {
+  public StreamCodec<ByteBuf, Flowers> getStreamCodec()
+  {
     return NETWORK_CODEC;
   }
 }
