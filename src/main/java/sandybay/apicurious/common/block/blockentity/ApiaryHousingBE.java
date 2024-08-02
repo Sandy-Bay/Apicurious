@@ -105,6 +105,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       {
         this.currentWork = 75;
         this.maxWork = currentWork;
+        errorList.clear();
       }
       else
       {
