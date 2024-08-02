@@ -49,7 +49,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
             .setSlotLimit(3, 1)
             .setSlotLimit(4, 1)
             .setOnSlotChanged((stack, slot) -> this.setChanged());
-    this.validation = new HousingValidation();
+    this.validation = new HousingValidation(this);
   }
 
   @Override
@@ -90,7 +90,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isValidForStartup()
   {
     boolean hasPrincess = getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
-    boolean hasDrone = getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE
+    boolean hasDrone = getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
     if (!hasPrincess) errorList.add(EnumApiaryError.MISSING_PRINCESS);
     if (!hasDrone) errorList.add(EnumApiaryError.MISSING_DRONE);
     return hasPrincess && hasDrone && this.currentWork == 0 && this.maxWork == 0;
