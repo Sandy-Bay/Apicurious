@@ -159,8 +159,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
                 ItemStack out = output;
                 for (int i = 5; i < 12; i++)
                 {
-                  if (getInventory().insertItem(i, out, true) != out) {
-                      out = getInventory().insertItem(i, out, false);
+                  if (getInventory().insertItem(i, out.copy(), true) != out) {
+                      out = getInventory().insertItem(i, out.copy(), false);
                       if (out.isEmpty()) {
                         break;
                       }
