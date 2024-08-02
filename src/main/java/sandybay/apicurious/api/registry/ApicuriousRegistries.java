@@ -3,11 +3,23 @@ package sandybay.apicurious.api.registry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.output.condition.OutputCondition;
+import sandybay.apicurious.api.bee.output.condition.OutputConditionType;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.*;
 
 public class ApicuriousRegistries {
+
+  // TODO: Figure out how to implement typed conditions and functions for the Output system...
+  // Output Registries
+  public static final ResourceKey<Registry<OutputConditionType>> OUTPUT_CONDITION_TYPE_REGISTRY_KEY = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("output_condition_type"));
+  public static final Registry<OutputConditionType> OUTPUT_CONDITION_TYPE_REGISTRY = new RegistryBuilder<>(OUTPUT_CONDITION_TYPE_REGISTRY_KEY).sync(true).create();
+
+  public static final ResourceKey<Registry<OutputCondition>> OUTPUT_CONDITION_REGISTRY_KEY = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("output_condition"));
+  public static final Registry<OutputCondition> OUTPUT_CONDITION_REGISTRY = new RegistryBuilder<>(OUTPUT_CONDITION_REGISTRY_KEY).sync(true).create();
+
 
   // Trait Registries
   public static final ResourceKey<Registry<Area>> AREAS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("area"));
