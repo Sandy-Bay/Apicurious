@@ -22,11 +22,11 @@ import java.util.Objects;
 public class TemperaturePreference implements ITrait<TemperaturePreference>
 {
 
-  public static final ResourceKey<TemperaturePreference> INFERNAL = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("infernal"));
+  public static final ResourceKey<TemperaturePreference> HELLISH = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("hellish"));
   public static final ResourceKey<TemperaturePreference> HOT = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("hot"));
   public static final ResourceKey<TemperaturePreference> AVERAGE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("average"));
   public static final ResourceKey<TemperaturePreference> COLD = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("cold"));
-  public static final ResourceKey<TemperaturePreference> FREEZING = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("freezing"));
+  public static final ResourceKey<TemperaturePreference> ICY = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("icy"));
 
   public static final Codec<TemperaturePreference> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(

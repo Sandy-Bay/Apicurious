@@ -7,6 +7,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
+import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -17,18 +20,20 @@ import java.util.List;
 public class HousingValidation
 {
 
+  private final IApiaryErrorHandler errorHandler;
   private ItemStack key;
   private ClimateHelper helper;
   private boolean isValid;
 
-  public HousingValidation()
+  public HousingValidation(IApiaryErrorHandler errorHandler)
   {
+    this.errorHandler = errorHandler;
     this.isValid = false;
   }
 
   public boolean validate(ItemStack key, Level level, BlockPos housingPosition, List<BlockPos> territory)
   {
-    if (helper == null && level != null) helper = new ClimateHelper(level);
+    if (helper == null && level != null) helper = new ClimateHelper(level, errorHandler);
     if (key.isEmpty()) return false;
     if (!this.isValid || this.key != key)
     {
@@ -61,6 +66,7 @@ public class HousingValidation
         break;
       }
     }
+    if (!foundValid) errorHandler.addError(EnumApiaryError.MISSING_FLOWER);
     return foundValid;
   }
 

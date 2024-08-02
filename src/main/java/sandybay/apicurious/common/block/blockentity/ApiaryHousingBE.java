@@ -57,8 +57,6 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     }
   };
 
-  public List<EnumApiaryError> errorList = new ArrayList<>();
-
   public ApiaryHousingBE(BlockPos pos, BlockState blockState)
   {
     super(ApicuriousBlockRegistration.APIARY.getType(), pos, blockState);
@@ -130,7 +128,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
           Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName(), species.getReadableName()));
         }
       }
-    } else
+    }
+    else
     {
       ItemStack stack = getInventory().getStackInSlot(0);
       if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)

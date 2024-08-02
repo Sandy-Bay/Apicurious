@@ -21,7 +21,7 @@ import sandybay.apicurious.api.util.ApicuriousTags;
 import java.util.List;
 
 //This does not really need to be in the API, we can just fire events for the users
-public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary
+public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary, IApiaryErrorHandler
 {
 
   public BaseHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState blockState)

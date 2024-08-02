@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
@@ -13,6 +14,7 @@ import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //This does not need to be in the api
@@ -27,6 +29,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
+
+  public List<EnumApiaryError> errorList = new ArrayList<>();
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -85,8 +89,22 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public boolean isValidForStartup()
   {
-    return getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS &&
-            getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE &&
-            this.currentWork == 0 && this.maxWork == 0;
+    boolean hasPrincess = getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
+    boolean hasDrone = getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE
+    if (!hasPrincess) errorList.add(EnumApiaryError.MISSING_PRINCESS);
+    if (!hasDrone) errorList.add(EnumApiaryError.MISSING_DRONE);
+    return hasPrincess && hasDrone && this.currentWork == 0 && this.maxWork == 0;
+  }
+
+  @Override
+  public void addError(EnumApiaryError error)
+  {
+    if (!errorList.contains(error)) this.errorList.add(error);
+  }
+
+  @Override
+  public void clearErrors()
+  {
+    this.errorList.clear();
   }
 }

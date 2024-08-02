@@ -107,11 +107,11 @@ public class ApicuriousDatapackRegistriesDefaults
 
     builder.add(ApicuriousRegistries.TEMPERATURE_PREFERENCES, bootstrap ->
     {
-      bootstrap.register(TemperaturePreference.INFERNAL, temperaturePreference(5, ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE, "hellish"));
+      bootstrap.register(TemperaturePreference.HELLISH, temperaturePreference(5, ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE, "hellish"));
       bootstrap.register(TemperaturePreference.HOT, temperaturePreference(4, ApicuriousTags.BiomeTags.HOT_TEMPERATURE, "hot"));
       bootstrap.register(TemperaturePreference.AVERAGE, temperaturePreference(3, ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE, "average"));
       bootstrap.register(TemperaturePreference.COLD, temperaturePreference(2, ApicuriousTags.BiomeTags.COLD_TEMPERATURE, "cold"));
-      bootstrap.register(TemperaturePreference.FREEZING, temperaturePreference(1, ApicuriousTags.BiomeTags.ICY_TEMPERATURE, "icy"));
+      bootstrap.register(TemperaturePreference.ICY, temperaturePreference(1, ApicuriousTags.BiomeTags.ICY_TEMPERATURE, "icy"));
     });
 
     builder.add(ApicuriousRegistries.TEMPERATURE_TOLERANCES, bootstrap ->
