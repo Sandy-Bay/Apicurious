@@ -105,12 +105,6 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
         this.maxWork = currentWork;
         this.clearErrors();
       }
-      else
-      {
-        errorList.add(EnumApiaryError.MISSING_PRINCESS);
-        errorList.add(EnumApiaryError.MISSING_DRONE);
-        return;
-      }
       if (this.currentWork != 0)
       {
         this.currentWork--;

@@ -3,6 +3,13 @@ package sandybay.apicurious.api;
 import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
 
+/*
+    TODO: Add the following errors when logic is implemented:
+    - Output Error (Inventory Full)
+    - Not valid time of day
+    - Raining
+    - Can't see Sky
+ */
 public enum EnumApiaryError
 {
     MISSING_QUEEN("apicurious.error.missing_queen", "apicurious.error.missing_queen_tooltip", Apicurious.createResourceLocation("textures/gui/widget/no_queen.png")),
