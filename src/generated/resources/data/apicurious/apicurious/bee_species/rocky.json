@@ -13,6 +13,9 @@
     }
   },
   "name": "apicurious.species.rocky",
+  "outputData": {
+    "outputs": []
+  },
   "productionData": {
     "area": "apicurious:average",
     "fertility": "apicurious:average",

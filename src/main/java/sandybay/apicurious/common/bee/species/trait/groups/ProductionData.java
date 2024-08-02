@@ -141,12 +141,6 @@ public class ProductionData
       return this;
     }
 
-    public Builder withArea(Area area)
-    {
-      this.area = Holder.direct(area);
-      return this;
-    }
-
     public Builder withArea(ResourceKey<Area> area)
     {
       this.area = context.lookup(ApicuriousRegistries.AREAS).getOrThrow(area);

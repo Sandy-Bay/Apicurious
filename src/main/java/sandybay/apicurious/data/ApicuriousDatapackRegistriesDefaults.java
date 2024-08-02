@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -148,7 +149,15 @@ public class ApicuriousDatapackRegistriesDefaults
               .withVisualData(visual ->
               {
                 visual.hasEffect().hasCustomRender().build();
-              }).build()
+              })
+              .withProductionData(production ->
+                      production.withArea(Area.LARGEST)
+              ).withEnvironmentalData(environment ->
+                      environment.withFlowers(Flowers.ROCK)
+              )
+              .withOutputData(outputs ->
+                      outputs.withStack(Items.HONEYCOMB, 1)
+              ).build()
       );
     });
     builder.add(Registries.CONFIGURED_FEATURE, bootstrap ->

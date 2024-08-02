@@ -13,6 +13,9 @@
     }
   },
   "name": "apicurious.species.undefined",
+  "outputData": {
+    "outputs": []
+  },
   "productionData": {
     "area": "apicurious:average",
     "fertility": "apicurious:average",
@@ -20,13 +23,5 @@
     "pollination": "apicurious:average",
     "speed": "apicurious:average",
     "workCycle": "apicurious:diurnal"
-  },
-  "visualData": {
-    "beeColor": {
-      "bodyTint": "ffdc16",
-      "outlineTint": "999999",
-      "wingTint": "bcbcbc"
-    },
-    "hasCustomRender": false
   }
 }

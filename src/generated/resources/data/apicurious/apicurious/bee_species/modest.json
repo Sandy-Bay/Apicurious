@@ -13,6 +13,9 @@
     }
   },
   "name": "apicurious.species.modest",
+  "outputData": {
+    "outputs": []
+  },
   "productionData": {
     "area": "apicurious:average",
     "fertility": "apicurious:average",

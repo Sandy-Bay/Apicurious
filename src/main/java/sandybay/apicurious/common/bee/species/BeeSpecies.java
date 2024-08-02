@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.IBeeSpecies;
+import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
 import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
@@ -24,7 +25,8 @@ public class BeeSpecies implements IBeeSpecies
                   Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName),
                   VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
                   ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
-                  EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData)
+                  EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData),
+                  OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputs)
                   //Codec.list(MobEffectInstance.CODEC).fieldOf("effects").forGetter(BeeSpecies::getEffects)
           ).apply(instance, BeeSpecies::new)
   );
@@ -34,6 +36,7 @@ public class BeeSpecies implements IBeeSpecies
           VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
           ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
           EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
+          OutputData.NETWORK_CODEC, BeeSpecies::getOutputs,
           //ByteBufCodecs.collection(ArrayList::new, MobEffectInstance.STREAM_CODEC), BeeSpecies::getEffects,
           BeeSpecies::new
   );
@@ -42,17 +45,20 @@ public class BeeSpecies implements IBeeSpecies
   private final VisualData visualData;
   private final ProductionData productionData;
   private final EnvironmentalData environmentalData;
+  private final OutputData outputs;
   private Component readableName;
   //private final List<MobEffectInstance> effects;
 
   public BeeSpecies(String name, VisualData visualData,
                     ProductionData productionData,
-                    EnvironmentalData environmentalData)
+                    EnvironmentalData environmentalData,
+                    OutputData outputs)
   {
     this.name = name;
     this.visualData = visualData;
     this.productionData = productionData;
     this.environmentalData = environmentalData;
+    this.outputs = outputs;
     //this.effects = effects;
   }
 
@@ -84,6 +90,12 @@ public class BeeSpecies implements IBeeSpecies
   public EnvironmentalData getEnvironmentalData()
   {
     return environmentalData;
+  }
+
+  @Override
+  public OutputData getOutputs()
+  {
+    return outputs;
   }
 
   @Override
@@ -127,6 +139,7 @@ public class BeeSpecies implements IBeeSpecies
     private VisualData visualData;
     private ProductionData productionData;
     private EnvironmentalData environmentalData;
+    private OutputData outputs;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
 
     private Builder(BootstrapContext<BeeSpecies> context, String name)
@@ -136,6 +149,7 @@ public class BeeSpecies implements IBeeSpecies
       this.visualData = VisualData.Builder.create().build();
       this.productionData = ProductionData.Builder.create(context).build();
       this.environmentalData = EnvironmentalData.Builder.create(context).build();
+      this.outputs = OutputData.Builder.create(context).build();
     }
 
     public static Builder create(BootstrapContext<BeeSpecies> context, String name)
@@ -167,6 +181,13 @@ public class BeeSpecies implements IBeeSpecies
       return this;
     }
 
+    public Builder withOutputData(Consumer<OutputData.Builder> consumer) {
+      OutputData.Builder builder = OutputData.Builder.create(context);
+      consumer.accept(builder);
+      this.outputs = builder.build();
+      return this;
+    }
+
 //    public Builder withEffects(MobEffectInstance... effects) {
 //      this.effects.addAll(Arrays.asList(effects));
 //      return this;
@@ -176,7 +197,8 @@ public class BeeSpecies implements IBeeSpecies
     {
       return new BeeSpecies(
               this.name, this.visualData,
-              this.productionData, this.environmentalData
+              this.productionData, this.environmentalData,
+              this.outputs
               //this.effects
       );
     }

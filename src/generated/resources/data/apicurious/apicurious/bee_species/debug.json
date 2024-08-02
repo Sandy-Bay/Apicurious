@@ -1,6 +1,6 @@
 {
   "environmentalData": {
-    "flowers": "apicurious:normal_flowers",
+    "flowers": "apicurious:overworld_rocks",
     "humidityData": {
       "preference": "apicurious:average",
       "tolerance": "apicurious:none"
@@ -13,8 +13,16 @@
     }
   },
   "name": "apicurious.species.debug",
+  "outputData": {
+    "outputs": [
+      {
+        "count": 1,
+        "id": "minecraft:honeycomb"
+      }
+    ]
+  },
   "productionData": {
-    "area": "apicurious:average",
+    "area": "apicurious:largest",
     "fertility": "apicurious:average",
     "lifespan": "apicurious:average",
     "pollination": "apicurious:average",
@@ -22,11 +30,6 @@
     "workCycle": "apicurious:diurnal"
   },
   "visualData": {
-    "beeColor": {
-      "bodyTint": "ffdc16",
-      "outlineTint": "999999",
-      "wingTint": "bcbcbc"
-    },
     "hasEffect": true
   }
 }

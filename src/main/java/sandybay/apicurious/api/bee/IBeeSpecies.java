@@ -1,6 +1,7 @@
 package sandybay.apicurious.api.bee;
 
 import net.minecraft.network.chat.Component;
+import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
 import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
@@ -14,4 +15,6 @@ public interface IBeeSpecies
   ProductionData getProductionData();
 
   EnvironmentalData getEnvironmentalData();
+
+  OutputData getOutputs();
 }

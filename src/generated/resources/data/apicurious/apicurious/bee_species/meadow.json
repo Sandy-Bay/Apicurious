@@ -13,6 +13,9 @@
     }
   },
   "name": "apicurious.species.meadow",
+  "outputData": {
+    "outputs": []
+  },
   "productionData": {
     "area": "apicurious:average",
     "fertility": "apicurious:average",
