@@ -20,6 +20,7 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
 
   public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/apiary.png");
   private final Player player;
+  private List<ErrorWidget> errorWidgets = new ArrayList<>();
 
   public ApiaryScreen(ApiaryMenu pMenu, Inventory pPlayerInventory, Component pTitle)
   {
@@ -35,7 +36,7 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
   protected void init()
   {
     super.init();
-    addRenderableWidget(new InfoWidget(leftPos - 25, topPos + 10, 25, 25, 120, 80, true, 1.0F, 0.0F, 0.0F, Apicurious.createResourceLocation("textures/gui/widget/no_queen.png"), new ArrayList<>()));
+//    addRenderableWidget(new InfoWidget(leftPos - 25, topPos + 10, 25, 25, 120, 80, true, 1.0F, 0.0F, 0.0F, Apicurious.createResourceLocation("textures/gui/widget/no_queen.png"), new ArrayList<>()));
     addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, 0.0F, 0.0F, 1.5F, Apicurious.createResourceLocation("textures/gui/widget/habitats/plains.png"), getTempTabInfo()));
 
   }
