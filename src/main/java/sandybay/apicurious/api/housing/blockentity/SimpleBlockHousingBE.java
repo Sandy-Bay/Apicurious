@@ -1,9 +1,11 @@
 package sandybay.apicurious.api.housing.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,7 +17,10 @@ import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.trait.Lifespan;
+import sandybay.apicurious.common.bee.species.trait.Speed;
 import sandybay.apicurious.common.bee.species.trait.WorkCycle;
 
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
+  public boolean shouldRenderParticles;
 
   private List<EnumApiaryError> errorList = new ArrayList<>();
 
@@ -63,7 +69,9 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     apiaryData.putBoolean("isActive", isActive);
     if (clientOnly)
     {
-    } else
+      tag.putBoolean("shouldRenderParticles", shouldRenderParticles);
+    }
+    else
     {
       if (alwaysSave || inventory.hasChanged()) apiaryData.put("inventory", inventory.serializeNBT(registries));
     }
@@ -74,6 +82,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave)
   {
     CompoundTag apiaryData = tag.getCompound("apiary_data");
+    if (apiaryData.contains("shouldRenderParticles")) shouldRenderParticles = apiaryData.getBoolean("shouldRenderParticles");
     this.isActive = apiaryData.getBoolean("isActive");
     if (apiaryData.contains("inventory")) inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));
   }
@@ -89,51 +98,52 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.level.sendBlockUpdated(worldPosition, state, state.setValue(BaseHousingBlock.ACTIVE, shouldBeActive), Block.UPDATE_IMMEDIATE);
     this.setChanged();
     this.isActive = shouldBeActive;
+    this.shouldRenderParticles = shouldBeActive;
   }
 
-  public boolean isValidForStartup()
+  public boolean hasPrincessAndDrone()
   {
-    boolean hasPrincess = getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
-    boolean hasDrone = getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
+    boolean hasPrincess = inventory.getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
+    boolean hasDrone = inventory.getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
     if (!hasPrincess) addError(EnumApiaryError.MISSING_PRINCESS);
     if (!hasDrone) addError(EnumApiaryError.MISSING_DRONE);
-    return hasPrincess && hasDrone && this.currentWork == 0 && this.maxWork == 0;
+    return hasPrincess && hasDrone && currentWork == 0 && maxWork == 0;
   }
 
-  protected boolean checkWorkCycle()
+  protected boolean checkWorkCycle(Level level)
   {
-    ItemStack queen = getInventory().getStackInSlot(0);
+    ItemStack queen = inventory.getStackInSlot(0);
     BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null || getLevel() == null) return false;
+    if (species == null || level == null) return false;
     WorkCycle speciesCycle = species.getProductionData().getWorkCycle().value();
-    boolean isValidCycle = speciesCycle.isValidTime((int) getLevel().getDayTime());
+    boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
     if (!isValidCycle) addError(EnumApiaryError.INVALID_TIME);
     return isValidCycle;
   }
 
-  protected boolean checkSky()
+  protected boolean checkSky(Level level, BlockPos pos)
   {
-    ItemStack queen = getInventory().getStackInSlot(0);
+    ItemStack queen = inventory.getStackInSlot(0);
     BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null || getLevel() == null) return false;
+    if (species == null || level == null) return false;
     boolean ignoresSky = species.getEnvironmentalData().ignoresSky();
     boolean canSeeSky = true;
     if (!ignoresSky) {
-      canSeeSky = getLevel().canSeeSky(getBlockPos());
+      canSeeSky = level.canSeeSky(pos);
     }
     if (!canSeeSky) addError(EnumApiaryError.NO_SKY);
     return canSeeSky;
   }
 
-  protected boolean checkRain()
+  protected boolean checkRain(Level level, BlockPos pos)
   {
-    ItemStack queen = getInventory().getStackInSlot(0);
+    ItemStack queen = inventory.getStackInSlot(0);
     BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null || getLevel() == null) return false;
+    if (species == null || level == null) return false;
     boolean ignoresRain = species.getEnvironmentalData().ignoresRain();
     boolean isClear = true;
     if (!ignoresRain) {
-      isClear = getLevel().isRaining() && getLevel().getBiome(getBlockPos()).value().hasPrecipitation();
+      isClear = !level.isRainingAt(pos);
     }
     if (!isClear) addError(EnumApiaryError.IS_RAINING);
     return isClear;
@@ -145,8 +155,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     ItemStack out = output.copy();
     for (int i = 5; i < 12; i++)
     {
-      if (getInventory().insertItem(i, out.copy(), true) != out) {
-        out = getInventory().insertItem(i, out.copy(), true);
+      if (inventory.insertItem(i, out.copy(), true) != out) {
+        out = inventory.insertItem(i, out.copy(), true);
         if (out.isEmpty()) {
           canOutput = true;
           break;
@@ -155,6 +165,40 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
     if (!canOutput) addError(EnumApiaryError.FULL_INVENTORY);
     return canOutput;
+  }
+
+  public int getModifiedOutputDuration() {
+    BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null) return 0;
+    Holder<Speed> speedHolder = species.getProductionData().getSpeed();
+    if (!speedHolder.isBound()) return 0;
+    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE * speedHolder.value().getProductionModifier());
+    for (int i = 2; i < 5; i++)
+    {
+      ItemStack stack = inventory.getStackInSlot(i);
+      if (stack.getItem() instanceof IFrameItem frame)
+      {
+        outputDuration = Math.round(outputDuration * frame.getSpeedModifier());
+      }
+    }
+    return outputDuration;
+  }
+
+  public int getModifiedLifeSpan() {
+    BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null) return 0;
+    Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
+    if (!lifespanHolder.isBound()) return 0;
+    int lifespan = ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
+    for (int i = 2; i < 5; i++)
+    {
+      ItemStack stack = inventory.getStackInSlot(i);
+      if (stack.getItem() instanceof IFrameItem frame)
+      {
+        lifespan = Math.round(lifespan * frame.getLifespanModifier());
+      }
+    }
+    return lifespan;
   }
 
   @Override

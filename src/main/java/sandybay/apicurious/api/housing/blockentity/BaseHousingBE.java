@@ -30,36 +30,6 @@ public abstract class BaseHousingBE extends BlockEntity implements ITickingApiar
     super(type, pos, blockState);
   }
 
-  //Not sure where to put this I would say the API but it goes here for now
-  public static TagKey<Biome> getCurrentHumidity(Level level, BlockPos pos)
-  {
-    var keys = getOurTags(level, pos);
-    //This is lazy and can be optimized later
-    for (TagKey<Biome> key : keys)
-    {
-      if (key.location().toString().contains("humidity"))
-        return key;
-    }
-    return ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY;
-  }
-
-  public static TagKey<Biome> getCurrentTemperature(Level level, BlockPos pos)
-  {
-    var keys = getOurTags(level, pos);
-    //This is lazy and can be optimized later
-    for (TagKey<Biome> key : keys)
-    {
-      if (key.location().toString().contains("temperature"))
-        return key;
-    }
-    return ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE;
-  }
-
-  public static List<TagKey<Biome>> getOurTags(Level level, BlockPos pos)
-  {
-    return level.getBiome(pos).tags().filter(biomeTagKey -> biomeTagKey.location().getNamespace().startsWith(Apicurious.MODID)).toList();
-  }
-
   // World Save / Read Methods
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries)

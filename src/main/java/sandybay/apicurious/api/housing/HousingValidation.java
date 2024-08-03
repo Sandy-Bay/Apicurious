@@ -8,12 +8,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Flowers;
+import sandybay.apicurious.common.bee.species.trait.WorkCycle;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class HousingValidation
 {
 
   private final IApiaryErrorHandler errorHandler;
+
   private ItemStack key;
   private ClimateHelper helper;
   private boolean isValid;

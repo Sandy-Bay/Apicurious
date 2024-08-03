@@ -5,7 +5,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
@@ -107,7 +107,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (!this.isActive)
     {
-      if (isValidForStartup())
+      if (hasPrincessAndDrone())
       {
         this.currentWork = 75;
         this.maxWork = currentWork;
@@ -143,75 +143,18 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
           {
             BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
             if (species == null) return;
-            if (this.currentWork == 0 && this.maxWork == 0)
-            {
-              Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
-              if (!lifespanHolder.isBound())
-                throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName()));
-              this.currentWork = 75; //ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
-              this.maxWork = 75; //this.currentWork;
-            }
-            if (!checkRain() || !checkSky() || !checkWorkCycle()) return;
-            this.currentWork--;
-            if (Math.abs(this.currentWork - this.maxWork) % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack))
-            {
-              Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT), 7);
-              List<BlockPos> found = this.territory.stream().filter(filter).toList();
-              for (BlockPos f : found)
-              {
-                // TODO: Figure out a better way to both find valid blocks and generate random flowers.
-                level.setBlock(f.above(), Blocks.POPPY.defaultBlockState(), Block.UPDATE_ALL);
-              }
-            }
+            handleInitialRunData(species);
+            if (!checkRain(getLevel(), getBlockPos()) || !checkSky(getLevel(), getBlockPos()) || !checkWorkCycle(getLevel())) return;
+            if (!getErrorList().isEmpty()) return;
+            handlePollination(level, apiary, stack);
             // TODO: Implement effect occurrences here.
-            if (Math.abs(this.currentWork - this.maxWork) % 5 == 0) // Change this back to WorkCycle later
-            {
-              List<ItemStack> outputs = species.getOutputData().getOutputs();
-              for (ItemStack output : outputs) {
-                if (!canOutputSuccessfully(output)) return;
-                ItemStack out = output;
-                for (int i = 5; i < 12; i++)
-                {
-                  if (getInventory().insertItem(i, out.copy(), true) != out) {
-                      out = getInventory().insertItem(i, out.copy(), false);
-                      if (out.isEmpty()) {
-                        break;
-                      }
-                  }
-                }
-              }
-            }
+            if (handleOutput(species)) return;
+            if (!getErrorList().isEmpty()) return;
+            this.currentWork--;
             if (this.currentWork == 0)
             {
-              // TODO: Improve the below code
-              changeActiveState(state, false);
-              this.currentWork = 0;
-              this.maxWork = 0;
-              this.territory = null;
-              getInventory().extractItem(0, 1, false);
-              ItemStack princess = new ItemStack(ApicuriousItemRegistration.PRINCESS.get(), 1);
-              Fertility fertility = species.getProductionData().getFertility().value();
-              ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), fertility.getOffspring());
-              princess.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-              drones.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-              // TODO: Change this so it inserts into any available free slot in the
-              for (int i = 5; i < 12; i++)
-              {
-                if (getInventory().insertItem(i, princess, true) != princess)
-                {
-                  getInventory().insertItem(i, princess, false);
-                  break;
-                }
-              }
-              for (int i = 5; i < 12; i++)
-              {
-                if (getInventory().insertItem(i, drones, true) != drones)
-                {
-                  getInventory().insertItem(i, drones, false);
-                  break;
-                }
-              }
-              Apicurious.LOGGER.info("Successfully completed full Queen cycle!");
+              resetApiary(state);
+              handleQueenLifecycleEnd(species);
             }
           }
         }
@@ -220,10 +163,92 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     updateGuiData();
   }
 
+  private void handleInitialRunData(BeeSpecies species)
+  {
+    if (this.currentWork == 0 && this.maxWork == 0)
+    {
+      Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
+      if (!lifespanHolder.isBound())
+        throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName()));
+      this.currentWork = 75; //ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
+      this.maxWork = 75; //this.currentWork;
+    }
+  }
+
+  private void handlePollination(Level level, ApiaryBlock apiary, ItemStack stack)
+  {
+    if (Math.abs(this.currentWork - this.maxWork) % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack))
+    {
+      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT), 7);
+      List<BlockPos> found = this.territory.stream().filter(filter).toList();
+      for (BlockPos f : found)
+      {
+        // TODO: Figure out a better way to both find valid blocks and generate random flowers.
+        level.setBlock(f.above(), Blocks.POPPY.defaultBlockState(), Block.UPDATE_ALL);
+      }
+    }
+  }
+
+  private boolean handleOutput(BeeSpecies species)
+  {
+    if (Math.abs(this.currentWork - this.maxWork) % getModifiedOutputDuration() == 0)
+    {
+      List<ItemStack> outputs = species.getOutputData().getOutputs();
+      for (ItemStack output : outputs) {
+        if (!canOutputSuccessfully(output)) return true;
+        ItemStack out = output;
+        for (int i = 5; i < 12; i++)
+        {
+          if (getInventory().insertItem(i, out.copy(), true) != out) {
+              out = getInventory().insertItem(i, out.copy(), false);
+              if (out.isEmpty()) {
+                break;
+              }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private void resetApiary(BlockState state)
+  {
+    changeActiveState(state, false);
+    this.currentWork = 0;
+    this.maxWork = 0;
+    this.territory = null;
+  }
+
+  private void handleQueenLifecycleEnd(BeeSpecies species)
+  {
+    getInventory().extractItem(0, 1, false);
+    ItemStack princess = new ItemStack(ApicuriousItemRegistration.PRINCESS.get(), 1);
+    Fertility fertility = species.getProductionData().getFertility().value();
+    ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), fertility.getOffspring());
+    princess.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+    drones.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+    for (int i = 5; i < 12; i++)
+    {
+      if (getInventory().insertItem(i, princess, true) != princess)
+      {
+        getInventory().insertItem(i, princess, false);
+        break;
+      }
+    }
+    for (int i = 5; i < 12; i++)
+    {
+      if (getInventory().insertItem(i, drones, true) != drones)
+      {
+        getInventory().insertItem(i, drones, false);
+        break;
+      }
+    }
+  }
+
   public void updateGuiData()
   {
-    //TODO change this, this is just for debug
-    for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
+    if (getLevel() == null) return;
+    for (ServerPlayer player : getLevel().getEntitiesOfClass(ServerPlayer.class, new AABB(getBlockPos()).expandTowards(16, 16, 16)))
     {
       if(player instanceof ServerPlayer serverPlayer)
         PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);
@@ -233,7 +258,9 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   @Override
   public void clientTick(Level level, BlockPos pos, BlockState state)
   {
-
+    if (shouldRenderParticles) {
+      // TODO: Render Particles
+    }
   }
 
   public ContainerData getContainerData()
