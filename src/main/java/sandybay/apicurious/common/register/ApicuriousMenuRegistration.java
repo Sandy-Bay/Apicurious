@@ -5,11 +5,14 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.menu.BeeHousingMenu;
+
+import java.util.function.Supplier;
 
 public class ApicuriousMenuRegistration
 {
@@ -26,7 +29,7 @@ public class ApicuriousMenuRegistration
     return MENU_TYPES.register(id, () -> new MenuType<>(supplier, FeatureFlags.DEFAULT_FLAGS));
   }
 
-  public static final DeferredHolder<MenuType<?>, MenuType<ApiaryMenu>> APIARY = registerMenu("apiary", ApiaryMenu::new);
+  public static final Supplier<MenuType<ApiaryMenu>> APIARY = MENU_TYPES.register("apiary", () -> IMenuTypeExtension.create(ApiaryMenu::new));
 
 
   public static final DeferredHolder<MenuType<?>, MenuType<BeeHousingMenu>> BEE_HOUSING = registerMenu("bee_housing", BeeHousingMenu::new);

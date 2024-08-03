@@ -21,10 +21,6 @@ public class ApiaryMenu extends AbstractHousingMenu
   private final ApiaryHousingBE apiary;
   private final ContainerData containerData;
 
-  public ApiaryMenu(int containerId, Inventory playerInventory) {
-    this(containerId, playerInventory, null);
-  }
-
   public ApiaryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf packetBuffer)
   {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
