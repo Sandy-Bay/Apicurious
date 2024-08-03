@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.api.bee.EnumBeeType;
@@ -33,16 +34,19 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
   private static final int frameOffset = 29;
 
   private final ContainerLevelAccess access;
+  private List<EnumApiaryError> errors;
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory)
   {
-    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12));
+    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12), Lists.newArrayList());
   }
 
-  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory)
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
+                             ConfigurableItemStackHandler inventory, List<EnumApiaryError> errors)
   {
     super(type, containerId);
     this.access = access;
+    this.errors = errors;
     addApiarySlots(inventory);
     addInventorySlots(playerInventory);
     addHotbarSlots(playerInventory);
@@ -207,11 +211,6 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     return false;
   }
 
-  public boolean isHousingActive(ItemStack stack)
-  {
-    return stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN;
-  }
-
   public ContainerLevelAccess getAccess()
   {
     return access;
@@ -219,6 +218,6 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
 
   public void receiveGuiData(List<EnumApiaryError> errors)
   {
-
+    this.errors = errors;
   }
 }

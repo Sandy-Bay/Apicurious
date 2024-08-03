@@ -34,7 +34,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public int currentWork;
   public int maxWork;
 
-  public List<EnumApiaryError> errorList = new ArrayList<>();
+  private List<EnumApiaryError> errorList = new ArrayList<>();
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -167,5 +167,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void clearErrors()
   {
     this.errorList.clear();
+  }
+
+  public List<EnumApiaryError> getErrorList()
+  {
+    return errorList;
   }
 }

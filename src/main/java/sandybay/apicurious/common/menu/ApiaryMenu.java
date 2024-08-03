@@ -21,6 +21,10 @@ public class ApiaryMenu extends AbstractHousingMenu
   private final ApiaryHousingBE apiary;
   private final ContainerData containerData;
 
+  public ApiaryMenu(int containerId, Inventory playerInventory) {
+    this(containerId, playerInventory, null);
+  }
+
   public ApiaryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf packetBuffer)
   {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
@@ -31,14 +35,10 @@ public class ApiaryMenu extends AbstractHousingMenu
 
   public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ApiaryHousingBE apiary)
   {
-    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, apiary.getInventory());
+    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, apiary.getInventory(), apiary.getErrorList());
     this.apiary = apiary;
     this.containerData = apiary.getContainerData();
     addDataSlots(containerData);
-  }
-
-  public ApiaryMenu(int containerId, Inventory playerInventory) {
-    this(containerId, playerInventory, null);
   }
 
   public boolean isActive()
