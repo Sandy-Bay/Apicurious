@@ -3,6 +3,7 @@ package sandybay.apicurious.common.block.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -26,6 +27,8 @@ import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.menu.ApiaryMenu;
+import sandybay.apicurious.common.network.PacketHandler;
+import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
@@ -214,6 +217,17 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
         }
       }
     }
+    updateGuiData();
+  }
+
+  public void updateGuiData()
+  {
+    //TODO change this, this is just for debug
+    for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
+    {
+      if(player instanceof ServerPlayer serverPlayer)
+        PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);
+    }
   }
 
   @Override
@@ -240,8 +254,6 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     if (getLevel() == null) return null;
     return new ApiaryMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
   }
-
-
 
   private static class LimitedFilter<T> implements Predicate<T>
   {

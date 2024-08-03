@@ -216,6 +216,11 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     return access;
   }
 
+  public List<EnumApiaryError> getErrors()
+  {
+    return errors;
+  }
+
   public void receiveGuiData(List<EnumApiaryError> errors)
   {
     this.errors = errors;

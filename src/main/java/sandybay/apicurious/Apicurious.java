@@ -23,6 +23,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.item.BaseBeeItem;
+import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
@@ -51,6 +52,7 @@ public class Apicurious
     ApicuriousCreativeTabRegistration.register(bus);
     ApicuriousLootItemFunctions.register(bus);
     ApicuriousMenuRegistration.register(bus);
+    PacketHandler.init(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);
     if (FMLLoader.getDist() == Dist.CLIENT)

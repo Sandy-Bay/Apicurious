@@ -10,6 +10,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.handling.IPayloadHandler;
 import org.apache.commons.compress.utils.Lists;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.common.menu.ApiaryMenu;
@@ -49,7 +50,7 @@ public class GuiDataPacket implements CustomPacketPayload
   }
 
   @Override
-  public Type<? extends CustomPacketPayload> type()
+  public @NotNull Type<? extends CustomPacketPayload> type()
   {
     return TYPE;
   }

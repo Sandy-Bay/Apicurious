@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
@@ -38,7 +39,24 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
     super.init();
 //    addRenderableWidget(new InfoWidget(leftPos - 25, topPos + 10, 25, 25, 120, 80, true, 1.0F, 0.0F, 0.0F, Apicurious.createResourceLocation("textures/gui/widget/no_queen.png"), new ArrayList<>()));
     addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, 0.0F, 0.0F, 1.5F, Apicurious.createResourceLocation("textures/gui/widget/habitats/plains.png"), getTempTabInfo()));
+    updateErrorList();
+  }
 
+  public void updateErrorList()
+  {
+    if(errorWidgets.isEmpty() || getMenu().getErrors().size() != errorWidgets.size())
+    {
+      errorWidgets.clear();
+      int y = topPos + 10;
+      int space = 25;
+
+      for (EnumApiaryError error : getMenu().getErrors())
+      {
+        ErrorWidget errorWidget = new ErrorWidget(leftPos - 25, y, 25, 25, 120, 80, true, 1.0F, 0F, 0F, error);
+        errorWidgets.add(errorWidget);
+        y += space;
+      }
+    }
   }
 
   private List<Component> getTempTabInfo()
@@ -63,12 +81,31 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
     super.render(guiGraphics, mouseX, mouseY, partial);
     this.renderTooltip(guiGraphics, mouseX, mouseY);
 
+    updateErrorList();
+    for (ErrorWidget errorWidget : errorWidgets)
+    {
+      errorWidget.renderWidget(guiGraphics, mouseX, mouseY, partial);
+    }
+
     int maxProgress = this.menu.getMaxProgress(), height = 46;
     if (maxProgress > 0)
     {
       int remaining = (this.menu.getProgress() * height) / maxProgress;
       guiGraphics.blit(SCREEN_LOCATION, leftPos + 21, topPos + 83 - remaining, 177, 45 - remaining, 2, remaining);
     }
+  }
+
+  @Override
+  public boolean mouseClicked(double pMouseX, double pMouseY, int pButton)
+  {
+    boolean clicked = super.mouseClicked(pMouseX, pMouseY, pButton);
+    for (ErrorWidget errorWidget : errorWidgets)
+    {
+      boolean done = errorWidget.mouseClicked(pMouseX, pMouseY, pButton);
+      if(done) return done;
+    }
+
+    return clicked;
   }
 
   @Override
