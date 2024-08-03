@@ -25,7 +25,7 @@ public class ApiaryMenu extends AbstractHousingMenu
   {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
     this.apiary = (ApiaryHousingBE) Objects.requireNonNull(Minecraft.getInstance().level.getBlockEntity(packetBuffer.readBlockPos()));
-    containerData = new SimpleContainerData(3);
+    this.containerData = new SimpleContainerData(3);
     addDataSlots(containerData);
   }
 

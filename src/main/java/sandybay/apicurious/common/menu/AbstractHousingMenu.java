@@ -10,9 +10,12 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
+import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
+
+import java.util.List;
 
 public abstract class AbstractHousingMenu extends AbstractContainerMenu
 {
@@ -212,5 +215,10 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
   public ContainerLevelAccess getAccess()
   {
     return access;
+  }
+
+  public void receiveGuiData(List<EnumApiaryError> errors)
+  {
+
   }
 }
