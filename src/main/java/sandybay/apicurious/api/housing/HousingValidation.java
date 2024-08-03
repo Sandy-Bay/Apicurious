@@ -8,11 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.EnumApiaryError;
-import sandybay.apicurious.api.bee.EnumBeeType;
-import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
-import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -43,22 +39,27 @@ public class HousingValidation
     if (!this.isValid || this.key != key)
     {
       this.key = key;
-      revalidate(level, housingPosition, territory);
+      revalidate(this.key, level, housingPosition, territory);
     }
     return isValid;
   }
 
-  private void revalidate(Level level, BlockPos housingPosition, List<BlockPos> territory)
+  private void revalidate(ItemStack queen, Level level, BlockPos housingPosition, List<BlockPos> territory)
   {
-    this.isValid = validateFlowers(level, territory) && validateHumidity(housingPosition) && validateTemperature(housingPosition);
+    validateFlowers(level, territory);
+    validateHumidity(housingPosition);
+    validateTemperature(housingPosition);
+    validateWeather(queen, level, housingPosition);
+    validateSky(queen, level, housingPosition);
+    validateTime(queen, level);
   }
 
-  private boolean validateFlowers(Level level, List<BlockPos> territory)
+  private void validateFlowers(Level level, List<BlockPos> territory)
   {
     boolean foundValid = false;
-    if (!key.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return false;
+    if (!key.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return;
     BeeSpecies species = key.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null) return false;
+    if (species == null) return;
     Holder<Flowers> flowersHolder = species.getEnvironmentalData().getFlowers();
     if (!flowersHolder.isBound()) throw new IllegalArgumentException("BeeSpecies flowers were unbound! REPORT THIS!");
     TagKey<Block> flowers = flowersHolder.value().getFlowers();
@@ -72,16 +73,52 @@ public class HousingValidation
       }
     }
     if (!foundValid) errorHandler.addError(EnumApiaryError.MISSING_FLOWER);
-    return foundValid;
+    else errorHandler.removeError(EnumApiaryError.MISSING_FLOWER);
   }
 
-  private boolean validateHumidity(BlockPos housingPosition)
+  private void validateHumidity(BlockPos housingPosition)
   {
-    return helper.isCorrectHumidity(key, housingPosition);
+    helper.isCorrectHumidity(key, housingPosition);
   }
 
-  private boolean validateTemperature(BlockPos housingPosition)
+  private void validateTemperature(BlockPos housingPosition)
   {
-    return helper.isCorrectTemperature(key, housingPosition);
+    helper.isCorrectTemperature(key, housingPosition);
+  }
+
+  protected void validateTime(ItemStack queen, Level level)
+  {
+    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null || level == null) return;
+    WorkCycle speciesCycle = species.getProductionData().getWorkCycle().value();
+    boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
+    if (!isValidCycle) errorHandler.addError(EnumApiaryError.INVALID_TIME);
+    else errorHandler.removeError(EnumApiaryError.INVALID_TIME);
+  }
+
+  protected void validateSky(ItemStack queen, Level level, BlockPos pos)
+  {
+    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null || level == null) return;
+    boolean ignoresSky = species.getEnvironmentalData().ignoresSky();
+    boolean canSeeSky = true;
+    if (!ignoresSky) {
+      canSeeSky = level.canSeeSky(pos.above());
+    }
+    if (!canSeeSky) errorHandler.addError(EnumApiaryError.NO_SKY);
+    else errorHandler.removeError(EnumApiaryError.NO_SKY);
+  }
+
+  protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
+  {
+    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null || level == null) return;
+    boolean ignoresRain = species.getEnvironmentalData().ignoresRain();
+    boolean isClear = true;
+    if (!ignoresRain) {
+      isClear = !level.isRainingAt(pos);
+    }
+    if (!isClear) errorHandler.addError(EnumApiaryError.IS_RAINING);
+    else errorHandler.removeError(EnumApiaryError.IS_RAINING);
   }
 }

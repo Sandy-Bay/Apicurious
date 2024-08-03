@@ -105,62 +105,73 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (!this.isActive)
-    {
-      if (hasPrincessAndDrone())
-      {
-        this.currentWork = 75;
-        this.maxWork = currentWork;
-        this.clearErrors();
-      }
-      if (this.currentWork != 0)
-      {
-        this.currentWork--;
-        if (this.currentWork == 0)
+    if (!this.isActive) {
+      validate(level, pos, true);
+      if (getErrorList().isEmpty()) {
+        updateGuiData(); // Perform extra update just to clear any junk data on the client.
+        if (currentWork == 0 && maxWork == 0)
         {
-          ItemStack princess = getInventory().getStackInSlot(0);
-          BeeSpecies species = princess.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-          ItemStack queen = new ItemStack(ApicuriousItemRegistration.QUEEN);
-          queen.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-          getInventory().extractItem(0, 1, false);
-          getInventory().extractItem(1, 1, false);
-          getInventory().setStackInSlot(0, queen);
-          changeActiveState(state, true);
-          this.maxWork = 0;
-          Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName(), species.getReadableName()));
+          this.currentWork = 75;
+          this.maxWork = currentWork;
+          this.clearErrors();
         }
+        if (this.currentWork != 0)
+        {
+          this.currentWork--;
+          if (this.currentWork == 0)
+          {
+            ItemStack princess = getInventory().getStackInSlot(0);
+            BeeSpecies species = princess.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+            ItemStack queen = new ItemStack(ApicuriousItemRegistration.QUEEN);
+            queen.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+            getInventory().extractItem(0, 1, false);
+            getInventory().extractItem(1, 1, false);
+            getInventory().setStackInSlot(0, queen);
+            changeActiveState(state, true);
+            this.maxWork = 0;
+            Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName(), species.getReadableName()));
+          }
+        }
+      }
+      else {
+        updateGuiData();
       }
     }
     else
     {
-      ItemStack stack = getInventory().getStackInSlot(0);
-      if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
+      validate(level, pos, false);
+      if (getErrorList().isEmpty())
       {
-        if (state.getBlock() instanceof ApiaryBlock apiary)
+        updateGuiData(); // Perform extra update just to clear any junk data on the client.
+        ItemStack stack = getInventory().getStackInSlot(0);
+        if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
         {
-          if (this.territory == null) this.territory = apiary.getTerritory(stack, pos);
-          if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES) && validation.validate(stack, level, pos, this.territory))
+          if (state.getBlock() instanceof ApiaryBlock apiary)
           {
-            BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-            if (species == null) return;
-            handleInitialRunData(species);
-            if (!checkRain(getLevel(), getBlockPos()) || !checkSky(getLevel(), getBlockPos()) || !checkWorkCycle(getLevel())) return;
-            if (!getErrorList().isEmpty()) return;
-            handlePollination(level, apiary, stack);
-            // TODO: Implement effect occurrences here.
-            if (handleOutput(species)) return;
-            if (!getErrorList().isEmpty()) return;
-            this.currentWork--;
-            if (this.currentWork == 0)
+            if (this.territory == null) this.territory = apiary.getTerritory(stack, pos);
+            if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES))
             {
-              resetApiary(state);
-              handleQueenLifecycleEnd(species);
+              BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+              if (species == null) return;
+              handleInitialRunData(species);
+              //handlePollination(level, apiary, stack);
+              // TODO: Implement effect occurrences here.
+              if (!handleOutput(species)) updateGuiData();
+              this.currentWork--;
+              if (this.currentWork == 0)
+              {
+                resetApiary(state);
+                handleQueenLifecycleEnd(species);
+              }
             }
           }
         }
       }
+      else
+      {
+        updateGuiData();
+      }
     }
-    updateGuiData();
   }
 
   private void handleInitialRunData(BeeSpecies species)
@@ -179,7 +190,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (Math.abs(this.currentWork - this.maxWork) % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack))
     {
-      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT), 7);
+      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT) && level.getBlockState(filteredPos.above()).isAir(), 7);
       List<BlockPos> found = this.territory.stream().filter(filter).toList();
       for (BlockPos f : found)
       {
@@ -191,11 +202,11 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
 
   private boolean handleOutput(BeeSpecies species)
   {
-    if (Math.abs(this.currentWork - this.maxWork) % getModifiedOutputDuration() == 0)
+    if (Math.abs(this.currentWork - this.maxWork) % 5 == 0)//getModifiedOutputDuration() == 0)
     {
       List<ItemStack> outputs = species.getOutputData().getOutputs();
       for (ItemStack output : outputs) {
-        if (!canOutputSuccessfully(output)) return true;
+        if (!canOutputSuccessfully(output)) return false;
         ItemStack out = output;
         for (int i = 5; i < 12; i++)
         {
@@ -208,7 +219,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
         }
       }
     }
-    return false;
+    return true;
   }
 
   private void resetApiary(BlockState state)
@@ -248,7 +259,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   public void updateGuiData()
   {
     if (getLevel() == null) return;
-    for (ServerPlayer player : getLevel().getEntitiesOfClass(ServerPlayer.class, new AABB(getBlockPos()).expandTowards(16, 16, 16)))
+    //TODO change this, this is just for debug
+    for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
     {
       if(player instanceof ServerPlayer serverPlayer)
         PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);

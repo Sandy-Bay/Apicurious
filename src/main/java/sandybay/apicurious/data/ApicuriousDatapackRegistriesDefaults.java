@@ -99,7 +99,7 @@ public class ApicuriousDatapackRegistriesDefaults
       bootstrap.register(Speed.SLOWEST, speed(1.7f, "slowest"));
       bootstrap.register(Speed.SLOWER, speed(1.4f, "slower"));
       bootstrap.register(Speed.SLOW, speed(1.2f, "slow"));
-      bootstrap.register(Speed.AVERAGE, speed(0.0f, "average"));
+      bootstrap.register(Speed.AVERAGE, speed(1.0f, "average"));
       bootstrap.register(Speed.FAST, speed(0.7f, "fast"));
       bootstrap.register(Speed.FASTER, speed(0.4f, "faster"));
       bootstrap.register(Speed.FASTEST, speed(0.2f, "fastest"));
