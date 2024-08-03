@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.register;
+package sandybay.apicurious.common.register;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -12,12 +12,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.item.BaseBeeItem;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
 import java.util.List;
 
@@ -36,6 +35,11 @@ public class ApicuriousCreativeTabRegistration
             output.acceptAll(List.of(
                     ApicuriousBlockRegistration.APIARY.asItemStack(),
                     ApicuriousBlockRegistration.BEE_HOUSING.asItemStack()
+            ));
+            output.acceptAll(List.of(
+                    new ItemStack(ApicuriousItemRegistration.UNTREATED_FRAME.get()),
+                    new ItemStack(ApicuriousItemRegistration.IMPREGNATED_FRAME.get()),
+                    new ItemStack(ApicuriousItemRegistration.PROVEN_FRAME.get())
             ));
             registerHives(output);
           }).build());

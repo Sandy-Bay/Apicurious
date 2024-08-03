@@ -48,8 +48,8 @@ public class ConfigurableItemStackHandler extends ItemStackHandler
     {
       if (!ItemStack.isSameItemSameComponents(stack, existingStack))
       {
-        System.out.println("new " + stack.getDisplayName().getString() + " " + stack.getComponents());
-        System.out.println("existing: " + stack.getDisplayName().getString() + " " + existingStack.getComponents());
+        //System.out.println("new " + stack.getDisplayName().getString() + " " + stack.getComponents());
+        //System.out.println("existing: " + stack.getDisplayName().getString() + " " + existingStack.getComponents());
         return stack;
       }
       limit -= existingStack.getCount();

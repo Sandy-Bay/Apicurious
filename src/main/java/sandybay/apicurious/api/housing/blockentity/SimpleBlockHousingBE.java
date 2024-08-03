@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.ApiaryError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
@@ -21,8 +21,6 @@ import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
 import sandybay.apicurious.common.bee.species.trait.Speed;
-import sandybay.apicurious.common.bee.species.trait.WorkCycle;
-import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 
 import java.util.ArrayList;
@@ -42,7 +40,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public int maxWork;
   public boolean shouldRenderParticles;
 
-  private List<EnumApiaryError> errorList = new ArrayList<>();
+  private final List<ApiaryError> errorList = new ArrayList<>();
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -63,7 +61,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
             .setOnSlotChanged((stack, slot) ->
             {
               this.setChanged();
-              if (stack.isEmpty() && slot >= 5) errorList.remove(EnumApiaryError.FULL_INVENTORY);
+              if (stack.isEmpty() && slot >= 5) errorList.remove(ApiaryError.FULL_INVENTORY);
             });
     this.validation = new HousingValidation(this);
   }
@@ -76,8 +74,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (clientOnly)
     {
       tag.putBoolean("shouldRenderParticles", shouldRenderParticles);
-    }
-    else
+    } else
     {
       if (alwaysSave || inventory.hasChanged()) apiaryData.put("inventory", inventory.serializeNBT(registries));
     }
@@ -88,7 +85,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave)
   {
     CompoundTag apiaryData = tag.getCompound("apiary_data");
-    if (apiaryData.contains("shouldRenderParticles")) shouldRenderParticles = apiaryData.getBoolean("shouldRenderParticles");
+    if (apiaryData.contains("shouldRenderParticles"))
+      shouldRenderParticles = apiaryData.getBoolean("shouldRenderParticles");
     this.isActive = apiaryData.getBoolean("isActive");
     if (apiaryData.contains("inventory")) inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));
   }
@@ -108,26 +106,28 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   }
 
 
-
   protected boolean canOutputSuccessfully(ItemStack output)
   {
     boolean canOutput = false;
     ItemStack out = output.copy();
     for (int i = 5; i < 12; i++)
     {
-      if (inventory.insertItem(i, out.copy(), true) != out) {
+      if (inventory.insertItem(i, out.copy(), true) != out)
+      {
         out = inventory.insertItem(i, out.copy(), true);
-        if (out.isEmpty()) {
+        if (out.isEmpty())
+        {
           canOutput = true;
           break;
         }
       }
     }
-    if (!canOutput) addError(EnumApiaryError.FULL_INVENTORY);
+    if (!canOutput) addError(ApiaryError.FULL_INVENTORY);
     return canOutput;
   }
 
-  public int getModifiedOutputDuration() {
+  public int getModifiedOutputDuration()
+  {
     BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return 0;
     Holder<Speed> speedHolder = species.getProductionData().getSpeed();
@@ -139,13 +139,14 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       if (stack.isEmpty()) continue;
       if (stack.getItem() instanceof IFrameItem frame)
       {
-        outputDuration = Math.round(outputDuration * frame.getSpeedModifier());
+        outputDuration = Math.round(outputDuration * frame.getProductionModifier());
       }
     }
     return Math.max(1, outputDuration);
   }
 
-  public int getModifiedLifeSpan() {
+  public int getModifiedLifeSpan()
+  {
     BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
     if (species == null) return 0;
     Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
@@ -163,13 +164,13 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   }
 
   @Override
-  public void addError(EnumApiaryError error)
+  public void addError(ApiaryError error)
   {
     if (!errorList.contains(error)) this.errorList.add(error);
   }
 
   @Override
-  public void removeError(EnumApiaryError error)
+  public void removeError(ApiaryError error)
   {
     errorList.remove(error);
   }
@@ -180,17 +181,17 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.errorList.clear();
   }
 
-  public List<EnumApiaryError> getErrorList()
+  public List<ApiaryError> getErrorList()
   {
     return errorList;
   }
 
-  public void validate(Level level, BlockPos pos, boolean isPreValidation) {
+  public void validate(Level level, BlockPos pos, boolean isPreValidation)
+  {
     if (isPreValidation)
     {
       hasPrincessAndDrone();
-    }
-    else
+    } else
     {
       ItemStack queen = inventory.getStackInSlot(0);
       BlockState state = level.getBlockState(pos);
@@ -203,9 +204,9 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     boolean hasPrincess = inventory.getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
     boolean hasDrone = inventory.getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
-    if (!hasPrincess) addError(EnumApiaryError.MISSING_PRINCESS);
-    else errorList.remove(EnumApiaryError.MISSING_PRINCESS);
-    if (!hasDrone) addError(EnumApiaryError.MISSING_DRONE);
-    else errorList.remove(EnumApiaryError.MISSING_DRONE);
+    if (!hasPrincess) addError(ApiaryError.MISSING_PRINCESS);
+    else errorList.remove(ApiaryError.MISSING_PRINCESS);
+    if (!hasDrone) addError(ApiaryError.MISSING_DRONE);
+    else errorList.remove(ApiaryError.MISSING_DRONE);
   }
 }

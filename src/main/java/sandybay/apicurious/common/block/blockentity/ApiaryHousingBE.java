@@ -3,6 +3,7 @@ package sandybay.apicurious.common.block.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
@@ -38,7 +38,7 @@ import java.util.function.Predicate;
 public class ApiaryHousingBE extends SimpleBlockHousingBE
 {
 
-  private ContainerData containerData = new ContainerData()
+  private final ContainerData containerData = new ContainerData()
   {
     @Override
     public int get(int pIndex)
@@ -105,9 +105,11 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (!this.isActive) {
+    if (!this.isActive)
+    {
       validate(level, pos, true);
-      if (getErrorList().isEmpty()) {
+      if (getErrorList().isEmpty())
+      {
         updateGuiData(); // Perform extra update just to clear any junk data on the client.
         if (currentWork == 0 && maxWork == 0)
         {
@@ -129,21 +131,26 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             getInventory().setStackInSlot(0, queen);
             changeActiveState(state, true);
             this.maxWork = 0;
-            Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName(), species.getReadableName()));
+            Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName().getString(), species.getReadableName().getString()));
           }
         }
-      }
-      else {
+      } else
+      {
         updateGuiData();
       }
-    }
-    else
+    } else
     {
       validate(level, pos, false);
+      ItemStack stack = getInventory().getStackInSlot(0);
+      if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES))
+      {
+        BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+        handleInitialRunData(species);
+      }
       if (getErrorList().isEmpty())
       {
         updateGuiData(); // Perform extra update just to clear any junk data on the client.
-        ItemStack stack = getInventory().getStackInSlot(0);
+
         if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
         {
           if (state.getBlock() instanceof ApiaryBlock apiary)
@@ -153,7 +160,6 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             {
               BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
               if (species == null) return;
-              handleInitialRunData(species);
               //handlePollination(level, apiary, stack);
               // TODO: Implement effect occurrences here.
               if (!handleOutput(species)) updateGuiData();
@@ -166,8 +172,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             }
           }
         }
-      }
-      else
+      } else
       {
         updateGuiData();
       }
@@ -180,7 +185,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     {
       Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
       if (!lifespanHolder.isBound())
-        throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName()));
+        throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName().getString()));
       this.currentWork = 75; //ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
       this.maxWork = 75; //this.currentWork;
     }
@@ -205,18 +210,28 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     if (Math.abs(this.currentWork - this.maxWork) % 5 == 0)//getModifiedOutputDuration() == 0)
     {
       List<ItemStack> outputs = species.getOutputData().getOutputs();
-      for (ItemStack output : outputs) {
+      for (ItemStack output : outputs)
+      {
         if (!canOutputSuccessfully(output)) return false;
         ItemStack out = output;
         for (int i = 5; i < 12; i++)
         {
-          if (getInventory().insertItem(i, out.copy(), true) != out) {
-              out = getInventory().insertItem(i, out.copy(), false);
-              if (out.isEmpty()) {
-                break;
-              }
+          if (getInventory().insertItem(i, out.copy(), true) != out)
+          {
+            out = getInventory().insertItem(i, out.copy(), false);
+            if (out.isEmpty())
+            {
+              break;
+            }
           }
         }
+      }
+      for (int i = 2; i < 5; i++)
+      {
+        ItemStack frame = getInventory().getStackInSlot(i);
+        frame.hurtAndBreak(1, (ServerLevel) level, null, item ->
+        {
+        });
       }
     }
     return true;
@@ -262,7 +277,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     //TODO change this, this is just for debug
     for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
     {
-      if(player instanceof ServerPlayer serverPlayer)
+      if (player instanceof ServerPlayer serverPlayer)
         PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);
     }
   }
@@ -270,7 +285,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   @Override
   public void clientTick(Level level, BlockPos pos, BlockState state)
   {
-    if (shouldRenderParticles) {
+    if (shouldRenderParticles)
+    {
       // TODO: Render Particles
     }
   }

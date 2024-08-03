@@ -1,10 +1,12 @@
 package sandybay.apicurious.api.housing.blockentity;
 
-import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.ApiaryError;
 
 public interface IApiaryErrorHandler
 {
-  void addError(EnumApiaryError error);
-  void removeError(EnumApiaryError error);
+  void addError(ApiaryError error);
+
+  void removeError(ApiaryError error);
+
   void clearErrors();
 }

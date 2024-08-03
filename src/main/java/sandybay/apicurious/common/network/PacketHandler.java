@@ -1,6 +1,5 @@
 package sandybay.apicurious.common.network;
 
-import net.minecraft.client.gui.Gui;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,11 +14,13 @@ public class PacketHandler
 {
   private static final String PROTOCOL_VERSION = Integer.toString(1);
 
-  public static void init(IEventBus bus) {
+  public static void init(IEventBus bus)
+  {
     bus.addListener(PacketHandler::registerPackets);
   }
 
-  public static void registerPackets(RegisterPayloadHandlersEvent event) {
+  public static void registerPackets(RegisterPayloadHandlersEvent event)
+  {
     PayloadRegistrar registrar = event.registrar(Apicurious.MODID).versioned(PROTOCOL_VERSION);
     // Serverbound
 
@@ -33,11 +34,13 @@ public class PacketHandler
     // Bidirectional
   }
 
-  public static void sendToServer(CustomPacketPayload pkt) {
+  public static void sendToServer(CustomPacketPayload pkt)
+  {
     PacketDistributor.sendToServer(pkt);
   }
 
-  public static void sendTo(CustomPacketPayload pkt, ServerPlayer player) {
+  public static void sendTo(CustomPacketPayload pkt, ServerPlayer player)
+  {
     PacketDistributor.sendToPlayer(player, pkt);
   }
 

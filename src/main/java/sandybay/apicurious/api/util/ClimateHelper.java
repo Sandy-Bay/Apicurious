@@ -6,7 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.ApiaryError;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
@@ -65,7 +65,7 @@ public class ClimateHelper
 
     for (TagKey<Biome> temperature : temperatures)
     {
-      if (matchTemperaturePreference(temperature, pos)|| tempAtPos == temperature)
+      if (matchTemperaturePreference(temperature, pos) || tempAtPos == temperature)
       {
         found = true;
         break;
@@ -73,32 +73,40 @@ public class ClimateHelper
     }
     if (handler != null)
     {
-      if (!found) {
+      if (!found)
+      {
         boolean tooCold = false;
         boolean tooHot = false;
-        switch (preference.getReadableName().getString()) {
-          case "Hellish": tooCold = true;
-          case "Hot": {
+        switch (preference.getReadableName().getString())
+        {
+          case "Hellish":
+            tooCold = true;
+          case "Hot":
+          {
             if (tempAtPos.location().getPath().equals("hellish")) tooHot = true;
             else tooCold = true;
-          };
-          case "Average": {
-            if (tempAtPos.location().getPath().equals("hellish") || tempAtPos.location().getPath().equals("hot")) tooHot = true;
-            if (tempAtPos.location().getPath().equals("icy") || tempAtPos.location().getPath().equals("cold")) tooCold = true;
           }
-          case "Cold": {
+          case "Average":
+          {
+            if (tempAtPos.location().getPath().equals("hellish") || tempAtPos.location().getPath().equals("hot"))
+              tooHot = true;
+            if (tempAtPos.location().getPath().equals("icy") || tempAtPos.location().getPath().equals("cold"))
+              tooCold = true;
+          }
+          case "Cold":
+          {
             if (tempAtPos.location().getPath().equals("icy")) tooCold = true;
             else tooHot = true;
           }
-          case "Icy": tooHot = true;
+          case "Icy":
+            tooHot = true;
         }
-        if (tooCold) handler.addError(EnumApiaryError.TOO_COLD);
-        if (tooHot) handler.addError(EnumApiaryError.TOO_HOT);
-      }
-      else
+        if (tooCold) handler.addError(ApiaryError.TOO_COLD);
+        if (tooHot) handler.addError(ApiaryError.TOO_HOT);
+      } else
       {
-        handler.removeError(EnumApiaryError.TOO_COLD);
-        handler.removeError(EnumApiaryError.TOO_HOT);
+        handler.removeError(ApiaryError.TOO_COLD);
+        handler.removeError(ApiaryError.TOO_HOT);
       }
     }
     return found;
@@ -119,32 +127,40 @@ public class ClimateHelper
     }
     if (handler != null)
     {
-      if (!found) {
+      if (!found)
+      {
         boolean tooHumid = false;
         boolean tooDry = false;
-        switch (preference.getReadableName().getString()) {
-          case "Hellish": tooHumid = true;
-          case "Arid": {
+        switch (preference.getReadableName().getString())
+        {
+          case "Hellish":
+            tooHumid = true;
+          case "Arid":
+          {
             if (humidAtPos.location().getPath().equals("hellish")) tooDry = true;
             else tooHumid = true;
           }
-          case "Average": {
-            if (humidAtPos.location().getPath().equals("hellish") || humidAtPos.location().getPath().equals("arid")) tooDry = true;
-            if (humidAtPos.location().getPath().equals("aquatic") || humidAtPos.location().getPath().equals("damp")) tooHumid = true;
+          case "Average":
+          {
+            if (humidAtPos.location().getPath().equals("hellish") || humidAtPos.location().getPath().equals("arid"))
+              tooDry = true;
+            if (humidAtPos.location().getPath().equals("aquatic") || humidAtPos.location().getPath().equals("damp"))
+              tooHumid = true;
           }
-          case "Damp": {
+          case "Damp":
+          {
             if (humidAtPos.location().getPath().equals("aquatic")) tooHumid = true;
             else tooDry = true;
           }
-          case "Aquatic": tooDry = true;
+          case "Aquatic":
+            tooDry = true;
         }
-        if (tooHumid) handler.addError(EnumApiaryError.TOO_HUMID);
-        if (tooDry) handler.addError(EnumApiaryError.TOO_DRY);
-      }
-      else
+        if (tooHumid) handler.addError(ApiaryError.TOO_HUMID);
+        if (tooDry) handler.addError(ApiaryError.TOO_DRY);
+      } else
       {
-        handler.removeError(EnumApiaryError.TOO_HUMID);
-        handler.removeError(EnumApiaryError.TOO_DRY);
+        handler.removeError(ApiaryError.TOO_HUMID);
+        handler.removeError(ApiaryError.TOO_DRY);
       }
     }
     return found;

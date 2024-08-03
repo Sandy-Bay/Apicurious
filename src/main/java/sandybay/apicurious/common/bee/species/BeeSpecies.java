@@ -181,7 +181,8 @@ public class BeeSpecies implements IBeeSpecies
       return this;
     }
 
-    public Builder withOutputData(Consumer<OutputData.Builder> consumer) {
+    public Builder withOutputData(Consumer<OutputData.Builder> consumer)
+    {
       OutputData.Builder builder = OutputData.Builder.create(context);
       consumer.accept(builder);
       this.outputs = builder.build();

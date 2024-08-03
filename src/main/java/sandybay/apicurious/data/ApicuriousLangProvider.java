@@ -3,6 +3,7 @@ package sandybay.apicurious.data;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.ApiaryError;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
@@ -28,6 +29,12 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ApicuriousBlockRegistration.APIARY.asItem(), "Apiary");
     add(ApicuriousBlockRegistration.BEE_HOUSING.asItem(), "Bee Housing");
 
+    // Frames
+    add(ApicuriousItemRegistration.UNTREATED_FRAME.get(), "Untreated Frame");
+    add(ApicuriousItemRegistration.IMPREGNATED_FRAME.get(), "Impregnated Frame");
+    add(ApicuriousItemRegistration.PROVEN_FRAME.get(), "Proven Frame");
+
+    // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
 
     // Hives
@@ -36,6 +43,7 @@ public class ApicuriousLangProvider extends LanguageProvider
     addMenus();
     addTraits();
     addSpecies();
+    addErrors();
   }
 
   // Collection-methods
@@ -171,6 +179,29 @@ public class ApicuriousLangProvider extends LanguageProvider
     species("Industrious");
     species("Imperial");
     species("Austere");
+  }
+
+  // TODO: Write better messages and tooltips!
+  public void addErrors()
+  {
+    error(ApiaryError.MISSING_QUEEN.getMessage(), "Missing Queen");
+    error(ApiaryError.MISSING_PRINCESS.getMessage(), "Missing Princess");
+    error(ApiaryError.MISSING_DRONE.getMessage(), "Missing Drone");
+    error(ApiaryError.MISSING_FLOWER.getMessage(), "Missing Flowers");
+    error(ApiaryError.TOO_DRY.getMessage(), "Too Dry");
+    error(ApiaryError.TOO_HUMID.getMessage(), "Too Humid");
+    error(ApiaryError.TOO_HOT.getMessage(), "Too Hot");
+    error(ApiaryError.TOO_COLD.getMessage(), "Too Cold");
+    error(ApiaryError.INVALID_TIME.getMessage(), "Wrong time of day");
+    error(ApiaryError.IS_RAINING.getMessage(), "Is Raining");
+    error(ApiaryError.NO_SKY.getMessage(), "No Sky");
+    error(ApiaryError.FULL_INVENTORY.getMessage(), "Output Inventory is Full");
+  }
+
+  public void error(String message, String translation)
+  {
+    add(message, translation);
+    add(message + "_tooltip", translation);
   }
 
   // Creative Tabs

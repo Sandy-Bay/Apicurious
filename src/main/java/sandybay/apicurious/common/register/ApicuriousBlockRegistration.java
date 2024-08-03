@@ -76,6 +76,12 @@ public class ApicuriousBlockRegistration
   private static <BLOCK extends Block> Supplier<BlockItem> getDefaultBlockItem(DeferredHolder<Block, BLOCK> block)
   {
     return () -> new BlockItem(block.get(), DEFAULT_ITEM_BLOCK_PROPERTIES);
+  }
+
+  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType
+          (BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
+  {
+    return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()), null);
   }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
           "apiary",
           () -> new ApiaryBlock(HOUSING_PROPS),
@@ -83,12 +89,6 @@ public class ApicuriousBlockRegistration
           ApiaryHousingBE::new,
           ApicuriousBlockRegistration::getDefaultType
   );
-
-  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType
-          (BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
-  {
-    return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()), null);
-  }
 
   public record BlockItemHolder<BLOCK extends Block, ITEM extends BlockItem>(DeferredHolder<Block, BLOCK> block,
                                                                              DeferredHolder<Item, ITEM> item)
@@ -132,17 +132,17 @@ public class ApicuriousBlockRegistration
     {
       return entityType.get();
     }
-  }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
+  }
+
+
+
+  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",
           () -> new BeeHousingBlock(HOUSING_PROPS),
           ApicuriousBlockRegistration::getDefaultBlockItem,
           BeeHousingBE::new,
           ApicuriousBlockRegistration::getDefaultType
   );
-
-
-
-
 
 
 }

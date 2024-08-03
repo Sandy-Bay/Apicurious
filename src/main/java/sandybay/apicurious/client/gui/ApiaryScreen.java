@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.ApiaryError;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
@@ -21,7 +21,7 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
 
   public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/apiary.png");
   private final Player player;
-  private List<ErrorWidget> errorWidgets = new ArrayList<>();
+  private final List<ErrorWidget> errorWidgets = new ArrayList<>();
 
   public ApiaryScreen(ApiaryMenu pMenu, Inventory pPlayerInventory, Component pTitle)
   {
@@ -44,13 +44,13 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
 
   public void updateErrorList()
   {
-    if(errorWidgets.isEmpty() || getMenu().getErrors().size() != errorWidgets.size())
+    if (errorWidgets.isEmpty() || getMenu().getErrors().size() != errorWidgets.size())
     {
       errorWidgets.clear();
       int y = topPos + 10;
       int space = 25;
 
-      for (EnumApiaryError error : getMenu().getErrors())
+      for (ApiaryError error : getMenu().getErrors())
       {
         ErrorWidget errorWidget = new ErrorWidget(leftPos - 25, y, 25, 25, 120, 80, true, 1.0F, 0F, 0F, error);
         errorWidgets.add(errorWidget);
@@ -102,7 +102,7 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
     for (ErrorWidget errorWidget : errorWidgets)
     {
       boolean done = errorWidget.mouseClicked(pMouseX, pMouseY, pButton);
-      if(done) return done;
+      if (done) return done;
     }
 
     return clicked;

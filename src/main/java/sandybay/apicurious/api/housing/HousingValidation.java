@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import sandybay.apicurious.api.EnumApiaryError;
+import sandybay.apicurious.api.ApiaryError;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
@@ -24,7 +24,7 @@ public class HousingValidation
 
   private ItemStack key;
   private ClimateHelper helper;
-  private boolean isValid;
+  private final boolean isValid;
 
   public HousingValidation(IApiaryErrorHandler errorHandler)
   {
@@ -72,8 +72,8 @@ public class HousingValidation
         break;
       }
     }
-    if (!foundValid) errorHandler.addError(EnumApiaryError.MISSING_FLOWER);
-    else errorHandler.removeError(EnumApiaryError.MISSING_FLOWER);
+    if (!foundValid) errorHandler.addError(ApiaryError.MISSING_FLOWER);
+    else errorHandler.removeError(ApiaryError.MISSING_FLOWER);
   }
 
   private void validateHumidity(BlockPos housingPosition)
@@ -92,8 +92,8 @@ public class HousingValidation
     if (species == null || level == null) return;
     WorkCycle speciesCycle = species.getProductionData().getWorkCycle().value();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
-    if (!isValidCycle) errorHandler.addError(EnumApiaryError.INVALID_TIME);
-    else errorHandler.removeError(EnumApiaryError.INVALID_TIME);
+    if (!isValidCycle) errorHandler.addError(ApiaryError.INVALID_TIME);
+    else errorHandler.removeError(ApiaryError.INVALID_TIME);
   }
 
   protected void validateSky(ItemStack queen, Level level, BlockPos pos)
@@ -102,11 +102,12 @@ public class HousingValidation
     if (species == null || level == null) return;
     boolean ignoresSky = species.getEnvironmentalData().ignoresSky();
     boolean canSeeSky = true;
-    if (!ignoresSky) {
+    if (!ignoresSky)
+    {
       canSeeSky = level.canSeeSky(pos.above());
     }
-    if (!canSeeSky) errorHandler.addError(EnumApiaryError.NO_SKY);
-    else errorHandler.removeError(EnumApiaryError.NO_SKY);
+    if (!canSeeSky) errorHandler.addError(ApiaryError.NO_SKY);
+    else errorHandler.removeError(ApiaryError.NO_SKY);
   }
 
   protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
@@ -115,10 +116,11 @@ public class HousingValidation
     if (species == null || level == null) return;
     boolean ignoresRain = species.getEnvironmentalData().ignoresRain();
     boolean isClear = true;
-    if (!ignoresRain) {
+    if (!ignoresRain)
+    {
       isClear = !level.isRainingAt(pos);
     }
-    if (!isClear) errorHandler.addError(EnumApiaryError.IS_RAINING);
-    else errorHandler.removeError(EnumApiaryError.IS_RAINING);
+    if (!isClear) errorHandler.addError(ApiaryError.IS_RAINING);
+    else errorHandler.removeError(ApiaryError.IS_RAINING);
   }
 }

@@ -4,7 +4,7 @@ public interface IFrameItem
 {
   float getLifespanModifier();
 
-  float getSpeedModifier();
+  float getProductionModifier();
 
   float getMutationChanceModifier();
 }
