@@ -3,6 +3,7 @@ package sandybay.apicurious.api.housing.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,6 +14,9 @@ import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
+import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.bee.species.trait.WorkCycle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +98,45 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (!hasPrincess) errorList.add(EnumApiaryError.MISSING_PRINCESS);
     if (!hasDrone) errorList.add(EnumApiaryError.MISSING_DRONE);
     return hasPrincess && hasDrone && this.currentWork == 0 && this.maxWork == 0;
+  }
+
+  protected boolean checkWorkCycle()
+  {
+    ItemStack queen = getInventory().getStackInSlot(0);
+    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null || getLevel() == null) return false;
+    WorkCycle speciesCycle = species.getProductionData().getWorkCycle().value();
+    boolean isValidCycle = speciesCycle.isValidTime((int) getLevel().getDayTime());
+    if (!isValidCycle) addError(EnumApiaryError.INVALID_TIME);
+    return isValidCycle;
+  }
+
+  protected boolean checkSky()
+  {
+    ItemStack queen = getInventory().getStackInSlot(0);
+    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null || getLevel() == null) return false;
+    boolean ignoresSky = species.getEnvironmentalData().ignoresSky();
+    boolean canSeeSky = true;
+    if (!ignoresSky) {
+      canSeeSky = getLevel().canSeeSky(getBlockPos());
+    }
+    if (!canSeeSky) addError(EnumApiaryError.NO_SKY);
+    return canSeeSky;
+  }
+
+  protected boolean checkRain()
+  {
+    ItemStack queen = getInventory().getStackInSlot(0);
+    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (species == null || getLevel() == null) return false;
+    boolean ignoresRain = species.getEnvironmentalData().ignoresRain();
+    boolean isClear = true;
+    if (!ignoresRain) {
+      isClear = getLevel().isRaining() && getLevel().getBiome(getBlockPos()).value().hasPrecipitation();
+    }
+    if (!isClear) addError(EnumApiaryError.IS_RAINING);
+    return isClear;
   }
 
   @Override

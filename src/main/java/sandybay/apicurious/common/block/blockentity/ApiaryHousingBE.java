@@ -130,6 +130,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       {
         if (state.getBlock() instanceof ApiaryBlock apiary)
         {
+          if (!checkRain() || !checkSky() || !checkWorkCycle()) return;
           if (this.territory == null) this.territory = apiary.getTerritory(stack, pos);
           if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES) && validation.validate(stack, level, pos, this.territory))
           {
