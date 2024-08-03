@@ -3,10 +3,6 @@ package sandybay.apicurious.api;
 import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
 
-/*
-    TODO: Add the following errors when logic is implemented:
-    - Output Error (Inventory Full)
- */
 public enum EnumApiaryError
 {
     MISSING_QUEEN("apicurious.error.missing_queen", "apicurious.error.missing_queen_tooltip", Apicurious.createResourceLocation("textures/gui/widget/no_queen.png")),
@@ -19,7 +15,8 @@ public enum EnumApiaryError
     TOO_COLD("apicurious.error.too_cold", "apicurious.error.too_cold_tooltip", Apicurious.createResourceLocation("textures/gui/widget/too_cold.png")),
     INVALID_TIME("apicurious.error.invalid_time", "apicurious.error.invalid_time_tooltip", Apicurious.createResourceLocation("textures/gui/widget/invalid_time.png")),
     IS_RAINING("apicurious.error.is_raining", "apicurious.error.is_raining_tooltip", Apicurious.createResourceLocation("textures/gui/widget/is_raining.png")),
-    NO_SKY("apicurious.error.no_sky", "apicurious.error.no_sky_tooltip", Apicurious.createResourceLocation("textures/gui/widget/no_sky.png"));
+    NO_SKY("apicurious.error.no_sky", "apicurious.error.no_sky_tooltip", Apicurious.createResourceLocation("textures/gui/widget/no_sky.png")),
+    FULL_INVENTORY("apicurious.error.full_inventory", "apicurious.error.full_inventory_tooltip", Apicurious.createResourceLocation("textures/gui/widget/full_inventory.png"));
 
     private final String message;
     private final String tooltip;

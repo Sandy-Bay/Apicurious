@@ -10,12 +10,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.EnumApiaryError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
@@ -23,7 +21,6 @@ import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -160,6 +157,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             {
               List<ItemStack> outputs = species.getOutputData().getOutputs();
               for (ItemStack output : outputs) {
+                if (!canOutputSuccessfully(output)) return;
                 ItemStack out = output;
                 for (int i = 5; i < 12; i++)
                 {

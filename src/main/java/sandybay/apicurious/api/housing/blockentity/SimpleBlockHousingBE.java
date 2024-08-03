@@ -95,8 +95,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     boolean hasPrincess = getInventory().getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
     boolean hasDrone = getInventory().getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
-    if (!hasPrincess) errorList.add(EnumApiaryError.MISSING_PRINCESS);
-    if (!hasDrone) errorList.add(EnumApiaryError.MISSING_DRONE);
+    if (!hasPrincess) addError(EnumApiaryError.MISSING_PRINCESS);
+    if (!hasDrone) addError(EnumApiaryError.MISSING_DRONE);
     return hasPrincess && hasDrone && this.currentWork == 0 && this.maxWork == 0;
   }
 
@@ -137,6 +137,24 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
     if (!isClear) addError(EnumApiaryError.IS_RAINING);
     return isClear;
+  }
+
+  protected boolean canOutputSuccessfully(ItemStack output)
+  {
+    boolean canOutput = false;
+    ItemStack out = output.copy();
+    for (int i = 5; i < 12; i++)
+    {
+      if (getInventory().insertItem(i, out.copy(), true) != out) {
+        out = getInventory().insertItem(i, out.copy(), true);
+        if (out.isEmpty()) {
+          canOutput = true;
+          break;
+        }
+      }
+    }
+    if (!canOutput) addError(EnumApiaryError.FULL_INVENTORY);
+    return canOutput;
   }
 
   @Override
