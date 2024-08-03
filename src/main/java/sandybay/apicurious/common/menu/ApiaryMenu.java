@@ -1,5 +1,7 @@
 package sandybay.apicurious.common.menu;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -8,32 +10,35 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
+import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 
+import java.util.Objects;
+
 public class ApiaryMenu extends AbstractHousingMenu
 {
-
+  private final ApiaryHousingBE apiary;
   private final ContainerData containerData;
 
-  public ApiaryMenu(int containerId, Inventory playerInventory)
+  public ApiaryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf packetBuffer)
   {
     super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
+    this.apiary = (ApiaryHousingBE) Objects.requireNonNull(Minecraft.getInstance().level.getBlockEntity(packetBuffer.readBlockPos()));
     containerData = new SimpleContainerData(3);
     addDataSlots(containerData);
   }
 
-  public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ContainerData containerData, ConfigurableItemStackHandler inventory)
+  public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ApiaryHousingBE apiary)
   {
-    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, inventory);
-
-    this.containerData = containerData;
+    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, apiary.getInventory());
+    this.apiary = apiary;
+    this.containerData = apiary.getContainerData();
     addDataSlots(containerData);
   }
 
-  public ApiaryMenu(int containedId, Inventory inventory, Player player)
-  {
-    this(containedId, inventory);
+  public ApiaryMenu(int containerId, Inventory playerInventory) {
+    this(containerId, playerInventory, null);
   }
 
   public boolean isActive()

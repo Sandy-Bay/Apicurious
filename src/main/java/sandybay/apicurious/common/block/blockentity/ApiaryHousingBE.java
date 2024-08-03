@@ -2,13 +2,20 @@ package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
@@ -18,6 +25,7 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
+import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
@@ -27,7 +35,7 @@ import java.util.function.Predicate;
 public class ApiaryHousingBE extends SimpleBlockHousingBE
 {
 
-  public ContainerData containerData = new ContainerData()
+  private ContainerData containerData = new ContainerData()
   {
     @Override
     public int get(int pIndex)
@@ -213,6 +221,27 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
 
   }
+
+  public ContainerData getContainerData()
+  {
+    return containerData;
+  }
+
+  @Override
+  public Component getDisplayName()
+  {
+    return Component.translatable("apicurious.menu.apiary");
+  }
+
+  @Nullable
+  @Override
+  public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
+  {
+    if (getLevel() == null) return null;
+    return new ApiaryMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
+  }
+
+
 
   private static class LimitedFilter<T> implements Predicate<T>
   {

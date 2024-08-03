@@ -98,5 +98,6 @@
   "item.apicurious.queen": "Queen",
   "item.apicurious.sieve": "Sieve",
   "itemGroup.apicurious.bee": "Apicurious: Bee",
-  "itemGroup.apicurious.general": "Apicurious"
+  "itemGroup.apicurious.general": "Apicurious",
+  "apicurious.menu.bee_housing": "Bee Housing"
 }

@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -21,7 +22,7 @@ import sandybay.apicurious.api.util.ApicuriousTags;
 import java.util.List;
 
 //This does not really need to be in the API, we can just fire events for the users
-public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary, IApiaryErrorHandler
+public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary, IApiaryErrorHandler, MenuProvider
 {
 
   public BaseHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState blockState)
