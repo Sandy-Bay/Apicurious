@@ -37,7 +37,7 @@ public class ApicuriousItemRegistration
   public static final DeferredHolder<Item, FrameItem> IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f);
   public static final DeferredHolder<Item, FrameItem> HEALING_FRAME = frame("healing", 240, 1.5f, 1.25f, 0.5f);
   public static final DeferredHolder<Item, FrameItem> SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f);
-  public static final DeferredHolder<Item, FrameItem> RESTRAINT_FRAME = frame("restraint", () -> new RestraintFrame(SINGLETON_PROPS().durability(240)));
+  public static final DeferredHolder<Item, FrameItem> RESTRAINT_FRAME = ITEMS.register(frame("restraint"), () -> new RestraintFrame(SINGLETON_PROPS().durability(240)));
   public static final DeferredHolder<Item, FrameItem> PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f);
 
   public static void register(IEventBus bus)
@@ -45,8 +45,8 @@ public class ApicuriousItemRegistration
     ITEMS.register(bus);
   }
 
-  public static DeferredHolder<Item, FrameItem> frame(String name, Supplier<FrameItem> frame) {
-    return ITEMS.register(name + "_frame", frame);
+  public static String frame(String name) {
+    return name + "_frame";
   }
 
   public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier)

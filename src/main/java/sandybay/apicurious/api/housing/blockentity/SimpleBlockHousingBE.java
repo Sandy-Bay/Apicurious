@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import sandybay.apicurious.api.ApiaryError;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
@@ -41,7 +41,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public int maxWork;
   public boolean shouldRenderParticles;
 
-  private final List<ApiaryError> errorList = new ArrayList<>();
+  private final List<HousingError> errorList = new ArrayList<>();
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -62,7 +62,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
             .setOnSlotChanged((stack, slot) ->
             {
               this.setChanged();
-              if (stack.isEmpty() && slot >= 5) errorList.remove(ApiaryError.FULL_INVENTORY);
+              if (stack.isEmpty() && slot >= 5) errorList.remove(HousingError.FULL_INVENTORY);
             });
     this.validation = new HousingValidation(this);
   }
@@ -123,7 +123,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
         }
       }
     }
-    if (!canOutput) addError(ApiaryError.FULL_INVENTORY);
+    if (!canOutput) addError(HousingError.FULL_INVENTORY);
     return canOutput;
   }
 
@@ -165,13 +165,13 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   }
 
   @Override
-  public void addError(ApiaryError error)
+  public void addError(HousingError error)
   {
     if (!errorList.contains(error)) this.errorList.add(error);
   }
 
   @Override
-  public void removeError(ApiaryError error)
+  public void removeError(HousingError error)
   {
     errorList.remove(error);
   }
@@ -182,7 +182,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.errorList.clear();
   }
 
-  public List<ApiaryError> getErrorList()
+  public List<HousingError> getErrorList()
   {
     return errorList;
   }
@@ -210,9 +210,9 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     boolean hasPrincess = inventory.getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
     boolean hasDrone = inventory.getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
-    if (!hasPrincess) addError(ApiaryError.MISSING_PRINCESS);
-    else errorList.remove(ApiaryError.MISSING_PRINCESS);
-    if (!hasDrone) addError(ApiaryError.MISSING_DRONE);
-    else errorList.remove(ApiaryError.MISSING_DRONE);
+    if (!hasPrincess) addError(HousingError.MISSING_PRINCESS);
+    else errorList.remove(HousingError.MISSING_PRINCESS);
+    if (!hasDrone) addError(HousingError.MISSING_DRONE);
+    else errorList.remove(HousingError.MISSING_DRONE);
   }
 }

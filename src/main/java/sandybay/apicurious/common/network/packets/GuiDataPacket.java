@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadHandler;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.ApiaryError;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
 import java.util.List;
@@ -21,9 +21,9 @@ public class GuiDataPacket implements CustomPacketPayload
 {
   public static final Type<GuiDataPacket> TYPE = new Type<>(Apicurious.createResourceLocation("gui_data"));
 
-  private final List<ApiaryError> errors;
+  private final List<HousingError> errors;
 
-  public GuiDataPacket(List<ApiaryError> errors)
+  public GuiDataPacket(List<HousingError> errors)
   {
     this.errors = errors;
   }
@@ -31,11 +31,11 @@ public class GuiDataPacket implements CustomPacketPayload
   public static GuiDataPacket read(FriendlyByteBuf buf)
   {
     int count = buf.readInt();
-    List<ApiaryError> errors = Lists.newArrayList();
+    List<HousingError> errors = Lists.newArrayList();
     for (int i = 0; i < count; i++)
     {
       int rawError = buf.readInt();
-      ApiaryError error = ApiaryError.values()[rawError];
+      HousingError error = HousingError.values()[rawError];
       errors.add(error);
     }
     return new GuiDataPacket(errors);
@@ -54,7 +54,7 @@ public class GuiDataPacket implements CustomPacketPayload
   public void write(FriendlyByteBuf buf)
   {
     buf.writeInt(this.errors.size());
-    for (ApiaryError error : this.errors)
+    for (HousingError error : this.errors)
     {
       buf.writeInt(error.ordinal());
     }

@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.ApiaryError;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
@@ -50,7 +50,7 @@ public class ApiaryScreen extends AbstractContainerScreen<ApiaryMenu>
       int y = topPos + 10;
       int space = 25;
 
-      for (ApiaryError error : getMenu().getErrors())
+      for (HousingError error : getMenu().getErrors())
       {
         ErrorWidget errorWidget = new ErrorWidget(leftPos - 25, y, 25, 25, 120, 80, true, 1.0F, 0F, 0F, error);
         errorWidgets.add(errorWidget);

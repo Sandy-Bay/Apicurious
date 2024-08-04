@@ -39,9 +39,10 @@ public class ApicuriousCreativeTabRegistration
             output.acceptAll(List.of(
                     new ItemStack(ApicuriousItemRegistration.UNTREATED_FRAME.get()),
                     new ItemStack(ApicuriousItemRegistration.IMPREGNATED_FRAME.get()),
-                    new ItemStack(ApicuriousItemRegistration.PROVEN_FRAME.get()),
                     new ItemStack(ApicuriousItemRegistration.HEALING_FRAME.get()),
-                    new ItemStack(ApicuriousItemRegistration.SOUL_FRAME.get())
+                    new ItemStack(ApicuriousItemRegistration.SOUL_FRAME.get()),
+                    new ItemStack(ApicuriousItemRegistration.RESTRAINT_FRAME.get()),
+                    new ItemStack(ApicuriousItemRegistration.PROVEN_FRAME.get())
             ));
             registerHives(output);
           }).build());

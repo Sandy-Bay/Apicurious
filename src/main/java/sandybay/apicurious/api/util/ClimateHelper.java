@@ -6,7 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import sandybay.apicurious.api.ApiaryError;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
@@ -101,12 +101,12 @@ public class ClimateHelper
           case "Icy":
             tooHot = true;
         }
-        if (tooCold) handler.addError(ApiaryError.TOO_COLD);
-        if (tooHot) handler.addError(ApiaryError.TOO_HOT);
+        if (tooCold) handler.addError(HousingError.TOO_COLD);
+        if (tooHot) handler.addError(HousingError.TOO_HOT);
       } else
       {
-        handler.removeError(ApiaryError.TOO_COLD);
-        handler.removeError(ApiaryError.TOO_HOT);
+        handler.removeError(HousingError.TOO_COLD);
+        handler.removeError(HousingError.TOO_HOT);
       }
     }
     return found;
@@ -155,12 +155,12 @@ public class ClimateHelper
           case "Aquatic":
             tooDry = true;
         }
-        if (tooHumid) handler.addError(ApiaryError.TOO_HUMID);
-        if (tooDry) handler.addError(ApiaryError.TOO_DRY);
+        if (tooHumid) handler.addError(HousingError.TOO_HUMID);
+        if (tooDry) handler.addError(HousingError.TOO_DRY);
       } else
       {
-        handler.removeError(ApiaryError.TOO_HUMID);
-        handler.removeError(ApiaryError.TOO_DRY);
+        handler.removeError(HousingError.TOO_HUMID);
+        handler.removeError(HousingError.TOO_DRY);
       }
     }
     return found;

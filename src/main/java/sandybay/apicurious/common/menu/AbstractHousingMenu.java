@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
-import sandybay.apicurious.api.ApiaryError;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
   private static final int frameOffset = 29;
 
   private final ContainerLevelAccess access;
-  private List<ApiaryError> errors;
+  private List<HousingError> errors;
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory)
   {
@@ -40,7 +40,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
   }
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
-                             ConfigurableItemStackHandler inventory, List<ApiaryError> errors)
+                             ConfigurableItemStackHandler inventory, List<HousingError> errors)
   {
     super(type, containerId);
     this.access = access;
@@ -214,12 +214,12 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     return access;
   }
 
-  public List<ApiaryError> getErrors()
+  public List<HousingError> getErrors()
   {
     return errors;
   }
 
-  public void receiveGuiData(List<ApiaryError> errors)
+  public void receiveGuiData(List<HousingError> errors)
   {
     this.errors = errors;
   }

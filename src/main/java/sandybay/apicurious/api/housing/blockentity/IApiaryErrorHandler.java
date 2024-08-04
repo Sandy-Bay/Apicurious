@@ -1,12 +1,12 @@
 package sandybay.apicurious.api.housing.blockentity;
 
-import sandybay.apicurious.api.ApiaryError;
+import sandybay.apicurious.api.housing.HousingError;
 
 public interface IApiaryErrorHandler
 {
-  void addError(ApiaryError error);
+  void addError(HousingError error);
 
-  void removeError(ApiaryError error);
+  void removeError(HousingError error);
 
   void clearErrors();
 }

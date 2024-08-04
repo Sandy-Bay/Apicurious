@@ -2,19 +2,22 @@ package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
@@ -22,6 +25,7 @@ import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
@@ -32,7 +36,9 @@ import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
 import sandybay.apicurious.common.register.ApicuriousItemRegistration;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ApiaryHousingBE extends SimpleBlockHousingBE
@@ -157,7 +163,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
           {
             BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
             if (species == null) return;
-            //handlePollination(level, apiary, stack);
+            handlePollination(level, (ApiaryBlock) level.getBlockState(pos).getBlock(), stack);
             // TODO: Implement effect occurrences here.
             if (!handleOutput(species)) updateGuiData();
             this.currentWork--;
@@ -182,28 +188,34 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
       if (!lifespanHolder.isBound())
         throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName().getString()));
-      this.currentWork = 75; //ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
-      this.maxWork = 75; //this.currentWork;
+      this.currentWork = this.maxWork = getModifiedLifeSpan();
     }
   }
 
   private void handlePollination(Level level, ApiaryBlock apiary, ItemStack stack)
   {
-    if (Math.abs(this.currentWork - this.maxWork) % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack))
+    if (Math.abs(this.currentWork - this.maxWork) % 375 == 0 && apiary.shouldPollinate(level.getRandom(), stack))
     {
-      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT) && level.getBlockState(filteredPos.above()).isAir(), 7);
+      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
+              level.getBlockState(filteredPos).is(BlockTags.DIRT) &&
+                      level.getBlockState(filteredPos.above()).isAir() &&
+                      level.random.nextFloat() > 0.85f, 2);
       List<BlockPos> found = this.territory.stream().filter(filter).toList();
+      if (!stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return;
+      BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+      if (species == null) return;
+      Registry<Block> blockRegistry = level.registryAccess().registry(Registries.BLOCK).orElseThrow();
       for (BlockPos f : found)
       {
-        // TODO: Figure out a better way to both find valid blocks and generate random flowers.
-        level.setBlock(f.above(), Blocks.POPPY.defaultBlockState(), Block.UPDATE_ALL);
+        Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.random);
+        level.setBlock(f.above(), flower.get().value().defaultBlockState(), Block.UPDATE_ALL);
       }
     }
   }
 
   private boolean handleOutput(BeeSpecies species)
   {
-    if (Math.abs(this.currentWork - this.maxWork) % 5 == 0)//getModifiedOutputDuration() == 0)
+    if (Math.abs(this.currentWork - this.maxWork) % getModifiedOutputDuration() == 0)
     {
       Apicurious.LOGGER.info(String.valueOf(getModifiedOutputDuration()));
       List<ItemStack> outputs = species.getOutputData().getOutputs();
@@ -321,7 +333,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
 
     public boolean test(T toTest)
     {
-      if (this.matches > this.limit) return true;
+      if (this.matches > this.limit) return false;
       boolean result = delegate.test(toTest);
       if (result) matches++;
       return result;

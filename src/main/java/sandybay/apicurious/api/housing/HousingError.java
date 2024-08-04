@@ -1,9 +1,9 @@
-package sandybay.apicurious.api;
+package sandybay.apicurious.api.housing;
 
 import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
 
-public enum ApiaryError
+public enum HousingError
 {
   MISSING_QUEEN("apicurious.error.missing_queen", "apicurious.error.missing_queen_tooltip", Apicurious.createResourceLocation("textures/gui/widget/no_queen.png")),
   MISSING_PRINCESS("apicurious.error.missing_princess", "apicurious.error.missing_princess_tooltip", Apicurious.createResourceLocation("textures/gui/widget/no_princess.png")),
@@ -22,7 +22,7 @@ public enum ApiaryError
   private final String tooltip;
   private final ResourceLocation icon;
 
-  ApiaryError(String message, String tooltip, ResourceLocation icon)
+  HousingError(String message, String tooltip, ResourceLocation icon)
   {
     this.message = message;
     this.tooltip = tooltip;
