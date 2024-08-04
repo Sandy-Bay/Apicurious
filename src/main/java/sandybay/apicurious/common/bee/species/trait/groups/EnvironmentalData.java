@@ -7,6 +7,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -20,7 +21,7 @@ public class EnvironmentalData
 
   public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  RegistryFixedCodec.create(ApicuriousRegistries.FLOWERS).fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
+                  RegistryFileCodec.create(ApicuriousRegistries.FLOWERS, Flowers.CODEC).fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
                   HumidityData.CODEC.fieldOf("humidityData").forGetter(EnvironmentalData::getHumidityData),
                   TemperatureData.CODEC.fieldOf("temperatureData").forGetter(EnvironmentalData::getTemperatureData),
                   Codec.BOOL.fieldOf("ignoresRain").forGetter(EnvironmentalData::ignoresRain),
@@ -29,7 +30,7 @@ public class EnvironmentalData
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.FLOWERS), EnvironmentalData::getFlowers,
+          ByteBufCodecs.holder(ApicuriousRegistries.FLOWERS, Flowers.NETWORK_CODEC), EnvironmentalData::getFlowers,
           HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData,
           TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData,
           ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain,

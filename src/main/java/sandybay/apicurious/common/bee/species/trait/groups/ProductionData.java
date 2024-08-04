@@ -7,6 +7,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -20,22 +21,22 @@ public class ProductionData
 
   public static final Codec<ProductionData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  RegistryFixedCodec.create(ApicuriousRegistries.LIFESPANS).fieldOf("lifespan").forGetter(ProductionData::getLifespan),
-                  RegistryFixedCodec.create(ApicuriousRegistries.WORKCYCLES).fieldOf("workCycle").forGetter(ProductionData::getWorkCycle),
-                  RegistryFixedCodec.create(ApicuriousRegistries.AREAS).fieldOf("area").forGetter(ProductionData::getArea),
-                  RegistryFixedCodec.create(ApicuriousRegistries.SPEEDS).fieldOf("speed").forGetter(ProductionData::getSpeed),
-                  RegistryFixedCodec.create(ApicuriousRegistries.FERTILITIES).fieldOf("fertility").forGetter(ProductionData::getFertility),
-                  RegistryFixedCodec.create(ApicuriousRegistries.POLLINATIONS).fieldOf("pollination").forGetter(ProductionData::getPollination)
+                  RegistryFileCodec.create(ApicuriousRegistries.LIFESPANS, Lifespan.CODEC).fieldOf("lifespan").forGetter(ProductionData::getLifespan),
+                  RegistryFileCodec.create(ApicuriousRegistries.WORKCYCLES, WorkCycle.CODEC).fieldOf("workCycle").forGetter(ProductionData::getWorkCycle),
+                  RegistryFileCodec.create(ApicuriousRegistries.AREAS, Area.CODEC).fieldOf("area").forGetter(ProductionData::getArea),
+                  RegistryFileCodec.create(ApicuriousRegistries.SPEEDS, Speed.CODEC).fieldOf("speed").forGetter(ProductionData::getSpeed),
+                  RegistryFileCodec.create(ApicuriousRegistries.FERTILITIES, Fertility.CODEC).fieldOf("fertility").forGetter(ProductionData::getFertility),
+                  RegistryFileCodec.create(ApicuriousRegistries.POLLINATIONS, Pollination.CODEC).fieldOf("pollination").forGetter(ProductionData::getPollination)
           ).apply(instance, ProductionData::new)
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, ProductionData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.LIFESPANS), ProductionData::getLifespan,
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.WORKCYCLES), ProductionData::getWorkCycle,
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.AREAS), ProductionData::getArea,
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.SPEEDS), ProductionData::getSpeed,
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.FERTILITIES), ProductionData::getFertility,
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.POLLINATIONS), ProductionData::getPollination,
+          ByteBufCodecs.holder(ApicuriousRegistries.LIFESPANS, Lifespan.NETWORK_CODEC), ProductionData::getLifespan,
+          ByteBufCodecs.holder(ApicuriousRegistries.WORKCYCLES, WorkCycle.NETWORK_CODEC), ProductionData::getWorkCycle,
+          ByteBufCodecs.holder(ApicuriousRegistries.AREAS, Area.NETWORK_CODEC), ProductionData::getArea,
+          ByteBufCodecs.holder(ApicuriousRegistries.SPEEDS, Speed.NETWORK_CODEC), ProductionData::getSpeed,
+          ByteBufCodecs.holder(ApicuriousRegistries.FERTILITIES, Fertility.NETWORK_CODEC), ProductionData::getFertility,
+          ByteBufCodecs.holder(ApicuriousRegistries.POLLINATIONS, Pollination.NETWORK_CODEC), ProductionData::getPollination,
           ProductionData::new
   );
 

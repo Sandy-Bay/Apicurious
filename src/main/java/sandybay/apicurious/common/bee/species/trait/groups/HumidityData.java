@@ -6,6 +6,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.trait.HumidityPreference;
@@ -17,14 +18,14 @@ public record HumidityData(Holder<HumidityPreference> preference, Holder<Humidit
 {
   public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  RegistryFixedCodec.create(ApicuriousRegistries.HUMIDITY_PREFERENCES).fieldOf("preference").forGetter(HumidityData::preference),
-                  RegistryFixedCodec.create(ApicuriousRegistries.HUMIDITY_TOLERANCES).fieldOf("tolerance").forGetter(HumidityData::tolerance)
+                  RegistryFileCodec.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, HumidityPreference.CODEC).fieldOf("preference").forGetter(HumidityData::preference),
+                  RegistryFileCodec.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, HumidityTolerance.CODEC).fieldOf("tolerance").forGetter(HumidityData::tolerance)
           ).apply(instance, HumidityData::new)
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, HumidityData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.HUMIDITY_PREFERENCES), HumidityData::preference,
-          ByteBufCodecs.holderRegistry(ApicuriousRegistries.HUMIDITY_TOLERANCES), HumidityData::tolerance,
+          ByteBufCodecs.holder(ApicuriousRegistries.HUMIDITY_PREFERENCES, HumidityPreference.NETWORK_CODEC), HumidityData::preference,
+          ByteBufCodecs.holder(ApicuriousRegistries.HUMIDITY_TOLERANCES, HumidityTolerance.NETWORK_CODEC), HumidityData::tolerance,
           HumidityData::new
   );
 
