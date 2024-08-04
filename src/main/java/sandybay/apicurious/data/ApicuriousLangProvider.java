@@ -33,6 +33,8 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ApicuriousItemRegistration.UNTREATED_FRAME.get(), "Untreated Frame");
     add(ApicuriousItemRegistration.IMPREGNATED_FRAME.get(), "Impregnated Frame");
     add(ApicuriousItemRegistration.PROVEN_FRAME.get(), "Proven Frame");
+    add(ApicuriousItemRegistration.HEALING_FRAME.get(), "Healing Frame");
+    add(ApicuriousItemRegistration.SOUL_FRAME.get(), "Soul Frame");
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");

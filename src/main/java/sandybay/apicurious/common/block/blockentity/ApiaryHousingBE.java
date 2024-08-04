@@ -209,6 +209,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (Math.abs(this.currentWork - this.maxWork) % 5 == 0)//getModifiedOutputDuration() == 0)
     {
+      Apicurious.LOGGER.info(String.valueOf(getModifiedOutputDuration()));
       List<ItemStack> outputs = species.getOutputData().getOutputs();
       for (ItemStack output : outputs)
       {

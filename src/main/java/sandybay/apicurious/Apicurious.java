@@ -30,6 +30,7 @@ import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.ApicuriousLootItemFunctions;
 
+// TODO: Currently all our traits are only supported as registry entries and does not support both entry and inline formats, look into fixing this.
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Apicurious.MODID)
 public class Apicurious

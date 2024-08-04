@@ -118,11 +118,13 @@
   "block.apicurious.tropical_hive": "Tropical Hive",
   "block.apicurious.wintry_hive": "Wintry Hive",
   "item.apicurious.drone": "Drone",
+  "item.apicurious.healing_frame": "Healing Frame",
   "item.apicurious.impregnated_frame": "Impregnated Frame",
   "item.apicurious.princess": "Princess",
   "item.apicurious.proven_frame": "Proven Frame",
   "item.apicurious.queen": "Queen",
   "item.apicurious.sieve": "Sieve",
+  "item.apicurious.soul_frame": "Soul Frame",
   "item.apicurious.untreated_frame": "Untreated Frame",
   "itemGroup.apicurious.bee": "Apicurious: Bee",
   "itemGroup.apicurious.general": "Apicurious"
