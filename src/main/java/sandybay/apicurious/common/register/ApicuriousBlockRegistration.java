@@ -82,13 +82,7 @@ public class ApicuriousBlockRegistration
           (BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
   {
     return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()), null);
-  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
-          "apiary",
-          () -> new ApiaryBlock(HOUSING_PROPS),
-          ApicuriousBlockRegistration::getDefaultBlockItem,
-          ApiaryHousingBE::new,
-          ApicuriousBlockRegistration::getDefaultType
-  );
+  }
 
   public record BlockItemHolder<BLOCK extends Block, ITEM extends BlockItem>(DeferredHolder<Block, BLOCK> block,
                                                                              DeferredHolder<Item, ITEM> item)
@@ -107,7 +101,13 @@ public class ApicuriousBlockRegistration
     {
       return new ItemStack(item.get());
     }
-  }
+  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
+          "apiary",
+          () -> new ApiaryBlock(HOUSING_PROPS),
+          ApicuriousBlockRegistration::getDefaultBlockItem,
+          ApiaryHousingBE::new,
+          ApicuriousBlockRegistration::getDefaultType
+  );
 
   public record BlockHolderWithTile<BLOCK extends Block, ITEM extends BlockItem, TYPE extends BlockEntity>
           (DeferredHolder<Block, BLOCK> block, DeferredHolder<Item, ITEM> item,
@@ -133,6 +133,7 @@ public class ApicuriousBlockRegistration
       return entityType.get();
     }
   }
+
 
 
 

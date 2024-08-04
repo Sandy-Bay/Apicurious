@@ -20,7 +20,6 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Area;
 import sandybay.apicurious.common.bee.species.trait.Pollination;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,9 +51,11 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     int xzOffset = area.getXZOffset();
     int yOffset = area.getYOffset();
 
-    for (ItemStack stack : frames) {
-      if (stack.getItem() instanceof IFrameItem frame) {
-       // Make it so the minimum size is a 3x3x3, to avoid bricking the apiary
+    for (ItemStack stack : frames)
+    {
+      if (stack.getItem() instanceof IFrameItem frame)
+      {
+        // Make it so the minimum size is a 3x3x3, to avoid bricking the apiary
         xzOffset = Math.max(1, frame.getTerritoryModifier().xzMod().apply(xzOffset));
         yOffset = Math.max(1, frame.getTerritoryModifier().yMod().apply(yOffset));
       }

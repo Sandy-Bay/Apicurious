@@ -20,10 +20,9 @@ public class HousingValidation
 {
 
   private final IApiaryErrorHandler errorHandler;
-
+  private final boolean isValid;
   private ItemStack key;
   private ClimateHelper helper;
-  private final boolean isValid;
 
   public HousingValidation(IApiaryErrorHandler errorHandler)
   {

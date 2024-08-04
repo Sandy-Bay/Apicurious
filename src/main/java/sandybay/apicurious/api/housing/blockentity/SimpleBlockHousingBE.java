@@ -9,10 +9,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
@@ -34,14 +34,12 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public final HousingValidation validation;
   // Server-sided Data
   private final ConfigurableItemStackHandler inventory;
+  private final List<HousingError> errorList = new ArrayList<>();
   public Set<BlockPos> territory;
-
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
   public boolean shouldRenderParticles;
-
-  private final List<HousingError> errorList = new ArrayList<>();
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -196,9 +194,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     {
       ItemStack queen = inventory.getStackInSlot(0);
       BlockState state = level.getBlockState(pos);
-      if (state.getBlock() instanceof ApiaryBlock apiary) {
+      if (state.getBlock() instanceof ApiaryBlock apiary)
+      {
         List<ItemStack> frames = List.of(
-          getInventory().getStackInSlot(2), getInventory().getStackInSlot(3), getInventory().getStackInSlot(4)
+                getInventory().getStackInSlot(2), getInventory().getStackInSlot(3), getInventory().getStackInSlot(4)
         );
         if (this.territory == null) this.territory = apiary.getTerritory(queen, pos, frames);
         validation.validate(queen, level, pos, this.territory);

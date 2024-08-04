@@ -10,28 +10,20 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.item.TerritoryModifier;
 import sandybay.apicurious.common.item.BaseBeeItem;
-import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.SieveItem;
+import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.frame.RestraintFrame;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ApicuriousItemRegistration
 {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
-
-  public static Item.Properties SINGLETON_PROPS() {
-    return new Item.Properties().stacksTo(1);
-  }
-
   public static final DeferredHolder<Item, BaseBeeItem> DRONE = ITEMS.register("drone", () -> new BaseBeeItem(new Item.Properties(), EnumBeeType.DRONE));
   public static final DeferredHolder<Item, BaseBeeItem> PRINCESS = ITEMS.register("princess", () -> new BaseBeeItem(SINGLETON_PROPS(), EnumBeeType.PRINCESS));
   public static final DeferredHolder<Item, BaseBeeItem> QUEEN = ITEMS.register("queen", () -> new BaseBeeItem(SINGLETON_PROPS(), EnumBeeType.QUEEN));
-
   public static final DeferredHolder<Item, SieveItem> SIEVE = ITEMS.register("sieve", () -> new SieveItem(Tiers.WOOD, new Item.Properties().durability(32)));
-
   // Frames
   public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f);
   public static final DeferredHolder<Item, FrameItem> IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f);
@@ -40,12 +32,18 @@ public class ApicuriousItemRegistration
   public static final DeferredHolder<Item, FrameItem> RESTRAINT_FRAME = ITEMS.register(frame("restraint"), () -> new RestraintFrame(SINGLETON_PROPS().durability(240)));
   public static final DeferredHolder<Item, FrameItem> PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f);
 
+  public static Item.Properties SINGLETON_PROPS()
+  {
+    return new Item.Properties().stacksTo(1);
+  }
+
   public static void register(IEventBus bus)
   {
     ITEMS.register(bus);
   }
 
-  public static String frame(String name) {
+  public static String frame(String name)
+  {
     return name + "_frame";
   }
 
