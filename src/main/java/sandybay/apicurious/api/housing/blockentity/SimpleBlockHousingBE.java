@@ -25,6 +25,7 @@ import sandybay.apicurious.common.block.housing.ApiaryBlock;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //This does not need to be in the api
 public abstract class SimpleBlockHousingBE extends BaseHousingBE
@@ -33,7 +34,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public final HousingValidation validation;
   // Server-sided Data
   private final ConfigurableItemStackHandler inventory;
-  public List<BlockPos> territory;
+  public Set<BlockPos> territory;
 
   public boolean isActive = false;
   public int currentWork;
@@ -195,8 +196,13 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     {
       ItemStack queen = inventory.getStackInSlot(0);
       BlockState state = level.getBlockState(pos);
-      if (state.getBlock() instanceof ApiaryBlock apiary)
-        validation.validate(queen, level, pos, apiary.getTerritory(queen, pos));
+      if (state.getBlock() instanceof ApiaryBlock apiary) {
+        List<ItemStack> frames = List.of(
+          getInventory().getStackInSlot(2), getInventory().getStackInSlot(3), getInventory().getStackInSlot(4)
+        );
+        if (this.territory == null) this.territory = apiary.getTerritory(queen, pos, frames);
+        validation.validate(queen, level, pos, this.territory);
+      }
     }
   }
 

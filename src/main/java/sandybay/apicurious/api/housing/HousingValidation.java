@@ -16,6 +16,7 @@ import sandybay.apicurious.common.bee.species.trait.Flowers;
 import sandybay.apicurious.common.bee.species.trait.WorkCycle;
 
 import java.util.List;
+import java.util.Set;
 
 public class HousingValidation
 {
@@ -32,7 +33,7 @@ public class HousingValidation
     this.isValid = false;
   }
 
-  public boolean validate(ItemStack key, Level level, BlockPos housingPosition, List<BlockPos> territory)
+  public boolean validate(ItemStack key, Level level, BlockPos housingPosition, Set<BlockPos> territory)
   {
     if (helper == null && level != null) helper = new ClimateHelper(level, errorHandler);
     if (key.isEmpty()) return false;
@@ -44,7 +45,7 @@ public class HousingValidation
     return isValid;
   }
 
-  private void revalidate(ItemStack queen, Level level, BlockPos housingPosition, List<BlockPos> territory)
+  private void revalidate(ItemStack queen, Level level, BlockPos housingPosition, Set<BlockPos> territory)
   {
     validateFlowers(level, territory);
     validateHumidity(housingPosition);
@@ -54,7 +55,7 @@ public class HousingValidation
     validateTime(queen, level);
   }
 
-  private void validateFlowers(Level level, List<BlockPos> territory)
+  private void validateFlowers(Level level, Set<BlockPos> territory)
   {
     boolean foundValid = false;
     if (!key.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return;

@@ -14,13 +14,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Area;
 import sandybay.apicurious.common.bee.species.trait.Pollination;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class BaseHousingBlock extends Block implements EntityBlock
 {
@@ -36,9 +39,9 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     this.basePollinationModifier = basePollinationModifier;
   }
 
-  public List<BlockPos> getTerritory(ItemStack queen, BlockPos housingPosition)
+  public Set<BlockPos> getTerritory(ItemStack queen, BlockPos housingPosition, List<ItemStack> frames)
   {
-    List<BlockPos> territory = new ArrayList<>();
+    Set<BlockPos> territory = new HashSet<>();
     if (!queen.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return territory; // TODO: Replace this with Genome
     BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);   // TODO: Replace this with Genome
     if (species == null) return territory;
@@ -46,11 +49,22 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     if (!areaHolder.isBound())
       throw new IllegalArgumentException("Area was unbound for BeeSpecies: %s, REPORT THIS!".formatted(species.getReadableName()));
     Area area = areaHolder.value();
-    for (int x = housingPosition.getX() - area.getXZOffset(); x < housingPosition.getX() + area.getXZOffset(); x++)
+    int xzOffset = area.getXZOffset();
+    int yOffset = area.getYOffset();
+
+    for (ItemStack stack : frames) {
+      if (stack.getItem() instanceof IFrameItem frame) {
+       // Make it so the minimum size is a 3x3x3, to avoid bricking the apiary
+        xzOffset = Math.max(1, frame.getTerritoryModifier().xzMod().apply(xzOffset));
+        yOffset = Math.max(1, frame.getTerritoryModifier().yMod().apply(yOffset));
+      }
+    }
+
+    for (int x = housingPosition.getX() - xzOffset; x < housingPosition.getX() + xzOffset; x++)
     {
-      for (int y = housingPosition.getY() - area.getYOffset(); y < housingPosition.getY() + area.getYOffset(); y++)
+      for (int y = housingPosition.getY() - yOffset; y < housingPosition.getY() + yOffset; y++)
       {
-        for (int z = housingPosition.getZ() - area.getXZOffset(); z < housingPosition.getZ() + area.getXZOffset(); z++)
+        for (int z = housingPosition.getZ() - xzOffset; z < housingPosition.getZ() + xzOffset; z++)
         {
           if (x == housingPosition.getX() && y == housingPosition.getY() && z == housingPosition.getZ()) continue;
           territory.add(new BlockPos(x, y, z));

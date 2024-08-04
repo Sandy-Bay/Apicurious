@@ -7,4 +7,12 @@ public interface IFrameItem
   float getProductionModifier();
 
   float getMutationChanceModifier();
+
+  TerritoryModifier getTerritoryModifier();
+
+  // TODO: Implement effects that can check for this.
+  default boolean pacifies() {
+    return false;
+  }
+
 }

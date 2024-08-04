@@ -153,22 +153,18 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
 
         if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
         {
-          if (state.getBlock() instanceof ApiaryBlock apiary)
+          if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES))
           {
-            if (this.territory == null) this.territory = apiary.getTerritory(stack, pos);
-            if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES))
+            BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+            if (species == null) return;
+            //handlePollination(level, apiary, stack);
+            // TODO: Implement effect occurrences here.
+            if (!handleOutput(species)) updateGuiData();
+            this.currentWork--;
+            if (this.currentWork == 0)
             {
-              BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-              if (species == null) return;
-              //handlePollination(level, apiary, stack);
-              // TODO: Implement effect occurrences here.
-              if (!handleOutput(species)) updateGuiData();
-              this.currentWork--;
-              if (this.currentWork == 0)
-              {
-                resetApiary(state);
-                handleQueenLifecycleEnd(species);
-              }
+              resetApiary(state);
+              handleQueenLifecycleEnd(species);
             }
           }
         }
