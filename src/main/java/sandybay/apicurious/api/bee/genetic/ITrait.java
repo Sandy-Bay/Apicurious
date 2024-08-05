@@ -2,6 +2,7 @@ package sandybay.apicurious.api.bee.genetic;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
@@ -16,7 +17,7 @@ public interface ITrait<T extends ITrait<T>>
 
   Codec<T> getCodec();
 
-  StreamCodec<ByteBuf, T> getStreamCodec();
+  StreamCodec<RegistryFriendlyByteBuf, T> getStreamCodec();
 
   boolean isDominantTrait();
 }

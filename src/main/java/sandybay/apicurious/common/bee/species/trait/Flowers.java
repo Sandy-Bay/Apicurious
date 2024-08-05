@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -32,7 +33,7 @@ public class Flowers implements ITrait<Flowers>
                   Codec.STRING.fieldOf("name").forGetter(Flowers::getName)
           ).apply(instance, Flowers::new)
   );
-  public static final StreamCodec<ByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)), Flowers::getFlowers,
           ByteBufCodecs.BOOL, Flowers::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Flowers::getName,
@@ -96,7 +97,7 @@ public class Flowers implements ITrait<Flowers>
   }
 
   @Override
-  public StreamCodec<ByteBuf, Flowers> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Flowers> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -40,7 +41,7 @@ public class HumidityPreference implements ITrait<HumidityPreference>
           ).apply(instance, HumidityPreference::new)
   );
 
-  public static final StreamCodec<ByteBuf, HumidityPreference> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityPreference> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, HumidityPreference::getHumidity,
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), HumidityPreference::getGroupTag,
           ByteBufCodecs.BOOL, HumidityPreference::isDominantTrait,
@@ -96,7 +97,7 @@ public class HumidityPreference implements ITrait<HumidityPreference>
   }
 
   @Override
-  public StreamCodec<ByteBuf, HumidityPreference> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, HumidityPreference> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

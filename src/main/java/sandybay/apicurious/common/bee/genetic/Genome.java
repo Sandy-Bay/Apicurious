@@ -1,5 +1,9 @@
 package sandybay.apicurious.common.bee.genetic;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.api.bee.IBeeSpecies;
 import sandybay.apicurious.api.bee.genetic.IAllele;
@@ -12,6 +16,11 @@ import java.util.Map;
 
 public class Genome implements IGenome
 {
+  public static Codec<Genome> CODEC = RecordCodecBuilder.create(instance ->
+          instance.group(
+                  Codec.compoundList(ResourceLocation.CODEC, Allele.CODEC)
+          )
+  )
 
   private final Map<ResourceLocation, IAllele<?>> genome;
 
@@ -49,6 +58,7 @@ public class Genome implements IGenome
   @Override
   public void getGenomeFromSpecies(IBeeSpecies species)
   {
+    this.genome.put(ApicuriousConstants.SPECIES, Allele.of(Holder.direct(species)));
     this.genome.put(ApicuriousConstants.AREA, Allele.of(species.getProductionData().getArea()));
     this.genome.put(ApicuriousConstants.FERTILITY, Allele.of(species.getProductionData().getFertility()));
     this.genome.put(ApicuriousConstants.FLOWERS, Allele.of(species.getEnvironmentalData().getFlowers()));

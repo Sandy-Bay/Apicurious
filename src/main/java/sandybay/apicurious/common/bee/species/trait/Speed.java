@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -38,7 +39,7 @@ public class Speed implements ITrait<Speed>
                   Codec.STRING.fieldOf("name").forGetter(Speed::getName)
           ).apply(instance, Speed::new)
   );
-  public static final StreamCodec<ByteBuf, Speed> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, Speed> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.FLOAT, Speed::getProductionModifier,
           ByteBufCodecs.BOOL, Speed::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Speed::getName,
@@ -101,7 +102,7 @@ public class Speed implements ITrait<Speed>
   }
 
   @Override
-  public StreamCodec<ByteBuf, Speed> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Speed> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

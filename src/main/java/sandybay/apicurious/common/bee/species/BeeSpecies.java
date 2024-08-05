@@ -2,13 +2,17 @@ package sandybay.apicurious.common.bee.species;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.api.bee.IBeeSpecies;
 import sandybay.apicurious.api.bee.genetic.IGenome;
+import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
@@ -19,7 +23,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 // TODO: Implement custom effect system, not just potion effects.
-public class BeeSpecies implements IBeeSpecies
+public class BeeSpecies implements IBeeSpecies, ITrait<BeeSpecies>
 {
 
   public static final Codec<BeeSpecies> CODEC = RecordCodecBuilder.create(
@@ -101,10 +105,34 @@ public class BeeSpecies implements IBeeSpecies
   }
 
   @Override
+  public ResourceLocation getTraitKey()
+  {
+    return ApicuriousConstants.SPECIES;
+  }
+
+  @Override
   public Component getReadableName()
   {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public Codec<BeeSpecies> getCodec()
+  {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> getStreamCodec()
+  {
+    return NETWORK_CODEC;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return true;
   }
 
   @Override

@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -33,7 +34,7 @@ public class Pollination implements ITrait<Pollination>
                   Codec.STRING.fieldOf("name").forGetter(Pollination::getName)
           ).apply(instance, Pollination::new)
   );
-  public static final StreamCodec<ByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.FLOAT, Pollination::getPollinationChance,
           ByteBufCodecs.BOOL, Pollination::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Pollination::getName,
@@ -96,7 +97,7 @@ public class Pollination implements ITrait<Pollination>
   }
 
   @Override
-  public StreamCodec<ByteBuf, Pollination> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Pollination> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

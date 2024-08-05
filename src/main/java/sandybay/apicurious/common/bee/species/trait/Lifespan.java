@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -35,7 +36,7 @@ public class Lifespan implements ITrait<Lifespan>
                   Codec.STRING.fieldOf("name").forGetter(Lifespan::getName)
           ).apply(instance, Lifespan::new)
   );
-  public static final StreamCodec<ByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, Lifespan::getCycles,
           ByteBufCodecs.BOOL, Lifespan::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Lifespan::getName,
@@ -98,7 +99,7 @@ public class Lifespan implements ITrait<Lifespan>
   }
 
   @Override
-  public StreamCodec<ByteBuf, Lifespan> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Lifespan> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

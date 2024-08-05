@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -34,7 +35,7 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
           ).apply(instance, TemperatureTolerance::new)
   );
 
-  public static final StreamCodec<ByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, TemperatureTolerance::getToleranceModifier,
           ByteBufCodecs.BOOL, TemperatureTolerance::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, TemperatureTolerance::getName,
@@ -97,7 +98,7 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
   }
 
   @Override
-  public StreamCodec<ByteBuf, TemperatureTolerance> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, TemperatureTolerance> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

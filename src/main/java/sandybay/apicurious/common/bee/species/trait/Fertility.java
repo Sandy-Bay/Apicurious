@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -30,7 +31,7 @@ public class Fertility implements ITrait<Fertility>
                   Codec.STRING.fieldOf("name").forGetter(Fertility::getName)
           ).apply(instance, Fertility::new)
   );
-  public static final StreamCodec<ByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, Fertility::getOffspring,
           ByteBufCodecs.BOOL, Fertility::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Fertility::getName,
@@ -94,7 +95,7 @@ public class Fertility implements ITrait<Fertility>
   }
 
   @Override
-  public StreamCodec<ByteBuf, Fertility> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Fertility> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

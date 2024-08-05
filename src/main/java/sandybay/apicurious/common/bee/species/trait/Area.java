@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -34,7 +35,7 @@ public class Area implements ITrait<Area>
           ).apply(instance, Area::new)
   );
 
-  public static final StreamCodec<ByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, Area::getXZOffset,
           ByteBufCodecs.INT, Area::getYOffset,
           ByteBufCodecs.BOOL, Area::isDominantTrait,
@@ -106,7 +107,7 @@ public class Area implements ITrait<Area>
   }
 
   @Override
-  public StreamCodec<ByteBuf, Area> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Area> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

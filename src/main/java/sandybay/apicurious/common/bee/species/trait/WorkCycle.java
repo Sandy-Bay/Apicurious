@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -58,7 +59,7 @@ public class WorkCycle implements ITrait<WorkCycle>
                   )
                   .apply(instance, WorkCycle::new)
   );
-  public static final StreamCodec<ByteBuf, WorkCycle> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, WorkCycle> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), WorkCycle::getActiveTimes,
           ByteBufCodecs.BOOL, WorkCycle::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, WorkCycle::getName,
@@ -135,7 +136,7 @@ public class WorkCycle implements ITrait<WorkCycle>
   }
 
   @Override
-  public StreamCodec<ByteBuf, WorkCycle> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, WorkCycle> getStreamCodec()
   {
     return NETWORK_CODEC;
   }

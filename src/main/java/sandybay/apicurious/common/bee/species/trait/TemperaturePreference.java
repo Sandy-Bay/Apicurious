@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -38,7 +39,7 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
                   Codec.STRING.fieldOf("name").forGetter(TemperaturePreference::getName)
           ).apply(instance, TemperaturePreference::new)
   );
-  public static final StreamCodec<ByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, TemperaturePreference::getTemperature,
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), TemperaturePreference::getGroupTag,
           ByteBufCodecs.BOOL, TemperaturePreference::isDominantTrait,
@@ -109,7 +110,7 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
   }
 
   @Override
-  public StreamCodec<ByteBuf, TemperaturePreference> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, TemperaturePreference> getStreamCodec()
   {
     return NETWORK_CODEC;
   }
