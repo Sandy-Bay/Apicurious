@@ -2,6 +2,7 @@ package sandybay.apicurious.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
@@ -15,6 +16,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
@@ -36,6 +39,19 @@ public class ApicuriousClientEvents
     bus.addListener(ApicuriousClientEvents::handleBlockTint);
     bus.addListener(ApicuriousClientEvents::registerAlternativeBeeModels);
     bus.addListener(ApicuriousClientEvents::registerScreens);
+    bus.addListener(ApicuriousClientEvents::registerClientExtensions);
+  }
+
+  private static void registerClientExtensions(final RegisterClientExtensionsEvent event)
+  {
+    event.registerItem(new IClientItemExtensions()
+    {
+      @Override
+      public BlockEntityWithoutLevelRenderer getCustomRenderer()
+      {
+        return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+      }
+    }, ApicuriousItemRegistration.DRONE.get(), ApicuriousItemRegistration.PRINCESS.get(), ApicuriousItemRegistration.QUEEN.get());
   }
 
   private static void handleBlockTint(final RegisterColorHandlersEvent.Block event)

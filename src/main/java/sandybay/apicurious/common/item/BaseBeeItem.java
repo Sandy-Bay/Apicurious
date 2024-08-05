@@ -99,19 +99,6 @@ public class BaseBeeItem extends Item implements IBeeItem
   }
 
   @Override
-  public void initializeClient(Consumer<IClientItemExtensions> consumer)
-  {
-    consumer.accept(new IClientItemExtensions()
-    {
-      @Override
-      public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer()
-      {
-        return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
-      }
-    });
-  }
-
-  @Override
   public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag)
   {
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);

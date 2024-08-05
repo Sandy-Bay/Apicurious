@@ -4,11 +4,12 @@ import sandybay.apicurious.common.bee.species.BeeColor;
 
 public class ApicuriousConstants
 {
+  // Apiary Constants
   /**
    * Duration in Ticks per Workcycle.
    * Default: 550 ticks or 27.5 seconds
    */
-  public static final int WORKCYCLE = 550;
+  public static final int WORKCYCLE_DURATION = 550;
 
   // Color-values
   //// Bodies

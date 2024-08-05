@@ -131,7 +131,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (species == null) return 0;
     Holder<Speed> speedHolder = species.getProductionData().getSpeed();
     if (!speedHolder.isBound()) return 0;
-    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE * (speedHolder.value().getProductionModifier() == 0.0f ? 1.0f : speedHolder.value().getProductionModifier()));
+    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE_DURATION * (speedHolder.value().getProductionModifier() == 0.0f ? 1.0f : speedHolder.value().getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);
@@ -150,7 +150,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (species == null) return 0;
     Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
     if (!lifespanHolder.isBound()) return 0;
-    int lifespan = ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
+    int lifespan = ApicuriousConstants.WORKCYCLE_DURATION * lifespanHolder.value().getCycles();
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);

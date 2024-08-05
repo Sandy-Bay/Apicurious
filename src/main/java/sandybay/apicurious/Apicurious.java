@@ -32,6 +32,21 @@ import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.ApicuriousLootItemFunctions;
 
+/*
+ TODO: Before MVP Alpha Release
+ - Must Haves:
+   - Allele/Genome (Genetics)
+   - Mutations (Genetics and Species)
+   - Particles for active housing
+   - Proper errors for housing
+     - Error Message
+     - Error Tooltip
+   - Worldgen for Hives
+ - Optionals:
+   - Effects
+   - Output System
+   - General Code Clean-Up
+ */
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Apicurious.MODID)
 public class Apicurious
