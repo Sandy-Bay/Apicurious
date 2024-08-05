@@ -1,5 +1,6 @@
 {
   "groupTag": "apicurious:humidity/hellish",
   "humidity": 1,
+  "isDominantTrait": true,
   "name": "apicurious.preference.humidity.hellish"
 }

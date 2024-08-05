@@ -1,5 +1,6 @@
 {
   "groupTag": "apicurious:humidity/damp",
   "humidity": 4,
+  "isDominantTrait": true,
   "name": "apicurious.preference.humidity.damp"
 }

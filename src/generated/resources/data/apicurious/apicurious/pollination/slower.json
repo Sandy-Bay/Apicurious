@@ -1,4 +1,5 @@
 {
+  "isDominantTrait": false,
   "name": "apicurious.pollination.slower",
   "pollinationChance": 0.1
 }

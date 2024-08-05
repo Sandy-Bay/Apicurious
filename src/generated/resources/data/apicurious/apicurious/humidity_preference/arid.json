@@ -1,5 +1,6 @@
 {
   "groupTag": "apicurious:humidity/arid",
   "humidity": 2,
+  "isDominantTrait": true,
   "name": "apicurious.preference.humidity.arid"
 }

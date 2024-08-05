@@ -1,5 +1,6 @@
 {
   "groupTag": "apicurious:temperature/cold",
+  "isDominantTrait": true,
   "name": "apicurious.preference.temperature.cold",
   "temperature": 2
 }
