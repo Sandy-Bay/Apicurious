@@ -113,13 +113,13 @@ public class WorkCycle implements ITrait<WorkCycle>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     WorkCycle workCycle = (WorkCycle) o;
-    return Objects.equals(activeTimes, workCycle.activeTimes) && Objects.equals(name, workCycle.name) && Objects.equals(readableName, workCycle.readableName);
+    return Objects.equals(activeTimes, workCycle.activeTimes) && isDominantTrait == workCycle.isDominantTrait && Objects.equals(name, workCycle.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(activeTimes, name, readableName);
+    return Objects.hash(activeTimes, isDominantTrait, name);
   }
 
   @Override

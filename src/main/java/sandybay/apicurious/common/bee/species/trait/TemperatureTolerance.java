@@ -71,13 +71,13 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TemperatureTolerance that = (TemperatureTolerance) o;
-    return toleranceModifier == that.toleranceModifier && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+    return toleranceModifier == that.toleranceModifier && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(toleranceModifier, name, readableName);
+    return Objects.hash(toleranceModifier, isDominantTrait, name);
   }
 
   @Override

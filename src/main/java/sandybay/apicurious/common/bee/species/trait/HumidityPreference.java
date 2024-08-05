@@ -128,13 +128,13 @@ public class HumidityPreference implements ITrait<HumidityPreference>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     HumidityPreference that = (HumidityPreference) o;
-    return humidity == that.humidity && Objects.equals(groupTag, that.groupTag) && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+    return humidity == that.humidity && Objects.equals(groupTag, that.groupTag) && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(humidity, groupTag, name, readableName);
+    return Objects.hash(humidity, groupTag, isDominantTrait, name);
   }
 
   @Override

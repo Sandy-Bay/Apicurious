@@ -75,13 +75,13 @@ public class Speed implements ITrait<Speed>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Speed speed = (Speed) o;
-    return Float.compare(productionModifier, speed.productionModifier) == 0 && Objects.equals(name, speed.name) && Objects.equals(readableName, speed.readableName);
+    return Float.compare(productionModifier, speed.productionModifier) == 0 && isDominantTrait == speed.isDominantTrait && Objects.equals(name, speed.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(productionModifier, name, readableName);
+    return Objects.hash(productionModifier, isDominantTrait, name);
   }
 
   @Override

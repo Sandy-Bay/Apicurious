@@ -68,13 +68,13 @@ public class Fertility implements ITrait<Fertility>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Fertility fertility = (Fertility) o;
-    return offspring == fertility.offspring && Objects.equals(name, fertility.name) && Objects.equals(readableName, fertility.readableName);
+    return offspring == fertility.offspring && isDominantTrait == fertility.isDominantTrait && Objects.equals(name, fertility.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(offspring, name, readableName);
+    return Objects.hash(offspring, isDominantTrait, name);
   }
 
   @Override

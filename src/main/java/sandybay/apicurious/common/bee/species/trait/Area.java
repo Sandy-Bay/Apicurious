@@ -83,13 +83,13 @@ public class Area implements ITrait<Area>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Area area = (Area) o;
-    return xzOffset == area.xzOffset && yOffset == area.yOffset && Objects.equals(name, area.name) && Objects.equals(readableName, area.readableName);
+    return xzOffset == area.xzOffset && yOffset == area.yOffset && isDominantTrait == area.isDominantTrait && Objects.equals(name, area.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(xzOffset, yOffset, name, readableName);
+    return Objects.hash(xzOffset, yOffset, isDominantTrait, name);
   }
 
   @Override

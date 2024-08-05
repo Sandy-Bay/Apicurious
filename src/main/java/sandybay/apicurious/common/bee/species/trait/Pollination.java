@@ -70,13 +70,13 @@ public class Pollination implements ITrait<Pollination>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Pollination that = (Pollination) o;
-    return Float.compare(pollinationChance, that.pollinationChance) == 0 && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+    return Float.compare(pollinationChance, that.pollinationChance) == 0 && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(pollinationChance, name, readableName);
+    return Objects.hash(pollinationChance, isDominantTrait, name);
   }
 
   @Override

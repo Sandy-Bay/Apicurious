@@ -72,13 +72,13 @@ public class Lifespan implements ITrait<Lifespan>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Lifespan lifespan = (Lifespan) o;
-    return cycles == lifespan.cycles && Objects.equals(name, lifespan.name) && Objects.equals(readableName, lifespan.readableName);
+    return cycles == lifespan.cycles && isDominantTrait == lifespan.isDominantTrait && Objects.equals(name, lifespan.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(cycles, name, readableName);
+    return Objects.hash(cycles, isDominantTrait, name);
   }
 
   @Override

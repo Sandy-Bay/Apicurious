@@ -83,13 +83,13 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TemperaturePreference that = (TemperaturePreference) o;
-    return temperature == that.temperature && Objects.equals(groupTag, that.groupTag) && Objects.equals(name, that.name) && Objects.equals(readableName, that.readableName);
+    return temperature == that.temperature && Objects.equals(groupTag, that.groupTag) && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(temperature, groupTag, name, readableName);
+    return Objects.hash(temperature, groupTag, isDominantTrait, name);
   }
 
   @Override

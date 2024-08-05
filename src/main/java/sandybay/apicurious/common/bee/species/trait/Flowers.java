@@ -69,14 +69,14 @@ public class Flowers implements ITrait<Flowers>
   {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Flowers flowers1 = (Flowers) o;
+    Flowers flowers = (Flowers) o;
     return Objects.equals(flowers, flowers1.flowers) && Objects.equals(name, flowers1.name) && Objects.equals(readableName, flowers1.readableName);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(flowers, name, readableName);
+    return Objects.hash(flowers, isDominantTrait, name);
   }
 
   @Override
