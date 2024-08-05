@@ -7,9 +7,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
@@ -88,5 +90,11 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
   public StreamCodec<ByteBuf, TemperatureTolerance> getStreamCodec()
   {
     return NETWORK_CODEC;
+  }
+
+  @Override
+  public ResourceLocation getTraitKey()
+  {
+    return ApicuriousConstants.TEMPERATURE_TOLERANCE;
   }
 }

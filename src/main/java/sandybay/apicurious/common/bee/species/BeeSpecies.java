@@ -8,6 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.IBeeSpecies;
+import sandybay.apicurious.api.bee.genetic.IGenome;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
@@ -124,13 +126,13 @@ public class BeeSpecies implements IBeeSpecies
     return Objects.hash(name, visualData, productionData, environmentalData, readableName);
   }
 
-  //public List<MobEffectInstance> getEffects() {
-  //  return effects;
-  //}
-
-  //public Genome getDefaultGenome() {
-  //  return null;
-  //}
+  @Override
+  public IGenome getSpeciesDefaultGenome()
+  {
+    Genome genome = new Genome();
+    genome.getGenomeFromSpecies(this);
+    return genome;
+  }
 
   public static class Builder
   {

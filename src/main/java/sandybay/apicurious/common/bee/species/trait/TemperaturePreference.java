@@ -8,11 +8,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.api.util.ApicuriousTags;
 
 import java.util.ArrayList;
@@ -131,5 +133,11 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
       temperatureTags.add(getTagByOrdinal(i));
     }
     return temperatureTags;
+  }
+
+  @Override
+  public ResourceLocation getTraitKey()
+  {
+    return ApicuriousConstants.TEMPERATURE_PREFERENCE;
   }
 }

@@ -162,6 +162,8 @@ public class ApicuriousLangProvider extends LanguageProvider
     workcycle("Matutinal");
     workcycle("Nocturnal");
     workcycle("Vespertinal");
+
+    add("apicurious.genetics.allele", "Allele: ");
   }
 
   public void addSpecies()

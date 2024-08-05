@@ -8,11 +8,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
@@ -87,5 +89,11 @@ public class Flowers implements ITrait<Flowers>
   public StreamCodec<ByteBuf, Flowers> getStreamCodec()
   {
     return NETWORK_CODEC;
+  }
+
+  @Override
+  public ResourceLocation getTraitKey()
+  {
+    return ApicuriousConstants.FLOWERS;
   }
 }

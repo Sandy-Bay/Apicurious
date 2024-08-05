@@ -1,5 +1,7 @@
 package sandybay.apicurious.api.util;
 
+import net.minecraft.resources.ResourceLocation;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.species.BeeColor;
 
 public class ApicuriousConstants
@@ -10,6 +12,19 @@ public class ApicuriousConstants
    * Default: 550 ticks or 27.5 seconds
    */
   public static final int WORKCYCLE_DURATION = 550;
+
+  // Trait Constants
+  public static final ResourceLocation AREA = Apicurious.createResourceLocation("area");
+  public static final ResourceLocation FERTILITY = Apicurious.createResourceLocation("fertility");
+  public static final ResourceLocation FLOWERS = Apicurious.createResourceLocation("flowers");
+  public static final ResourceLocation HUMIDITY_PREFERENCE = Apicurious.createResourceLocation("humidity_preference");
+  public static final ResourceLocation HUMIDITY_TOLERANCE = Apicurious.createResourceLocation("humidity_tolerance");
+  public static final ResourceLocation LIFESPAN = Apicurious.createResourceLocation("lifespan");
+  public static final ResourceLocation POLLINATION = Apicurious.createResourceLocation("pollination");
+  public static final ResourceLocation SPEED = Apicurious.createResourceLocation("speed");
+  public static final ResourceLocation TEMPERATURE_PREFERENCE = Apicurious.createResourceLocation("temperature_preference");
+  public static final ResourceLocation TEMPERATURE_TOLERANCE = Apicurious.createResourceLocation("temperature_tolerance");
+  public static final ResourceLocation WORKCYCLE = Apicurious.createResourceLocation("workcycle");
 
   // Color-values
   //// Bodies
