@@ -13,7 +13,7 @@ import java.util.Map;
 public class Genome implements IGenome
 {
 
-  private final  Map<ResourceLocation, IAllele<?>> genome;
+  private final Map<ResourceLocation, IAllele<?>> genome;
 
   public Genome()
   {
@@ -30,7 +30,7 @@ public class Genome implements IGenome
   public boolean setAllele(IAllele<?> allele)
   {
     IAllele<?> prev = this.genome.put(allele.getTraitKey(), allele);
-    return  prev == null || prev != allele;
+    return prev == null || prev != allele;
   }
 
   @Override
@@ -42,12 +42,23 @@ public class Genome implements IGenome
   @Override
   public IGenome combineGenomes(IGenome other)
   {
+
     return null;
   }
 
   @Override
   public void getGenomeFromSpecies(IBeeSpecies species)
   {
-    //this.genome.put(ApicuriousConstants.AREA, new Allele<>(ApicuriousConstants.AREA, species.getProductionData().getArea(), false));
+    this.genome.put(ApicuriousConstants.AREA, Allele.of(species.getProductionData().getArea()));
+    this.genome.put(ApicuriousConstants.FERTILITY, Allele.of(species.getProductionData().getFertility()));
+    this.genome.put(ApicuriousConstants.FLOWERS, Allele.of(species.getEnvironmentalData().getFlowers()));
+    this.genome.put(ApicuriousConstants.HUMIDITY_PREFERENCE, Allele.of(species.getEnvironmentalData().getHumidityData().preference()));
+    this.genome.put(ApicuriousConstants.HUMIDITY_TOLERANCE, Allele.of(species.getEnvironmentalData().getHumidityData().tolerance()));
+    this.genome.put(ApicuriousConstants.LIFESPAN, Allele.of(species.getProductionData().getLifespan()));
+    this.genome.put(ApicuriousConstants.POLLINATION, Allele.of(species.getProductionData().getPollination()));
+    this.genome.put(ApicuriousConstants.SPEED, Allele.of(species.getProductionData().getSpeed()));
+    this.genome.put(ApicuriousConstants.TEMPERATURE_PREFERENCE, Allele.of(species.getEnvironmentalData().getTemperatureData().preference()));
+    this.genome.put(ApicuriousConstants.TEMPERATURE_TOLERANCE, Allele.of(species.getEnvironmentalData().getTemperatureData().tolerance()));
+    this.genome.put(ApicuriousConstants.WORKCYCLE, Allele.of(species.getProductionData().getWorkCycle()));
   }
 }

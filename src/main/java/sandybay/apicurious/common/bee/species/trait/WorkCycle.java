@@ -52,28 +52,28 @@ public class WorkCycle implements ITrait<WorkCycle>
 
   public static final Codec<WorkCycle> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                          Codec.list(Interval.CODEC)
-                                  .fieldOf("activeTimes")
-                                  .forGetter(workCycle -> workCycle.activeTimes),
-                          Codec.STRING
-                                  .fieldOf("name")
-                                  .forGetter(workCycle -> workCycle.name)
+                          Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(WorkCycle::getActiveTimes),
+                          Codec.BOOL.fieldOf("isDominantTrait").forGetter(WorkCycle::isDominantTrait),
+                          Codec.STRING.fieldOf("name").forGetter(WorkCycle::getName)
                   )
                   .apply(instance, WorkCycle::new)
   );
   public static final StreamCodec<ByteBuf, WorkCycle> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), WorkCycle::getActiveTimes,
+          ByteBufCodecs.BOOL, WorkCycle::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, WorkCycle::getName,
           WorkCycle::new
   );
 
   private final List<Interval> activeTimes;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public WorkCycle(List<Interval> activeTimes, String name)
+  public WorkCycle(List<Interval> activeTimes, boolean isDominantTrait, String name)
   {
     this.activeTimes = activeTimes;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
@@ -94,6 +94,12 @@ public class WorkCycle implements ITrait<WorkCycle>
   private List<Interval> getActiveTimes()
   {
     return this.activeTimes;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

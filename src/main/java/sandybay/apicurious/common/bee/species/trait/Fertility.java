@@ -26,28 +26,38 @@ public class Fertility implements ITrait<Fertility>
   public static final Codec<Fertility> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Fertility::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(Fertility::getName)
           ).apply(instance, Fertility::new)
   );
   public static final StreamCodec<ByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, Fertility::getOffspring,
+          ByteBufCodecs.BOOL, Fertility::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Fertility::getName,
           Fertility::new
   );
 
-  public final int offspring;
-  public final String name;
+  private final int offspring;
+  private final boolean isDominantTrait;
+  private final String name;
   public Component readableName;
 
-  public Fertility(int offspring, String name)
+  public Fertility(int offspring, boolean isDominantTrait, String name)
   {
     this.offspring = offspring;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public int getOffspring()
   {
     return offspring;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

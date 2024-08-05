@@ -185,67 +185,67 @@ public class ApicuriousDatapackRegistriesDefaults
   }
 
   // Area
-  private static Area area(int xzOffset, int yOffset, String name)
+  private static Area area(int xzOffset, int yOffset, boolean isDominantTrait, String name)
   {
-    return new Area(xzOffset, yOffset, "apicurious.area." + name);
+    return new Area(xzOffset, yOffset, isDominantTrait, "apicurious.area." + name);
   }
 
   // Fertility
-  private static Fertility fertility(int offspring, String name)
+  private static Fertility fertility(int offspring, boolean isDominantTrait, String name)
   {
-    return new Fertility(offspring, "apicurious.fertility." + name);
+    return new Fertility(offspring, isDominantTrait, "apicurious.fertility." + name);
   }
 
   // Flowers
-  private static Flowers flowers(TagKey<Block> flowers, String name)
+  private static Flowers flowers(TagKey<Block> flowers, boolean isDominantTrait, String name)
   {
-    return new Flowers(flowers, "apicurious.flowers." + name);
+    return new Flowers(flowers, isDominantTrait, "apicurious.flowers." + name);
   }
 
   // Humidity Preference / Tolerance
-  private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, String name)
+  private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
-    return new HumidityPreference(humidity, groupTag, "apicurious.preference.humidity." + name);
+    return new HumidityPreference(humidity, groupTag, isDominantTrait, "apicurious.preference.humidity." + name);
   }
 
-  private static HumidityTolerance humidityTolerance(int toleranceModifier, String name)
+  private static HumidityTolerance humidityTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
-    return new HumidityTolerance(toleranceModifier, "apicurious.tolerance.humidity." + name);
+    return new HumidityTolerance(toleranceModifier, isDominantTrait, "apicurious.tolerance.humidity." + name);
   }
 
   // Lifespan
-  private static Lifespan lifespan(int cycles, String name)
+  private static Lifespan lifespan(int cycles, boolean isDominantTrait, String name)
   {
-    return new Lifespan(cycles, "apicurious.lifespan." + name);
+    return new Lifespan(cycles, isDominantTrait, "apicurious.lifespan." + name);
   }
 
   // Pollination
-  private static Pollination pollination(float pollinationChance, String name)
+  private static Pollination pollination(float pollinationChance, boolean isDominantTrait, String name)
   {
-    return new Pollination(pollinationChance, "apicurious.pollination." + name);
+    return new Pollination(pollinationChance, isDominantTrait, "apicurious.pollination." + name);
   }
 
   // Speed
-  private static Speed speed(float productionModifier, String name)
+  private static Speed speed(float productionModifier, boolean isDominantTrait, String name)
   {
-    return new Speed(productionModifier, "apicurious.speed." + name);
+    return new Speed(productionModifier, isDominantTrait, "apicurious.speed." + name);
   }
 
   // Temperature Preference / Tolerance
-  private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag, String name)
+  private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
-    return new TemperaturePreference(temperature, groupTag, "apicurious.preference.temperature." + name);
+    return new TemperaturePreference(temperature, groupTag, isDominantTrait, "apicurious.preference.temperature." + name);
   }
 
-  private static TemperatureTolerance temperatureTolerance(int toleranceModifier, String name)
+  private static TemperatureTolerance temperatureTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
-    return new TemperatureTolerance(toleranceModifier, "apicurious.tolerance.temperature." + name);
+    return new TemperatureTolerance(toleranceModifier, isDominantTrait, "apicurious.tolerance.temperature." + name);
   }
 
   // WorkCycle
-  private static WorkCycle workcycle(List<WorkCycle.Interval> activeTimes, String name)
+  private static WorkCycle workcycle(List<WorkCycle.Interval> activeTimes, boolean isDominantTrait, String name)
   {
-    return new WorkCycle(activeTimes, "apicurious.workcycle." + name);
+    return new WorkCycle(activeTimes, isDominantTrait, "apicurious.workcycle." + name);
   }
 
 }

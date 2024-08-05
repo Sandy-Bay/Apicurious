@@ -35,6 +35,7 @@ public class HumidityPreference implements ITrait<HumidityPreference>
           instance -> instance.group(
                   Codec.INT.fieldOf("humidity").forGetter(HumidityPreference::getHumidity),
                   TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(HumidityPreference::getGroupTag),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityPreference::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(HumidityPreference::getName)
           ).apply(instance, HumidityPreference::new)
   );
@@ -42,19 +43,22 @@ public class HumidityPreference implements ITrait<HumidityPreference>
   public static final StreamCodec<ByteBuf, HumidityPreference> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, HumidityPreference::getHumidity,
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), HumidityPreference::getGroupTag,
+          ByteBufCodecs.BOOL, HumidityPreference::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, HumidityPreference::getName,
           HumidityPreference::new
   );
 
   private final int humidity;
   private final TagKey<Biome> groupTag;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public HumidityPreference(int humidity, TagKey<Biome> groupTag, String name)
+  public HumidityPreference(int humidity, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
     this.humidity = humidity;
     this.groupTag = groupTag;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
@@ -66,6 +70,12 @@ public class HumidityPreference implements ITrait<HumidityPreference>
   private TagKey<Biome> getGroupTag()
   {
     return groupTag;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

@@ -28,28 +28,38 @@ public class Flowers implements ITrait<Flowers>
   public static final Codec<Flowers> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   TagKey.codec(Registries.BLOCK).fieldOf("flowers").forGetter(Flowers::getFlowers),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Flowers::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(Flowers::getName)
           ).apply(instance, Flowers::new)
   );
   public static final StreamCodec<ByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)), Flowers::getFlowers,
+          ByteBufCodecs.BOOL, Flowers::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Flowers::getName,
           Flowers::new
   );
 
   private final TagKey<Block> flowers;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public Flowers(TagKey<Block> flowers, String name)
+  public Flowers(TagKey<Block> flowers, boolean isDominantTrait, String name)
   {
     this.flowers = flowers;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public TagKey<Block> getFlowers()
   {
     return flowers;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()
@@ -70,7 +80,7 @@ public class Flowers implements ITrait<Flowers>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Flowers flowers = (Flowers) o;
-    return Objects.equals(flowers, flowers1.flowers) && Objects.equals(name, flowers1.name) && Objects.equals(readableName, flowers1.readableName);
+    return Objects.equals(this.flowers, flowers.flowers) && isDominantTrait == flowers.isDominantTrait && Objects.equals(name, flowers.name);
   }
 
   @Override

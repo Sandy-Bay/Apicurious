@@ -17,4 +17,6 @@ public interface ITrait<T extends ITrait<T>>
   Codec<T> getCodec();
 
   StreamCodec<ByteBuf, T> getStreamCodec();
+
+  boolean isDominantTrait();
 }

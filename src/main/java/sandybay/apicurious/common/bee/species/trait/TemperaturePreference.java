@@ -34,25 +34,29 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
           instance -> instance.group(
                   Codec.INT.fieldOf("temperature").forGetter(TemperaturePreference::getTemperature),
                   TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(TemperaturePreference::getGroupTag),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperaturePreference::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(TemperaturePreference::getName)
           ).apply(instance, TemperaturePreference::new)
   );
   public static final StreamCodec<ByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, TemperaturePreference::getTemperature,
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), TemperaturePreference::getGroupTag,
+          ByteBufCodecs.BOOL, TemperaturePreference::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, TemperaturePreference::getName,
           TemperaturePreference::new
   );
 
   private final int temperature;
   private final TagKey<Biome> groupTag;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public TemperaturePreference(int temperature, TagKey<Biome> groupTag, String name)
+  public TemperaturePreference(int temperature, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
     this.temperature = temperature;
     this.groupTag = groupTag;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
@@ -64,6 +68,12 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
   private TagKey<Biome> getGroupTag()
   {
     return groupTag;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

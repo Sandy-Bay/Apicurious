@@ -29,28 +29,38 @@ public class Pollination implements ITrait<Pollination>
   public static final Codec<Pollination> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.FLOAT.fieldOf("pollinationChance").forGetter(Pollination::getPollinationChance),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Pollination::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(Pollination::getName)
           ).apply(instance, Pollination::new)
   );
   public static final StreamCodec<ByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.FLOAT, Pollination::getPollinationChance,
+          ByteBufCodecs.BOOL, Pollination::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Pollination::getName,
           Pollination::new
   );
 
   private final float pollinationChance;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public Pollination(float pollinationChance, String name)
+  public Pollination(float pollinationChance, boolean isDominantTrait, String name)
   {
     this.pollinationChance = pollinationChance;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public float getPollinationChance()
   {
     return pollinationChance;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

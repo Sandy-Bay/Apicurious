@@ -9,9 +9,9 @@ public interface IAllele<T extends ITrait<T>>
 
   ResourceLocation getTraitKey();
 
-  void setTrait(Holder<ITrait<T>> key);
+  void setTrait(Holder<T> key);
 
-  Holder<ITrait<T>> getTrait();
+  T getTrait();
 
   boolean isDominantTrait();
 

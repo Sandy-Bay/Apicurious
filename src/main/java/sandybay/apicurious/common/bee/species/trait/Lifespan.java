@@ -31,28 +31,38 @@ public class Lifespan implements ITrait<Lifespan>
   public static final Codec<Lifespan> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.INT.fieldOf("cycles").forGetter(Lifespan::getCycles),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Lifespan::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(Lifespan::getName)
           ).apply(instance, Lifespan::new)
   );
   public static final StreamCodec<ByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, Lifespan::getCycles,
+          ByteBufCodecs.BOOL, Lifespan::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Lifespan::getName,
           Lifespan::new
   );
 
   private final int cycles;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public Lifespan(int cycles, String name)
+  public Lifespan(int cycles, boolean isDominantTrait, String name)
   {
     this.cycles = cycles;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public int getCycles()
   {
     return cycles;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

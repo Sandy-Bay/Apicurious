@@ -29,29 +29,39 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
   public static final Codec<TemperatureTolerance> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperatureTolerance::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(TemperatureTolerance::getName)
           ).apply(instance, TemperatureTolerance::new)
   );
 
   public static final StreamCodec<ByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, TemperatureTolerance::getToleranceModifier,
+          ByteBufCodecs.BOOL, TemperatureTolerance::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, TemperatureTolerance::getName,
           TemperatureTolerance::new
   );
 
   private final int toleranceModifier;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public TemperatureTolerance(int toleranceModifier, String name)
+  public TemperatureTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
     this.toleranceModifier = toleranceModifier;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public int getToleranceModifier()
   {
     return toleranceModifier;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

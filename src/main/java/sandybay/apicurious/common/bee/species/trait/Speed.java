@@ -34,28 +34,38 @@ public class Speed implements ITrait<Speed>
   public static final Codec<Speed> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.FLOAT.fieldOf("productionModifier").forGetter(Speed::getProductionModifier),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Speed::isDominantTrait),
                   Codec.STRING.fieldOf("name").forGetter(Speed::getName)
           ).apply(instance, Speed::new)
   );
   public static final StreamCodec<ByteBuf, Speed> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.FLOAT, Speed::getProductionModifier,
+          ByteBufCodecs.BOOL, Speed::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, Speed::getName,
           Speed::new
   );
 
   private final float productionModifier;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public Speed(float productionModifier, String name)
+  public Speed(float productionModifier, boolean isDominantTrait, String name)
   {
     this.productionModifier = productionModifier;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public float getProductionModifier()
   {
     return productionModifier;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()

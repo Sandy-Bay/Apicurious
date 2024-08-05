@@ -28,29 +28,39 @@ public class HumidityTolerance implements ITrait<HumidityTolerance>
   public static final Codec<HumidityTolerance> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait),
                   Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)
           ).apply(instance, HumidityTolerance::new)
   );
 
   public static final StreamCodec<ByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier,
+          ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait,
           ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName,
           HumidityTolerance::new
   );
 
   private final int toleranceModifier;
+  private final boolean isDominantTrait;
   private final String name;
   private Component readableName;
 
-  public HumidityTolerance(int toleranceModifier, String name)
+  public HumidityTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
     this.toleranceModifier = toleranceModifier;
+    this.isDominantTrait = isDominantTrait;
     this.name = name;
   }
 
   public int getToleranceModifier()
   {
     return toleranceModifier;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return isDominantTrait;
   }
 
   private String getName()
