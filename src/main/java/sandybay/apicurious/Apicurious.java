@@ -12,6 +12,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
@@ -21,6 +22,7 @@ import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
@@ -44,6 +46,8 @@ public class Apicurious
   public Apicurious(IEventBus bus, ModContainer modContainer)
   {
     // Register the commonSetup method for modloading
+    ApicuriousMainConfig.init();
+    modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue());
     bus.addListener(this::commonSetup);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
     ApicuriousBlockRegistration.register(bus);

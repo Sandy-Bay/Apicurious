@@ -27,6 +27,7 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.network.packets.GuiDataPacket;
@@ -133,7 +134,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             getInventory().setStackInSlot(0, queen);
             changeActiveState(state, true);
             this.maxWork = 0;
-            Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName().getString(), species.getReadableName().getString()));
+            if (ApicuriousMainConfig.main_config.debug.get()) Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName().getString(), species.getReadableName().getString()));
           }
         }
       } else
@@ -213,7 +214,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (Math.abs(this.currentWork - this.maxWork) % getModifiedOutputDuration() == 0)
     {
-      Apicurious.LOGGER.info(String.valueOf(getModifiedOutputDuration()));
+      if (ApicuriousMainConfig.main_config.debug.get()) Apicurious.LOGGER.info(String.valueOf(getModifiedOutputDuration()));
       List<ItemStack> outputs = species.getOutputData().getOutputs();
       for (ItemStack output : outputs)
       {
