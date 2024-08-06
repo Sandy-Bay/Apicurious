@@ -45,36 +45,24 @@ public class Genome implements IGenome
   }
 
   @Override
-  public void getGenomeFromSpecies(BeeSpecies species)
+  public void getDefaultGenome(BeeSpecies species)
   {
     this.genome.put(species.getTraitKey(), AllelePair.of(species, species));
-    this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(), AllelePair.of(species.getProductionData().getArea()));
-    this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(), AllelePair.of(species.getProductionData().getFertility()));
-    this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getFlowers()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getHumidityData().preference()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getHumidityData().tolerance()));
-    this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(), AllelePair.of(species.getProductionData().getLifespan()));
-    this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(), AllelePair.of(species.getProductionData().getPollination()));
-    this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(), AllelePair.of(species.getProductionData().getSpeed()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getTemperatureData().preference()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getTemperatureData().tolerance()));
-    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(), AllelePair.of(species.getProductionData().getWorkCycle()));
+    this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(), AllelePair.defaultOf(species.getProductionData().getArea()));
+    this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(), AllelePair.defaultOf(species.getProductionData().getFertility()));
+    this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(), AllelePair.defaultOf(species.getEnvironmentalData().getFlowers()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(), AllelePair.defaultOf(species.getEnvironmentalData().getHumidityData().preference()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(), AllelePair.defaultOf(species.getEnvironmentalData().getHumidityData().tolerance()));
+    this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(), AllelePair.defaultOf(species.getProductionData().getLifespan()));
+    this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(), AllelePair.defaultOf(species.getProductionData().getPollination()));
+    this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(), AllelePair.defaultOf(species.getProductionData().getSpeed()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), AllelePair.defaultOf(species.getEnvironmentalData().getTemperatureData().preference()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(), AllelePair.defaultOf(species.getEnvironmentalData().getTemperatureData().tolerance()));
+    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(), AllelePair.defaultOf(species.getProductionData().getWorkCycle()));
   }
 
   public record AllelePair<T extends IAllele<T>>(IAllele<T> active, IAllele<T> inactive)
-    {
-      /*
-      private static final Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
-              .byNameCodec()
-              .dispatch("trait", IAllele::getTraitKey, AlleleType::codec);
-
-      public static MapCodec<AllelePair<?>> CODEC = RecordCodecBuilder.create(instance ->
-              instance.group(
-                      TYPED_CODEC.fieldOf("active").forGetter(AllelePair::getActive),
-                      TYPED_CODEC.fieldOf("inactive").forGetter(AllelePair::getInactive)
-              ).apply(instance, AllelePair::new)
-      );
-      */
+  {
 
       public Component getRenderableName()
       {
@@ -87,7 +75,7 @@ public class Genome implements IGenome
                 .append(this.inactive.getReadableName());
       }
 
-      public static <T extends IAllele<T>> AllelePair<T> of(Holder<T> trait)
+      public static <T extends IAllele<T>> AllelePair<T> defaultOf(Holder<T> trait)
       {
         return new AllelePair<>(trait.value(), trait.value());
       }

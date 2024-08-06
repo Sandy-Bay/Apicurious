@@ -158,7 +158,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   public IGenome getSpeciesDefaultGenome()
   {
     Genome genome = new Genome();
-    genome.getGenomeFromSpecies(this);
+    genome.getDefaultGenome(this);
     return genome;
   }
 

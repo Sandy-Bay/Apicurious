@@ -11,7 +11,8 @@ public interface IAllele<T extends IAllele<T>>
 {
   Codec<?> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
           .byNameCodec()
-          .dispatch("codec", IAllele::getTraitKey, AlleleType::codec);
+          .dispatch("type", IAllele::getTraitKey, AlleleType::codec);
+
 
 
   AlleleType<T> getTraitKey();
