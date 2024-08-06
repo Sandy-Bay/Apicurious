@@ -16,11 +16,7 @@ import java.util.Map;
 
 public class Genome implements IGenome
 {
-  public static Codec<Genome> CODEC = RecordCodecBuilder.create(instance ->
-          instance.group(
-                  Codec.compoundList(ResourceLocation.CODEC, Allele.CODEC)
-          )
-  )
+  public static Codec<Genome> CODEC;
 
   private final Map<ResourceLocation, IAllele<?>> genome;
 

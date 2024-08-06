@@ -1,6 +1,7 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,6 +12,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.TraitType;
+import sandybay.apicurious.api.register.ApicuriousTraitTypeRegistry;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 
@@ -26,7 +29,8 @@ public class Area implements ITrait<Area>
   public static final ResourceKey<Area> LARGER = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("larger"));
   public static final ResourceKey<Area> LARGEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("largest"));
 
-  public static final Codec<Area> CODEC = RecordCodecBuilder.create(
+
+  public static final MapCodec<Area> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.INT.fieldOf("xzOffset").forGetter(Area::getXZOffset),
                   Codec.INT.fieldOf("yOffset").forGetter(Area::getYOffset),
@@ -101,7 +105,7 @@ public class Area implements ITrait<Area>
   }
 
   @Override
-  public Codec<Area> getCodec()
+  public MapCodec<Area> getCodec()
   {
     return CODEC;
   }
@@ -113,8 +117,8 @@ public class Area implements ITrait<Area>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public TraitType getTraitKey()
   {
-    return ApicuriousConstants.AREA;
+    return ApicuriousTraitTypeRegistry.AREA_TYPE.get();
   }
 }

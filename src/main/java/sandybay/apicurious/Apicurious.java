@@ -64,6 +64,7 @@ public class Apicurious
     ApicuriousMainConfig.init();
     modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue());
     bus.addListener(this::commonSetup);
+    bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
     ApicuriousBlockRegistration.register(bus);
     ApicuriousItemRegistration.register(bus);

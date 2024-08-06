@@ -1,30 +1,20 @@
 package sandybay.apicurious.common.bee.genetic;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.RegistryFileCodec;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Cod;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.TraitType;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class Allele<T extends ITrait<T>> implements IAllele<T>
 {
-  /*
-  public static final Codec<Allele<?>> CODEC = RecordCodecBuilder.create(instance ->
-    instance.group(
 
-
-
-    ).apply(instance, Allele::new)
-  );
-  */
 
   // TODO: Figure out how this would even work.... I hate this already
 
-  private final ResourceLocation typeKey;
+  private final TraitType typeKey;
   private final boolean isDominantTrait;
   private T trait;
 
@@ -36,7 +26,7 @@ public class Allele<T extends ITrait<T>> implements IAllele<T>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public TraitType getTraitKey()
   {
     return this.typeKey;
   }
