@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
-public class ApicuriousDataComponentRegistration
+public class DataComponentRegistration
 {
 
   public static final DeferredRegister.DataComponents REGISTRAR = DeferredRegister.createDataComponents(Apicurious.MODID);
@@ -16,7 +16,7 @@ public class ApicuriousDataComponentRegistration
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<BeeSpecies>> BEE_SPECIES = REGISTRAR.registerComponentType(
           "bee_species",
           builder -> builder
-                  .persistent(BeeSpecies.CODEC)
+                  .persistent(BeeSpecies.CODEC.codec())
                   .networkSynchronized(BeeSpecies.NETWORK_CODEC)
   );
 

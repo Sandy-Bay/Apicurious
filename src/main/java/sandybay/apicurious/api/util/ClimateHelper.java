@@ -9,7 +9,7 @@ import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.HumidityPreference;
 import sandybay.apicurious.common.bee.species.trait.HumidityTolerance;
@@ -37,7 +37,7 @@ public class ClimateHelper
 
   public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
   {
-    BeeSpecies species = bee.get(ApicuriousDataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
+    BeeSpecies species = bee.get(DataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
     if (species == null) return false;
     Holder<TemperaturePreference> preferenceHolder = species.getEnvironmentalData().getTemperatureData().preference();
     Holder<TemperatureTolerance> toleranceHolder = species.getEnvironmentalData().getTemperatureData().tolerance();
@@ -48,7 +48,7 @@ public class ClimateHelper
 
   public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
   {
-    BeeSpecies species = bee.get(ApicuriousDataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
+    BeeSpecies species = bee.get(DataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
     if (species == null) return false;
     Holder<HumidityPreference> preferenceHolder = species.getEnvironmentalData().getHumidityData().preference();
     Holder<HumidityTolerance> toleranceHolder = species.getEnvironmentalData().getHumidityData().tolerance();

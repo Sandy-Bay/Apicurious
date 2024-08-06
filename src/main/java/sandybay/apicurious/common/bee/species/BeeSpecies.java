@@ -1,18 +1,18 @@
 package sandybay.apicurious.common.bee.species;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.api.bee.IBeeSpecies;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.bee.genetic.IGenome;
-import sandybay.apicurious.api.bee.genetic.ITrait;
-import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
@@ -23,10 +23,10 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 // TODO: Implement custom effect system, not just potion effects.
-public class BeeSpecies implements IBeeSpecies, ITrait<BeeSpecies>
+public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 {
 
-  public static final Codec<BeeSpecies> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName),
                   VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
@@ -105,9 +105,9 @@ public class BeeSpecies implements IBeeSpecies, ITrait<BeeSpecies>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<BeeSpecies> getTraitKey()
   {
-    return ApicuriousConstants.SPECIES;
+    return AlleleTypeRegistration.SPECIES_TYPE.get();
   }
 
   @Override
@@ -118,7 +118,7 @@ public class BeeSpecies implements IBeeSpecies, ITrait<BeeSpecies>
   }
 
   @Override
-  public Codec<BeeSpecies> getCodec()
+  public MapCodec<BeeSpecies> getCodec()
   {
     return CODEC;
   }

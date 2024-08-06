@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -13,18 +12,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.client.BeeItemRenderer;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Implement the following:
@@ -41,13 +37,13 @@ public class BaseBeeItem extends Item implements IBeeItem
 
   public BaseBeeItem(Properties properties, EnumBeeType beeType)
   {
-    super(properties.component(ApicuriousDataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
+    super(properties.component(DataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
     this.beeType = beeType;
   }
 
   public static BeeSpecies getSpecies(ItemStack stack)
   {
-    return stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    return stack.get(DataComponentRegistration.BEE_SPECIES);
   }
 
   //This should be in the API so other mods can access it if needed
@@ -59,7 +55,7 @@ public class BaseBeeItem extends Item implements IBeeItem
       serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
       {
         BeeSpecies species = registry.get(speciesKey);
-        bee.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+        bee.set(DataComponentRegistration.BEE_SPECIES, species);
       });
     } else if (level instanceof ClientLevel || level == null)
     {
@@ -69,7 +65,7 @@ public class BaseBeeItem extends Item implements IBeeItem
         connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
         {
           BeeSpecies species = registry.get(speciesKey);
-          bee.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+          bee.set(DataComponentRegistration.BEE_SPECIES, species);
         });
       }
     }
@@ -85,7 +81,7 @@ public class BaseBeeItem extends Item implements IBeeItem
   @Override
   public @NotNull Component getName(ItemStack stack)
   {
-    BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null) return Component.literal("ERROR");
     return species.getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
   }
@@ -93,7 +89,7 @@ public class BaseBeeItem extends Item implements IBeeItem
   @Override
   public boolean isFoil(ItemStack stack)
   {
-    BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null) return false;
     return species.getVisualData().hasEffect();
   }

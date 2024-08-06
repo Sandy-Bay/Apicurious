@@ -129,5 +129,7 @@
   "item.apicurious.soul_frame": "Soul Frame",
   "item.apicurious.untreated_frame": "Untreated Frame",
   "itemGroup.apicurious.bee": "Apicurious: Bee",
-  "itemGroup.apicurious.general": "Apicurious"
+  "itemGroup.apicurious.general": "Apicurious",
+  "apicurious.genetics.active": "Active",
+  "apicurious.genetics.inactive": "Inactive"
 }

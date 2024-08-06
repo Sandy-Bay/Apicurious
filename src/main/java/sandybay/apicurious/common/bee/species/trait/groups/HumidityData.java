@@ -17,8 +17,8 @@ public record HumidityData(Holder<HumidityPreference> preference, Holder<Humidit
 {
   public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, HumidityPreference.CODEC).fieldOf("preference").forGetter(HumidityData::preference),
-                  RegistryFileCodec.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, HumidityTolerance.CODEC).fieldOf("tolerance").forGetter(HumidityData::tolerance)
+                  RegistryFileCodec.create(ApicuriousRegistries.HUMIDITY_PREFERENCES, HumidityPreference.CODEC.codec()).fieldOf("preference").forGetter(HumidityData::preference),
+                  RegistryFileCodec.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, HumidityTolerance.CODEC.codec()).fieldOf("tolerance").forGetter(HumidityData::tolerance)
           ).apply(instance, HumidityData::new)
   );
 

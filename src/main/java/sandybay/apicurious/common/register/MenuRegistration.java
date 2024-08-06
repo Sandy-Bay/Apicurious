@@ -14,7 +14,7 @@ import sandybay.apicurious.common.menu.BeeHousingMenu;
 
 import java.util.function.Supplier;
 
-public class ApicuriousMenuRegistration
+public class MenuRegistration
 {
 
   private static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, Apicurious.MODID);

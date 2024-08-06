@@ -16,7 +16,7 @@ import sandybay.apicurious.common.item.frame.RestraintFrame;
 
 import java.util.function.Function;
 
-public class ApicuriousItemRegistration
+public class ItemRegistration
 {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);

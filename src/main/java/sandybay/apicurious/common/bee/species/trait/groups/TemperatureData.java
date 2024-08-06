@@ -17,8 +17,8 @@ public record TemperatureData(Holder<TemperaturePreference> preference, Holder<T
 {
   public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, TemperaturePreference.CODEC).fieldOf("preference").forGetter(TemperatureData::preference),
-                  RegistryFileCodec.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, TemperatureTolerance.CODEC).fieldOf("tolerance").forGetter(TemperatureData::tolerance)
+                  RegistryFileCodec.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, TemperaturePreference.CODEC.codec()).fieldOf("preference").forGetter(TemperatureData::preference),
+                  RegistryFileCodec.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, TemperatureTolerance.CODEC.codec()).fieldOf("tolerance").forGetter(TemperatureData::tolerance)
           ).apply(instance, TemperatureData::new)
   );
 

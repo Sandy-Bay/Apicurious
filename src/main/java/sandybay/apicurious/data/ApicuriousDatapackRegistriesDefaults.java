@@ -126,11 +126,11 @@ public class ApicuriousDatapackRegistriesDefaults
 
     builder.add(ApicuriousRegistries.WORKCYCLES, bootstrap ->
     {
-      bootstrap.register(WorkCycle.MATUTINAL, workcycle(List.of(new WorkCycle.Interval(4000, 10000)), true,"matutinal"));
-      bootstrap.register(WorkCycle.DIURNAL, workcycle(List.of(new WorkCycle.Interval(6000, 18000)), true,"diurnal"));
-      bootstrap.register(WorkCycle.VESPERTINAL, workcycle(List.of(new WorkCycle.Interval(14000, 20000)), true,"vespertinal"));
-      bootstrap.register(WorkCycle.NOCTURNAL, workcycle(List.of(new WorkCycle.Interval(18000, 24000), new WorkCycle.Interval(0, 6000)), true,"nocturnal"));
-      bootstrap.register(WorkCycle.ALWAYS, workcycle(List.of(new WorkCycle.Interval(0, 24000)), false,"always"));
+      bootstrap.register(Workcycle.MATUTINAL, workcycle(List.of(new Workcycle.Interval(4000, 10000)), true,"matutinal"));
+      bootstrap.register(Workcycle.DIURNAL, workcycle(List.of(new Workcycle.Interval(6000, 18000)), true,"diurnal"));
+      bootstrap.register(Workcycle.VESPERTINAL, workcycle(List.of(new Workcycle.Interval(14000, 20000)), true,"vespertinal"));
+      bootstrap.register(Workcycle.NOCTURNAL, workcycle(List.of(new Workcycle.Interval(18000, 24000), new Workcycle.Interval(0, 6000)), true,"nocturnal"));
+      bootstrap.register(Workcycle.ALWAYS, workcycle(List.of(new Workcycle.Interval(0, 24000)), false,"always"));
     });
 
     builder.add(ApicuriousRegistries.BEE_SPECIES, bootstrap ->
@@ -242,10 +242,10 @@ public class ApicuriousDatapackRegistriesDefaults
     return new TemperatureTolerance(toleranceModifier, isDominantTrait, "apicurious.tolerance.temperature." + name);
   }
 
-  // WorkCycle
-  private static WorkCycle workcycle(List<WorkCycle.Interval> activeTimes, boolean isDominantTrait, String name)
+  // Workcycle
+  private static Workcycle workcycle(List<Workcycle.Interval> activeTimes, boolean isDominantTrait, String name)
   {
-    return new WorkCycle(activeTimes, isDominantTrait, "apicurious.workcycle." + name);
+    return new Workcycle(activeTimes, isDominantTrait, "apicurious.workcycle." + name);
   }
 
 }

@@ -1,28 +1,28 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.api.util.ApicuriousTags;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TemperaturePreference implements ITrait<TemperaturePreference>
+public class TemperaturePreference implements IAllele<TemperaturePreference>
 {
 
   public static final ResourceKey<TemperaturePreference> HELLISH = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("hellish"));
@@ -31,7 +31,7 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
   public static final ResourceKey<TemperaturePreference> COLD = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("cold"));
   public static final ResourceKey<TemperaturePreference> ICY = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_PREFERENCES, Apicurious.createResourceLocation("icy"));
 
-  public static final Codec<TemperaturePreference> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<TemperaturePreference> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.INT.fieldOf("temperature").forGetter(TemperaturePreference::getTemperature),
                   TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(TemperaturePreference::getGroupTag),
@@ -104,7 +104,7 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
   }
 
   @Override
-  public Codec<TemperaturePreference> getCodec()
+  public MapCodec<TemperaturePreference> getCodec()
   {
     return CODEC;
   }
@@ -147,8 +147,8 @@ public class TemperaturePreference implements ITrait<TemperaturePreference>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<TemperaturePreference> getTraitKey()
   {
-    return ApicuriousConstants.TEMPERATURE_PREFERENCE;
+    return AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get();
   }
 }

@@ -20,7 +20,7 @@ public class EnvironmentalData
 
   public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.FLOWERS, Flowers.CODEC).fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
+                  RegistryFileCodec.create(ApicuriousRegistries.FLOWERS, Flowers.CODEC.codec()).fieldOf("flowers").forGetter(EnvironmentalData::getFlowers),
                   HumidityData.CODEC.fieldOf("humidityData").forGetter(EnvironmentalData::getHumidityData),
                   TemperatureData.CODEC.fieldOf("temperatureData").forGetter(EnvironmentalData::getTemperatureData),
                   Codec.BOOL.fieldOf("ignoresRain").forGetter(EnvironmentalData::ignoresRain),

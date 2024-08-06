@@ -1,6 +1,7 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -8,62 +9,61 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class WorkCycle implements ITrait<WorkCycle>
+public class Workcycle implements IAllele<Workcycle>
 {
 
   /**
    * Matutinal (Dawn Time)
    * Bees will only produce between 4000 and 10000 time-wise.
    */
-  public static final ResourceKey<WorkCycle> MATUTINAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("matutinal"));
+  public static final ResourceKey<Workcycle> MATUTINAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("matutinal"));
 
   /**
    * Diurnal (Day Time)
    * Bees will only produce between 6000 and 18000 time-wise.
    */
-  public static final ResourceKey<WorkCycle> DIURNAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("diurnal"));
+  public static final ResourceKey<Workcycle> DIURNAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("diurnal"));
 
   /**
    * Vespertinal (Evening Time)
    * Bees will only produce between 14000 and 20000 time-wise.
    */
-  public static final ResourceKey<WorkCycle> VESPERTINAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("vespertinal"));
+  public static final ResourceKey<Workcycle> VESPERTINAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("vespertinal"));
 
   /**
    * Nocturnal (Night Time)
    * Bees will only produce between 18000 and 6000 time-wise.
    */
-  public static final ResourceKey<WorkCycle> NOCTURNAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("nocturnal"));
+  public static final ResourceKey<Workcycle> NOCTURNAL = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("nocturnal"));
 
   /**
    * Always active work cycle.
    * Bees will always produce an output.
    */
-  public static final ResourceKey<WorkCycle> ALWAYS = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("always"));
+  public static final ResourceKey<Workcycle> ALWAYS = ResourceKey.create(ApicuriousRegistries.WORKCYCLES, Apicurious.createResourceLocation("always"));
 
-  public static final Codec<WorkCycle> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<Workcycle> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
-                          Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(WorkCycle::getActiveTimes),
-                          Codec.BOOL.fieldOf("isDominantTrait").forGetter(WorkCycle::isDominantTrait),
-                          Codec.STRING.fieldOf("name").forGetter(WorkCycle::getName)
-                  )
-                  .apply(instance, WorkCycle::new)
+                          Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes),
+                          Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait),
+                          Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)
+                  ).apply(instance, Workcycle::new)
   );
-  public static final StreamCodec<RegistryFriendlyByteBuf, WorkCycle> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), WorkCycle::getActiveTimes,
-          ByteBufCodecs.BOOL, WorkCycle::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, WorkCycle::getName,
-          WorkCycle::new
+  public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes,
+          ByteBufCodecs.BOOL, Workcycle::isDominantTrait,
+          ByteBufCodecs.STRING_UTF8, Workcycle::getName,
+          Workcycle::new
   );
 
   private final List<Interval> activeTimes;
@@ -71,7 +71,7 @@ public class WorkCycle implements ITrait<WorkCycle>
   private final String name;
   private Component readableName;
 
-  public WorkCycle(List<Interval> activeTimes, boolean isDominantTrait, String name)
+  public Workcycle(List<Interval> activeTimes, boolean isDominantTrait, String name)
   {
     this.activeTimes = activeTimes;
     this.isDominantTrait = isDominantTrait;
@@ -119,7 +119,7 @@ public class WorkCycle implements ITrait<WorkCycle>
   {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    WorkCycle workCycle = (WorkCycle) o;
+    Workcycle workCycle = (Workcycle) o;
     return Objects.equals(activeTimes, workCycle.activeTimes) && isDominantTrait == workCycle.isDominantTrait && Objects.equals(name, workCycle.name);
   }
 
@@ -130,21 +130,21 @@ public class WorkCycle implements ITrait<WorkCycle>
   }
 
   @Override
-  public Codec<WorkCycle> getCodec()
+  public MapCodec<Workcycle> getCodec()
   {
     return CODEC;
   }
 
   @Override
-  public StreamCodec<RegistryFriendlyByteBuf, WorkCycle> getStreamCodec()
+  public StreamCodec<RegistryFriendlyByteBuf, Workcycle> getStreamCodec()
   {
     return NETWORK_CODEC;
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<Workcycle> getTraitKey()
   {
-    return ApicuriousConstants.WORKCYCLE;
+    return AlleleTypeRegistration.WORKCYCLE_TYPE.get();
   }
 
   public static class Interval

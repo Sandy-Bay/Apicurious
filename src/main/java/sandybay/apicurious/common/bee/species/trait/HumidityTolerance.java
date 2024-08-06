@@ -1,22 +1,22 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
-public class HumidityTolerance implements ITrait<HumidityTolerance>
+public class HumidityTolerance implements IAllele<HumidityTolerance>
 {
 
   public static final ResourceKey<HumidityTolerance> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, Apicurious.createResourceLocation("none"));
@@ -26,7 +26,7 @@ public class HumidityTolerance implements ITrait<HumidityTolerance>
   public static final ResourceKey<HumidityTolerance> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, Apicurious.createResourceLocation("high"));
   public static final ResourceKey<HumidityTolerance> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.HUMIDITY_TOLERANCES, Apicurious.createResourceLocation("maximum"));
 
-  public static final Codec<HumidityTolerance> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier),
                   Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait),
@@ -91,7 +91,7 @@ public class HumidityTolerance implements ITrait<HumidityTolerance>
   }
 
   @Override
-  public Codec<HumidityTolerance> getCodec()
+  public MapCodec<HumidityTolerance> getCodec()
   {
     return CODEC;
   }
@@ -103,8 +103,8 @@ public class HumidityTolerance implements ITrait<HumidityTolerance>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<HumidityTolerance> getTraitKey()
   {
-    return ApicuriousConstants.HUMIDITY_TOLERANCE;
+    return AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get();
   }
 }

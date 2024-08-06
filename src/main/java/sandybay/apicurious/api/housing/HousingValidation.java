@@ -8,11 +8,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Flowers;
-import sandybay.apicurious.common.bee.species.trait.WorkCycle;
+import sandybay.apicurious.common.bee.species.trait.Workcycle;
 
 import java.util.Set;
 
@@ -55,8 +55,8 @@ public class HousingValidation
   private void validateFlowers(Level level, Set<BlockPos> territory)
   {
     boolean foundValid = false;
-    if (!key.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return;
-    BeeSpecies species = key.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    if (!key.has(DataComponentRegistration.BEE_SPECIES)) return;
+    BeeSpecies species = key.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null) return;
     Holder<Flowers> flowersHolder = species.getEnvironmentalData().getFlowers();
     if (!flowersHolder.isBound()) throw new IllegalArgumentException("BeeSpecies flowers were unbound! REPORT THIS!");
@@ -86,9 +86,9 @@ public class HousingValidation
 
   protected void validateTime(ItemStack queen, Level level)
   {
-    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null || level == null) return;
-    WorkCycle speciesCycle = species.getProductionData().getWorkCycle().value();
+    Workcycle speciesCycle = species.getProductionData().getWorkCycle().value();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
     if (!isValidCycle) errorHandler.addError(HousingError.INVALID_TIME);
     else errorHandler.removeError(HousingError.INVALID_TIME);
@@ -96,7 +96,7 @@ public class HousingValidation
 
   protected void validateSky(ItemStack queen, Level level, BlockPos pos)
   {
-    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null || level == null) return;
     boolean ignoresSky = species.getEnvironmentalData().ignoresSky();
     boolean canSeeSky = true;
@@ -110,7 +110,7 @@ public class HousingValidation
 
   protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
   {
-    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null || level == null) return;
     boolean ignoresRain = species.getEnvironmentalData().ignoresRain();
     boolean isClear = true;

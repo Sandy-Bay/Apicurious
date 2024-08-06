@@ -1,22 +1,22 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
-public class TemperatureTolerance implements ITrait<TemperatureTolerance>
+public class TemperatureTolerance implements IAllele<TemperatureTolerance>
 {
 
   public static final ResourceKey<TemperatureTolerance> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, Apicurious.createResourceLocation("none"));
@@ -27,7 +27,7 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
   public static final ResourceKey<TemperatureTolerance> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.TEMPERATURE_TOLERANCES, Apicurious.createResourceLocation("maximum"));
 
 
-  public static final Codec<TemperatureTolerance> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<TemperatureTolerance> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier),
                   Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperatureTolerance::isDominantTrait),
@@ -92,7 +92,7 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
   }
 
   @Override
-  public Codec<TemperatureTolerance> getCodec()
+  public MapCodec<TemperatureTolerance> getCodec()
   {
     return CODEC;
   }
@@ -104,8 +104,8 @@ public class TemperatureTolerance implements ITrait<TemperatureTolerance>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<TemperatureTolerance> getTraitKey()
   {
-    return ApicuriousConstants.TEMPERATURE_TOLERANCE;
+    return AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get();
   }
 }

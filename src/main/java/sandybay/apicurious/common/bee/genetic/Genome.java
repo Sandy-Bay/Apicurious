@@ -1,15 +1,13 @@
 package sandybay.apicurious.common.bee.genetic;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
-import sandybay.apicurious.api.bee.IBeeSpecies;
+import net.minecraft.network.chat.Component;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.bee.genetic.IGenome;
-import sandybay.apicurious.api.bee.genetic.ITrait;
-import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +16,7 @@ public class Genome implements IGenome
 {
   public static Codec<Genome> CODEC;
 
-  private final Map<ResourceLocation, IAllele<?>> genome;
+  private final Map<AlleleType<?>, AllelePair<?>> genome;
 
   public Genome()
   {
@@ -26,23 +24,18 @@ public class Genome implements IGenome
   }
 
   @Override
-  public Map<ResourceLocation, IAllele<?>> getGenomeMap()
+  public boolean setAllelePair(AllelePair<?> allelePair)
   {
-    return this.genome;
+    AllelePair<?> prev = this.genome.put(allelePair.active.getTraitKey(), allelePair);
+    return prev != null || prev != allelePair;
   }
 
   @Override
-  public boolean setAllele(IAllele<?> allele)
-  {
-    IAllele<?> prev = this.genome.put(allele.getTraitKey(), allele);
-    return prev == null || prev != allele;
-  }
-
-  @Override
-  public <T extends ITrait<T>> IAllele<?> getAllele(ResourceLocation traitKey)
+  public AllelePair<?> getAllelePair(AlleleType<?> traitKey)
   {
     return this.genome.get(traitKey);
   }
+
 
   @Override
   public IGenome combineGenomes(IGenome other)
@@ -52,19 +45,56 @@ public class Genome implements IGenome
   }
 
   @Override
-  public void getGenomeFromSpecies(IBeeSpecies species)
+  public void getGenomeFromSpecies(BeeSpecies species)
   {
-    this.genome.put(ApicuriousConstants.SPECIES, Allele.of(Holder.direct(species)));
-    this.genome.put(ApicuriousConstants.AREA, Allele.of(species.getProductionData().getArea()));
-    this.genome.put(ApicuriousConstants.FERTILITY, Allele.of(species.getProductionData().getFertility()));
-    this.genome.put(ApicuriousConstants.FLOWERS, Allele.of(species.getEnvironmentalData().getFlowers()));
-    this.genome.put(ApicuriousConstants.HUMIDITY_PREFERENCE, Allele.of(species.getEnvironmentalData().getHumidityData().preference()));
-    this.genome.put(ApicuriousConstants.HUMIDITY_TOLERANCE, Allele.of(species.getEnvironmentalData().getHumidityData().tolerance()));
-    this.genome.put(ApicuriousConstants.LIFESPAN, Allele.of(species.getProductionData().getLifespan()));
-    this.genome.put(ApicuriousConstants.POLLINATION, Allele.of(species.getProductionData().getPollination()));
-    this.genome.put(ApicuriousConstants.SPEED, Allele.of(species.getProductionData().getSpeed()));
-    this.genome.put(ApicuriousConstants.TEMPERATURE_PREFERENCE, Allele.of(species.getEnvironmentalData().getTemperatureData().preference()));
-    this.genome.put(ApicuriousConstants.TEMPERATURE_TOLERANCE, Allele.of(species.getEnvironmentalData().getTemperatureData().tolerance()));
-    this.genome.put(ApicuriousConstants.WORKCYCLE, Allele.of(species.getProductionData().getWorkCycle()));
+    this.genome.put(species.getTraitKey(), AllelePair.of(species, species));
+    this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(), AllelePair.of(species.getProductionData().getArea()));
+    this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(), AllelePair.of(species.getProductionData().getFertility()));
+    this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getFlowers()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getHumidityData().preference()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getHumidityData().tolerance()));
+    this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(), AllelePair.of(species.getProductionData().getLifespan()));
+    this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(), AllelePair.of(species.getProductionData().getPollination()));
+    this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(), AllelePair.of(species.getProductionData().getSpeed()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getTemperatureData().preference()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(), AllelePair.of(species.getEnvironmentalData().getTemperatureData().tolerance()));
+    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(), AllelePair.of(species.getProductionData().getWorkCycle()));
   }
+
+  public record AllelePair<T extends IAllele<T>>(IAllele<T> active, IAllele<T> inactive)
+    {
+      /*
+      private static final Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
+              .byNameCodec()
+              .dispatch("trait", IAllele::getTraitKey, AlleleType::codec);
+
+      public static MapCodec<AllelePair<?>> CODEC = RecordCodecBuilder.create(instance ->
+              instance.group(
+                      TYPED_CODEC.fieldOf("active").forGetter(AllelePair::getActive),
+                      TYPED_CODEC.fieldOf("inactive").forGetter(AllelePair::getInactive)
+              ).apply(instance, AllelePair::new)
+      );
+      */
+
+      public Component getRenderableName()
+      {
+        // Output Example:
+        // Active Allele: Average, Inactive Allele: Average
+        return Component.translatable("apicurious.genetics.active")
+                .append(this.active.getReadableName())
+                .append(Component.literal(", "))
+                .append(Component.translatable("apicurious.genetics.inactive"))
+                .append(this.inactive.getReadableName());
+      }
+
+      public static <T extends IAllele<T>> AllelePair<T> of(Holder<T> trait)
+      {
+        return new AllelePair<>(trait.value(), trait.value());
+      }
+
+      public static <T extends IAllele<T>> AllelePair<T> of(IAllele<T> active, IAllele<T> inactive)
+      {
+        return new AllelePair<>(active, inactive);
+      }
+    }
 }

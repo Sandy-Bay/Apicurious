@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Area;
 import sandybay.apicurious.common.bee.species.trait.Pollination;
@@ -41,8 +41,8 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
   public Set<BlockPos> getTerritory(ItemStack queen, BlockPos housingPosition, List<ItemStack> frames)
   {
     Set<BlockPos> territory = new HashSet<>();
-    if (!queen.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return territory; // TODO: Replace this with Genome
-    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES);   // TODO: Replace this with Genome
+    if (!queen.has(DataComponentRegistration.BEE_SPECIES)) return territory; // TODO: Replace this with Genome
+    BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES);   // TODO: Replace this with Genome
     if (species == null) return territory;
     Holder<Area> areaHolder = species.getProductionData().getArea();
     if (!areaHolder.isBound())
@@ -77,8 +77,8 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
 
   public boolean shouldPollinate(RandomSource random, ItemStack queen)
   {
-    if (!queen.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return false;   // TODO: Replace this with Genome
-    BeeSpecies species = queen.get(ApicuriousDataComponentRegistration.BEE_SPECIES); // TODO: Replace this with Genome
+    if (!queen.has(DataComponentRegistration.BEE_SPECIES)) return false;   // TODO: Replace this with Genome
+    BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES); // TODO: Replace this with Genome
     if (species == null) return false;
     Pollination pollination = species.getProductionData().getPollination().value();
     return random.nextFloat() > Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);

@@ -4,8 +4,8 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.BlockRegistration;
+import sandybay.apicurious.common.register.ItemRegistration;
 
 import java.util.Locale;
 
@@ -20,22 +20,22 @@ public class ApicuriousLangProvider extends LanguageProvider
   protected void addTranslations()
   {
     // Items
-    add(ApicuriousItemRegistration.DRONE.get(), "Drone");
-    add(ApicuriousItemRegistration.PRINCESS.get(), "Princess");
-    add(ApicuriousItemRegistration.QUEEN.get(), "Queen");
-    add(ApicuriousItemRegistration.SIEVE.get(), "Sieve");
+    add(ItemRegistration.DRONE.get(), "Drone");
+    add(ItemRegistration.PRINCESS.get(), "Princess");
+    add(ItemRegistration.QUEEN.get(), "Queen");
+    add(ItemRegistration.SIEVE.get(), "Sieve");
 
     // Housing
-    add(ApicuriousBlockRegistration.APIARY.asItem(), "Apiary");
-    add(ApicuriousBlockRegistration.BEE_HOUSING.asItem(), "Bee Housing");
+    add(BlockRegistration.APIARY.asItem(), "Apiary");
+    add(BlockRegistration.BEE_HOUSING.asItem(), "Bee Housing");
 
     // Frames
-    add(ApicuriousItemRegistration.UNTREATED_FRAME.get(), "Untreated Frame");
-    add(ApicuriousItemRegistration.IMPREGNATED_FRAME.get(), "Impregnated Frame");
-    add(ApicuriousItemRegistration.HEALING_FRAME.get(), "Healing Frame");
-    add(ApicuriousItemRegistration.SOUL_FRAME.get(), "Soul Frame");
-    add(ApicuriousItemRegistration.RESTRAINT_FRAME.get(), "Restraint Frame");
-    add(ApicuriousItemRegistration.PROVEN_FRAME.get(), "Proven Frame");
+    add(ItemRegistration.UNTREATED_FRAME.get(), "Untreated Frame");
+    add(ItemRegistration.IMPREGNATED_FRAME.get(), "Impregnated Frame");
+    add(ItemRegistration.HEALING_FRAME.get(), "Healing Frame");
+    add(ItemRegistration.SOUL_FRAME.get(), "Soul Frame");
+    add(ItemRegistration.RESTRAINT_FRAME.get(), "Restraint Frame");
+    add(ItemRegistration.PROVEN_FRAME.get(), "Proven Frame");
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
@@ -52,14 +52,14 @@ public class ApicuriousLangProvider extends LanguageProvider
   // Collection-methods
   public void addHives()
   {
-    add(ApicuriousBlockRegistration.FOREST_HIVE.asItem(), "Forest Hive");
-    add(ApicuriousBlockRegistration.MEADOW_HIVE.asItem(), "Meadow Hive");
-    add(ApicuriousBlockRegistration.TROPICAL_HIVE.asItem(), "Tropical Hive");
-    add(ApicuriousBlockRegistration.WINTRY_HIVE.asItem(), "Wintry Hive");
-    add(ApicuriousBlockRegistration.MARSHY_HIVE.asItem(), "Marshy Hive");
-    add(ApicuriousBlockRegistration.ROCKY_HIVE.asItem(), "Rocky Hive");
-    add(ApicuriousBlockRegistration.NETHER_HIVE.asItem(), "Nether Hive");
-    add(ApicuriousBlockRegistration.ENDER_HIVE.asItem(), "Ender Hive");
+    add(BlockRegistration.FOREST_HIVE.asItem(), "Forest Hive");
+    add(BlockRegistration.MEADOW_HIVE.asItem(), "Meadow Hive");
+    add(BlockRegistration.TROPICAL_HIVE.asItem(), "Tropical Hive");
+    add(BlockRegistration.WINTRY_HIVE.asItem(), "Wintry Hive");
+    add(BlockRegistration.MARSHY_HIVE.asItem(), "Marshy Hive");
+    add(BlockRegistration.ROCKY_HIVE.asItem(), "Rocky Hive");
+    add(BlockRegistration.NETHER_HIVE.asItem(), "Nether Hive");
+    add(BlockRegistration.ENDER_HIVE.asItem(), "Ender Hive");
   }
 
   public void addTabs()
@@ -156,7 +156,7 @@ public class ApicuriousLangProvider extends LanguageProvider
     temperatureTolerance("High");
     temperatureTolerance("Maximum");
 
-    /// WorkCycle
+    /// Workcycle
     workcycle("Always");
     workcycle("Diurnal");
     workcycle("Matutinal");

@@ -1,22 +1,22 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
-public class Fertility implements ITrait<Fertility>
+public class Fertility implements IAllele<Fertility>
 {
 
   public static final ResourceKey<Fertility> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("low"));
@@ -24,7 +24,7 @@ public class Fertility implements ITrait<Fertility>
   public static final ResourceKey<Fertility> HIGH_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("high"));
   public static final ResourceKey<Fertility> MAXIMUM_FERTILITY = ResourceKey.create(ApicuriousRegistries.FERTILITIES, Apicurious.createResourceLocation("maximum"));
 
-  public static final Codec<Fertility> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<Fertility> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring),
                   Codec.BOOL.fieldOf("isDominantTrait").forGetter(Fertility::isDominantTrait),
@@ -89,7 +89,7 @@ public class Fertility implements ITrait<Fertility>
   }
 
   @Override
-  public Codec<Fertility> getCodec()
+  public MapCodec<Fertility> getCodec()
   {
     return CODEC;
   }
@@ -101,8 +101,8 @@ public class Fertility implements ITrait<Fertility>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<Fertility> getTraitKey()
   {
-    return ApicuriousConstants.FERTILITY;
+    return AlleleTypeRegistration.FERTILITY_TYPE.get();
   }
 }

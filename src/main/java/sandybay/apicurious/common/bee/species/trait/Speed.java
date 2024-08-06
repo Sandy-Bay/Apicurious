@@ -1,18 +1,18 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
@@ -20,7 +20,7 @@ import java.util.Objects;
  * Speed is a trait inherited by Bees which alters the chance of a bee to produce output.
  * The faster the speed, the higher the chance of a bee creating a product per bee cycle update.
  */
-public class Speed implements ITrait<Speed>
+public class Speed implements IAllele<Speed>
 {
 
   public static final ResourceKey<Speed> SLOWEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("slowest"));
@@ -32,7 +32,7 @@ public class Speed implements ITrait<Speed>
   public static final ResourceKey<Speed> FASTEST = ResourceKey.create(ApicuriousRegistries.SPEEDS, Apicurious.createResourceLocation("fastest"));
 
 
-  public static final Codec<Speed> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<Speed> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.FLOAT.fieldOf("productionModifier").forGetter(Speed::getProductionModifier),
                   Codec.BOOL.fieldOf("isDominantTrait").forGetter(Speed::isDominantTrait),
@@ -96,7 +96,7 @@ public class Speed implements ITrait<Speed>
   }
 
   @Override
-  public Codec<Speed> getCodec()
+  public MapCodec<Speed> getCodec()
   {
     return CODEC;
   }
@@ -108,8 +108,8 @@ public class Speed implements ITrait<Speed>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<Speed> getTraitKey()
   {
-    return ApicuriousConstants.SPEED;
+    return AlleleTypeRegistration.SPEED_TYPE.get();
   }
 }

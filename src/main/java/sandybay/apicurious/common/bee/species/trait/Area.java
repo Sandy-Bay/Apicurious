@@ -3,23 +3,20 @@ package sandybay.apicurious.common.bee.species.trait;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
-import sandybay.apicurious.api.bee.genetic.TraitType;
-import sandybay.apicurious.api.register.ApicuriousTraitTypeRegistry;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
-public class Area implements ITrait<Area>
+public class Area implements IAllele<Area>
 {
   public static final ResourceKey<Area> SMALLEST = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smallest"));
   public static final ResourceKey<Area> SMALLER = ResourceKey.create(ApicuriousRegistries.AREAS, Apicurious.createResourceLocation("smaller"));
@@ -117,8 +114,8 @@ public class Area implements ITrait<Area>
   }
 
   @Override
-  public TraitType getTraitKey()
+  public AlleleType getTraitKey()
   {
-    return ApicuriousTraitTypeRegistry.AREA_TYPE.get();
+    return AlleleTypeRegistration.AREA_TYPE.get();
   }
 }

@@ -25,7 +25,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class ApicuriousBlockRegistration
+public class BlockRegistration
 {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
@@ -104,9 +104,9 @@ public class ApicuriousBlockRegistration
   }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
           "apiary",
           () -> new ApiaryBlock(HOUSING_PROPS),
-          ApicuriousBlockRegistration::getDefaultBlockItem,
+          BlockRegistration::getDefaultBlockItem,
           ApiaryHousingBE::new,
-          ApicuriousBlockRegistration::getDefaultType
+          BlockRegistration::getDefaultType
   );
 
   public record BlockHolderWithTile<BLOCK extends Block, ITEM extends BlockItem, TYPE extends BlockEntity>
@@ -140,9 +140,9 @@ public class ApicuriousBlockRegistration
   public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",
           () -> new BeeHousingBlock(HOUSING_PROPS),
-          ApicuriousBlockRegistration::getDefaultBlockItem,
+          BlockRegistration::getDefaultBlockItem,
           BeeHousingBE::new,
-          ApicuriousBlockRegistration::getDefaultType
+          BlockRegistration::getDefaultType
   );
 
 

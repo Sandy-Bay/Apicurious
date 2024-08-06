@@ -16,7 +16,7 @@ import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
@@ -127,7 +127,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = inventory.getStackInSlot(0).get(DataComponentRegistration.BEE_SPECIES);
     if (species == null) return 0;
     Holder<Speed> speedHolder = species.getProductionData().getSpeed();
     if (!speedHolder.isBound()) return 0;
@@ -146,7 +146,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedLifeSpan()
   {
-    BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+    BeeSpecies species = inventory.getStackInSlot(0).get(DataComponentRegistration.BEE_SPECIES);
     if (species == null) return 0;
     Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
     if (!lifespanHolder.isBound()) return 0;

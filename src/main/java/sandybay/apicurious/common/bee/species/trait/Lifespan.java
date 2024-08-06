@@ -1,22 +1,22 @@
 package sandybay.apicurious.common.bee.species.trait;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.ITrait;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 
 import java.util.Objects;
 
-public class Lifespan implements ITrait<Lifespan>
+public class Lifespan implements IAllele<Lifespan>
 {
 
   public static final ResourceKey<Lifespan> SHOREST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("shorest"));
@@ -29,7 +29,7 @@ public class Lifespan implements ITrait<Lifespan>
   public static final ResourceKey<Lifespan> LONGER = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("longer"));
   public static final ResourceKey<Lifespan> LONGEST = ResourceKey.create(ApicuriousRegistries.LIFESPANS, Apicurious.createResourceLocation("longest"));
 
-  public static final Codec<Lifespan> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<Lifespan> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.INT.fieldOf("cycles").forGetter(Lifespan::getCycles),
                   Codec.BOOL.fieldOf("isDominantTrait").forGetter(Lifespan::isDominantTrait),
@@ -93,7 +93,7 @@ public class Lifespan implements ITrait<Lifespan>
   }
 
   @Override
-  public Codec<Lifespan> getCodec()
+  public MapCodec<Lifespan> getCodec()
   {
     return CODEC;
   }
@@ -105,8 +105,8 @@ public class Lifespan implements ITrait<Lifespan>
   }
 
   @Override
-  public ResourceLocation getTraitKey()
+  public AlleleType<Lifespan> getTraitKey()
   {
-    return ApicuriousConstants.LIFESPAN;
+    return AlleleTypeRegistration.LIFESPAN_TYPE.get();
   }
 }

@@ -9,10 +9,10 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.data.ApicuriousLootItemFunctions;
+import sandybay.apicurious.data.LootItemFunctionRegistration;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
   @Override
   public LootItemFunctionType<? extends LootItemConditionalFunction> getType()
   {
-    return ApicuriousLootItemFunctions.SPECIES_FUNCTION.get();
+    return LootItemFunctionRegistration.SPECIES_FUNCTION.get();
   }
 
   @Override
@@ -50,7 +50,7 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
     context.getLevel().registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
     {
       BeeSpecies species = registry.get(speciesKey);
-      stack.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+      stack.set(DataComponentRegistration.BEE_SPECIES, species);
     });
     return stack;
   }

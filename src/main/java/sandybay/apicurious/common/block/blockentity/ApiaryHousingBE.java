@@ -22,7 +22,7 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.Fertility;
 import sandybay.apicurious.common.bee.species.trait.Lifespan;
@@ -31,8 +31,8 @@ import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.network.packets.GuiDataPacket;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousItemRegistration;
+import sandybay.apicurious.common.register.BlockRegistration;
+import sandybay.apicurious.common.register.ItemRegistration;
 
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +70,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
 
   public ApiaryHousingBE(BlockPos pos, BlockState blockState)
   {
-    super(ApicuriousBlockRegistration.APIARY.getType(), pos, blockState);
+    super(BlockRegistration.APIARY.getType(), pos, blockState);
   }
 
   /**
@@ -126,9 +126,9 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
           if (this.currentWork == 0)
           {
             ItemStack princess = getInventory().getStackInSlot(0);
-            BeeSpecies species = princess.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-            ItemStack queen = new ItemStack(ApicuriousItemRegistration.QUEEN);
-            queen.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+            BeeSpecies species = princess.get(DataComponentRegistration.BEE_SPECIES);
+            ItemStack queen = new ItemStack(ItemRegistration.QUEEN);
+            queen.set(DataComponentRegistration.BEE_SPECIES, species);
             getInventory().extractItem(0, 1, false);
             getInventory().extractItem(1, 1, false);
             getInventory().setStackInSlot(0, queen);
@@ -145,9 +145,9 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     {
       validate(level, pos, false);
       ItemStack stack = getInventory().getStackInSlot(0);
-      if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES))
+      if (stack.has(DataComponentRegistration.BEE_SPECIES))
       {
-        BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+        BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
         handleInitialRunData(species);
       }
       if (getErrorList().isEmpty())
@@ -156,9 +156,9 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
 
         if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
         {
-          if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES))
+          if (stack.has(DataComponentRegistration.BEE_SPECIES))
           {
-            BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+            BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
             if (species == null) return;
             handlePollination(level, (ApiaryBlock) level.getBlockState(pos).getBlock(), stack);
             // TODO: Implement effect occurrences here.
@@ -198,8 +198,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
                       level.getBlockState(filteredPos.above()).isAir() &&
                       level.random.nextFloat() > 0.85f, 2);
       List<BlockPos> found = this.territory.stream().filter(filter).toList();
-      if (!stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES)) return;
-      BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
+      if (!stack.has(DataComponentRegistration.BEE_SPECIES)) return;
+      BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
       if (species == null) return;
       Registry<Block> blockRegistry = level.registryAccess().registry(Registries.BLOCK).orElseThrow();
       for (BlockPos f : found)
@@ -254,11 +254,11 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   private void handleQueenLifecycleEnd(BeeSpecies species)
   {
     getInventory().extractItem(0, 1, false);
-    ItemStack princess = new ItemStack(ApicuriousItemRegistration.PRINCESS.get(), 1);
+    ItemStack princess = new ItemStack(ItemRegistration.PRINCESS.get(), 1);
     Fertility fertility = species.getProductionData().getFertility().value();
-    ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), fertility.getOffspring());
-    princess.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-    drones.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
+    ItemStack drones = new ItemStack(ItemRegistration.DRONE.get(), fertility.getOffspring());
+    princess.set(DataComponentRegistration.BEE_SPECIES, species);
+    drones.set(DataComponentRegistration.BEE_SPECIES, species);
     for (int i = 5; i < 12; i++)
     {
       if (getInventory().insertItem(i, princess, true) != princess)

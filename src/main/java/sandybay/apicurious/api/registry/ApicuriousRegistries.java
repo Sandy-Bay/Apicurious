@@ -6,7 +6,7 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.TraitType;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.species.trait.*;
 
@@ -14,8 +14,8 @@ public class ApicuriousRegistries
 {
 
   // Trait Registries
-  public static final ResourceKey<Registry<TraitType>> TRAIT_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("trait_type"));
-  public static final Registry<TraitType> TRAIT_TYPES_REGISTRY = new RegistryBuilder<>(TRAIT_TYPES).create();
+  public static final ResourceKey<Registry<AlleleType<?>>> TRAIT_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("trait_type"));
+  public static final Registry<AlleleType<?>> TRAIT_TYPES_REGISTRY = new RegistryBuilder<>(TRAIT_TYPES).create();
 
   public static final ResourceKey<Registry<Area>> AREAS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("area"));
   public static final ResourceKey<Registry<Fertility>> FERTILITIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("fertility"));
@@ -27,7 +27,7 @@ public class ApicuriousRegistries
   public static final ResourceKey<Registry<Speed>> SPEEDS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("speed"));
   public static final ResourceKey<Registry<TemperaturePreference>> TEMPERATURE_PREFERENCES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("temperature_preference"));
   public static final ResourceKey<Registry<TemperatureTolerance>> TEMPERATURE_TOLERANCES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("temperature_tolerance"));
-  public static final ResourceKey<Registry<WorkCycle>> WORKCYCLES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("workcycle"));
+  public static final ResourceKey<Registry<Workcycle>> WORKCYCLES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("workcycle"));
 
   // Species Registry
   public static final ResourceKey<Registry<BeeSpecies>> BEE_SPECIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("bee_species"));
@@ -40,19 +40,19 @@ public class ApicuriousRegistries
   public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event)
   {
     // Traits
-    event.dataPackRegistry(AREAS, Area.CODEC, Area.CODEC);
-    event.dataPackRegistry(FERTILITIES, Fertility.CODEC, Fertility.CODEC);
-    event.dataPackRegistry(FLOWERS, Flowers.CODEC, Flowers.CODEC);
-    event.dataPackRegistry(HUMIDITY_PREFERENCES, HumidityPreference.CODEC, HumidityPreference.CODEC);
-    event.dataPackRegistry(HUMIDITY_TOLERANCES, HumidityTolerance.CODEC, HumidityTolerance.CODEC);
-    event.dataPackRegistry(LIFESPANS, Lifespan.CODEC, Lifespan.CODEC);
-    event.dataPackRegistry(POLLINATIONS, Pollination.CODEC, Pollination.CODEC);
-    event.dataPackRegistry(SPEEDS, Speed.CODEC, Speed.CODEC);
-    event.dataPackRegistry(TEMPERATURE_PREFERENCES, TemperaturePreference.CODEC, TemperaturePreference.CODEC);
-    event.dataPackRegistry(TEMPERATURE_TOLERANCES, TemperatureTolerance.CODEC, TemperatureTolerance.CODEC);
-    event.dataPackRegistry(WORKCYCLES, WorkCycle.CODEC, WorkCycle.CODEC);
+    event.dataPackRegistry(AREAS, Area.CODEC.codec(), Area.CODEC.codec());
+    event.dataPackRegistry(FERTILITIES, Fertility.CODEC.codec(), Fertility.CODEC.codec());
+    event.dataPackRegistry(FLOWERS, Flowers.CODEC.codec(), Flowers.CODEC.codec());
+    event.dataPackRegistry(HUMIDITY_PREFERENCES, HumidityPreference.CODEC.codec(), HumidityPreference.CODEC.codec());
+    event.dataPackRegistry(HUMIDITY_TOLERANCES, HumidityTolerance.CODEC.codec(), HumidityTolerance.CODEC.codec());
+    event.dataPackRegistry(LIFESPANS, Lifespan.CODEC.codec(), Lifespan.CODEC.codec());
+    event.dataPackRegistry(POLLINATIONS, Pollination.CODEC.codec(), Pollination.CODEC.codec());
+    event.dataPackRegistry(SPEEDS, Speed.CODEC.codec(), Speed.CODEC.codec());
+    event.dataPackRegistry(TEMPERATURE_PREFERENCES, TemperaturePreference.CODEC.codec(), TemperaturePreference.CODEC.codec());
+    event.dataPackRegistry(TEMPERATURE_TOLERANCES, TemperatureTolerance.CODEC.codec(), TemperatureTolerance.CODEC.codec());
+    event.dataPackRegistry(WORKCYCLES, Workcycle.CODEC.codec(), Workcycle.CODEC.codec());
 
     // Bee Species
-    event.dataPackRegistry(BEE_SPECIES, BeeSpecies.CODEC, BeeSpecies.CODEC);
+    event.dataPackRegistry(BEE_SPECIES, BeeSpecies.CODEC.codec(), BeeSpecies.CODEC.codec());
   }
 }

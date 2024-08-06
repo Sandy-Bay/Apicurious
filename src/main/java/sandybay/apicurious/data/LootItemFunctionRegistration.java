@@ -9,7 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.loot.function.ApicuriousSpeciesFunction;
 
-public class ApicuriousLootItemFunctions
+public class LootItemFunctionRegistration
 {
 
   public static final DeferredRegister<LootItemFunctionType<?>> FUNCTION_TYPES = DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, Apicurious.MODID);
