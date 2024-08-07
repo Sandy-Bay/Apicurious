@@ -81,7 +81,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES); // TODO: Replace this with Genome
     if (species == null) return false;
     Pollination pollination = species.getProductionData().getPollination().value();
-    return random.nextFloat() > Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);
+    return random.nextFloat() < Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);
   }
 
   @Nullable

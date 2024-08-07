@@ -5,4 +5,6 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
+import java.lang.reflect.Type;
+
 public record AlleleType<T extends IAllele<T>>(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, ? extends IAllele<?>> streamCodec) { }
