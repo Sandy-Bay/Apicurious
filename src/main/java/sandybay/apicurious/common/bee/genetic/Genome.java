@@ -44,10 +44,8 @@ public class Genome implements IGenome
   {
     Genome childGenome = new Genome();
     for (AlleleType<?> key : this.genome.keySet())
-    {
       childGenome.genome.put(key, GeneticHelper.getGenotypeFromParents(getAllelePair(key), other.getAllelePair(key), random));
-    }
-    return null;
+    return childGenome;
   }
 
   @Override
