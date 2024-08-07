@@ -9,7 +9,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public interface IAllele<T extends IAllele<T>>
 {
-  Codec<?> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
+  Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
           .byNameCodec()
           .dispatch("type", IAllele::getTraitKey, AlleleType::codec);
 

@@ -33,7 +33,7 @@ public class Genome implements IGenome
   }
 
   @Override
-  public <T extends IAllele<T>> Genotype<T> getAllelePair(AlleleType<T> traitKey)
+  public <T extends IAllele<T>> Genotype<T> getGenotype(AlleleType<T> traitKey)
   {
     return (Genotype<T>) this.genome.get(traitKey);
   }
@@ -44,7 +44,7 @@ public class Genome implements IGenome
   {
     Genome childGenome = new Genome();
     for (AlleleType<?> key : this.genome.keySet())
-      childGenome.genome.put(key, GeneticHelper.getGenotypeFromParents(getAllelePair(key), other.getAllelePair(key), random));
+      childGenome.genome.put(key, GeneticHelper.getGenotypeFromParents(getGenotype(key), other.getGenotype(key), random));
     return childGenome;
   }
 

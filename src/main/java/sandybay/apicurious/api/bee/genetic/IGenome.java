@@ -9,7 +9,7 @@ public interface IGenome
 
   <T extends IAllele<T>> boolean setAllelePair(Genome.Genotype<T> genotype);
 
-  <T extends IAllele<T>> Genome.Genotype<T> getAllelePair(AlleleType<T> traitKey);
+  <T extends IAllele<T>> Genome.Genotype<T> getGenotype(AlleleType<T> traitKey);
 
   IGenome combineGenomes(IGenome other, RandomSource random);
 
