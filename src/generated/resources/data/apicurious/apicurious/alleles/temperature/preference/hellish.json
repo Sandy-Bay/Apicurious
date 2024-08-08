@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:temperature_preference",
+  "groupTag": "apicurious:temperature/infernal",
+  "isDominantTrait": true,
+  "name": "apicurious.preferenceHolder.temperature.hellish",
+  "temperature": 5
+}

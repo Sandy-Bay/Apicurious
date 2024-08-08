@@ -15,9 +15,9 @@ import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.output.OutputData;
-import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
-import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
-import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
+import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
+import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
+import sandybay.apicurious.common.bee.genetic.allele.groups.VisualData;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -164,7 +164,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 
   public static class Builder
   {
-    private final BootstrapContext<BeeSpecies> context;
+    private final BootstrapContext<IAllele<?>> context;
     private final String name;
     private VisualData visualData;
     private ProductionData productionData;
@@ -172,7 +172,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
     private OutputData outputs;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
 
-    private Builder(BootstrapContext<BeeSpecies> context, String name)
+    private Builder(BootstrapContext<IAllele<?>> context, String name)
     {
       this.context = context;
       this.name = name;
@@ -182,7 +182,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
       this.outputs = OutputData.Builder.create(context).build();
     }
 
-    public static Builder create(BootstrapContext<BeeSpecies> context, String name)
+    public static Builder create(BootstrapContext<IAllele<?>> context, String name)
     {
       return new Builder(context, "apicurious.species." + name);
     }

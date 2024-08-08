@@ -58,18 +58,21 @@ public class CreativeTabRegistration
     ClientPacketListener connection = Minecraft.getInstance().getConnection();
     if (connection != null)
     {
-      connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+      connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
       {
         for (ResourceLocation rl : registry.keySet())
         {
-          if (rl.getPath().equals("undefined")) continue;
-          List<ItemStack> bees = List.of(
-                  new ItemStack(ItemRegistration.DRONE),
-                  new ItemStack(ItemRegistration.PRINCESS)
-          );
-          BeeSpecies species = registry.get(rl);
-          bees.forEach(stack -> stack.set(DataComponentRegistration.BEE_SPECIES, species));
-          output.acceptAll(bees);
+          if (rl.getPath().contains("species/"))
+          {
+            if (rl.getPath().equals("undefined")) continue;
+            List<ItemStack> bees = List.of(
+                    new ItemStack(ItemRegistration.DRONE),
+                    new ItemStack(ItemRegistration.PRINCESS)
+            );
+            BeeSpecies species = (BeeSpecies) registry.get(rl);
+            bees.forEach(stack -> stack.set(DataComponentRegistration.BEE_SPECIES, species));
+            output.acceptAll(bees);
+          }
         }
       });
     }

@@ -19,6 +19,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -55,7 +56,7 @@ public class ApicuriousLootTables extends LootTableProvider
 
     }
 
-    public static LootTable.Builder beeTable(ResourceKey<BeeSpecies> speciesKey)
+    public static LootTable.Builder beeTable(ResourceKey<IAllele<?>> speciesKey)
     {
       return LootTable.lootTable()
               .setParamSet(LootContextParamSet.builder().required(LootContextParams.TOOL).build())

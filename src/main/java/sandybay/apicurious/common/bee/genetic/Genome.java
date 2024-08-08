@@ -1,7 +1,6 @@
 package sandybay.apicurious.common.bee.genetic;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import sandybay.apicurious.api.bee.genetic.AlleleType;
@@ -18,7 +17,7 @@ public class Genome implements IGenome
 {
   public static Codec<Genome> CODEC;
 
-  private final Map<AlleleType<? extends IAllele<?>>, Genotype<? extends IAllele<?>>> genome;
+  private final Map<AlleleType<? extends IAllele<?>>, Genotype> genome;
 
   public Genome()
   {
@@ -26,16 +25,16 @@ public class Genome implements IGenome
   }
 
   @Override
-  public <T extends IAllele<T>> boolean setAllelePair(Genotype<T> genotype)
+  public <T extends IAllele<T>> boolean setAllelePair(Genotype genotype)
   {
-    Genotype<?> prev = this.genome.put(genotype.getActive().getTraitKey(), genotype);
+    Genotype prev = this.genome.put(genotype.getActive().getTraitKey(), genotype);
     return prev != null || prev != genotype;
   }
 
   @Override
-  public <T extends IAllele<T>> Genotype<T> getGenotype(AlleleType<T> traitKey)
+  public <T extends IAllele<T>> Genotype getGenotype(AlleleType<T> traitKey)
   {
-    return (Genotype<T>) this.genome.get(traitKey);
+    return this.genome.get(traitKey);
   }
 
 
@@ -51,33 +50,34 @@ public class Genome implements IGenome
   @Override
   public void getDefaultGenome(BeeSpecies species)
   {
-    this.genome.put(AlleleTypeRegistration.SPECIES_TYPE.get(),                Genotype.defaultOf(Holder.direct(species)));
+    this.genome.put(AlleleTypeRegistration.SPECIES_TYPE.get(),                Genotype.defaultOf(species));
     this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(),                   Genotype.defaultOf(species.getProductionData().getArea()));
     this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(),              Genotype.defaultOf(species.getProductionData().getFertility()));
     this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(),                Genotype.defaultOf(species.getEnvironmentalData().getFlowers()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(),    Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().preference()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(),     Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().tolerance()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(),    Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().getPreference()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(),     Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().getTolerance()));
     this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(),               Genotype.defaultOf(species.getProductionData().getLifespan()));
     this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(),            Genotype.defaultOf(species.getProductionData().getPollination()));
     this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(),                  Genotype.defaultOf(species.getProductionData().getSpeed()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().preference()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(),  Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().tolerance()));
-    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(),              Genotype.defaultOf(species.getProductionData().getWorkCycle()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().getPreference()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(),  Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().getTolerance()));
+    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(),              Genotype.defaultOf(species.getProductionData().getWorkcycle()));
   }
 
-  public record Genotype<T extends IAllele<T>>(IAllele<T> first, IAllele<T> second)
+  public record Genotype(IAllele<?> first, IAllele<?> second)
   {
+    
 
-    public IAllele<T> getActive()
+    public IAllele<?> getActive()
     {
       if (first.isDominantTrait()) return first;
       if (second.isDominantTrait()) return second;
       return first;
     }
 
-    public IAllele<T> getInactive()
+    public IAllele<?> getInactive()
     {
-      IAllele<T> active = getActive();
+      IAllele<?> active = getActive();
       return active == first ? second : first;
     }
 
@@ -92,14 +92,14 @@ public class Genome implements IGenome
                 .append(getInactive().getReadableName());
       }
 
-      public static <T extends IAllele<T>> Genotype<T> defaultOf(Holder<T> trait)
+      public static <T extends IAllele<T>> Genotype defaultOf(IAllele<?> trait)
       {
-        return new Genotype<>(trait.value(), trait.value());
+        return new Genotype(trait, trait);
       }
 
-      public static <T extends IAllele<T>> Genotype<T> of(IAllele<T> active, IAllele<T> inactive)
+      public static <T extends IAllele<T>> Genotype of(IAllele<?> active, IAllele<?> inactive)
       {
-        return new Genotype<>(active, inactive);
+        return new Genotype(active, inactive);
       }
     }
 }

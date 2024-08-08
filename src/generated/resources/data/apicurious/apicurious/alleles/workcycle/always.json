@@ -1,0 +1,11 @@
+{
+  "type": "apicurious:workcycle",
+  "activeTimes": [
+    {
+      "maxTime": 24000,
+      "minTime": 0
+    }
+  ],
+  "isDominantTrait": false,
+  "name": "apicurious.workcycle.always"
+}

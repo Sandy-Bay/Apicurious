@@ -134,9 +134,6 @@ public class BlockRegistration
     }
   }
 
-
-
-
   public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",
           () -> new BeeHousingBlock(HOUSING_PROPS),
@@ -144,6 +141,4 @@ public class BlockRegistration
           BeeHousingBE::new,
           BlockRegistration::getDefaultType
   );
-
-
 }

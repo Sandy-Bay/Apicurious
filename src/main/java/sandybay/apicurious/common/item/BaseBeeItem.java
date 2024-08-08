@@ -13,9 +13,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -47,14 +49,14 @@ public class BaseBeeItem extends Item implements IBeeItem
   }
 
   //This should be in the API so other mods can access it if needed
-  public static <T extends BaseBeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<BeeSpecies> speciesKey, DeferredHolder<Item, T> item)
+  public static <T extends BaseBeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<IAllele<?>> speciesKey, DeferredHolder<Item, T> item)
   {
     ItemStack bee = new ItemStack(item.get());
     if (level instanceof ServerLevel serverLevel)
     {
-      serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+      serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
       {
-        BeeSpecies species = registry.get(speciesKey);
+        BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
         bee.set(DataComponentRegistration.BEE_SPECIES, species);
       });
     } else if (level instanceof ClientLevel || level == null)
@@ -62,9 +64,9 @@ public class BaseBeeItem extends Item implements IBeeItem
       ClientPacketListener connection = Minecraft.getInstance().getConnection();
       if (connection != null)
       {
-        connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+        connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
         {
-          BeeSpecies species = registry.get(speciesKey);
+          BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
           bee.set(DataComponentRegistration.BEE_SPECIES, species);
         });
       }
@@ -101,18 +103,18 @@ public class BaseBeeItem extends Item implements IBeeItem
     if (Screen.hasShiftDown())
     {
       BeeSpecies species = getSpecies(pStack);
-      pTooltipComponents.add(species.getProductionData().getLifespan().value().getReadableName());
-      pTooltipComponents.add(species.getProductionData().getSpeed().value().getReadableName());
+      pTooltipComponents.add(species.getProductionData().getLifespan().getReadableName());
+      pTooltipComponents.add(species.getProductionData().getSpeed().getReadableName());
 
       var tempData = species.getEnvironmentalData().getTemperatureData();
-      pTooltipComponents.add(Component.literal("T: ").append(tempData.preference().value().getReadableName()).append(" / ")
-              .append(tempData.tolerance().value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+      pTooltipComponents.add(Component.literal("T: ").append(tempData.getPreference().getReadableName()).append(" / ")
+              .append(tempData.getTolerance().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
       var humidData = species.getEnvironmentalData().getHumidityData();
-      pTooltipComponents.add(Component.literal("H: ").append(humidData.preference().value().getReadableName()).append(" / ")
-              .append(humidData.tolerance().value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+      pTooltipComponents.add(Component.literal("H: ").append(humidData.getPreference().getReadableName()).append(" / ")
+              .append(humidData.getTolerance().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
-      pTooltipComponents.add(species.getEnvironmentalData().getFlowers().value().getReadableName());
+      pTooltipComponents.add(species.getEnvironmentalData().getFlowers().getReadableName());
 
     } else
     {

@@ -239,12 +239,12 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   public void humidityPreference(String translation)
   {
-    add("apicurious.preference.humidity." + translation.toLowerCase(Locale.ROOT), translation);
+    add("apicurious.preferenceHolder.humidity." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   public void humidityTolerance(String translation)
   {
-    add("apicurious.tolerance.humidity." + translation.toLowerCase(Locale.ROOT), translation);
+    add("apicurious.toleranceHolder.humidity." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   public void lifespan(String translation)
@@ -264,12 +264,12 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   public void temperaturePreference(String translation)
   {
-    add("apicurious.preference.temperature." + translation.toLowerCase(Locale.ROOT), translation);
+    add("apicurious.preferenceHolder.temperature." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   public void temperatureTolerance(String translation)
   {
-    add("apicurious.tolerance.temperature." + translation.toLowerCase(Locale.ROOT), translation);
+    add("apicurious.toleranceHolder.temperature." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   public void workcycle(String translation)

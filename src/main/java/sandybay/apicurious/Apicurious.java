@@ -23,6 +23,7 @@ import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.network.PacketHandler;
@@ -90,15 +91,15 @@ public class Apicurious
       Level level = event.getLevel();
       if (level instanceof ServerLevel serverLevel)
       {
-        serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
-                BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY));
+        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
+                BaseBeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY));
       } else if (level instanceof ClientLevel)
       {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null)
         {
-          connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
-                  BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY));
+          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
+                  BaseBeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY));
         }
       }
     }

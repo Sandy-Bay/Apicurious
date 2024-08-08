@@ -1,0 +1,11 @@
+{
+  "type": "apicurious:workcycle",
+  "activeTimes": [
+    {
+      "maxTime": 20000,
+      "minTime": 14000
+    }
+  ],
+  "isDominantTrait": true,
+  "name": "apicurious.workcycle.vespertinal"
+}

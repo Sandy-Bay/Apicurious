@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:speed",
+  "isDominantTrait": true,
+  "name": "apicurious.speed.slow",
+  "productionModifier": 1.2
+}

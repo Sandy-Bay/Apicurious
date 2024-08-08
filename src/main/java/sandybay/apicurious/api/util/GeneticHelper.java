@@ -7,10 +7,10 @@ import sandybay.apicurious.common.bee.genetic.Genome;
 public class GeneticHelper
 {
 
-  public static <T extends IAllele<T>> Genome.Genotype<T> getGenotypeFromParents(Genome.Genotype<T> firstParent, Genome.Genotype<T> secondParent, RandomSource random)
+  public static <T extends IAllele<T>> Genome.Genotype getGenotypeFromParents(Genome.Genotype firstParent, Genome.Genotype secondParent, RandomSource random)
   {
-    IAllele<T> firstAllele = random.nextBoolean() ? firstParent.getActive() : firstParent.getInactive();
-    IAllele<T> secondAllele = random.nextBoolean() ? secondParent.getActive() : secondParent.getInactive();
+    IAllele<?> firstAllele = random.nextBoolean() ? firstParent.getActive() : firstParent.getInactive();
+    IAllele<?> secondAllele = random.nextBoolean() ? secondParent.getActive() : secondParent.getInactive();
     if (firstAllele.isDominantTrait() && secondAllele.isDominantTrait())
       return random.nextBoolean() ? Genome.Genotype.of(firstAllele, secondAllele) : Genome.Genotype.of(secondAllele, firstAllele);
     if (firstAllele.isDominantTrait()) return Genome.Genotype.of(firstAllele, secondAllele);

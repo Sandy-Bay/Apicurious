@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
+import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.bee.output.IBeeOutput;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
@@ -45,16 +46,16 @@ public class OutputData implements IBeeOutput
 
   public static class Builder
   {
-    private final BootstrapContext<BeeSpecies> context;
+    private final BootstrapContext<IAllele<?>> context;
     private final List<ItemStack> outputs;
 
-    public Builder(BootstrapContext<BeeSpecies> context)
+    public Builder(BootstrapContext<IAllele<?>> context)
     {
       this.context = context;
       this.outputs = Lists.newArrayList();
     }
 
-    public static OutputData.Builder create(BootstrapContext<BeeSpecies> context)
+    public static OutputData.Builder create(BootstrapContext<IAllele<?>> context)
     {
       return new OutputData.Builder(context);
     }

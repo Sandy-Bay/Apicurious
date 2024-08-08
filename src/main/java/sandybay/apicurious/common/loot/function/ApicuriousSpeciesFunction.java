@@ -9,6 +9,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -21,19 +22,19 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
 
   public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(
           instance -> commonFields(instance)
-                  .and(ResourceKey.codec(ApicuriousRegistries.BEE_SPECIES).fieldOf("speciesKey").forGetter(func -> func.speciesKey))
+                  .and(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(func -> func.speciesKey))
                   .apply(instance, ApicuriousSpeciesFunction::new)
   );
 
-  private final ResourceKey<BeeSpecies> speciesKey;
+  private final ResourceKey<IAllele<?>> speciesKey;
 
-  public ApicuriousSpeciesFunction(List<LootItemCondition> conditions, ResourceKey<BeeSpecies> speciesKey)
+  public ApicuriousSpeciesFunction(List<LootItemCondition> conditions, ResourceKey<IAllele<?>> speciesKey)
   {
     super(conditions);
     this.speciesKey = speciesKey;
   }
 
-  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<BeeSpecies> speciesKey)
+  public static ApicuriousSpeciesFunction.Builder getBuilder(ResourceKey<IAllele<?>> speciesKey)
   {
     return new Builder(speciesKey);
   }
@@ -47,9 +48,9 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
   @Override
   protected ItemStack run(ItemStack stack, LootContext context)
   {
-    context.getLevel().registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
+    context.getLevel().registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
     {
-      BeeSpecies species = registry.get(speciesKey);
+      BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
       stack.set(DataComponentRegistration.BEE_SPECIES, species);
     });
     return stack;
@@ -58,9 +59,9 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
   public static class Builder extends LootItemConditionalFunction.Builder<ApicuriousSpeciesFunction.Builder>
   {
 
-    private final ResourceKey<BeeSpecies> speciesKey;
+    private final ResourceKey<IAllele<?>> speciesKey;
 
-    Builder(ResourceKey<BeeSpecies> speciesKey)
+    Builder(ResourceKey<IAllele<?>> speciesKey)
     {
       this.speciesKey = speciesKey;
     }

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.NotNull;
+import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
@@ -21,13 +22,13 @@ public class HiveBlock extends Block
   public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
   public static final MapCodec<HiveBlock> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
-                  ResourceKey.codec(ApicuriousRegistries.BEE_SPECIES).fieldOf("speciesKey").forGetter(HiveBlock::getSpecies),
+                  ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(HiveBlock::getSpecies),
                   BlockBehaviour.propertiesCodec()
           ).apply(instance, HiveBlock::new)
   );
-  private final ResourceKey<BeeSpecies> species;
+  private final ResourceKey<IAllele<?>> species;
 
-  public HiveBlock(ResourceKey<BeeSpecies> species, Properties properties)
+  public HiveBlock(ResourceKey<IAllele<?>> species, Properties properties)
   {
     super(properties);
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -52,7 +53,7 @@ public class HiveBlock extends Block
     pBuilder.add(FACING);
   }
 
-  public ResourceKey<BeeSpecies> getSpecies()
+  public ResourceKey<IAllele<?>> getSpecies()
   {
     return species;
   }

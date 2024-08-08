@@ -20,6 +20,8 @@ public class DataComponentRegistration
                   .networkSynchronized(BeeSpecies.NETWORK_CODEC)
   );
 
+
+
   public static void register(IEventBus bus)
   {
     REGISTRAR.register(bus);

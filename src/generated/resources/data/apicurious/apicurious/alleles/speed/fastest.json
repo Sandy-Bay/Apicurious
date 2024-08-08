@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:speed",
+  "isDominantTrait": false,
+  "name": "apicurious.speed.fastest",
+  "productionModifier": 0.2
+}

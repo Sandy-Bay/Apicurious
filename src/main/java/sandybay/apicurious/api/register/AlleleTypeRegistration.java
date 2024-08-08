@@ -7,7 +7,7 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.*;
+import sandybay.apicurious.common.bee.genetic.allele.*;
 
 public class AlleleTypeRegistration
 {

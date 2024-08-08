@@ -18,6 +18,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
@@ -136,10 +137,10 @@ public class ApicuriousClientEvents
     ClientPacketListener connection = Minecraft.getInstance().getConnection();
     if (connection != null && block instanceof HiveBlock hiveBlock)
     {
-      Optional<Registry<BeeSpecies>> optional = connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES);
+      Optional<Registry<IAllele<?>>> optional = connection.registryAccess().registry(ApicuriousRegistries.ALLELES);
       if (optional.isPresent())
       {
-        BeeSpecies species = optional.get().get(hiveBlock.getSpecies());
+        BeeSpecies species = (BeeSpecies) optional.get().get(hiveBlock.getSpecies());
         if (species == null) return 0xFFFFFFFF;
         return species.getVisualData().getBeeColor().getOutlineTint().getIntColor();
       }

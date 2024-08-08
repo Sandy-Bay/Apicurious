@@ -1,7 +1,6 @@
 package sandybay.apicurious.api.housing;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,8 +16,8 @@ import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.Area;
-import sandybay.apicurious.common.bee.species.trait.Pollination;
+import sandybay.apicurious.common.bee.genetic.allele.Area;
+import sandybay.apicurious.common.bee.genetic.allele.Pollination;
 
 import java.util.HashSet;
 import java.util.List;
@@ -44,10 +43,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     if (!queen.has(DataComponentRegistration.BEE_SPECIES)) return territory; // TODO: Replace this with Genome
     BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES);   // TODO: Replace this with Genome
     if (species == null) return territory;
-    Holder<Area> areaHolder = species.getProductionData().getArea();
-    if (!areaHolder.isBound())
-      throw new IllegalArgumentException("Area was unbound for BeeSpecies: %s, REPORT THIS!".formatted(species.getReadableName()));
-    Area area = areaHolder.value();
+    Area area = species.getProductionData().getArea();
     int xzOffset = area.getXZOffset();
     int yOffset = area.getYOffset();
 
@@ -80,7 +76,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     if (!queen.has(DataComponentRegistration.BEE_SPECIES)) return false;   // TODO: Replace this with Genome
     BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES); // TODO: Replace this with Genome
     if (species == null) return false;
-    Pollination pollination = species.getProductionData().getPollination().value();
+    Pollination pollination = species.getProductionData().getPollination();
     return random.nextFloat() < Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);
   }
 

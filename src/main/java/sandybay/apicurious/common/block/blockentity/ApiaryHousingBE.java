@@ -24,8 +24,7 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.Fertility;
-import sandybay.apicurious.common.bee.species.trait.Lifespan;
+import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.menu.ApiaryMenu;
@@ -182,9 +181,6 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (this.currentWork == 0 && this.maxWork == 0)
     {
-      Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
-      if (!lifespanHolder.isBound())
-        throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName().getString()));
       this.currentWork = this.maxWork = getModifiedLifeSpan();
     }
   }
@@ -205,7 +201,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       for (BlockPos f : found)
       {
         Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.random);
-        level.setBlock(f.above(), flower.get().value().defaultBlockState(), Block.UPDATE_ALL);
+        flower.ifPresent(blockHolder -> level.setBlock(f.above(), blockHolder.value().defaultBlockState(), Block.UPDATE_ALL));
+        ;
       }
     }
   }
@@ -255,7 +252,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     getInventory().extractItem(0, 1, false);
     ItemStack princess = new ItemStack(ItemRegistration.PRINCESS.get(), 1);
-    Fertility fertility = species.getProductionData().getFertility().value();
+    Fertility fertility = species.getProductionData().getFertility();
     ItemStack drones = new ItemStack(ItemRegistration.DRONE.get(), fertility.getOffspring());
     princess.set(DataComponentRegistration.BEE_SPECIES, species);
     drones.set(DataComponentRegistration.BEE_SPECIES, species);

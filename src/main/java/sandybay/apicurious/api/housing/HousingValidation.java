@@ -1,7 +1,6 @@
 package sandybay.apicurious.api.housing;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -11,8 +10,8 @@ import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.Flowers;
-import sandybay.apicurious.common.bee.species.trait.Workcycle;
+import sandybay.apicurious.common.bee.genetic.allele.Flowers;
+import sandybay.apicurious.common.bee.genetic.allele.Workcycle;
 
 import java.util.Set;
 
@@ -58,13 +57,12 @@ public class HousingValidation
     if (!key.has(DataComponentRegistration.BEE_SPECIES)) return;
     BeeSpecies species = key.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null) return;
-    Holder<Flowers> flowersHolder = species.getEnvironmentalData().getFlowers();
-    if (!flowersHolder.isBound()) throw new IllegalArgumentException("BeeSpecies flowers were unbound! REPORT THIS!");
-    TagKey<Block> flowers = flowersHolder.value().getFlowers();
+    Flowers flowers = species.getEnvironmentalData().getFlowers();
+    TagKey<Block> tagKey = flowers.getFlowers();
     for (BlockPos pos : territory)
     {
       BlockState state = level.getBlockState(pos);
-      if (level.isLoaded(pos) && !state.isAir() && state.is(flowers))
+      if (level.isLoaded(pos) && !state.isAir() && state.is(tagKey))
       {
         foundValid = true;
         break;
@@ -88,7 +86,7 @@ public class HousingValidation
   {
     BeeSpecies species = queen.get(DataComponentRegistration.BEE_SPECIES);
     if (species == null || level == null) return;
-    Workcycle speciesCycle = species.getProductionData().getWorkCycle().value();
+    Workcycle speciesCycle = species.getProductionData().getWorkcycle();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
     if (!isValidCycle) errorHandler.addError(HousingError.INVALID_TIME);
     else errorHandler.removeError(HousingError.INVALID_TIME);
