@@ -194,7 +194,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (this.currentWork == 0 && this.maxWork == 0)
     {
-      this.currentWork = this.maxWork = getModifiedLifeSpan(genome);
+      this.currentWork = this.maxWork = 100;//;getModifiedLifeSpan(genome);
     }
   }
 

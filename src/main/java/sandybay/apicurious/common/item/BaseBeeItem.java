@@ -102,8 +102,10 @@ public class BaseBeeItem extends Item implements IBeeItem
     {
       Genome genome = pStack.get(DataComponentRegistration.GENOME);
       if (genome == null) return;
-      pTooltipComponents.add(genome.getLifespan(true).getReadableName());
-      pTooltipComponents.add(genome.getSpeed(true).getReadableName());
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.area").append(genome.getArea(true).getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.lifespan").append(genome.getLifespan(true).getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.speed").append(genome.getSpeed(true).getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.fertility").append(genome.getFertility(true).getReadableName()));
 
       pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).getReadableName()).append(" / ")
               .append(genome.getTemperatureTolerance(true).getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
@@ -111,7 +113,7 @@ public class BaseBeeItem extends Item implements IBeeItem
       pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).getReadableName()).append(" / ")
               .append(genome.getHumidityTolerance(true).getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
-      pTooltipComponents.add(genome.getFlowers(true).getReadableName());
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.flowers").append(genome.getFlowers(true).getReadableName()));
 
     } else
     {

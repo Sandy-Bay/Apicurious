@@ -129,5 +129,10 @@
   "item.apicurious.soul_frame": "Soul Frame",
   "item.apicurious.untreated_frame": "Untreated Frame",
   "itemGroup.apicurious.bee": "Apicurious: Bee",
-  "itemGroup.apicurious.general": "Apicurious"
+  "itemGroup.apicurious.general": "Apicurious",
+  "apicurious.tooltip.area": "Area:",
+  "apicurious.tooltip.lifespan": "Lifespan:",
+  "apicurious.tooltip.speed": "Speed:",
+  "apicurious.tooltip.fertility": "Fertility:",
+  "apicurious.tooltip.flowers": "Flowers:"
 }
