@@ -70,7 +70,7 @@ public class CreativeTabRegistration
                     new ItemStack(ItemRegistration.PRINCESS)
             );
             BeeSpecies species = (BeeSpecies) registry.get(rl);
-            bees.forEach(stack -> stack.set(DataComponentRegistration.BEE_SPECIES, species));
+            bees.forEach(stack -> stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome()));
             output.acceptAll(bees);
           }
         }

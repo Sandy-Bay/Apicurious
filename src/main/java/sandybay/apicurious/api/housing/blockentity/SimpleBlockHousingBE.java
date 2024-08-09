@@ -17,6 +17,7 @@ import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandle
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
 import sandybay.apicurious.common.bee.genetic.allele.Speed;
@@ -126,9 +127,9 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    BeeSpecies species = inventory.getStackInSlot(0).get(DataComponentRegistration.BEE_SPECIES);
-    if (species == null) return 0;
-    Speed speed = species.getProductionData().getSpeed();
+    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistration.GENOME);
+    if (genome == null) return 0;
+    Speed speed = genome.getSpeed(true);
     int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE_DURATION * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
@@ -142,11 +143,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     return Math.max(1, outputDuration);
   }
 
-  public int getModifiedLifeSpan()
+  public int getModifiedLifeSpan(Genome genome)
   {
-    BeeSpecies species = inventory.getStackInSlot(0).get(DataComponentRegistration.BEE_SPECIES);
-    if (species == null) return 0;
-    Lifespan lifespanHolder = species.getProductionData().getLifespan();
+    if (genome == null) return 0;
+    Lifespan lifespanHolder = genome.getLifespan(true);
     int lifespan = ApicuriousConstants.WORKCYCLE_DURATION * lifespanHolder.getCycles();
     for (int i = 2; i < 5; i++)
     {

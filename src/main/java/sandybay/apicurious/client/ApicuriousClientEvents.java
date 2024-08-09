@@ -22,6 +22,7 @@ import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.register.BlockRegistration;
@@ -150,8 +151,10 @@ public class ApicuriousClientEvents
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
   {
-    BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
-    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender())
+    Genome genome = stack.get(DataComponentRegistration.GENOME);
+    if (genome == null) return 0xFFFFFFFF;
+    BeeSpecies species = genome.getSpecies(true);
+    if (species.getVisualData() == null || species.getVisualData().hasCustomRender())
       return 0xFFFFFFFF;
     return isOutline ?
             species.getVisualData().getBeeColor().getOutlineTint().getIntColor() :

@@ -2,6 +2,7 @@ package sandybay.apicurious.api.bee;
 
 import net.minecraft.network.chat.Component;
 import sandybay.apicurious.api.bee.genetic.IGenome;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
@@ -20,5 +21,5 @@ public interface IBeeSpecies
 
   OutputData getOutputData();
 
-  IGenome getSpeciesDefaultGenome();
+  Genome getSpeciesDefaultGenome();
 }

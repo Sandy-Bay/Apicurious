@@ -51,7 +51,8 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
     context.getLevel().registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
     {
       BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
-      stack.set(DataComponentRegistration.BEE_SPECIES, species);
+      if (species == null) return;
+      stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome());
     });
     return stack;
   }

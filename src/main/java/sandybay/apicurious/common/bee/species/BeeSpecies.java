@@ -155,7 +155,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   }
 
   @Override
-  public IGenome getSpeciesDefaultGenome()
+  public Genome getSpeciesDefaultGenome()
   {
     Genome genome = new Genome();
     genome.getDefaultGenome(this);

@@ -16,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.item.BaseBeeItem;
 
@@ -42,7 +44,8 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
       ModelResourceLocation fallback = null;
       ModelResourceLocation mrl = null;
       BakedModel model;
-      BeeSpecies species = BaseBeeItem.getSpecies(stack);
+      Genome genome = stack.get(DataComponentRegistration.GENOME);
+      BeeSpecies species = genome != null ? genome.getSpecies(true) : null;
       ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
       ModelManager manager = renderer.getItemModelShaper().getModelManager();
 
@@ -51,16 +54,19 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
         case EnumBeeType.DRONE ->
         {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_drone"));
+          if (species == null) return;
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_drone"));
         }
         case EnumBeeType.PRINCESS ->
         {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_princess"));
+          if (species == null) return;
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_princess"));
         }
         case EnumBeeType.QUEEN ->
         {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_queen"));
+          if (species == null) return;
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_queen"));
         }
         default ->

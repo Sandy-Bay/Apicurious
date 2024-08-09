@@ -16,7 +16,7 @@ public class ApicuriousRegistries
 
   // Trait Registries
   public static final ResourceKey<Registry<AlleleType<?>>> TRAIT_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("trait_type"));
-  public static final Registry<AlleleType<?>> TRAIT_TYPES_REGISTRY = new RegistryBuilder<>(TRAIT_TYPES).create();
+  public static final Registry<AlleleType<?>> TRAIT_TYPES_REGISTRY = new RegistryBuilder<>(TRAIT_TYPES).sync(true).create();
   public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("alleles"));
 
   // Species Registry

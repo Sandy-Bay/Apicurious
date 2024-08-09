@@ -10,6 +10,7 @@ import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityPreference;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityTolerance;
@@ -37,19 +38,19 @@ public class ClimateHelper
 
   public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
   {
-    BeeSpecies species = bee.get(DataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
-    if (species == null) return false;
-    TemperaturePreference preferenceHolder = species.getEnvironmentalData().getTemperatureData().getPreference();
-    TemperatureTolerance toleranceHolder = species.getEnvironmentalData().getTemperatureData().getTolerance();
+    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    if (genome == null) return false;
+    TemperaturePreference preferenceHolder = genome.getTemperaturePreference(true);
+    TemperatureTolerance toleranceHolder = genome.getTemperatureTolerance(true);
     return isCorrectTemperature(preferenceHolder, toleranceHolder, pos);
   }
 
   public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
   {
-    BeeSpecies species = bee.get(DataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
-    if (species == null) return false;
-    HumidityPreference preferenceHolder = species.getEnvironmentalData().getHumidityData().getPreference();
-    HumidityTolerance toleranceHolder = species.getEnvironmentalData().getHumidityData().getTolerance();
+    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    if (genome == null) return false;
+    HumidityPreference preferenceHolder = genome.getHumidityPreference(true);
+    HumidityTolerance toleranceHolder = genome.getHumidityTolerance(true);
     return isCorrectHumidity(preferenceHolder, toleranceHolder, pos);
   }
 

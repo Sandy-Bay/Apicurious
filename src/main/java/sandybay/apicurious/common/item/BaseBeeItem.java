@@ -20,6 +20,7 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.List;
@@ -39,13 +40,8 @@ public class BaseBeeItem extends Item implements IBeeItem
 
   public BaseBeeItem(Properties properties, EnumBeeType beeType)
   {
-    super(properties.component(DataComponentRegistration.BEE_SPECIES, EMPTY_SPECIES));
+    super(properties);
     this.beeType = beeType;
-  }
-
-  public static BeeSpecies getSpecies(ItemStack stack)
-  {
-    return stack.get(DataComponentRegistration.BEE_SPECIES);
   }
 
   //This should be in the API so other mods can access it if needed
@@ -57,7 +53,8 @@ public class BaseBeeItem extends Item implements IBeeItem
       serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
       {
         BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
-        bee.set(DataComponentRegistration.BEE_SPECIES, species);
+        if (species == null) return;
+        bee.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome());
       });
     } else if (level instanceof ClientLevel || level == null)
     {
@@ -67,7 +64,8 @@ public class BaseBeeItem extends Item implements IBeeItem
         connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
         {
           BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
-          bee.set(DataComponentRegistration.BEE_SPECIES, species);
+          if (species == null) return;
+          bee.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome());
         });
       }
     }
@@ -83,17 +81,17 @@ public class BaseBeeItem extends Item implements IBeeItem
   @Override
   public @NotNull Component getName(ItemStack stack)
   {
-    BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
-    if (species == null) return Component.literal("ERROR");
-    return species.getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
+    Genome genome = stack.get(DataComponentRegistration.GENOME);
+    if (genome == null) return Component.literal("ERROR");
+    return genome.getSpecies(true).getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
   }
 
   @Override
   public boolean isFoil(ItemStack stack)
   {
-    BeeSpecies species = stack.get(DataComponentRegistration.BEE_SPECIES);
-    if (species == null) return false;
-    return species.getVisualData().hasEffect();
+    Genome genome = stack.get(DataComponentRegistration.GENOME);
+    if (genome == null) return false;
+    return genome.getSpecies(true).getVisualData().hasEffect();
   }
 
   @Override
@@ -102,19 +100,18 @@ public class BaseBeeItem extends Item implements IBeeItem
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
     if (Screen.hasShiftDown())
     {
-      BeeSpecies species = getSpecies(pStack);
-      pTooltipComponents.add(species.getProductionData().getLifespan().getReadableName());
-      pTooltipComponents.add(species.getProductionData().getSpeed().getReadableName());
+      Genome genome = pStack.get(DataComponentRegistration.GENOME);
+      if (genome == null) return;
+      pTooltipComponents.add(genome.getLifespan(true).getReadableName());
+      pTooltipComponents.add(genome.getSpeed(true).getReadableName());
 
-      var tempData = species.getEnvironmentalData().getTemperatureData();
-      pTooltipComponents.add(Component.literal("T: ").append(tempData.getPreference().getReadableName()).append(" / ")
-              .append(tempData.getTolerance().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+      pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).getReadableName()).append(" / ")
+              .append(genome.getTemperatureTolerance(true).getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
-      var humidData = species.getEnvironmentalData().getHumidityData();
-      pTooltipComponents.add(Component.literal("H: ").append(humidData.getPreference().getReadableName()).append(" / ")
-              .append(humidData.getTolerance().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+      pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).getReadableName()).append(" / ")
+              .append(genome.getHumidityTolerance(true).getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
-      pTooltipComponents.add(species.getEnvironmentalData().getFlowers().getReadableName());
+      pTooltipComponents.add(genome.getFlowers(true).getReadableName());
 
     } else
     {
@@ -123,8 +120,9 @@ public class BaseBeeItem extends Item implements IBeeItem
 
     if (pTooltipFlag.isAdvanced())
     {
-      BeeSpecies species = getSpecies(pStack);
-      pTooltipComponents.add(Component.literal(species.toString()));
+      Genome genome = pStack.get(DataComponentRegistration.GENOME);
+      if (genome == null) return;
+      pTooltipComponents.add(Component.literal(genome.toString()));
     }
   }
 }
