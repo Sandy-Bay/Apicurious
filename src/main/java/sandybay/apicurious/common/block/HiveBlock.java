@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 public class HiveBlock extends Block
 {

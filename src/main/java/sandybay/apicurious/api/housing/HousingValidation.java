@@ -10,7 +10,6 @@ import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
 import sandybay.apicurious.common.bee.genetic.allele.Workcycle;
 

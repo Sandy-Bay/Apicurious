@@ -4,17 +4,8 @@ import net.minecraft.util.RandomSource;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
-import java.util.Map;
-
 public interface IGenome
 {
-  private Map<AlleleType<? extends IAllele<?>>, Genome.Genotype> getGenome()
-  {
-    return null;
-  }
-
-  <T extends IAllele<T>> boolean setAllelePair(Genome.Genotype genotype);
-
   <T extends IAllele<T>> Genome.Genotype getGenotype(AlleleType<T> traitKey);
 
   IGenome combineGenomes(IGenome other, RandomSource random);

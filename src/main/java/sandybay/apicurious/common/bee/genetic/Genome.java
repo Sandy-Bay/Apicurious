@@ -75,18 +75,18 @@ public class Genome implements IGenome
   @Override
   public void getDefaultGenome(BeeSpecies species)
   {
-    this.genome.put(AlleleTypeRegistration.SPECIES_TYPE.get(),                Genotype.defaultOf(species));
-    this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(),                   Genotype.defaultOf(species.getProductionData().getArea()));
-    this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(),              Genotype.defaultOf(species.getProductionData().getFertility()));
-    this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(),                Genotype.defaultOf(species.getEnvironmentalData().getFlowers()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(),    Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().getPreference()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(),     Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().getTolerance()));
-    this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(),               Genotype.defaultOf(species.getProductionData().getLifespan()));
-    this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(),            Genotype.defaultOf(species.getProductionData().getPollination()));
-    this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(),                  Genotype.defaultOf(species.getProductionData().getSpeed()));
+    this.genome.put(AlleleTypeRegistration.SPECIES_TYPE.get(), Genotype.defaultOf(species));
+    this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(), Genotype.defaultOf(species.getProductionData().getArea()));
+    this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(), Genotype.defaultOf(species.getProductionData().getFertility()));
+    this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getFlowers()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().getPreference()));
+    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getHumidityData().getTolerance()));
+    this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(), Genotype.defaultOf(species.getProductionData().getLifespan()));
+    this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(), Genotype.defaultOf(species.getProductionData().getPollination()));
+    this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(), Genotype.defaultOf(species.getProductionData().getSpeed()));
     this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().getPreference()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(),  Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().getTolerance()));
-    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(),              Genotype.defaultOf(species.getProductionData().getWorkcycle()));
+    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(), Genotype.defaultOf(species.getEnvironmentalData().getTemperatureData().getTolerance()));
+    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(), Genotype.defaultOf(species.getProductionData().getWorkcycle()));
   }
 
   public <T extends IAllele<T>> BeeSpecies getSpecies(boolean active)
@@ -179,17 +179,27 @@ public class Genome implements IGenome
   public record Genotype(IAllele<?> first, IAllele<?> second)
   {
     public static Codec<Genotype> CODEC = RecordCodecBuilder.create(instance ->
-      instance.group(
-              IAllele.TYPED_CODEC.fieldOf("first").forGetter(Genotype::first),
-              IAllele.TYPED_CODEC.fieldOf("second").forGetter(Genotype::second)
-      ).apply(instance, Genotype::new)
+            instance.group(
+                    IAllele.TYPED_CODEC.fieldOf("first").forGetter(Genotype::first),
+                    IAllele.TYPED_CODEC.fieldOf("second").forGetter(Genotype::second)
+            ).apply(instance, Genotype::new)
     );
 
     public static StreamCodec<RegistryFriendlyByteBuf, Genotype> NETWORK_CODEC = StreamCodec.composite(
-      IAllele.NETWORK_TYPED_CODEC, Genotype::first,
-      IAllele.NETWORK_TYPED_CODEC, Genotype::second,
-      Genotype::new
+            IAllele.NETWORK_TYPED_CODEC, Genotype::first,
+            IAllele.NETWORK_TYPED_CODEC, Genotype::second,
+            Genotype::new
     );
+
+    public static <T extends IAllele<T>> Genotype defaultOf(IAllele<?> trait)
+    {
+      return new Genotype(trait, trait);
+    }
+
+    public static <T extends IAllele<T>> Genotype of(IAllele<?> active, IAllele<?> inactive)
+    {
+      return new Genotype(active, inactive);
+    }
 
     public IAllele<?> getActive()
     {
@@ -205,25 +215,15 @@ public class Genome implements IGenome
     }
 
     public Component getRenderableName()
-      {
-        // Output Example:
-        // Active Allele: Average, Inactive Allele: Average
-        return Component.translatable("apicurious.genetics.active")
-                .append(getActive().getReadableName())
-                .append(Component.literal(", "))
-                .append(Component.translatable("apicurious.genetics.inactive"))
-                .append(getInactive().getReadableName());
-      }
-
-      public static <T extends IAllele<T>> Genotype defaultOf(IAllele<?> trait)
-      {
-        return new Genotype(trait, trait);
-      }
-
-      public static <T extends IAllele<T>> Genotype of(IAllele<?> active, IAllele<?> inactive)
-      {
-        return new Genotype(active, inactive);
-      }
+    {
+      // Output Example:
+      // Active Allele: Average, Inactive Allele: Average
+      return Component.translatable("apicurious.genetics.active")
+              .append(getActive().getReadableName())
+              .append(Component.literal(", "))
+              .append(Component.translatable("apicurious.genetics.inactive"))
+              .append(getInactive().getReadableName());
+    }
 
     @Override
     public boolean equals(Object o)

@@ -16,23 +16,21 @@ import java.util.Objects;
 
 public class HumidityData
 {
-  private final Holder<IAllele<?>> preferenceHolder;
-  private HumidityPreference preference;
-  private final Holder<IAllele<?>> toleranceHolder;
-  private HumidityTolerance tolerance;
-
   public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
                   RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(HumidityData::getPreferenceHolder),
                   RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(HumidityData::getToleranceHolder)
           ).apply(instance, HumidityData::new)
   );
-
   public static final StreamCodec<RegistryFriendlyByteBuf, HumidityData> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getPreferenceHolder,
           ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getToleranceHolder,
           HumidityData::new
   );
+  private final Holder<IAllele<?>> preferenceHolder;
+  private final Holder<IAllele<?>> toleranceHolder;
+  private HumidityPreference preference;
+  private HumidityTolerance tolerance;
 
   public HumidityData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
   {

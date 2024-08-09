@@ -38,13 +38,11 @@ public class EnvironmentalData
   );
 
   private final Holder<IAllele<?>> flowersHolder;
-  private Flowers flowers;
-
   private final HumidityData humidityData;
   private final TemperatureData temperatureData;
-
   private final boolean ignoresRain;
   private final boolean ignoresSky;
+  private Flowers flowers;
 
   private EnvironmentalData(Holder<IAllele<?>> flowersHolder,
                             HumidityData humidityData, TemperatureData temperatureData,

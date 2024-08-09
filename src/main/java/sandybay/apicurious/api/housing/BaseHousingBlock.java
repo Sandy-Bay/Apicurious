@@ -16,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Area;
 import sandybay.apicurious.common.bee.genetic.allele.Pollination;
 

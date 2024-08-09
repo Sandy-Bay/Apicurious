@@ -40,16 +40,16 @@ public class ProductionData
   );
 
   private final Holder<IAllele<?>> lifespanHolder;
-  private Lifespan lifespan;
   private final Holder<IAllele<?>> workcycleHolder;
-  private Workcycle workcycle;
   private final Holder<IAllele<?>> areaHolder;
-  private Area area;
   private final Holder<IAllele<?>> speedHolder;
-  private Speed speed;
   private final Holder<IAllele<?>> fertilityHolder;
-  private Fertility fertility;
   private final Holder<IAllele<?>> pollinationHolder;
+  private Lifespan lifespan;
+  private Workcycle workcycle;
+  private Area area;
+  private Speed speed;
+  private Fertility fertility;
   private Pollination pollination;
 
   public ProductionData(Holder<IAllele<?>> lifespanHolder, Holder<IAllele<?>> workcycleHolder, Holder<IAllele<?>> areaHolder,

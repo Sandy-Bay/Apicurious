@@ -54,10 +54,10 @@ public class Workcycle implements IAllele<Workcycle>
 
   public static final MapCodec<Workcycle> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
-                          Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes),
-                          Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait),
-                          Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)
-                  ).apply(instance, Workcycle::new)
+                  Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait),
+                  Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)
+          ).apply(instance, Workcycle::new)
   );
   public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes,

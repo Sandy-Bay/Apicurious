@@ -5,9 +5,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.IGenome;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 public class DataComponentRegistration
 {

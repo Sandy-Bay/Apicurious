@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.housing.blockentity;
+package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -13,12 +13,12 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
+import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
 import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-//This does not need to be in the api
 public abstract class SimpleBlockHousingBE extends BaseHousingBE
 {
 

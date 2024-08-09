@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.bee.output.IBeeOutput;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.ArrayList;
 import java.util.List;

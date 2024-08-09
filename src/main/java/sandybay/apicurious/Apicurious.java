@@ -64,7 +64,7 @@ public class Apicurious
   {
     // Register the commonSetup method for modloading
     ApicuriousMainConfig.init();
-    modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue());
+    modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue(), "apicurious/apicurious.toml");
     bus.addListener(this::commonSetup);
     bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);

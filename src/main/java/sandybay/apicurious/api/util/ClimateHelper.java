@@ -11,7 +11,6 @@ import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityPreference;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityTolerance;
 import sandybay.apicurious.common.bee.genetic.allele.TemperaturePreference;
@@ -38,7 +37,7 @@ public class ClimateHelper
 
   public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
   {
-    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    Genome genome = bee.get(DataComponentRegistration.GENOME);
     if (genome == null) return false;
     TemperaturePreference preferenceHolder = genome.getTemperaturePreference(true);
     TemperatureTolerance toleranceHolder = genome.getTemperatureTolerance(true);
@@ -47,7 +46,7 @@ public class ClimateHelper
 
   public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
   {
-    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    Genome genome = bee.get(DataComponentRegistration.GENOME);
     if (genome == null) return false;
     HumidityPreference preferenceHolder = genome.getHumidityPreference(true);
     HumidityTolerance toleranceHolder = genome.getHumidityTolerance(true);

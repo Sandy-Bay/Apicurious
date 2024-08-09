@@ -22,7 +22,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.loot.function.ApicuriousSpeciesFunction;
 import sandybay.apicurious.common.register.BlockRegistration;
 import sandybay.apicurious.common.register.ItemRegistration;

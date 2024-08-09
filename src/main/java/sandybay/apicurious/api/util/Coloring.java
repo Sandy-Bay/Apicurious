@@ -20,11 +20,6 @@ public class Coloring
     return new Coloring((int) Long.parseLong(text, 16));
   }
 
-  public static Coloring fromInt(int number)
-  {
-    return fromHex(Integer.toHexString(number));
-  }
-
   public int getIntColor()
   {
     return this.color;

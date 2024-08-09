@@ -21,11 +21,8 @@ import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.DataComponentRegistration;
-import sandybay.apicurious.api.util.GeneticHelper;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
@@ -131,7 +128,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             Genome princessGenome = princess.get(DataComponentRegistration.GENOME);
             Genome droneGenome = drone.get(DataComponentRegistration.GENOME);
             ItemStack queen = new ItemStack(ItemRegistration.QUEEN);
-            if (princessGenome != null && droneGenome != null) {
+            if (princessGenome != null && droneGenome != null)
+            {
               Genome queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
               queen.set(DataComponentRegistration.GENOME, queenGenome);
               getInventory().extractItem(0, 1, false);
@@ -194,13 +192,13 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (this.currentWork == 0 && this.maxWork == 0)
     {
-      this.currentWork = this.maxWork = 100;//;getModifiedLifeSpan(genome);
+      this.currentWork = this.maxWork = ApicuriousMainConfig.main_config.getApiaryRunTime(getModifiedLifeSpan(genome));
     }
   }
 
   private void handlePollination(Level level, ApiaryBlock apiary, ItemStack stack)
   {
-    if (Math.abs(this.currentWork - this.maxWork) % 375 == 0 && apiary.shouldPollinate(level.getRandom(), stack))
+    if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getPollinationRate() == 0 && apiary.shouldPollinate(level.getRandom(), stack))
     {
       Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
               level.getBlockState(filteredPos).is(BlockTags.DIRT) &&
@@ -215,16 +213,14 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       {
         Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.random);
         flower.ifPresent(blockHolder -> level.setBlock(f.above(), blockHolder.value().defaultBlockState(), Block.UPDATE_ALL));
-        ;
       }
     }
   }
 
   private boolean handleOutput(Genome genome)
   {
-    if (Math.abs(this.currentWork - this.maxWork) % getModifiedOutputDuration() == 0)
+    if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration()) == 0)
     {
-      if (ApicuriousMainConfig.main_config.debug.get()) Apicurious.LOGGER.info(String.valueOf(getModifiedOutputDuration()));
       List<ItemStack> outputs = genome.getSpecies(true).getOutputData().getOutputs();
       for (ItemStack output : outputs)
       {
@@ -245,7 +241,9 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       for (int i = 2; i < 5; i++)
       {
         ItemStack frame = getInventory().getStackInSlot(i);
-        frame.hurtAndBreak(1, (ServerLevel) level, null, item -> {});
+        frame.hurtAndBreak(1, (ServerLevel) level, null, item ->
+        {
+        });
       }
     }
     return true;

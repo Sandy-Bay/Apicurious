@@ -8,8 +8,6 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.genetic.allele.*;
 
 public class ApicuriousRegistries
 {
@@ -18,9 +16,6 @@ public class ApicuriousRegistries
   public static final ResourceKey<Registry<AlleleType<?>>> TRAIT_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("trait_type"));
   public static final Registry<AlleleType<?>> TRAIT_TYPES_REGISTRY = new RegistryBuilder<>(TRAIT_TYPES).sync(true).create();
   public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("alleles"));
-
-  // Species Registry
-  public static final ResourceKey<Registry<BeeSpecies>> BEE_SPECIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("bee_species"));
 
   public static void registerRegistries(final NewRegistryEvent event)
   {

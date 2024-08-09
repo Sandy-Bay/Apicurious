@@ -30,8 +30,8 @@ public class TemperatureData
   );
 
   private final Holder<IAllele<?>> preferenceHolder;
-  private TemperaturePreference preference;
   private final Holder<IAllele<?>> toleranceHolder;
+  private TemperaturePreference preference;
   private TemperatureTolerance tolerance;
 
   public TemperatureData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)

@@ -27,9 +27,4 @@ public interface IAllele<T extends IAllele<T>>
   StreamCodec<RegistryFriendlyByteBuf, T> getStreamCodec();
 
   boolean isDominantTrait();
-
-  default T cast()
-  {
-    return (T) this;
-  }
 }

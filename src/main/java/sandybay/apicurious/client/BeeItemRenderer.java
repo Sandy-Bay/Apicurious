@@ -19,7 +19,6 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.item.BaseBeeItem;
 
 import java.util.Locale;
 
@@ -29,11 +28,6 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
   public BeeItemRenderer(BlockEntityRenderDispatcher blockEntityRenderDispatcher, EntityModelSet entityModelSet)
   {
     super(blockEntityRenderDispatcher, entityModelSet);
-  }
-
-  private static boolean isLeftHand(ItemDisplayContext type)
-  {
-    return type == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || type == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
   }
 
   @Override

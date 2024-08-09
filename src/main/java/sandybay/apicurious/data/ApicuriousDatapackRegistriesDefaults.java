@@ -13,9 +13,9 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.genetic.allele.*;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class ApicuriousDatapackRegistriesDefaults
       bootstrap.register(Fertility.LOW_FERTILITY, fertility(1, true, "low"));
       bootstrap.register(Fertility.AVERAGE_FERTILITY, fertility(2, true, "average"));
       bootstrap.register(Fertility.HIGH_FERTILITY, fertility(3, false, "high"));
-      bootstrap.register(Fertility.MAXIMUM_FERTILITY, fertility(4, false,"maximum"));
+      bootstrap.register(Fertility.MAXIMUM_FERTILITY, fertility(4, false, "maximum"));
 
       // Flowers
       bootstrap.register(Flowers.NORMAL_FLOWERS, flowers(BlockTags.FLOWERS, true, "normal_flowers"));
@@ -49,7 +49,7 @@ public class ApicuriousDatapackRegistriesDefaults
 
       // Humidity
       /// Preference
-      bootstrap.register(HumidityPreference.HELLISH, humidityPreference(1, ApicuriousTags.BiomeTags.HELLISH_HUMIDITY, true,"hellish"));
+      bootstrap.register(HumidityPreference.HELLISH, humidityPreference(1, ApicuriousTags.BiomeTags.HELLISH_HUMIDITY, true, "hellish"));
       bootstrap.register(HumidityPreference.ARID, humidityPreference(2, ApicuriousTags.BiomeTags.ARID_HUMIDITY, true, "arid"));
       bootstrap.register(HumidityPreference.AVERAGE, humidityPreference(3, ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY, true, "average"));
       bootstrap.register(HumidityPreference.DAMP, humidityPreference(4, ApicuriousTags.BiomeTags.DAMP_HUMIDITY, true, "damp"));
@@ -65,55 +65,55 @@ public class ApicuriousDatapackRegistriesDefaults
 
       // Lifespans
       bootstrap.register(Lifespan.SHOREST, lifespan(10, false, "shortest"));
-      bootstrap.register(Lifespan.SHORTER, lifespan(20, false,"shorter"));
-      bootstrap.register(Lifespan.SHORT, lifespan(30, false,"short"));
-      bootstrap.register(Lifespan.SHORTENED, lifespan(35, true,"shortened"));
-      bootstrap.register(Lifespan.AVERAGE, lifespan(40, true,"average"));
-      bootstrap.register(Lifespan.ELONGATED, lifespan(45, true,"elongated"));
-      bootstrap.register(Lifespan.LONG, lifespan(50, false,"long"));
-      bootstrap.register(Lifespan.LONGER, lifespan(60, false,"longer"));
-      bootstrap.register(Lifespan.LONGEST, lifespan(70, false,"longest"));
+      bootstrap.register(Lifespan.SHORTER, lifespan(20, false, "shorter"));
+      bootstrap.register(Lifespan.SHORT, lifespan(30, false, "short"));
+      bootstrap.register(Lifespan.SHORTENED, lifespan(35, true, "shortened"));
+      bootstrap.register(Lifespan.AVERAGE, lifespan(40, true, "average"));
+      bootstrap.register(Lifespan.ELONGATED, lifespan(45, true, "elongated"));
+      bootstrap.register(Lifespan.LONG, lifespan(50, false, "long"));
+      bootstrap.register(Lifespan.LONGER, lifespan(60, false, "longer"));
+      bootstrap.register(Lifespan.LONGEST, lifespan(70, false, "longest"));
 
       // Pollinations
-      bootstrap.register(Pollination.SLOWEST, pollination(0.05f, false,"slowest"));
-      bootstrap.register(Pollination.SLOWER, pollination(0.1f, false,"slower"));
-      bootstrap.register(Pollination.SLOW, pollination(0.15f, true,"slow"));
-      bootstrap.register(Pollination.AVERAGE, pollination(0.2f, true,"average"));
-      bootstrap.register(Pollination.FAST, pollination(0.25f, true,"fast"));
-      bootstrap.register(Pollination.FASTER, pollination(0.3f, false,"faster"));
-      bootstrap.register(Pollination.FASTEST, pollination(0.35f, false,"fastest"));
+      bootstrap.register(Pollination.SLOWEST, pollination(0.05f, false, "slowest"));
+      bootstrap.register(Pollination.SLOWER, pollination(0.1f, false, "slower"));
+      bootstrap.register(Pollination.SLOW, pollination(0.15f, true, "slow"));
+      bootstrap.register(Pollination.AVERAGE, pollination(0.2f, true, "average"));
+      bootstrap.register(Pollination.FAST, pollination(0.25f, true, "fast"));
+      bootstrap.register(Pollination.FASTER, pollination(0.3f, false, "faster"));
+      bootstrap.register(Pollination.FASTEST, pollination(0.35f, false, "fastest"));
 
       // Speeds
-      bootstrap.register(Speed.SLOWEST, speed(1.7f, false,"slowest"));
-      bootstrap.register(Speed.SLOWER, speed(1.4f, false,"slower"));
-      bootstrap.register(Speed.SLOW, speed(1.2f, true,"slow"));
-      bootstrap.register(Speed.AVERAGE, speed(1.0f, true,"average"));
-      bootstrap.register(Speed.FAST, speed(0.7f, true,"fast"));
-      bootstrap.register(Speed.FASTER, speed(0.4f, false,"faster"));
-      bootstrap.register(Speed.FASTEST, speed(0.2f, false,"fastest"));
+      bootstrap.register(Speed.SLOWEST, speed(1.7f, false, "slowest"));
+      bootstrap.register(Speed.SLOWER, speed(1.4f, false, "slower"));
+      bootstrap.register(Speed.SLOW, speed(1.2f, true, "slow"));
+      bootstrap.register(Speed.AVERAGE, speed(1.0f, true, "average"));
+      bootstrap.register(Speed.FAST, speed(0.7f, true, "fast"));
+      bootstrap.register(Speed.FASTER, speed(0.4f, false, "faster"));
+      bootstrap.register(Speed.FASTEST, speed(0.2f, false, "fastest"));
 
       // Temperature
       /// Preferences
-      bootstrap.register(TemperaturePreference.HELLISH, temperaturePreference(5, ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE, true,"hellish"));
-      bootstrap.register(TemperaturePreference.HOT, temperaturePreference(4, ApicuriousTags.BiomeTags.HOT_TEMPERATURE, true,"hot"));
-      bootstrap.register(TemperaturePreference.AVERAGE, temperaturePreference(3, ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE, true,"average"));
-      bootstrap.register(TemperaturePreference.COLD, temperaturePreference(2, ApicuriousTags.BiomeTags.COLD_TEMPERATURE, true,"cold"));
-      bootstrap.register(TemperaturePreference.ICY, temperaturePreference(1, ApicuriousTags.BiomeTags.ICY_TEMPERATURE, true,"icy"));
+      bootstrap.register(TemperaturePreference.HELLISH, temperaturePreference(5, ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE, true, "hellish"));
+      bootstrap.register(TemperaturePreference.HOT, temperaturePreference(4, ApicuriousTags.BiomeTags.HOT_TEMPERATURE, true, "hot"));
+      bootstrap.register(TemperaturePreference.AVERAGE, temperaturePreference(3, ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE, true, "average"));
+      bootstrap.register(TemperaturePreference.COLD, temperaturePreference(2, ApicuriousTags.BiomeTags.COLD_TEMPERATURE, true, "cold"));
+      bootstrap.register(TemperaturePreference.ICY, temperaturePreference(1, ApicuriousTags.BiomeTags.ICY_TEMPERATURE, true, "icy"));
 
       // Tolerances
-      bootstrap.register(TemperatureTolerance.NO_TOLERANCE, temperatureTolerance(0, true,"none"));
-      bootstrap.register(TemperatureTolerance.LOWEST_TOLERANCE, temperatureTolerance(1, false,"lowest"));
-      bootstrap.register(TemperatureTolerance.LOW_TOLERANCE, temperatureTolerance(2, false,"low"));
-      bootstrap.register(TemperatureTolerance.AVERAGE_TOLERANCE, temperatureTolerance(3, false,"average"));
-      bootstrap.register(TemperatureTolerance.HIGH_TOLERANCE, temperatureTolerance(4, false,"high"));
-      bootstrap.register(TemperatureTolerance.MAXIMUM_TOLERANCE, temperatureTolerance(5, false,"maximum"));
+      bootstrap.register(TemperatureTolerance.NO_TOLERANCE, temperatureTolerance(0, true, "none"));
+      bootstrap.register(TemperatureTolerance.LOWEST_TOLERANCE, temperatureTolerance(1, false, "lowest"));
+      bootstrap.register(TemperatureTolerance.LOW_TOLERANCE, temperatureTolerance(2, false, "low"));
+      bootstrap.register(TemperatureTolerance.AVERAGE_TOLERANCE, temperatureTolerance(3, false, "average"));
+      bootstrap.register(TemperatureTolerance.HIGH_TOLERANCE, temperatureTolerance(4, false, "high"));
+      bootstrap.register(TemperatureTolerance.MAXIMUM_TOLERANCE, temperatureTolerance(5, false, "maximum"));
 
       // Workcycles
-      bootstrap.register(Workcycle.MATUTINAL, workcycle(List.of(new Workcycle.Interval(4000, 10000)), true,"matutinal"));
-      bootstrap.register(Workcycle.DIURNAL, workcycle(List.of(new Workcycle.Interval(6000, 18000)), true,"diurnal"));
-      bootstrap.register(Workcycle.VESPERTINAL, workcycle(List.of(new Workcycle.Interval(14000, 20000)), true,"vespertinal"));
-      bootstrap.register(Workcycle.NOCTURNAL, workcycle(List.of(new Workcycle.Interval(18000, 24000), new Workcycle.Interval(0, 6000)), true,"nocturnal"));
-      bootstrap.register(Workcycle.ALWAYS, workcycle(List.of(new Workcycle.Interval(0, 24000)), false,"always"));
+      bootstrap.register(Workcycle.MATUTINAL, workcycle(List.of(new Workcycle.Interval(4000, 10000)), true, "matutinal"));
+      bootstrap.register(Workcycle.DIURNAL, workcycle(List.of(new Workcycle.Interval(6000, 18000)), true, "diurnal"));
+      bootstrap.register(Workcycle.VESPERTINAL, workcycle(List.of(new Workcycle.Interval(14000, 20000)), true, "vespertinal"));
+      bootstrap.register(Workcycle.NOCTURNAL, workcycle(List.of(new Workcycle.Interval(18000, 24000), new Workcycle.Interval(0, 6000)), true, "nocturnal"));
+      bootstrap.register(Workcycle.ALWAYS, workcycle(List.of(new Workcycle.Interval(0, 24000)), false, "always"));
 
       // BeeSpecies
       bootstrap.register(ApicuriousSpecies.EMPTY, getSpeciesBuilder(bootstrap, "undefined").build());

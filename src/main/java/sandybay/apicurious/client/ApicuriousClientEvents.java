@@ -18,6 +18,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -49,7 +50,7 @@ public class ApicuriousClientEvents
     event.registerItem(new IClientItemExtensions()
     {
       @Override
-      public BlockEntityWithoutLevelRenderer getCustomRenderer()
+      public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer()
       {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }

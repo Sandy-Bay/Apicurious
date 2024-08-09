@@ -10,14 +10,13 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.IBeeSpecies;
 import sandybay.apicurious.api.bee.genetic.AlleleType;
-import sandybay.apicurious.api.bee.genetic.IGenome;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.VisualData;
+import sandybay.apicurious.common.bee.output.OutputData;
 
 import java.util.Objects;
 import java.util.function.Consumer;
