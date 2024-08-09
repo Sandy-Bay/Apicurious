@@ -1,10 +1,10 @@
-// 1.21	2024-07-21T00:31:23.3466848	Loot Tables
-44608ad472176e8eef07ddb188a6240f7c618259 data/apicurious/loot_table/blocks/ender_hive.json
-069153e4696ccf19e6882cbfd345f56f40a9ac4a data/apicurious/loot_table/blocks/forest_hive.json
-0da03f357cd1503ec9cc96118d43a5ab919cffb5 data/apicurious/loot_table/blocks/marshy_hive.json
-a85814ea4466cd5325b6a9c1f764d09e7e64b98e data/apicurious/loot_table/blocks/meadow_hive.json
-09d2b22cccbcfce6f099d686a592fadb3eb29636 data/apicurious/loot_table/blocks/modest_hive.json
-20d7b8213db2ec14a6f151fb005ec746bdfc021d data/apicurious/loot_table/blocks/nether_hive.json
-02e32434ac464afbff240924cac9f2d2002f61ab data/apicurious/loot_table/blocks/rocky_hive.json
-0c38f63c910dd32ef5275d1e8b83656292946a65 data/apicurious/loot_table/blocks/tropical_hive.json
-1df308dd4f70b3a3334304a8347a8af67ae17e12 data/apicurious/loot_table/blocks/wintry_hive.json
+// 1.21	2024-08-09T00:33:14.3549799	Loot Tables
+c1ad5e67bcac5f6d3239af2603353cd70df7f746 data/apicurious/loot_table/blocks/ender_hive.json
+ae9bfb512c9d0b36347408a9d9daeef8e0b70c39 data/apicurious/loot_table/blocks/forest_hive.json
+7378cc4c8f032d76501c839140e17099af96e54b data/apicurious/loot_table/blocks/marshy_hive.json
+e57d4b9926c48235a9d6c6ae2a9828d89e58bfb0 data/apicurious/loot_table/blocks/meadow_hive.json
+464fb0559acc83210d39ba525ec7e9c85cc52132 data/apicurious/loot_table/blocks/modest_hive.json
+8039ea1f3b7ddf3a735006f383b6d617961d1e93 data/apicurious/loot_table/blocks/nether_hive.json
+e50143e5e4e5b331d0304d30f364c160e9a2ed40 data/apicurious/loot_table/blocks/rocky_hive.json
+39e9861e312346d10cdcafa206ab22564c9e4cd3 data/apicurious/loot_table/blocks/tropical_hive.json
+1ee03c4146091388590385e5930540383e3789e9 data/apicurious/loot_table/blocks/wintry_hive.json

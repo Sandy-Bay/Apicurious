@@ -1,6 +1,7 @@
 package sandybay.apicurious.common.bee.species;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -8,21 +9,24 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.bee.IBeeSpecies;
+import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.bee.genetic.IGenome;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.output.OutputData;
-import sandybay.apicurious.common.bee.species.trait.groups.EnvironmentalData;
-import sandybay.apicurious.common.bee.species.trait.groups.ProductionData;
-import sandybay.apicurious.common.bee.species.trait.groups.VisualData;
+import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
+import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
+import sandybay.apicurious.common.bee.genetic.allele.groups.VisualData;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 
 // TODO: Implement custom effect system, not just potion effects.
-public class BeeSpecies implements IBeeSpecies
+public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 {
 
-  public static final Codec<BeeSpecies> CODEC = RecordCodecBuilder.create(
+  public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
                   Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName),
                   VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
@@ -101,10 +105,34 @@ public class BeeSpecies implements IBeeSpecies
   }
 
   @Override
+  public AlleleType<BeeSpecies> getTraitKey()
+  {
+    return AlleleTypeRegistration.SPECIES_TYPE.get();
+  }
+
+  @Override
   public Component getReadableName()
   {
     if (readableName == null) readableName = Component.translatable(this.name);
     return readableName;
+  }
+
+  @Override
+  public MapCodec<BeeSpecies> getCodec()
+  {
+    return CODEC;
+  }
+
+  @Override
+  public StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> getStreamCodec()
+  {
+    return NETWORK_CODEC;
+  }
+
+  @Override
+  public boolean isDominantTrait()
+  {
+    return true;
   }
 
   @Override
@@ -127,16 +155,16 @@ public class BeeSpecies implements IBeeSpecies
   }
 
   @Override
-  public IGenome getSpeciesDefaultGenome()
+  public Genome getSpeciesDefaultGenome()
   {
     Genome genome = new Genome();
-    genome.getGenomeFromSpecies(this);
+    genome.getDefaultGenome(this);
     return genome;
   }
 
   public static class Builder
   {
-    private final BootstrapContext<BeeSpecies> context;
+    private final BootstrapContext<IAllele<?>> context;
     private final String name;
     private VisualData visualData;
     private ProductionData productionData;
@@ -144,7 +172,7 @@ public class BeeSpecies implements IBeeSpecies
     private OutputData outputs;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
 
-    private Builder(BootstrapContext<BeeSpecies> context, String name)
+    private Builder(BootstrapContext<IAllele<?>> context, String name)
     {
       this.context = context;
       this.name = name;
@@ -154,7 +182,7 @@ public class BeeSpecies implements IBeeSpecies
       this.outputs = OutputData.Builder.create(context).build();
     }
 
-    public static Builder create(BootstrapContext<BeeSpecies> context, String name)
+    public static Builder create(BootstrapContext<IAllele<?>> context, String name)
     {
       return new Builder(context, "apicurious.species." + name);
     }

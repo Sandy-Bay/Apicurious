@@ -18,14 +18,16 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousItemRegistration;
-import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
+import sandybay.apicurious.common.register.BlockRegistration;
+import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.common.register.MenuRegistration;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -51,22 +53,22 @@ public class ApicuriousClientEvents
       {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }
-    }, ApicuriousItemRegistration.DRONE.get(), ApicuriousItemRegistration.PRINCESS.get(), ApicuriousItemRegistration.QUEEN.get());
+    }, ItemRegistration.DRONE.get(), ItemRegistration.PRINCESS.get(), ItemRegistration.QUEEN.get());
   }
 
   private static void handleBlockTint(final RegisterColorHandlersEvent.Block event)
   {
     event.register(
             ApicuriousClientEvents::registerHiveTintHandler,
-            ApicuriousBlockRegistration.FOREST_HIVE.asBlock(),
-            ApicuriousBlockRegistration.MEADOW_HIVE.asBlock(),
-            ApicuriousBlockRegistration.MODEST_HIVE.asBlock(),
-            ApicuriousBlockRegistration.TROPICAL_HIVE.asBlock(),
-            ApicuriousBlockRegistration.WINTRY_HIVE.asBlock(),
-            ApicuriousBlockRegistration.MARSHY_HIVE.asBlock(),
-            ApicuriousBlockRegistration.ROCKY_HIVE.asBlock(),
-            ApicuriousBlockRegistration.NETHER_HIVE.asBlock(),
-            ApicuriousBlockRegistration.ENDER_HIVE.asBlock()
+            BlockRegistration.FOREST_HIVE.asBlock(),
+            BlockRegistration.MEADOW_HIVE.asBlock(),
+            BlockRegistration.MODEST_HIVE.asBlock(),
+            BlockRegistration.TROPICAL_HIVE.asBlock(),
+            BlockRegistration.WINTRY_HIVE.asBlock(),
+            BlockRegistration.MARSHY_HIVE.asBlock(),
+            BlockRegistration.ROCKY_HIVE.asBlock(),
+            BlockRegistration.NETHER_HIVE.asBlock(),
+            BlockRegistration.ENDER_HIVE.asBlock()
     );
   }
 
@@ -74,21 +76,21 @@ public class ApicuriousClientEvents
   {
     event.register(
             ApicuriousClientEvents::registerBeeTintHandler,
-            ApicuriousItemRegistration.DRONE.get(),
-            ApicuriousItemRegistration.PRINCESS.get(),
-            ApicuriousItemRegistration.QUEEN.get()
+            ItemRegistration.DRONE.get(),
+            ItemRegistration.PRINCESS.get(),
+            ItemRegistration.QUEEN.get()
     );
     event.register(
             ApicuriousClientEvents::registerHiveItemTintHandler,
-            ApicuriousBlockRegistration.FOREST_HIVE.asItem(),
-            ApicuriousBlockRegistration.MEADOW_HIVE.asItem(),
-            ApicuriousBlockRegistration.MODEST_HIVE.asItem(),
-            ApicuriousBlockRegistration.TROPICAL_HIVE.asItem(),
-            ApicuriousBlockRegistration.WINTRY_HIVE.asItem(),
-            ApicuriousBlockRegistration.MARSHY_HIVE.asItem(),
-            ApicuriousBlockRegistration.ROCKY_HIVE.asItem(),
-            ApicuriousBlockRegistration.NETHER_HIVE.asItem(),
-            ApicuriousBlockRegistration.ENDER_HIVE.asItem()
+            BlockRegistration.FOREST_HIVE.asItem(),
+            BlockRegistration.MEADOW_HIVE.asItem(),
+            BlockRegistration.MODEST_HIVE.asItem(),
+            BlockRegistration.TROPICAL_HIVE.asItem(),
+            BlockRegistration.WINTRY_HIVE.asItem(),
+            BlockRegistration.MARSHY_HIVE.asItem(),
+            BlockRegistration.ROCKY_HIVE.asItem(),
+            BlockRegistration.NETHER_HIVE.asItem(),
+            BlockRegistration.ENDER_HIVE.asItem()
     );
   }
 
@@ -103,7 +105,7 @@ public class ApicuriousClientEvents
 
   private static void registerScreens(RegisterMenuScreensEvent event)
   {
-    event.register(ApicuriousMenuRegistration.APIARY.get(), ApiaryScreen::new);
+    event.register(MenuRegistration.APIARY.get(), ApiaryScreen::new);
   }
 
   private static int registerBeeTintHandler(ItemStack stack, int tintIndex)
@@ -136,10 +138,10 @@ public class ApicuriousClientEvents
     ClientPacketListener connection = Minecraft.getInstance().getConnection();
     if (connection != null && block instanceof HiveBlock hiveBlock)
     {
-      Optional<Registry<BeeSpecies>> optional = connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES);
+      Optional<Registry<IAllele<?>>> optional = connection.registryAccess().registry(ApicuriousRegistries.ALLELES);
       if (optional.isPresent())
       {
-        BeeSpecies species = optional.get().get(hiveBlock.getSpecies());
+        BeeSpecies species = (BeeSpecies) optional.get().get(hiveBlock.getSpecies());
         if (species == null) return 0xFFFFFFFF;
         return species.getVisualData().getBeeColor().getOutlineTint().getIntColor();
       }
@@ -149,8 +151,10 @@ public class ApicuriousClientEvents
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
   {
-    BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null || species.getVisualData() == null || species.getVisualData().hasCustomRender())
+    Genome genome = stack.get(DataComponentRegistration.GENOME);
+    if (genome == null) return 0xFFFFFFFF;
+    BeeSpecies species = genome.getSpecies(true);
+    if (species.getVisualData() == null || species.getVisualData().hasCustomRender())
       return 0xFFFFFFFF;
     return isOutline ?
             species.getVisualData().getBeeColor().getOutlineTint().getIntColor() :

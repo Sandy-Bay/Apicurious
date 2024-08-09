@@ -1,7 +1,6 @@
 package sandybay.apicurious.api.housing.blockentity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -16,11 +15,12 @@ import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.Lifespan;
-import sandybay.apicurious.common.bee.species.trait.Speed;
+import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
+import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 
 import java.util.ArrayList;
@@ -127,11 +127,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null) return 0;
-    Holder<Speed> speedHolder = species.getProductionData().getSpeed();
-    if (!speedHolder.isBound()) return 0;
-    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE_DURATION * (speedHolder.value().getProductionModifier() == 0.0f ? 1.0f : speedHolder.value().getProductionModifier()));
+    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistration.GENOME);
+    if (genome == null) return 0;
+    Speed speed = genome.getSpeed(true);
+    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE_DURATION * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);
@@ -144,13 +143,11 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     return Math.max(1, outputDuration);
   }
 
-  public int getModifiedLifeSpan()
+  public int getModifiedLifeSpan(Genome genome)
   {
-    BeeSpecies species = inventory.getStackInSlot(0).get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-    if (species == null) return 0;
-    Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
-    if (!lifespanHolder.isBound()) return 0;
-    int lifespan = ApicuriousConstants.WORKCYCLE_DURATION * lifespanHolder.value().getCycles();
+    if (genome == null) return 0;
+    Lifespan lifespanHolder = genome.getLifespan(true);
+    int lifespan = ApicuriousConstants.WORKCYCLE_DURATION * lifespanHolder.getCycles();
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);

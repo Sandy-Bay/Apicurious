@@ -1,0 +1,36 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/overworld_rocks",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/average",
+      "toleranceHolder": "apicurious:humidity/tolerance/none"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/none"
+    }
+  },
+  "name": "apicurious.species.debug",
+  "outputData": {
+    "outputs": [
+      {
+        "count": 1,
+        "id": "minecraft:honeycomb"
+      }
+    ]
+  },
+  "productionData": {
+    "area": "apicurious:area/largest",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/average",
+    "pollination": "apicurious:pollination/average",
+    "speed": "apicurious:speed/average",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "hasEffect": true
+  }
+}

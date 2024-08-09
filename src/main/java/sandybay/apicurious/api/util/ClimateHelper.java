@@ -9,12 +9,13 @@ import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.HumidityPreference;
-import sandybay.apicurious.common.bee.species.trait.HumidityTolerance;
-import sandybay.apicurious.common.bee.species.trait.TemperaturePreference;
-import sandybay.apicurious.common.bee.species.trait.TemperatureTolerance;
+import sandybay.apicurious.common.bee.genetic.allele.HumidityPreference;
+import sandybay.apicurious.common.bee.genetic.allele.HumidityTolerance;
+import sandybay.apicurious.common.bee.genetic.allele.TemperaturePreference;
+import sandybay.apicurious.common.bee.genetic.allele.TemperatureTolerance;
 
 import java.util.List;
 
@@ -37,24 +38,20 @@ public class ClimateHelper
 
   public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
   {
-    BeeSpecies species = bee.get(ApicuriousDataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
-    if (species == null) return false;
-    Holder<TemperaturePreference> preferenceHolder = species.getEnvironmentalData().getTemperatureData().preference();
-    Holder<TemperatureTolerance> toleranceHolder = species.getEnvironmentalData().getTemperatureData().tolerance();
-    if (!preferenceHolder.isBound() || !toleranceHolder.isBound())
-      throw new IllegalArgumentException("Preference or Tolerance was not bound! REPORT THIS!");
-    return isCorrectTemperature(preferenceHolder.value(), toleranceHolder.value(), pos);
+    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    if (genome == null) return false;
+    TemperaturePreference preferenceHolder = genome.getTemperaturePreference(true);
+    TemperatureTolerance toleranceHolder = genome.getTemperatureTolerance(true);
+    return isCorrectTemperature(preferenceHolder, toleranceHolder, pos);
   }
 
   public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
   {
-    BeeSpecies species = bee.get(ApicuriousDataComponentRegistration.BEE_SPECIES); // Replace this with Genome stuff later
-    if (species == null) return false;
-    Holder<HumidityPreference> preferenceHolder = species.getEnvironmentalData().getHumidityData().preference();
-    Holder<HumidityTolerance> toleranceHolder = species.getEnvironmentalData().getHumidityData().tolerance();
-    if (!preferenceHolder.isBound() || !toleranceHolder.isBound())
-      throw new IllegalArgumentException("Preference or Tolerance was not bound! REPORT THIS!");
-    return isCorrectHumidity(preferenceHolder.value(), toleranceHolder.value(), pos);
+    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    if (genome == null) return false;
+    HumidityPreference preferenceHolder = genome.getHumidityPreference(true);
+    HumidityTolerance toleranceHolder = genome.getHumidityTolerance(true);
+    return isCorrectHumidity(preferenceHolder, toleranceHolder, pos);
   }
 
   private boolean isCorrectTemperature(TemperaturePreference preference, TemperatureTolerance tolerance, BlockPos pos)

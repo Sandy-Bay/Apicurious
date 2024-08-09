@@ -14,6 +14,7 @@ public class ApicuriousConstants
   public static final int WORKCYCLE_DURATION = 550;
 
   // Trait Constants
+  public static final ResourceLocation SPECIES = Apicurious.createResourceLocation("species");
   public static final ResourceLocation AREA = Apicurious.createResourceLocation("area");
   public static final ResourceLocation FERTILITY = Apicurious.createResourceLocation("fertility");
   public static final ResourceLocation FLOWERS = Apicurious.createResourceLocation("flowers");

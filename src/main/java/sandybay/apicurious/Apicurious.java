@@ -18,19 +18,21 @@ import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import org.slf4j.Logger;
-import sandybay.apicurious.api.register.ApicuriousDataComponentRegistration;
+import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistration;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.BaseBeeItem;
 import sandybay.apicurious.common.network.PacketHandler;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousCreativeTabRegistration;
-import sandybay.apicurious.common.register.ApicuriousItemRegistration;
-import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
+import sandybay.apicurious.common.register.BlockRegistration;
+import sandybay.apicurious.common.register.CreativeTabRegistration;
+import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.common.register.MenuRegistration;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
-import sandybay.apicurious.data.ApicuriousLootItemFunctions;
+import sandybay.apicurious.data.LootItemFunctionRegistration;
 
 /*
  TODO: Before MVP Alpha Release
@@ -64,13 +66,15 @@ public class Apicurious
     ApicuriousMainConfig.init();
     modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue());
     bus.addListener(this::commonSetup);
+    bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
-    ApicuriousBlockRegistration.register(bus);
-    ApicuriousItemRegistration.register(bus);
-    ApicuriousDataComponentRegistration.register(bus);
-    ApicuriousCreativeTabRegistration.register(bus);
-    ApicuriousLootItemFunctions.register(bus);
-    ApicuriousMenuRegistration.register(bus);
+    BlockRegistration.register(bus);
+    ItemRegistration.register(bus);
+    DataComponentRegistration.register(bus);
+    CreativeTabRegistration.register(bus);
+    LootItemFunctionRegistration.register(bus);
+    MenuRegistration.register(bus);
+    AlleleTypeRegistration.init(bus);
     PacketHandler.init(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);
@@ -87,15 +91,15 @@ public class Apicurious
       Level level = event.getLevel();
       if (level instanceof ServerLevel serverLevel)
       {
-        serverLevel.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
-                BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY));
+        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
+                BaseBeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY));
       } else if (level instanceof ClientLevel)
       {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null)
         {
-          connection.registryAccess().registry(ApicuriousRegistries.BEE_SPECIES).ifPresent(registry ->
-                  BaseBeeItem.EMPTY_SPECIES = registry.get(ApicuriousSpecies.EMPTY));
+          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
+                  BaseBeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY));
         }
       }
     }

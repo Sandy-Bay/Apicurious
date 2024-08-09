@@ -1,19 +1,23 @@
 package sandybay.apicurious.api.bee.genetic;
 
-import net.minecraft.resources.ResourceLocation;
-import sandybay.apicurious.api.bee.IBeeSpecies;
+import net.minecraft.util.RandomSource;
+import sandybay.apicurious.common.bee.genetic.Genome;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.Map;
 
 public interface IGenome
 {
-  Map<ResourceLocation, IAllele<?>> getGenomeMap();
+  private Map<AlleleType<? extends IAllele<?>>, Genome.Genotype> getGenome()
+  {
+    return null;
+  }
 
-  boolean setAllele(IAllele<?> allele);
+  <T extends IAllele<T>> boolean setAllelePair(Genome.Genotype genotype);
 
-  <T extends ITrait<T>> IAllele<?> getAllele(ResourceLocation traitKey);
+  <T extends IAllele<T>> Genome.Genotype getGenotype(AlleleType<T> traitKey);
 
-  IGenome combineGenomes(IGenome other);
+  IGenome combineGenomes(IGenome other, RandomSource random);
 
-  void getGenomeFromSpecies(IBeeSpecies species);
+  void getDefaultGenome(BeeSpecies species);
 }

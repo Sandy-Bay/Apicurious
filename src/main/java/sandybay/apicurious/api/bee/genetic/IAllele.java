@@ -1,20 +1,35 @@
 package sandybay.apicurious.api.bee.genetic;
 
-import net.minecraft.core.Holder;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
-public interface IAllele<T extends ITrait<T>>
+public interface IAllele<T extends IAllele<T>>
 {
+  Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
+          .byNameCodec()
+          .dispatch("type", IAllele::getTraitKey, AlleleType::codec);
 
-  ResourceLocation getTraitKey();
+  StreamCodec<RegistryFriendlyByteBuf, IAllele<?>> NETWORK_TYPED_CODEC = ByteBufCodecs
+          .registry(ApicuriousRegistries.TRAIT_TYPES)
+          .dispatch(IAllele::getTraitKey, AlleleType::streamCodec);
 
-  void setTrait(Holder<T> key);
+  AlleleType<T> getTraitKey();
 
-  T getTrait();
+  Component getReadableName();
+
+  MapCodec<T> getCodec();
+
+  StreamCodec<RegistryFriendlyByteBuf, T> getStreamCodec();
 
   boolean isDominantTrait();
 
-  Component getRenderableName();
-
+  default T cast()
+  {
+    return (T) this;
+  }
 }

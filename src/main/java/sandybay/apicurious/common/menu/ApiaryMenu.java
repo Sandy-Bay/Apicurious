@@ -10,8 +10,8 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousMenuRegistration;
+import sandybay.apicurious.common.register.BlockRegistration;
+import sandybay.apicurious.common.register.MenuRegistration;
 
 import java.util.Objects;
 
@@ -23,7 +23,7 @@ public class ApiaryMenu extends AbstractHousingMenu
 
   public ApiaryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf packetBuffer)
   {
-    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory);
+    super(MenuRegistration.APIARY.get(), containerId, playerInventory);
     this.player = playerInventory.player;
     this.apiary = (ApiaryHousingBE) Objects.requireNonNull(Minecraft.getInstance().level.getBlockEntity(packetBuffer.readBlockPos()));
     this.containerData = new SimpleContainerData(3);
@@ -32,7 +32,7 @@ public class ApiaryMenu extends AbstractHousingMenu
 
   public ApiaryMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, ApiaryHousingBE apiary)
   {
-    super(ApicuriousMenuRegistration.APIARY.get(), containerId, playerInventory, access, apiary.getInventory(), apiary.getErrorList());
+    super(MenuRegistration.APIARY.get(), containerId, playerInventory, access, apiary.getInventory(), apiary.getErrorList());
     this.player = playerInventory.player;
     this.apiary = apiary;
     this.containerData = apiary.getContainerData();
@@ -62,6 +62,6 @@ public class ApiaryMenu extends AbstractHousingMenu
   @Override
   public boolean stillValid(@NotNull Player player)
   {
-    return AbstractContainerMenu.stillValid(getAccess(), player, ApicuriousBlockRegistration.APIARY.asBlock());
+    return AbstractContainerMenu.stillValid(getAccess(), player, BlockRegistration.APIARY.asBlock());
   }
 }
