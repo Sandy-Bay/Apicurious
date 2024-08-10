@@ -39,8 +39,8 @@ public class ClimateHelper
   {
     Genome genome = bee.get(DataComponentRegistration.GENOME);
     if (genome == null) return false;
-    TemperaturePreference preferenceHolder = genome.getTemperaturePreference(true);
-    TemperatureTolerance toleranceHolder = genome.getTemperatureTolerance(true);
+    TemperaturePreference preferenceHolder = (TemperaturePreference) genome.getTemperaturePreference(true).value();
+    TemperatureTolerance toleranceHolder = (TemperatureTolerance) genome.getTemperatureTolerance(true).value();
     return isCorrectTemperature(preferenceHolder, toleranceHolder, pos);
   }
 
@@ -48,8 +48,8 @@ public class ClimateHelper
   {
     Genome genome = bee.get(DataComponentRegistration.GENOME);
     if (genome == null) return false;
-    HumidityPreference preferenceHolder = genome.getHumidityPreference(true);
-    HumidityTolerance toleranceHolder = genome.getHumidityTolerance(true);
+    HumidityPreference preferenceHolder = (HumidityPreference) genome.getHumidityPreference(true).value();
+    HumidityTolerance toleranceHolder = (HumidityTolerance) genome.getHumidityTolerance(true).value();
     return isCorrectHumidity(preferenceHolder, toleranceHolder, pos);
   }
 

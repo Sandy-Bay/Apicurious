@@ -51,7 +51,7 @@ public class Genome implements IGenome
     return genome;
   }
 
-  public <T extends IAllele<T>> boolean setAllelePair(Genotype genotype)
+  public boolean setAllelePair(Genotype genotype)
   {
     Genotype prev = this.genome.put(genotype.getActive().value().getTraitKey(), genotype);
     return prev != null || prev != genotype;
@@ -76,7 +76,7 @@ public class Genome implements IGenome
   @Override
   public void getDefaultGenome(Holder<IAllele<?>> species)
   {
-    BeeSpecies raw = (BeeSpecies) species;
+    BeeSpecies raw = (BeeSpecies) species.value();
     this.genome.put(AlleleTypeRegistration.SPECIES_TYPE.get(), Genotype.defaultOf(species));
     this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getAreaHolder()));
     this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getFertilityHolder()));
@@ -91,76 +91,76 @@ public class Genome implements IGenome
     this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getWorkcycleHolder()));
   }
 
-  public <T extends IAllele<T>> Holder<BeeSpecies> getSpecies(boolean active)
+  public Holder<IAllele<?>> getSpecies(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.SPECIES_TYPE.get());
-    return active ? (Holder<BeeSpecies>) genotype.getActive() : (BeeSpecies) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Area getArea(boolean active)
+  public Holder<IAllele<?>> getArea(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.AREA_TYPE.get());
-    return active ? (Area) genotype.getActive() : (Area) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Fertility getFertility(boolean active)
+  public Holder<IAllele<?>> getFertility(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.FERTILITY_TYPE.get());
-    return active ? (Fertility) genotype.getActive() : (Fertility) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Flowers getFlowers(boolean active)
+  public Holder<IAllele<?>> getFlowers(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.FLOWERS_TYPE.get());
-    return active ? (Flowers) genotype.getActive() : (Flowers) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> HumidityPreference getHumidityPreference(boolean active)
+  public Holder<IAllele<?>> getHumidityPreference(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get());
-    return active ? (HumidityPreference) genotype.getActive() : (HumidityPreference) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> HumidityTolerance getHumidityTolerance(boolean active)
+  public Holder<IAllele<?>> getHumidityTolerance(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get());
-    return active ? (HumidityTolerance) genotype.getActive() : (HumidityTolerance) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Lifespan getLifespan(boolean active)
+  public Holder<IAllele<?>> getLifespan(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.LIFESPAN_TYPE.get());
-    return active ? (Lifespan) genotype.getActive() : (Lifespan) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Pollination getPollination(boolean active)
+  public Holder<IAllele<?>> getPollination(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.POLLINATION_TYPE.get());
-    return active ? (Pollination) genotype.getActive() : (Pollination) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Speed getSpeed(boolean active)
+  public Holder<IAllele<?>> getSpeed(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.SPEED_TYPE.get());
-    return active ? (Speed) genotype.getActive() : (Speed) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> TemperaturePreference getTemperaturePreference(boolean active)
+  public <T extends IAllele<T>> Holder<IAllele<?>> getTemperaturePreference(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get());
-    return active ? (TemperaturePreference) genotype.getActive() : (TemperaturePreference) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> TemperatureTolerance getTemperatureTolerance(boolean active)
+  public Holder<IAllele<?>> getTemperatureTolerance(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get());
-    return active ? (TemperatureTolerance) genotype.getActive() : (TemperatureTolerance) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public <T extends IAllele<T>> Workcycle getWorkcycle(boolean active)
+  public Holder<IAllele<?>> getWorkcycle(boolean active)
   {
     Genotype genotype = getGenotype(AlleleTypeRegistration.WORKCYCLE_TYPE.get());
-    return active ? (Workcycle) genotype.getActive() : (Workcycle) genotype.getInactive();
+    return active ? genotype.getActive() : genotype.getInactive();
   }
 
   @Override

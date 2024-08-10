@@ -143,7 +143,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
               else
               {
                 BeeSpecies mutatedSpecies = mutation.getOutput();
-                queenGenome = mutatedSpecies.getSpeciesDefaultGenome();
+                queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
               }
               queen.set(DataComponentRegistration.GENOME, queenGenome);
               getInventory().extractItem(0, 1, false);
@@ -154,8 +154,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
               if (ApicuriousMainConfig.main_config.debug.get())
                 Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s"
                         .formatted(
-                                princessGenome.getSpecies(true).getReadableName().getString(),
-                                queenGenome.getSpecies(true).getReadableName().getString()
+                                princessGenome.getSpecies(true).value().getReadableName().getString(),
+                                queenGenome.getSpecies(true).value().getReadableName().getString()
                         )
                 );
             }
@@ -235,7 +235,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration()) == 0)
     {
-      List<ItemStack> outputs = genome.getSpecies(true).getOutputData().getOutputs();
+      List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().getOutputs();
       for (ItemStack output : outputs)
       {
         if (!canOutputSuccessfully(output)) return false;
@@ -275,7 +275,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     getInventory().extractItem(0, 1, false);
     ItemStack princess = new ItemStack(ItemRegistration.PRINCESS.get(), 1);
-    Fertility fertility = genome.getFertility(true);
+    Fertility fertility = (Fertility) genome.getFertility(true).value();
     ItemStack drones = new ItemStack(ItemRegistration.DRONE.get(), fertility.getOffspring());
     princess.set(DataComponentRegistration.GENOME, genome);
     drones.set(DataComponentRegistration.GENOME, genome);

@@ -154,7 +154,7 @@ public class ApicuriousClientEvents
   {
     Genome genome = stack.get(DataComponentRegistration.GENOME);
     if (genome == null) return 0xFFFFFFFF;
-    BeeSpecies species = genome.getSpecies(true);
+    BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
     if (species.getVisualData() == null || species.getVisualData().hasCustomRender())
       return 0xFFFFFFFF;
     return isOutline ?

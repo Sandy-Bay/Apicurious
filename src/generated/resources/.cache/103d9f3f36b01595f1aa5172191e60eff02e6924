@@ -1,4 +1,4 @@
-// 1.21	2024-08-10T03:48:25.3400567	Registries
+// 1.21	2024-08-10T21:39:24.8116534	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -40,17 +40,17 @@ a59d306f33b5143e3d17d234eec5b9753c393ed9 data/apicurious/apicurious/alleles/life
 9fba32b872e2e6f64f9e1010f8d91b8aa74d843e data/apicurious/apicurious/alleles/pollination/slow.json
 1000d379d6f9ba56663841767296e4fe11ba0178 data/apicurious/apicurious/alleles/pollination/slower.json
 0ac1857b4066504173c3c250e037519deb0988c8 data/apicurious/apicurious/alleles/pollination/slowest.json
-c4e190c4598021b29b088fc34a4a62856ff98d0b data/apicurious/apicurious/alleles/species/debug.json
-b199b967d90b09c55c5a2132d40016a82f59b57b data/apicurious/apicurious/alleles/species/ender.json
-394ae0835834acad62e347fe0056446a561a3727 data/apicurious/apicurious/alleles/species/forest.json
-32643ca503cee45f9959fcb7a4fa7717abc0ac19 data/apicurious/apicurious/alleles/species/marshy.json
-36acaaf6a0b89eeab875ece81994bfe84b331443 data/apicurious/apicurious/alleles/species/meadow.json
-9fb24ed6eac23fb7197255016bf7920af1996cf1 data/apicurious/apicurious/alleles/species/modest.json
-7a0bad94005151e6472a2bc761129885226d1759 data/apicurious/apicurious/alleles/species/nether.json
-5c64862d88e5787344df80b81d9c011a7548f340 data/apicurious/apicurious/alleles/species/rocky.json
-ddf56cd2f398134b00049e1c7749031eb682baaa data/apicurious/apicurious/alleles/species/tropical.json
-ee06b02a771798d54a68cd74032aa2132372a342 data/apicurious/apicurious/alleles/species/undefined.json
-c22e376ec95543a769aea22c6883ae23be89525c data/apicurious/apicurious/alleles/species/wintry.json
+3277c7b56a2194f88e9b385c0821517a5dcd3f5a data/apicurious/apicurious/alleles/species/debug.json
+4ddcf2f9f479928771367f4af2306d85dc2db981 data/apicurious/apicurious/alleles/species/ender.json
+3b5f1f0f4011b203d5b0849fca1ab0547283d51f data/apicurious/apicurious/alleles/species/forest.json
+8b00b823af93e66397e420cd37be4f33e77cb273 data/apicurious/apicurious/alleles/species/marshy.json
+475b9454006811fffc464ac33e7c41d932c0d321 data/apicurious/apicurious/alleles/species/meadow.json
+16a65473e4786b5ed0dfa68634a9c164f2b0170d data/apicurious/apicurious/alleles/species/modest.json
+6bd40178451847ca6d30079391f08f3fedbba884 data/apicurious/apicurious/alleles/species/nether.json
+7a4192863bd3a3a754b7e31c947d355eec0cc012 data/apicurious/apicurious/alleles/species/rocky.json
+faf7f687797f2bd0707fd83f60f3b6d75c94dd56 data/apicurious/apicurious/alleles/species/tropical.json
+470cc5fe8df220a365a429f0e5128dc1d26d6980 data/apicurious/apicurious/alleles/species/undefined.json
+4bdbf9a4711a52faf2535f9e3f006b43d55891a0 data/apicurious/apicurious/alleles/species/wintry.json
 c39c49a80d875daecbb50a9d6baf74c0d774c625 data/apicurious/apicurious/alleles/speed/average.json
 41326bc1f77753ec3f043850719443849b307241 data/apicurious/apicurious/alleles/speed/fast.json
 ef7b506e1d9ecfb7195d06a57d29d92f95840ca5 data/apicurious/apicurious/alleles/speed/faster.json
@@ -74,4 +74,3 @@ aaa040d73e5facc1ac4e1b866493bdcec2fe3527 data/apicurious/apicurious/alleles/temp
 c607f93b9ded41f4ec67cabc2dc13b8fb67e83e4 data/apicurious/apicurious/alleles/workcycle/matutinal.json
 cf7236fcf62efdb9b9499b1c20fef6c474487d3f data/apicurious/apicurious/alleles/workcycle/nocturnal.json
 2353234cbcfb5925f4d32c9b0a7df66e90cd9b38 data/apicurious/apicurious/alleles/workcycle/vespertinal.json
-b1190076a6abdaa09b3bb2af530934a42c5c08a1 data/apicurious/apicurious/mutations/first_example.json

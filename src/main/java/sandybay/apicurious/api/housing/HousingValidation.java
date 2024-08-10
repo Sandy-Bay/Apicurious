@@ -12,6 +12,7 @@ import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
 import sandybay.apicurious.common.bee.genetic.allele.Workcycle;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.Set;
 
@@ -57,7 +58,7 @@ public class HousingValidation
     if (!key.has(DataComponentRegistration.GENOME)) return;
     Genome genome = key.get(DataComponentRegistration.GENOME);
     if (genome == null) return;
-    Flowers flowers = genome.getFlowers(true);
+    Flowers flowers = (Flowers) genome.getFlowers(true).value();
     TagKey<Block> tagKey = flowers.getFlowers();
     for (BlockPos pos : territory)
     {
@@ -86,7 +87,7 @@ public class HousingValidation
   {
     Genome genome = queen.get(DataComponentRegistration.GENOME);
     if (genome == null || level == null) return;
-    Workcycle speciesCycle = genome.getWorkcycle(true);
+    Workcycle speciesCycle = (Workcycle) genome.getWorkcycle(true).value();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
     if (!isValidCycle) errorHandler.addError(HousingError.INVALID_TIME);
     else errorHandler.removeError(HousingError.INVALID_TIME);
@@ -96,7 +97,7 @@ public class HousingValidation
   {
     Genome genome = queen.get(DataComponentRegistration.GENOME);
     if (genome == null || level == null) return;
-    boolean ignoresSky = genome.getSpecies(true).getEnvironmentalData().ignoresSky(); // TODO: Potentially implement alleles for this
+    boolean ignoresSky = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresSky(); // TODO: Potentially implement alleles for this
     boolean canSeeSky = true;
     if (!ignoresSky)
     {
@@ -110,7 +111,7 @@ public class HousingValidation
   {
     Genome genome = queen.get(DataComponentRegistration.GENOME);
     if (genome == null || level == null) return;
-    boolean ignoresRain = genome.getSpecies(true).getEnvironmentalData().ignoresRain(); // TODO: Potentially implement alleles for this
+    boolean ignoresRain = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresRain(); // TODO: Potentially implement alleles for this
     boolean isClear = true;
     if (!ignoresRain)
     {

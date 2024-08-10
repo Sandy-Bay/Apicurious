@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
+  "key": "apicurious:species/wintry",
   "name": "apicurious.species.wintry",
   "outputData": {
     "outputs": []

@@ -39,7 +39,7 @@ public record Mutation(Holder<IAllele<?>> first, Holder<IAllele<?>> second, floa
   }
 
   @Override
-  public boolean test(Level level, List<ItemStack> frames, BeeSpecies first, BeeSpecies second, RandomSource random)
+  public boolean test(Level level, List<ItemStack> frames, Holder<IAllele<?>> first, Holder<IAllele<?>> second, RandomSource random)
   {
     BeeSpecies firstLeft = (BeeSpecies) first().value();
     BeeSpecies secondLeft = (BeeSpecies) second().value();

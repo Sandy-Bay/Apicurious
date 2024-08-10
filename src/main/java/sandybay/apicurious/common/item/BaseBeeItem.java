@@ -53,7 +53,7 @@ public class BaseBeeItem extends Item implements IBeeItem
       {
         BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
         if (species == null) return;
-        bee.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome());
+        bee.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome(level));
       });
     } else if (level instanceof ClientLevel || level == null)
     {
@@ -64,7 +64,7 @@ public class BaseBeeItem extends Item implements IBeeItem
         {
           BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
           if (species == null) return;
-          bee.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome());
+          bee.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome(level));
         });
       }
     }
@@ -82,7 +82,7 @@ public class BaseBeeItem extends Item implements IBeeItem
   {
     Genome genome = stack.get(DataComponentRegistration.GENOME);
     if (genome == null) return Component.literal("ERROR");
-    return genome.getSpecies(true).getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
+    return genome.getSpecies(true).value().getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
   }
 
   @Override
@@ -90,7 +90,7 @@ public class BaseBeeItem extends Item implements IBeeItem
   {
     Genome genome = stack.get(DataComponentRegistration.GENOME);
     if (genome == null) return false;
-    return genome.getSpecies(true).getVisualData().hasEffect();
+    return ((BeeSpecies) genome.getSpecies(true).value()).getVisualData().hasEffect();
   }
 
   @Override
@@ -101,18 +101,18 @@ public class BaseBeeItem extends Item implements IBeeItem
     {
       Genome genome = pStack.get(DataComponentRegistration.GENOME);
       if (genome == null) return;
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.area").append(genome.getArea(true).getReadableName()));
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.lifespan").append(genome.getLifespan(true).getReadableName()));
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.speed").append(genome.getSpeed(true).getReadableName()));
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.fertility").append(genome.getFertility(true).getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.area").append(genome.getArea(true).value().getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.lifespan").append(genome.getLifespan(true).value().getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.speed").append(genome.getSpeed(true).value().getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.fertility").append(genome.getFertility(true).value().getReadableName()));
 
-      pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).getReadableName()).append(" / ")
-              .append(genome.getTemperatureTolerance(true).getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+      pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).value().getReadableName()).append(" / ")
+              .append(genome.getTemperatureTolerance(true).value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
-      pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).getReadableName()).append(" / ")
-              .append(genome.getHumidityTolerance(true).getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+      pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).value().getReadableName()).append(" / ")
+              .append(genome.getHumidityTolerance(true).value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
 
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.flowers").append(genome.getFlowers(true).getReadableName()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.flowers").append(genome.getFlowers(true).value().getReadableName()));
 
     } else
     {

@@ -39,7 +39,7 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
       ModelResourceLocation mrl = null;
       BakedModel model;
       Genome genome = stack.get(DataComponentRegistration.GENOME);
-      BeeSpecies species = genome != null ? genome.getSpecies(true) : null;
+      BeeSpecies species = genome != null ? (BeeSpecies) genome.getSpecies(true).value() : null;
       ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
       ModelManager manager = renderer.getItemModelShaper().getModelManager();
 

@@ -52,7 +52,7 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
     {
       BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
       if (species == null) return;
-      stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome());
+      stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome(context.getLevel()));
     });
     return stack;
   }

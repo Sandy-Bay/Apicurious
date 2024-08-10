@@ -129,7 +129,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistration.GENOME);
     if (genome == null) return 0;
-    Speed speed = genome.getSpeed(true);
+    Speed speed = (Speed) genome.getSpeed(true).value();
     int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
@@ -146,7 +146,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public int getModifiedLifeSpan(Genome genome)
   {
     if (genome == null) return 0;
-    Lifespan lifespanHolder = genome.getLifespan(true);
+    Lifespan lifespanHolder = (Lifespan) genome.getLifespan(true).value();
     int lifespan = ApicuriousMainConfig.main_config.baseCycleTime.get() * lifespanHolder.getCycles();
     for (int i = 2; i < 5; i++)
     {

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
@@ -43,7 +44,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     if (!queen.has(DataComponentRegistration.GENOME)) return territory;
     Genome genome = queen.get(DataComponentRegistration.GENOME);
     if (genome == null) return territory;
-    Area area = genome.getArea(true);
+    Area area = (Area) genome.getArea(true).value();
     int xzOffset = area.getXZOffset();
     int yOffset = area.getYOffset();
 
@@ -76,7 +77,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     if (!queen.has(DataComponentRegistration.GENOME)) return false;
     Genome genome = queen.get(DataComponentRegistration.GENOME);
     if (genome == null) return false;
-    Pollination pollination = genome.getPollination(true);
+    Pollination pollination = (Pollination) genome.getPollination(true).value();
     return random.nextFloat() < Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);
   }
 
