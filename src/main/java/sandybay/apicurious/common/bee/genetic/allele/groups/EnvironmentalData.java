@@ -61,7 +61,7 @@ public class EnvironmentalData
     return super.toString() + " EnvironmentalData{" + "flowers=" + flowersHolder + ", humidityData=" + humidityData + ", temperatureData=" + temperatureData + ", ignoresRain=" + ignoresRain + ", ignoresSky=" + ignoresSky + '}';
   }
 
-  private Holder<IAllele<?>> getFlowersHolder()
+  public Holder<IAllele<?>> getFlowersHolder()
   {
     return flowersHolder;
   }

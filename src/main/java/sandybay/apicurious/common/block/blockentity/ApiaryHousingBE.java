@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,8 +23,11 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Fertility;
+import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.menu.ApiaryMenu;
@@ -130,7 +134,17 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
             ItemStack queen = new ItemStack(ItemRegistration.QUEEN);
             if (princessGenome != null && droneGenome != null)
             {
-              Genome queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
+              Genome queenGenome;
+              Mutation mutation = getPotentialMutation();
+              if (mutation == null)
+              {
+                queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
+              }
+              else
+              {
+                BeeSpecies mutatedSpecies = mutation.getOutput();
+                queenGenome = mutatedSpecies.getSpeciesDefaultGenome();
+              }
               queen.set(DataComponentRegistration.GENOME, queenGenome);
               getInventory().extractItem(0, 1, false);
               getInventory().extractItem(1, 1, false);
@@ -203,7 +217,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
       Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
               level.getBlockState(filteredPos).is(BlockTags.DIRT) &&
                       level.getBlockState(filteredPos.above()).isAir() &&
-                      level.random.nextFloat() > 0.85f, 2);
+                      level.random.nextFloat() < 0.15f, 2);
       List<BlockPos> found = this.territory.stream().filter(filter).toList();
       if (!stack.has(DataComponentRegistration.GENOME)) return;
       Genome genome = stack.get(DataComponentRegistration.GENOME);
@@ -281,6 +295,28 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
         break;
       }
     }
+  }
+
+  private Mutation getPotentialMutation() {
+    Level level = getLevel();
+    if (level == null) return null;
+    Genome first = getInventory().getStackInSlot(0).get(DataComponentRegistration.GENOME);
+    Genome second = getInventory().getStackInSlot(1).get(DataComponentRegistration.GENOME);
+    Optional<Registry<Mutation>> mutationRegistry = level.registryAccess().registry(ApicuriousRegistries.MUTATIONS);
+    if (mutationRegistry.isPresent() && first != null && second != null)
+    {
+      Registry<Mutation> mutations = mutationRegistry.get();
+      Optional<Mutation> mutation = mutations.stream().filter(mut -> mut.test(
+              getLevel(),
+              List.of(),
+              first.getSpecies(true), second.getSpecies(true),
+              level.getRandom()
+      )).findAny();
+      if (mutation.isPresent()) {
+        return mutation.get();
+      }
+    }
+    return null;
   }
 
   public void updateGuiData()

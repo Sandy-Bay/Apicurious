@@ -38,6 +38,7 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
  TODO: Before MVP Alpha Release
  - Must Haves:
    - Allele/Genome (Genetics)
+     - Figure out a better allele mutation system...
    - Mutations (Genetics and Species)
    - Particles for active housing
    - Proper errors for housing

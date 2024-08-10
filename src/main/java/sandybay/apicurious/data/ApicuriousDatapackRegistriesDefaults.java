@@ -1,23 +1,33 @@
 package sandybay.apicurious.data;
 
+import com.mojang.datafixers.kinds.IdF;
+import com.mojang.datafixers.util.Either;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.api.util.ApicuriousTags;
+import sandybay.apicurious.common.bee.ApicuriousMutations;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
+import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class ApicuriousDatapackRegistriesDefaults
 {
@@ -142,6 +152,11 @@ public class ApicuriousDatapackRegistriesDefaults
       );
     });
 
+    builder.add(ApicuriousRegistries.MUTATIONS, bootstrap ->
+    {
+      bootstrap.register(ApicuriousMutations.FIRST_EXAMPLE, mutation(bootstrap, ApicuriousSpecies.FOREST, ApicuriousSpecies.MEADOW, 1.0f, ApicuriousSpecies.DEBUG));
+    });
+
     builder.add(Registries.CONFIGURED_FEATURE, bootstrap ->
     {
       // TODO: Implement generation for the bee hives
@@ -155,6 +170,23 @@ public class ApicuriousDatapackRegistriesDefaults
   }
 
   // TODO: Build out more robust creation methods
+  private static Mutation mutation(
+          BootstrapContext<Mutation> context,
+          ResourceKey<IAllele<?>> first, ResourceKey<IAllele<?>> second,
+          float chance,
+          ResourceKey<IAllele<?>> output)
+  {
+    HolderGetter<IAllele<?>> speciesGetter = context.lookup(ApicuriousRegistries.ALLELES);
+    Optional<Holder.Reference<IAllele<?>>> firstSpecies = speciesGetter.get(first);
+    Optional<Holder.Reference<IAllele<?>>> secondSpecies = speciesGetter.get(second);
+    Optional<Holder.Reference<IAllele<?>>> outputSpecies = speciesGetter.get(output);
+    if (firstSpecies.isPresent() && secondSpecies.isPresent() && outputSpecies.isPresent())
+    {
+      return new Mutation(firstSpecies.get(), secondSpecies.get(), chance, outputSpecies.get());
+    }
+    return null;
+  }
+
   // Bee Species
   private static BeeSpecies speciesWithColor(BootstrapContext<IAllele<?>> context, String name, BeeColor color)
   {

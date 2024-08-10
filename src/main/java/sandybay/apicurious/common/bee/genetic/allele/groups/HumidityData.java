@@ -29,8 +29,6 @@ public class HumidityData
   );
   private final Holder<IAllele<?>> preferenceHolder;
   private final Holder<IAllele<?>> toleranceHolder;
-  private HumidityPreference preference;
-  private HumidityTolerance tolerance;
 
   public HumidityData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
   {
@@ -38,26 +36,14 @@ public class HumidityData
     this.toleranceHolder = toleranceHolder;
   }
 
-  private Holder<IAllele<?>> getPreferenceHolder()
+  public Holder<IAllele<?>> getPreferenceHolder()
   {
     return preferenceHolder;
   }
 
-  public HumidityPreference getPreference()
-  {
-    if (preference == null && preferenceHolder.isBound()) preference = (HumidityPreference) preferenceHolder.value();
-    return preference;
-  }
-
-  private Holder<IAllele<?>> getToleranceHolder()
+  public Holder<IAllele<?>> getToleranceHolder()
   {
     return toleranceHolder;
-  }
-
-  public HumidityTolerance getTolerance()
-  {
-    if (tolerance == null && toleranceHolder.isBound()) tolerance = (HumidityTolerance) toleranceHolder.value();
-    return tolerance;
   }
 
   @Override

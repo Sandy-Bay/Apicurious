@@ -12,10 +12,13 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.util.ApicuriousTags;
+import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.register.BlockRegistration;
 import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.data.providers.AlleleTagsProvider;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -175,6 +178,32 @@ public class ApicuriousTagProviders
         Biome.ClimateSettings climate = biome.getModifiedClimateSettings();
         return climate.downfall() > minHumidity && climate.downfall() < maxHumidity;
       }).listElements().map(Holder.Reference::getKey).toList();
+    }
+  }
+
+  public static class AlleleProvider extends AlleleTagsProvider
+  {
+
+    public AlleleProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, @Nullable ExistingFileHelper existingFileHelper)
+    {
+      super(pOutput, pLookupProvider, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider pProvider)
+    {
+      tag(ApicuriousTags.AlleleTags.BASELINE_BEE)
+              .addAll(List.of(
+                      ApicuriousSpecies.FOREST,
+                      ApicuriousSpecies.MEADOW,
+                      ApicuriousSpecies.MODEST,
+                      ApicuriousSpecies.TROPICAL,
+                      ApicuriousSpecies.WINTRY,
+                      ApicuriousSpecies.MARSHY,
+                      ApicuriousSpecies.ROCKY,
+                      ApicuriousSpecies.NETHER,
+                      ApicuriousSpecies.ENDER
+              ));
     }
   }
 }

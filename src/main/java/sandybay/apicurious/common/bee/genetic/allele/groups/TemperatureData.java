@@ -31,8 +31,6 @@ public class TemperatureData
 
   private final Holder<IAllele<?>> preferenceHolder;
   private final Holder<IAllele<?>> toleranceHolder;
-  private TemperaturePreference preference;
-  private TemperatureTolerance tolerance;
 
   public TemperatureData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
   {
@@ -40,26 +38,13 @@ public class TemperatureData
     this.toleranceHolder = toleranceHolder;
   }
 
-  private Holder<IAllele<?>> getPreferenceHolder()
+  public Holder<IAllele<?>> getPreferenceHolder()
   {
     return preferenceHolder;
   }
-
-  public TemperaturePreference getPreference()
-  {
-    if (preference == null && preferenceHolder.isBound()) preference = (TemperaturePreference) preferenceHolder.value();
-    return preference;
-  }
-
-  private Holder<IAllele<?>> getToleranceHolder()
+  public Holder<IAllele<?>> getToleranceHolder()
   {
     return toleranceHolder;
-  }
-
-  public TemperatureTolerance getTolerance()
-  {
-    if (tolerance == null && toleranceHolder.isBound()) tolerance = (TemperatureTolerance) toleranceHolder.value();
-    return tolerance;
   }
 
   @Override
@@ -68,12 +53,12 @@ public class TemperatureData
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TemperatureData that = (TemperatureData) o;
-    return Objects.equals(preference, that.preference) && Objects.equals(tolerance, that.tolerance);
+    return Objects.equals(preferenceHolder.value(), that.preferenceHolder.value()) && Objects.equals(toleranceHolder.value(), that.toleranceHolder.value());
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(preference, tolerance);
+    return Objects.hash(preferenceHolder.value(), toleranceHolder.value());
   }
 }

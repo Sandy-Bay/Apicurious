@@ -8,22 +8,27 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 
 public class ApicuriousRegistries
 {
 
-  // Trait Registries
-  public static final ResourceKey<Registry<AlleleType<?>>> TRAIT_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("trait_type"));
-  public static final Registry<AlleleType<?>> TRAIT_TYPES_REGISTRY = new RegistryBuilder<>(TRAIT_TYPES).sync(true).create();
+  // Allele Registries
+  public static final ResourceKey<Registry<AlleleType<?>>> ALLELE_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("allele_type"));
+  public static final Registry<AlleleType<?>> ALLELE_TYPES_REGISTRY = new RegistryBuilder<>(ALLELE_TYPES).sync(true).create();
   public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("alleles"));
+
+  // Mutation Registry
+  public static final ResourceKey<Registry<Mutation>> MUTATIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutations"));
 
   public static void registerRegistries(final NewRegistryEvent event)
   {
-    event.register(TRAIT_TYPES_REGISTRY);
+    event.register(ALLELE_TYPES_REGISTRY);
   }
 
   public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event)
   {
     event.dataPackRegistry(ALLELES, IAllele.TYPED_CODEC, IAllele.TYPED_CODEC);
+    event.dataPackRegistry(MUTATIONS, Mutation.CODEC, Mutation.CODEC);
   }
 }

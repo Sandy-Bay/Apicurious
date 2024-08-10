@@ -5,13 +5,6 @@ import sandybay.apicurious.common.config.ApicuriousMainConfig;
 
 public class ApicuriousConstants
 {
-  // Apiary Constants
-  /**
-   * Duration in Ticks per Workcycle.
-   * Default: 550 ticks or 27.5 seconds
-   */
-  public static final int WORKCYCLE_DURATION = ApicuriousMainConfig.main_config.baseCycleTime.get();
-
   // Color-values
   //// Bodies
   public static final String DEFAULT_BODY = "ffdc16";

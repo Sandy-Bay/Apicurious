@@ -22,6 +22,7 @@ import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
 import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +130,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistration.GENOME);
     if (genome == null) return 0;
     Speed speed = genome.getSpeed(true);
-    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE_DURATION * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
+    int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);
@@ -146,7 +147,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (genome == null) return 0;
     Lifespan lifespanHolder = genome.getLifespan(true);
-    int lifespan = ApicuriousConstants.WORKCYCLE_DURATION * lifespanHolder.getCycles();
+    int lifespan = ApicuriousMainConfig.main_config.baseCycleTime.get() * lifespanHolder.getCycles();
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);

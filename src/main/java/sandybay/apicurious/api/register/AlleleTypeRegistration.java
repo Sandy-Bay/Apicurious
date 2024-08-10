@@ -11,7 +11,7 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 public class AlleleTypeRegistration
 {
-  private static final DeferredRegister<AlleleType<?>> TRAIT_TYPES = DeferredRegister.create(ApicuriousRegistries.TRAIT_TYPES, Apicurious.MODID);
+  private static final DeferredRegister<AlleleType<?>> TRAIT_TYPES = DeferredRegister.create(ApicuriousRegistries.ALLELE_TYPES, Apicurious.MODID);
 
   public static final DeferredHolder<AlleleType<?>, AlleleType<BeeSpecies>> SPECIES_TYPE = TRAIT_TYPES.register("species", () -> new AlleleType<>(BeeSpecies.CODEC, BeeSpecies.NETWORK_CODEC));
   public static final DeferredHolder<AlleleType<?>, AlleleType<Area>> AREA_TYPE = TRAIT_TYPES.register("area", () -> new AlleleType<>(Area.CODEC, Area.NETWORK_CODEC));

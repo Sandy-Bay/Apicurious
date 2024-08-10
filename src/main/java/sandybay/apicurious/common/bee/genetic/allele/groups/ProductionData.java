@@ -69,7 +69,7 @@ public class ProductionData
     return super.toString() + " ProductionData{" + "lifespan=" + lifespan + ", workCycle=" + workcycleHolder + ", area=" + areaHolder + ", speed=" + speed + ", fertility=" + fertility + ", pollination=" + pollination + '}';
   }
 
-  private Holder<IAllele<?>> getLifespanHolder()
+  public Holder<IAllele<?>> getLifespanHolder()
   {
     return lifespanHolder;
   }
@@ -80,7 +80,7 @@ public class ProductionData
     return lifespan;
   }
 
-  private Holder<IAllele<?>> getAreaHolder()
+  public Holder<IAllele<?>> getAreaHolder()
   {
     return areaHolder;
   }
@@ -91,7 +91,7 @@ public class ProductionData
     return area;
   }
 
-  private Holder<IAllele<?>> getSpeedHolder()
+  public Holder<IAllele<?>> getSpeedHolder()
   {
     return speedHolder;
   }
@@ -102,7 +102,7 @@ public class ProductionData
     return speed;
   }
 
-  private Holder<IAllele<?>> getFertilityHolder()
+  public Holder<IAllele<?>> getFertilityHolder()
   {
     return fertilityHolder;
   }
@@ -113,7 +113,7 @@ public class ProductionData
     return fertility;
   }
 
-  private Holder<IAllele<?>> getPollinationHolder()
+  public Holder<IAllele<?>> getPollinationHolder()
   {
     return pollinationHolder;
   }
@@ -124,7 +124,7 @@ public class ProductionData
     return pollination;
   }
 
-  private Holder<IAllele<?>> getWorkcycleHolder()
+  public Holder<IAllele<?>> getWorkcycleHolder()
   {
     return workcycleHolder;
   }
