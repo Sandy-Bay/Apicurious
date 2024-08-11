@@ -138,7 +138,8 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
               if (mutation == null)
               {
                 queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
-              } else
+              }
+              else
               {
                 BeeSpecies mutatedSpecies = (BeeSpecies) mutation.getOutput().value();
                 queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
@@ -295,8 +296,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     }
   }
 
-  private IMutation getPotentialMutation()
-  {
+  private IMutation getPotentialMutation() {
     Level level = getLevel();
     if (level == null) return null;
     Genome first = getInventory().getStackInSlot(0).get(DataComponentRegistrar.GENOME);
@@ -306,8 +306,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
     {
       Registry<IMutation> mutations = mutationRegistry.get();
       Optional<IMutation> mutation = mutations.stream().filter(mut -> mut.test(this)).findAny();
-      if (mutation.isPresent())
-      {
+      if (mutation.isPresent()) {
         return mutation.get();
       }
     }

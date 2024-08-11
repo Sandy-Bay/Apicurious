@@ -126,15 +126,14 @@ public class BlockRegistration
     {
       return entityType.get();
     }
-  }
-
-  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
+  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
           "apiary",
           () -> new ApiaryBlock(HOUSING_PROPS),
           BlockRegistration::getDefaultBlockItem,
           ApiaryHousingBE::new,
           BlockRegistration::getDefaultType
   );
+
 
 
   public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
