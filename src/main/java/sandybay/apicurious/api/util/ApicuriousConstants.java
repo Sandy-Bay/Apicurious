@@ -1,7 +1,6 @@
 package sandybay.apicurious.api.util;
 
 import sandybay.apicurious.common.bee.species.BeeColor;
-import sandybay.apicurious.common.config.ApicuriousMainConfig;
 
 public class ApicuriousConstants
 {

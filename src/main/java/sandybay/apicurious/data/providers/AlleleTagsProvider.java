@@ -6,7 +6,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.concurrent.CompletableFuture;

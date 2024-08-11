@@ -7,10 +7,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
-import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.genetic.allele.TemperaturePreference;
-import sandybay.apicurious.common.bee.genetic.allele.TemperatureTolerance;
 
 import java.util.Objects;
 
@@ -42,6 +40,7 @@ public class TemperatureData
   {
     return preferenceHolder;
   }
+
   public Holder<IAllele<?>> getToleranceHolder()
   {
     return toleranceHolder;

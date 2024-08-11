@@ -16,8 +16,7 @@ import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.register.DataComponentRegistration;
-import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
 import sandybay.apicurious.common.bee.genetic.allele.Speed;
@@ -127,7 +126,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistration.GENOME);
+    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistrar.GENOME);
     if (genome == null) return 0;
     Speed speed = (Speed) genome.getSpeed(true).value();
     int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));

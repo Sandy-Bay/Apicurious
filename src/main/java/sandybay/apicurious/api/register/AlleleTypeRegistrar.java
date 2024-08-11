@@ -4,12 +4,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
-public class AlleleTypeRegistration
+public class AlleleTypeRegistrar
 {
   private static final DeferredRegister<AlleleType<?>> TRAIT_TYPES = DeferredRegister.create(ApicuriousRegistries.ALLELE_TYPES, Apicurious.MODID);
 

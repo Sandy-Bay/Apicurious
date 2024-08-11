@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.bee.genetic;
+package sandybay.apicurious.api.bee.genetic.allele;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

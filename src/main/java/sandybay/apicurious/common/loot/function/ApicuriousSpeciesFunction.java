@@ -9,8 +9,8 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.data.LootItemFunctionRegistration;
@@ -52,7 +52,7 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
     {
       BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
       if (species == null) return;
-      stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome(context.getLevel()));
+      stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(context.getLevel()));
     });
     return stack;
   }

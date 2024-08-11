@@ -12,9 +12,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
@@ -105,6 +105,6 @@ public class Flowers implements IAllele<Flowers>
   @Override
   public AlleleType<Flowers> getTraitKey()
   {
-    return AlleleTypeRegistration.FLOWERS_TYPE.get();
+    return AlleleTypeRegistrar.FLOWERS_TYPE.get();
   }
 }

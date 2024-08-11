@@ -19,8 +19,8 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import org.jetbrains.annotations.NotNull;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.common.bee.genetic.Genome;
@@ -152,7 +152,7 @@ public class ApicuriousClientEvents
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
   {
-    Genome genome = stack.get(DataComponentRegistration.GENOME);
+    Genome genome = stack.get(DataComponentRegistrar.GENOME);
     if (genome == null) return 0xFFFFFFFF;
     BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
     if (species.getVisualData() == null || species.getVisualData().hasCustomRender())

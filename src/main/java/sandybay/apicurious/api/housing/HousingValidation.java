@@ -7,7 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
@@ -55,8 +55,8 @@ public class HousingValidation
   private void validateFlowers(Level level, Set<BlockPos> territory)
   {
     boolean foundValid = false;
-    if (!key.has(DataComponentRegistration.GENOME)) return;
-    Genome genome = key.get(DataComponentRegistration.GENOME);
+    if (!key.has(DataComponentRegistrar.GENOME)) return;
+    Genome genome = key.get(DataComponentRegistrar.GENOME);
     if (genome == null) return;
     Flowers flowers = (Flowers) genome.getFlowers(true).value();
     TagKey<Block> tagKey = flowers.getFlowers();
@@ -85,7 +85,7 @@ public class HousingValidation
 
   protected void validateTime(ItemStack queen, Level level)
   {
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) return;
     Workcycle speciesCycle = (Workcycle) genome.getWorkcycle(true).value();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
@@ -95,9 +95,9 @@ public class HousingValidation
 
   protected void validateSky(ItemStack queen, Level level, BlockPos pos)
   {
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) return;
-    boolean ignoresSky = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresSky(); // TODO: Potentially implement alleles for this
+    boolean ignoresSky = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresSky();
     boolean canSeeSky = true;
     if (!ignoresSky)
     {
@@ -109,9 +109,9 @@ public class HousingValidation
 
   protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
   {
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) return;
-    boolean ignoresRain = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresRain(); // TODO: Potentially implement alleles for this
+    boolean ignoresRain = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresRain();
     boolean isClear = true;
     if (!ignoresRain)
     {

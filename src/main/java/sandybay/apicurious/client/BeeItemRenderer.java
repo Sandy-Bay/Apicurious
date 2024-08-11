@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
@@ -38,7 +38,7 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
       ModelResourceLocation fallback = null;
       ModelResourceLocation mrl = null;
       BakedModel model;
-      Genome genome = stack.get(DataComponentRegistration.GENOME);
+      Genome genome = stack.get(DataComponentRegistrar.GENOME);
       BeeSpecies species = genome != null ? (BeeSpecies) genome.getSpecies(true).value() : null;
       ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
       ModelManager manager = renderer.getItemModelShaper().getModelManager();

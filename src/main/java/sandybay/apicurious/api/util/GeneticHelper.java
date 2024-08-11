@@ -3,8 +3,7 @@ package sandybay.apicurious.api.util;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import sandybay.apicurious.api.bee.genetic.Genotype;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.common.bee.genetic.Genome;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 
 public class GeneticHelper
 {

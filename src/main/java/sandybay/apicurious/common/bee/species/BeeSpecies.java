@@ -11,9 +11,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.bee.IBeeSpecies;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
@@ -23,7 +23,6 @@ import sandybay.apicurious.common.bee.output.OutputData;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 // TODO: Implement custom effect system, not just potion effects.
 public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
@@ -121,7 +120,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   @Override
   public AlleleType<BeeSpecies> getTraitKey()
   {
-    return AlleleTypeRegistration.SPECIES_TYPE.get();
+    return AlleleTypeRegistrar.SPECIES_TYPE.get();
   }
 
   @Override

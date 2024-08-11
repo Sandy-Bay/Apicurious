@@ -9,9 +9,9 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
@@ -107,6 +107,6 @@ public class Lifespan implements IAllele<Lifespan>
   @Override
   public AlleleType<Lifespan> getTraitKey()
   {
-    return AlleleTypeRegistration.LIFESPAN_TYPE.get();
+    return AlleleTypeRegistrar.LIFESPAN_TYPE.get();
   }
 }

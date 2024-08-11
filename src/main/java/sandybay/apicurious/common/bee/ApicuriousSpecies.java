@@ -2,7 +2,7 @@ package sandybay.apicurious.common.bee;
 
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class ApicuriousSpecies

@@ -12,10 +12,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Area;
 import sandybay.apicurious.common.bee.genetic.allele.Pollination;
@@ -41,8 +40,8 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
   public Set<BlockPos> getTerritory(ItemStack queen, BlockPos housingPosition, List<ItemStack> frames)
   {
     Set<BlockPos> territory = new HashSet<>();
-    if (!queen.has(DataComponentRegistration.GENOME)) return territory;
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    if (!queen.has(DataComponentRegistrar.GENOME)) return territory;
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null) return territory;
     Area area = (Area) genome.getArea(true).value();
     int xzOffset = area.getXZOffset();
@@ -74,8 +73,8 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
 
   public boolean shouldPollinate(RandomSource random, ItemStack queen)
   {
-    if (!queen.has(DataComponentRegistration.GENOME)) return false;
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    if (!queen.has(DataComponentRegistrar.GENOME)) return false;
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null) return false;
     Pollination pollination = (Pollination) genome.getPollination(true).value();
     return random.nextFloat() < Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);

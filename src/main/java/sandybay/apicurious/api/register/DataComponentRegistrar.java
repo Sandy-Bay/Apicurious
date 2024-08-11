@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.genetic.Genome;
 
-public class DataComponentRegistration
+public class DataComponentRegistrar
 {
 
   public static final DeferredRegister.DataComponents REGISTRAR = DeferredRegister.createDataComponents(Apicurious.MODID);

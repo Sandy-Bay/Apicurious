@@ -18,8 +18,9 @@ import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import org.slf4j.Logger;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
+import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
@@ -36,19 +37,19 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
 
 /*
  TODO: Before MVP Alpha Release
- - Must Haves:
-   - Allele/Genome (Genetics)
-     - Figure out a better allele mutation system...
-   - Mutations (Genetics and Species)
-   - Particles for active housing
-   - Proper errors for housing
-     - Error Message
-     - Error Tooltip
-   - Worldgen for Hives
- - Optionals:
-   - Effects
-   - Output System
-   - General Code Clean-Up
+  - Must Haves:
+    - Allele/Genome (Genetics)
+      - Figure out a better allele mutation system...
+    - Mutations (Genetics and Species)
+    - Particles for active housing
+    - Proper errors for housing
+      - Error Message
+      - Error Tooltip
+    - Worldgen for Hives
+  - Optionals:
+    - Effects
+    - Output System
+    - General Code Clean-Up
  */
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Apicurious.MODID)
@@ -71,11 +72,12 @@ public class Apicurious
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
     BlockRegistration.register(bus);
     ItemRegistration.register(bus);
-    DataComponentRegistration.register(bus);
+    DataComponentRegistrar.register(bus);
     CreativeTabRegistration.register(bus);
     LootItemFunctionRegistration.register(bus);
     MenuRegistration.register(bus);
-    AlleleTypeRegistration.init(bus);
+    AlleleTypeRegistrar.init(bus);
+    MutationTypeRegistrar.init(bus);
     PacketHandler.init(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);

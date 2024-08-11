@@ -12,7 +12,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -70,7 +70,7 @@ public class CreativeTabRegistration
                     new ItemStack(ItemRegistration.PRINCESS)
             );
             BeeSpecies species = (BeeSpecies) registry.get(rl);
-            bees.forEach(stack -> stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level)));
+            bees.forEach(stack -> stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level)));
             output.acceptAll(bees);
           }
         }

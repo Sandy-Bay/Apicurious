@@ -4,17 +4,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
 import sandybay.apicurious.api.bee.genetic.Genotype;
-import sandybay.apicurious.api.bee.genetic.IAllele;
 import sandybay.apicurious.api.bee.genetic.IGenome;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.util.GeneticHelper;
-import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.HashMap;
@@ -77,89 +75,89 @@ public class Genome implements IGenome
   public void getDefaultGenome(Holder<IAllele<?>> species)
   {
     BeeSpecies raw = (BeeSpecies) species.value();
-    this.genome.put(AlleleTypeRegistration.SPECIES_TYPE.get(), Genotype.defaultOf(species));
-    this.genome.put(AlleleTypeRegistration.AREA_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getAreaHolder()));
-    this.genome.put(AlleleTypeRegistration.FERTILITY_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getFertilityHolder()));
-    this.genome.put(AlleleTypeRegistration.FLOWERS_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getFlowersHolder()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().getPreferenceHolder()));
-    this.genome.put(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().getToleranceHolder()));
-    this.genome.put(AlleleTypeRegistration.LIFESPAN_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getLifespanHolder()));
-    this.genome.put(AlleleTypeRegistration.POLLINATION_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getPollinationHolder()));
-    this.genome.put(AlleleTypeRegistration.SPEED_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getSpeedHolder()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().getPreferenceHolder()));
-    this.genome.put(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().getToleranceHolder()));
-    this.genome.put(AlleleTypeRegistration.WORKCYCLE_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getWorkcycleHolder()));
+    this.genome.put(AlleleTypeRegistrar.SPECIES_TYPE.get(), Genotype.defaultOf(species));
+    this.genome.put(AlleleTypeRegistrar.AREA_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getAreaHolder()));
+    this.genome.put(AlleleTypeRegistrar.FERTILITY_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getFertilityHolder()));
+    this.genome.put(AlleleTypeRegistrar.FLOWERS_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getFlowersHolder()));
+    this.genome.put(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().getPreferenceHolder()));
+    this.genome.put(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().getToleranceHolder()));
+    this.genome.put(AlleleTypeRegistrar.LIFESPAN_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getLifespanHolder()));
+    this.genome.put(AlleleTypeRegistrar.POLLINATION_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getPollinationHolder()));
+    this.genome.put(AlleleTypeRegistrar.SPEED_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getSpeedHolder()));
+    this.genome.put(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().getPreferenceHolder()));
+    this.genome.put(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().getToleranceHolder()));
+    this.genome.put(AlleleTypeRegistrar.WORKCYCLE_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getWorkcycleHolder()));
   }
 
   public Holder<IAllele<?>> getSpecies(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.SPECIES_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.SPECIES_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getArea(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.AREA_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.AREA_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getFertility(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.FERTILITY_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.FERTILITY_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getFlowers(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.FLOWERS_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.FLOWERS_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getHumidityPreference(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.HUMIDITY_PREFERENCE_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getHumidityTolerance(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.HUMIDITY_TOLERANCE_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getLifespan(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.LIFESPAN_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.LIFESPAN_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getPollination(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.POLLINATION_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.POLLINATION_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getSpeed(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.SPEED_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.SPEED_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public <T extends IAllele<T>> Holder<IAllele<?>> getTemperaturePreference(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.TEMPERATURE_PREFERENCE_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getTemperatureTolerance(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.TEMPERATURE_TOLERANCE_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
   public Holder<IAllele<?>> getWorkcycle(boolean active)
   {
-    Genotype genotype = getGenotype(AlleleTypeRegistration.WORKCYCLE_TYPE.get());
+    Genotype genotype = getGenotype(AlleleTypeRegistrar.WORKCYCLE_TYPE.get());
     return active ? genotype.getActive() : genotype.getInactive();
   }
 

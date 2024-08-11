@@ -2,8 +2,8 @@ package sandybay.apicurious.api.bee.genetic;
 
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
-import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 
 public interface IGenome
 {
