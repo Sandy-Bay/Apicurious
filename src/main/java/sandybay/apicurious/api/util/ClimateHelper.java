@@ -9,9 +9,8 @@ import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityPreference;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityTolerance;
 import sandybay.apicurious.common.bee.genetic.allele.TemperaturePreference;
@@ -38,19 +37,19 @@ public class ClimateHelper
 
   public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
   {
-    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    Genome genome = bee.get(DataComponentRegistrar.GENOME);
     if (genome == null) return false;
-    TemperaturePreference preferenceHolder = genome.getTemperaturePreference(true);
-    TemperatureTolerance toleranceHolder = genome.getTemperatureTolerance(true);
+    TemperaturePreference preferenceHolder = (TemperaturePreference) genome.getTemperaturePreference(true).value();
+    TemperatureTolerance toleranceHolder = (TemperatureTolerance) genome.getTemperatureTolerance(true).value();
     return isCorrectTemperature(preferenceHolder, toleranceHolder, pos);
   }
 
   public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
   {
-    Genome genome = bee.get(DataComponentRegistration.GENOME); // Replace this with Genome stuff later
+    Genome genome = bee.get(DataComponentRegistrar.GENOME);
     if (genome == null) return false;
-    HumidityPreference preferenceHolder = genome.getHumidityPreference(true);
-    HumidityTolerance toleranceHolder = genome.getHumidityTolerance(true);
+    HumidityPreference preferenceHolder = (HumidityPreference) genome.getHumidityPreference(true).value();
+    HumidityTolerance toleranceHolder = (HumidityTolerance) genome.getHumidityTolerance(true).value();
     return isCorrectHumidity(preferenceHolder, toleranceHolder, pos);
   }
 

@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
-import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 
@@ -38,13 +38,11 @@ public class EnvironmentalData
   );
 
   private final Holder<IAllele<?>> flowersHolder;
-  private Flowers flowers;
-
   private final HumidityData humidityData;
   private final TemperatureData temperatureData;
-
   private final boolean ignoresRain;
   private final boolean ignoresSky;
+  private Flowers flowers;
 
   private EnvironmentalData(Holder<IAllele<?>> flowersHolder,
                             HumidityData humidityData, TemperatureData temperatureData,
@@ -63,7 +61,7 @@ public class EnvironmentalData
     return super.toString() + " EnvironmentalData{" + "flowers=" + flowersHolder + ", humidityData=" + humidityData + ", temperatureData=" + temperatureData + ", ignoresRain=" + ignoresRain + ", ignoresSky=" + ignoresSky + '}';
   }
 
-  private Holder<IAllele<?>> getFlowersHolder()
+  public Holder<IAllele<?>> getFlowersHolder()
   {
     return flowersHolder;
   }

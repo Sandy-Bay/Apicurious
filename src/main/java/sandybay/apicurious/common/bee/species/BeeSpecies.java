@@ -8,16 +8,18 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.bee.IBeeSpecies;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
-import sandybay.apicurious.api.bee.genetic.IGenome;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.VisualData;
+import sandybay.apicurious.common.bee.output.OutputData;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -28,6 +30,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 
   public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
+                  ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("key").forGetter(BeeSpecies::getSpeciesKey),
                   Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName),
                   VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
                   ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
@@ -38,6 +41,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(
+          ResourceKey.streamCodec(ApicuriousRegistries.ALLELES), BeeSpecies::getSpeciesKey,
           ByteBufCodecs.STRING_UTF8, BeeSpecies::getName,
           VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
           ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
@@ -48,6 +52,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   );
 
   private final String name;
+  private final ResourceKey<IAllele<?>> key;
   private final VisualData visualData;
   private final ProductionData productionData;
   private final EnvironmentalData environmentalData;
@@ -55,11 +60,13 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   private Component readableName;
   //private final List<MobEffectInstance> effects;
 
-  public BeeSpecies(String name, VisualData visualData,
+  public BeeSpecies(ResourceKey<IAllele<?>> key, String name,
+                    VisualData visualData,
                     ProductionData productionData,
                     EnvironmentalData environmentalData,
                     OutputData outputs)
   {
+    this.key = key;
     this.name = name;
     this.visualData = visualData;
     this.productionData = productionData;
@@ -78,6 +85,12 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   private String getName()
   {
     return name;
+  }
+
+  @Override
+  public ResourceKey<IAllele<?>> getSpeciesKey()
+  {
+    return key;
   }
 
   @Override
@@ -107,7 +120,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   @Override
   public AlleleType<BeeSpecies> getTraitKey()
   {
-    return AlleleTypeRegistration.SPECIES_TYPE.get();
+    return AlleleTypeRegistrar.SPECIES_TYPE.get();
   }
 
   @Override
@@ -155,16 +168,17 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   }
 
   @Override
-  public Genome getSpeciesDefaultGenome()
+  public Genome getSpeciesDefaultGenome(Level level)
   {
     Genome genome = new Genome();
-    genome.getDefaultGenome(this);
+    genome.getDefaultGenome(level.registryAccess().holderOrThrow(getSpeciesKey()));
     return genome;
   }
 
   public static class Builder
   {
     private final BootstrapContext<IAllele<?>> context;
+    private final ResourceKey<IAllele<?>> key;
     private final String name;
     private VisualData visualData;
     private ProductionData productionData;
@@ -172,9 +186,10 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
     private OutputData outputs;
     //private final List<MobEffectInstance> effects = new ArrayList<>();
 
-    private Builder(BootstrapContext<IAllele<?>> context, String name)
+    private Builder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
     {
       this.context = context;
+      this.key = key;
       this.name = name;
       this.visualData = VisualData.Builder.create().build();
       this.productionData = ProductionData.Builder.create(context).build();
@@ -182,9 +197,9 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
       this.outputs = OutputData.Builder.create(context).build();
     }
 
-    public static Builder create(BootstrapContext<IAllele<?>> context, String name)
+    public static Builder create(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
     {
-      return new Builder(context, "apicurious.species." + name);
+      return new Builder(context, key, "apicurious.species." + name);
     }
 
     public Builder withVisualData(Consumer<VisualData.Builder> consumer)
@@ -227,8 +242,10 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
     public BeeSpecies build()
     {
       return new BeeSpecies(
-              this.name, this.visualData,
-              this.productionData, this.environmentalData,
+              this.key, this.name,
+              this.visualData,
+              this.productionData,
+              this.environmentalData,
               this.outputs
               //this.effects
       );

@@ -16,10 +16,9 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.item.BaseBeeItem;
 
 import java.util.Locale;
 
@@ -31,11 +30,6 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
     super(blockEntityRenderDispatcher, entityModelSet);
   }
 
-  private static boolean isLeftHand(ItemDisplayContext type)
-  {
-    return type == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || type == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
-  }
-
   @Override
   public void renderByItem(ItemStack stack, @NotNull ItemDisplayContext displayContext, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight, int packedOverlay)
   {
@@ -44,8 +38,8 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
       ModelResourceLocation fallback = null;
       ModelResourceLocation mrl = null;
       BakedModel model;
-      Genome genome = stack.get(DataComponentRegistration.GENOME);
-      BeeSpecies species = genome != null ? genome.getSpecies(true) : null;
+      Genome genome = stack.get(DataComponentRegistrar.GENOME);
+      BeeSpecies species = genome != null ? (BeeSpecies) genome.getSpecies(true).value() : null;
       ItemRenderer renderer = Minecraft.getInstance().getItemRenderer();
       ModelManager manager = renderer.getItemModelShaper().getModelManager();
 

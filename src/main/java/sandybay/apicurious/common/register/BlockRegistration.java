@@ -101,13 +101,7 @@ public class BlockRegistration
     {
       return new ItemStack(item.get());
     }
-  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
-          "apiary",
-          () -> new ApiaryBlock(HOUSING_PROPS),
-          BlockRegistration::getDefaultBlockItem,
-          ApiaryHousingBE::new,
-          BlockRegistration::getDefaultType
-  );
+  }
 
   public record BlockHolderWithTile<BLOCK extends Block, ITEM extends BlockItem, TYPE extends BlockEntity>
           (DeferredHolder<Block, BLOCK> block, DeferredHolder<Item, ITEM> item,
@@ -132,7 +126,15 @@ public class BlockRegistration
     {
       return entityType.get();
     }
-  }
+  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
+          "apiary",
+          () -> new ApiaryBlock(HOUSING_PROPS),
+          BlockRegistration::getDefaultBlockItem,
+          ApiaryHousingBE::new,
+          BlockRegistration::getDefaultType
+  );
+
+
 
   public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",

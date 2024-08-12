@@ -8,7 +8,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.common.register.BlockRegistration;
 
 public class BeeHousingBE extends SimpleBlockHousingBE

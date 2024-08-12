@@ -18,8 +18,9 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import org.jetbrains.annotations.NotNull;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.common.bee.genetic.Genome;
@@ -49,7 +50,7 @@ public class ApicuriousClientEvents
     event.registerItem(new IClientItemExtensions()
     {
       @Override
-      public BlockEntityWithoutLevelRenderer getCustomRenderer()
+      public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer()
       {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }
@@ -151,9 +152,9 @@ public class ApicuriousClientEvents
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
   {
-    Genome genome = stack.get(DataComponentRegistration.GENOME);
+    Genome genome = stack.get(DataComponentRegistrar.GENOME);
     if (genome == null) return 0xFFFFFFFF;
-    BeeSpecies species = genome.getSpecies(true);
+    BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
     if (species.getVisualData() == null || species.getVisualData().hasCustomRender())
       return 0xFFFFFFFF;
     return isOutline ?

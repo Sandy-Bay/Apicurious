@@ -4,14 +4,14 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
-public class AlleleTypeRegistration
+public class AlleleTypeRegistrar
 {
-  private static final DeferredRegister<AlleleType<?>> TRAIT_TYPES = DeferredRegister.create(ApicuriousRegistries.TRAIT_TYPES, Apicurious.MODID);
+  private static final DeferredRegister<AlleleType<?>> TRAIT_TYPES = DeferredRegister.create(ApicuriousRegistries.ALLELE_TYPES, Apicurious.MODID);
 
   public static final DeferredHolder<AlleleType<?>, AlleleType<BeeSpecies>> SPECIES_TYPE = TRAIT_TYPES.register("species", () -> new AlleleType<>(BeeSpecies.CODEC, BeeSpecies.NETWORK_CODEC));
   public static final DeferredHolder<AlleleType<?>, AlleleType<Area>> AREA_TYPE = TRAIT_TYPES.register("area", () -> new AlleleType<>(Area.CODEC, Area.NETWORK_CODEC));
@@ -26,7 +26,8 @@ public class AlleleTypeRegistration
   public static final DeferredHolder<AlleleType<?>, AlleleType<TemperatureTolerance>> TEMPERATURE_TOLERANCE_TYPE = TRAIT_TYPES.register("temperature_tolerance", () -> new AlleleType<>(TemperatureTolerance.CODEC, TemperatureTolerance.NETWORK_CODEC));
   public static final DeferredHolder<AlleleType<?>, AlleleType<Workcycle>> WORKCYCLE_TYPE = TRAIT_TYPES.register("workcycle", () -> new AlleleType<>(Workcycle.CODEC, Workcycle.NETWORK_CODEC));
 
-  public static void init(IEventBus bus) {
+  public static void init(IEventBus bus)
+  {
     TRAIT_TYPES.register(bus);
   }
 }

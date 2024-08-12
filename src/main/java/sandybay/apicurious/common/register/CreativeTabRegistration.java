@@ -12,7 +12,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -50,7 +50,7 @@ public class CreativeTabRegistration
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder()
           .title(Component.translatable("itemGroup.apicurious.bee"))
           .withTabsBefore(CreativeTabRegistration.GENERAL_TAB.getKey())
-          .icon(() -> BaseBeeItem.getBeeWithSpecies(null, ApicuriousSpecies.FOREST, ItemRegistration.QUEEN))
+          .icon(() -> BaseBeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST, ItemRegistration.QUEEN))
           .displayItems((parameters, output) -> registerBees(output)).build());
 
   public static void registerBees(CreativeModeTab.Output output)
@@ -70,7 +70,7 @@ public class CreativeTabRegistration
                     new ItemStack(ItemRegistration.PRINCESS)
             );
             BeeSpecies species = (BeeSpecies) registry.get(rl);
-            bees.forEach(stack -> stack.set(DataComponentRegistration.GENOME, species.getSpeciesDefaultGenome()));
+            bees.forEach(stack -> stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level)));
             output.acceptAll(bees);
           }
         }

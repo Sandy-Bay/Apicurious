@@ -7,12 +7,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
-import sandybay.apicurious.api.register.DataComponentRegistration;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
 import sandybay.apicurious.common.bee.genetic.allele.Workcycle;
+import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.Set;
 
@@ -22,7 +22,7 @@ public class HousingValidation
   private final IApiaryErrorHandler errorHandler;
   private final boolean isValid;
   private ItemStack key;
-  private ClimateHelper helper;
+  public ClimateHelper helper;
 
   public HousingValidation(IApiaryErrorHandler errorHandler)
   {
@@ -55,10 +55,10 @@ public class HousingValidation
   private void validateFlowers(Level level, Set<BlockPos> territory)
   {
     boolean foundValid = false;
-    if (!key.has(DataComponentRegistration.GENOME)) return;
-    Genome genome = key.get(DataComponentRegistration.GENOME);
+    if (!key.has(DataComponentRegistrar.GENOME)) return;
+    Genome genome = key.get(DataComponentRegistrar.GENOME);
     if (genome == null) return;
-    Flowers flowers = genome.getFlowers(true);
+    Flowers flowers = (Flowers) genome.getFlowers(true).value();
     TagKey<Block> tagKey = flowers.getFlowers();
     for (BlockPos pos : territory)
     {
@@ -85,9 +85,9 @@ public class HousingValidation
 
   protected void validateTime(ItemStack queen, Level level)
   {
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) return;
-    Workcycle speciesCycle = genome.getWorkcycle(true);
+    Workcycle speciesCycle = (Workcycle) genome.getWorkcycle(true).value();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
     if (!isValidCycle) errorHandler.addError(HousingError.INVALID_TIME);
     else errorHandler.removeError(HousingError.INVALID_TIME);
@@ -95,9 +95,9 @@ public class HousingValidation
 
   protected void validateSky(ItemStack queen, Level level, BlockPos pos)
   {
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) return;
-    boolean ignoresSky = genome.getSpecies(true).getEnvironmentalData().ignoresSky(); // TODO: Potentially implement alleles for this
+    boolean ignoresSky = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresSky();
     boolean canSeeSky = true;
     if (!ignoresSky)
     {
@@ -109,9 +109,9 @@ public class HousingValidation
 
   protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
   {
-    Genome genome = queen.get(DataComponentRegistration.GENOME);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) return;
-    boolean ignoresRain = genome.getSpecies(true).getEnvironmentalData().ignoresRain(); // TODO: Potentially implement alleles for this
+    boolean ignoresRain = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresRain();
     boolean isClear = true;
     if (!ignoresRain)
     {

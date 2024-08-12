@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
-import sandybay.apicurious.api.bee.genetic.IAllele;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 
@@ -40,16 +40,16 @@ public class ProductionData
   );
 
   private final Holder<IAllele<?>> lifespanHolder;
-  private Lifespan lifespan;
   private final Holder<IAllele<?>> workcycleHolder;
-  private Workcycle workcycle;
   private final Holder<IAllele<?>> areaHolder;
-  private Area area;
   private final Holder<IAllele<?>> speedHolder;
-  private Speed speed;
   private final Holder<IAllele<?>> fertilityHolder;
-  private Fertility fertility;
   private final Holder<IAllele<?>> pollinationHolder;
+  private Lifespan lifespan;
+  private Workcycle workcycle;
+  private Area area;
+  private Speed speed;
+  private Fertility fertility;
   private Pollination pollination;
 
   public ProductionData(Holder<IAllele<?>> lifespanHolder, Holder<IAllele<?>> workcycleHolder, Holder<IAllele<?>> areaHolder,
@@ -69,7 +69,7 @@ public class ProductionData
     return super.toString() + " ProductionData{" + "lifespan=" + lifespan + ", workCycle=" + workcycleHolder + ", area=" + areaHolder + ", speed=" + speed + ", fertility=" + fertility + ", pollination=" + pollination + '}';
   }
 
-  private Holder<IAllele<?>> getLifespanHolder()
+  public Holder<IAllele<?>> getLifespanHolder()
   {
     return lifespanHolder;
   }
@@ -80,7 +80,7 @@ public class ProductionData
     return lifespan;
   }
 
-  private Holder<IAllele<?>> getAreaHolder()
+  public Holder<IAllele<?>> getAreaHolder()
   {
     return areaHolder;
   }
@@ -91,7 +91,7 @@ public class ProductionData
     return area;
   }
 
-  private Holder<IAllele<?>> getSpeedHolder()
+  public Holder<IAllele<?>> getSpeedHolder()
   {
     return speedHolder;
   }
@@ -102,7 +102,7 @@ public class ProductionData
     return speed;
   }
 
-  private Holder<IAllele<?>> getFertilityHolder()
+  public Holder<IAllele<?>> getFertilityHolder()
   {
     return fertilityHolder;
   }
@@ -113,7 +113,7 @@ public class ProductionData
     return fertility;
   }
 
-  private Holder<IAllele<?>> getPollinationHolder()
+  public Holder<IAllele<?>> getPollinationHolder()
   {
     return pollinationHolder;
   }
@@ -124,7 +124,7 @@ public class ProductionData
     return pollination;
   }
 
-  private Holder<IAllele<?>> getWorkcycleHolder()
+  public Holder<IAllele<?>> getWorkcycleHolder()
   {
     return workcycleHolder;
   }

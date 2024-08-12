@@ -10,9 +10,9 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.genetic.AlleleType;
-import sandybay.apicurious.api.bee.genetic.IAllele;
-import sandybay.apicurious.api.register.AlleleTypeRegistration;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.ArrayList;
@@ -54,10 +54,10 @@ public class Workcycle implements IAllele<Workcycle>
 
   public static final MapCodec<Workcycle> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(
-                          Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes),
-                          Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait),
-                          Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)
-                  ).apply(instance, Workcycle::new)
+                  Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes),
+                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait),
+                  Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)
+          ).apply(instance, Workcycle::new)
   );
   public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes,
@@ -144,7 +144,7 @@ public class Workcycle implements IAllele<Workcycle>
   @Override
   public AlleleType<Workcycle> getTraitKey()
   {
-    return AlleleTypeRegistration.WORKCYCLE_TYPE.get();
+    return AlleleTypeRegistrar.WORKCYCLE_TYPE.get();
   }
 
   public static class Interval

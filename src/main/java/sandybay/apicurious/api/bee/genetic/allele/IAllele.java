@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.bee.genetic;
+package sandybay.apicurious.api.bee.genetic.allele;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -10,12 +10,12 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public interface IAllele<T extends IAllele<T>>
 {
-  Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.TRAIT_TYPES_REGISTRY
+  Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.ALLELE_TYPES_REGISTRY
           .byNameCodec()
           .dispatch("type", IAllele::getTraitKey, AlleleType::codec);
 
   StreamCodec<RegistryFriendlyByteBuf, IAllele<?>> NETWORK_TYPED_CODEC = ByteBufCodecs
-          .registry(ApicuriousRegistries.TRAIT_TYPES)
+          .registry(ApicuriousRegistries.ALLELE_TYPES)
           .dispatch(IAllele::getTraitKey, AlleleType::streamCodec);
 
   AlleleType<T> getTraitKey();
@@ -27,9 +27,4 @@ public interface IAllele<T extends IAllele<T>>
   StreamCodec<RegistryFriendlyByteBuf, T> getStreamCodec();
 
   boolean isDominantTrait();
-
-  default T cast()
-  {
-    return (T) this;
-  }
 }

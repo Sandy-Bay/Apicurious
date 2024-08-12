@@ -8,6 +8,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public class ApicuriousTags
 {
@@ -60,6 +62,16 @@ public class ApicuriousTags
     private static TagKey<Item> create(String path)
     {
       return bind(Registries.ITEM, path);
+    }
+  }
+
+  public static class AlleleTags
+  {
+    public static final TagKey<IAllele<?>> BASELINE_BEE = create("baseline_bee");
+
+    private static TagKey<IAllele<?>> create(String path)
+    {
+      return bind(ApicuriousRegistries.ALLELES, path);
     }
   }
 }

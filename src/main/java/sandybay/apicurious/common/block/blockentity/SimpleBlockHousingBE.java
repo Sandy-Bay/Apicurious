@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.housing.blockentity;
+package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -13,21 +13,20 @@ import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
+import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.register.DataComponentRegistration;
-import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
 import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-//This does not need to be in the api
 public abstract class SimpleBlockHousingBE extends BaseHousingBE
 {
 
@@ -127,10 +126,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistration.GENOME);
+    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistrar.GENOME);
     if (genome == null) return 0;
-    Speed speed = genome.getSpeed(true);
-    int outputDuration = Math.round(ApicuriousConstants.WORKCYCLE_DURATION * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
+    Speed speed = (Speed) genome.getSpeed(true).value();
+    int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);
@@ -146,8 +145,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public int getModifiedLifeSpan(Genome genome)
   {
     if (genome == null) return 0;
-    Lifespan lifespanHolder = genome.getLifespan(true);
-    int lifespan = ApicuriousConstants.WORKCYCLE_DURATION * lifespanHolder.getCycles();
+    Lifespan lifespanHolder = (Lifespan) genome.getLifespan(true).value();
+    int lifespan = ApicuriousMainConfig.main_config.baseCycleTime.get() * lifespanHolder.getCycles();
     for (int i = 2; i < 5; i++)
     {
       ItemStack stack = inventory.getStackInSlot(i);
