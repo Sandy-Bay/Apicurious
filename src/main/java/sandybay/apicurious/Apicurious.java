@@ -20,7 +20,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import org.slf4j.Logger;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
-import sandybay.apicurious.api.register.MutationConditionTypeRegistrar;
+import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
@@ -79,7 +79,7 @@ public class Apicurious
     MenuRegistration.register(bus);
     AlleleTypeRegistrar.init(bus);
     MutationTypeRegistrar.init(bus);
-    MutationConditionTypeRegistrar.init(bus);
+    ConditionTypeRegistrar.init(bus);
     PacketHandler.init(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);

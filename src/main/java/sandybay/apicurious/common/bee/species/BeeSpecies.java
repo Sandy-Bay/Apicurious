@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.bee.IBeeSpecies;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
@@ -231,6 +232,12 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
       OutputData.Builder builder = OutputData.Builder.create(context);
       consumer.accept(builder);
       this.outputs = builder.build();
+      return this;
+    }
+
+    public Builder withOutputData(ResourceKey<OutputTable> table)
+    {
+      this.outputs = new OutputData(context.lookup(ApicuriousRegistries.OUTPUT_TABLES).getOrThrow(table));
       return this;
     }
 

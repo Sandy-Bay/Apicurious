@@ -24,7 +24,7 @@ public class ApicuriousDataGen
     generator.addProvider(event.includeServer(), new ApicuriousTagProviders.ItemsProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
     generator.addProvider(event.includeServer(), new ApicuriousTagProviders.BiomesProvider(output, event.getLookupProvider(), event.getExistingFileHelper()));
     // INFO: Save the provider to a variable, so we can get the completable future for custom DPR tag support.
-    var registryDefaults = new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(event.getLookupProvider()), Set.of(Apicurious.MODID));
+    var registryDefaults = new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(), Set.of(Apicurious.MODID));
     generator.addProvider(event.includeServer(), registryDefaults);
     // INFO: We need to do this so that the custom DPR type tag provider knows about the existence of the data-pack registries.
     var datapackProvider = registryDefaults.getRegistryProvider();

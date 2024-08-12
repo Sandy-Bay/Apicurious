@@ -16,7 +16,7 @@
   "key": "apicurious:species/undefined",
   "name": "apicurious.species.undefined",
   "outputData": {
-    "outputs": []
+    "outputTable": "apicurious:standard"
   },
   "productionData": {
     "area": "apicurious:area/average",

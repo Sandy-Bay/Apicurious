@@ -16,7 +16,9 @@
   "key": "apicurious:species/ender",
   "name": "apicurious.species.ender",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",

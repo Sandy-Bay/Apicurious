@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IBeeOutput
 {
-  List<ItemStack> getOutputs();
+  List<ItemStack> outputs();
 }

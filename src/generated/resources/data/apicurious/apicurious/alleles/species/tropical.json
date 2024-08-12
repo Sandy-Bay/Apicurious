@@ -16,7 +16,9 @@
   "key": "apicurious:species/tropical",
   "name": "apicurious.species.tropical",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",

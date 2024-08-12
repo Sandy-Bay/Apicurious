@@ -1,53 +1,56 @@
 package sandybay.apicurious.api.bee.output;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
-import sandybay.apicurious.api.bee.output.condition.OutputCondition;
-import sandybay.apicurious.api.bee.output.function.OutputFunction;
+import sandybay.apicurious.api.bee.condition.ICondition;
+import sandybay.apicurious.api.bee.output.function.IFunction;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class OutputPoolEntry {
-  //public static final Codec<OutputPoolEntry> CODEC;
+public record OutputPoolEntry(List<OutputResult> outputs, List<ICondition> conditions, List<IFunction> functions)
+{
+  public static final Codec<OutputPoolEntry> CODEC = RecordCodecBuilder.create(instance ->
+          instance.group(
+                  Codec.list(OutputResult.CODEC).fieldOf("outputs").forGetter(OutputPoolEntry::outputs),
+                  Codec.list(ICondition.TYPED_CODEC).fieldOf("conditions").forGetter(OutputPoolEntry::conditions),
+                  Codec.list(IFunction.TYPED_CODEC).fieldOf("functions").forGetter(OutputPoolEntry::functions)
+          ).apply(instance, OutputPoolEntry::new)
+  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, OutputPoolEntry> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.collection(ArrayList::new, OutputResult.NETWORK_CODEC), OutputPoolEntry::outputs,
+          ByteBufCodecs.collection(ArrayList::new, ICondition.NETWORK_TYPED_CODEC), OutputPoolEntry::conditions,
+          ByteBufCodecs.collection(ArrayList::new, IFunction.NETWORK_TYPED_CODEC), OutputPoolEntry::functions,
+          OutputPoolEntry::new
+  );
 
-  private final List<OutputResult> outputs;
-  private final List<OutputCondition> conditions;
-  private final List<OutputFunction> functions;
-
-  OutputPoolEntry(List<OutputResult> outputs, List<OutputCondition> conditions, List<OutputFunction> functions) {
-    this.outputs = outputs;
-    this.conditions = conditions;
-    this.functions = functions;
-  }
-
-  public List<ItemStack> generate(OutputContext context) {
+  public List<ItemStack> generate(SimpleBlockHousingBE context) {
     List<ItemStack> stacks = Lists.newArrayList();
     if (conditions.stream().allMatch(c -> c.test(context))) {
-      stacks = outputs.stream().map(OutputResult::getOutput).toList();
-      for (OutputFunction function : functions) {
+      stacks = outputs.stream().map(OutputResult::output).toList();
+      for (IFunction function : functions) {
         stacks = function.resolve(context, stacks);
       }
     }
     return stacks;
   }
 
-  public List<OutputCondition> getConditions() {
-    return conditions;
-  }
-
-  public List<OutputFunction> getFunctions() {
-    return functions;
-  }
-
-  public static OutputPoolEntry.Builder builder() {
+  public static Builder builder() {
     return new Builder();
   }
 
   public static class Builder {
 
     private final List<OutputResult> outputs;
-    private final List<OutputCondition> conditions;
-    private final List<OutputFunction> functions;
+    private final List<ICondition> conditions;
+    private final List<IFunction> functions;
 
     private Builder() {
       this.outputs = Lists.newArrayList();
@@ -60,12 +63,12 @@ public class OutputPoolEntry {
       return this;
     }
 
-    public Builder when(OutputCondition condition) {
+    public Builder when(ICondition condition) {
       this.conditions.add(condition);
       return this;
     }
 
-    public Builder withFunction(OutputFunction function) {
+    public Builder withFunction(IFunction function) {
       this.functions.add(function);
       return this;
     }

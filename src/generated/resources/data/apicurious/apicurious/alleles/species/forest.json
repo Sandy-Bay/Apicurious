@@ -16,7 +16,9 @@
   "key": "apicurious:species/forest",
   "name": "apicurious.species.forest",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",
