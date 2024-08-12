@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+// TODO: Implement some sort of condition builder system to make it easier to specify complex conditional behaviour
 public class MutationDefaults
 {
   public static void defaults(BootstrapContext<IMutation> bootstrap)
