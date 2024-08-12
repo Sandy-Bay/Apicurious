@@ -16,7 +16,9 @@
   "key": "apicurious:species/meadow",
   "name": "apicurious.species.meadow",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",

@@ -16,7 +16,9 @@
   "key": "apicurious:species/rocky",
   "name": "apicurious.species.rocky",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",

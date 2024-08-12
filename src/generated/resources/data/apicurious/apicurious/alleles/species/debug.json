@@ -16,12 +16,29 @@
   "key": "apicurious:species/debug",
   "name": "apicurious.species.debug",
   "outputData": {
-    "outputs": [
-      {
-        "count": 1,
-        "id": "minecraft:honeycomb"
-      }
-    ]
+    "outputTable": {
+      "pools": [
+        {
+          "conditions": [],
+          "entries": [
+            {
+              "conditions": [],
+              "functions": [],
+              "outputs": [
+                {
+                  "output": {
+                    "count": 1,
+                    "id": "minecraft:honeycomb"
+                  }
+                }
+              ]
+            }
+          ],
+          "functions": [],
+          "rolls": 1
+        }
+      ]
+    }
   },
   "productionData": {
     "area": "apicurious:area/largest",

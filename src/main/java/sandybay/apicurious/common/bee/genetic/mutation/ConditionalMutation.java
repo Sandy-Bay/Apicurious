@@ -12,13 +12,13 @@ import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.genetic.mutation.MutationType;
 import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.bee.genetic.mutation.condition.IMutationCondition;
+import sandybay.apicurious.api.bee.condition.ICondition;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 
-public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second, float chance, Holder<IAllele<?>> output, List<Holder<IMutationCondition>> conditions) implements IMutation
+public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second, float chance, Holder<IAllele<?>> output, List<Holder<ICondition>> conditions) implements IMutation
 {
   public static final MapCodec<ConditionalMutation> CODEC = RecordCodecBuilder.mapCodec(instance ->
           instance.group(
@@ -26,7 +26,7 @@ public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele
                   RegistryCodecs.homogeneousList(ApicuriousRegistries.ALLELES).fieldOf("second").forGetter(ConditionalMutation::second),
                   Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ConditionalMutation::chance),
                   RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("output").forGetter(ConditionalMutation::output),
-                  Codec.list(RegistryFileCodec.create(ApicuriousRegistries.MUTATION_CONDITIONS, IMutationCondition.TYPED_CODEC)).fieldOf("conditions").forGetter(ConditionalMutation::conditions)
+                  Codec.list(RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC)).fieldOf("conditions").forGetter(ConditionalMutation::conditions)
           ).apply(instance, ConditionalMutation::new)
   );
 

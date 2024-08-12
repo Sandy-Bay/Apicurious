@@ -16,7 +16,9 @@
   "key": "apicurious:species/modest",
   "name": "apicurious.species.modest",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",

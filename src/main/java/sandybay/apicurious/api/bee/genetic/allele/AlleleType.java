@@ -10,7 +10,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 public record AlleleType<T extends IAllele<T>>(MapCodec<T> codec,
                                                StreamCodec<RegistryFriendlyByteBuf, ? extends IAllele<?>> streamCodec)
 {
-  public static Codec<AlleleType<?>> CODEC = ApicuriousRegistries.ALLELE_TYPES_REGISTRY.byNameCodec();
+  public static Codec<AlleleType<?>> CODEC = ApicuriousRegistries.ALLELE_TYPE_REGISTRY.byNameCodec();
   public static StreamCodec<RegistryFriendlyByteBuf, AlleleType<?>> NETWORK_CODEC = ByteBufCodecs.registry(ApicuriousRegistries.ALLELE_TYPES);
 
 }

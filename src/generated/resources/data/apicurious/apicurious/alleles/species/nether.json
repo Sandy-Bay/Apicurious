@@ -16,7 +16,9 @@
   "key": "apicurious:species/nether",
   "name": "apicurious.species.nether",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",

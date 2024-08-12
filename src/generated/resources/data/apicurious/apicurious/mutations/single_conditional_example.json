@@ -4,7 +4,7 @@
   "conditions": [
     {
       "biomes": "minecraft:beach",
-      "condition": "apicurious:in_biome"
+      "condition": "apicurious:is_correct_biome"
     }
   ],
   "first": "apicurious:species/forest",

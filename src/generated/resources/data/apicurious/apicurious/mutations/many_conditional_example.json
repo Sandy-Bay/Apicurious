@@ -3,12 +3,51 @@
   "chance": 1.0,
   "conditions": [
     {
-      "biomes": "#apicurious:temperature/infernal",
-      "condition": "apicurious:in_biome"
+      "biomes": "#minecraft:is_beach",
+      "condition": "apicurious:is_correct_biome"
     },
     {
-      "biomes": "#apicurious:temperature/icy",
-      "condition": "apicurious:in_biome"
+      "biomes": "#c:bookshelves",
+      "condition": "apicurious:has_block_in_vicinity"
+    },
+    {
+      "condition": "apicurious:is_correct_date",
+      "from": "2024-01-01",
+      "to": "2024-12-31"
+    },
+    {
+      "above": false,
+      "condition": "apicurious:is_correct_height",
+      "yHeight": 64
+    },
+    {
+      "condition": "apicurious:is_correct_humidity",
+      "humidity": "#apicurious:humidity/aquatic"
+    },
+    {
+      "condition": "apicurious:is_correct_moon_phase",
+      "moonPhase": 4
+    },
+    {
+      "condition": "apicurious:is_correct_temperature",
+      "temperature": "#apicurious:temperature/infernal"
+    },
+    {
+      "condition": "apicurious:is_correct_weather",
+      "isRaining": true,
+      "isThundering": true,
+      "precipitation": "rain"
+    },
+    {
+      "condition": "apicurious:and",
+      "first": {
+        "condition": "apicurious:is_correct_temperature",
+        "temperature": "#apicurious:temperature/icy"
+      },
+      "second": {
+        "condition": "apicurious:is_correct_temperature",
+        "temperature": "#apicurious:temperature/icy"
+      }
     }
   ],
   "first": "apicurious:species/forest",

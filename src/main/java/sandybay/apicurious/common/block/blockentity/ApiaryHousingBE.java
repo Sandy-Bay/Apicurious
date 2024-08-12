@@ -234,7 +234,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   {
     if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration()) == 0)
     {
-      List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().getOutputs();
+      List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().generate(this);
       for (ItemStack output : outputs)
       {
         if (!canOutputSuccessfully(output)) return false;

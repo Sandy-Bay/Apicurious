@@ -9,49 +9,43 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.output.IBeeOutput;
+import sandybay.apicurious.api.bee.output.OutputTable;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class OutputData implements IBeeOutput
+public record OutputData(Holder<OutputTable> outputTable)
 {
   public static Codec<OutputData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-          Codec.list(ItemStack.CODEC, 0, 7).fieldOf("outputs").forGetter(OutputData::getOutputs)
+          OutputTable.CODEC.fieldOf("outputTable").forGetter(OutputData::outputTable)
   ).apply(instance, OutputData::new));
 
   public static StreamCodec<RegistryFriendlyByteBuf, OutputData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.collection(ArrayList::new, ItemStack.STREAM_CODEC, 7), OutputData::getOutputs,
+          OutputTable.NETWORK_CODEC, OutputData::outputTable,
           OutputData::new
   );
 
-  private final List<ItemStack> outputs;
-
-  public OutputData(List<ItemStack> outputs)
-  {
-    this.outputs = outputs;
-  }
-
-  @Override
-  public List<ItemStack> getOutputs()
-  {
-    return outputs;
+  public List<ItemStack> generate(SimpleBlockHousingBE housing) {
+    return outputTable.value().generate(housing);
   }
 
   public static class Builder
   {
     private final BootstrapContext<IAllele<?>> context;
-    private final List<ItemStack> outputs;
+    private OutputTable table = OutputTable.EMPTY;
 
     public Builder(BootstrapContext<IAllele<?>> context)
     {
       this.context = context;
-      this.outputs = Lists.newArrayList();
     }
 
     public static OutputData.Builder create(BootstrapContext<IAllele<?>> context)
@@ -59,29 +53,17 @@ public class OutputData implements IBeeOutput
       return new OutputData.Builder(context);
     }
 
-    public OutputData.Builder withStack(Item item, int count)
+    public OutputData.Builder withTable(Consumer<OutputTable.Builder> consumer)
     {
-      outputs.add(new ItemStack(item, count));
-      return this;
-    }
-
-    public OutputData.Builder withStack(Holder<Item> item, int count)
-    {
-      outputs.add(new ItemStack(item, count));
-      return this;
-    }
-
-    public OutputData.Builder withStack(ResourceKey<Item> item, int count)
-    {
-      HolderGetter<Item> provider = context.lookup(Registries.ITEM);
-      Holder<Item> holder = provider.getOrThrow(item);
-      outputs.add(new ItemStack(holder, count));
+      OutputTable.Builder builder = OutputTable.builder();
+      consumer.accept(builder);
+      this.table = builder.build();
       return this;
     }
 
     public OutputData build()
     {
-      return new OutputData(outputs);
+      return new OutputData(Holder.direct(table));
     }
   }
 }

@@ -16,7 +16,9 @@
   "key": "apicurious:species/marshy",
   "name": "apicurious.species.marshy",
   "outputData": {
-    "outputs": []
+    "outputTable": {
+      "pools": []
+    }
   },
   "productionData": {
     "area": "apicurious:area/average",
