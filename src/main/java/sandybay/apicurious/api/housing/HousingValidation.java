@@ -22,7 +22,7 @@ public class HousingValidation
   private final IApiaryErrorHandler errorHandler;
   private final boolean isValid;
   private ItemStack key;
-  private ClimateHelper helper;
+  public ClimateHelper helper;
 
   public HousingValidation(IApiaryErrorHandler errorHandler)
   {

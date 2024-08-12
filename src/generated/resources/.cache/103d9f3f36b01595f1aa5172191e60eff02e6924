@@ -1,4 +1,4 @@
-// 1.21	2024-08-11T10:31:17.3248463	Registries
+// 1.21	2024-08-12T08:00:47.1990311	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -74,3 +74,8 @@ aaa040d73e5facc1ac4e1b866493bdcec2fe3527 data/apicurious/apicurious/alleles/temp
 c607f93b9ded41f4ec67cabc2dc13b8fb67e83e4 data/apicurious/apicurious/alleles/workcycle/matutinal.json
 cf7236fcf62efdb9b9499b1c20fef6c474487d3f data/apicurious/apicurious/alleles/workcycle/nocturnal.json
 2353234cbcfb5925f4d32c9b0a7df66e90cd9b38 data/apicurious/apicurious/alleles/workcycle/vespertinal.json
+32e60686ad9b27e65b15c4d93a1a1b6b88337f02 data/apicurious/apicurious/mutations/first_example.json
+f661548e277985ccaeb6ef3f701483bfbd7c6ce1 data/apicurious/apicurious/mutations/many_conditional_example.json
+2398d8ae0ff5a0b17a9dca68b972eb492e993b70 data/apicurious/apicurious/mutations/second_example.json
+6ae776f98c3f953e0974a6b6db5e18ad437d2ec1 data/apicurious/apicurious/mutations/single_conditional_example.json
+0af5c3af26a8023912d003604c58ad1ee9d211c2 data/apicurious/apicurious/mutations/third_example.json

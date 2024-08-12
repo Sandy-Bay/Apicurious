@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 1.0,
+  "first": "apicurious:species/forest",
+  "output": "apicurious:species/debug",
+  "second": "apicurious:species/meadow"
+}

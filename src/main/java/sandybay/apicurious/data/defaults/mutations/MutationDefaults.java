@@ -3,18 +3,22 @@ package sandybay.apicurious.data.defaults.mutations;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.biome.Biomes;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.genetic.mutation.condition.IMutationCondition;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousMutations;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.mutation.ConditionalMutation;
 import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
+import sandybay.apicurious.common.bee.genetic.mutation.condition.BiomeMutationCondition;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +36,6 @@ public class MutationDefaults
             .withOutput(ApicuriousSpecies.DEBUG)
             .build()
     );
-    /*
     bootstrap.register(ApicuriousMutations.SECOND_EXAMPLE, mutation(bootstrap)
             .withFirst(ApicuriousSpecies.FOREST)
             .withSecond(ApicuriousTags.AlleleTags.BASELINE_BEE)
@@ -67,7 +70,6 @@ public class MutationDefaults
             )
             .build()
     );
-     */
   }
 
   public static Builder mutation(BootstrapContext<IMutation> bootstrap)
@@ -77,7 +79,7 @@ public class MutationDefaults
 
   public static class Builder
   {
-
+    private final BootstrapContext<IMutation> context;
     private final HolderGetter<IAllele<?>> alleleGetter;
     private final HolderGetter<IMutationCondition> conditionGetter;
     private final List<Holder<IMutationCondition>> conditions;
@@ -88,6 +90,7 @@ public class MutationDefaults
 
     private Builder(BootstrapContext<IMutation> context)
     {
+      this.context = context;
       this.alleleGetter = context.lookup(ApicuriousRegistries.ALLELES);
       this.conditionGetter = context.lookup(ApicuriousRegistries.MUTATION_CONDITIONS);
       this.conditions = Lists.newArrayList();
@@ -96,28 +99,26 @@ public class MutationDefaults
     public Builder withFirst(ResourceKey<IAllele<?>> first)
     {
       Optional<Holder.Reference<IAllele<?>>> firstSpecies = alleleGetter.get(first);
-      firstSpecies.ifPresent(ref -> this.first = HolderSet.direct(ref.getDelegate()));
+      firstSpecies.ifPresent(ref -> this.first = HolderSet.direct(ref));
       return this;
     }
 
     public Builder withFirst(TagKey<IAllele<?>> first)
     {
-      Optional<HolderSet.Named<IAllele<?>>> firstSpecies = alleleGetter.get(first);
-      firstSpecies.ifPresent(ref -> this.first = ref);
+      this.first = alleleGetter.getOrThrow(first);
       return this;
     }
 
     public Builder withSecond(ResourceKey<IAllele<?>> second)
     {
       Optional<Holder.Reference<IAllele<?>>> secondSpecies = alleleGetter.get(second);
-      secondSpecies.ifPresent(ref -> this.first = HolderSet.direct(ref.getDelegate()));
+      secondSpecies.ifPresent(ref -> this.second = HolderSet.direct(ref));
       return this;
     }
 
     public Builder withSecond(TagKey<IAllele<?>> second)
     {
-      Optional<HolderSet.Named<IAllele<?>>> secondSpecies = alleleGetter.get(second);
-      secondSpecies.ifPresent(ref -> this.first = ref);
+      this.second = alleleGetter.getOrThrow(second);
       return this;
     }
 
@@ -130,7 +131,7 @@ public class MutationDefaults
     public Builder withOutput(ResourceKey<IAllele<?>> output)
     {
       Optional<Holder.Reference<IAllele<?>>> outputSpecies = alleleGetter.get(output);
-      outputSpecies.ifPresent(ref -> this.first = HolderSet.direct(ref.getDelegate()));
+      outputSpecies.ifPresent(ref -> this.output = ref);
       return this;
     }
 
