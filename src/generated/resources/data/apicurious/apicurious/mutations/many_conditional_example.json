@@ -1,0 +1,17 @@
+{
+  "type": "apicurious:conditional",
+  "chance": 1.0,
+  "conditions": [
+    {
+      "biomes": "#apicurious:temperature/infernal",
+      "condition": "apicurious:in_biome"
+    },
+    {
+      "biomes": "#apicurious:temperature/icy",
+      "condition": "apicurious:in_biome"
+    }
+  ],
+  "first": "apicurious:species/forest",
+  "output": "apicurious:species/debug",
+  "second": "apicurious:species/meadow"
+}

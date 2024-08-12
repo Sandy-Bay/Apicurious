@@ -1,0 +1,13 @@
+{
+  "type": "apicurious:conditional",
+  "chance": 1.0,
+  "conditions": [
+    {
+      "biomes": "minecraft:beach",
+      "condition": "apicurious:in_biome"
+    }
+  ],
+  "first": "apicurious:species/forest",
+  "output": "apicurious:species/debug",
+  "second": "apicurious:species/meadow"
+}

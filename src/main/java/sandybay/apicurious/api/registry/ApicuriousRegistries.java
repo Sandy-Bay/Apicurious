@@ -3,55 +3,47 @@ package sandybay.apicurious.api.registry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.output.condition.OutputCondition;
-import sandybay.apicurious.api.bee.output.condition.OutputConditionType;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.*;
+import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
+import sandybay.apicurious.api.bee.genetic.mutation.MutationType;
+import sandybay.apicurious.api.bee.genetic.mutation.condition.IMutationCondition;
+import sandybay.apicurious.api.bee.genetic.mutation.condition.MutationConditionType;
 
-public class ApicuriousRegistries {
+public class ApicuriousRegistries
+{
 
-  // TODO: Figure out how to implement typed conditions and functions for the Output system...
-  // Output Registries
-  public static final ResourceKey<Registry<OutputConditionType>> OUTPUT_CONDITION_TYPE_REGISTRY_KEY = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("output_condition_type"));
-  public static final Registry<OutputConditionType> OUTPUT_CONDITION_TYPE_REGISTRY = new RegistryBuilder<>(OUTPUT_CONDITION_TYPE_REGISTRY_KEY).sync(true).create();
-
-  public static final ResourceKey<Registry<OutputCondition>> OUTPUT_CONDITION_REGISTRY_KEY = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("output_condition"));
-  public static final Registry<OutputCondition> OUTPUT_CONDITION_REGISTRY = new RegistryBuilder<>(OUTPUT_CONDITION_REGISTRY_KEY).sync(true).create();
+  // Allele Registries
+  public static final ResourceKey<Registry<AlleleType<?>>> ALLELE_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("allele_type"));
+  public static final Registry<AlleleType<?>> ALLELE_TYPES_REGISTRY = new RegistryBuilder<>(ALLELE_TYPES).sync(true).create();
+  public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("alleles"));
 
 
-  // Trait Registries
-  public static final ResourceKey<Registry<Area>> AREAS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("area"));
-  public static final ResourceKey<Registry<Fertility>> FERTILITIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("fertility"));
-  public static final ResourceKey<Registry<Flowers>> FLOWERS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("flower"));
-  public static final ResourceKey<Registry<HumidityPreference>> HUMIDITY_PREFERENCES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("humidity_preference"));
-  public static final ResourceKey<Registry<HumidityTolerance>> HUMIDITY_TOLERANCES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("humidity_tolerance"));
-  public static final ResourceKey<Registry<Lifespan>> LIFESPANS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("lifespan"));
-  public static final ResourceKey<Registry<Pollination>> POLLINATIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("pollination"));
-  public static final ResourceKey<Registry<Speed>> SPEEDS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("speed"));
-  public static final ResourceKey<Registry<TemperaturePreference>> TEMPERATURE_PREFERENCES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("temperature_preference"));
-  public static final ResourceKey<Registry<TemperatureTolerance>> TEMPERATURE_TOLERANCES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("temperature_tolerance"));
-  public static final ResourceKey<Registry<WorkCycle>> WORKCYCLES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("workcycle"));
+  // INFO: Mutation Types exists for future expandability, allowing mod authors and ourselves to define new mutation types,
+  //       with additional requirements outside just matching species and chance.
+  // Mutation Registry
+  public static final ResourceKey<Registry<MutationType>> MUTATION_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutation_types"));
+  public static final Registry<MutationType> MUTATION_TYPE_REGISTRY = new RegistryBuilder<>(MUTATION_TYPES).sync(true).create();
+  public static final ResourceKey<Registry<IMutation>> MUTATIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutations"));
+  // Mutation Condition
+  public static final ResourceKey<Registry<MutationConditionType>> MUTATION_CONDITION_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutation_condition_types"));
+  public static final Registry<MutationConditionType> MUTATION_CONDITION_TYPE_REGISTRY = new RegistryBuilder<>(MUTATION_CONDITION_TYPES).sync(true).create();
+  public static final ResourceKey<Registry<IMutationCondition>> MUTATION_CONDITIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutation_conditions"));
 
-  // Species Registry
-  public static final ResourceKey<Registry<BeeSpecies>> BEE_SPECIES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("bee_species"));
+  public static void registerRegistries(final NewRegistryEvent event)
+  {
+    event.register(ALLELE_TYPES_REGISTRY);
+    event.register(MUTATION_TYPE_REGISTRY);
+    event.register(MUTATION_CONDITION_TYPE_REGISTRY);
+  }
 
-  public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event) {
-    // Traits
-    event.dataPackRegistry(AREAS, Area.CODEC, Area.CODEC);
-    event.dataPackRegistry(FERTILITIES, Fertility.CODEC, Fertility.CODEC);
-    event.dataPackRegistry(FLOWERS, Flowers.CODEC, Flowers.CODEC);
-    event.dataPackRegistry(HUMIDITY_PREFERENCES, HumidityPreference.CODEC, HumidityPreference.CODEC);
-    event.dataPackRegistry(HUMIDITY_TOLERANCES, HumidityTolerance.CODEC, HumidityTolerance.CODEC);
-    event.dataPackRegistry(LIFESPANS, Lifespan.CODEC, Lifespan.CODEC);
-    event.dataPackRegistry(POLLINATIONS, Pollination.CODEC, Pollination.CODEC);
-    event.dataPackRegistry(SPEEDS, Speed.CODEC, Speed.CODEC);
-    event.dataPackRegistry(TEMPERATURE_PREFERENCES, TemperaturePreference.CODEC, TemperaturePreference.CODEC);
-    event.dataPackRegistry(TEMPERATURE_TOLERANCES, TemperatureTolerance.CODEC, TemperatureTolerance.CODEC);
-    event.dataPackRegistry(WORKCYCLES, WorkCycle.CODEC, WorkCycle.CODEC);
-
-    // Bee Species
-    event.dataPackRegistry(BEE_SPECIES, BeeSpecies.CODEC, BeeSpecies.CODEC);
+  public static void registerDatapackRegistries(final DataPackRegistryEvent.NewRegistry event)
+  {
+    event.dataPackRegistry(ALLELES, IAllele.TYPED_CODEC, IAllele.TYPED_CODEC);
+    event.dataPackRegistry(MUTATIONS, IMutation.TYPED_CODEC, IMutation.TYPED_CODEC);
+    event.dataPackRegistry(MUTATION_CONDITIONS, IMutationCondition.TYPED_CODEC, IMutationCondition.TYPED_CODEC);
   }
 }

@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:temperature_tolerance",
+  "isDominantTrait": false,
+  "name": "apicurious.toleranceHolder.temperature.high",
+  "toleranceModifier": 4
+}

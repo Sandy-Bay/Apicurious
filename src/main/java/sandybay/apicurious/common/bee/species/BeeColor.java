@@ -12,7 +12,8 @@ import sandybay.apicurious.api.util.Coloring;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class BeeColor implements IBeeColor {
+public class BeeColor implements IBeeColor
+{
 
   public static final Codec<BeeColor> CODEC = RecordCodecBuilder.create(
           instance -> instance.group(
@@ -32,7 +33,8 @@ public class BeeColor implements IBeeColor {
   private final String wingTint;
   private final String bodyTint;
 
-  public BeeColor(String outlineTint, @Nullable String wingTint, @Nullable String bodyTint) {
+  public BeeColor(String outlineTint, @Nullable String wingTint, @Nullable String bodyTint)
+  {
     this.outlineTint = outlineTint;
     this.wingTint = wingTint == null || wingTint.isEmpty() ? outlineTint : wingTint;
     this.bodyTint = bodyTint == null || bodyTint.isEmpty() ? ApicuriousConstants.DEFAULT_BODY : bodyTint;
@@ -44,35 +46,42 @@ public class BeeColor implements IBeeColor {
     return super.toString() + " BeeColor{" + "outlineTint='" + outlineTint + '\'' + ", wingTint='" + wingTint + '\'' + ", bodyTint='" + bodyTint + '\'' + '}';
   }
 
-  private String getOutlineTintInternal() {
+  private String getOutlineTintInternal()
+  {
     return outlineTint;
   }
 
-  private String getWingTintInternal() {
+  private String getWingTintInternal()
+  {
     return wingTint;
   }
 
-  private String getBodyTintInternal() {
+  private String getBodyTintInternal()
+  {
     return bodyTint;
   }
 
   @Override
-  public Coloring getOutlineTint() {
+  public Coloring getOutlineTint()
+  {
     return Coloring.fromHex(outlineTint);
   }
 
   @Override
-  public Coloring getBodyTint() {
+  public Coloring getBodyTint()
+  {
     return Coloring.fromHex(bodyTint);
   }
 
   @Override
-  public Coloring getWingTint() {
+  public Coloring getWingTint()
+  {
     return Coloring.fromHex(wingTint);
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(Object o)
+  {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     BeeColor beeColor = (BeeColor) o;
@@ -80,7 +89,8 @@ public class BeeColor implements IBeeColor {
   }
 
   @Override
-  public int hashCode() {
+  public int hashCode()
+  {
     return Objects.hash(outlineTint, wingTint, bodyTint);
   }
 }

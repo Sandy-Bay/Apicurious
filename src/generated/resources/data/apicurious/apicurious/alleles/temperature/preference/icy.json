@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:temperature_preference",
+  "groupTag": "apicurious:temperature/icy",
+  "isDominantTrait": true,
+  "name": "apicurious.preferenceHolder.temperature.icy",
+  "temperature": 1
+}

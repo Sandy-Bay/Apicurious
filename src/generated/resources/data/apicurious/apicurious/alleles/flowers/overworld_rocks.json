@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:flowers",
+  "flowers": "minecraft:base_stone_overworld",
+  "isDominantTrait": true,
+  "name": "apicurious.flowers.overworld_rocks"
+}

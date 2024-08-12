@@ -2,33 +2,47 @@ package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
-import sandybay.apicurious.api.util.ApicuriousConstants;
+import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
+import sandybay.apicurious.api.register.DataComponentRegistrar;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.bee.genetic.Genome;
+import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.bee.species.trait.Fertility;
-import sandybay.apicurious.common.bee.species.trait.Lifespan;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
-import sandybay.apicurious.common.register.ApicuriousBlockRegistration;
-import sandybay.apicurious.common.register.ApicuriousDataComponentRegistration;
-import sandybay.apicurious.common.register.ApicuriousItemRegistration;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
+import sandybay.apicurious.common.menu.ApiaryMenu;
+import sandybay.apicurious.common.network.PacketHandler;
+import sandybay.apicurious.common.network.packets.GuiDataPacket;
+import sandybay.apicurious.common.register.BlockRegistration;
+import sandybay.apicurious.common.register.ItemRegistration;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-public class ApiaryHousingBE extends SimpleBlockHousingBE {
+public class ApiaryHousingBE extends SimpleBlockHousingBE
+{
 
-  public ContainerData containerData = new ContainerData()
+  private final ContainerData containerData = new ContainerData()
   {
     @Override
     public int get(int pIndex)
@@ -54,8 +68,10 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE {
       return 3;
     }
   };
-  public ApiaryHousingBE(BlockPos pos, BlockState blockState) {
-    super(ApicuriousBlockRegistration.APIARY.getType(), pos, blockState);
+
+  public ApiaryHousingBE(BlockPos pos, BlockState blockState)
+  {
+    super(BlockRegistration.APIARY.getType(), pos, blockState);
   }
 
   /**
@@ -91,104 +107,266 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE {
    * </ul>
    */
   @Override
-  public void serverTick(Level level, BlockPos pos, BlockState state) {
-    if (!this.isActive) {
-      if (isValidForStartup()) {
-        this.currentWork = 75;
-        this.maxWork = currentWork;
-        return;
-      }
-      if (this.currentWork != 0){
-        this.currentWork--;
-        if (this.currentWork == 0) {
-          ItemStack princess = getInventory().getStackInSlot(0);
-          BeeSpecies species = princess.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-          ItemStack queen = new ItemStack(ApicuriousItemRegistration.QUEEN);
-          queen.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-          getInventory().extractItem(0, 1, false);
-          getInventory().extractItem(1, 1, false);
-          getInventory().setStackInSlot(0, queen);
-          changeActiveState(state, true);
-          this.maxWork = 0;
-          Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(species.getReadableName(), species.getReadableName()));
+  public void serverTick(Level level, BlockPos pos, BlockState state)
+  {
+    if (!this.isActive)
+    {
+      validate(level, pos, true);
+      if (getErrorList().isEmpty())
+      {
+        updateGuiData(); // Perform extra update just to clear any junk data on the client.
+        if (currentWork == 0 && maxWork == 0)
+        {
+          this.currentWork = 75;
+          this.maxWork = currentWork;
+          this.clearErrors();
         }
-      }
-    } else {
-      ItemStack stack = getInventory().getStackInSlot(0);
-      if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN) {
-        if (state.getBlock() instanceof ApiaryBlock apiary) {
-          if (this.territory == null) this.territory = apiary.getTerritory(stack, pos);
-          if (stack.has(ApicuriousDataComponentRegistration.BEE_SPECIES) && validation.validate(stack, level, pos, this.territory)) {
-            BeeSpecies species = stack.get(ApicuriousDataComponentRegistration.BEE_SPECIES);
-            if (species == null) return;
-            if (this.currentWork == 0 && this.maxWork == 0) {
-              Holder<Lifespan> lifespanHolder = species.getProductionData().getLifespan();
-              if (!lifespanHolder.isBound()) throw new IllegalArgumentException("Lifespan was unbound for species: %s, REPORT THIS!".formatted(species.getReadableName()));
-              this.currentWork = 75; //ApicuriousConstants.WORKCYCLE * lifespanHolder.value().getCycles();
-              this.maxWork = 75; //this.currentWork;
-            }
-            this.currentWork--;
-            if (Math.abs(this.currentWork - this.maxWork) % 200 == 0 && apiary.shouldPollinate(level.getRandom(), stack)) {
-              Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT), 7);
-              List<BlockPos> found = this.territory.stream().filter(filter).toList();
-              for (BlockPos f : found) {
-                // TODO: Figure out a better way to both find valid blocks and generate random flowers.
-                level.setBlock(f.above(), Blocks.POPPY.defaultBlockState(), Block.UPDATE_ALL);
+        if (this.currentWork != 0)
+        {
+          this.currentWork--;
+          if (this.currentWork == 0)
+          {
+            ItemStack princess = getInventory().getStackInSlot(0);
+            ItemStack drone = getInventory().getStackInSlot(1);
+            Genome princessGenome = princess.get(DataComponentRegistrar.GENOME);
+            Genome droneGenome = drone.get(DataComponentRegistrar.GENOME);
+            ItemStack queen = new ItemStack(ItemRegistration.QUEEN);
+            if (princessGenome != null && droneGenome != null)
+            {
+              Genome queenGenome;
+              IMutation mutation = getPotentialMutation();
+              if (mutation == null)
+              {
+                queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
               }
-            }
-            // TODO: Implement effect occurrences here.
-            if (this.currentWork - this.maxWork % ApicuriousConstants.WORKCYCLE == 0) {
-              // TODO: Implement output creation
-            }
-            if (this.currentWork == 0) {
-              // TODO: Improve the below code
-              changeActiveState(state, false);
-              this.currentWork = 0;
-              this.maxWork = 0;
-              this.territory = null;
+              else
+              {
+                BeeSpecies mutatedSpecies = (BeeSpecies) mutation.getOutput().value();
+                queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
+              }
+              queen.set(DataComponentRegistrar.GENOME, queenGenome);
               getInventory().extractItem(0, 1, false);
-              ItemStack princess = new ItemStack(ApicuriousItemRegistration.PRINCESS.get(), 1);
-              Fertility fertility = species.getProductionData().getFertility().value();
-              ItemStack drones = new ItemStack(ApicuriousItemRegistration.DRONE.get(), fertility.getOffspring());
-              princess.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-              drones.set(ApicuriousDataComponentRegistration.BEE_SPECIES, species);
-              // TODO: Change this so it inserts into any available free slot in the
-              for (int i = 5; i < 12; i++) {
-                if (getInventory().insertItem(i, princess, true) != princess) {
-                  getInventory().insertItem(i, princess, false);
-                  break;
-                }
-              }
-              for (int i = 5; i < 12; i++) {
-                if (getInventory().insertItem(i, drones, true) != drones) {
-                  getInventory().insertItem(i, drones, false);
-                  break;
-                }
-              }
-              Apicurious.LOGGER.info("Successfully completed full Queen cycle!");
+              getInventory().extractItem(1, 1, false);
+              getInventory().setStackInSlot(0, queen);
+              changeActiveState(state, true);
+              this.maxWork = 0;
+              if (ApicuriousMainConfig.main_config.debug.get())
+                Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s"
+                        .formatted(
+                                princessGenome.getSpecies(true).value().getReadableName().getString(),
+                                queenGenome.getSpecies(true).value().getReadableName().getString()
+                        )
+                );
+            }
+          }
+        }
+      } else
+      {
+        updateGuiData();
+      }
+    } else
+    {
+      validate(level, pos, false);
+      ItemStack stack = getInventory().getStackInSlot(0);
+      if (stack.has(DataComponentRegistrar.GENOME))
+      {
+        Genome genome = stack.get(DataComponentRegistrar.GENOME);
+        handleInitialRunData(genome);
+      }
+      if (getErrorList().isEmpty())
+      {
+        updateGuiData(); // Perform extra update just to clear any junk data on the client.
+
+        if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
+        {
+          if (stack.has(DataComponentRegistrar.GENOME))
+          {
+            Genome genome = stack.get(DataComponentRegistrar.GENOME);
+            if (genome == null) return;
+            handlePollination(level, (ApiaryBlock) level.getBlockState(pos).getBlock(), stack);
+            // TODO: Implement effect occurrences here.
+            if (!handleOutput(genome)) updateGuiData();
+            this.currentWork--;
+            if (this.currentWork == 0)
+            {
+              resetApiary(state);
+              handleQueenLifecycleEnd(genome);
+            }
+          }
+        }
+      } else
+      {
+        updateGuiData();
+      }
+    }
+  }
+
+  private void handleInitialRunData(Genome genome)
+  {
+    if (this.currentWork == 0 && this.maxWork == 0)
+    {
+      this.currentWork = this.maxWork = ApicuriousMainConfig.main_config.getApiaryRunTime(getModifiedLifeSpan(genome));
+    }
+  }
+
+  private void handlePollination(Level level, ApiaryBlock apiary, ItemStack stack)
+  {
+    if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getPollinationRate() == 0 && apiary.shouldPollinate(level.getRandom(), stack))
+    {
+      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
+              level.getBlockState(filteredPos).is(BlockTags.DIRT) &&
+                      level.getBlockState(filteredPos.above()).isAir() &&
+                      level.random.nextFloat() < 0.15f, 2);
+      List<BlockPos> found = this.territory.stream().filter(filter).toList();
+      if (!stack.has(DataComponentRegistrar.GENOME)) return;
+      Genome genome = stack.get(DataComponentRegistrar.GENOME);
+      if (genome == null) return;
+      Registry<Block> blockRegistry = level.registryAccess().registry(Registries.BLOCK).orElseThrow();
+      for (BlockPos f : found)
+      {
+        Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.random);
+        flower.ifPresent(blockHolder -> level.setBlock(f.above(), blockHolder.value().defaultBlockState(), Block.UPDATE_ALL));
+      }
+    }
+  }
+
+  private boolean handleOutput(Genome genome)
+  {
+    if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration()) == 0)
+    {
+      List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().getOutputs();
+      for (ItemStack output : outputs)
+      {
+        if (!canOutputSuccessfully(output)) return false;
+        ItemStack out = output;
+        for (int i = 5; i < 12; i++)
+        {
+          if (getInventory().insertItem(i, out.copy(), true) != out)
+          {
+            out = getInventory().insertItem(i, out.copy(), false);
+            if (out.isEmpty())
+            {
+              break;
             }
           }
         }
       }
+      for (int i = 2; i < 5; i++)
+      {
+        ItemStack frame = getInventory().getStackInSlot(i);
+        frame.hurtAndBreak(1, (ServerLevel) level, null, item ->
+        {
+        });
+      }
+    }
+    return true;
+  }
+
+  private void resetApiary(BlockState state)
+  {
+    changeActiveState(state, false);
+    this.currentWork = 0;
+    this.maxWork = 0;
+    this.territory = null;
+  }
+
+  private void handleQueenLifecycleEnd(Genome genome)
+  {
+    getInventory().extractItem(0, 1, false);
+    ItemStack princess = new ItemStack(ItemRegistration.PRINCESS.get(), 1);
+    Fertility fertility = (Fertility) genome.getFertility(true).value();
+    ItemStack drones = new ItemStack(ItemRegistration.DRONE.get(), fertility.getOffspring());
+    princess.set(DataComponentRegistrar.GENOME, genome);
+    drones.set(DataComponentRegistrar.GENOME, genome);
+    for (int i = 5; i < 12; i++)
+    {
+      if (getInventory().insertItem(i, princess, true) != princess)
+      {
+        getInventory().insertItem(i, princess, false);
+        break;
+      }
+    }
+    for (int i = 5; i < 12; i++)
+    {
+      if (getInventory().insertItem(i, drones, true) != drones)
+      {
+        getInventory().insertItem(i, drones, false);
+        break;
+      }
+    }
+  }
+
+  private IMutation getPotentialMutation() {
+    Level level = getLevel();
+    if (level == null) return null;
+    Genome first = getInventory().getStackInSlot(0).get(DataComponentRegistrar.GENOME);
+    Genome second = getInventory().getStackInSlot(1).get(DataComponentRegistrar.GENOME);
+    Optional<Registry<IMutation>> mutationRegistry = level.registryAccess().registry(ApicuriousRegistries.MUTATIONS);
+    if (mutationRegistry.isPresent() && first != null && second != null)
+    {
+      Registry<IMutation> mutations = mutationRegistry.get();
+      Optional<IMutation> mutation = mutations.stream().filter(mut -> mut.test(this)).findAny();
+      if (mutation.isPresent()) {
+        return mutation.get();
+      }
+    }
+    return null;
+  }
+
+  public void updateGuiData()
+  {
+    if (getLevel() == null) return;
+    //TODO change this, this is just for debug
+    for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
+    {
+      if (player instanceof ServerPlayer serverPlayer)
+        PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);
     }
   }
 
   @Override
-  public void clientTick(Level level, BlockPos pos, BlockState state) {
-
+  public void clientTick(Level level, BlockPos pos, BlockState state)
+  {
+    if (shouldRenderParticles)
+    {
+      // TODO: Render Particles
+    }
   }
 
-  private static class LimitedFilter<T> implements Predicate<T> {
-    int matches = 0;
-    final int limit;
-    private Predicate<T> delegate;
+  public ContainerData getContainerData()
+  {
+    return containerData;
+  }
 
-    public LimitedFilter(Predicate<T> delegate, int limit) {
+  @Override
+  public Component getDisplayName()
+  {
+    return Component.translatable("apicurious.menu.apiary");
+  }
+
+  @Nullable
+  @Override
+  public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
+  {
+    if (getLevel() == null) return null;
+    return new ApiaryMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
+  }
+
+  private static class LimitedFilter<T> implements Predicate<T>
+  {
+    final int limit;
+    private final Predicate<T> delegate;
+    int matches = 0;
+
+    public LimitedFilter(Predicate<T> delegate, int limit)
+    {
       this.delegate = delegate;
       this.limit = limit;
     }
-    public boolean test(T toTest) {
-      if (this.matches > this.limit) return true;
+
+    public boolean test(T toTest)
+    {
+      if (this.matches > this.limit) return false;
       boolean result = delegate.test(toTest);
       if (result) matches++;
       return result;

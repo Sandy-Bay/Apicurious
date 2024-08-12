@@ -9,13 +9,15 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
-import sandybay.apicurious.api.bee.EnumBeeType;
-import sandybay.apicurious.api.bee.IBeeItem;
+import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
-import sandybay.apicurious.api.item.IFrameItem;
 
-public abstract class AbstractHousingMenu extends AbstractContainerMenu {
+import java.util.List;
+
+public abstract class AbstractHousingMenu extends AbstractContainerMenu
+{
 
   // SLOT REFERENCE:
   // 0, 1        = Input
@@ -30,20 +32,35 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   private static final int frameOffset = 29;
 
   private final ContainerLevelAccess access;
+  private List<HousingError> errors;
 
-  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory) {
-    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12));
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory)
+  {
+    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12), Lists.newArrayList());
   }
 
-  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory) {
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
+                             ConfigurableItemStackHandler inventory, List<HousingError> errors)
+  {
     super(type, containerId);
     this.access = access;
+    this.errors = errors;
     addApiarySlots(inventory);
     addInventorySlots(playerInventory);
     addHotbarSlots(playerInventory);
   }
 
-  private void addApiarySlots(ConfigurableItemStackHandler inventory) {
+  /**
+   * Determines if two @link {@link ItemStack} match and can be merged into a single slot
+   */
+  public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
+  {
+    if (stack1.isEmpty() || stack2.isEmpty()) return false;
+    return ItemStack.isSameItemSameComponents(stack1, stack2);
+  }
+
+  private void addApiarySlots(ConfigurableItemStackHandler inventory)
+  {
     this.addSlot(new SlotItemHandler(inventory, 0, baseInputCoords.getFirst(), baseInputCoords.getSecond()));
     this.addSlot(new SlotItemHandler(inventory, 1, baseInputCoords.getFirst(), baseInputCoords.getSecond() + inputOffset));
     this.addSlot(new SlotItemHandler(inventory, 2, baseFrameCoords.getFirst(), baseFrameCoords.getSecond()));
@@ -60,30 +77,26 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     this.addSlot(new SlotItemHandler(inventory, 11, 94, 65));
   }
 
-  private void addInventorySlots(Inventory playerInventory) {
+  private void addInventorySlots(Inventory playerInventory)
+  {
     //8,108
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 9; j++) {
+    for (int i = 0; i < 3; i++)
+    {
+      for (int j = 0; j < 9; j++)
+      {
         if (j + i * 9 + 9 == 36) return;
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
       }
     }
   }
 
-  private void addHotbarSlots(Inventory playerInventory) {
+  private void addHotbarSlots(Inventory playerInventory)
+  {
     //8, 166
-    for (int k = 0; k < 9; k++) {
+    for (int k = 0; k < 9; k++)
+    {
       this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 166));
     }
-  }
-
-  /**
-   * Determines if two @link {@link ItemStack} match and can be merged into a single slot
-   */
-  public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
-  {
-    if (stack1.isEmpty() || stack2.isEmpty()) return false;
-    return ItemStack.isSameItemSameComponents(stack1, stack2);
   }
 
   /**
@@ -93,7 +106,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   public @NotNull ItemStack quickMoveStack(@NotNull Player player, int slotIndex)
   {
     ItemStack originalStack = ItemStack.EMPTY;
-    Slot slot = (Slot) slots.get(slotIndex);
+    Slot slot = slots.get(slotIndex);
     int numSlots = slots.size();
     if (slot != null && slot.hasItem())
     {
@@ -142,7 +155,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     {
       for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++)
       {
-        Slot slot = (Slot) slots.get(slotIndex);
+        Slot slot = slots.get(slotIndex);
         ItemStack stackInSlot = slot.getItem();
         if (!stackInSlot.isEmpty() && canStacksMerge(stackInSlot, stackToShift))
         {
@@ -168,7 +181,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
     {
       for (int slotIndex = start; stackToShift.getCount() > 0 && slotIndex < end; slotIndex++)
       {
-        Slot slot = (Slot) slots.get(slotIndex);
+        Slot slot = slots.get(slotIndex);
         ItemStack stackInSlot = slot.getItem();
         if (stackInSlot.isEmpty())
         {
@@ -189,18 +202,25 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu {
   {
     for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
     {
-      Slot slot = (Slot) slots.get(machineIndex);
+      Slot slot = slots.get(machineIndex);
       if (!slot.mayPlace(stackToShift)) continue;
       if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) return true;
     }
     return false;
   }
 
-  public boolean isHousingActive(ItemStack stack) {
-    return stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN;
+  public ContainerLevelAccess getAccess()
+  {
+    return access;
   }
 
-  public ContainerLevelAccess getAccess() {
-    return access;
+  public List<HousingError> getErrors()
+  {
+    return errors;
+  }
+
+  public void receiveGuiData(List<HousingError> errors)
+  {
+    this.errors = errors;
   }
 }

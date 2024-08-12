@@ -2,13 +2,8 @@ package sandybay.apicurious.api.util;
 
 import sandybay.apicurious.common.bee.species.BeeColor;
 
-public class ApicuriousConstants {
-  /**
-   * Duration in Ticks per Workcycle.
-   * Default: 550 ticks or 27.5 seconds
-   */
-  public static final int WORKCYCLE = 550;
-
+public class ApicuriousConstants
+{
   // Color-values
   //// Bodies
   public static final String DEFAULT_BODY = "ffdc16";
