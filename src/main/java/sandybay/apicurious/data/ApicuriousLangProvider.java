@@ -47,7 +47,6 @@ public class ApicuriousLangProvider extends LanguageProvider
     add("apicurious.tooltip.unidentified", "Unidentified");
     add("apicurious.genetics.active", "Active");
     add("apicurious.genetics.inactive", "Inactive");
-    add("apicurious.menu.bee_housing", "Bee Housing");
 
     // Hives
     addHives();
@@ -80,6 +79,7 @@ public class ApicuriousLangProvider extends LanguageProvider
   public void addMenus()
   {
     menu("apiary", "Apiary");
+    menu("bee_housing", "Bee Housing");
   }
 
   public void addTraits()
@@ -199,22 +199,38 @@ public class ApicuriousLangProvider extends LanguageProvider
   public void addErrors()
   {
     error(HousingError.MISSING_QUEEN.getMessage(), "Missing Queen");
+    error_tooltip(HousingError.MISSING_QUEEN.getMessage(), "The colony is missing its queen!");
     error(HousingError.MISSING_PRINCESS.getMessage(), "Missing Princess");
+    error_tooltip(HousingError.MISSING_PRINCESS.getMessage(), "The colony requires a princess!");
     error(HousingError.MISSING_DRONE.getMessage(), "Missing Drone");
+    error_tooltip(HousingError.MISSING_DRONE.getMessage(), "The colony can't run without its drones!");
     error(HousingError.MISSING_FLOWER.getMessage(), "Missing Flowers");
+    error_tooltip(HousingError.MISSING_FLOWER.getMessage(), "No nearby flowers for nectar!");
     error(HousingError.TOO_DRY.getMessage(), "Too Dry");
+    error_tooltip(HousingError.TOO_DRY.getMessage(), "The bees seem too agitated by the dryness to work.");
     error(HousingError.TOO_HUMID.getMessage(), "Too Humid");
+    error_tooltip(HousingError.TOO_HUMID.getMessage(), "The bees seem too sluggish from the humidity to work.");
     error(HousingError.TOO_HOT.getMessage(), "Too Hot");
+    error_tooltip(HousingError.TOO_HOT.getMessage(), "The scorching heat is making it hard for the bees to work.");
     error(HousingError.TOO_COLD.getMessage(), "Too Cold");
+    error_tooltip(HousingError.TOO_COLD.getMessage(), "The frigid temperatures is proving too much for the poor bees.");
     error(HousingError.INVALID_TIME.getMessage(), "Wrong time of day");
+    error_tooltip(HousingError.INVALID_TIME.getMessage(), "Shh... Your bees are resting!");
     error(HousingError.IS_RAINING.getMessage(), "Is Raining");
+    error_tooltip(HousingError.IS_RAINING.getMessage(), "Maybe some raincoats are in order?");
     error(HousingError.NO_SKY.getMessage(), "No Sky");
+    error_tooltip(HousingError.NO_SKY.getMessage(), "Your bees don't seem to appreciate the closed area.");
     error(HousingError.FULL_INVENTORY.getMessage(), "Output Inventory is Full");
+    error_tooltip(HousingError.FULL_INVENTORY.getMessage(), "There is no more space in the apiary!");
   }
 
   public void error(String message, String translation)
   {
     add(message, translation);
+  }
+
+  public void error_tooltip(String message, String translation)
+  {
     add(message + "_tooltip", translation);
   }
 

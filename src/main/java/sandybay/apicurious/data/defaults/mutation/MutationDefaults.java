@@ -5,12 +5,14 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.DimensionTypes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.neoforged.neoforge.common.Tags;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
@@ -75,7 +77,7 @@ public class MutationDefaults
                     new BiomeCondition(bootstrap.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_BEACH)),
                     new BlockInAreaCondition(bootstrap.lookup(Registries.BLOCK).getOrThrow(Tags.Blocks.BOOKSHELVES)),
                     new DateCondition(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31)),
-                    //new DimensionCondition(HolderSet.direct(bootstrap.lookup(Registries.DIMENSION).getOrThrow(Level.OVERWORLD))),
+                    new DimensionCondition(HolderSet.direct(bootstrap.lookup(Registries.DIMENSION_TYPE).getOrThrow(BuiltinDimensionTypes.OVERWORLD))),
                     new HeightCondition(64, false),
                     new HumidityCondition(bootstrap.lookup(Registries.BIOME).getOrThrow(ApicuriousTags.BiomeTags.AQUATIC_HUMIDITY)),
                     new MoonPhaseCondition(4),

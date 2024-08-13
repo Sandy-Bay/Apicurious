@@ -9,21 +9,22 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 import sandybay.apicurious.api.bee.condition.ICondition;
 import sandybay.apicurious.api.bee.condition.ConditionType;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
-public record DimensionCondition(HolderSet<Level> dimensions) implements ICondition
+public record DimensionCondition(HolderSet<DimensionType> dimensions) implements ICondition
 {
   public static final MapCodec<DimensionCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
           instance.group(
-                  RegistryCodecs.homogeneousList(Registries.DIMENSION).fieldOf("dimensions").forGetter(DimensionCondition::dimensions)
+                  RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE).fieldOf("dimensions").forGetter(DimensionCondition::dimensions)
           ).apply(instance, DimensionCondition::new)
   );
 
   public static final StreamCodec<RegistryFriendlyByteBuf, DimensionCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.DIMENSION)), DimensionCondition::dimensions,
+          ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE)), DimensionCondition::dimensions,
           DimensionCondition::new
   );
 
@@ -38,6 +39,6 @@ public record DimensionCondition(HolderSet<Level> dimensions) implements ICondit
   {
     Level level = housing.getLevel();
     if (level == null) return false;
-    return dimensions().stream().anyMatch(h -> h.is(level.dimension()));
+    return dimensions().contains(level.dimensionTypeRegistration());
   }
 }

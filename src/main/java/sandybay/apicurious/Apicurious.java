@@ -39,17 +39,11 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
 /*
  TODO: Before MVP Alpha Release
   - Must Haves:
-    - Allele/Genome (Genetics)
-      - Figure out a better allele mutation system...
-    - Mutations (Genetics and Species)
+    - Bee Analyser
     - Particles for active housing
-    - Proper errors for housing
-      - Error Message
-      - Error Tooltip
-    - Worldgen for Hives
+    - World gen for Hives
   - Optionals:
     - Effects
-    - Output System
     - General Code Clean-Up
  */
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
