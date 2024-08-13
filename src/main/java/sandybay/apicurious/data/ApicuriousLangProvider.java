@@ -39,6 +39,15 @@ public class ApicuriousLangProvider extends LanguageProvider
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
+    add("apicurious.tooltip.area", "Area: ");
+    add("apicurious.tooltip.lifespan", "Lifespan: ");
+    add("apicurious.tooltip.speed", "Speed: ");
+    add("apicurious.tooltip.fertility", "Fertility: ");
+    add("apicurious.tooltip.flowers", "Flowers: ");
+    add("apicurious.tooltip.unidentified", "Unidentified");
+    add("apicurious.genetics.active", "Active");
+    add("apicurious.genetics.inactive", "Inactive");
+    add("apicurious.menu.bee_housing", "Bee Housing");
 
     // Hives
     addHives();

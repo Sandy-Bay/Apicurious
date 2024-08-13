@@ -8,6 +8,9 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -39,7 +42,7 @@ public class BaseBeeItem extends Item implements IBeeItem
 
   public BaseBeeItem(Properties properties, EnumBeeType beeType)
   {
-    super(properties);
+    super(properties.component(DataComponentRegistrar.IDENTIFIED, false));
     this.beeType = beeType;
   }
 
@@ -71,6 +74,12 @@ public class BaseBeeItem extends Item implements IBeeItem
     return bee;
   }
 
+  @Override
+  public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
+  {
+    pPlayer.getItemInHand(pUsedHand).set(DataComponentRegistrar.IDENTIFIED, true);
+    return super.use(pLevel, pPlayer, pUsedHand);
+  }
 
   public EnumBeeType getBeeType()
   {
@@ -97,33 +106,40 @@ public class BaseBeeItem extends Item implements IBeeItem
   public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag)
   {
     super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-    if (Screen.hasShiftDown())
+    if (pStack.has(DataComponentRegistrar.IDENTIFIED) && Boolean.TRUE.equals(pStack.get(DataComponentRegistrar.IDENTIFIED)))
     {
-      Genome genome = pStack.get(DataComponentRegistrar.GENOME);
-      if (genome == null) return;
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.area").append(genome.getArea(true).value().getReadableName()));
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.lifespan").append(genome.getLifespan(true).value().getReadableName()));
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.speed").append(genome.getSpeed(true).value().getReadableName()));
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.fertility").append(genome.getFertility(true).value().getReadableName()));
+      if (Screen.hasShiftDown())
+      {
+        Genome genome = pStack.get(DataComponentRegistrar.GENOME);
+        if (genome == null) return;
+        pTooltipComponents.add(Component.translatable("apicurious.tooltip.area").append(genome.getArea(true).value().getReadableName()));
+        pTooltipComponents.add(Component.translatable("apicurious.tooltip.lifespan").append(genome.getLifespan(true).value().getReadableName()));
+        pTooltipComponents.add(Component.translatable("apicurious.tooltip.speed").append(genome.getSpeed(true).value().getReadableName()));
+        pTooltipComponents.add(Component.translatable("apicurious.tooltip.fertility").append(genome.getFertility(true).value().getReadableName()));
 
-      pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).value().getReadableName()).append(" / ")
-              .append(genome.getTemperatureTolerance(true).value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+        pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).value().getReadableName()).append(" / ")
+                .append(genome.getTemperatureTolerance(true).value().getReadableName()).withStyle(ChatFormatting.GREEN));
 
-      pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).value().getReadableName()).append(" / ")
-              .append(genome.getHumidityTolerance(true).value().getReadableName()).withColor(ChatFormatting.GREEN.getColor()));
+        pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).value().getReadableName()).append(" / ")
+                .append(genome.getHumidityTolerance(true).value().getReadableName()).withStyle(ChatFormatting.GREEN));
 
-      pTooltipComponents.add(Component.translatable("apicurious.tooltip.flowers").append(genome.getFlowers(true).value().getReadableName()));
+        pTooltipComponents.add(Component.translatable("apicurious.tooltip.flowers").append(genome.getFlowers(true).value().getReadableName()));
 
-    } else
-    {
-      pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
+      } else
+      {
+        pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
+      }
+
+      if (pTooltipFlag.isAdvanced())
+      {
+        Genome genome = pStack.get(DataComponentRegistrar.GENOME);
+        if (genome == null) return;
+        pTooltipComponents.add(Component.literal(genome.toString()));
+      }
     }
-
-    if (pTooltipFlag.isAdvanced())
+    else
     {
-      Genome genome = pStack.get(DataComponentRegistrar.GENOME);
-      if (genome == null) return;
-      pTooltipComponents.add(Component.literal(genome.toString()));
+      pTooltipComponents.add(Component.translatable("apicurious.tooltip.unidentified"));
     }
   }
 }

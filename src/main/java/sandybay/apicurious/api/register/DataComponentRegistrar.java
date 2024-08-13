@@ -1,6 +1,8 @@
 package sandybay.apicurious.api.register;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -19,6 +21,13 @@ public class DataComponentRegistrar
           builder -> builder
                   .persistent(Genome.CODEC)
                   .networkSynchronized(Genome.NETWORK_CODEC)
+  );
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> IDENTIFIED = REGISTRAR.registerComponentType(
+          "identified",
+          builder -> builder
+                  .persistent(Codec.BOOL)
+                  .networkSynchronized(ByteBufCodecs.BOOL)
   );
 
   public static void register(IEventBus bus)
