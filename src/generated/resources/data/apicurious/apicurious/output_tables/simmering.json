@@ -1,0 +1,23 @@
+{
+  "pools": [
+    {
+      "conditions": [],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:simmering_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

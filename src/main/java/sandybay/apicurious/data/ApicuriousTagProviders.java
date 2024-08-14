@@ -194,15 +194,15 @@ public class ApicuriousTagProviders
     {
       tag(ApicuriousTags.AlleleTags.BASELINE_BEE)
               .addAll(List.of(
-                      ApicuriousSpecies.FOREST,
-                      ApicuriousSpecies.MEADOW,
-                      ApicuriousSpecies.MODEST,
-                      ApicuriousSpecies.TROPICAL,
-                      ApicuriousSpecies.WINTRY,
-                      ApicuriousSpecies.MARSHY,
-                      ApicuriousSpecies.ROCKY,
-                      ApicuriousSpecies.NETHER,
-                      ApicuriousSpecies.ENDER
+                      ApicuriousSpecies.FOREST.species(),
+                      ApicuriousSpecies.MEADOW.species(),
+                      ApicuriousSpecies.MODEST.species(),
+                      ApicuriousSpecies.TROPICAL.species(),
+                      ApicuriousSpecies.WINTRY.species(),
+                      ApicuriousSpecies.MARSHY.species(),
+                      ApicuriousSpecies.ROCKY.species(),
+                      ApicuriousSpecies.NETHER.species(),
+                      ApicuriousSpecies.ENDER.species()
               ));
     }
   }

@@ -122,7 +122,7 @@ public class EnvironmentalData
     private Builder(BootstrapContext<IAllele<?>> context)
     {
       this.context = context;
-      this.flowers = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(Flowers.NORMAL_FLOWERS);
+      this.flowers = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(Flowers.FLOWERS);
       this.temperaturePreference = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(TemperaturePreference.AVERAGE);
       this.temperatureTolerance = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(TemperatureTolerance.NO_TOLERANCE);
       this.humidityPreference = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(HumidityPreference.AVERAGE);

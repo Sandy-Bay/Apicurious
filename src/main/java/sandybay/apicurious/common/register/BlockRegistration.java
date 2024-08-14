@@ -34,15 +34,15 @@ public class BlockRegistration
   public static final BlockBehaviour.Properties HOUSING_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.BEEHIVE);
   public static final BlockBehaviour.Properties HIVE_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.BEE_NEST);
   // Hives
-  public static final BlockItemHolder<HiveBlock, BlockItem> FOREST_HIVE = registerBlock("forest_hive", () -> new HiveBlock(ApicuriousSpecies.FOREST, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> MEADOW_HIVE = registerBlock("meadow_hive", () -> new HiveBlock(ApicuriousSpecies.MEADOW, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> MODEST_HIVE = registerBlock("modest_hive", () -> new HiveBlock(ApicuriousSpecies.MODEST, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> TROPICAL_HIVE = registerBlock("tropical_hive", () -> new HiveBlock(ApicuriousSpecies.TROPICAL, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> WINTRY_HIVE = registerBlock("wintry_hive", () -> new HiveBlock(ApicuriousSpecies.WINTRY, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> MARSHY_HIVE = registerBlock("marshy_hive", () -> new HiveBlock(ApicuriousSpecies.MARSHY, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> ROCKY_HIVE = registerBlock("rocky_hive", () -> new HiveBlock(ApicuriousSpecies.ROCKY, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> NETHER_HIVE = registerBlock("nether_hive", () -> new HiveBlock(ApicuriousSpecies.NETHER, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
-  public static final BlockItemHolder<HiveBlock, BlockItem> ENDER_HIVE = registerBlock("ender_hive", () -> new HiveBlock(ApicuriousSpecies.ENDER, HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> FOREST_HIVE = registerBlock("forest_hive", () -> new HiveBlock(ApicuriousSpecies.FOREST.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> MEADOW_HIVE = registerBlock("meadow_hive", () -> new HiveBlock(ApicuriousSpecies.MEADOW.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> MODEST_HIVE = registerBlock("modest_hive", () -> new HiveBlock(ApicuriousSpecies.MODEST.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> TROPICAL_HIVE = registerBlock("tropical_hive", () -> new HiveBlock(ApicuriousSpecies.TROPICAL.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> WINTRY_HIVE = registerBlock("wintry_hive", () -> new HiveBlock(ApicuriousSpecies.WINTRY.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> MARSHY_HIVE = registerBlock("marshy_hive", () -> new HiveBlock(ApicuriousSpecies.MARSHY.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> ROCKY_HIVE = registerBlock("rocky_hive", () -> new HiveBlock(ApicuriousSpecies.ROCKY.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> NETHER_HIVE = registerBlock("nether_hive", () -> new HiveBlock(ApicuriousSpecies.NETHER.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> ENDER_HIVE = registerBlock("ender_hive", () -> new HiveBlock(ApicuriousSpecies.ENDER.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
   private static final Item.Properties DEFAULT_ITEM_BLOCK_PROPERTIES = new Item.Properties();
 
   public static void register(IEventBus bus)

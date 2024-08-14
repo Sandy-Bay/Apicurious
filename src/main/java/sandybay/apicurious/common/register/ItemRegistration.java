@@ -27,7 +27,6 @@ public class ItemRegistration
 
   // Products
   // Combs
-  /* TODO: Implement combs as needed
   public static final DeferredHolder<Item, Item> COCOA_COMB = comb("cocoa");
   public static final DeferredHolder<Item, Item> DRIPPING_COMB = comb("dripping");
   public static final DeferredHolder<Item, Item> FROZEN_COMB = comb("frozen");
@@ -40,7 +39,6 @@ public class ItemRegistration
   public static final DeferredHolder<Item, Item> SIMMERING_COMB = comb("simmering");
   public static final DeferredHolder<Item, Item> STRINGY_COMB = comb("stringy");
   public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
-   */
 
   // Misc
   /* TODO: Implement as needed

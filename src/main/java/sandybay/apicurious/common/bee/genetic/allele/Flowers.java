@@ -22,7 +22,12 @@ import java.util.Objects;
 public class Flowers implements IAllele<Flowers>
 {
 
-  public static final ResourceKey<IAllele<?>> NORMAL_FLOWERS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/normal_flowers"));
+  public static final ResourceKey<IAllele<?>> FLOWERS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/normal_flowers"));
+  public static final ResourceKey<IAllele<?>> CACTI = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/cacti"));
+  public static final ResourceKey<IAllele<?>> JUNGLE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/jungle"));
+  public static final ResourceKey<IAllele<?>> SNOW = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/snow"));
+  public static final ResourceKey<IAllele<?>> MUSHROOM = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/mushroom"));
+  public static final ResourceKey<IAllele<?>> WHEAT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/wheat"));
   public static final ResourceKey<IAllele<?>> ROCK = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/overworld_rocks"));
   public static final ResourceKey<IAllele<?>> NETHER_ROCK = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/nether_rocks"));
 
@@ -33,6 +38,7 @@ public class Flowers implements IAllele<Flowers>
                   Codec.STRING.fieldOf("name").forGetter(Flowers::getName)
           ).apply(instance, Flowers::new)
   );
+
   public static final StreamCodec<RegistryFriendlyByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)), Flowers::getFlowers,
           ByteBufCodecs.BOOL, Flowers::isDominantTrait,

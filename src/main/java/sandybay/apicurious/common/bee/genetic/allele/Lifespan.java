@@ -19,7 +19,7 @@ import java.util.Objects;
 public class Lifespan implements IAllele<Lifespan>
 {
 
-  public static final ResourceKey<IAllele<?>> SHOREST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shorest"));
+  public static final ResourceKey<IAllele<?>> SHORTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shortest"));
   public static final ResourceKey<IAllele<?>> SHORTER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shorter"));
   public static final ResourceKey<IAllele<?>> SHORT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/short"));
   public static final ResourceKey<IAllele<?>> SHORTENED = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shortened"));

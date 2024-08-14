@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/normal_flowers",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/average",
+      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
+    }
+  },
+  "key": "apicurious:species/leporine",
+  "name": "apicurious.species.leporine",
+  "outputData": {
+    "outputTable": "apicurious:silky"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/average",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "0feff8f",
+      "wingTint": "3cd757"
+    },
+    "hasCustomRender": false
+  }
+}

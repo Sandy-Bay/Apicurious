@@ -1,32 +1,30 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/nether_rocks",
     "humidityData": {
-      "preferenceHolder": "apicurious:humidity/preference/average",
+      "preferenceHolder": "apicurious:humidity/preference/arid",
       "toleranceHolder": "apicurious:humidity/tolerance/none"
     },
     "ignoresRain": false,
     "ignoresSky": false,
     "temperatureData": {
-      "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/none"
+      "preferenceHolder": "apicurious:temperature/preference/hellish",
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
     }
   },
   "key": "apicurious:species/nether",
   "name": "apicurious.species.nether",
   "outputData": {
-    "outputTable": {
-      "pools": []
-    }
+    "outputTable": "apicurious:simmering"
   },
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/average",
     "lifespan": "apicurious:lifespan/average",
     "pollination": "apicurious:pollination/average",
-    "speed": "apicurious:speed/average",
-    "workCycle": "apicurious:workcycle/diurnal"
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/always"
   },
   "visualData": {
     "beeColor": {

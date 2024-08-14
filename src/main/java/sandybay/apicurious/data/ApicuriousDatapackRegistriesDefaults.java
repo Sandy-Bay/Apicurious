@@ -1,6 +1,5 @@
 package sandybay.apicurious.data;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -10,8 +9,6 @@ import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
 import sandybay.apicurious.data.defaults.mutation.MutationDefaults;
 import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
 
-import java.util.concurrent.CompletableFuture;
-
 public class ApicuriousDatapackRegistriesDefaults
 {
 
@@ -19,7 +16,7 @@ public class ApicuriousDatapackRegistriesDefaults
   {
     RegistrySetBuilder builder = new RegistrySetBuilder();
     builder.add(ApicuriousRegistries.ALLELES, AlleleDefaults::defaults);
-    builder.add(ApicuriousRegistries.MUTATIONS, MutationDefaults::defaults);
+    builder.add(ApicuriousRegistries.MUTATIONS, MutationDefaults::registerDefaults);
     builder.add(ApicuriousRegistries.CONDITIONS, ConditionsDefaults::defaults);
     builder.add(ApicuriousRegistries.FUNCTIONS, FunctionsDefaults::defaults);
     builder.add(ApicuriousRegistries.OUTPUT_TABLES, OutputTableDefaults::defaults);

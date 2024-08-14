@@ -1,0 +1,5 @@
+{
+  "condition": "apicurious:is_correct_date",
+  "from": "1970-12-23",
+  "to": "1970-12-30"
+}

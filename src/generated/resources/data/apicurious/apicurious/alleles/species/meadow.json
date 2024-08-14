@@ -16,16 +16,14 @@
   "key": "apicurious:species/meadow",
   "name": "apicurious.species.meadow",
   "outputData": {
-    "outputTable": {
-      "pools": []
-    }
+    "outputTable": "apicurious:standard"
   },
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/average",
-    "pollination": "apicurious:pollination/average",
-    "speed": "apicurious:speed/average",
+    "lifespan": "apicurious:lifespan/shorter",
+    "pollination": "apicurious:pollination/slower",
+    "speed": "apicurious:speed/slowest",
     "workCycle": "apicurious:workcycle/diurnal"
   },
   "visualData": {

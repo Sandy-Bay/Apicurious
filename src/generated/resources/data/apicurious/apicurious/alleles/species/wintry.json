@@ -1,7 +1,7 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/snow",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
       "toleranceHolder": "apicurious:humidity/tolerance/none"
@@ -9,23 +9,21 @@
     "ignoresRain": false,
     "ignoresSky": false,
     "temperatureData": {
-      "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/none"
+      "preferenceHolder": "apicurious:temperature/preference/icy",
+      "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
   "key": "apicurious:species/wintry",
   "name": "apicurious.species.wintry",
   "outputData": {
-    "outputTable": {
-      "pools": []
-    }
+    "outputTable": "apicurious:frozen"
   },
   "productionData": {
     "area": "apicurious:area/average",
-    "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/average",
-    "pollination": "apicurious:pollination/average",
-    "speed": "apicurious:speed/average",
+    "fertility": "apicurious:fertility/maximum",
+    "lifespan": "apicurious:lifespan/short",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slower",
     "workCycle": "apicurious:workcycle/diurnal"
   },
   "visualData": {

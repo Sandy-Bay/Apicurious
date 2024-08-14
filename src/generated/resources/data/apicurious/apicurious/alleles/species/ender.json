@@ -1,32 +1,30 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/nether_rocks",
     "humidityData": {
-      "preferenceHolder": "apicurious:humidity/preference/average",
+      "preferenceHolder": "apicurious:humidity/preference/arid",
       "toleranceHolder": "apicurious:humidity/tolerance/none"
     },
-    "ignoresRain": false,
-    "ignoresSky": false,
+    "ignoresRain": true,
+    "ignoresSky": true,
     "temperatureData": {
-      "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/none"
+      "preferenceHolder": "apicurious:temperature/preference/cold",
+      "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
   "key": "apicurious:species/ender",
   "name": "apicurious.species.ender",
   "outputData": {
-    "outputTable": {
-      "pools": []
-    }
+    "outputTable": "apicurious:mysterious"
   },
   "productionData": {
-    "area": "apicurious:area/average",
+    "area": "apicurious:area/large",
     "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/average",
-    "pollination": "apicurious:pollination/average",
-    "speed": "apicurious:speed/average",
-    "workCycle": "apicurious:workcycle/diurnal"
+    "lifespan": "apicurious:lifespan/longer",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/always"
   },
   "visualData": {
     "beeColor": {

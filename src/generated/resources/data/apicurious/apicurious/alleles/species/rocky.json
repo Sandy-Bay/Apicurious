@@ -1,32 +1,30 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/overworld_rocks",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
-      "toleranceHolder": "apicurious:humidity/tolerance/none"
+      "toleranceHolder": "apicurious:humidity/tolerance/low"
     },
-    "ignoresRain": false,
-    "ignoresSky": false,
+    "ignoresRain": true,
+    "ignoresSky": true,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/none"
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
     }
   },
   "key": "apicurious:species/rocky",
   "name": "apicurious.species.rocky",
   "outputData": {
-    "outputTable": {
-      "pools": []
-    }
+    "outputTable": "apicurious:rocky"
   },
   "productionData": {
     "area": "apicurious:area/average",
-    "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/average",
-    "pollination": "apicurious:pollination/average",
-    "speed": "apicurious:speed/average",
-    "workCycle": "apicurious:workcycle/diurnal"
+    "fertility": "apicurious:fertility/low",
+    "lifespan": "apicurious:lifespan/shorter",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slowest",
+    "workCycle": "apicurious:workcycle/always"
   },
   "visualData": {
     "beeColor": {

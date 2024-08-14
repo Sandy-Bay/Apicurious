@@ -11,7 +11,7 @@ public class FlowersDefaults
 {
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(Flowers.NORMAL_FLOWERS, flowers(BlockTags.FLOWERS, true, "normal_flowers"));
+    bootstrap.register(Flowers.FLOWERS, flowers(BlockTags.FLOWERS, true, "normal_flowers"));
     bootstrap.register(Flowers.ROCK, flowers(BlockTags.BASE_STONE_OVERWORLD, true, "overworld_rocks"));
     bootstrap.register(Flowers.NETHER_ROCK, flowers(BlockTags.BASE_STONE_NETHER, true, "nether_rocks"));
   }

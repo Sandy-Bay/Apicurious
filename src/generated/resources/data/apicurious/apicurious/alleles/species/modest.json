@@ -1,32 +1,30 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/cacti",
     "humidityData": {
-      "preferenceHolder": "apicurious:humidity/preference/average",
-      "toleranceHolder": "apicurious:humidity/tolerance/none"
+      "preferenceHolder": "apicurious:humidity/preference/arid",
+      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
     },
     "ignoresRain": false,
     "ignoresSky": false,
     "temperatureData": {
-      "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/none"
+      "preferenceHolder": "apicurious:temperature/preference/hot",
+      "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
   "key": "apicurious:species/modest",
   "name": "apicurious.species.modest",
   "outputData": {
-    "outputTable": {
-      "pools": []
-    }
+    "outputTable": "apicurious:modest"
   },
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/average",
-    "pollination": "apicurious:pollination/average",
-    "speed": "apicurious:speed/average",
-    "workCycle": "apicurious:workcycle/diurnal"
+    "lifespan": "apicurious:lifespan/short",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/always"
   },
   "visualData": {
     "beeColor": {

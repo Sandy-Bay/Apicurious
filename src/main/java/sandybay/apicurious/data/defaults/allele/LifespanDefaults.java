@@ -8,7 +8,7 @@ public class LifespanDefaults
 {
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(Lifespan.SHOREST, lifespan(10, false, "shortest"));
+    bootstrap.register(Lifespan.SHORTEST, lifespan(10, false, "shortest"));
     bootstrap.register(Lifespan.SHORTER, lifespan(20, false, "shorter"));
     bootstrap.register(Lifespan.SHORT, lifespan(30, false, "short"));
     bootstrap.register(Lifespan.SHORTENED, lifespan(35, true, "shortened"));
