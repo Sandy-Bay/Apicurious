@@ -1,36 +1,36 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/wheat",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
-      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
+      "toleranceHolder": "apicurious:humidity/tolerance/none"
     },
     "ignoresRain": false,
     "ignoresSky": false,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/low"
+      "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
-  "key": "apicurious:species/leporine",
-  "name": "apicurious.species.leporine",
+  "key": "apicurious:species/farmed",
+  "name": "apicurious.species.farmed",
   "outputData": {
-    "outputTable": "apicurious:leporine"
+    "outputTable": "apicurious:farmed"
   },
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/average",
-    "pollination": "apicurious:pollination/slowest",
+    "lifespan": "apicurious:lifespan/shorter",
+    "pollination": "apicurious:pollination/faster",
     "speed": "apicurious:speed/slower",
     "workCycle": "apicurious:workcycle/diurnal"
   },
   "visualData": {
     "beeColor": {
-      "bodyTint": "3cd757",
-      "outlineTint": "0feff8f",
-      "wingTint": "3cd757"
+      "bodyTint": "ffdc16",
+      "outlineTint": "D39728",
+      "wingTint": "ffdc16"
     },
     "hasCustomRender": false
   }

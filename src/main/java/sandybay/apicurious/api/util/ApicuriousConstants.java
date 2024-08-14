@@ -60,10 +60,10 @@ public class ApicuriousConstants
   public static final String MERRY_OUTLINE = "ffffff";
   public static final String MERRY_WING = "d40000";
   // Agrarian
-  public static final String RURAL_OUTLINE = "";
-  public static final String RURAL_WING = "";
-  public static final String FARMED_OUTLINE = "";
-  public static final String FARMED_WING = "";
+  public static final String RURAL_OUTLINE = "feff8f";
+  public static final String RURAL_WING = "ffdc16";
+  public static final String FARMED_OUTLINE = "D39728";
+  public static final String FARMED_WING = "ffdc16";
 
   //// BeeColor(s)
   // Debug
@@ -79,20 +79,20 @@ public class ApicuriousConstants
   public static final BeeColor NETHER = new BeeColor(NETHER_OUTLINE, NETHER_WING, NETHER_BODY);
   public static final BeeColor ENDER = new BeeColor(ENDER_OUTLINE, ENDER_WING, ENDER_BODY);
   // Common
-  public static final BeeColor COMMON = new BeeColor(COMMON_OUTLINE, COMMON_WING, DEFAULT_BODY);
-  public static final BeeColor CULTIVATED = new BeeColor(CULTIVATED_OUTLINE, CULTIVATED_WING, DEFAULT_BODY);
+  public static final BeeColor COMMON = new BeeColor(COMMON_OUTLINE, COMMON_WING, COMMON_WING);
+  public static final BeeColor CULTIVATED = new BeeColor(CULTIVATED_OUTLINE, CULTIVATED_WING, CULTIVATED_WING);
   // Noble
-  public static final BeeColor NOBLE = new BeeColor(NOBLE_OUTLINE, NOBLE_WING, DEFAULT_BODY);
-  public static final BeeColor MAJESTIC = new BeeColor(MAJESTIC_OUTLINE, MAJESTIC_WING, DEFAULT_BODY);
-  public static final BeeColor IMPERIAL = new BeeColor(IMPERIAL_OUTLINE, IMPERIAL_WING, DEFAULT_BODY);
+  public static final BeeColor NOBLE = new BeeColor(NOBLE_OUTLINE, NOBLE_WING, NOBLE_WING);
+  public static final BeeColor MAJESTIC = new BeeColor(MAJESTIC_OUTLINE, MAJESTIC_WING, MAJESTIC_WING);
+  public static final BeeColor IMPERIAL = new BeeColor(IMPERIAL_OUTLINE, IMPERIAL_WING, IMPERIAL_WING);
   // Diligent
-  public static final BeeColor DILIGENT = new BeeColor(DILIGENT_OUTLINE, DILIGENT_WING, DEFAULT_BODY);
-  public static final BeeColor UNWEARY = new BeeColor(UNWEARY_OUTLINE, UNWEARY_WING, DEFAULT_BODY);
-  public static final BeeColor INDUSTRIOUS = new BeeColor(INDUSTRIOUS_OUTLINE, INDUSTIROUS_WING, DEFAULT_BODY);
+  public static final BeeColor DILIGENT = new BeeColor(DILIGENT_OUTLINE, DILIGENT_WING, DILIGENT_WING);
+  public static final BeeColor UNWEARY = new BeeColor(UNWEARY_OUTLINE, UNWEARY_WING, UNWEARY_WING);
+  public static final BeeColor INDUSTRIOUS = new BeeColor(INDUSTRIOUS_OUTLINE, INDUSTIROUS_WING, INDUSTIROUS_WING);
   // Festive
-  public static final BeeColor LEPORINE = new BeeColor(LEPORINE_OUTLINE, LEPORINE_WING, DEFAULT_BODY);
-  public static final BeeColor MERRY = new BeeColor(MERRY_OUTLINE, MERRY_WING, DEFAULT_BODY);
+  public static final BeeColor LEPORINE = new BeeColor(LEPORINE_OUTLINE, LEPORINE_WING, LEPORINE_WING);
+  public static final BeeColor MERRY = new BeeColor(MERRY_OUTLINE, MERRY_WING, MERRY_WING);
   // Agrarian
-  public static final BeeColor RURAL = new BeeColor(RURAL_OUTLINE, RURAL_WING, DEFAULT_BODY);
-  public static final BeeColor FARMED = new BeeColor(FARMED_OUTLINE, FARMED_WING, DEFAULT_BODY);
+  public static final BeeColor RURAL = new BeeColor(RURAL_OUTLINE, RURAL_WING, RURAL_WING);
+  public static final BeeColor FARMED = new BeeColor(FARMED_OUTLINE, FARMED_WING, FARMED_WING);
 }

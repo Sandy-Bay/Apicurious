@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -52,6 +53,23 @@ public class ApicuriousTagProviders
               BlockRegistration.WINTRY_HIVE.block().getKey(),
               BlockRegistration.MARSHY_HIVE.block().getKey(),
               BlockRegistration.ENDER_HIVE.block().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.CACTUS).add(
+              Blocks.CACTUS.builtInRegistryHolder().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.JUNGLE).add(
+              Blocks.COCOA.builtInRegistryHolder().getKey(),
+              Blocks.VINE.builtInRegistryHolder().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.MUSHROOM).add(
+              Blocks.RED_MUSHROOM.builtInRegistryHolder().getKey(),
+              Blocks.RED_MUSHROOM_BLOCK.builtInRegistryHolder().getKey(),
+              Blocks.BROWN_MUSHROOM.builtInRegistryHolder().getKey(),
+              Blocks.BROWN_MUSHROOM_BLOCK.builtInRegistryHolder().getKey(),
+              Blocks.MUSHROOM_STEM.builtInRegistryHolder().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.WHEAT).add(
+              Blocks.WHEAT.builtInRegistryHolder().getKey()
       );
     }
   }

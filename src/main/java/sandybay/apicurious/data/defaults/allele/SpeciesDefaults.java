@@ -17,6 +17,7 @@ public class SpeciesDefaults
     NobleSpecies.defaults(bootstrap);
     DiligentSpecies.defaults(bootstrap);
     FestiveSpecies.defaults(bootstrap);
+    AgrarianSpecies.defaults(bootstrap);
   }
 
   public static BeeSpecies speciesWithColor(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name, BeeColor color)

@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:flowers",
+  "flowers": "apicurious:mushroom",
+  "isDominantTrait": true,
+  "name": "apicurious.flowers.mushroom"
+}

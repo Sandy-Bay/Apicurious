@@ -89,6 +89,22 @@ public class OutputTableDefaults
                     ).when(new ChanceCondition(0.65f)))
             ).build()
     );
+    bootstrap.register(OutputTableKeys.FARMED_OUTPUT, custom()
+            .withPool(pool -> pool.withRolls(1)
+                    .withResult(entry -> entry.withResult(
+                            new OutputResult(
+                                    new ItemStack(ItemRegistration.WHEATEN_COMB)
+                            )
+                    ))
+            )
+            .withPool(pool -> pool.withRolls(1)
+                    .withResult(entry -> entry.withResult(
+                            new OutputResult(
+                                    new ItemStack(ItemRegistration.SEEDY_COMB)
+                            )
+                    ).when(new ChanceCondition(0.33f)))
+            ).build()
+    );
   }
 
   public static OutputTable.Builder custom()

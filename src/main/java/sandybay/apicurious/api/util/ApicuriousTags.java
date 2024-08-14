@@ -22,6 +22,10 @@ public class ApicuriousTags
   public static class BlockTags
   {
     public static final TagKey<Block> HIVE = create("hive");
+    public static final TagKey<Block> CACTUS = create("cactus");
+    public static final TagKey<Block> JUNGLE = create("jungle");
+    public static final TagKey<Block> MUSHROOM = create("mushroom");
+    public static final TagKey<Block> WHEAT = create("wheat");
 
     private static TagKey<Block> create(String path)
     {

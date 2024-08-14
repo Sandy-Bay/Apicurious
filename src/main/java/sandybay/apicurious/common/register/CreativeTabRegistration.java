@@ -36,15 +36,10 @@ public class CreativeTabRegistration
                     BlockRegistration.APIARY.asItemStack(),
                     BlockRegistration.BEE_HOUSING.asItemStack()
             ));
-            output.acceptAll(List.of(
-                    new ItemStack(ItemRegistration.UNTREATED_FRAME.get()),
-                    new ItemStack(ItemRegistration.IMPREGNATED_FRAME.get()),
-                    new ItemStack(ItemRegistration.HEALING_FRAME.get()),
-                    new ItemStack(ItemRegistration.SOUL_FRAME.get()),
-                    new ItemStack(ItemRegistration.RESTRAINT_FRAME.get()),
-                    new ItemStack(ItemRegistration.PROVEN_FRAME.get())
-            ));
+            registerFrames(output);
             registerHives(output);
+            registerCombs(output);
+            registerProducts(output);
           }).build());
 
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder()
@@ -70,7 +65,10 @@ public class CreativeTabRegistration
                     new ItemStack(ItemRegistration.PRINCESS)
             );
             BeeSpecies species = (BeeSpecies) registry.get(rl);
-            bees.forEach(stack -> stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level)));
+            bees.forEach(stack -> {
+              stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level));
+              stack.set(DataComponentRegistrar.IDENTIFIED, true);
+            });
             output.acceptAll(bees);
           }
         }
@@ -90,6 +88,54 @@ public class CreativeTabRegistration
             BlockRegistration.ROCKY_HIVE.asItemStack(),
             BlockRegistration.NETHER_HIVE.asItemStack(),
             BlockRegistration.ENDER_HIVE.asItemStack()
+    ));
+  }
+
+  private static void registerCombs(CreativeModeTab.Output output)
+  {
+    output.acceptAll(List.of(
+            new ItemStack(ItemRegistration.COCOA_COMB),
+            new ItemStack(ItemRegistration.DRIPPING_COMB),
+            new ItemStack(ItemRegistration.FROZEN_COMB),
+            new ItemStack(ItemRegistration.MELLOW_COMB),
+            new ItemStack(ItemRegistration.MOSSY_COMB),
+            new ItemStack(ItemRegistration.MYSTERIOUS_COMB),
+            new ItemStack(ItemRegistration.PARCHED_COMB),
+            new ItemStack(ItemRegistration.POWDERY_COMB),
+            new ItemStack(ItemRegistration.SILKY_COMB),
+            new ItemStack(ItemRegistration.SIMMERING_COMB),
+            new ItemStack(ItemRegistration.STRINGY_COMB),
+            new ItemStack(ItemRegistration.WHEATEN_COMB),
+            new ItemStack(ItemRegistration.ROCKY_COMB),
+            new ItemStack(ItemRegistration.SEEDY_COMB)
+    ));
+  }
+
+  private static void registerProducts(CreativeModeTab.Output output)
+  {
+    output.acceptAll(List.of(
+            new ItemStack(ItemRegistration.BEESWAX),
+            new ItemStack(ItemRegistration.REFRACTORY_WAX),
+            new ItemStack(ItemRegistration.HONEY_DROP),
+            new ItemStack(ItemRegistration.HONEY_DEW),
+            new ItemStack(ItemRegistration.ROYAL_JELLY),
+            new ItemStack(ItemRegistration.PROPOLIS),
+            new ItemStack(ItemRegistration.SILKEN_PROPOLIS),
+            new ItemStack(ItemRegistration.SILK_WISP),
+            new ItemStack(ItemRegistration.POLLEN),
+            new ItemStack(ItemRegistration.ICE_SHARD)
+    ));
+  }
+
+  private static void registerFrames(CreativeModeTab.Output output)
+  {
+    output.acceptAll(List.of(
+            new ItemStack(ItemRegistration.UNTREATED_FRAME),
+            new ItemStack(ItemRegistration.IMPREGNATED_FRAME),
+            new ItemStack(ItemRegistration.HEALING_FRAME),
+            new ItemStack(ItemRegistration.SOUL_FRAME),
+            new ItemStack(ItemRegistration.RESTRAINT_FRAME),
+            new ItemStack(ItemRegistration.PROVEN_FRAME)
     ));
   }
 

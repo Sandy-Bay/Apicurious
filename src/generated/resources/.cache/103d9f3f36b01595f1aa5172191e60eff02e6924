@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-14T03:54:48.7977433	Registries
+// 1.21.1	2024-08-14T04:31:45.5724693	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -10,9 +10,14 @@ a04cccd7e916457e24c622be26ed93820ca77a1a data/apicurious/apicurious/alleles/area
 9e513844cd469fb395f797fdd058c872a25db002 data/apicurious/apicurious/alleles/fertility/high.json
 95baab22697bd8b791604d50c72f0c05a7acf201 data/apicurious/apicurious/alleles/fertility/low.json
 e26d12613b2a9738ed01814b47729fdd9c8cf3a4 data/apicurious/apicurious/alleles/fertility/maximum.json
+4a8bab0acde49568431b82e65febad51ee5e0f40 data/apicurious/apicurious/alleles/flowers/cacti.json
+868ad99c994b74187e2219d710b5763b7564bdd0 data/apicurious/apicurious/alleles/flowers/jungle.json
+d9924a02592ceb42fa1c923827f4e15fcd18d324 data/apicurious/apicurious/alleles/flowers/mushroom.json
 43d768ad6bfb4aeb7f69f890d9ea827876079914 data/apicurious/apicurious/alleles/flowers/nether_rocks.json
 ca43986c698ac0a33b870fa5b6fb5929a6524e16 data/apicurious/apicurious/alleles/flowers/normal_flowers.json
 2af31e6d24bbb96df9158ba0091ba31010834377 data/apicurious/apicurious/alleles/flowers/overworld_rocks.json
+0dabaf6dceb719441f0f359c63bf76227d00ad23 data/apicurious/apicurious/alleles/flowers/snow.json
+b77a4a59819623df3ce5e832203a7ee242a638ed data/apicurious/apicurious/alleles/flowers/wheat.json
 e845631fc4f02854349c81456a9045a5c933f3da data/apicurious/apicurious/alleles/humidity/preference/aquatic.json
 3912791120729934925eecc6783d72df0850c5d4 data/apicurious/apicurious/alleles/humidity/preference/arid.json
 f9031d0b96bdb1fbdd52ac4fc059d51a5050f854 data/apicurious/apicurious/alleles/humidity/preference/average.json
@@ -45,18 +50,20 @@ feaa12d1f80ad75230091eb1409a05d16b209b81 data/apicurious/apicurious/alleles/spec
 5997df1b9c074bd00e3fd63810247157a76c33ac data/apicurious/apicurious/alleles/species/debug.json
 127e99a3fefa6b0359e85b16256a1c9969362483 data/apicurious/apicurious/alleles/species/diligent.json
 c7787c5349bdd7cb876bd5ee3f76163a4d3e7ce1 data/apicurious/apicurious/alleles/species/ender.json
+169f696bad71aeff3005fa5e217eadef58ff07be data/apicurious/apicurious/alleles/species/farmed.json
 335277eb88cd221c7a23748ba7d74ac40b5aa878 data/apicurious/apicurious/alleles/species/forest.json
 804223fceac56ba61d46bcd060f8e6628f356812 data/apicurious/apicurious/alleles/species/imperial.json
 f0141973203572be84ef1d9cdac6b287c464fe78 data/apicurious/apicurious/alleles/species/industrious.json
-bad162f5d96ee7e8e5381a5bfbe55dfd94234a72 data/apicurious/apicurious/alleles/species/leporine.json
+b2df31443aaabacdb828b36fbe652c26844c3c64 data/apicurious/apicurious/alleles/species/leporine.json
 5fc65e858a666e2999f9833679dc65de9213ee89 data/apicurious/apicurious/alleles/species/majestic.json
 53d65804c4960d4043ff0ade5ab79f72b2962252 data/apicurious/apicurious/alleles/species/marshy.json
 fa302406ff42732033de7080c1e205322b40d96d data/apicurious/apicurious/alleles/species/meadow.json
-a48fe7d8416b25b34fdafa2408efc87f6715d0f7 data/apicurious/apicurious/alleles/species/merry.json
+fc1225662ddb2f165c9c93334db4123b24b414e2 data/apicurious/apicurious/alleles/species/merry.json
 da15a90813968eab67b7bc8befad4a6addcce04e data/apicurious/apicurious/alleles/species/modest.json
 e99274b2d422895823538461f62d62cf11984942 data/apicurious/apicurious/alleles/species/nether.json
 651ae5d16997917943700d6e0d9dc3091298d141 data/apicurious/apicurious/alleles/species/noble.json
 67848bf83693524547116db3de32abce1b71590f data/apicurious/apicurious/alleles/species/rocky.json
+fd42504df897bab45ba52ad35afbb1cfde5a5131 data/apicurious/apicurious/alleles/species/rural.json
 a3e9c1bd4051e81dbe535e698c161b3c796eda07 data/apicurious/apicurious/alleles/species/tropical.json
 6ccb765934d0a8d997089dfb8583f43c47affdf4 data/apicurious/apicurious/alleles/species/undefined.json
 9336f858860ff62c5f47c7ed93c1d69ec348c630 data/apicurious/apicurious/alleles/species/unweary.json
@@ -97,6 +104,7 @@ cc6e903f762cbcfa81b4e45dc0bef1443a922f45 data/apicurious/apicurious/mutations/me
 2b52f7c341dd76febc00d2b008aefee902e1f373 data/apicurious/apicurious/mutations/rural.json
 840c2fb6ef3cd130cd576d146ac6e1a8d9b6a52d data/apicurious/apicurious/mutations/unweary.json
 3f784fa38e73df10251effdd8d64cfdd9a144871 data/apicurious/apicurious/output_tables/dripping.json
+a25a874b5a7cb3e35e369efcc997f839f5d9f40c data/apicurious/apicurious/output_tables/farmed.json
 c34a14f61ff351bdd70d00c9faee4984d4f88faa data/apicurious/apicurious/output_tables/frozen.json
 e16f6865e15804d419e98d844a8efe62b9f345d2 data/apicurious/apicurious/output_tables/imperial.json
 b09cabdca9e032be5f8f3f07d736bddfaee255c7 data/apicurious/apicurious/output_tables/industrious.json

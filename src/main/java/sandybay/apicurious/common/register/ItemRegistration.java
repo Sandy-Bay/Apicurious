@@ -41,6 +41,7 @@ public class ItemRegistration
   public static final DeferredHolder<Item, Item> STRINGY_COMB = comb("stringy");
   public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
   public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
+  public static final DeferredHolder<Item, Item> SEEDY_COMB = comb("seedy");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = item("beeswax");
