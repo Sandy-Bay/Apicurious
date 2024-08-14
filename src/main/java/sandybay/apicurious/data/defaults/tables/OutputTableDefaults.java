@@ -3,9 +3,7 @@ package sandybay.apicurious.data.defaults.tables;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import sandybay.apicurious.api.bee.output.OutputResult;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.register.ItemRegistration;
@@ -26,83 +24,37 @@ public class OutputTableDefaults
     bootstrap.register(OutputTableKeys.SILKY_OUTPUT, simpleCombTable(ItemRegistration.SILKY_COMB));
     bootstrap.register(OutputTableKeys.STRINGY_OUTPUT, simpleCombTable(ItemRegistration.STRINGY_COMB));
     bootstrap.register(OutputTableKeys.IMPERIAL_OUTPUT, custom()
-            .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.DRIPPING_COMB)
-                            )
-                    ))
-            )
-            .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.ROYAL_JELLY)
-                            )
-                    ).when(new ChanceCondition(0.33f)))
+            .withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(ItemRegistration.DRIPPING_COMB.get())))
+            .withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(ItemRegistration.ROYAL_JELLY.get()).when(new ChanceCondition(0.33f)))
             ).build()
     );
     bootstrap.register(OutputTableKeys.INDUSTRIOUS_OUTPUT, custom()
-            .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.STRINGY_COMB)
-                            )
-                    ))
-            )
-            .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.POLLEN)
-                            )
-                    ).when(new ChanceCondition(0.33f)))
+            .withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(ItemRegistration.STRINGY_COMB.get())))
+            .withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(ItemRegistration.POLLEN.get()).when(new ChanceCondition(0.33f)))
             ).build()
     );
     bootstrap.register(OutputTableKeys.LEPORINE_OUTPUT, custom()
             .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.SILKY_COMB)
-                            )
-                    ))
+                    .withResult(entry -> entry.withResult(ItemRegistration.SILKY_COMB.get()))
             )
             .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(Items.EGG)
-                            )
-                    ).when(new ChanceCondition(0.33f)))
+                    .withResult(entry -> entry.withResult(Items.EGG).when(new ChanceCondition(0.33f)))
             ).build()
     );
     bootstrap.register(OutputTableKeys.MERRY_OUTPUT, custom()
             .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.STRINGY_COMB)
-                            )
-                    ))
+                    .withResult(entry -> entry.withResult(ItemRegistration.STRINGY_COMB.get()))
             )
             .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.ICE_SHARD)
-                            )
-                    ).when(new ChanceCondition(0.65f)))
+                    .withResult(entry -> entry.withResult(ItemRegistration.ICE_SHARD.get()).when(new ChanceCondition(0.65f)))
             ).build()
     );
     bootstrap.register(OutputTableKeys.FARMED_OUTPUT, custom()
             .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.WHEATEN_COMB)
-                            )
-                    ))
+                    .withResult(entry -> entry.withResult(ItemRegistration.WHEATEN_COMB.get()))
             )
             .withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(
-                            new OutputResult(
-                                    new ItemStack(ItemRegistration.SEEDY_COMB)
-                            )
-                    ).when(new ChanceCondition(0.33f)))
+                    .withResult(entry -> entry.withResult(ItemRegistration.SEEDY_COMB.get()).when(new ChanceCondition(0.33f)))
             ).build()
     );
   }
@@ -114,8 +66,6 @@ public class OutputTableDefaults
 
   public static OutputTable simpleCombTable(Holder<Item> item)
   {
-    return custom().withPool(pool -> pool.withRolls(1)
-                    .withResult(entry -> entry.withResult(new OutputResult(new ItemStack(item)))))
-            .build();
+    return custom().withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(item.value()))).build();
   }
 }

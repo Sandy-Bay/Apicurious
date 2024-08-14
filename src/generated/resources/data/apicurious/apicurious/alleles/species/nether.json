@@ -1,7 +1,7 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/nether_rocks",
+    "flowers": "apicurious:flowers/nether_stone",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/arid",
       "toleranceHolder": "apicurious:humidity/tolerance/none"

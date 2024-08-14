@@ -29,11 +29,11 @@ public class TemperatureDefaults
 
   private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
-    return new TemperaturePreference(temperature, groupTag, isDominantTrait, "apicurious.preferenceHolder.temperature." + name);
+    return new TemperaturePreference(temperature, groupTag, isDominantTrait, "apicurious.preference.temperature." + name);
   }
 
   private static TemperatureTolerance temperatureTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
-    return new TemperatureTolerance(toleranceModifier, isDominantTrait, "apicurious.toleranceHolder.temperature." + name);
+    return new TemperatureTolerance(toleranceModifier, isDominantTrait, "apicurious.tolerance.temperature." + name);
   }
 }

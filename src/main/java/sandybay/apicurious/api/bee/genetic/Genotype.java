@@ -53,8 +53,6 @@ public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
 
   public Component getRenderableName()
   {
-    // Output Example:
-    // Active Allele: Average, Inactive Allele: Average
     return Component.translatable("apicurious.genetics.active")
             .append(getActive().value().getReadableName())
             .append(Component.literal(", "))

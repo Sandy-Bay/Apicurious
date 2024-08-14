@@ -2,5 +2,5 @@
   "type": "apicurious:flowers",
   "flowers": "minecraft:base_stone_nether",
   "isDominantTrait": true,
-  "name": "apicurious.flowers.nether_rocks"
+  "name": "apicurious.flowers.nether_stone"
 }

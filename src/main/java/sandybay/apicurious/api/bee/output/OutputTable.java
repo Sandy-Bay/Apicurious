@@ -11,8 +11,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
+import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.ArrayList;
 import java.util.List;

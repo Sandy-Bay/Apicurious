@@ -5,14 +5,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.function.IFunction;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public record OutputPoolEntry(List<OutputResult> outputs, List<ICondition> conditions, List<IFunction> functions)
 {
@@ -63,9 +65,23 @@ public record OutputPoolEntry(List<OutputResult> outputs, List<ICondition> condi
       this.functions = Lists.newArrayList();
     }
 
-    public Builder withResult(OutputResult output)
+    public Builder withResult(Item output)
     {
-      this.outputs.add(output);
+      this.outputs.add(OutputResult.simple(output));
+      return this;
+    }
+
+    public Builder withResult(Item output, int stackSize)
+    {
+      this.outputs.add(OutputResult.simple(output, stackSize));
+      return this;
+    }
+
+    public Builder withResult(Consumer<OutputResult.Builder> consumer)
+    {
+      OutputResult.Builder builder = OutputResult.builder();
+      consumer.accept(builder);
+      this.outputs.add(builder.build());
       return this;
     }
 

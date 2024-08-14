@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-14T04:31:45.5724693	Registries
+// 1.21.1	2024-08-15T00:58:09.7560168	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -13,9 +13,9 @@ e26d12613b2a9738ed01814b47729fdd9c8cf3a4 data/apicurious/apicurious/alleles/fert
 4a8bab0acde49568431b82e65febad51ee5e0f40 data/apicurious/apicurious/alleles/flowers/cacti.json
 868ad99c994b74187e2219d710b5763b7564bdd0 data/apicurious/apicurious/alleles/flowers/jungle.json
 d9924a02592ceb42fa1c923827f4e15fcd18d324 data/apicurious/apicurious/alleles/flowers/mushroom.json
-43d768ad6bfb4aeb7f69f890d9ea827876079914 data/apicurious/apicurious/alleles/flowers/nether_rocks.json
+fa584b94fb00175210cbe73bfd921856aeee8fd8 data/apicurious/apicurious/alleles/flowers/nether_stone.json
 ca43986c698ac0a33b870fa5b6fb5929a6524e16 data/apicurious/apicurious/alleles/flowers/normal_flowers.json
-2af31e6d24bbb96df9158ba0091ba31010834377 data/apicurious/apicurious/alleles/flowers/overworld_rocks.json
+a3b43c7ec4fd6fde79a44242de12058bcfa49ad0 data/apicurious/apicurious/alleles/flowers/overworld_stone.json
 0dabaf6dceb719441f0f359c63bf76227d00ad23 data/apicurious/apicurious/alleles/flowers/snow.json
 b77a4a59819623df3ce5e832203a7ee242a638ed data/apicurious/apicurious/alleles/flowers/wheat.json
 e845631fc4f02854349c81456a9045a5c933f3da data/apicurious/apicurious/alleles/humidity/preference/aquatic.json
@@ -47,9 +47,9 @@ a59d306f33b5143e3d17d234eec5b9753c393ed9 data/apicurious/apicurious/alleles/life
 0ac1857b4066504173c3c250e037519deb0988c8 data/apicurious/apicurious/alleles/pollination/slowest.json
 1183a0d6808c0db158af5c9613e05d69a1d78e90 data/apicurious/apicurious/alleles/species/common.json
 feaa12d1f80ad75230091eb1409a05d16b209b81 data/apicurious/apicurious/alleles/species/cultivated.json
-5997df1b9c074bd00e3fd63810247157a76c33ac data/apicurious/apicurious/alleles/species/debug.json
+a6ded2c284acc0499846a3d832fb80fe43689582 data/apicurious/apicurious/alleles/species/debug.json
 127e99a3fefa6b0359e85b16256a1c9969362483 data/apicurious/apicurious/alleles/species/diligent.json
-c7787c5349bdd7cb876bd5ee3f76163a4d3e7ce1 data/apicurious/apicurious/alleles/species/ender.json
+59e5ba01f187f291de73fa562b57f96fd0e42416 data/apicurious/apicurious/alleles/species/ender.json
 169f696bad71aeff3005fa5e217eadef58ff07be data/apicurious/apicurious/alleles/species/farmed.json
 335277eb88cd221c7a23748ba7d74ac40b5aa878 data/apicurious/apicurious/alleles/species/forest.json
 804223fceac56ba61d46bcd060f8e6628f356812 data/apicurious/apicurious/alleles/species/imperial.json
@@ -60,9 +60,9 @@ b2df31443aaabacdb828b36fbe652c26844c3c64 data/apicurious/apicurious/alleles/spec
 fa302406ff42732033de7080c1e205322b40d96d data/apicurious/apicurious/alleles/species/meadow.json
 fc1225662ddb2f165c9c93334db4123b24b414e2 data/apicurious/apicurious/alleles/species/merry.json
 da15a90813968eab67b7bc8befad4a6addcce04e data/apicurious/apicurious/alleles/species/modest.json
-e99274b2d422895823538461f62d62cf11984942 data/apicurious/apicurious/alleles/species/nether.json
+bb2e3e9cf19fc97dda58086a03c898b52cadbd5c data/apicurious/apicurious/alleles/species/nether.json
 651ae5d16997917943700d6e0d9dc3091298d141 data/apicurious/apicurious/alleles/species/noble.json
-67848bf83693524547116db3de32abce1b71590f data/apicurious/apicurious/alleles/species/rocky.json
+3fea38fa533b31751836184b1b60518fb7810f81 data/apicurious/apicurious/alleles/species/rocky.json
 fd42504df897bab45ba52ad35afbb1cfde5a5131 data/apicurious/apicurious/alleles/species/rural.json
 a3e9c1bd4051e81dbe535e698c161b3c796eda07 data/apicurious/apicurious/alleles/species/tropical.json
 6ccb765934d0a8d997089dfb8583f43c47affdf4 data/apicurious/apicurious/alleles/species/undefined.json
@@ -75,17 +75,17 @@ ef7b506e1d9ecfb7195d06a57d29d92f95840ca5 data/apicurious/apicurious/alleles/spee
 af3c2853869704a724db85bc79b4eb1365691a69 data/apicurious/apicurious/alleles/speed/slow.json
 c933b175d0e1e52fa2d5b9fb1cbe71f5820a3126 data/apicurious/apicurious/alleles/speed/slower.json
 14efa073b24c99f4fd4a487cd136394f1c5faca4 data/apicurious/apicurious/alleles/speed/slowest.json
-5293187cb28ee8484718266a2181bc9e81de1dea data/apicurious/apicurious/alleles/temperature/preference/average.json
-dfa99bc61882cb46680107675fa6b5d4564c3bad data/apicurious/apicurious/alleles/temperature/preference/cold.json
-66f8f2277fba2d122d095844dd45ac5ce0e27581 data/apicurious/apicurious/alleles/temperature/preference/hellish.json
-e1be78cd0822d4d0cb11de355e612012ba69e83b data/apicurious/apicurious/alleles/temperature/preference/hot.json
-d38402f76e318e03b9a602a6ec8465deb83d56f4 data/apicurious/apicurious/alleles/temperature/preference/icy.json
-e9be563ca99fa1db1e50a6ceb6039a2b5e1c768a data/apicurious/apicurious/alleles/temperature/tolerance/average.json
-58a6846a376a4434cc2599197035aea18dc99992 data/apicurious/apicurious/alleles/temperature/tolerance/high.json
-aaa040d73e5facc1ac4e1b866493bdcec2fe3527 data/apicurious/apicurious/alleles/temperature/tolerance/low.json
-59b6bb322c86c92716a6bf7ef1969fd3c5ae9c7c data/apicurious/apicurious/alleles/temperature/tolerance/lowest.json
-1061ec55dc6bfd0fa9c305a84e71070dffb76bde data/apicurious/apicurious/alleles/temperature/tolerance/maximum.json
-9cd8a48e1a8c68811c1b0608195335b7c0f26cae data/apicurious/apicurious/alleles/temperature/tolerance/none.json
+6f7573c9354b567786e54ff099a3e6db212f8492 data/apicurious/apicurious/alleles/temperature/preference/average.json
+9e405e64988b41739c0c42bef2e6637e15fdd199 data/apicurious/apicurious/alleles/temperature/preference/cold.json
+141d5606ab7d3bf802b060a981bfde7318e1327f data/apicurious/apicurious/alleles/temperature/preference/hellish.json
+d1efc33d59c8d4fd62eee7c031849cd556a54e68 data/apicurious/apicurious/alleles/temperature/preference/hot.json
+1ce93a09d72037de20ddb2b165f8fbc2afa34edb data/apicurious/apicurious/alleles/temperature/preference/icy.json
+d2701029b148b09eb7ae37ae1022c10d8f9eb3ef data/apicurious/apicurious/alleles/temperature/tolerance/average.json
+b1cc1afc4e537ff69a3679d74d06106c2910c4ce data/apicurious/apicurious/alleles/temperature/tolerance/high.json
+9f4bbfaf46bb5c40141f553be6480dae406058e2 data/apicurious/apicurious/alleles/temperature/tolerance/low.json
+e1fa47e0ffa99dd5c733942d7eb670b1d7da6379 data/apicurious/apicurious/alleles/temperature/tolerance/lowest.json
+b0985dc886cb6b895e1d78b42db322e84ec1fd06 data/apicurious/apicurious/alleles/temperature/tolerance/maximum.json
+32cb5a3fcef5094eec86a87c2b93c2a42e322823 data/apicurious/apicurious/alleles/temperature/tolerance/none.json
 42b916df9abec1e0653ea6e55623e02c38909504 data/apicurious/apicurious/alleles/workcycle/always.json
 5e866898fa02482b2cb38b4b499fd808480abc3b data/apicurious/apicurious/alleles/workcycle/diurnal.json
 c607f93b9ded41f4ec67cabc2dc13b8fb67e83e4 data/apicurious/apicurious/alleles/workcycle/matutinal.json

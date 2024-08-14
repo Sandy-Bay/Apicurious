@@ -2,6 +2,6 @@
   "type": "apicurious:temperature_preference",
   "groupTag": "apicurious:temperature/average",
   "isDominantTrait": true,
-  "name": "apicurious.preferenceHolder.temperature.average",
+  "name": "apicurious.preference.temperature.average",
   "temperature": 3
 }

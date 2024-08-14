@@ -117,8 +117,14 @@ public class ApicuriousLangProvider extends LanguageProvider
 
     /// Flower
     flower("normal_flowers", "Flowers");
-    flower("overworld_rocks", "Overworld Stone");
-    flower("nether_rocks", "Nether Stone");
+    flower("cactus", "Cactus");
+    flower("jungle", "Jungle");
+    flower("mushroom", "Mushroom");
+    flower("snow", "Snow");
+    flower("wheat", "Wheat");
+    flower("overworld_stone", "Stone");
+    flower("nether_stone", "Nether Stone");
+
 
     /// Humidity Preference
     humidityPreference("Hellish");
@@ -165,13 +171,13 @@ public class ApicuriousLangProvider extends LanguageProvider
     speed("Fastest");
 
     /// Temperature Preference
-    temperaturePreference("Infernal");
+    temperaturePreference("Hellish");
     temperaturePreference("Hot");
     temperaturePreference("Warm");
     temperaturePreference("Average");
     temperaturePreference("Chilly");
     temperaturePreference("Cold");
-    temperaturePreference("Freezing");
+    temperaturePreference("Icy");
 
     /// Temperature Tolerance
     temperatureTolerance("None");
@@ -312,7 +318,7 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   public void flower(String definition, String translation)
   {
-    add("apicurious.flower." + definition, translation);
+    add("apicurious.flowers." + definition, translation);
   }
 
   public void humidityPreference(String translation)
@@ -342,12 +348,12 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   public void temperaturePreference(String translation)
   {
-    add("apicurious.preferenceHolder.temperature." + translation.toLowerCase(Locale.ROOT), translation);
+    add("apicurious.preference.temperature." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   public void temperatureTolerance(String translation)
   {
-    add("apicurious.toleranceHolder.temperature." + translation.toLowerCase(Locale.ROOT), translation);
+    add("apicurious.tolerance.temperature." + translation.toLowerCase(Locale.ROOT), translation);
   }
 
   public void workcycle(String translation)

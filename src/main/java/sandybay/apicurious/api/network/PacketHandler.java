@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.network;
+package sandybay.apicurious.api.network;
 
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -8,7 +8,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.common.network.packets.GuiDataPacket;
+import sandybay.apicurious.api.network.packets.GuiDataPacket;
 
 public class PacketHandler
 {

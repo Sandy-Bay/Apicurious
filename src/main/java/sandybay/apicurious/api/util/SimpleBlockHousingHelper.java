@@ -4,9 +4,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 

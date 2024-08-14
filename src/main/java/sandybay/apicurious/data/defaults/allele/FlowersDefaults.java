@@ -18,8 +18,8 @@ public class FlowersDefaults
     bootstrap.register(Flowers.MUSHROOM, flowers(ApicuriousTags.BlockTags.MUSHROOM, true, "mushroom"));
     bootstrap.register(Flowers.SNOW, flowers(BlockTags.SNOW, true, "snow"));
     bootstrap.register(Flowers.WHEAT, flowers(ApicuriousTags.BlockTags.WHEAT, true, "wheat"));
-    bootstrap.register(Flowers.ROCK, flowers(BlockTags.BASE_STONE_OVERWORLD, true, "overworld_rocks"));
-    bootstrap.register(Flowers.NETHER_ROCK, flowers(BlockTags.BASE_STONE_NETHER, true, "nether_rocks"));
+    bootstrap.register(Flowers.ROCK, flowers(BlockTags.BASE_STONE_OVERWORLD, true, "overworld_stone"));
+    bootstrap.register(Flowers.NETHER_ROCK, flowers(BlockTags.BASE_STONE_NETHER, true, "nether_stone"));
   }
 
   private static Flowers flowers(TagKey<Block> flowers, boolean isDominantTrait, String name)

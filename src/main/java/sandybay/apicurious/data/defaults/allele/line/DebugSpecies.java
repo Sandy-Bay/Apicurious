@@ -1,10 +1,8 @@
 package sandybay.apicurious.data.defaults.allele.line;
 
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
-import sandybay.apicurious.api.bee.output.OutputResult;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Area;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
@@ -33,13 +31,7 @@ public class DebugSpecies
                     outputs.withTable(table ->
                             table.withPool(pool -> pool
                                     .withRolls(1)
-                                    .withResult(result ->
-                                            result.withResult(
-                                                    new OutputResult(
-                                                            new ItemStack(Items.HONEYCOMB, 1)
-                                                    )
-                                            )
-                                    )
+                                    .withResult(result -> result.withResult(Items.HONEYCOMB))
                             )
                     )
             ).build()

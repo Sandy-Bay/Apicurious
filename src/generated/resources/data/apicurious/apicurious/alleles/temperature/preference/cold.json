@@ -2,6 +2,6 @@
   "type": "apicurious:temperature_preference",
   "groupTag": "apicurious:temperature/cold",
   "isDominantTrait": true,
-  "name": "apicurious.preferenceHolder.temperature.cold",
+  "name": "apicurious.preference.temperature.cold",
   "temperature": 2
 }

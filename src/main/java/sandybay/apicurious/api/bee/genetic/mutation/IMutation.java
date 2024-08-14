@@ -5,9 +5,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
-import sandybay.apicurious.common.item.frame.FrameItem;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public interface IMutation
     for (ItemStack frame : frames)
     {
       if (frame.isEmpty()) continue;
-      FrameItem item = (FrameItem) frame.getItem();
+      IFrameItem item = (IFrameItem) frame.getItem();
       mutationChance = Math.clamp(mutationChance * item.getMutationChanceModifier(), 0.0f, 1.0f);
     }
     return random.nextFloat() <= mutationChance;

@@ -1,7 +1,7 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/overworld_rocks",
+    "flowers": "apicurious:flowers/overworld_stone",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
       "toleranceHolder": "apicurious:humidity/tolerance/none"
