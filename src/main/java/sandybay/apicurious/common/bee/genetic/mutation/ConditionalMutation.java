@@ -10,15 +10,16 @@ import net.minecraft.resources.RegistryFileCodec;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.genetic.mutation.MutationType;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.api.bee.condition.ICondition;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 
-public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second, float chance, Holder<IAllele<?>> output, List<Holder<ICondition>> conditions) implements IMutation
+public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second, float chance,
+                                  Holder<IAllele<?>> output, List<Holder<ICondition>> conditions) implements IMutation
 {
   public static final MapCodec<ConditionalMutation> CODEC = RecordCodecBuilder.mapCodec(instance ->
           instance.group(

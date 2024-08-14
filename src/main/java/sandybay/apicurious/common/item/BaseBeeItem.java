@@ -136,8 +136,7 @@ public class BaseBeeItem extends Item implements IBeeItem
         if (genome == null) return;
         pTooltipComponents.add(Component.literal(genome.toString()));
       }
-    }
-    else
+    } else
     {
       pTooltipComponents.add(Component.translatable("apicurious.tooltip.unidentified"));
     }

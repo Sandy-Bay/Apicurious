@@ -21,8 +21,8 @@ public class HousingValidation
 
   private final IApiaryErrorHandler errorHandler;
   private final boolean isValid;
-  private ItemStack key;
   public ClimateHelper helper;
+  private ItemStack key;
 
   public HousingValidation(IApiaryErrorHandler errorHandler)
   {

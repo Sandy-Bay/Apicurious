@@ -28,6 +28,7 @@ public interface IMutation
     float mutationChance = baseChance;
     for (ItemStack frame : frames)
     {
+      if (frame.isEmpty()) continue;
       FrameItem item = (FrameItem) frame.getItem();
       mutationChance = Math.clamp(mutationChance * item.getMutationChanceModifier(), 0.0f, 1.0f);
     }

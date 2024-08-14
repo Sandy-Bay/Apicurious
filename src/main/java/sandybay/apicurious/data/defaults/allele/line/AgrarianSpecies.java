@@ -15,12 +15,14 @@ public class AgrarianSpecies
     bootstrap.register(ApicuriousSpecies.RURAL.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.RURAL.species(), "rural")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.RURAL))
-                    .withProductionData(builder -> {
+                    .withProductionData(builder ->
+                    {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
                               .withPollinationRate(Pollination.FASTER).withProductionSpeed(Speed.SLOWER)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
-                    .withEnvironmentalData(builder -> {
+                    .withEnvironmentalData(builder ->
+                    {
                       builder.withFlowers(Flowers.WHEAT)
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
@@ -31,12 +33,14 @@ public class AgrarianSpecies
     bootstrap.register(ApicuriousSpecies.FARMED.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FARMED.species(), "farmed")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FARMED))
-                    .withProductionData(builder -> {
+                    .withProductionData(builder ->
+                    {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
                               .withPollinationRate(Pollination.FASTER).withProductionSpeed(Speed.SLOWER)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
-                    .withEnvironmentalData(builder -> {
+                    .withEnvironmentalData(builder ->
+                    {
                       builder.withFlowers(Flowers.WHEAT)
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);

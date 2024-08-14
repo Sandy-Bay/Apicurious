@@ -7,11 +7,10 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.condition.ConditionType;
+import sandybay.apicurious.api.condition.ConditionType;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.condition.combinatorial.XOrCondition;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 public record XNOrCondition(Holder<ICondition> first, Holder<ICondition> second) implements ICondition

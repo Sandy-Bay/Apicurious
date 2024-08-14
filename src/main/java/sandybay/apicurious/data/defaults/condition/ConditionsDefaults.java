@@ -1,7 +1,7 @@
 package sandybay.apicurious.data.defaults.condition;
 
 import net.minecraft.data.worldgen.BootstrapContext;
-import sandybay.apicurious.api.bee.condition.ICondition;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.common.bee.condition.DateCondition;
 
 import java.time.LocalDate;

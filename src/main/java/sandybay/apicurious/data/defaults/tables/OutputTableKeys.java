@@ -4,9 +4,6 @@ import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.output.OutputData;
-
-import java.util.function.Consumer;
 
 public class OutputTableKeys
 {

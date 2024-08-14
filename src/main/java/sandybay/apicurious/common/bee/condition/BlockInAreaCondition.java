@@ -10,8 +10,8 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.condition.ConditionType;
+import sandybay.apicurious.api.condition.ConditionType;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
@@ -41,7 +41,8 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   {
     Level level = housing.getLevel();
     if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block)) return false;
-    if (housing.territory == null) housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
+    if (housing.territory == null)
+      housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
     return housing.territory.stream().anyMatch(pos -> blocks.contains(level.getBlockState(pos).getBlockHolder()));
   }
 }

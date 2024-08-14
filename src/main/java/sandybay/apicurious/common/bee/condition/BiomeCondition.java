@@ -10,8 +10,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.biome.Biome;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.condition.ConditionType;
+import sandybay.apicurious.api.condition.ConditionType;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 

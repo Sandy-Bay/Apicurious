@@ -1,11 +1,9 @@
-package sandybay.apicurious.api.bee.condition;
+package sandybay.apicurious.api.condition;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
-import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 

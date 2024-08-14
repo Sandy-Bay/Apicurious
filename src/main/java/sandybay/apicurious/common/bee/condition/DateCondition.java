@@ -3,42 +3,39 @@ package sandybay.apicurious.common.bee.condition;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.condition.ConditionType;
+import sandybay.apicurious.api.condition.ConditionType;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.TemporalField;
-import java.util.Date;
 
 // TODO: Figure out how to make this work with just days and months, since years would fuck-up things and require rewriting.
 public record DateCondition(LocalDate from, LocalDate to) implements ICondition
 {
-  public static MapCodec<DateCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-            Codec.STRING.fieldOf("from").forGetter(c -> c.from().toString()),
-            Codec.STRING.fieldOf("to").forGetter(c -> c.to().toString())
-          ).apply(instance, (from, to) -> {
-            if (LocalDate.parse(to).isBefore(LocalDate.parse(from))) throw new IllegalArgumentException("To date can't be before From date!");
-            return new DateCondition(LocalDate.parse(from), LocalDate.parse(to));
-          })
-  );
-
   public static final StreamCodec<RegistryFriendlyByteBuf, DateCondition> NETWORK_CODEC = StreamCodec.composite(
           ByteBufCodecs.STRING_UTF8, condition -> condition.from.toString(),
           ByteBufCodecs.STRING_UTF8, condition -> condition.to.toString(),
-          (from, to) -> {
-            if (LocalDate.parse(to).isBefore(LocalDate.parse(from))) throw new IllegalArgumentException("To date can't be before From date!");
+          (from, to) ->
+          {
+            if (LocalDate.parse(to).isBefore(LocalDate.parse(from)))
+              throw new IllegalArgumentException("To date can't be before From date!");
             return new DateCondition(LocalDate.parse(from), LocalDate.parse(to));
           }
+  );
+  public static MapCodec<DateCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
+          instance.group(
+                  Codec.STRING.fieldOf("from").forGetter(c -> c.from().toString()),
+                  Codec.STRING.fieldOf("to").forGetter(c -> c.to().toString())
+          ).apply(instance, (from, to) ->
+          {
+            if (LocalDate.parse(to).isBefore(LocalDate.parse(from)))
+              throw new IllegalArgumentException("To date can't be before From date!");
+            return new DateCondition(LocalDate.parse(from), LocalDate.parse(to));
+          })
   );
 
   @Override

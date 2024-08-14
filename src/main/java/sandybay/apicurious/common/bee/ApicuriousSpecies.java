@@ -50,5 +50,7 @@ public class ApicuriousSpecies
     );
   }
 
-  public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation) { }
+  public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation)
+  {
+  }
 }

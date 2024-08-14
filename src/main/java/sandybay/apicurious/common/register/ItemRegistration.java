@@ -1,6 +1,5 @@
 package sandybay.apicurious.common.register;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;

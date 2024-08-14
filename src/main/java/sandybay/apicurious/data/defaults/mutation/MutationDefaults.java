@@ -9,7 +9,7 @@ import net.minecraft.tags.TagKey;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
-import sandybay.apicurious.api.bee.condition.ICondition;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.mutation.ConditionalMutation;
 import sandybay.apicurious.common.bee.genetic.mutation.Mutation;

@@ -65,7 +65,8 @@ public class CreativeTabRegistration
                     new ItemStack(ItemRegistration.PRINCESS)
             );
             BeeSpecies species = (BeeSpecies) registry.get(rl);
-            bees.forEach(stack -> {
+            bees.forEach(stack ->
+            {
               stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level));
               stack.set(DataComponentRegistrar.IDENTIFIED, true);
             });

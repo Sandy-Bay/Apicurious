@@ -10,11 +10,11 @@ import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.genetic.mutation.MutationType;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.condition.ConditionType;
 import sandybay.apicurious.api.bee.output.OutputTable;
-import sandybay.apicurious.api.bee.output.function.FunctionType;
-import sandybay.apicurious.api.bee.output.function.IFunction;
+import sandybay.apicurious.api.condition.ConditionType;
+import sandybay.apicurious.api.condition.ICondition;
+import sandybay.apicurious.api.function.FunctionType;
+import sandybay.apicurious.api.function.IFunction;
 
 public class ApicuriousRegistries
 {

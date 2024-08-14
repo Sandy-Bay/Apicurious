@@ -3,11 +3,7 @@ package sandybay.apicurious.data.defaults.mutation.line;
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
-import sandybay.apicurious.common.bee.condition.DateCondition;
 import sandybay.apicurious.data.defaults.condition.ConditionKeys;
-
-import java.time.LocalDate;
-import java.util.concurrent.locks.Condition;
 
 import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
 

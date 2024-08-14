@@ -7,7 +7,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.housing.HousingError;
-import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
@@ -23,11 +22,6 @@ public class ClimateHelper
 
   private final Level level;
   private final IApiaryErrorHandler handler;
-
-  public ClimateHelper(BaseHousingBE housing)
-  {
-    this(housing.getLevel(), housing);
-  }
 
   public ClimateHelper(Level level, IApiaryErrorHandler handler)
   {

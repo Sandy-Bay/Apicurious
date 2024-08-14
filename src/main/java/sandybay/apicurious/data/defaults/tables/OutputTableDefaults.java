@@ -112,9 +112,10 @@ public class OutputTableDefaults
     return OutputTable.builder();
   }
 
-  public static OutputTable simpleCombTable(Holder<Item> item) {
+  public static OutputTable simpleCombTable(Holder<Item> item)
+  {
     return custom().withPool(pool -> pool.withRolls(1)
-            .withResult(entry -> entry.withResult(new OutputResult(new ItemStack(item)))))
+                    .withResult(entry -> entry.withResult(new OutputResult(new ItemStack(item)))))
             .build();
   }
 }

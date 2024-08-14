@@ -2,9 +2,8 @@ package sandybay.apicurious.data.defaults.condition;
 
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.bee.condition.ICondition;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.ApicuriousSpecies;
 
 public class ConditionKeys
 {

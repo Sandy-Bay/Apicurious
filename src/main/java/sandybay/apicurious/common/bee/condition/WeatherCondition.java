@@ -8,14 +8,15 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.condition.ConditionType;
+import sandybay.apicurious.api.condition.ConditionType;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.Optional;
 
-public record WeatherCondition(Biome.Precipitation precipitation, boolean isRaining, Optional<Boolean> isThundering) implements ICondition
+public record WeatherCondition(Biome.Precipitation precipitation, boolean isRaining,
+                               Optional<Boolean> isThundering) implements ICondition
 {
   public static final MapCodec<WeatherCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
           instance.group(

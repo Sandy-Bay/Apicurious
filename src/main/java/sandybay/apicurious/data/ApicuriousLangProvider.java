@@ -2,10 +2,8 @@ package sandybay.apicurious.data;
 
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-import org.apache.commons.lang3.StringUtils;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.common.register.BlockRegistration;

@@ -40,6 +40,7 @@ public class TemperatureData
   {
     return preferenceHolder;
   }
+
   public Holder<IAllele<?>> getToleranceHolder()
   {
     return toleranceHolder;

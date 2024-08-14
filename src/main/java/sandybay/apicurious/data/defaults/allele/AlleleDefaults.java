@@ -2,7 +2,6 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
-import sandybay.apicurious.data.defaults.allele.*;
 
 public class AlleleDefaults
 {

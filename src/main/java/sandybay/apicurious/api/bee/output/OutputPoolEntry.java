@@ -5,11 +5,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.animal.Cod;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
-import sandybay.apicurious.api.bee.condition.ICondition;
-import sandybay.apicurious.api.bee.output.function.IFunction;
+import sandybay.apicurious.api.condition.ICondition;
+import sandybay.apicurious.api.function.IFunction;
 import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.ArrayList;
@@ -31,49 +30,59 @@ public record OutputPoolEntry(List<OutputResult> outputs, List<ICondition> condi
           OutputPoolEntry::new
   );
 
-  public List<ItemStack> generate(SimpleBlockHousingBE context) {
+  public static Builder builder()
+  {
+    return new Builder();
+  }
+
+  public List<ItemStack> generate(SimpleBlockHousingBE context)
+  {
     List<ItemStack> stacks = Lists.newArrayList();
-    if (conditions.stream().allMatch(c -> c.test(context))) {
+    if (conditions.stream().allMatch(c -> c.test(context)))
+    {
       stacks = outputs.stream().map(OutputResult::output).toList();
-      for (IFunction function : functions) {
+      for (IFunction function : functions)
+      {
         stacks = function.resolve(context, stacks);
       }
     }
     return stacks;
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
-  public static class Builder {
+  public static class Builder
+  {
 
     private final List<OutputResult> outputs;
     private final List<ICondition> conditions;
     private final List<IFunction> functions;
 
-    private Builder() {
+    private Builder()
+    {
       this.outputs = Lists.newArrayList();
       this.conditions = Lists.newArrayList();
       this.functions = Lists.newArrayList();
     }
 
-    public Builder withResult(OutputResult output) {
+    public Builder withResult(OutputResult output)
+    {
       this.outputs.add(output);
       return this;
     }
 
-    public Builder when(ICondition condition) {
+    public Builder when(ICondition condition)
+    {
       this.conditions.add(condition);
       return this;
     }
 
-    public Builder withFunction(IFunction function) {
+    public Builder withFunction(IFunction function)
+    {
       this.functions.add(function);
       return this;
     }
 
-    public OutputPoolEntry build() {
+    public OutputPoolEntry build()
+    {
       return new OutputPoolEntry(this.outputs, this.conditions, this.functions);
     }
 

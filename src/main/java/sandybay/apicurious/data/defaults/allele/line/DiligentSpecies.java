@@ -15,12 +15,14 @@ public class DiligentSpecies
     bootstrap.register(ApicuriousSpecies.DILIGENT.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DILIGENT.species(), "diligent")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DILIGENT))
-                    .withProductionData(builder -> {
+                    .withProductionData(builder ->
+                    {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
                               .withPollinationRate(Pollination.SLOW).withProductionSpeed(Speed.SLOWER)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
-                    .withEnvironmentalData(builder -> {
+                    .withEnvironmentalData(builder ->
+                    {
                       builder.withFlowers(Flowers.FLOWERS)
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
@@ -31,12 +33,14 @@ public class DiligentSpecies
     bootstrap.register(ApicuriousSpecies.UNWEARY.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.UNWEARY.species(), "unweary")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.UNWEARY))
-                    .withProductionData(builder -> {
+                    .withProductionData(builder ->
+                    {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTENED)
                               .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.AVERAGE)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
-                    .withEnvironmentalData(builder -> {
+                    .withEnvironmentalData(builder ->
+                    {
                       builder.withFlowers(Flowers.FLOWERS)
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
@@ -47,12 +51,14 @@ public class DiligentSpecies
     bootstrap.register(ApicuriousSpecies.INDUSTRIOUS.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.INDUSTRIOUS.species(), "industrious")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.INDUSTRIOUS))
-                    .withProductionData(builder -> {
+                    .withProductionData(builder ->
+                    {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.AVERAGE)
                               .withPollinationRate(Pollination.FAST).withProductionSpeed(Speed.SLOWER)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
-                    .withEnvironmentalData(builder -> {
+                    .withEnvironmentalData(builder ->
+                    {
                       builder.withFlowers(Flowers.FLOWERS)
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);

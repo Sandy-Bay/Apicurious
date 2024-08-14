@@ -1,7 +1,7 @@
 package sandybay.apicurious.data.defaults.function;
 
 import net.minecraft.data.worldgen.BootstrapContext;
-import sandybay.apicurious.api.bee.output.function.IFunction;
+import sandybay.apicurious.api.function.IFunction;
 
 public class FunctionsDefaults
 {
