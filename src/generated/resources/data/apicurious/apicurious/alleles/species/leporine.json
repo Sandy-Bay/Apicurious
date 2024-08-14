@@ -16,7 +16,7 @@
   "key": "apicurious:species/leporine",
   "name": "apicurious.species.leporine",
   "outputData": {
-    "outputTable": "apicurious:silky"
+    "outputTable": "apicurious:leporine"
   },
   "productionData": {
     "area": "apicurious:area/average",

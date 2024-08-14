@@ -1,0 +1,47 @@
+{
+  "pools": [
+    {
+      "conditions": [],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:stringy_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    },
+    {
+      "conditions": [],
+      "entries": [
+        {
+          "conditions": [
+            {
+              "chance": 0.65,
+              "condition": "apicurious:chance"
+            }
+          ],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:ice_shard"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

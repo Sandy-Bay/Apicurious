@@ -16,7 +16,7 @@
   "key": "apicurious:species/merry",
   "name": "apicurious.species.merry",
   "outputData": {
-    "outputTable": "apicurious:stringy"
+    "outputTable": "apicurious:merry"
   },
   "productionData": {
     "area": "apicurious:area/average",

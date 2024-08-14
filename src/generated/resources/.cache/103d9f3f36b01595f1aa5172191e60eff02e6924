@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-14T03:29:16.7597222	Registries
+// 1.21.1	2024-08-14T03:54:48.7977433	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -48,11 +48,11 @@ c7787c5349bdd7cb876bd5ee3f76163a4d3e7ce1 data/apicurious/apicurious/alleles/spec
 335277eb88cd221c7a23748ba7d74ac40b5aa878 data/apicurious/apicurious/alleles/species/forest.json
 804223fceac56ba61d46bcd060f8e6628f356812 data/apicurious/apicurious/alleles/species/imperial.json
 f0141973203572be84ef1d9cdac6b287c464fe78 data/apicurious/apicurious/alleles/species/industrious.json
-0d78fe8056877e3e128bca8c6bca5d3aabcccf15 data/apicurious/apicurious/alleles/species/leporine.json
+bad162f5d96ee7e8e5381a5bfbe55dfd94234a72 data/apicurious/apicurious/alleles/species/leporine.json
 5fc65e858a666e2999f9833679dc65de9213ee89 data/apicurious/apicurious/alleles/species/majestic.json
 53d65804c4960d4043ff0ade5ab79f72b2962252 data/apicurious/apicurious/alleles/species/marshy.json
 fa302406ff42732033de7080c1e205322b40d96d data/apicurious/apicurious/alleles/species/meadow.json
-f4a03a326508a1a1cfcf7b332e475b881e027967 data/apicurious/apicurious/alleles/species/merry.json
+a48fe7d8416b25b34fdafa2408efc87f6715d0f7 data/apicurious/apicurious/alleles/species/merry.json
 da15a90813968eab67b7bc8befad4a6addcce04e data/apicurious/apicurious/alleles/species/modest.json
 e99274b2d422895823538461f62d62cf11984942 data/apicurious/apicurious/alleles/species/nether.json
 651ae5d16997917943700d6e0d9dc3091298d141 data/apicurious/apicurious/alleles/species/noble.json
@@ -98,9 +98,16 @@ cc6e903f762cbcfa81b4e45dc0bef1443a922f45 data/apicurious/apicurious/mutations/me
 840c2fb6ef3cd130cd576d146ac6e1a8d9b6a52d data/apicurious/apicurious/mutations/unweary.json
 3f784fa38e73df10251effdd8d64cfdd9a144871 data/apicurious/apicurious/output_tables/dripping.json
 c34a14f61ff351bdd70d00c9faee4984d4f88faa data/apicurious/apicurious/output_tables/frozen.json
+e16f6865e15804d419e98d844a8efe62b9f345d2 data/apicurious/apicurious/output_tables/imperial.json
+b09cabdca9e032be5f8f3f07d736bddfaee255c7 data/apicurious/apicurious/output_tables/industrious.json
+50678bd54365fd5589cf64613a2ad68c2cc75f3a data/apicurious/apicurious/output_tables/leporine.json
+88179007bc48899f83835b0e3cff134702521f8e data/apicurious/apicurious/output_tables/merry.json
 2e796bde03810f5f7cda5c1a0344b3bd437503ca data/apicurious/apicurious/output_tables/modest.json
 8dfff072b3b790dcef3c7de3471584b43daf078d data/apicurious/apicurious/output_tables/mossy.json
 d6a22dbebbcb54d926df3445245822087277e471 data/apicurious/apicurious/output_tables/mysterious.json
+b2cf013e6beb0943490fbf074ca4c5f4b192d0c5 data/apicurious/apicurious/output_tables/rocky.json
+6334fd38a97a5857c84120eaa9a60658c215eee9 data/apicurious/apicurious/output_tables/silky.json
 33610de4cf0b8e53f044dc4ecaa70773949fd5d1 data/apicurious/apicurious/output_tables/simmering.json
 b2d21de7e29d9484c07c4aeb8a1fe6ed3cfd3b56 data/apicurious/apicurious/output_tables/standard.json
+e6ba3b5c8ec628c6a9f8cc8d6b392c67ec5a908f data/apicurious/apicurious/output_tables/stringy.json
 abee0a38af32d22b28b49df04a81246b98093d68 data/apicurious/apicurious/output_tables/wheaten.json

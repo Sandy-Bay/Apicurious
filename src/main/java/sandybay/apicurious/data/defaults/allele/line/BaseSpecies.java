@@ -73,7 +73,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.LEPORINE_OUTPUT)
+                    .withOutputData(OutputTableKeys.SILKY_OUTPUT)
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.WINTRY.species(),

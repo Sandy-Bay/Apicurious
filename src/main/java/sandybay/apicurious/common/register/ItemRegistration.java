@@ -1,5 +1,6 @@
 package sandybay.apicurious.common.register;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
@@ -39,9 +40,9 @@ public class ItemRegistration
   public static final DeferredHolder<Item, Item> SIMMERING_COMB = comb("simmering");
   public static final DeferredHolder<Item, Item> STRINGY_COMB = comb("stringy");
   public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
+  public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
 
   // Misc
-  /* TODO: Implement as needed
   public static final DeferredHolder<Item, Item> BEESWAX = item("beeswax");
   public static final DeferredHolder<Item, Item> REFRACTORY_WAX = item("refractory_wax");
   public static final DeferredHolder<Item, Item> HONEY_DROP = item("honey_drop");
@@ -50,7 +51,8 @@ public class ItemRegistration
   public static final DeferredHolder<Item, Item> PROPOLIS = item("propolis");
   public static final DeferredHolder<Item, Item> SILKEN_PROPOLIS = item("silken_propolis");
   public static final DeferredHolder<Item, Item> SILK_WISP = item("silk_wisp");
-   */
+  public static final DeferredHolder<Item, Item> POLLEN = item("pollen");
+  public static final DeferredHolder<Item, Item> ICE_SHARD = item("ice_shard");
 
   // Frames
   public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f);
@@ -59,6 +61,7 @@ public class ItemRegistration
   public static final DeferredHolder<Item, FrameItem> SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f);
   public static final DeferredHolder<Item, FrameItem> RESTRAINT_FRAME = ITEMS.register(frame("restraint"), () -> new RestraintFrame(SINGLETON_PROPS().durability(240)));
   public static final DeferredHolder<Item, FrameItem> PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f);
+
 
   public static Item.Properties SINGLETON_PROPS()
   {

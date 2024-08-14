@@ -1,0 +1,47 @@
+{
+  "pools": [
+    {
+      "conditions": [],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:dripping_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    },
+    {
+      "conditions": [],
+      "entries": [
+        {
+          "conditions": [
+            {
+              "chance": 0.33,
+              "condition": "apicurious:chance"
+            }
+          ],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:royal_jelly"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

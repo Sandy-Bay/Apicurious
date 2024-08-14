@@ -25,7 +25,7 @@ public class DiligentSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.MERRY_OUTPUT)
+                    .withOutputData(OutputTableKeys.STRINGY_OUTPUT)
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.UNWEARY.species(),
@@ -41,7 +41,7 @@ public class DiligentSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.MERRY_OUTPUT)
+                    .withOutputData(OutputTableKeys.STRINGY_OUTPUT)
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.INDUSTRIOUS.species(),
