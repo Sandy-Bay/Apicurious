@@ -18,7 +18,7 @@ import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import org.slf4j.Logger;
-import sandybay.apicurious.api.network.PacketHandler;
+import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
@@ -28,7 +28,7 @@ import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
-import sandybay.apicurious.common.item.BaseBeeItem;
+import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.register.BlockRegistration;
 import sandybay.apicurious.common.register.CreativeTabRegistration;
 import sandybay.apicurious.common.register.ItemRegistration;
@@ -85,20 +85,20 @@ public class Apicurious
 
   private static void loadEmptySpecies(final EntityJoinLevelEvent event)
   {
-    if (BaseBeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player)
+    if (BeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player)
     {
       Level level = event.getLevel();
       if (level instanceof ServerLevel serverLevel)
       {
         serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
-                BaseBeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
+                BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
       } else if (level instanceof ClientLevel)
       {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null)
         {
           connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
-                  BaseBeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
+                  BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
         }
       }
     }

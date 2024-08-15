@@ -10,7 +10,7 @@ import net.minecraft.resources.RegistryFileCodec;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.genetic.mutation.MutationType;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;

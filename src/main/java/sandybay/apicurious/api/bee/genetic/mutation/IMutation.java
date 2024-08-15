@@ -5,7 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 

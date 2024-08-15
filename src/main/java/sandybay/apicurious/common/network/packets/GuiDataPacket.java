@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.network.packets;
+package sandybay.apicurious.common.network.packets;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;

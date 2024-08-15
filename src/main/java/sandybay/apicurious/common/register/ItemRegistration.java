@@ -9,7 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.item.TerritoryModifier;
-import sandybay.apicurious.common.item.BaseBeeItem;
+import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.item.SieveItem;
 import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.frame.RestraintFrame;
@@ -20,9 +20,9 @@ public class ItemRegistration
 {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
-  public static final DeferredHolder<Item, BaseBeeItem> DRONE = ITEMS.register("drone", () -> new BaseBeeItem(new Item.Properties(), EnumBeeType.DRONE));
-  public static final DeferredHolder<Item, BaseBeeItem> PRINCESS = ITEMS.register("princess", () -> new BaseBeeItem(SINGLETON_PROPS(), EnumBeeType.PRINCESS));
-  public static final DeferredHolder<Item, BaseBeeItem> QUEEN = ITEMS.register("queen", () -> new BaseBeeItem(SINGLETON_PROPS(), EnumBeeType.QUEEN));
+  public static final DeferredHolder<Item, BeeItem> DRONE = ITEMS.register("drone", () -> new BeeItem(new Item.Properties(), EnumBeeType.DRONE));
+  public static final DeferredHolder<Item, BeeItem> PRINCESS = ITEMS.register("princess", () -> new BeeItem(SINGLETON_PROPS(), EnumBeeType.PRINCESS));
+  public static final DeferredHolder<Item, BeeItem> QUEEN = ITEMS.register("queen", () -> new BeeItem(SINGLETON_PROPS(), EnumBeeType.QUEEN));
   public static final DeferredHolder<Item, SieveItem> SIEVE = ITEMS.register("sieve", () -> new SieveItem(Tiers.WOOD, new Item.Properties().durability(32)));
 
   // Products

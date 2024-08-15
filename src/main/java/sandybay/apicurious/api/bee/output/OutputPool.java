@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.function.IFunction;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.util.ClimateHelper;
+import sandybay.apicurious.client.gui.widget.ErrorWidget;
+import sandybay.apicurious.client.gui.widget.InfoWidget;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
 import java.util.ArrayList;

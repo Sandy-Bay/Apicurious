@@ -5,7 +5,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.List;

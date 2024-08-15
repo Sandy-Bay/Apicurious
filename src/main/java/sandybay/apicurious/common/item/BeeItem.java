@@ -33,21 +33,21 @@ import java.util.List;
  * Mutation, which is the deviation
  * Mate, which is after a bee has "mated" and contains both their specific and mutation info
  */
-public class BaseBeeItem extends Item implements IBeeItem
+public class BeeItem extends Item implements IBeeItem
 {
 
   public static BeeSpecies EMPTY_SPECIES = null;
 
   public final EnumBeeType beeType;
 
-  public BaseBeeItem(Properties properties, EnumBeeType beeType)
+  public BeeItem(Properties properties, EnumBeeType beeType)
   {
     super(properties.component(DataComponentRegistrar.IDENTIFIED, false));
     this.beeType = beeType;
   }
 
   //This should be in the API so other mods can access it if needed
-  public static <T extends BaseBeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<IAllele<?>> speciesKey, DeferredHolder<Item, T> item)
+  public static <T extends BeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<IAllele<?>> speciesKey, DeferredHolder<Item, T> item)
   {
     ItemStack bee = new ItemStack(item.get());
     if (level instanceof ServerLevel serverLevel)

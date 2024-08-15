@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 

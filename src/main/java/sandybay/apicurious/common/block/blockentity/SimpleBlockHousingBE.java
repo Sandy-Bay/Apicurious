@@ -1,4 +1,4 @@
-package sandybay.apicurious.api.housing.blockentity;
+package sandybay.apicurious.common.block.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -22,10 +23,11 @@ import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
+import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.network.PacketHandler;
-import sandybay.apicurious.api.network.packets.GuiDataPacket;
+import sandybay.apicurious.common.network.PacketHandler;
+import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.LimitedFilter;
@@ -56,6 +58,32 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public int currentWork;
   public int maxWork;
   public boolean shouldRenderParticles;
+  private final ContainerData containerData = new ContainerData()
+  {
+    @Override
+    public int get(int pIndex)
+    {
+      return switch (pIndex)
+      {
+        case 0 -> isActive ? 1 : 0;
+        case 1 -> currentWork;
+        case 2 -> maxWork;
+        default -> throw new IllegalArgumentException("Invalid index: " + pIndex);
+      };
+    }
+
+    @Override
+    public void set(int pIndex, int pValue)
+    {
+      throw new IllegalStateException("Cannot set values through IIntArray");
+    }
+
+    @Override
+    public int getCount()
+    {
+      return 3;
+    }
+  };
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -456,4 +484,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
         PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);
     }
   }
+
+  public ContainerData getContainerData()
+  {
+    return containerData;
+  }
+
 }

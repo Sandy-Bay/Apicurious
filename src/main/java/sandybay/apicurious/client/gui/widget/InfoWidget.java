@@ -1,4 +1,4 @@
-package sandybay.apicurious.client.gui;
+package sandybay.apicurious.client.gui.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -125,7 +125,7 @@ public class InfoWidget extends AbstractWidget
   }
 
   @Override
-  protected void renderWidget(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick)
+  public void renderWidget(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick)
   {
     RenderSystem.enableBlend();
     RenderSystem.enableDepthTest();

@@ -9,7 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.output.OutputTable;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -16,7 +16,7 @@ import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.item.BaseBeeItem;
+import sandybay.apicurious.common.item.BeeItem;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class CreativeTabRegistration
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder()
           .title(Component.translatable("itemGroup.apicurious.bee"))
           .withTabsBefore(CreativeTabRegistration.GENERAL_TAB.getKey())
-          .icon(() -> BaseBeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistration.QUEEN))
+          .icon(() -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistration.QUEEN))
           .displayItems((parameters, output) -> registerBees(output)).build());
 
   public static void registerBees(CreativeModeTab.Output output)

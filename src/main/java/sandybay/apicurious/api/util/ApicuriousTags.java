@@ -62,6 +62,7 @@ public class ApicuriousTags
   {
 
     public static final TagKey<Item> IS_SIEVE_TOOL = create("is_sieve_tool");
+    public static final TagKey<Item> DROP_HONEY = create("drop/honey");
 
     private static TagKey<Item> create(String path)
     {

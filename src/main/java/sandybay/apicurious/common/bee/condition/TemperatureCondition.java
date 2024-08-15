@@ -12,7 +12,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 
 public record TemperatureCondition(HolderSet<Biome> temperature) implements ICondition

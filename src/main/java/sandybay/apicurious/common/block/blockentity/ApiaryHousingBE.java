@@ -9,48 +9,15 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import sandybay.apicurious.api.housing.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.register.BlockRegistration;
 
 public class ApiaryHousingBE extends SimpleBlockHousingBE
 {
 
-  private final ContainerData containerData = new ContainerData()
-  {
-    @Override
-    public int get(int pIndex)
-    {
-      return switch (pIndex)
-      {
-        case 0 -> isActive ? 1 : 0;
-        case 1 -> currentWork;
-        case 2 -> maxWork;
-        default -> throw new IllegalArgumentException("Invalid index: " + pIndex);
-      };
-    }
-
-    @Override
-    public void set(int pIndex, int pValue)
-    {
-      throw new IllegalStateException("Cannot set values through IIntArray");
-    }
-
-    @Override
-    public int getCount()
-    {
-      return 3;
-    }
-  };
-
   public ApiaryHousingBE(BlockPos pos, BlockState blockState)
   {
     super(BlockRegistration.APIARY.getType(), pos, blockState);
-  }
-
-  public ContainerData getContainerData()
-  {
-    return containerData;
   }
 
   @Override
