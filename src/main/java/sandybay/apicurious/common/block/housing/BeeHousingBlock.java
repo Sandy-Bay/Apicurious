@@ -1,11 +1,16 @@
 package sandybay.apicurious.common.block.housing;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
+import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
 
 public class BeeHousingBlock extends BaseHousingBlock
@@ -21,5 +26,15 @@ public class BeeHousingBlock extends BaseHousingBlock
   public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state)
   {
     return new BeeHousingBE(pos, state);
+  }
+
+  @Override
+  protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult)
+  {
+    if (!level.isClientSide)
+    {
+      if (level.getBlockEntity(pos) instanceof BaseHousingBE apiaryHousingBE) player.openMenu(apiaryHousingBE, pos);
+    }
+    return InteractionResult.sidedSuccess(level.isClientSide);
   }
 }

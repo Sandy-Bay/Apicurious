@@ -5,9 +5,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.common.menu.ApiaryMenu;
+import sandybay.apicurious.common.menu.BeeHousingMenu;
 import sandybay.apicurious.common.register.BlockRegistration;
 
 public class BeeHousingBE extends SimpleBlockHousingBE
@@ -26,8 +29,9 @@ public class BeeHousingBE extends SimpleBlockHousingBE
 
   @Nullable
   @Override
-  public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer)
+  public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
   {
-    return null; // TODO: Implement this
+    if (getLevel() == null) return null;
+    return new BeeHousingMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
   }
 }

@@ -41,8 +41,7 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   {
     Level level = housing.getLevel();
     if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block)) return false;
-    if (housing.territory == null)
-      housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
+    if (housing.territory == null) housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
     return housing.territory.stream().anyMatch(pos -> blocks.contains(level.getBlockState(pos).getBlockHolder()));
   }
 }

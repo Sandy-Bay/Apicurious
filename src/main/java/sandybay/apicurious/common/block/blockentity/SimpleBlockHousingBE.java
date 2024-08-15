@@ -26,6 +26,7 @@ import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
+import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
@@ -185,7 +186,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
           {
             Genome genome = stack.get(DataComponentRegistrar.GENOME);
             if (genome == null) return;
-            handlePollination(level, (ApiaryBlock) level.getBlockState(pos).getBlock(), stack);
+            handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
             // TODO: Implement effect occurrences here.
             // Only do output if it's an apiary
             if (getBlockState().getBlock() instanceof ApiaryBlock && !handleOutput(genome)) updateGuiData();
@@ -370,6 +371,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   private void handlePollination(Level level, BaseHousingBlock housing, ItemStack stack)
   {
+    if (territory == null) territory = housing.getTerritory(getInventory().getStackInSlot(0), getBlockPos(), SimpleBlockHousingHelper.getFrames(this));
     if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getPollinationRate() == 0 && housing.shouldPollinate(level.getRandom(), stack))
     {
       Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
