@@ -16,6 +16,7 @@
   "key": "apicurious:species/imperial",
   "name": "apicurious.species.imperial",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:imperial"
   },
   "productionData": {

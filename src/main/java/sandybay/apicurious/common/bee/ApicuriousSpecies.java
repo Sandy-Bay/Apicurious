@@ -5,6 +5,10 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.bee.species.BeeColor;
+import sandybay.apicurious.data.ApicuriousLangProvider;
+
+import java.security.Key;
 
 public class ApicuriousSpecies
 {
@@ -22,6 +26,9 @@ public class ApicuriousSpecies
   public static final KeyHolder ROCKY = species("rocky");
   public static final KeyHolder NETHER = species("nether");
   public static final KeyHolder ENDER = species("ender");
+  public static final KeyHolder VALIANT = species("valiant");
+  // TODO: Add this to dungeon loot
+  public static final KeyHolder STEADFAST = species("steadfast");
 
   /// Bee-Lines:
   // Common
@@ -41,6 +48,12 @@ public class ApicuriousSpecies
   // Festive
   public static final KeyHolder LEPORINE = species("leporine");
   public static final KeyHolder MERRY = species("merry");
+  // Wooden
+  public static final KeyHolder WOODEN = species("wooden");
+  public static final KeyHolder LUMBERED = species("lumbered");
+  public static final KeyHolder TIMBERED = species("timbered");
+  // Heroic
+  public static final KeyHolder HEROIC = species("heroic");
 
   private static KeyHolder species(String name)
   {
@@ -50,7 +63,5 @@ public class ApicuriousSpecies
     );
   }
 
-  public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation)
-  {
-  }
+  public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation) { }
 }

@@ -16,6 +16,7 @@
   "key": "apicurious:species/rocky",
   "name": "apicurious.species.rocky",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:rocky"
   },
   "productionData": {

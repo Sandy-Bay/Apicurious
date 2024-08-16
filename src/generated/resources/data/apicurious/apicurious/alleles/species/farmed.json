@@ -16,6 +16,7 @@
   "key": "apicurious:species/farmed",
   "name": "apicurious.species.farmed",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:farmed"
   },
   "productionData": {

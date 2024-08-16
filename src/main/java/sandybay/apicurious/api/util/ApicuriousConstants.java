@@ -35,6 +35,10 @@ public class ApicuriousConstants
   public static final String NETHER_WING = "9a2323";
   public static final String ENDER_OUTLINE = "e079fa";
   public static final String ENDER_WING = "d9de9e";
+  public static final String VALIANT_OUTLINE = "626bdd";
+  public static final String VALIANT_WING = "ffdc16";
+  public static final String STEADFAST_OUTLINE = "4d2b15";
+  public static final String STEADFAST_WING = "ffdc16";
   // Common
   public static final String COMMON_OUTLINE = "b2b2b2";
   public static final String COMMON_WING = "ffdc16";
@@ -64,6 +68,16 @@ public class ApicuriousConstants
   public static final String RURAL_WING = "ffdc16";
   public static final String FARMED_OUTLINE = "D39728";
   public static final String FARMED_WING = "ffdc16";
+  // Wooden
+  private static final String WOODEN_OUTLINE = "968864";
+  private static final String WOODEN_WING = "ffdc16";
+  private static final String LUMBERED_OUTLINE = "9b8643";
+  private static final String LUMBERED_WING = "ffdc16";
+  private static final String TIMBERED_OUTLINE = "b98e52";
+  private static final String TIMBERED_WING = "ffdc16";
+  // Heroic
+  private static final String HEROIC_OUTLINE = "b3d5e4";
+  private static final String HEROIC_WING = "ffdc16";
 
   //// BeeColor(s)
   // Debug
@@ -78,6 +92,8 @@ public class ApicuriousConstants
   public static final BeeColor ROCKY = new BeeColor(ROCKY_OUTLINE, ROCKY_WING, ROCKY_BODY);
   public static final BeeColor NETHER = new BeeColor(NETHER_OUTLINE, NETHER_WING, NETHER_BODY);
   public static final BeeColor ENDER = new BeeColor(ENDER_OUTLINE, ENDER_WING, ENDER_BODY);
+  public static final BeeColor VALIANT = new BeeColor(VALIANT_OUTLINE, VALIANT_WING, VALIANT_WING);
+  public static final BeeColor STEADFAST = new BeeColor(STEADFAST_OUTLINE, STEADFAST_WING, STEADFAST_OUTLINE);
   // Common
   public static final BeeColor COMMON = new BeeColor(COMMON_OUTLINE, COMMON_WING, COMMON_WING);
   public static final BeeColor CULTIVATED = new BeeColor(CULTIVATED_OUTLINE, CULTIVATED_WING, CULTIVATED_WING);
@@ -95,4 +111,10 @@ public class ApicuriousConstants
   // Agrarian
   public static final BeeColor RURAL = new BeeColor(RURAL_OUTLINE, RURAL_WING, RURAL_WING);
   public static final BeeColor FARMED = new BeeColor(FARMED_OUTLINE, FARMED_WING, FARMED_WING);
+  // Wooden
+  public static final BeeColor WOODEN = new BeeColor(WOODEN_OUTLINE, WOODEN_WING, WOODEN_WING);
+  public static final BeeColor LUMBERED = new BeeColor(LUMBERED_OUTLINE, LUMBERED_WING, LUMBERED_WING);
+  public static final BeeColor TIMBERED = new BeeColor(TIMBERED_OUTLINE, TIMBERED_WING, TIMBERED_WING);
+  // Heroic
+  public static final BeeColor HEROIC = new BeeColor(HEROIC_OUTLINE, HEROIC_WING, HEROIC_WING);
 }

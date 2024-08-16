@@ -14,7 +14,7 @@ public class DebugSpecies
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.EMPTY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.EMPTY.species(), "undefined")
-            .withOutputData(OutputTableKeys.STANDARD_OUTPUT)
+            .withOutputData(builder -> builder.withTable(OutputTableKeys.STANDARD_OUTPUT))
             .build()
     );
     bootstrap.register(ApicuriousSpecies.DEBUG.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DEBUG.species(), "debug")
@@ -25,7 +25,7 @@ public class DebugSpecies
             .withProductionData(production ->
                     production.withArea(Area.LARGEST)
             ).withEnvironmentalData(environment ->
-                    environment.withFlowers(Flowers.ROCK)
+                    environment.withFlowers(Flowers.STONE)
             )
             .withOutputData(outputs ->
                     outputs.withTable(table ->

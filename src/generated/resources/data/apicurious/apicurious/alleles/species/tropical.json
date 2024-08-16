@@ -16,6 +16,7 @@
   "key": "apicurious:species/tropical",
   "name": "apicurious.species.tropical",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:silky"
   },
   "productionData": {

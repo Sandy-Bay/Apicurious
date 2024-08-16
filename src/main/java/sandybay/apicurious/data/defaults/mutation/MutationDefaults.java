@@ -24,11 +24,13 @@ public class MutationDefaults
 {
   public static void registerDefaults(BootstrapContext<IMutation> bootstrap)
   {
-    CommonMutations.defaults(bootstrap);
-    NobleMutations.defaults(bootstrap);
-    DiligentMutations.defaults(bootstrap);
     AgrarianMutations.defaults(bootstrap);
+    CommonMutations.defaults(bootstrap);
+    DiligentMutations.defaults(bootstrap);
     FestiveMutations.defaults(bootstrap);
+    HeroicMutations.defaults(bootstrap);
+    NobleMutations.defaults(bootstrap);
+    WoodenMutations.defaults(bootstrap);
   }
 
   public static Builder mutation(BootstrapContext<IMutation> bootstrap)

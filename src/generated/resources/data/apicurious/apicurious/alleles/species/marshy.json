@@ -16,6 +16,7 @@
   "key": "apicurious:species/marshy",
   "name": "apicurious.species.marshy",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:mossy"
   },
   "productionData": {

@@ -8,17 +8,20 @@ import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
 import sandybay.apicurious.data.defaults.tables.OutputTableKeys;
 
-public class NobleSpecies
+public class WoodenSpecies
 {
+  // Forest + Diligent = Wooden
+  // Wooden + Diligent = Lumbered
+  // Wooden + Lumbered = Timbered
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.NOBLE.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.NOBLE.species(), "noble")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.NOBLE))
+    bootstrap.register(ApicuriousSpecies.WOODEN.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.WOODEN.species(), "wooden")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WOODEN))
                     .withProductionData(builder ->
                     {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOW).withProductionSpeed(Speed.SLOWER)
+                      builder.withArea(Area.AVERAGE).withFertility(Fertility.HIGH_FERTILITY).withLifespan(Lifespan.SHORTER)
+                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
                     .withEnvironmentalData(builder ->
@@ -27,16 +30,16 @@ public class NobleSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.DRIPPING_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.DUSTY_OUTPUT))
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.MAJESTIC.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MAJESTIC.species(), "majestic")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MAJESTIC))
+    bootstrap.register(ApicuriousSpecies.LUMBERED.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.LUMBERED.species(), "lumbered")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.LUMBERED))
                     .withProductionData(builder ->
                     {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.MAXIMUM_FERTILITY).withLifespan(Lifespan.SHORTENED)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.AVERAGE)
+                      builder.withArea(Area.AVERAGE).withFertility(Fertility.HIGH_FERTILITY).withLifespan(Lifespan.SHORTER)
+                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
                     .withEnvironmentalData(builder ->
@@ -45,16 +48,16 @@ public class NobleSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.DRIPPING_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.DUSTY_OUTPUT))
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.IMPERIAL.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.IMPERIAL.species(), "imperial")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.IMPERIAL))
+    bootstrap.register(ApicuriousSpecies.TIMBERED.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.TIMBERED.species(), "timbered")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.TIMBERED))
                     .withProductionData(builder ->
                     {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.AVERAGE)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
+                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
+                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWEST)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
                     .withEnvironmentalData(builder ->
@@ -63,7 +66,7 @@ public class NobleSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.IMPERIAL_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.DUSTY_OUTPUT))
                     .build()
     );
   }

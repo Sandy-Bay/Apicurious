@@ -27,7 +27,7 @@ public class AgrarianSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.WHEATEN_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.WHEATEN_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.FARMED.species(),
@@ -45,7 +45,7 @@ public class AgrarianSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.FARMED_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.FARMED_OUTPUT))
                     .build()
     );
   }

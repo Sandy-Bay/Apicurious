@@ -41,6 +41,7 @@ public class ItemRegistration
   public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
   public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
   public static final DeferredHolder<Item, Item> SEEDY_COMB = comb("seedy");
+  public static final DeferredHolder<Item, Item> DUSTY_COMB = comb("dusty");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = item("beeswax");
@@ -61,7 +62,6 @@ public class ItemRegistration
   public static final DeferredHolder<Item, FrameItem> SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f);
   public static final DeferredHolder<Item, FrameItem> RESTRAINT_FRAME = ITEMS.register(frame("restraint"), () -> new RestraintFrame(SINGLETON_PROPS().durability(240)));
   public static final DeferredHolder<Item, FrameItem> PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f);
-
 
   public static Item.Properties SINGLETON_PROPS()
   {

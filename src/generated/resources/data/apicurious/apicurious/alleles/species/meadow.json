@@ -16,6 +16,7 @@
   "key": "apicurious:species/meadow",
   "name": "apicurious.species.meadow",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:standard"
   },
   "productionData": {

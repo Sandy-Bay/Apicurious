@@ -16,6 +16,7 @@
   "key": "apicurious:species/cultivated",
   "name": "apicurious.species.cultivated",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:standard"
   },
   "productionData": {

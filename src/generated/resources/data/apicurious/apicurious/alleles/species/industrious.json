@@ -16,6 +16,7 @@
   "key": "apicurious:species/industrious",
   "name": "apicurious.species.industrious",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:industrious"
   },
   "productionData": {

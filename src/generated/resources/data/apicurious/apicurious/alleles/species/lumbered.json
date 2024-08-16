@@ -13,24 +13,24 @@
       "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
-  "key": "apicurious:species/diligent",
-  "name": "apicurious.species.diligent",
+  "key": "apicurious:species/lumbered",
+  "name": "apicurious.species.lumbered",
   "outputData": {
     "duration": 550,
-    "outputTable": "apicurious:stringy"
+    "outputTable": "apicurious:dusty"
   },
   "productionData": {
     "area": "apicurious:area/average",
-    "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/short",
-    "pollination": "apicurious:pollination/slow",
-    "speed": "apicurious:speed/slower",
+    "fertility": "apicurious:fertility/high",
+    "lifespan": "apicurious:lifespan/shorter",
+    "pollination": "apicurious:pollination/slower",
+    "speed": "apicurious:speed/slowest",
     "workCycle": "apicurious:workcycle/diurnal"
   },
   "visualData": {
     "beeColor": {
       "bodyTint": "ffdc16",
-      "outlineTint": "c219ec",
+      "outlineTint": "9b8643",
       "wingTint": "ffdc16"
     },
     "hasCustomRender": false

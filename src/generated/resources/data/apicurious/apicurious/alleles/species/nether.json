@@ -16,6 +16,7 @@
   "key": "apicurious:species/nether",
   "name": "apicurious.species.nether",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:simmering"
   },
   "productionData": {

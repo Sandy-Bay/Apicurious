@@ -16,6 +16,7 @@
   "key": "apicurious:species/noble",
   "name": "apicurious.species.noble",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:dripping"
   },
   "productionData": {

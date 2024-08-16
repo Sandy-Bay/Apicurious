@@ -5,6 +5,7 @@ import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
+import sandybay.apicurious.common.bee.output.OutputData;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
 import sandybay.apicurious.data.defaults.tables.OutputTableKeys;
 
@@ -27,7 +28,7 @@ public class DiligentSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.STRINGY_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.STRINGY_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.UNWEARY.species(),
@@ -45,7 +46,7 @@ public class DiligentSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.STRINGY_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.STRINGY_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.INDUSTRIOUS.species(),
@@ -63,7 +64,7 @@ public class DiligentSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.INDUSTRIOUS_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.INDUSTRIOUS_OUTPUT))
                     .build()
     );
   }

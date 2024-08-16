@@ -58,6 +58,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
+  public int outputTimer;
   public boolean shouldRenderParticles;
   private final ContainerData containerData = new ContainerData()
   {
@@ -278,6 +279,11 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistrar.GENOME);
     if (genome == null) return 0;
+    if (false && outputTimer == -1) // TODO: Figure out how we want to balance the output so it becomes less frequent.
+    {
+      BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
+      this.outputTimer = species.getOutputData().duration();
+    }
     Speed speed = (Speed) genome.getSpeed(true).value();
     int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
@@ -429,6 +435,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.currentWork = 0;
     this.maxWork = 0;
     this.territory = null;
+    this.outputTimer = -1;
   }
 
   private void handleQueenLifecycleEnd(Genome genome)

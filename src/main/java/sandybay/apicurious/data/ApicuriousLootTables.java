@@ -55,7 +55,7 @@ public class ApicuriousLootTables extends LootTableProvider
 
     }
 
-    public static LootTable.Builder beeTable(ResourceKey<IAllele<?>> speciesKey)
+    public static LootTable.Builder hiveTable(ResourceKey<IAllele<?>> speciesKey)
     {
       return LootTable.lootTable()
               .setParamSet(LootContextParamSet.builder().required(LootContextParams.TOOL).build())
@@ -91,21 +91,30 @@ public class ApicuriousLootTables extends LootTableProvider
                               .when(LootItemRandomChanceCondition.randomChance(0.333f))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
                       )
+              )
+              .withPool(LootPool.lootPool()
+                      .setRolls(ConstantValue.exactly(1.0f))
+                      .add(LootItem
+                              .lootTableItem(ItemRegistration.DRONE.get())
+                              .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.VALIANT.species()))
+                              .when(LootItemRandomChanceCondition.randomChance(0.05f))
+                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
+                      )
               );
     }
 
     @Override
     protected void generate()
     {
-      this.add(BlockRegistration.FOREST_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.FOREST.species()));
-      this.add(BlockRegistration.MEADOW_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MEADOW.species()));
-      this.add(BlockRegistration.MODEST_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MODEST.species()));
-      this.add(BlockRegistration.TROPICAL_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.TROPICAL.species()));
-      this.add(BlockRegistration.WINTRY_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.WINTRY.species()));
-      this.add(BlockRegistration.MARSHY_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.MARSHY.species()));
-      this.add(BlockRegistration.ROCKY_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.ROCKY.species()));
-      this.add(BlockRegistration.NETHER_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.NETHER.species()));
-      this.add(BlockRegistration.ENDER_HIVE.asBlock(), block -> beeTable(ApicuriousSpecies.ENDER.species()));
+      this.add(BlockRegistration.FOREST_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.FOREST.species()));
+      this.add(BlockRegistration.MEADOW_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MEADOW.species()));
+      this.add(BlockRegistration.MODEST_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MODEST.species()));
+      this.add(BlockRegistration.TROPICAL_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.TROPICAL.species()));
+      this.add(BlockRegistration.WINTRY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.WINTRY.species()));
+      this.add(BlockRegistration.MARSHY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MARSHY.species()));
+      this.add(BlockRegistration.ROCKY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ROCKY.species()));
+      this.add(BlockRegistration.NETHER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.NETHER.species()));
+      this.add(BlockRegistration.ENDER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ENDER.species()));
     }
 
     @Override

@@ -7,30 +7,30 @@
       "toleranceHolder": "apicurious:humidity/tolerance/none"
     },
     "ignoresRain": false,
-    "ignoresSky": false,
+    "ignoresSky": true,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/average",
       "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
-  "key": "apicurious:species/diligent",
-  "name": "apicurious.species.diligent",
+  "key": "apicurious:species/steadfast",
+  "name": "apicurious.species.steadfast",
   "outputData": {
     "duration": 550,
-    "outputTable": "apicurious:stringy"
+    "outputTable": "apicurious:cocoa"
   },
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/average",
-    "lifespan": "apicurious:lifespan/short",
-    "pollination": "apicurious:pollination/slow",
+    "lifespan": "apicurious:lifespan/average",
+    "pollination": "apicurious:pollination/slowest",
     "speed": "apicurious:speed/slower",
-    "workCycle": "apicurious:workcycle/diurnal"
+    "workCycle": "apicurious:workcycle/always"
   },
   "visualData": {
     "beeColor": {
-      "bodyTint": "ffdc16",
-      "outlineTint": "c219ec",
+      "bodyTint": "4d2b15",
+      "outlineTint": "4d2b15",
       "wingTint": "ffdc16"
     },
     "hasCustomRender": false

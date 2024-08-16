@@ -27,7 +27,7 @@ public class CommonSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.STANDARD_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.STANDARD_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.CULTIVATED.species(),
@@ -45,7 +45,7 @@ public class CommonSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.STANDARD_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.STANDARD_OUTPUT))
                     .build()
     );
   }

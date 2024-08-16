@@ -27,7 +27,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.STANDARD_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.STANDARD_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MEADOW.species(),
@@ -45,7 +45,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.STANDARD_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.STANDARD_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MODEST.species(),
@@ -63,7 +63,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.PARCHED_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.PARCHED_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.TROPICAL.species(),
@@ -81,7 +81,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.SILKY_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.SILKY_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.WINTRY.species(),
@@ -99,7 +99,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.ICY).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.FROZEN_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.FROZEN_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MARSHY.species(),
@@ -117,7 +117,7 @@ public class BaseSpecies
                               .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.MOSSY_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.MOSSY_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.ROCKY.species(),
@@ -131,12 +131,12 @@ public class BaseSpecies
                     })
                     .withEnvironmentalData(builder ->
                     {
-                      builder.withFlowers(Flowers.ROCK)
+                      builder.withFlowers(Flowers.STONE)
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE)
                               .ignoresRain().ignoresSky();
                     })
-                    .withOutputData(OutputTableKeys.ROCKY_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.ROCKY_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.NETHER.species(),
@@ -150,11 +150,11 @@ public class BaseSpecies
                     })
                     .withEnvironmentalData(builder ->
                     {
-                      builder.withFlowers(Flowers.NETHER_ROCK)
+                      builder.withFlowers(Flowers.NETHER_STONE)
                               .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.HELLISH).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.SIMMERING_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.SIMMERING_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.ENDER.species(),
@@ -168,12 +168,50 @@ public class BaseSpecies
                     })
                     .withEnvironmentalData(builder ->
                     {
-                      builder.withFlowers(Flowers.NETHER_ROCK)
+                      builder.withFlowers(Flowers.END_STONE)
                               .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.COLD).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)
                               .ignoresSky().ignoresRain();
                     })
-                    .withOutputData(OutputTableKeys.MYSTERIOUS_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.MYSTERIOUS_OUTPUT))
+                    .build()
+    );
+    bootstrap.register(ApicuriousSpecies.VALIANT.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.VALIANT.species(), "valiant")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.VALIANT))
+                    .withProductionData(builder ->
+                    {
+                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.LONG)
+                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOW)
+                              .withWorkCycle(Workcycle.ALWAYS);
+                    })
+                    .withEnvironmentalData(builder ->
+                    {
+                      builder.withFlowers(Flowers.FLOWERS)
+                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
+                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
+                              .ignoresSky();
+                    })
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.VALIANT_OUTPUT))
+                    .build()
+    );
+    bootstrap.register(ApicuriousSpecies.STEADFAST.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.STEADFAST.species(), "steadfast")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.STEADFAST))
+                    .withProductionData(builder ->
+                    {
+                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.AVERAGE)
+                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
+                              .withWorkCycle(Workcycle.ALWAYS);
+                    })
+                    .withEnvironmentalData(builder ->
+                    {
+                      builder.withFlowers(Flowers.FLOWERS)
+                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
+                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
+                              .ignoresSky();
+                    })
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.COCOA_OUTPUT))
                     .build()
     );
   }

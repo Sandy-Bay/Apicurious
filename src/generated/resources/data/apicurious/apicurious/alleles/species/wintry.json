@@ -16,6 +16,7 @@
   "key": "apicurious:species/wintry",
   "name": "apicurious.species.wintry",
   "outputData": {
+    "duration": 550,
     "outputTable": "apicurious:frozen"
   },
   "productionData": {

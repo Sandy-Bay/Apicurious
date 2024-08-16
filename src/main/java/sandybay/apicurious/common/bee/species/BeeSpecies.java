@@ -185,7 +185,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
     private ProductionData productionData;
     private EnvironmentalData environmentalData;
     private OutputData outputs;
-    //private final List<MobEffectInstance> effects = new ArrayList<>();
 
     private Builder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
     {
@@ -235,17 +234,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
       return this;
     }
 
-    public Builder withOutputData(ResourceKey<OutputTable> table)
-    {
-      this.outputs = new OutputData(context.lookup(ApicuriousRegistries.OUTPUT_TABLES).getOrThrow(table));
-      return this;
-    }
-
-//    public Builder withEffects(MobEffectInstance... effects) {
-//      this.effects.addAll(Arrays.asList(effects));
-//      return this;
-//    }
-
     public BeeSpecies build()
     {
       return new BeeSpecies(
@@ -254,7 +242,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
               this.productionData,
               this.environmentalData,
               this.outputs
-              //this.effects
       );
     }
   }

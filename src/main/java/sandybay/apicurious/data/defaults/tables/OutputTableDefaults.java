@@ -23,6 +23,7 @@ public class OutputTableDefaults
     bootstrap.register(OutputTableKeys.ROCKY_OUTPUT, simpleCombTable(ItemRegistration.ROCKY_COMB));
     bootstrap.register(OutputTableKeys.SILKY_OUTPUT, simpleCombTable(ItemRegistration.SILKY_COMB));
     bootstrap.register(OutputTableKeys.STRINGY_OUTPUT, simpleCombTable(ItemRegistration.STRINGY_COMB));
+    bootstrap.register(OutputTableKeys.DUSTY_OUTPUT, simpleCombTable(ItemRegistration.DUSTY_COMB));
     bootstrap.register(OutputTableKeys.IMPERIAL_OUTPUT, custom()
             .withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(ItemRegistration.DRIPPING_COMB.get())))
             .withPool(pool -> pool.withRolls(1).withResult(entry -> entry.withResult(ItemRegistration.ROYAL_JELLY.get()).when(new ChanceCondition(0.33f)))

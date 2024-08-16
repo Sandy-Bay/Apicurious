@@ -27,7 +27,7 @@ public class FestiveSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.LEPORINE_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.LEPORINE_OUTPUT))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MERRY.species(),
@@ -45,7 +45,7 @@ public class FestiveSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.ICY).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE);
                     })
-                    .withOutputData(OutputTableKeys.MERRY_OUTPUT)
+                    .withOutputData(builder -> builder.withTable(OutputTableKeys.MERRY_OUTPUT))
                     .build()
     );
   }
