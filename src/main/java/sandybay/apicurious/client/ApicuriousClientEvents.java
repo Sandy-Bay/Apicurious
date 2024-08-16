@@ -27,9 +27,9 @@ import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
-import sandybay.apicurious.common.register.BlockRegistration;
-import sandybay.apicurious.common.register.ItemRegistration;
-import sandybay.apicurious.common.register.MenuRegistration;
+import sandybay.apicurious.common.registrar.BlockRegistrar;
+import sandybay.apicurious.common.registrar.ItemRegistrar;
+import sandybay.apicurious.common.registrar.MenuRegistrar;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -55,22 +55,22 @@ public class ApicuriousClientEvents
       {
         return new BeeItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
       }
-    }, ItemRegistration.DRONE.get(), ItemRegistration.PRINCESS.get(), ItemRegistration.QUEEN.get());
+    }, ItemRegistrar.DRONE.get(), ItemRegistrar.PRINCESS.get(), ItemRegistrar.QUEEN.get());
   }
 
   private static void handleBlockTint(final RegisterColorHandlersEvent.Block event)
   {
     event.register(
             ApicuriousClientEvents::registerHiveTintHandler,
-            BlockRegistration.FOREST_HIVE.asBlock(),
-            BlockRegistration.MEADOW_HIVE.asBlock(),
-            BlockRegistration.MODEST_HIVE.asBlock(),
-            BlockRegistration.TROPICAL_HIVE.asBlock(),
-            BlockRegistration.WINTRY_HIVE.asBlock(),
-            BlockRegistration.MARSHY_HIVE.asBlock(),
-            BlockRegistration.ROCKY_HIVE.asBlock(),
-            BlockRegistration.NETHER_HIVE.asBlock(),
-            BlockRegistration.ENDER_HIVE.asBlock()
+            BlockRegistrar.FOREST_HIVE.asBlock(),
+            BlockRegistrar.MEADOW_HIVE.asBlock(),
+            BlockRegistrar.MODEST_HIVE.asBlock(),
+            BlockRegistrar.TROPICAL_HIVE.asBlock(),
+            BlockRegistrar.WINTRY_HIVE.asBlock(),
+            BlockRegistrar.MARSHY_HIVE.asBlock(),
+            BlockRegistrar.ROCKY_HIVE.asBlock(),
+            BlockRegistrar.NETHER_HIVE.asBlock(),
+            BlockRegistrar.ENDER_HIVE.asBlock()
     );
   }
 
@@ -78,21 +78,21 @@ public class ApicuriousClientEvents
   {
     event.register(
             ApicuriousClientEvents::registerBeeTintHandler,
-            ItemRegistration.DRONE.get(),
-            ItemRegistration.PRINCESS.get(),
-            ItemRegistration.QUEEN.get()
+            ItemRegistrar.DRONE.get(),
+            ItemRegistrar.PRINCESS.get(),
+            ItemRegistrar.QUEEN.get()
     );
     event.register(
             ApicuriousClientEvents::registerHiveItemTintHandler,
-            BlockRegistration.FOREST_HIVE.asItem(),
-            BlockRegistration.MEADOW_HIVE.asItem(),
-            BlockRegistration.MODEST_HIVE.asItem(),
-            BlockRegistration.TROPICAL_HIVE.asItem(),
-            BlockRegistration.WINTRY_HIVE.asItem(),
-            BlockRegistration.MARSHY_HIVE.asItem(),
-            BlockRegistration.ROCKY_HIVE.asItem(),
-            BlockRegistration.NETHER_HIVE.asItem(),
-            BlockRegistration.ENDER_HIVE.asItem()
+            BlockRegistrar.FOREST_HIVE.asItem(),
+            BlockRegistrar.MEADOW_HIVE.asItem(),
+            BlockRegistrar.MODEST_HIVE.asItem(),
+            BlockRegistrar.TROPICAL_HIVE.asItem(),
+            BlockRegistrar.WINTRY_HIVE.asItem(),
+            BlockRegistrar.MARSHY_HIVE.asItem(),
+            BlockRegistrar.ROCKY_HIVE.asItem(),
+            BlockRegistrar.NETHER_HIVE.asItem(),
+            BlockRegistrar.ENDER_HIVE.asItem()
     );
   }
 
@@ -107,8 +107,8 @@ public class ApicuriousClientEvents
 
   private static void registerScreens(RegisterMenuScreensEvent event)
   {
-    event.register(MenuRegistration.APIARY.get(), ApiaryScreen::new);
-    event.register(MenuRegistration.BEE_HOUSING.get(), BeeHousingScreen::new);
+    event.register(MenuRegistrar.APIARY.get(), ApiaryScreen::new);
+    event.register(MenuRegistrar.BEE_HOUSING.get(), BeeHousingScreen::new);
   }
 
   private static int registerBeeTintHandler(ItemStack stack, int tintIndex)

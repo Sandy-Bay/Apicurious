@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -47,9 +48,9 @@ public class BeeItem extends Item implements IBeeItem
   }
 
   //This should be in the API so other mods can access it if needed
-  public static <T extends BeeItem> ItemStack getBeeWithSpecies(Level level, ResourceKey<IAllele<?>> speciesKey, DeferredHolder<Item, T> item)
+  public static ItemStack getBeeWithSpecies(Level level, ResourceKey<IAllele<?>> speciesKey, Holder<Item> item)
   {
-    ItemStack bee = new ItemStack(item.get());
+    ItemStack bee = new ItemStack(item);
     if (level instanceof ServerLevel serverLevel)
     {
       serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->

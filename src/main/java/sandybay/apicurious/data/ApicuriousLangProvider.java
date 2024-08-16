@@ -6,8 +6,8 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
-import sandybay.apicurious.common.register.BlockRegistration;
-import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.common.registrar.BlockRegistrar;
+import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 import java.util.Locale;
 
@@ -22,34 +22,34 @@ public class ApicuriousLangProvider extends LanguageProvider
   protected void addTranslations()
   {
     // Items
-    add(ItemRegistration.DRONE.get(), "Drone");
-    add(ItemRegistration.PRINCESS.get(), "Princess");
-    add(ItemRegistration.QUEEN.get(), "Queen");
-    add(ItemRegistration.SIEVE.get(), "Sieve");
+    add(ItemRegistrar.DRONE.get(), "Drone");
+    add(ItemRegistrar.PRINCESS.get(), "Princess");
+    add(ItemRegistrar.QUEEN.get(), "Queen");
+    add(ItemRegistrar.SIEVE.get(), "Sieve");
 
     // Housing
-    add(BlockRegistration.APIARY.asItem(), "Apiary");
-    add(BlockRegistration.BEE_HOUSING.asItem(), "Bee Housing");
+    add(BlockRegistrar.APIARY.asItem(), "Apiary");
+    add(BlockRegistrar.BEE_HOUSING.asItem(), "Bee Housing");
 
     // Frames
-    add(ItemRegistration.UNTREATED_FRAME.get(), "Untreated Frame");
-    add(ItemRegistration.IMPREGNATED_FRAME.get(), "Impregnated Frame");
-    add(ItemRegistration.HEALING_FRAME.get(), "Healing Frame");
-    add(ItemRegistration.SOUL_FRAME.get(), "Soul Frame");
-    add(ItemRegistration.RESTRAINT_FRAME.get(), "Restraint Frame");
-    add(ItemRegistration.PROVEN_FRAME.get(), "Proven Frame");
+    add(ItemRegistrar.UNTREATED_FRAME.get(), "Untreated Frame");
+    add(ItemRegistrar.IMPREGNATED_FRAME.get(), "Impregnated Frame");
+    add(ItemRegistrar.HEALING_FRAME.get(), "Healing Frame");
+    add(ItemRegistrar.SOUL_FRAME.get(), "Soul Frame");
+    add(ItemRegistrar.RESTRAINT_FRAME.get(), "Restraint Frame");
+    add(ItemRegistrar.PROVEN_FRAME.get(), "Proven Frame");
 
     // Products
-    add(ItemRegistration.BEESWAX.get(), "Beeswax");
-    add(ItemRegistration.REFRACTORY_WAX.get(), "Refractory Wax");
-    add(ItemRegistration.HONEY_DROP.get(), "Honey Drop");
-    add(ItemRegistration.HONEY_DEW.get(), "Honey Dew");
-    add(ItemRegistration.ROYAL_JELLY.get(), "Royal Jelly");
-    add(ItemRegistration.PROPOLIS.get(), "Propolis");
-    add(ItemRegistration.SILKEN_PROPOLIS.get(), "Silken Propolis");
-    add(ItemRegistration.SILK_WISP.get(), "Silk Wisp");
-    add(ItemRegistration.POLLEN.get(), "Pollen");
-    add(ItemRegistration.ICE_SHARD.get(), "Ice Shard");
+    add(ItemRegistrar.BEESWAX.get(), "Beeswax");
+    add(ItemRegistrar.REFRACTORY_WAX.get(), "Refractory Wax");
+    add(ItemRegistrar.HONEY_DROP.get(), "Honey Drop");
+    add(ItemRegistrar.HONEY_DEW.get(), "Honey Dew");
+    add(ItemRegistrar.ROYAL_JELLY.get(), "Royal Jelly");
+    add(ItemRegistrar.PROPOLIS.get(), "Propolis");
+    add(ItemRegistrar.SILKEN_PROPOLIS.get(), "Silken Propolis");
+    add(ItemRegistrar.SILK_WISP.get(), "Silk Wisp");
+    add(ItemRegistrar.POLLEN.get(), "Pollen");
+    add(ItemRegistrar.ICE_SHARD.get(), "Ice Shard");
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
@@ -75,15 +75,15 @@ public class ApicuriousLangProvider extends LanguageProvider
   // Collection-methods
   public void addHives()
   {
-    add(BlockRegistration.FOREST_HIVE.asItem(), "Forest Hive");
-    add(BlockRegistration.MEADOW_HIVE.asItem(), "Meadow Hive");
-    add(BlockRegistration.MODEST_HIVE.asItem(), "Modest Hive");
-    add(BlockRegistration.TROPICAL_HIVE.asItem(), "Tropical Hive");
-    add(BlockRegistration.WINTRY_HIVE.asItem(), "Wintry Hive");
-    add(BlockRegistration.MARSHY_HIVE.asItem(), "Marshy Hive");
-    add(BlockRegistration.ROCKY_HIVE.asItem(), "Rocky Hive");
-    add(BlockRegistration.NETHER_HIVE.asItem(), "Nether Hive");
-    add(BlockRegistration.ENDER_HIVE.asItem(), "Ender Hive");
+    add(BlockRegistrar.FOREST_HIVE.asItem(), "Forest Hive");
+    add(BlockRegistrar.MEADOW_HIVE.asItem(), "Meadow Hive");
+    add(BlockRegistrar.MODEST_HIVE.asItem(), "Modest Hive");
+    add(BlockRegistrar.TROPICAL_HIVE.asItem(), "Tropical Hive");
+    add(BlockRegistrar.WINTRY_HIVE.asItem(), "Wintry Hive");
+    add(BlockRegistrar.MARSHY_HIVE.asItem(), "Marshy Hive");
+    add(BlockRegistrar.ROCKY_HIVE.asItem(), "Rocky Hive");
+    add(BlockRegistrar.NETHER_HIVE.asItem(), "Nether Hive");
+    add(BlockRegistrar.ENDER_HIVE.asItem(), "Ender Hive");
   }
 
   public void addTabs()
@@ -231,7 +231,6 @@ public class ApicuriousLangProvider extends LanguageProvider
     species("Farmed");
   }
 
-  // TODO: Write better messages and tooltips!
   public void addErrors()
   {
     error(HousingError.MISSING_QUEEN.getMessage(), "Missing Queen");
@@ -262,20 +261,20 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   public void addCombs()
   {
-    comb(ItemRegistration.COCOA_COMB, "Cocoa");
-    comb(ItemRegistration.DRIPPING_COMB, "Dripping");
-    comb(ItemRegistration.FROZEN_COMB, "Frozen");
-    comb(ItemRegistration.MELLOW_COMB, "Mellow");
-    comb(ItemRegistration.MOSSY_COMB, "Mossy");
-    comb(ItemRegistration.MYSTERIOUS_COMB, "Mysterious");
-    comb(ItemRegistration.PARCHED_COMB, "Parched");
-    comb(ItemRegistration.POWDERY_COMB, "Powdery");
-    comb(ItemRegistration.SILKY_COMB, "Silky");
-    comb(ItemRegistration.SIMMERING_COMB, "Simmering");
-    comb(ItemRegistration.STRINGY_COMB, "Stringy");
-    comb(ItemRegistration.WHEATEN_COMB, "Wheaten");
-    comb(ItemRegistration.ROCKY_COMB, "Rocky");
-    comb(ItemRegistration.SEEDY_COMB, "Seedy");
+    comb(ItemRegistrar.COCOA_COMB, "Cocoa");
+    comb(ItemRegistrar.DRIPPING_COMB, "Dripping");
+    comb(ItemRegistrar.FROZEN_COMB, "Frozen");
+    comb(ItemRegistrar.MELLOW_COMB, "Mellow");
+    comb(ItemRegistrar.MOSSY_COMB, "Mossy");
+    comb(ItemRegistrar.MYSTERIOUS_COMB, "Mysterious");
+    comb(ItemRegistrar.PARCHED_COMB, "Parched");
+    comb(ItemRegistrar.POWDERY_COMB, "Powdery");
+    comb(ItemRegistrar.SILKY_COMB, "Silky");
+    comb(ItemRegistrar.SIMMERING_COMB, "Simmering");
+    comb(ItemRegistrar.STRINGY_COMB, "Stringy");
+    comb(ItemRegistrar.WHEATEN_COMB, "Wheaten");
+    comb(ItemRegistrar.ROCKY_COMB, "Rocky");
+    comb(ItemRegistrar.SEEDY_COMB, "Seedy");
   }
 
   public void comb(Holder<Item> item, String name)

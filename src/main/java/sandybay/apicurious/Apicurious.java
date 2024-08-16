@@ -29,10 +29,7 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.BeeItem;
-import sandybay.apicurious.common.register.BlockRegistration;
-import sandybay.apicurious.common.register.CreativeTabRegistration;
-import sandybay.apicurious.common.register.ItemRegistration;
-import sandybay.apicurious.common.register.MenuRegistration;
+import sandybay.apicurious.common.registrar.*;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.LootItemFunctionRegistration;
 
@@ -65,12 +62,12 @@ public class Apicurious
     bus.addListener(this::commonSetup);
     bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
-    BlockRegistration.register(bus);
-    ItemRegistration.register(bus);
+    BlockRegistrar.register(bus);
+    ItemRegistrar.register(bus);
     DataComponentRegistrar.register(bus);
-    CreativeTabRegistration.register(bus);
+    CreativeTabRegistrar.register(bus);
     LootItemFunctionRegistration.register(bus);
-    MenuRegistration.register(bus);
+    MenuRegistrar.register(bus);
     AlleleTypeRegistrar.init(bus);
     MutationTypeRegistrar.init(bus);
     ConditionTypeRegistrar.init(bus);

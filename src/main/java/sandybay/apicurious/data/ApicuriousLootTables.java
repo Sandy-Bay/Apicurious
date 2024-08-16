@@ -23,8 +23,8 @@ import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.loot.function.ApicuriousSpeciesFunction;
-import sandybay.apicurious.common.register.BlockRegistration;
-import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.common.registrar.BlockRegistrar;
+import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,14 +62,14 @@ public class ApicuriousLootTables extends LootTableProvider
               .withPool(LootPool.lootPool()
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
-                              .lootTableItem(ItemRegistration.PRINCESS.get())
+                              .lootTableItem(ItemRegistrar.PRINCESS.get())
                               .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
                       )
               ).withPool(LootPool.lootPool()
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
-                              .lootTableItem(ItemRegistration.DRONE.get())
+                              .lootTableItem(ItemRegistrar.DRONE.get())
                               .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
                       )
@@ -77,7 +77,7 @@ public class ApicuriousLootTables extends LootTableProvider
               .withPool(LootPool.lootPool()
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
-                              .lootTableItem(ItemRegistration.DRONE.get())
+                              .lootTableItem(ItemRegistrar.DRONE.get())
                               .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
                               .when(LootItemRandomChanceCondition.randomChance(0.5f))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
@@ -86,7 +86,7 @@ public class ApicuriousLootTables extends LootTableProvider
               .withPool(LootPool.lootPool()
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
-                              .lootTableItem(ItemRegistration.DRONE.get())
+                              .lootTableItem(ItemRegistrar.DRONE.get())
                               .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.FOREST.species()))
                               .when(LootItemRandomChanceCondition.randomChance(0.333f))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
@@ -95,7 +95,7 @@ public class ApicuriousLootTables extends LootTableProvider
               .withPool(LootPool.lootPool()
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
-                              .lootTableItem(ItemRegistration.DRONE.get())
+                              .lootTableItem(ItemRegistrar.DRONE.get())
                               .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.VALIANT.species()))
                               .when(LootItemRandomChanceCondition.randomChance(0.05f))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
@@ -106,15 +106,15 @@ public class ApicuriousLootTables extends LootTableProvider
     @Override
     protected void generate()
     {
-      this.add(BlockRegistration.FOREST_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.FOREST.species()));
-      this.add(BlockRegistration.MEADOW_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MEADOW.species()));
-      this.add(BlockRegistration.MODEST_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MODEST.species()));
-      this.add(BlockRegistration.TROPICAL_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.TROPICAL.species()));
-      this.add(BlockRegistration.WINTRY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.WINTRY.species()));
-      this.add(BlockRegistration.MARSHY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MARSHY.species()));
-      this.add(BlockRegistration.ROCKY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ROCKY.species()));
-      this.add(BlockRegistration.NETHER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.NETHER.species()));
-      this.add(BlockRegistration.ENDER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ENDER.species()));
+      this.add(BlockRegistrar.FOREST_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.FOREST.species()));
+      this.add(BlockRegistrar.MEADOW_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MEADOW.species()));
+      this.add(BlockRegistrar.MODEST_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MODEST.species()));
+      this.add(BlockRegistrar.TROPICAL_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.TROPICAL.species()));
+      this.add(BlockRegistrar.WINTRY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.WINTRY.species()));
+      this.add(BlockRegistrar.MARSHY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.MARSHY.species()));
+      this.add(BlockRegistrar.ROCKY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ROCKY.species()));
+      this.add(BlockRegistrar.NETHER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.NETHER.species()));
+      this.add(BlockRegistrar.ENDER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ENDER.species()));
     }
 
     @Override
@@ -130,7 +130,7 @@ public class ApicuriousLootTables extends LootTableProvider
     @Override
     protected Iterable<Block> getKnownBlocks()
     {
-      return BlockRegistration.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
+      return BlockRegistrar.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
   }
 

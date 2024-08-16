@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.register;
+package sandybay.apicurious.common.registrar;
 
 import com.google.common.collect.Sets;
 import net.minecraft.core.registries.Registries;
@@ -25,7 +25,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class BlockRegistration
+public class BlockRegistrar
 {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
@@ -131,17 +131,17 @@ public class BlockRegistration
   public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
           "apiary",
           () -> new ApiaryBlock(HOUSING_PROPS),
-          BlockRegistration::getDefaultBlockItem,
+          BlockRegistrar::getDefaultBlockItem,
           ApiaryHousingBE::new,
-          BlockRegistration::getDefaultType
+          BlockRegistrar::getDefaultType
   );
 
 
   public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
           "bee_housing",
           () -> new BeeHousingBlock(HOUSING_PROPS),
-          BlockRegistration::getDefaultBlockItem,
+          BlockRegistrar::getDefaultBlockItem,
           BeeHousingBE::new,
-          BlockRegistration::getDefaultType
+          BlockRegistrar::getDefaultType
   );
 }

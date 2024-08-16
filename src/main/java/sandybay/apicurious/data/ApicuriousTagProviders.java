@@ -17,8 +17,8 @@ import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
-import sandybay.apicurious.common.register.BlockRegistration;
-import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.common.registrar.BlockRegistrar;
+import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.providers.AlleleTagsProvider;
 
 import java.util.List;
@@ -46,13 +46,13 @@ public class ApicuriousTagProviders
     protected void addTags(HolderLookup.Provider provider)
     {
       this.tag(ApicuriousTags.BlockTags.HIVE).add(
-              BlockRegistration.FOREST_HIVE.block().getKey(),
-              BlockRegistration.MEADOW_HIVE.block().getKey(),
-              BlockRegistration.MODEST_HIVE.block().getKey(),
-              BlockRegistration.TROPICAL_HIVE.block().getKey(),
-              BlockRegistration.WINTRY_HIVE.block().getKey(),
-              BlockRegistration.MARSHY_HIVE.block().getKey(),
-              BlockRegistration.ENDER_HIVE.block().getKey()
+              BlockRegistrar.FOREST_HIVE.block().getKey(),
+              BlockRegistrar.MEADOW_HIVE.block().getKey(),
+              BlockRegistrar.MODEST_HIVE.block().getKey(),
+              BlockRegistrar.TROPICAL_HIVE.block().getKey(),
+              BlockRegistrar.WINTRY_HIVE.block().getKey(),
+              BlockRegistrar.MARSHY_HIVE.block().getKey(),
+              BlockRegistrar.ENDER_HIVE.block().getKey()
       );
       this.tag(ApicuriousTags.BlockTags.CACTUS).add(
               Blocks.CACTUS.builtInRegistryHolder().getKey()
@@ -86,7 +86,7 @@ public class ApicuriousTagProviders
     protected void addTags(HolderLookup.Provider provider)
     {
       this.tag(ApicuriousTags.ItemTags.IS_SIEVE_TOOL).add(
-              ItemRegistration.SIEVE.getKey()
+              ItemRegistrar.SIEVE.getKey()
       );
     }
   }

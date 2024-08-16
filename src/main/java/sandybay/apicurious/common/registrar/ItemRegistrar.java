@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.register;
+package sandybay.apicurious.common.registrar;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
@@ -16,7 +16,7 @@ import sandybay.apicurious.common.item.frame.RestraintFrame;
 
 import java.util.function.Function;
 
-public class ItemRegistration
+public class ItemRegistrar
 {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);

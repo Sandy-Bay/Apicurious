@@ -9,11 +9,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import org.jetbrains.annotations.NotNull;
-import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
-import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
-import sandybay.apicurious.common.register.BlockRegistration;
-import sandybay.apicurious.common.register.MenuRegistration;
+import sandybay.apicurious.common.registrar.BlockRegistrar;
+import sandybay.apicurious.common.registrar.MenuRegistrar;
 
 import java.util.Objects;
 
@@ -25,7 +23,7 @@ public class BeeHousingMenu extends AbstractHousingMenu
 
   public BeeHousingMenu(int containerId, Inventory playerInventory, FriendlyByteBuf packetBuffer)
   {
-    super(MenuRegistration.BEE_HOUSING.get(), containerId, playerInventory);
+    super(MenuRegistrar.BEE_HOUSING.get(), containerId, playerInventory);
     this.player = playerInventory.player;
     this.housing = (BeeHousingBE) Objects.requireNonNull(Minecraft.getInstance().level.getBlockEntity(packetBuffer.readBlockPos()));
     this.containerData = new SimpleContainerData(3);
@@ -34,7 +32,7 @@ public class BeeHousingMenu extends AbstractHousingMenu
 
   public BeeHousingMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, BeeHousingBE housing)
   {
-    super(MenuRegistration.BEE_HOUSING.get(), containerId, playerInventory, access, housing.getInventory(), housing.getErrorList());
+    super(MenuRegistrar.BEE_HOUSING.get(), containerId, playerInventory, access, housing.getInventory(), housing.getErrorList());
     this.player = playerInventory.player;
     this.housing = housing;
     this.containerData = housing.getContainerData();
@@ -64,6 +62,6 @@ public class BeeHousingMenu extends AbstractHousingMenu
   @Override
   public boolean stillValid(@NotNull Player player)
   {
-    return AbstractContainerMenu.stillValid(getAccess(), player, BlockRegistration.BEE_HOUSING.asBlock());
+    return AbstractContainerMenu.stillValid(getAccess(), player, BlockRegistrar.BEE_HOUSING.asBlock());
   }
 }

@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-16T13:22:58.757212	Registries
+// 1.21.1	2024-08-16T17:48:50.2269804	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -114,6 +114,7 @@ cc6e903f762cbcfa81b4e45dc0bef1443a922f45 data/apicurious/apicurious/mutations/me
 ae69f536813b7453b26cf8abd979fca1d1a30794 data/apicurious/apicurious/mutations/timbered.json
 840c2fb6ef3cd130cd576d146ac6e1a8d9b6a52d data/apicurious/apicurious/mutations/unweary.json
 e14d6d2144c92d23eb7029b6ffb63b9997b51490 data/apicurious/apicurious/mutations/wooden.json
+202de175321a4189046e234c213482f5a8b6ec8a data/apicurious/apicurious/output_tables/cocoa.json
 3f784fa38e73df10251effdd8d64cfdd9a144871 data/apicurious/apicurious/output_tables/dripping.json
 51a82d31db689c5995635e8acbb332255d62e463 data/apicurious/apicurious/output_tables/dusty.json
 a25a874b5a7cb3e35e369efcc997f839f5d9f40c data/apicurious/apicurious/output_tables/farmed.json
@@ -130,4 +131,5 @@ b2cf013e6beb0943490fbf074ca4c5f4b192d0c5 data/apicurious/apicurious/output_table
 33610de4cf0b8e53f044dc4ecaa70773949fd5d1 data/apicurious/apicurious/output_tables/simmering.json
 b2d21de7e29d9484c07c4aeb8a1fe6ed3cfd3b56 data/apicurious/apicurious/output_tables/standard.json
 e6ba3b5c8ec628c6a9f8cc8d6b392c67ec5a908f data/apicurious/apicurious/output_tables/stringy.json
+aee87df49760a0761ed09e203bdb00b5b8f1c16b data/apicurious/apicurious/output_tables/valiant.json
 abee0a38af32d22b28b49df04a81246b98093d68 data/apicurious/apicurious/output_tables/wheaten.json

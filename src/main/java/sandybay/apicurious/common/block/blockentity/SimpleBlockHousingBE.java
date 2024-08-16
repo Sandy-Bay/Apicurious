@@ -39,7 +39,7 @@ import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
-import sandybay.apicurious.common.register.ItemRegistration;
+import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +135,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
             ItemStack drone = getInventory().getStackInSlot(1);
             Genome princessGenome = princess.get(DataComponentRegistrar.GENOME);
             Genome droneGenome = drone.get(DataComponentRegistrar.GENOME);
-            ItemStack queen = new ItemStack(ItemRegistration.QUEEN);
+            ItemStack queen = new ItemStack(ItemRegistrar.QUEEN);
             if (princessGenome != null && droneGenome != null)
             {
               Genome queenGenome;
@@ -441,9 +441,9 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   private void handleQueenLifecycleEnd(Genome genome)
   {
     getInventory().extractItem(0, 1, false);
-    ItemStack princess = new ItemStack(ItemRegistration.PRINCESS.get(), 1);
+    ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.get(), 1);
     Fertility fertility = (Fertility) genome.getFertility(true).value();
-    ItemStack drones = new ItemStack(ItemRegistration.DRONE.get(), fertility.getOffspring());
+    ItemStack drones = new ItemStack(ItemRegistrar.DRONE.get(), fertility.getOffspring());
     princess.set(DataComponentRegistrar.GENOME, genome);
     drones.set(DataComponentRegistrar.GENOME, genome);
     for (int i = 5; i < 12; i++)

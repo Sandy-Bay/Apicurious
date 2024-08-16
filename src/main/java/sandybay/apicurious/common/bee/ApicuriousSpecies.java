@@ -27,7 +27,6 @@ public class ApicuriousSpecies
   public static final KeyHolder NETHER = species("nether");
   public static final KeyHolder ENDER = species("ender");
   public static final KeyHolder VALIANT = species("valiant");
-  // TODO: Add this to dungeon loot
   public static final KeyHolder STEADFAST = species("steadfast");
 
   /// Bee-Lines:
