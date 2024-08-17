@@ -16,8 +16,7 @@
   "key": "apicurious:species/rural",
   "name": "apicurious.species.rural",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:wheaten"
+    "outputTable": "apicurious:rural"
   },
   "productionData": {
     "area": "apicurious:area/average",

@@ -5,8 +5,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 import java.util.function.BiFunction;

@@ -31,6 +31,8 @@ public class ApicuriousConstants
   public static final String MARSHY_WING = "ffdc16";
   public static final String ROCKY_OUTLINE = "a8a8a8";
   public static final String ROCKY_WING = "999999";
+  public static final String WATER_OUTLINE = "94a2ff";
+  public static final String WATER_WING = "ffdc16";
   public static final String NETHER_OUTLINE = "8c6969";
   public static final String NETHER_WING = "9a2323";
   public static final String ENDER_OUTLINE = "e079fa";
@@ -68,16 +70,42 @@ public class ApicuriousConstants
   public static final String RURAL_WING = "ffdc16";
   public static final String FARMED_OUTLINE = "D39728";
   public static final String FARMED_WING = "ffdc16";
+  public static final String AGRARIAN_OUTLINE = "FFCA75";
+  public static final String AGRARIAN_WING = "FFE047";
   // Wooden
-  private static final String WOODEN_OUTLINE = "968864";
-  private static final String WOODEN_WING = "ffdc16";
-  private static final String LUMBERED_OUTLINE = "9b8643";
-  private static final String LUMBERED_WING = "ffdc16";
-  private static final String TIMBERED_OUTLINE = "b98e52";
-  private static final String TIMBERED_WING = "ffdc16";
+  public static final String WOODEN_OUTLINE = "968864";
+  public static final String WOODEN_WING = "ffdc16";
+  public static final String LUMBERED_OUTLINE = "9b8643";
+  public static final String LUMBERED_WING = "ffdc16";
+  public static final String TIMBERED_OUTLINE = "b98e52";
+  public static final String TIMBERED_WING = "ffdc16";
   // Heroic
-  private static final String HEROIC_OUTLINE = "b3d5e4";
-  private static final String HEROIC_WING = "ffdc16";
+  public static final String HEROIC_OUTLINE = "b3d5e4";
+  public static final String HEROIC_WING = "ffdc16";
+  // Resilient
+  public static final String TOLERANT_OUTLINE = "757575";
+  public static final String TOLERANT_WING = "999999";
+  public static final String ROBUST_OUTLINE = "695555";
+  public static final String ROBUST_WING = "999999";
+  public static final String RESILIENT_OUTLINE = "6e757d";
+  public static final String RESILIENT_WING = "999999";
+  // Metallic
+  public static final String CUPRUM_OUTLINE = "d16308";
+  public static final String CUPRUM_WING = "999999";
+  public static final String FERRUS_OUTLINE = "a87058";
+  public static final String FERRUS_WING = "999999";
+  public static final String AURUM_OUTLINE = "e6cc0b";
+  public static final String AURUM_WING = "999999";
+  // Mineral
+  public static final String LAZULI_OUTLINE = "3d2cdb";
+  public static final String LAZULI_WING = "999999";
+  public static final String ENERGETIC_OUTLINE = "ff4545";
+  public static final String ENERGETIC_WING = "999999";
+  // Gemstone
+  public static final String DIAMANTINE_OUTLINE = "7fbdfa";
+  public static final String DIAMANTINE_WING = "999999";
+  public static final String EMERALDINE_OUTLINE = "1cff03";
+  public static final String EMERALDINE_WING = "999999";
 
   //// BeeColor(s)
   // Debug
@@ -90,31 +118,47 @@ public class ApicuriousConstants
   public static final BeeColor WINTRY = new BeeColor(WINTRY_OUTLINE, WINTRY_WING, WINTRY_BODY);
   public static final BeeColor MARSHY = new BeeColor(MARSHY_OUTLINE, MARSHY_WING, DEFAULT_BODY);
   public static final BeeColor ROCKY = new BeeColor(ROCKY_OUTLINE, ROCKY_WING, ROCKY_BODY);
+  public static final BeeColor WATER = new BeeColor(WATER_OUTLINE, WATER_WING, DEFAULT_BODY);
   public static final BeeColor NETHER = new BeeColor(NETHER_OUTLINE, NETHER_WING, NETHER_BODY);
   public static final BeeColor ENDER = new BeeColor(ENDER_OUTLINE, ENDER_WING, ENDER_BODY);
-  public static final BeeColor VALIANT = new BeeColor(VALIANT_OUTLINE, VALIANT_WING, VALIANT_WING);
-  public static final BeeColor STEADFAST = new BeeColor(STEADFAST_OUTLINE, STEADFAST_WING, STEADFAST_OUTLINE);
+  public static final BeeColor VALIANT = new BeeColor(VALIANT_OUTLINE, VALIANT_WING, DEFAULT_BODY);
+  public static final BeeColor STEADFAST = new BeeColor(STEADFAST_OUTLINE, STEADFAST_WING, DEFAULT_BODY);
   // Common
-  public static final BeeColor COMMON = new BeeColor(COMMON_OUTLINE, COMMON_WING, COMMON_WING);
-  public static final BeeColor CULTIVATED = new BeeColor(CULTIVATED_OUTLINE, CULTIVATED_WING, CULTIVATED_WING);
+  public static final BeeColor COMMON = new BeeColor(COMMON_OUTLINE, COMMON_WING, DEFAULT_BODY);
+  public static final BeeColor CULTIVATED = new BeeColor(CULTIVATED_OUTLINE, CULTIVATED_WING, DEFAULT_BODY);
   // Noble
-  public static final BeeColor NOBLE = new BeeColor(NOBLE_OUTLINE, NOBLE_WING, NOBLE_WING);
-  public static final BeeColor MAJESTIC = new BeeColor(MAJESTIC_OUTLINE, MAJESTIC_WING, MAJESTIC_WING);
-  public static final BeeColor IMPERIAL = new BeeColor(IMPERIAL_OUTLINE, IMPERIAL_WING, IMPERIAL_WING);
+  public static final BeeColor NOBLE = new BeeColor(NOBLE_OUTLINE, NOBLE_WING, DEFAULT_BODY);
+  public static final BeeColor MAJESTIC = new BeeColor(MAJESTIC_OUTLINE, MAJESTIC_WING, DEFAULT_BODY);
+  public static final BeeColor IMPERIAL = new BeeColor(IMPERIAL_OUTLINE, IMPERIAL_WING, DEFAULT_BODY);
   // Diligent
-  public static final BeeColor DILIGENT = new BeeColor(DILIGENT_OUTLINE, DILIGENT_WING, DILIGENT_WING);
-  public static final BeeColor UNWEARY = new BeeColor(UNWEARY_OUTLINE, UNWEARY_WING, UNWEARY_WING);
-  public static final BeeColor INDUSTRIOUS = new BeeColor(INDUSTRIOUS_OUTLINE, INDUSTIROUS_WING, INDUSTIROUS_WING);
+  public static final BeeColor DILIGENT = new BeeColor(DILIGENT_OUTLINE, DILIGENT_WING, DEFAULT_BODY);
+  public static final BeeColor UNWEARY = new BeeColor(UNWEARY_OUTLINE, UNWEARY_WING, DEFAULT_BODY);
+  public static final BeeColor INDUSTRIOUS = new BeeColor(INDUSTRIOUS_OUTLINE, INDUSTIROUS_WING, DEFAULT_BODY);
   // Festive
   public static final BeeColor LEPORINE = new BeeColor(LEPORINE_OUTLINE, LEPORINE_WING, LEPORINE_WING);
   public static final BeeColor MERRY = new BeeColor(MERRY_OUTLINE, MERRY_WING, MERRY_WING);
   // Agrarian
-  public static final BeeColor RURAL = new BeeColor(RURAL_OUTLINE, RURAL_WING, RURAL_WING);
-  public static final BeeColor FARMED = new BeeColor(FARMED_OUTLINE, FARMED_WING, FARMED_WING);
+  public static final BeeColor RURAL = new BeeColor(RURAL_OUTLINE, RURAL_WING, DEFAULT_BODY);
+  public static final BeeColor FARMED = new BeeColor(FARMED_OUTLINE, FARMED_WING, DEFAULT_BODY);
+  public static final BeeColor AGRARIAN = new BeeColor(AGRARIAN_OUTLINE, AGRARIAN_WING, AGRARIAN_WING);
   // Wooden
-  public static final BeeColor WOODEN = new BeeColor(WOODEN_OUTLINE, WOODEN_WING, WOODEN_WING);
-  public static final BeeColor LUMBERED = new BeeColor(LUMBERED_OUTLINE, LUMBERED_WING, LUMBERED_WING);
-  public static final BeeColor TIMBERED = new BeeColor(TIMBERED_OUTLINE, TIMBERED_WING, TIMBERED_WING);
+  public static final BeeColor WOODEN = new BeeColor(WOODEN_OUTLINE, WOODEN_WING, DEFAULT_BODY);
+  public static final BeeColor LUMBERED = new BeeColor(LUMBERED_OUTLINE, LUMBERED_WING, DEFAULT_BODY);
+  public static final BeeColor TIMBERED = new BeeColor(TIMBERED_OUTLINE, TIMBERED_WING, DEFAULT_BODY);
   // Heroic
-  public static final BeeColor HEROIC = new BeeColor(HEROIC_OUTLINE, HEROIC_WING, HEROIC_WING);
+  public static final BeeColor HEROIC = new BeeColor(HEROIC_OUTLINE, HEROIC_WING, DEFAULT_BODY);
+  // Resilient
+  public static final BeeColor TOLERANT = new BeeColor(TOLERANT_OUTLINE, TOLERANT_WING, ROCKY_BODY);
+  public static final BeeColor ROBUST = new BeeColor(ROBUST_OUTLINE, ROBUST_WING, ROCKY_BODY);
+  public static final BeeColor RESILIENT = new BeeColor(RESILIENT_OUTLINE, RESILIENT_WING, ROCKY_BODY);
+  // Metallic
+  public static final BeeColor CUPRUM = new BeeColor(CUPRUM_OUTLINE, CUPRUM_WING, ROCKY_BODY);
+  public static final BeeColor FERRUS = new BeeColor(FERRUS_OUTLINE, FERRUS_WING, ROCKY_BODY);
+  public static final BeeColor AURUM = new BeeColor(AURUM_OUTLINE, AURUM_WING, ROCKY_BODY);
+  // Mineral
+  public static final BeeColor LAZULI = new BeeColor(LAZULI_OUTLINE, LAZULI_WING, ROCKY_BODY);
+  public static final BeeColor ENERGETIC = new BeeColor(ENERGETIC_OUTLINE, ENERGETIC_WING, ROCKY_BODY);
+  // Gemstone
+  public static final BeeColor DIAMANTINE = new BeeColor(DIAMANTINE_OUTLINE, DIAMANTINE_WING, ROCKY_BODY);
+  public static final BeeColor EMERALDINE = new BeeColor(EMERALDINE_OUTLINE, EMERALDINE_WING, ROCKY_BODY);
 }

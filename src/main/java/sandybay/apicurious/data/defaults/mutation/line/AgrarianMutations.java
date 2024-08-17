@@ -24,12 +24,26 @@ public class AgrarianMutations
                     .withOutput(ApicuriousSpecies.RURAL.species())
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.FARMED.mutation(),
+    bootstrap.register(ApicuriousSpecies.FARMERLY.mutation(),
             mutation(bootstrap)
-                    .withFirst(ApicuriousSpecies.CULTIVATED.species())
-                    .withSecond(ApicuriousSpecies.RURAL.species())
+                    .withFirst(ApicuriousSpecies.RURAL.species())
+                    .withSecond(ApicuriousSpecies.UNWEARY.species())
                     .withChance(0.1f)
-                    .withOutput(ApicuriousSpecies.FARMED.species())
+                    .withCondition(
+                            new BiomeCondition(bootstrap.lookup(Registries.BIOME).getOrThrow(Tags.Biomes.IS_PLAINS))
+                    )
+                    .withOutput(ApicuriousSpecies.FARMERLY.species())
+                    .build()
+    );
+    bootstrap.register(ApicuriousSpecies.AGRARIAN.mutation(),
+            mutation(bootstrap)
+                    .withFirst(ApicuriousSpecies.FARMERLY.species())
+                    .withSecond(ApicuriousSpecies.INDUSTRIOUS.species())
+                    .withChance(0.06f)
+                    .withCondition(
+                            new BiomeCondition(bootstrap.lookup(Registries.BIOME).getOrThrow(Tags.Biomes.IS_PLAINS))
+                    )
+                    .withOutput(ApicuriousSpecies.AGRARIAN.species())
                     .build()
     );
 

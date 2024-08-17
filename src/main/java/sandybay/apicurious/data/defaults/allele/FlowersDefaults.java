@@ -19,6 +19,7 @@ public class FlowersDefaults
     bootstrap.register(Flowers.MUSHROOM, flowers(ApicuriousTags.BlockTags.MUSHROOM, true, "mushroom"));
     bootstrap.register(Flowers.SNOW, flowers(BlockTags.SNOW, true, "snow"));
     bootstrap.register(Flowers.WHEAT, flowers(ApicuriousTags.BlockTags.WHEAT, true, "wheat"));
+    bootstrap.register(Flowers.LILY_PAD, flowers(ApicuriousTags.BlockTags.LILY_PAD, true, "lily_pad"));
     bootstrap.register(Flowers.STONE, flowers(BlockTags.BASE_STONE_OVERWORLD, true, "overworld_stone"));
     bootstrap.register(Flowers.NETHER_STONE, flowers(BlockTags.BASE_STONE_NETHER, true, "nether_stone"));
     bootstrap.register(Flowers.END_STONE, flowers(Tags.Blocks.END_STONES, true, "end_stone"));

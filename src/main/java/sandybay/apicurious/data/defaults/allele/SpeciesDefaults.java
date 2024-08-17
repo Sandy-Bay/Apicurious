@@ -3,8 +3,6 @@ package sandybay.apicurious.data.defaults.allele;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
-import sandybay.apicurious.common.bee.genetic.allele.Workcycle;
-import sandybay.apicurious.common.bee.species.BeeColor;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.data.defaults.allele.line.*;
 
@@ -14,13 +12,17 @@ public class SpeciesDefaults
   {
     AgrarianSpecies.defaults(bootstrap);
     BaseSpecies.defaults(bootstrap);
-    CommonSpecies.defaults(bootstrap);
+    CultivatedSpecies.defaults(bootstrap);
     DebugSpecies.defaults(bootstrap);
-    DiligentSpecies.defaults(bootstrap);
     FestiveSpecies.defaults(bootstrap);
+    GemstoneSpecies.defaults(bootstrap);
     HeroicSpecies.defaults(bootstrap);
-    NobleSpecies.defaults(bootstrap);
-    WoodenSpecies.defaults(bootstrap);
+    ImperialSpecies.defaults(bootstrap);
+    IndustriousSpecies.defaults(bootstrap);
+    MetallicSpecies.defaults(bootstrap);
+    MineralSpecies.defaults(bootstrap);
+    ResilientSpecies.defaults(bootstrap);
+    TimberedSpecies.defaults(bootstrap);
   }
 
   public static BeeSpecies.Builder getSpeciesBuilder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)

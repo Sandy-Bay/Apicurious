@@ -6,7 +6,6 @@ import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableKeys;
 
 public class HeroicSpecies
 {
@@ -15,7 +14,7 @@ public class HeroicSpecies
     // TODO: Add Heroic effect
     bootstrap.register(ApicuriousSpecies.HEROIC.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.HEROIC.species(), "heroic")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.HEROIC))
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.HEROIC).hasEffect())
                     .withProductionData(builder ->
                     {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.LONG)
@@ -29,7 +28,7 @@ public class HeroicSpecies
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
                               .ignoresSky();
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.COCOA_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.HEROIC.output()))
                     .build()
     );
   }

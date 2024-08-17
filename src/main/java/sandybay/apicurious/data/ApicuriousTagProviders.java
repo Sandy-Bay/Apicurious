@@ -52,7 +52,8 @@ public class ApicuriousTagProviders
               BlockRegistrar.TROPICAL_HIVE.block().getKey(),
               BlockRegistrar.WINTRY_HIVE.block().getKey(),
               BlockRegistrar.MARSHY_HIVE.block().getKey(),
-              BlockRegistrar.ENDER_HIVE.block().getKey()
+              BlockRegistrar.ENDER_HIVE.block().getKey(),
+              BlockRegistrar.WATER_HIVE.block().getKey()
       );
       this.tag(ApicuriousTags.BlockTags.CACTUS).add(
               Blocks.CACTUS.builtInRegistryHolder().getKey()
@@ -70,6 +71,9 @@ public class ApicuriousTagProviders
       );
       this.tag(ApicuriousTags.BlockTags.WHEAT).add(
               Blocks.WHEAT.builtInRegistryHolder().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.LILY_PAD).add(
+              Blocks.LILY_PAD.builtInRegistryHolder().getKey()
       );
     }
   }

@@ -7,14 +7,13 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.Area;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableKeys;
 
 public class DebugSpecies
 {
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.EMPTY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.EMPTY.species(), "undefined")
-            .withOutputData(builder -> builder.withTable(OutputTableKeys.STANDARD_OUTPUT))
+            .withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output()))
             .build()
     );
     bootstrap.register(ApicuriousSpecies.DEBUG.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DEBUG.species(), "debug")

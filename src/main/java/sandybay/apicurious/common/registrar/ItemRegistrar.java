@@ -42,6 +42,13 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
   public static final DeferredHolder<Item, Item> SEEDY_COMB = comb("seedy");
   public static final DeferredHolder<Item, Item> DUSTY_COMB = comb("dusty");
+  public static final DeferredHolder<Item, Item> DIAMOND_COMB = comb("diamond");
+  public static final DeferredHolder<Item, Item> EMERALD_COMB = comb("emerald");
+  public static final DeferredHolder<Item, Item> COPPER_COMB = comb("copper");
+  public static final DeferredHolder<Item, Item> IRON_COMB = comb("iron");
+  public static final DeferredHolder<Item, Item> GOLD_COMB = comb("gold");
+  public static final DeferredHolder<Item, Item> LAPIS_COMB = comb("lapis");
+  public static final DeferredHolder<Item, Item> DAMP_COMB = comb("damp");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = item("beeswax");

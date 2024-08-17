@@ -6,7 +6,6 @@ import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableKeys;
 
 public class FestiveSpecies
 {
@@ -27,7 +26,7 @@ public class FestiveSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.LEPORINE_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.LEPORINE.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MERRY.species(),
@@ -45,7 +44,7 @@ public class FestiveSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.ICY).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.MERRY_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MERRY.output()))
                     .build()
     );
   }

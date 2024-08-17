@@ -26,12 +26,10 @@ import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
-import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
-import sandybay.apicurious.common.network.PacketHandler;
-import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.LimitedFilter;
+import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
@@ -39,6 +37,8 @@ import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
+import sandybay.apicurious.common.network.PacketHandler;
+import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 import java.util.ArrayList;
@@ -58,8 +58,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
-  public int outputTimer;
-  public boolean shouldRenderParticles;
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -86,6 +84,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       return 3;
     }
   };
+  public int outputTimer;
+  public boolean shouldRenderParticles;
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -279,11 +279,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistrar.GENOME);
     if (genome == null) return 0;
-    if (false && outputTimer == -1) // TODO: Figure out how we want to balance the output so it becomes less frequent.
-    {
-      BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
-      this.outputTimer = species.getOutputData().duration();
-    }
     Speed speed = (Speed) genome.getSpeed(true).value();
     int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
@@ -377,7 +372,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   private void handlePollination(Level level, BaseHousingBlock housing, ItemStack stack)
   {
-    if (territory == null) territory = housing.getTerritory(getInventory().getStackInSlot(0), getBlockPos(), SimpleBlockHousingHelper.getFrames(this));
+    if (territory == null)
+      territory = housing.getTerritory(getInventory().getStackInSlot(0), getBlockPos(), SimpleBlockHousingHelper.getFrames(this));
     if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getPollinationRate() == 0 && housing.shouldPollinate(level.getRandom(), stack))
     {
       Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->

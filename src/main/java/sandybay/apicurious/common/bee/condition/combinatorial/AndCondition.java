@@ -9,9 +9,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 public record AndCondition(Holder<ICondition> first, Holder<ICondition> second) implements ICondition
 {

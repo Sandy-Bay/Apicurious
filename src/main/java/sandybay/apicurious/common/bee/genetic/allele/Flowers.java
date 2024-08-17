@@ -28,6 +28,7 @@ public class Flowers implements IAllele<Flowers>
   public static final ResourceKey<IAllele<?>> SNOW = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/snow"));
   public static final ResourceKey<IAllele<?>> MUSHROOM = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/mushroom"));
   public static final ResourceKey<IAllele<?>> WHEAT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/wheat"));
+  public static final ResourceKey<IAllele<?>> LILY_PAD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/lily_pad"));
   public static final ResourceKey<IAllele<?>> STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/overworld_stone"));
   public static final ResourceKey<IAllele<?>> NETHER_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/nether_stone"));
   public static final ResourceKey<IAllele<?>> END_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/end_stone"));

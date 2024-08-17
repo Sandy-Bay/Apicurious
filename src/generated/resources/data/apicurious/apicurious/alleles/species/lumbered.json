@@ -16,8 +16,7 @@
   "key": "apicurious:species/lumbered",
   "name": "apicurious.species.lumbered",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:dusty"
+    "outputTable": "apicurious:lumbered"
   },
   "productionData": {
     "area": "apicurious:area/average",

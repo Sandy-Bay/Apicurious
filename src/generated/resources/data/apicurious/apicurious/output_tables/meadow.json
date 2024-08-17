@@ -1,0 +1,28 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "chance": 0.3,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "minecraft:honeycomb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

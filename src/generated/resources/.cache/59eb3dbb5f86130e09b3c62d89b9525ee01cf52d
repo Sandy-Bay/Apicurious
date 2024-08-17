@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-16T12:57:34.6401576	Loot Tables
+// 1.21.1	2024-08-17T14:10:43.0761936	Loot Tables
 c4d2672f3fbe4dae70a3f406a63eb832e47077b8 data/apicurious/loot_table/blocks/ender_hive.json
 6a866ab4709b0c03ed23f6aeac06c34e9c800fa5 data/apicurious/loot_table/blocks/forest_hive.json
 68429f6360196359a152ac8582c17342003ecabf data/apicurious/loot_table/blocks/marshy_hive.json
@@ -7,4 +7,5 @@ bf08360bf79780f42b2f32571db7703e39f991de data/apicurious/loot_table/blocks/modes
 302a4edc9d1ee76fa3e92736c89941795cbf716a data/apicurious/loot_table/blocks/nether_hive.json
 c98db42aae0e910a1e71e99f6e1d5a2cf8ecd304 data/apicurious/loot_table/blocks/rocky_hive.json
 dccacd896559391478335beac130e28c73d408a0 data/apicurious/loot_table/blocks/tropical_hive.json
+47bf9febe8cd26593a4613af0123fb0d3ed8d034 data/apicurious/loot_table/blocks/water_hive.json
 d75c1af87e0b1cf8fb04d77d75ba4955826181ce data/apicurious/loot_table/blocks/wintry_hive.json

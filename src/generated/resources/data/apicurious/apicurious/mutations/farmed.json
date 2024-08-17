@@ -1,7 +1,13 @@
 {
-  "type": "apicurious:mutation",
+  "type": "apicurious:conditional",
   "chance": 0.1,
-  "first": "apicurious:species/cultivated",
+  "conditions": [
+    {
+      "biomes": "#c:is_plains",
+      "condition": "apicurious:is_correct_biome"
+    }
+  ],
+  "first": "apicurious:species/rural",
   "output": "apicurious:species/farmed",
-  "second": "apicurious:species/rural"
+  "second": "apicurious:species/unweary"
 }

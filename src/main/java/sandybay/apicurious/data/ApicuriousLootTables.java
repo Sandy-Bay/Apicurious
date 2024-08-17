@@ -115,6 +115,7 @@ public class ApicuriousLootTables extends LootTableProvider
       this.add(BlockRegistrar.ROCKY_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ROCKY.species()));
       this.add(BlockRegistrar.NETHER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.NETHER.species()));
       this.add(BlockRegistrar.ENDER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ENDER.species()));
+      this.add(BlockRegistrar.WATER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.WATER.species()));
     }
 
     @Override

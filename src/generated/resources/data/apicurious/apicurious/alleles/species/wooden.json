@@ -16,8 +16,7 @@
   "key": "apicurious:species/wooden",
   "name": "apicurious.species.wooden",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:dusty"
+    "outputTable": "apicurious:wooden"
   },
   "productionData": {
     "area": "apicurious:area/average",

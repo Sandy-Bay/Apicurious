@@ -16,7 +16,6 @@
   "key": "apicurious:species/debug",
   "name": "apicurious.species.debug",
   "outputData": {
-    "duration": 550,
     "outputTable": {
       "pools": [
         {

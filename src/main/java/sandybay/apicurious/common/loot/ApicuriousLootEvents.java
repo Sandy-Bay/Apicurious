@@ -26,20 +26,24 @@ public class ApicuriousLootEvents
 
   /**
    * Injects an entry into a loot pool
-   * @param event      Loot table event
-   * @param poolName   Pool name
-   * @param entries    Entry to inject
+   *
+   * @param event    Loot table event
+   * @param poolName Pool name
+   * @param entries  Entry to inject
    */
-  private static void injectInto(LootTableLoadEvent event, String poolName, LootPoolEntryContainer... entries) {
+  private static void injectInto(LootTableLoadEvent event, String poolName, LootPoolEntryContainer... entries)
+  {
     LootPool pool = event.getTable().getPool(poolName);
-    if (pool != null) {
+    if (pool != null)
+    {
       List<LootPoolEntryContainer> mut = new ArrayList<>(pool.entries);
       mut.addAll(Arrays.asList(entries));
       pool.entries = mut;
     }
   }
 
-  private static LootPoolEntryContainer addBee(Holder<Item> bee, ResourceKey<IAllele<?>> species, int weight) {
+  private static LootPoolEntryContainer addBee(Holder<Item> bee, ResourceKey<IAllele<?>> species, int weight)
+  {
     return LootItem.lootTableItem(bee.value())
             .setWeight(weight)
             .apply(ApicuriousSpeciesFunction.getBuilder(species))

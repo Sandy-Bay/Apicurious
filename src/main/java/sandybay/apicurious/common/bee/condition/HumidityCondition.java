@@ -12,8 +12,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 public record HumidityCondition(HolderSet<Biome> humidity) implements ICondition
 {

@@ -16,7 +16,6 @@
   "key": "apicurious:species/merry",
   "name": "apicurious.species.merry",
   "outputData": {
-    "duration": 550,
     "outputTable": "apicurious:merry"
   },
   "productionData": {

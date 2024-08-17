@@ -16,8 +16,7 @@
   "key": "apicurious:species/noble",
   "name": "apicurious.species.noble",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:dripping"
+    "outputTable": "apicurious:noble"
   },
   "productionData": {
     "area": "apicurious:area/average",

@@ -15,11 +15,11 @@ public class MenuRegistrar
 {
   private static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, Apicurious.MODID);
 
-  public static final Supplier<MenuType<ApiaryMenu>> APIARY = MENU_TYPES.register("apiary", () -> IMenuTypeExtension.create(ApiaryMenu::new));
-  public static final Supplier<MenuType<BeeHousingMenu>> BEE_HOUSING = MENU_TYPES.register("bee_housing", () -> IMenuTypeExtension.create(BeeHousingMenu::new));
-
   public static void register(IEventBus bus)
   {
     MENU_TYPES.register(bus);
-  }
+  }  public static final Supplier<MenuType<ApiaryMenu>> APIARY = MENU_TYPES.register("apiary", () -> IMenuTypeExtension.create(ApiaryMenu::new));
+  public static final Supplier<MenuType<BeeHousingMenu>> BEE_HOUSING = MENU_TYPES.register("bee_housing", () -> IMenuTypeExtension.create(BeeHousingMenu::new));
+
+
 }

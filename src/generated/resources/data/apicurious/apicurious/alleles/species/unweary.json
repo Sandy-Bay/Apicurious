@@ -16,8 +16,7 @@
   "key": "apicurious:species/unweary",
   "name": "apicurious.species.unweary",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:stringy"
+    "outputTable": "apicurious:unweary"
   },
   "productionData": {
     "area": "apicurious:area/average",

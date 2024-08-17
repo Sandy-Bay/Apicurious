@@ -16,8 +16,7 @@
   "key": "apicurious:species/majestic",
   "name": "apicurious.species.majestic",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:dripping"
+    "outputTable": "apicurious:majestic"
   },
   "productionData": {
     "area": "apicurious:area/average",

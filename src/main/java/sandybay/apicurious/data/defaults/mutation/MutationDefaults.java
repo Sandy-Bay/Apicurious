@@ -25,12 +25,16 @@ public class MutationDefaults
   public static void registerDefaults(BootstrapContext<IMutation> bootstrap)
   {
     AgrarianMutations.defaults(bootstrap);
-    CommonMutations.defaults(bootstrap);
-    DiligentMutations.defaults(bootstrap);
+    CultivatedMutations.defaults(bootstrap);
     FestiveMutations.defaults(bootstrap);
+    GemstoneMutations.defaults(bootstrap);
     HeroicMutations.defaults(bootstrap);
-    NobleMutations.defaults(bootstrap);
-    WoodenMutations.defaults(bootstrap);
+    ImperialMutations.defaults(bootstrap);
+    IndustriousMutations.defaults(bootstrap);
+    MetallicMutations.defaults(bootstrap);
+    MineralMutations.defaults(bootstrap);
+    ResilientMutations.defaults(bootstrap);
+    TimberedMutations.defaults(bootstrap);
   }
 
   public static Builder mutation(BootstrapContext<IMutation> bootstrap)

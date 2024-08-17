@@ -16,8 +16,7 @@
   "key": "apicurious:species/heroic",
   "name": "apicurious.species.heroic",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:cocoa"
+    "outputTable": "apicurious:heroic"
   },
   "productionData": {
     "area": "apicurious:area/average",
@@ -33,6 +32,7 @@
       "outlineTint": "b3d5e4",
       "wingTint": "ffdc16"
     },
-    "hasCustomRender": false
+    "hasCustomRender": false,
+    "hasEffect": true
   }
 }

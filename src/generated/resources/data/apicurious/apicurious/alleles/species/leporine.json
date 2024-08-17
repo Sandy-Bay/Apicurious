@@ -16,7 +16,6 @@
   "key": "apicurious:species/leporine",
   "name": "apicurious.species.leporine",
   "outputData": {
-    "duration": 550,
     "outputTable": "apicurious:leporine"
   },
   "productionData": {

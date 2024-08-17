@@ -1,7 +1,12 @@
 {
   "pools": [
     {
-      "conditions": [],
+      "conditions": [
+        {
+          "chance": 0.3,
+          "condition": "apicurious:chance"
+        }
+      ],
       "entries": [
         {
           "conditions": [],
@@ -20,15 +25,15 @@
       "rolls": 1
     },
     {
-      "conditions": [],
+      "conditions": [
+        {
+          "chance": 0.1,
+          "condition": "apicurious:chance"
+        }
+      ],
       "entries": [
         {
-          "conditions": [
-            {
-              "chance": 0.33,
-              "condition": "apicurious:chance"
-            }
-          ],
+          "conditions": [],
           "functions": [],
           "outputs": [
             {

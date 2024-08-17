@@ -88,7 +88,8 @@ public class CreativeTabRegistrar
             BlockRegistrar.MARSHY_HIVE.asItemStack(),
             BlockRegistrar.ROCKY_HIVE.asItemStack(),
             BlockRegistrar.NETHER_HIVE.asItemStack(),
-            BlockRegistrar.ENDER_HIVE.asItemStack()
+            BlockRegistrar.ENDER_HIVE.asItemStack(),
+            BlockRegistrar.WATER_HIVE.asItemStack()
     ));
   }
 

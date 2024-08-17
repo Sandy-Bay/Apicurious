@@ -43,6 +43,7 @@ public class BlockRegistrar
   public static final BlockItemHolder<HiveBlock, BlockItem> ROCKY_HIVE = registerBlock("rocky_hive", () -> new HiveBlock(ApicuriousSpecies.ROCKY.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
   public static final BlockItemHolder<HiveBlock, BlockItem> NETHER_HIVE = registerBlock("nether_hive", () -> new HiveBlock(ApicuriousSpecies.NETHER.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
   public static final BlockItemHolder<HiveBlock, BlockItem> ENDER_HIVE = registerBlock("ender_hive", () -> new HiveBlock(ApicuriousSpecies.ENDER.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
+  public static final BlockItemHolder<HiveBlock, BlockItem> WATER_HIVE = registerBlock("water_hive", () -> new HiveBlock(ApicuriousSpecies.WATER.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
   private static final Item.Properties DEFAULT_ITEM_BLOCK_PROPERTIES = new Item.Properties();
 
   public static void register(IEventBus bus)

@@ -70,7 +70,8 @@ public class ApicuriousClientEvents
             BlockRegistrar.MARSHY_HIVE.asBlock(),
             BlockRegistrar.ROCKY_HIVE.asBlock(),
             BlockRegistrar.NETHER_HIVE.asBlock(),
-            BlockRegistrar.ENDER_HIVE.asBlock()
+            BlockRegistrar.ENDER_HIVE.asBlock(),
+            BlockRegistrar.WATER_HIVE.asBlock()
     );
   }
 
@@ -92,7 +93,8 @@ public class ApicuriousClientEvents
             BlockRegistrar.MARSHY_HIVE.asItem(),
             BlockRegistrar.ROCKY_HIVE.asItem(),
             BlockRegistrar.NETHER_HIVE.asItem(),
-            BlockRegistrar.ENDER_HIVE.asItem()
+            BlockRegistrar.ENDER_HIVE.asItem(),
+            BlockRegistrar.WATER_HIVE.asItem()
     );
   }
 

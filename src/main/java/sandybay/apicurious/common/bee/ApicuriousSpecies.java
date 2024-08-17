@@ -4,11 +4,8 @@ import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
+import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.species.BeeColor;
-import sandybay.apicurious.data.ApicuriousLangProvider;
-
-import java.security.Key;
 
 public class ApicuriousSpecies
 {
@@ -24,6 +21,7 @@ public class ApicuriousSpecies
   public static final KeyHolder WINTRY = species("wintry");
   public static final KeyHolder MARSHY = species("marshy");
   public static final KeyHolder ROCKY = species("rocky");
+  public static final KeyHolder WATER = species("water");
   public static final KeyHolder NETHER = species("nether");
   public static final KeyHolder ENDER = species("ender");
   public static final KeyHolder VALIANT = species("valiant");
@@ -43,7 +41,8 @@ public class ApicuriousSpecies
   public static final KeyHolder INDUSTRIOUS = species("industrious");
   // Agrarian
   public static final KeyHolder RURAL = species("rural");
-  public static final KeyHolder FARMED = species("farmed");
+  public static final KeyHolder FARMERLY = species("farmed");
+  public static final KeyHolder AGRARIAN = species("agrarian");
   // Festive
   public static final KeyHolder LEPORINE = species("leporine");
   public static final KeyHolder MERRY = species("merry");
@@ -53,14 +52,32 @@ public class ApicuriousSpecies
   public static final KeyHolder TIMBERED = species("timbered");
   // Heroic
   public static final KeyHolder HEROIC = species("heroic");
+  // Resilient
+  public static final KeyHolder TOLERANT = species("tolerant");
+  public static final KeyHolder ROBUST = species("robust");
+  public static final KeyHolder RESILIENT = species("resilient");
+  // Metallic
+  public static final KeyHolder CUPRUM = species("cuprum");
+  public static final KeyHolder FERRUS = species("ferrus");
+  public static final KeyHolder AURUM = species("aurum");
+  // Mineral
+  public static final KeyHolder LAZULI = species("lazuli");
+  public static final KeyHolder ENERGETIC = species("energetic");
+  // Gemstone
+  public static final KeyHolder DIAMANTINE = species("diamantine");
+  public static final KeyHolder EMERALDINE = species("emeraldine");
 
   private static KeyHolder species(String name)
   {
     return new KeyHolder(
             ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("species/" + name)),
-            ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation(name))
+            ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation(name)),
+            ResourceKey.create(ApicuriousRegistries.OUTPUT_TABLES, Apicurious.createResourceLocation(name))
     );
   }
 
-  public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation) { }
+  public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation,
+                          ResourceKey<OutputTable> output)
+  {
+  }
 }

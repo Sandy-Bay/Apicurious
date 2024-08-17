@@ -16,7 +16,6 @@
   "key": "apicurious:species/valiant",
   "name": "apicurious.species.valiant",
   "outputData": {
-    "duration": 550,
     "outputTable": "apicurious:valiant"
   },
   "productionData": {

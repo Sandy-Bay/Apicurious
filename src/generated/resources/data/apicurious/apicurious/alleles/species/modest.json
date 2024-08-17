@@ -16,7 +16,6 @@
   "key": "apicurious:species/modest",
   "name": "apicurious.species.modest",
   "outputData": {
-    "duration": 550,
     "outputTable": "apicurious:modest"
   },
   "productionData": {

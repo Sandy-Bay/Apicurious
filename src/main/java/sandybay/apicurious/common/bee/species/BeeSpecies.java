@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.bee.IBeeSpecies;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
-import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
@@ -37,7 +36,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
                   ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
                   EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData),
                   OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData)
-                  //Codec.list(MobEffectInstance.CODEC).fieldOf("effects").forGetter(BeeSpecies::getEffects)
           ).apply(instance, BeeSpecies::new)
   );
 
@@ -48,7 +46,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
           ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
           EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
           OutputData.NETWORK_CODEC, BeeSpecies::getOutputData,
-          //ByteBufCodecs.collection(ArrayList::new, MobEffectInstance.STREAM_CODEC), BeeSpecies::getEffects,
           BeeSpecies::new
   );
 
@@ -59,7 +56,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   private final EnvironmentalData environmentalData;
   private final OutputData outputs;
   private Component readableName;
-  //private final List<MobEffectInstance> effects;
 
   public BeeSpecies(ResourceKey<IAllele<?>> key, String name,
                     VisualData visualData,
@@ -73,7 +69,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
     this.productionData = productionData;
     this.environmentalData = environmentalData;
     this.outputs = outputs;
-    //this.effects = effects;
   }
 
   @Override

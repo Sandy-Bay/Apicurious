@@ -16,8 +16,7 @@
   "key": "apicurious:species/steadfast",
   "name": "apicurious.species.steadfast",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:cocoa"
+    "outputTable": "apicurious:steadfast"
   },
   "productionData": {
     "area": "apicurious:area/average",
@@ -29,10 +28,11 @@
   },
   "visualData": {
     "beeColor": {
-      "bodyTint": "4d2b15",
+      "bodyTint": "ffdc16",
       "outlineTint": "4d2b15",
       "wingTint": "ffdc16"
     },
-    "hasCustomRender": false
+    "hasCustomRender": false,
+    "hasEffect": true
   }
 }

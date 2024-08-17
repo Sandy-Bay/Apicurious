@@ -6,11 +6,12 @@ public class ChanceHelper
    * Calculate the chance as a value between 0.0 and 1.0 such that the output occurs
    * approximately once every N minutes.
    *
-   * @param timeInMinutes    Desired time interval in minutes for one output.
-   * @param timePerAttempt   Time per attempt in seconds (default is 27.5 seconds).
+   * @param timeInMinutes  Desired time interval in minutes for one output.
+   * @param timePerAttempt Time per attempt in seconds (default is 27.5 seconds).
    * @return The probability (as a float) that an attempt results in an output.
    */
-  public static float calculateChance(double timeInMinutes, double timePerAttempt) {
+  public static float calculateChance(double timeInMinutes, double timePerAttempt)
+  {
     // Convert timeInMinutes to seconds
     double totalTimeInSeconds = timeInMinutes * 60;
 

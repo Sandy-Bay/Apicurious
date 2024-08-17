@@ -14,13 +14,14 @@ import sandybay.apicurious.api.util.ClimateHelper;
 public class BeeAnalyzerItem extends Item
 {
   private ClimateHelper helper;
-  private ConfigurableItemStackHandler inventory;
+  private final ConfigurableItemStackHandler inventory;
 
   public BeeAnalyzerItem(Properties pProperties)
   {
     super(pProperties);
     this.inventory = new ConfigurableItemStackHandler(2)
-            .setInputFilter((stack, slot) -> {
+            .setInputFilter((stack, slot) ->
+            {
               if (slot == 0 && stack.getItem() instanceof BeeItem) return true;
               return slot == 1 && stack.is(ApicuriousTags.ItemTags.DROP_HONEY);
             })

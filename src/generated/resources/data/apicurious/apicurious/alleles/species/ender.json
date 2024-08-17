@@ -16,8 +16,7 @@
   "key": "apicurious:species/ender",
   "name": "apicurious.species.ender",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:mysterious"
+    "outputTable": "apicurious:ender"
   },
   "productionData": {
     "area": "apicurious:area/large",

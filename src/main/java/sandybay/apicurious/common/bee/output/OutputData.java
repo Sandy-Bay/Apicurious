@@ -5,11 +5,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -18,15 +16,13 @@ import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import java.util.List;
 import java.util.function.Consumer;
 
-public record OutputData(int duration, Holder<OutputTable> outputTable)
+public record OutputData(Holder<OutputTable> outputTable)
 {
   public static Codec<OutputData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-          Codec.INT.fieldOf("duration").forGetter(OutputData::duration),
           OutputTable.CODEC.fieldOf("outputTable").forGetter(OutputData::outputTable)
   ).apply(instance, OutputData::new));
 
   public static StreamCodec<RegistryFriendlyByteBuf, OutputData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, OutputData::duration,
           OutputTable.NETWORK_CODEC, OutputData::outputTable,
           OutputData::new
   );
@@ -39,7 +35,6 @@ public record OutputData(int duration, Holder<OutputTable> outputTable)
   public static class Builder
   {
     private final BootstrapContext<IAllele<?>> context;
-    private int duration = 550;
     private Holder<OutputTable> table = Holder.direct(OutputTable.EMPTY);
 
     public Builder(BootstrapContext<IAllele<?>> context)
@@ -50,11 +45,6 @@ public record OutputData(int duration, Holder<OutputTable> outputTable)
     public static OutputData.Builder create(BootstrapContext<IAllele<?>> context)
     {
       return new OutputData.Builder(context);
-    }
-
-    public OutputData.Builder withDuration(int duration) {
-      this.duration = duration;
-      return this;
     }
 
     public OutputData.Builder withTable(ResourceKey<OutputTable> table)
@@ -73,7 +63,7 @@ public record OutputData(int duration, Holder<OutputTable> outputTable)
 
     public OutputData build()
     {
-      return new OutputData(duration, table);
+      return new OutputData(table);
     }
   }
 }

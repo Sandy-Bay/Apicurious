@@ -16,8 +16,7 @@
   "key": "apicurious:species/diligent",
   "name": "apicurious.species.diligent",
   "outputData": {
-    "duration": 550,
-    "outputTable": "apicurious:stringy"
+    "outputTable": "apicurious:diligent"
   },
   "productionData": {
     "area": "apicurious:area/average",

@@ -13,9 +13,9 @@ import net.minecraft.world.level.block.Block;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
+import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
 
 public record BlockInAreaCondition(HolderSet<Block> blocks) implements ICondition
 {
@@ -41,7 +41,8 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   {
     Level level = housing.getLevel();
     if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block)) return false;
-    if (housing.territory == null) housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
+    if (housing.territory == null)
+      housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
     return housing.territory.stream().anyMatch(pos -> blocks.contains(level.getBlockState(pos).getBlockHolder()));
   }
 }

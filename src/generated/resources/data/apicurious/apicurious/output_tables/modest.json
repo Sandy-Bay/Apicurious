@@ -1,7 +1,12 @@
 {
   "pools": [
     {
-      "conditions": [],
+      "conditions": [
+        {
+          "chance": 0.2,
+          "condition": "apicurious:chance"
+        }
+      ],
       "entries": [
         {
           "conditions": [],

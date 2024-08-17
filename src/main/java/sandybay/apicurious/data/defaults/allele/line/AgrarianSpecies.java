@@ -6,7 +6,6 @@ import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableKeys;
 
 public class AgrarianSpecies
 {
@@ -27,11 +26,11 @@ public class AgrarianSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.WHEATEN_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.RURAL.output()))
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.FARMED.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FARMED.species(), "farmed")
+    bootstrap.register(ApicuriousSpecies.FARMERLY.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FARMERLY.species(), "farmed")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FARMED))
                     .withProductionData(builder ->
                     {
@@ -45,7 +44,25 @@ public class AgrarianSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(OutputTableKeys.FARMED_OUTPUT))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FARMERLY.output()))
+                    .build()
+    );
+    bootstrap.register(ApicuriousSpecies.AGRARIAN.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.AGRARIAN.species(), "agrarian")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.AGRARIAN).hasEffect())
+                    .withProductionData(builder ->
+                    {
+                      builder.withArea(Area.LARGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
+                              .withPollinationRate(Pollination.FASTER).withProductionSpeed(Speed.SLOW)
+                              .withWorkCycle(Workcycle.DIURNAL);
+                    })
+                    .withEnvironmentalData(builder ->
+                    {
+                      builder.withFlowers(Flowers.WHEAT)
+                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
+                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
+                    })
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.AGRARIAN.output()))
                     .build()
     );
   }

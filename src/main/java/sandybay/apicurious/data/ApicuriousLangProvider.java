@@ -84,6 +84,7 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(BlockRegistrar.ROCKY_HIVE.asItem(), "Rocky Hive");
     add(BlockRegistrar.NETHER_HIVE.asItem(), "Nether Hive");
     add(BlockRegistrar.ENDER_HIVE.asItem(), "Ender Hive");
+    add(BlockRegistrar.WATER_HIVE.asItem(), "Water Hive");
   }
 
   public void addTabs()
@@ -210,8 +211,11 @@ public class ApicuriousLangProvider extends LanguageProvider
     species("Wintry");
     species("Marshy");
     species("Rocky");
+    species("Water");
     species("Nether");
     species("Ender");
+    species("Valiant");
+    species("Steadfast");
     // Common
     species("Common");
     species("Cultivated");
@@ -223,12 +227,32 @@ public class ApicuriousLangProvider extends LanguageProvider
     species("Diligent");
     species("Unweary");
     species("Industrious");
-    // Festive
-    species("Leporine");
-    species("Merry");
     // Agrarian
     species("Rural");
     species("Farmed");
+    species("Agrarian");
+    // Festive
+    species("Leporine");
+    species("Merry");
+    // Wooden
+    species("Wooden");
+    species("Lumbered");
+    species("Timbered");
+    // Heroic
+    species("Heroic");
+    // Resilient
+    species("Tolerant");
+    species("Robust");
+    species("Resilient");
+    // Metallic
+    species("Cuprum");
+    species("Ferrus");
+    species("Aurum");
+    // Mineral
+    species("Lazuli");
+    // Gemstone
+    species("Diamantine");
+    species("Emeraldine");
   }
 
   public void addErrors()
