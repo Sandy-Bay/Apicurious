@@ -299,6 +299,14 @@ public class ApicuriousLangProvider extends LanguageProvider
     comb(ItemRegistrar.WHEATEN_COMB, "Wheaten");
     comb(ItemRegistrar.ROCKY_COMB, "Rocky");
     comb(ItemRegistrar.SEEDY_COMB, "Seedy");
+    comb(ItemRegistrar.DUSTY_COMB, "Dusty");
+    comb(ItemRegistrar.DIAMOND_COMB, "Diamantine");
+    comb(ItemRegistrar.EMERALD_COMB, "Emeraldine");
+    comb(ItemRegistrar.COPPER_COMB, "Copper");
+    comb(ItemRegistrar.IRON_COMB, "Iron");
+    comb(ItemRegistrar.GOLD_COMB, "Golden");
+    comb(ItemRegistrar.LAPIS_COMB, "Lazulite");
+    comb(ItemRegistrar.DAMP_COMB, "Damp");
   }
 
   public void comb(Holder<Item> item, String name)

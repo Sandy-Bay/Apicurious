@@ -32,10 +32,7 @@ public class CreativeTabRegistrar
           .displayItems((parameters, output) ->
           {
             output.accept(new ItemStack(ItemRegistrar.SIEVE.get()));
-            output.acceptAll(List.of(
-                    BlockRegistrar.APIARY.asItemStack(),
-                    BlockRegistrar.BEE_HOUSING.asItemStack()
-            ));
+            registerHousings(output);
             registerFrames(output);
             registerHives(output);
             registerCombs(output);
@@ -47,6 +44,14 @@ public class CreativeTabRegistrar
           .withTabsBefore(CreativeTabRegistrar.GENERAL_TAB.getKey())
           .icon(() -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN))
           .displayItems((parameters, output) -> registerBees(output)).build());
+
+  private static void registerHousings(CreativeModeTab.Output output)
+  {
+    output.acceptAll(List.of(
+            BlockRegistrar.APIARY.asItemStack(),
+            BlockRegistrar.BEE_HOUSING.asItemStack()
+    ));
+  }
 
   public static void registerBees(CreativeModeTab.Output output)
   {
@@ -61,8 +66,9 @@ public class CreativeTabRegistrar
           {
             if (rl.getPath().equals("undefined")) continue;
             List<ItemStack> bees = List.of(
-                    new ItemStack(ItemRegistrar.DRONE),
-                    new ItemStack(ItemRegistrar.PRINCESS)
+                    new ItemStack(ItemRegistrar.QUEEN),
+                    new ItemStack(ItemRegistrar.PRINCESS),
+                    new ItemStack(ItemRegistrar.DRONE)
             );
             BeeSpecies species = (BeeSpecies) registry.get(rl);
             bees.forEach(stack ->
@@ -95,22 +101,7 @@ public class CreativeTabRegistrar
 
   private static void registerCombs(CreativeModeTab.Output output)
   {
-    output.acceptAll(List.of(
-            new ItemStack(ItemRegistrar.COCOA_COMB),
-            new ItemStack(ItemRegistrar.DRIPPING_COMB),
-            new ItemStack(ItemRegistrar.FROZEN_COMB),
-            new ItemStack(ItemRegistrar.MELLOW_COMB),
-            new ItemStack(ItemRegistrar.MOSSY_COMB),
-            new ItemStack(ItemRegistrar.MYSTERIOUS_COMB),
-            new ItemStack(ItemRegistrar.PARCHED_COMB),
-            new ItemStack(ItemRegistrar.POWDERY_COMB),
-            new ItemStack(ItemRegistrar.SILKY_COMB),
-            new ItemStack(ItemRegistrar.SIMMERING_COMB),
-            new ItemStack(ItemRegistrar.STRINGY_COMB),
-            new ItemStack(ItemRegistrar.WHEATEN_COMB),
-            new ItemStack(ItemRegistrar.ROCKY_COMB),
-            new ItemStack(ItemRegistrar.SEEDY_COMB)
-    ));
+    ItemRegistrar.COMBS.forEach(comb -> output.accept(comb.get()));
   }
 
   private static void registerProducts(CreativeModeTab.Output output)
@@ -131,14 +122,7 @@ public class CreativeTabRegistrar
 
   private static void registerFrames(CreativeModeTab.Output output)
   {
-    output.acceptAll(List.of(
-            new ItemStack(ItemRegistrar.UNTREATED_FRAME),
-            new ItemStack(ItemRegistrar.IMPREGNATED_FRAME),
-            new ItemStack(ItemRegistrar.HEALING_FRAME),
-            new ItemStack(ItemRegistrar.SOUL_FRAME),
-            new ItemStack(ItemRegistrar.RESTRAINT_FRAME),
-            new ItemStack(ItemRegistrar.PROVEN_FRAME)
-    ));
+    ItemRegistrar.FRAMES.forEach(frame -> output.accept(frame.get()));
   }
 
   public static void register(IEventBus bus)

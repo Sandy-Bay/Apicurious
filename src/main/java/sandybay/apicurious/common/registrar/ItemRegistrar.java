@@ -14,10 +14,14 @@ import sandybay.apicurious.common.item.SieveItem;
 import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.frame.RestraintFrame;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public class ItemRegistrar
 {
+  public static final List<DeferredHolder<Item, Item>> COMBS = new ArrayList<>();
+  public static final List<DeferredHolder<Item, FrameItem>> FRAMES = new ArrayList<>();
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
   public static final DeferredHolder<Item, BeeItem> DRONE = ITEMS.register("drone", () -> new BeeItem(new Item.Properties(), EnumBeeType.DRONE));
@@ -41,6 +45,7 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
   public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
   public static final DeferredHolder<Item, Item> SEEDY_COMB = comb("seedy");
+
   public static final DeferredHolder<Item, Item> DUSTY_COMB = comb("dusty");
   public static final DeferredHolder<Item, Item> DIAMOND_COMB = comb("diamond");
   public static final DeferredHolder<Item, Item> EMERALD_COMB = comb("emerald");
@@ -87,17 +92,23 @@ public class ItemRegistrar
 
   public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier)
   {
-    return ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, new TerritoryModifier(xz -> xz, y -> y)));
+    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, new TerritoryModifier(xz -> xz, y -> y)));
+    FRAMES.add(frame);
+    return frame;
   }
 
   public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, Function<Integer, Integer> xzMod, Function<Integer, Integer> ymod)
   {
-    return ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, new TerritoryModifier(xzMod, ymod)));
+    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, new TerritoryModifier(xzMod, ymod)));
+    FRAMES.add(frame);
+    return frame;
   }
 
   public static DeferredHolder<Item, Item> comb(String type)
   {
-    return ITEMS.register(type + "_comb", () -> new Item(new Item.Properties()));
+    DeferredHolder<Item, Item> comb = ITEMS.register(type + "_comb", () -> new Item(new Item.Properties()));
+    COMBS.add(comb);
+    return comb;
   }
 
   public static DeferredHolder<Item, Item> item(String name)
