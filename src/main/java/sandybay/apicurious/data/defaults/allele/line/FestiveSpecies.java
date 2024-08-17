@@ -9,6 +9,15 @@ import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
 
 public class FestiveSpecies
 {
+  /*
+    TODO:
+      - Tipsy   (Calendar New Years)
+      - Lucky   (St. Patricks)
+      - Native  (Thanksgiving)
+      - Pagan   (Midsummer Solstice)
+      - Zodiac  (Chinese New Years)
+      - Haunted (Day of the Dead / Halloween)
+   */
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.LEPORINE.species(),
