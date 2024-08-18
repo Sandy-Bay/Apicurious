@@ -6,6 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.common.menu.AnalyzerMenu;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.menu.BeeHousingMenu;
 
@@ -18,8 +19,10 @@ public class MenuRegistrar
   public static void register(IEventBus bus)
   {
     MENU_TYPES.register(bus);
-  }  public static final Supplier<MenuType<ApiaryMenu>> APIARY = MENU_TYPES.register("apiary", () -> IMenuTypeExtension.create(ApiaryMenu::new));
-  public static final Supplier<MenuType<BeeHousingMenu>> BEE_HOUSING = MENU_TYPES.register("bee_housing", () -> IMenuTypeExtension.create(BeeHousingMenu::new));
+  }
 
+  public static final Supplier<MenuType<ApiaryMenu>> APIARY = MENU_TYPES.register("apiary", () -> IMenuTypeExtension.create(ApiaryMenu::new));
+  public static final Supplier<MenuType<BeeHousingMenu>> BEE_HOUSING = MENU_TYPES.register("bee_housing", () -> IMenuTypeExtension.create(BeeHousingMenu::new));
+  public static final Supplier<MenuType<AnalyzerMenu>> ANALYZER = MENU_TYPES.register("analyzer", () -> IMenuTypeExtension.create(AnalyzerMenu::new));
 
 }

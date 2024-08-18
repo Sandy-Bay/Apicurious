@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.item.TerritoryModifier;
+import sandybay.apicurious.common.item.BeeAnalyzerItem;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.item.SieveItem;
 import sandybay.apicurious.common.item.frame.FrameItem;
@@ -28,6 +29,7 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, BeeItem> PRINCESS = ITEMS.register("princess", () -> new BeeItem(SINGLETON_PROPS(), EnumBeeType.PRINCESS));
   public static final DeferredHolder<Item, BeeItem> QUEEN = ITEMS.register("queen", () -> new BeeItem(SINGLETON_PROPS(), EnumBeeType.QUEEN));
   public static final DeferredHolder<Item, SieveItem> SIEVE = ITEMS.register("sieve", () -> new SieveItem(Tiers.WOOD, new Item.Properties().durability(32)));
+  public static final DeferredHolder<Item, BeeAnalyzerItem> ANALYZER = ITEMS.register("analyzer", () -> new BeeAnalyzerItem(SINGLETON_PROPS()));
 
   // Products
   // Combs

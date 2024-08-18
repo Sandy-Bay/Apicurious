@@ -31,6 +31,7 @@ public class CreativeTabRegistrar
           .icon(() -> new ItemStack(ItemRegistrar.SIEVE.get()))
           .displayItems((parameters, output) ->
           {
+            output.accept(new ItemStack(ItemRegistrar.ANALYZER.get()));
             output.accept(new ItemStack(ItemRegistrar.SIEVE.get()));
             registerHousings(output);
             registerFrames(output);

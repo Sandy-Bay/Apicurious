@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.client.gui.AnalyzerScreen;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.common.bee.genetic.Genome;
@@ -111,6 +112,7 @@ public class ApicuriousClientEvents
   {
     event.register(MenuRegistrar.APIARY.get(), ApiaryScreen::new);
     event.register(MenuRegistrar.BEE_HOUSING.get(), BeeHousingScreen::new);
+    event.register(MenuRegistrar.ANALYZER.get(), AnalyzerScreen::new);
   }
 
   private static int registerBeeTintHandler(ItemStack stack, int tintIndex)
