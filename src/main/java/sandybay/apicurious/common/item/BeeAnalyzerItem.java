@@ -28,7 +28,7 @@ public class BeeAnalyzerItem extends Item
 
   public BeeAnalyzerItem(Properties pProperties)
   {
-    super(pProperties);
+    super(pProperties.component(DataComponentRegistrar.ANALYZER_CONTENTS, ItemContainerContents.EMPTY));
     this.contents = ItemContainerContents.EMPTY;
   }
 
