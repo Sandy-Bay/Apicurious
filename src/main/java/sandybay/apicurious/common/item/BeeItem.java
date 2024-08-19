@@ -123,14 +123,8 @@ public class BeeItem extends Item implements IBeeItem
       {
         pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
       }
-
-      if (pTooltipFlag.isAdvanced())
-      {
-        Genome genome = pStack.get(DataComponentRegistrar.GENOME);
-        if (genome == null) return;
-        pTooltipComponents.add(Component.literal(genome.toString()));
-      }
-    } else
+    }
+    else
     {
       pTooltipComponents.add(Component.translatable("apicurious.tooltip.unidentified"));
     }

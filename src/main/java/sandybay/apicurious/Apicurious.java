@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -46,7 +47,6 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
 /*
  TODO: Before MVP Alpha Release
   - Must Haves:
-    - Bee Analyser
     - Particles for active housing
     - World gen for Hives
   - Optionals:
@@ -72,6 +72,7 @@ public class Apicurious
     bus.addListener(this::commonSetup);
     bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
+    bus.addListener(this::registerCapabilities);
     BlockRegistrar.register(bus);
     ItemRegistrar.register(bus);
     DataComponentRegistrar.register(bus);
@@ -83,14 +84,14 @@ public class Apicurious
     ConditionTypeRegistrar.init(bus);
     PacketHandler.init(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
-    NeoForge.EVENT_BUS.addListener(Apicurious::loadEmptySpecies);
+    NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
     if (FMLLoader.getDist() == Dist.CLIENT)
     {
       ApicuriousClientEvents.registerClientEvents(bus);
     }
   }
 
-  private static void loadEmptySpecies(final EntityJoinLevelEvent event)
+  private void loadEmptySpecies(final EntityJoinLevelEvent event)
   {
     if (BeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player)
     {
@@ -111,7 +112,7 @@ public class Apicurious
     }
   }
 
-  private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+  private void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerItem(
             Capabilities.ItemHandler.ITEM,
             new ICapabilityProvider<>()
@@ -119,7 +120,7 @@ public class Apicurious
               @Override
               public @Nullable IItemHandler getCapability(ItemStack stack, Void context)
               {
-                return new ComponentItemHandler(stack, DataComponentRegistrar.ANALYZER_CONTENTS.get(), 2);
+                return new ComponentItemHandler(stack, DataComponents.CONTAINER, 2);
               }
             },
             ItemRegistrar.ANALYZER.get()

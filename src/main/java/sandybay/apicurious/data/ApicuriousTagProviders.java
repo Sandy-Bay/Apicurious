@@ -92,6 +92,10 @@ public class ApicuriousTagProviders
       this.tag(ApicuriousTags.ItemTags.IS_SIEVE_TOOL).add(
               ItemRegistrar.SIEVE.getKey()
       );
+      this.tag(ApicuriousTags.ItemTags.DROP_HONEY).add(
+              ItemRegistrar.HONEY_DROP.getKey(),
+              ItemRegistrar.HONEY_DEW.getKey()
+      );
     }
   }
 
@@ -223,6 +227,7 @@ public class ApicuriousTagProviders
                       ApicuriousSpecies.WINTRY.species(),
                       ApicuriousSpecies.MARSHY.species(),
                       ApicuriousSpecies.ROCKY.species(),
+                      ApicuriousSpecies.WATER.species(),
                       ApicuriousSpecies.NETHER.species(),
                       ApicuriousSpecies.ENDER.species()
               ));
