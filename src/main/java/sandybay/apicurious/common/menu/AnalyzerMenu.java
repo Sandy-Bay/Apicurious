@@ -1,39 +1,42 @@
 package sandybay.apicurious.common.menu;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
+import net.neoforged.neoforge.items.ComponentItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerCopySlot;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
 
 // TODO: Figure out how to sync the inventory data.
 public class AnalyzerMenu extends AbstractContainerMenu
 {
   private final ContainerLevelAccess access;
-  private final ConfigurableItemStackHandler inventory;
+  private final IItemHandler inventory;
 
   public AnalyzerMenu(int containerId, Inventory playerInventory)
   {
     this(containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(2));
   }
 
-  public AnalyzerMenu(int containerId, Inventory playerInventory, FriendlyByteBuf packetBuffer)
+  public AnalyzerMenu(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf packetBuffer)
   {
     this(containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(2));
   }
 
   public AnalyzerMenu(int containerId, Inventory playerInventory,
                       ContainerLevelAccess access,
-                      ConfigurableItemStackHandler inventory)
+                      IItemHandler inventory)
   {
     super(MenuRegistrar.ANALYZER.get(), containerId);
     this.access = access;
@@ -43,10 +46,10 @@ public class AnalyzerMenu extends AbstractContainerMenu
     addHotbarSlots(playerInventory);
   }
 
-  private void addAnalyzerSlots(ConfigurableItemStackHandler inventory)
+  private void addAnalyzerSlots(IItemHandler inventory)
   {
-    this.addSlot(new SlotItemHandler(inventory, 0, 90, 111));
-    this.addSlot(new SlotItemHandler(inventory, 1, 126, 111));
+    this.addSlot(new ItemHandlerCopySlot(inventory, 0, 90, 111));
+    this.addSlot(new ItemHandlerCopySlot(inventory, 1, 126, 111));
   }
 
   private void addInventorySlots(Inventory playerInventory)

@@ -135,7 +135,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
 
   protected void pageForward()
   {
-    if (this.currentPage < 99) // TODO: Set this to a correct value
+    if (this.currentPage < 5) // TODO: Set this to a correct value
     {
       this.currentPage++;
     }

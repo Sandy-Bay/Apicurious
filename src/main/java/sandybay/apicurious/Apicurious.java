@@ -7,6 +7,7 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -15,8 +16,14 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.items.ComponentItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
@@ -102,6 +109,21 @@ public class Apicurious
         }
       }
     }
+  }
+
+  private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+    event.registerItem(
+            Capabilities.ItemHandler.ITEM,
+            new ICapabilityProvider<>()
+            {
+              @Override
+              public @Nullable IItemHandler getCapability(ItemStack stack, Void context)
+              {
+                return new ComponentItemHandler(stack, DataComponentRegistrar.ANALYZER_CONTENTS.get(), 2);
+              }
+            },
+            ItemRegistrar.ANALYZER.get()
+    );
   }
 
   public static ResourceLocation createResourceLocation(String path)

@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
@@ -82,7 +83,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
 
   @Nullable
   @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level mLevel, BlockState mState, BlockEntityType<T> blockEntityType)
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level mLevel, @NotNull BlockState mState, @NotNull BlockEntityType<T> blockEntityType)
   {
     return (level, pos, state, blockEntity) ->
     {

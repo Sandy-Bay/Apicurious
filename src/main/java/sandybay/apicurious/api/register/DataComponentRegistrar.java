@@ -3,18 +3,17 @@ package sandybay.apicurious.api.register;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.common.bee.genetic.Genome;
 
 public class DataComponentRegistrar
 {
-
   public static final DeferredRegister.DataComponents REGISTRAR = DeferredRegister.createDataComponents(Apicurious.MODID);
-
-  //This can go in the API so other mods can access it if needed
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<Genome>> GENOME = REGISTRAR.registerComponentType(
           "genome",
@@ -28,6 +27,13 @@ public class DataComponentRegistrar
           builder -> builder
                   .persistent(Codec.BOOL)
                   .networkSynchronized(ByteBufCodecs.BOOL)
+  );
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemContainerContents>> ANALYZER_CONTENTS = REGISTRAR.registerComponentType(
+          "analyzer_contents",
+          builder -> builder
+                  .persistent(ItemContainerContents.CODEC)
+                  .networkSynchronized(ItemContainerContents.STREAM_CODEC)
   );
 
   public static void register(IEventBus bus)

@@ -27,12 +27,6 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.List;
 
-/**
- * Implement the following:
- * Species, which is the default Info
- * Mutation, which is the deviation
- * Mate, which is after a bee has "mated" and contains both their specific and mutation info
- */
 public class BeeItem extends Item implements IBeeItem
 {
 

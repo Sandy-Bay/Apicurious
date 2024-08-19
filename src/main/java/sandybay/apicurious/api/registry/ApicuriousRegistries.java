@@ -24,8 +24,6 @@ public class ApicuriousRegistries
   public static final Registry<AlleleType<?>> ALLELE_TYPE_REGISTRY = new RegistryBuilder<>(ALLELE_TYPES).sync(true).create();
   public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("alleles"));
 
-  // INFO: Mutation Types exists for future expandability, allowing mod authors and ourselves to define new mutation types,
-  //       with additional requirements outside just matching species and chance.
   // Mutation
   public static final ResourceKey<Registry<MutationType>> MUTATION_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutation_types"));
   public static final Registry<MutationType> MUTATION_TYPE_REGISTRY = new RegistryBuilder<>(MUTATION_TYPES).sync(true).create();
