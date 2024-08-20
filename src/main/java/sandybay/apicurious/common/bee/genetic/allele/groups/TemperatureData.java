@@ -58,6 +58,6 @@ public class TemperatureData
   @Override
   public int hashCode()
   {
-    return Objects.hash(preferenceHolder.value(), toleranceHolder.value());
+    return Objects.hash(preferenceHolder, toleranceHolder);
   }
 }
