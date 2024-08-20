@@ -1,0 +1,52 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "chance": 0.2,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:frozen_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    },
+    {
+      "conditions": [
+        {
+          "chance": 0.1,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "count": 1,
+                "id": "apicurious:glacial_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

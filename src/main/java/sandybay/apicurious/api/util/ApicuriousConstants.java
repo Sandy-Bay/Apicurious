@@ -14,9 +14,14 @@ public class ApicuriousConstants
   public static final String DYE_BODY = "8cff00";
   public static final String LEPORINE_BODY = "3cd757";
   public static final String MERRY_BODY = "d40000";
+  public static final String TIPSY_BODY = "c219ec";
+  public static final String CELEBRATORY_BODY = "d40000";
+  public static final String TRICKY_BODY = "FF6A00";
   public static final String AGRARIAN_BODY = "FFE047";
   public static final String BARREN_BODY = "cbe374";
   public static final String DECOMPOSING_BODY = "ffffff";
+  public static final String MONASTIC_BODY = "fff7b6";
+
 
   //// Outlines
   // Debug
@@ -52,51 +57,6 @@ public class ApicuriousConstants
   public static final String BOGGY_OUTLINE = "698948";
   public static final String FUNGAL_OUTLINE = "d16200";
   public static final String MIRY_OUTLINE = "92AF42";
-  // Baseline
-  public static final String TROPICAL_OUTLINE = "388020";
-  public static final String WINTRY_OUTLINE = "a0ffc8";
-
-  public static final String ROCKY_OUTLINE = "a8a8a8";
-  public static final String NETHER_OUTLINE = "8c6969";
-  public static final String ENDER_OUTLINE = "e079fa";
-  public static final String VALIANT_OUTLINE = "626bdd";
-  public static final String STEADFAST_OUTLINE = "4d2b15";
-  // Noble
-  public static final String NOBLE_OUTLINE = "ec9a19";
-  public static final String MAJESTIC_OUTLINE = "7f0000";
-  public static final String IMPERIAL_OUTLINE = "a3e02f";
-  // Diligent
-  public static final String DILIGENT_OUTLINE = "c219ec";
-  public static final String UNWEARY_OUTLINE = "19ec5a";
-  public static final String INDUSTRIOUS_OUTLINE = "ffffff";
-  // Festive
-  public static final String LEPORINE_OUTLINE = "0feff8f";
-  public static final String MERRY_OUTLINE = "ffffff";
-  // Agrarian
-
-  // Wooden
-  public static final String WOODEN_OUTLINE = "968864";
-  public static final String LUMBERED_OUTLINE = "9b8643";
-  public static final String TIMBERED_OUTLINE = "b98e52";
-  // Heroic
-  public static final String HEROIC_OUTLINE = "b3d5e4";
-  // Resilient
-  public static final String TOLERANT_OUTLINE = "757575";
-  public static final String ROBUST_OUTLINE = "695555";
-  public static final String RESILIENT_OUTLINE = "6e757d";
-  // Metallic
-  public static final String CUPRUM_OUTLINE = "d16308";
-  public static final String FERRUS_OUTLINE = "a87058";
-  public static final String AURUM_OUTLINE = "e6cc0b";
-  // Mineral
-  public static final String LAZULI_OUTLINE = "3d2cdb";
-  // Gemstone
-  public static final String DIAMANTINE_OUTLINE = "7fbdfa";
-  public static final String EMERALDINE_OUTLINE = "1cff03";
-  // Ecstatic
-  public static final String EXCITED_OUTLINE = "ff4545";
-  public static final String ENERGETIC_OUTLINE = "e835c7";
-  public static final String ECSTATIC_OUTLINE = "af35e8";
   // Dye
   /// Primary
   public static final String MAROON_OUTLINE = "ff0000";
@@ -117,6 +77,62 @@ public class ApicuriousConstants
   /// Tertiary
   public static final String ASHEN_OUTLINE = "c9c9c9";
   public static final String FUCHSIA_OUTLINE = "ff00cc";
+  // Ender
+  public static final String ENDER_OUTLINE = "e079fa";
+  public static final String SPECTRAL_OUTLINE = "a98bed";
+  public static final String PHANTASMAL_OUTLINE = "cc00fa";
+  // Energetic
+  public static final String EXCITED_OUTLINE = "ff4545";
+  public static final String ENERGETIC_OUTLINE = "e835c7";
+  public static final String ECSTATIC_OUTLINE = "af35e8";
+  // Festive
+  public static final String LEPORINE_OUTLINE = "0feff8f";
+  public static final String MERRY_OUTLINE = "ffffff";
+  public static final String TIPSY_OUTLINE = "ffffff";
+  public static final String CELEBRATORY_OUTLINE = "fa0a6a";
+  public static final String TRICKY_OUTLINE = "49413B";
+  // Fossilised
+  public static final String FOSSILISED_OUTLINE = "7a7648";
+  public static final String FORGOTTEN_OUTLINE = "7a7648";
+  // Frozen
+  public static final String ICY_OUTLINE = "a0ffff";
+  public static final String GLACIAL_OUTLINE = "efffff";
+  public static final String FRIGID_OUTLINE = "ade0e0";
+  public static final String ABSOLUTE_OUTLINE = "7be3e3";
+  // Gemstone
+  public static final String DIAMANTINE_OUTLINE = "7fbdfa";
+  public static final String EMERALDINE_OUTLINE = "1cff03";
+  // Heroic
+  public static final String VALIANT_OUTLINE = "626bdd";
+  public static final String STEADFAST_OUTLINE = "4d2b15";
+  public static final String HEROIC_OUTLINE = "b3d5e4";
+  // Historic
+  public static final String ANCIENT_OUTLINE = "f2db8f";
+  public static final String PRIMEVAL_OUTLINE = "b3a67b";
+  public static final String PREHISTORIC_OUTLINE = "6e5a40";
+  public static final String RELIC_OUTLINE = "4d3e16";
+  // Imperial
+  public static final String NOBLE_OUTLINE = "ec9a19";
+  public static final String MAJESTIC_OUTLINE = "7f0000";
+  public static final String IMPERIAL_OUTLINE = "a3e02f";
+  // Industrious
+  public static final String DILIGENT_OUTLINE = "c219ec";
+  public static final String UNWEARY_OUTLINE = "19ec5a";
+  public static final String INDUSTRIOUS_OUTLINE = "ffffff";
+  // Infernal
+  public static final String SINISTER_OUTLINE = "b3d5e4";
+  public static final String FIENDISH_OUTLINE = "d7bee5";
+  public static final String DEMONIC_OUTLINE = "f4e400";
+  // Metallic
+  public static final String CUPRUM_OUTLINE = "d16308";
+  public static final String FERRUS_OUTLINE = "a87058";
+  public static final String AURUM_OUTLINE = "e6cc0b";
+  // Monastic
+  public static final String MONASTIC_OUTLINE = "42371c";
+  public static final String SECLUDED_OUTLINE = "7b6634";
+  public static final String HERMITIC_OUTLINE = "ffd46c";
+
+
 
   //// BeeColor(s)
   // Debug
@@ -152,50 +168,6 @@ public class ApicuriousConstants
   public static final BeeColor BOGGY = new BeeColor(BOGGY_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
   public static final BeeColor FUNGAL = new BeeColor(FUNGAL_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
   public static final BeeColor MIRY = new BeeColor(MIRY_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  // Baseline
-  public static final BeeColor TROPICAL = new BeeColor(TROPICAL_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor WINTRY = new BeeColor(WINTRY_OUTLINE, WINTRY_BODY, WINTRY_BODY);
-  public static final BeeColor ROCKY = new BeeColor(ROCKY_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  public static final BeeColor NETHER = new BeeColor(NETHER_OUTLINE, NETHER_BODY, NETHER_BODY);
-  public static final BeeColor ENDER = new BeeColor(ENDER_OUTLINE, ENDER_BODY, ENDER_BODY);
-  public static final BeeColor VALIANT = new BeeColor(VALIANT_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor STEADFAST = new BeeColor(STEADFAST_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  // Common
-  // Noble
-  public static final BeeColor NOBLE = new BeeColor(NOBLE_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor MAJESTIC = new BeeColor(MAJESTIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor IMPERIAL = new BeeColor(IMPERIAL_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  // Diligent
-  public static final BeeColor DILIGENT = new BeeColor(DILIGENT_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor UNWEARY = new BeeColor(UNWEARY_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor INDUSTRIOUS = new BeeColor(INDUSTRIOUS_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  // Festive
-  public static final BeeColor LEPORINE = new BeeColor(LEPORINE_OUTLINE, LEPORINE_BODY, LEPORINE_BODY);
-  public static final BeeColor MERRY = new BeeColor(MERRY_OUTLINE, MERRY_BODY, MERRY_BODY);
-  // Agrarian
-  // Wooden
-  public static final BeeColor WOODEN = new BeeColor(WOODEN_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor LUMBERED = new BeeColor(LUMBERED_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor TIMBERED = new BeeColor(TIMBERED_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  // Heroic
-  public static final BeeColor HEROIC = new BeeColor(HEROIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  // Resilient
-  public static final BeeColor TOLERANT = new BeeColor(TOLERANT_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  public static final BeeColor ROBUST = new BeeColor(ROBUST_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  public static final BeeColor RESILIENT = new BeeColor(RESILIENT_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  // Metallic
-  public static final BeeColor CUPRUM = new BeeColor(CUPRUM_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  public static final BeeColor FERRUS = new BeeColor(FERRUS_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  public static final BeeColor AURUM = new BeeColor(AURUM_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  // Mineral
-  public static final BeeColor LAZULI = new BeeColor(LAZULI_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  // Gemstone
-  public static final BeeColor DIAMANTINE = new BeeColor(DIAMANTINE_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  public static final BeeColor EMERALDINE = new BeeColor(EMERALDINE_OUTLINE, ROCKY_BODY, ROCKY_BODY);
-  // Ecstatic
-  public static final BeeColor EXCITED = new BeeColor(EXCITED_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor ENERGETIC = new BeeColor(ENERGETIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
-  public static final BeeColor ECSTATIC = new BeeColor(ECSTATIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
   // Dye
   /// Primary
   public static final BeeColor MAROON = new BeeColor(MAROON_OUTLINE, DYE_BODY, DYE_BODY);
@@ -216,4 +188,97 @@ public class ApicuriousConstants
   /// Tertiary
   public static final BeeColor ASHEN = new BeeColor(ASHEN_OUTLINE, DYE_BODY, DYE_BODY);
   public static final BeeColor FUCHSIA = new BeeColor(FUCHSIA_OUTLINE, DYE_BODY, DYE_BODY);
+  // Ender
+  public static final BeeColor ENDER = new BeeColor(ENDER_OUTLINE, ENDER_BODY, ENDER_BODY);
+  public static final BeeColor SPECTRAL = new BeeColor(SPECTRAL_OUTLINE, ENDER_BODY, ENDER_BODY);
+  public static final BeeColor PHANTASMAL = new BeeColor(PHANTASMAL_OUTLINE, ENDER_BODY, ENDER_BODY);
+  // Ecstatic
+  public static final BeeColor EXCITED = new BeeColor(EXCITED_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor ENERGETIC = new BeeColor(ENERGETIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor ECSTATIC = new BeeColor(ECSTATIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  // Festive
+  public static final BeeColor LEPORINE = new BeeColor(LEPORINE_OUTLINE, LEPORINE_BODY, LEPORINE_BODY);
+  public static final BeeColor MERRY = new BeeColor(MERRY_OUTLINE, MERRY_BODY, MERRY_BODY);
+  public static final BeeColor TIPSY = new BeeColor(TIPSY_OUTLINE, TIPSY_BODY, TIPSY_BODY);
+  public static final BeeColor CELEBRATORY = new BeeColor(CELEBRATORY_OUTLINE, CELEBRATORY_BODY, CELEBRATORY_BODY);
+  public static final BeeColor TRICKY = new BeeColor(TRICKY_OUTLINE, TRICKY_BODY, TRICKY_BODY);
+  // Fossilised
+  public static final BeeColor FOSSILISED = new BeeColor(FOSSILISED_OUTLINE, NETHER_BODY, NETHER_BODY);
+  public static final BeeColor FORGOTTEN = new BeeColor(FORGOTTEN_OUTLINE, NETHER_BODY, NETHER_BODY);
+  // Frozen
+  public static final BeeColor ICY = new BeeColor(ICY_OUTLINE, WINTRY_BODY, WINTRY_BODY);
+  public static final BeeColor GLACIAL = new BeeColor(GLACIAL_OUTLINE, WINTRY_BODY, WINTRY_BODY);
+  public static final BeeColor FRIGID = new BeeColor(FRIGID_OUTLINE, WINTRY_BODY, WINTRY_BODY);
+  public static final BeeColor ABSOLUTE = new BeeColor(ABSOLUTE_OUTLINE, WINTRY_BODY, WINTRY_BODY);
+  // Gemstone
+  public static final BeeColor DIAMANTINE = new BeeColor(DIAMANTINE_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  public static final BeeColor EMERALDINE = new BeeColor(EMERALDINE_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  // Heroic
+  public static final BeeColor VALIANT = new BeeColor(VALIANT_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor STEADFAST = new BeeColor(STEADFAST_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor HEROIC = new BeeColor(HEROIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  // Historic
+  public static final BeeColor ANCIENT = new BeeColor(ANCIENT_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor PRIMEVAL = new BeeColor(PRIMEVAL_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor PREHISTORIC = new BeeColor(PREHISTORIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor RELIC = new BeeColor(RELIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  // Imperial
+  public static final BeeColor NOBLE = new BeeColor(NOBLE_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor MAJESTIC = new BeeColor(MAJESTIC_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor IMPERIAL = new BeeColor(IMPERIAL_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  // Industrious
+  public static final BeeColor DILIGENT = new BeeColor(DILIGENT_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor UNWEARY = new BeeColor(UNWEARY_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor INDUSTRIOUS = new BeeColor(INDUSTRIOUS_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  // Infernal
+  public static final BeeColor SINISTER = new BeeColor(SINISTER_OUTLINE, NETHER_BODY, NETHER_BODY);
+  public static final BeeColor FIENDISH = new BeeColor(FIENDISH_OUTLINE, NETHER_BODY, NETHER_BODY);
+  public static final BeeColor DEMONIC = new BeeColor(DEMONIC_OUTLINE, NETHER_BODY, NETHER_BODY);
+  // Metallic
+  public static final BeeColor CUPRUM = new BeeColor(CUPRUM_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  public static final BeeColor FERRUS = new BeeColor(FERRUS_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  public static final BeeColor AURUM = new BeeColor(AURUM_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  // Monastic
+  public static final BeeColor MONASTIC = new BeeColor(MONASTIC_OUTLINE, MONASTIC_BODY, MONASTIC_BODY);
+  public static final BeeColor SECLUDED = new BeeColor(SECLUDED_OUTLINE, MONASTIC_BODY, MONASTIC_BODY);
+  public static final BeeColor HERMITIC = new BeeColor(HERMITIC_OUTLINE, MONASTIC_BODY, MONASTIC_BODY);
+
+
+
+
+
+
+
+  // Baseline
+  public static final String TROPICAL_OUTLINE = "388020";
+  public static final String WINTRY_OUTLINE = "a0ffc8";
+  public static final String ROCKY_OUTLINE = "a8a8a8";
+  public static final String NETHER_OUTLINE = "8c6969";
+  // Wooden
+  public static final String WOODEN_OUTLINE = "968864";
+  public static final String LUMBERED_OUTLINE = "9b8643";
+  public static final String TIMBERED_OUTLINE = "b98e52";
+  // Resilient
+  public static final String TOLERANT_OUTLINE = "757575";
+  public static final String ROBUST_OUTLINE = "695555";
+  public static final String RESILIENT_OUTLINE = "6e757d";
+  // Mineral
+  public static final String LAZULI_OUTLINE = "3d2cdb";
+
+  // Baseline
+  public static final BeeColor TROPICAL = new BeeColor(TROPICAL_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor WINTRY = new BeeColor(WINTRY_OUTLINE, WINTRY_BODY, WINTRY_BODY);
+  public static final BeeColor ROCKY = new BeeColor(ROCKY_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  public static final BeeColor NETHER = new BeeColor(NETHER_OUTLINE, NETHER_BODY, NETHER_BODY);
+  // Wooden
+  public static final BeeColor WOODEN = new BeeColor(WOODEN_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor LUMBERED = new BeeColor(LUMBERED_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  public static final BeeColor TIMBERED = new BeeColor(TIMBERED_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
+  // Resilient
+  public static final BeeColor TOLERANT = new BeeColor(TOLERANT_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  public static final BeeColor ROBUST = new BeeColor(ROBUST_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  public static final BeeColor RESILIENT = new BeeColor(RESILIENT_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+  // Mineral
+  public static final BeeColor LAZULI = new BeeColor(LAZULI_OUTLINE, ROCKY_BODY, ROCKY_BODY);
+
 }

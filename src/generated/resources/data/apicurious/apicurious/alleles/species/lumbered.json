@@ -1,7 +1,7 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/wood",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
       "toleranceHolder": "apicurious:humidity/tolerance/none"
@@ -22,7 +22,7 @@
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/high",
     "lifespan": "apicurious:lifespan/shorter",
-    "pollination": "apicurious:pollination/slower",
+    "pollination": "apicurious:pollination/slowest",
     "speed": "apicurious:speed/slowest",
     "workCycle": "apicurious:workcycle/diurnal"
   },

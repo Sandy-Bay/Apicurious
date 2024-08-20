@@ -3,11 +3,11 @@
   "environmentalData": {
     "flowers": "apicurious:flowers/end_stone",
     "humidityData": {
-      "preferenceHolder": "apicurious:humidity/preference/arid",
+      "preferenceHolder": "apicurious:humidity/preference/average",
       "toleranceHolder": "apicurious:humidity/tolerance/none"
     },
-    "ignoresRain": true,
-    "ignoresSky": true,
+    "ignoresRain": false,
+    "ignoresSky": false,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/cold",
       "toleranceHolder": "apicurious:temperature/tolerance/lowest"
@@ -20,7 +20,7 @@
   },
   "productionData": {
     "area": "apicurious:area/large",
-    "fertility": "apicurious:fertility/average",
+    "fertility": "apicurious:fertility/low",
     "lifespan": "apicurious:lifespan/longer",
     "pollination": "apicurious:pollination/slowest",
     "speed": "apicurious:speed/slower",

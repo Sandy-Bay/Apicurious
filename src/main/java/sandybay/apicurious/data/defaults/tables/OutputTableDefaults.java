@@ -17,6 +17,24 @@ public class OutputTableDefaults
     AquaticBranch.outputsDefaults(bootstrap);
     AustereBranch.outputsDefaults(bootstrap);
     BarrenBranch.outputsDefaults(bootstrap);
+    BoggyBranch.outputsDefaults(bootstrap);
+    DyeBranch.outputsDefaults(bootstrap);
+    EndBranch.outputsDefaults(bootstrap);
+    EnergeticBranch.outputsDefaults(bootstrap);
+    FestiveBranch.outputsDefaults(bootstrap);
+    FossilisedBranch.outputsDefaults(bootstrap);
+    FrozenBranch.outputsDefaults(bootstrap);
+    GemstoneBranch.outputsDefaults(bootstrap);
+    HeroicBranch.outputsDefaults(bootstrap);
+    HistoricBranch.outputsDefaults(bootstrap);
+    ImperialBranch.outputsDefaults(bootstrap);
+    IndustriousBranch.outputsDefaults(bootstrap);
+    InfernalBranch.outputsDefaults(bootstrap);
+    MetallicBranch.outputsDefaults(bootstrap);
+    MineralBranch.outputsDefaults(bootstrap);
+    MonasticBranch.outputsDefaults(bootstrap);
+    ResilientBranch.outputsDefaults(bootstrap);
+    TimberedBranch.outputsDefaults(bootstrap);
   }
 
   public static OutputTable.Builder custom()

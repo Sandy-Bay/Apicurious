@@ -17,18 +17,7 @@ public class BaseOutputs
     bootstrap.register(ApicuriousSpecies.MARSHY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.ROCKY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.NETHER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.ENDER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.STEADFAST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.COCOA_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.VALIANT.output(), OutputTableDefaults.custom()
-            .withPool(pool -> pool
-                    .when(new ChanceCondition(0.3f))
-                    .withResult(result -> result.withResult(ItemRegistrar.COCOA_COMB.get()))
-            )
-            .withPool(pool -> pool
-                    .when(new ChanceCondition(0.15f))
-                    .withResult(result -> result.withResult(Items.SUGAR))
-            )
-            .build()
-    );
+
+
   }
 }

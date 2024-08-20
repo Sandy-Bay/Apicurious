@@ -33,6 +33,8 @@ public class Flowers implements IAllele<Flowers>
   public static final ResourceKey<IAllele<?>> NETHER_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/nether_stone"));
   public static final ResourceKey<IAllele<?>> END_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/end_stone"));
   public static final ResourceKey<IAllele<?>> REDSTONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/redstone"));
+  public static final ResourceKey<IAllele<?>> DEAD_BUSH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/dead_bush"));
+  public static final ResourceKey<IAllele<?>> WOOD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/wood"));
 
   public static final MapCodec<Flowers> CODEC = RecordCodecBuilder.mapCodec(
           instance -> instance.group(

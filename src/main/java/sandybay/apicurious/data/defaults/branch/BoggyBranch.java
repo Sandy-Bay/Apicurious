@@ -18,90 +18,77 @@ public class BoggyBranch
     bootstrap.register(ApicuriousSpecies.MARSHY.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MARSHY.species(), "marshy")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MARSHY))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.MUSHROOM)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.MUSHROOM)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MARSHY.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.DAMP.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DAMP.species(), "damp")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DAMP))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.MUSHROOM)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.MUSHROOM)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.DAMP.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.BOGGY.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.BOGGY.species(), "boggy")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.BOGGY))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.MUSHROOM)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withArea(Area.LARGER)
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.MUSHROOM)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)
+                            .ignoresRain())
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.BOGGY.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.FUNGAL.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FUNGAL.species(), "fungal")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FUNGAL))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.MUSHROOM)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.MUSHROOM)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FUNGAL.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MIRY.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MIRY.species(), "miry")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MIRY))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.MUSHROOM)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withFertility(Fertility.MAXIMUM_FERTILITY)
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.MUSHROOM)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MIRY.output()))
                     .build()
     );

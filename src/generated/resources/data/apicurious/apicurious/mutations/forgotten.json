@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.05,
+  "first": "apicurious:species/fossilised",
+  "output": "apicurious:species/forgotten",
+  "second": "apicurious:species/demonic"
+}

@@ -21,90 +21,89 @@ public class BarrenBranch
     bootstrap.register(ApicuriousSpecies.ARID.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.ARID.species(), "arid")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ARID))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORT)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.DEAD_BUSH)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.ARID.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.BARREN.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.BARREN.species(), "barren")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.BARREN))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withFertility(Fertility.LOW_FERTILITY)
+                            .withLifespan(Lifespan.SHORT)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.DEAD_BUSH)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.BARREN.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.DESOLATE.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DESOLATE.species(), "desolate")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DESOLATE))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withFertility(Fertility.LOW_FERTILITY)
+                            .withLifespan(Lifespan.SHORT)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.DEAD_BUSH)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.DESOLATE.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.GNAWING.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.GNAWING.species(), "gnawing")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.GNAWING))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withFertility(Fertility.LOW_FERTILITY)
+                            .withLifespan(Lifespan.SHORT)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.WOOD)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.GNAWING.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.DECOMPOSING.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DECOMPOSING.species(), "decomposing")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DECOMPOSING))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withFertility(Fertility.LOW_FERTILITY)
+                            .withLifespan(Lifespan.SHORT)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.DEAD_BUSH)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.DECOMPOSING.output()))
                     .build()
     );
@@ -170,7 +169,7 @@ public class BarrenBranch
             )
             .build()
     );
-    bootstrap.register(ApicuriousSpecies.GNAWING.output(), OutputTableDefaults.custom()
+    bootstrap.register(ApicuriousSpecies.DECOMPOSING.output(), OutputTableDefaults.custom()
             .withPool(pool -> pool
                     .when(new ChanceCondition(0.3f))
                     .withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.get()))

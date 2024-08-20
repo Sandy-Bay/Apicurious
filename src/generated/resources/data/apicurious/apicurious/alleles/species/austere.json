@@ -1,0 +1,38 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/cacti",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/arid",
+      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/hot",
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
+    }
+  },
+  "key": "apicurious:species/austere",
+  "name": "apicurious.species.austere",
+  "outputData": {
+    "outputTable": "apicurious:austere"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/longer",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slowest",
+    "workCycle": "apicurious:workcycle/always"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "fffac2",
+      "wingTint": "ffdc16"
+    },
+    "hasCustomRender": false,
+    "hasEffect": true
+  }
+}

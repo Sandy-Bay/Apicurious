@@ -4,13 +4,13 @@
     "flowers": "apicurious:flowers/overworld_stone",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
-      "toleranceHolder": "apicurious:humidity/tolerance/low"
+      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
     },
     "ignoresRain": true,
     "ignoresSky": true,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/low"
+      "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
   "key": "apicurious:species/rocky",
@@ -21,7 +21,7 @@
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/low",
-    "lifespan": "apicurious:lifespan/shorter",
+    "lifespan": "apicurious:lifespan/short",
     "pollination": "apicurious:pollination/slowest",
     "speed": "apicurious:speed/slowest",
     "workCycle": "apicurious:workcycle/always"

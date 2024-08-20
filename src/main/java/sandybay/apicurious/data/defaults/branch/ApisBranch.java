@@ -21,72 +21,41 @@ public class ApisBranch
     bootstrap.register(ApicuriousSpecies.FOREST.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FOREST.species(), "forest")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FOREST))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.HIGH_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.FLOWERS)
-                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withFertility(Fertility.HIGH_FERTILITY)
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FOREST.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.MEADOW.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MEADOW.species(), "meadow")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MEADOW))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWER).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.FLOWERS)
-                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWER)
+                            .withProductionSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MEADOW.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.COMMON.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.COMMON.species(), "common")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.COMMON))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.FLOWERS)
-                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.CULTIVATED.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.CULTIVATED.species(), "cultivated")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.CULTIVATED))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTEST)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.FAST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.FLOWERS)
-                              .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTEST)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.FAST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.CULTIVATED.output()))
                     .build()
     );

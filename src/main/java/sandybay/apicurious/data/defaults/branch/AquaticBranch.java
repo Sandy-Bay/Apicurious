@@ -23,76 +23,60 @@ public class AquaticBranch
     bootstrap.register(ApicuriousSpecies.WATER.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.WATER.species(), "water")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WATER))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOW).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.LILY_PAD)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
-                              .ignoresRain().ignoresSky();
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOW)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.LILY_PAD)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
+                            .ignoresRain())
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.WATER.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.RIVER.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.RIVER.species(), "river")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.RIVER))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOW).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.LILY_PAD)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
-                              .ignoresRain().ignoresSky();
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOW)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.LILY_PAD)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
+                            .ignoresRain())
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.RIVER.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.OCEAN.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.OCEAN.species(), "ocean")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.OCEAN))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOW).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.LILY_PAD)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
-                              .ignoresRain().ignoresSky();
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOW)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.LILY_PAD)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
+                            .ignoresRain())
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.OCEAN.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.STAINED.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.STAINED.species(), "stained")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.STAINED))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTER)
-                              .withPollinationRate(Pollination.SLOW).withProductionSpeed(Speed.SLOWEST)
-                              .withWorkCycle(Workcycle.DIURNAL);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.LILY_PAD)
-                              .withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE)
-                              .ignoresRain().ignoresSky();
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORTER)
+                            .withPollinationRate(Pollination.SLOW)
+                            .withProductionSpeed(Speed.SLOWEST))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.LILY_PAD)
+                            .withHumidityPreference(HumidityPreference.DAMP)
+                            .withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE)
+                            .ignoresRain())
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.WATER.output()))
                     .build()
     );
@@ -116,12 +100,12 @@ public class AquaticBranch
                     .withOutput(ApicuriousSpecies.OCEAN.species())
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.HAZARDOUS.mutation(),
+    bootstrap.register(ApicuriousSpecies.STAINED.mutation(),
             mutation(bootstrap)
                     .withFirst(ApicuriousSpecies.EBONY.species())
                     .withSecond(ApicuriousSpecies.OCEAN.species())
                     .withChance(0.08f)
-                    .withOutput(ApicuriousSpecies.HAZARDOUS.species())
+                    .withOutput(ApicuriousSpecies.STAINED.species())
                     .build()
     );
   }

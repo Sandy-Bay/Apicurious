@@ -91,6 +91,9 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> CLAY_COMB = comb("clay");
   public static final DeferredHolder<Item, Item> BARREN_COMB = comb("barren");
   public static final DeferredHolder<Item, Item> DECOMPOSED_COMB = comb("decomposed");
+  public static final DeferredHolder<Item, Item> ANCIENT_COMB = comb("ancient");
+  public static final DeferredHolder<Item, Item> FOSSILISED_COMB = comb("fossilised");
+  public static final DeferredHolder<Item, Item> GLACIAL_COMB = comb("glacial");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");
@@ -103,6 +106,7 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> SILK_WISP = product("silk_wisp");
   public static final DeferredHolder<Item, Item> POLLEN = product("pollen");
   public static final DeferredHolder<Item, Item> ICE_SHARD = product("ice_shard");
+  public static final DeferredHolder<Item, Item> ASH = product("ash");
 
   // Frames
   public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f, 1.0f);

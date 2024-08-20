@@ -80,7 +80,7 @@ public class VisualData
   public static class Builder
   {
     private String outlineTint = ApicuriousConstants.UNDEFIEND_OUTLINE;
-    private String wingTint = ApicuriousConstants.UNDEFINED_WING;
+    private String wingTint = ApicuriousConstants.DEFAULT_BODY;
     private String bodyTint = ApicuriousConstants.DEFAULT_BODY;
     private BeeColor beeColor;
     private boolean hasPredefinedColor;

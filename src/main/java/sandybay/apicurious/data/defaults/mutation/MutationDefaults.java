@@ -14,7 +14,6 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.mutation.ConditionalMutation;
 import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 import sandybay.apicurious.data.defaults.branch.*;
-import sandybay.apicurious.data.defaults.mutation.line.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +29,24 @@ public class MutationDefaults
     AquaticBranch.mutationsDefaults(bootstrap);
     AustereBranch.mutationsDefaults(bootstrap);
     BarrenBranch.mutationsDefaults(bootstrap);
+    BoggyBranch.mutationsDefaults(bootstrap);
+    DyeBranch.mutationsDefaults(bootstrap);
+    EndBranch.mutationsDefaults(bootstrap);
+    EnergeticBranch.mutationsDefaults(bootstrap);
+    FestiveBranch.mutationsDefaults(bootstrap);
+    FossilisedBranch.mutationsDefaults(bootstrap);
+    FrozenBranch.mutationsDefaults(bootstrap);
+    GemstoneBranch.mutationsDefaults(bootstrap);
+    HeroicBranch.mutationsDefaults(bootstrap);
+    HistoricBranch.mutationsDefaults(bootstrap);
+    ImperialBranch.mutationsDefaults(bootstrap);
+    IndustriousBranch.mutationsDefaults(bootstrap);
+    InfernalBranch.mutationsDefaults(bootstrap);
+    MetallicBranch.mutationsDefaults(bootstrap);
+    MineralBranch.mutationsDefaults(bootstrap);
+    MonasticBranch.mutationsDefaults(bootstrap);
+    ResilientBranch.mutationsDefaults(bootstrap);
+    TimberedBranch.mutationsDefaults(bootstrap);
   }
 
   public static Builder mutation(BootstrapContext<IMutation> bootstrap)

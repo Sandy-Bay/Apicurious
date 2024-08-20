@@ -1,9 +1,12 @@
 package sandybay.apicurious.data.defaults.branch;
 
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.output.OutputTable;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.condition.ChanceCondition;
@@ -21,72 +24,68 @@ public class AustereBranch
     bootstrap.register(ApicuriousSpecies.MODEST.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MODEST.species(), "modest")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MODEST))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.SHORT)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWER)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.CACTI)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MODEST.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.FRUGAL.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FRUGAL.species(), "frugal")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FRUGAL))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.LONG)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.AVERAGE)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.CACTI)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FRUGAL.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.AUSTERE.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.AUSTERE.species(), "austere")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.AUSTERE).hasEffect())
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.LONGER)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWEST)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.CACTI)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.AUSTERE.output()))
                     .build()
     );
     bootstrap.register(ApicuriousSpecies.HAZARDOUS.species(),
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.HAZARDOUS.species(), "hazardous")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.HAZARDOUS))
-                    .withProductionData(builder ->
-                    {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
-                              .withWorkCycle(Workcycle.ALWAYS);
-                    })
-                    .withEnvironmentalData(builder ->
-                    {
-                      builder.withFlowers(Flowers.CACTI)
-                              .withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
-                              .withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE);
-                    })
+                    .withProductionData(builder -> builder
+                            .withLifespan(Lifespan.LONGER)
+                            .withPollinationRate(Pollination.SLOWEST)
+                            .withProductionSpeed(Speed.SLOWEST)
+                            .withWorkCycle(Workcycle.ALWAYS))
+                    .withEnvironmentalData(builder -> builder
+                            .withFlowers(Flowers.CACTI)
+                            .withHumidityPreference(HumidityPreference.ARID)
+                            .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
+                            .withTemperaturePreference(TemperaturePreference.HOT)
+                            .withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.HAZARDOUS.output()))
                     .build()
     );
@@ -94,7 +93,7 @@ public class AustereBranch
 
   public static void mutationsDefaults(BootstrapContext<IMutation> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.FRUGAL.mutation(),
+    bootstrap.register(ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation("frugal_sinister")),
             mutation(bootstrap)
                     .withFirst(ApicuriousSpecies.MODEST.species())
                     .withSecond(ApicuriousSpecies.SINISTER.species())
@@ -102,7 +101,7 @@ public class AustereBranch
                     .withOutput(ApicuriousSpecies.FRUGAL.species())
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.FRUGAL.mutation(),
+    bootstrap.register(ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation("frugal_fiendish")),
             mutation(bootstrap)
                     .withFirst(ApicuriousSpecies.MODEST.species())
                     .withSecond(ApicuriousSpecies.FIENDISH.species())
