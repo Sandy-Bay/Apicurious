@@ -47,8 +47,14 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
 /*
  TODO: Before MVP Alpha Release
   - Must Haves:
-    - Particles for active housing
-    - World gen for Hives
+    - Apiary/BeeHousing
+      - Add Particles for active housing
+      - Add extra Princess chance to Apiary/BeeHousing
+    - Hives
+      - AddWorld gen for Hives
+    - Centrifuge
+      - Add Centrifuge
+    - Add Recipes
   - Optionals:
     - Effects
     - General Code Clean-Up

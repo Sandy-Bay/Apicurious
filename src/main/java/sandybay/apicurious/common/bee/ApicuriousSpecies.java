@@ -6,6 +6,7 @@ import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.bee.species.BeeColor;
 
 public class ApicuriousSpecies
 {
@@ -62,10 +63,33 @@ public class ApicuriousSpecies
   public static final KeyHolder AURUM = species("aurum");
   // Mineral
   public static final KeyHolder LAZULI = species("lazuli");
-  public static final KeyHolder ENERGETIC = species("energetic");
   // Gemstone
   public static final KeyHolder DIAMANTINE = species("diamantine");
   public static final KeyHolder EMERALDINE = species("emeraldine");
+  // Ecstatic
+  public static final KeyHolder EXCITED = species("excited");
+  public static final KeyHolder ENERGETIC = species("energetic");
+  public static final KeyHolder ECSTATIC = species("ecstatic");
+  // Dye
+  /// Primary
+  public static final KeyHolder MAROON = species("maroon");
+  public static final KeyHolder SAFFRON = species("saffron");
+  public static final KeyHolder PRUSSIAN = species("prussian");
+  public static final KeyHolder NATURAL = species("natural");
+  public static final KeyHolder SEPIA = species("sepia");
+  public static final KeyHolder BLEACHED = species("bleached");
+  public static final KeyHolder EBONY = species("ebony");
+  /// Secondary
+  public static final KeyHolder AMBER = species("amber");
+  public static final KeyHolder TURQUOISE = species("turquoise");
+  public static final KeyHolder INDIGO = species("indigo");
+  public static final KeyHolder SLATE = species("slate");
+  public static final KeyHolder AZURE = species("azure");
+  public static final KeyHolder LAVENDER = species("lavender");
+  public static final KeyHolder LIME = species("lime");
+  /// Tertiary
+  public static final KeyHolder ASHEN = species("ashen");
+  public static final KeyHolder FUCHSIA = species("fuchsia");
 
   private static KeyHolder species(String name)
   {

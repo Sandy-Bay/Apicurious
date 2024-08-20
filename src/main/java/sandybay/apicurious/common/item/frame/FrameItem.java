@@ -10,14 +10,16 @@ public class FrameItem extends Item implements IFrameItem
   private final float lifespanModifier;
   private final float productionModifier;
   private final float mutationModifier;
+  private final float additionalPrincessModifier;
   private final TerritoryModifier territoryModifier;
 
-  public FrameItem(Properties pProperties, float lifespanModifier, float productionModifier, float mutationModifier, TerritoryModifier territoryModifier)
+  public FrameItem(Properties pProperties, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier, TerritoryModifier territoryModifier)
   {
     super(pProperties);
     this.lifespanModifier = lifespanModifier;
     this.productionModifier = productionModifier;
     this.mutationModifier = mutationModifier;
+    this.additionalPrincessModifier = additionalPrincessModifier;
     this.territoryModifier = territoryModifier;
   }
 
@@ -37,6 +39,12 @@ public class FrameItem extends Item implements IFrameItem
   public float getMutationChanceModifier()
   {
     return this.mutationModifier;
+  }
+
+  @Override
+  public float getAdditionalPrincessModifier()
+  {
+    return this.additionalPrincessModifier;
   }
 
   @Override

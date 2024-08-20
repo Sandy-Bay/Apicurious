@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.05,
+  "first": "apicurious:species/natural",
+  "output": "apicurious:species/lime",
+  "second": "apicurious:species/bleached"
+}

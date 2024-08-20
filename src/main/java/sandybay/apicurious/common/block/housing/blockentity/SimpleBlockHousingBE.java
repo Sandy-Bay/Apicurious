@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.block.blockentity;
+package sandybay.apicurious.common.block.housing.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -37,6 +37,7 @@ import sandybay.apicurious.common.bee.genetic.allele.Speed;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
+import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
@@ -192,6 +193,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
             // Only do output if it's an apiary
             if (getBlockState().getBlock() instanceof ApiaryBlock && !handleOutput(genome)) updateGuiData();
             this.currentWork--;
+            damageFrames((ServerLevel) level, genome);
             if (this.currentWork == 0)
             {
               resetHousing(state);
@@ -202,6 +204,18 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       } else
       {
         updateGuiData();
+      }
+    }
+  }
+
+  private void damageFrames(ServerLevel level, Genome genome)
+  {
+    if (Math.abs(currentWork - maxWork) % (maxWork / ((Lifespan) genome.getLifespan(true).value()).getCycles()) == 0)
+    {
+      for (int i = 2; i < 5; i++)
+      {
+        ItemStack frame = getInventory().getStackInSlot(i);
+        frame.hurtAndBreak(1, level, null, item -> {});
       }
     }
   }
@@ -414,13 +428,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
           }
         }
       }
-      for (int i = 2; i < 5; i++)
-      {
-        ItemStack frame = getInventory().getStackInSlot(i);
-        frame.hurtAndBreak(1, (ServerLevel) level, null, item ->
-        {
-        });
-      }
     }
     return true;
   }
@@ -437,7 +444,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   private void handleQueenLifecycleEnd(Genome genome)
   {
     getInventory().extractItem(0, 1, false);
-    ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.get(), 1);
+    ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.get(), getLevel().getRandom().nextDouble() < getAdditionalPrincessChance() ? 2 : 1);
     Fertility fertility = (Fertility) genome.getFertility(true).value();
     ItemStack drones = new ItemStack(ItemRegistrar.DRONE.get(), fertility.getOffspring());
     princess.set(DataComponentRegistrar.GENOME, genome);
@@ -458,6 +465,17 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
         break;
       }
     }
+  }
+
+  private float getAdditionalPrincessChance()
+  {
+    float chance = 0.05f;
+    List<ItemStack> frames = SimpleBlockHousingHelper.getFrames(this);
+    for (ItemStack frame : frames) {
+      FrameItem frameItem = (FrameItem) frame.getItem();
+      chance *= frameItem.getAdditionalPrincessModifier();
+    }
+    return chance;
   }
 
   private IMutation getPotentialMutation()

@@ -13,7 +13,7 @@ import sandybay.apicurious.api.bee.genetic.mutation.MutationType;
 import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 public record Mutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second, float chance,
                        Holder<IAllele<?>> output) implements IMutation

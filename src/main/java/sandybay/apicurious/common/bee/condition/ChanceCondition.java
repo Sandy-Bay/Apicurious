@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 
 public record ChanceCondition(float chance) implements ICondition

@@ -6,7 +6,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.common.bee.genetic.Genome;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 

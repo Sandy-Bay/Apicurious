@@ -97,7 +97,7 @@
           "functions": [
             {
               "function": "apicurious:species",
-              "speciesKey": "apicurious:species/forest"
+              "speciesKey": "apicurious:species/meadow"
             }
           ],
           "name": "apicurious:drone"

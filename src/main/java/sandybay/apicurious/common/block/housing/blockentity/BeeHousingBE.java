@@ -1,4 +1,4 @@
-package sandybay.apicurious.common.block.blockentity;
+package sandybay.apicurious.common.block.housing.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -8,21 +8,21 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import sandybay.apicurious.common.menu.ApiaryMenu;
+import sandybay.apicurious.common.menu.BeeHousingMenu;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 
-public class ApiaryHousingBE extends SimpleBlockHousingBE
+public class BeeHousingBE extends SimpleBlockHousingBE
 {
 
-  public ApiaryHousingBE(BlockPos pos, BlockState blockState)
+  public BeeHousingBE(BlockPos pos, BlockState blockState)
   {
-    super(BlockRegistrar.APIARY.getType(), pos, blockState);
+    super(BlockRegistrar.BEE_HOUSING.getType(), pos, blockState);
   }
 
   @Override
   public Component getDisplayName()
   {
-    return Component.translatable("apicurious.menu.apiary");
+    return Component.translatable("apicurious.menu.bee_housing");
   }
 
   @Nullable
@@ -30,6 +30,6 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
   {
     if (getLevel() == null) return null;
-    return new ApiaryMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
+    return new BeeHousingMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
   }
 }

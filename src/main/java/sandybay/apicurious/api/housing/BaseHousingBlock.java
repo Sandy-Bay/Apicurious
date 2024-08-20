@@ -87,7 +87,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
   {
     return (level, pos, state, blockEntity) ->
     {
-      if (blockEntity instanceof ITickingApiary tickable)
+      if (blockEntity instanceof ITicker tickable)
       {
         if (level.isClientSide())
         {

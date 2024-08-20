@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/normal_flowers",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/average",
+      "toleranceHolder": "apicurious:humidity/tolerance/none"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/none"
+    }
+  },
+  "key": "apicurious:species/maroon",
+  "name": "apicurious.species.maroon",
+  "outputData": {
+    "outputTable": "apicurious:maroon"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/shorter",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slowest",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "ff4545",
+      "wingTint": "999999"
+    },
+    "hasCustomRender": false
+  }
+}

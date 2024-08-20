@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import org.jetbrains.annotations.NotNull;
-import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.BeeHousingBE;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
 

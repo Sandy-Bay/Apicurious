@@ -2,8 +2,10 @@ package sandybay.apicurious.common.registrar;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -12,10 +14,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.BeeItem;
 
 import java.util.List;
@@ -44,7 +48,7 @@ public class CreativeTabRegistrar
           .title(Component.translatable("itemGroup.apicurious.bee"))
           .withTabsBefore(CreativeTabRegistrar.GENERAL_TAB.getKey())
           .icon(() -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN))
-          .displayItems((parameters, output) -> registerBees(output)).build());
+          .displayItems(CreativeTabRegistrar::registerBees).build());
 
   private static void registerHousings(CreativeModeTab.Output output)
   {
@@ -54,50 +58,36 @@ public class CreativeTabRegistrar
     ));
   }
 
-  public static void registerBees(CreativeModeTab.Output output)
+  public static void registerBees(CreativeModeTab.ItemDisplayParameters parameters, CreativeModeTab.Output output)
   {
-    ClientPacketListener connection = Minecraft.getInstance().getConnection();
-    if (connection != null)
+    parameters.holders().lookup(ApicuriousRegistries.ALLELES).ifPresent(registry ->
     {
-      connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
-      {
-        for (ResourceLocation rl : registry.keySet())
+      registry.listElements().forEach(allele -> {
+        ResourceKey<IAllele<?>> rl = allele.key();
+        if (rl.location().getPath().contains("species/"))
         {
-          if (rl.getPath().contains("species/"))
+          if (rl.location().getPath().equals("undefined")) return;
+          if (rl.location().getPath().equals("debug") && !ApicuriousMainConfig.main_config.debug.get()) return;
+          List<ItemStack> bees = List.of(
+                  new ItemStack(ItemRegistrar.QUEEN),
+                  new ItemStack(ItemRegistrar.PRINCESS),
+                  new ItemStack(ItemRegistrar.DRONE)
+          );
+          BeeSpecies species = (BeeSpecies) allele.value();
+          bees.forEach(stack ->
           {
-            if (rl.getPath().equals("undefined")) continue;
-            List<ItemStack> bees = List.of(
-                    new ItemStack(ItemRegistrar.QUEEN),
-                    new ItemStack(ItemRegistrar.PRINCESS),
-                    new ItemStack(ItemRegistrar.DRONE)
-            );
-            BeeSpecies species = (BeeSpecies) registry.get(rl);
-            bees.forEach(stack ->
-            {
-              stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(Minecraft.getInstance().level));
-              stack.set(DataComponentRegistrar.IDENTIFIED, true);
-            });
-            output.acceptAll(bees);
-          }
+            stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(parameters.holders()));
+            stack.set(DataComponentRegistrar.IDENTIFIED, true);
+          });
+          output.acceptAll(bees);
         }
       });
-    }
+    });
   }
 
   public static void registerHives(CreativeModeTab.Output output)
   {
-    output.acceptAll(List.of(
-            BlockRegistrar.FOREST_HIVE.asItemStack(),
-            BlockRegistrar.MEADOW_HIVE.asItemStack(),
-            BlockRegistrar.MODEST_HIVE.asItemStack(),
-            BlockRegistrar.TROPICAL_HIVE.asItemStack(),
-            BlockRegistrar.WINTRY_HIVE.asItemStack(),
-            BlockRegistrar.MARSHY_HIVE.asItemStack(),
-            BlockRegistrar.ROCKY_HIVE.asItemStack(),
-            BlockRegistrar.NETHER_HIVE.asItemStack(),
-            BlockRegistrar.ENDER_HIVE.asItemStack(),
-            BlockRegistrar.WATER_HIVE.asItemStack()
-    ));
+    BlockRegistrar.HIVES.forEach(holder -> output.accept(holder.asBlock()));
   }
 
   private static void registerCombs(CreativeModeTab.Output output)
@@ -107,18 +97,7 @@ public class CreativeTabRegistrar
 
   private static void registerProducts(CreativeModeTab.Output output)
   {
-    output.acceptAll(List.of(
-            new ItemStack(ItemRegistrar.BEESWAX),
-            new ItemStack(ItemRegistrar.REFRACTORY_WAX),
-            new ItemStack(ItemRegistrar.HONEY_DROP),
-            new ItemStack(ItemRegistrar.HONEY_DEW),
-            new ItemStack(ItemRegistrar.ROYAL_JELLY),
-            new ItemStack(ItemRegistrar.PROPOLIS),
-            new ItemStack(ItemRegistrar.SILKEN_PROPOLIS),
-            new ItemStack(ItemRegistrar.SILK_WISP),
-            new ItemStack(ItemRegistrar.POLLEN),
-            new ItemStack(ItemRegistrar.ICE_SHARD)
-    ));
+    ItemRegistrar.PRODUCTS.forEach(product -> output.accept(product.get()));
   }
 
   private static void registerFrames(CreativeModeTab.Output output)

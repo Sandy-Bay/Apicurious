@@ -87,7 +87,7 @@ public class ApicuriousLootTables extends LootTableProvider
                       .setRolls(ConstantValue.exactly(1.0f))
                       .add(LootItem
                               .lootTableItem(ItemRegistrar.DRONE.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.FOREST.species()))
+                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
                               .when(LootItemRandomChanceCondition.randomChance(0.333f))
                               .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
                       )

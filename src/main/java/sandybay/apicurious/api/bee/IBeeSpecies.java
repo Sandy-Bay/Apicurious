@@ -1,5 +1,7 @@
 package sandybay.apicurious.api.bee;
 
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
@@ -25,4 +27,5 @@ public interface IBeeSpecies
   OutputData getOutputData();
 
   Genome getSpeciesDefaultGenome(Level level);
+  Genome getSpeciesDefaultGenome(HolderLookup.Provider provider);
 }

@@ -12,10 +12,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import sandybay.apicurious.api.housing.ITickingApiary;
+import sandybay.apicurious.api.housing.ITicker;
 
 //This does not really need to be in the API, we can just fire events for the users
-public abstract class BaseHousingBE extends BlockEntity implements ITickingApiary, IApiaryErrorHandler, MenuProvider
+public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApiaryErrorHandler, MenuProvider
 {
 
   public BaseHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState blockState)

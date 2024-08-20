@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.08,
+  "first": "apicurious:species/excited",
+  "output": "apicurious:species/energetic",
+  "second": "apicurious:species/diligent"
+}

@@ -26,6 +26,8 @@ public class MutationDefaults
   {
     AgrarianMutations.defaults(bootstrap);
     CultivatedMutations.defaults(bootstrap);
+    DyeMutations.defaults(bootstrap);
+    EcstaticMutations.defaults(bootstrap);
     FestiveMutations.defaults(bootstrap);
     GemstoneMutations.defaults(bootstrap);
     HeroicMutations.defaults(bootstrap);

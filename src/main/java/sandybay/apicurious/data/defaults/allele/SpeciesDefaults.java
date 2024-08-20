@@ -8,12 +8,30 @@ import sandybay.apicurious.data.defaults.allele.line.*;
 
 public class SpeciesDefaults
 {
+
+  /*
+    TODO: Add species for following materials:
+      - Overworld:
+        - Clay (Water + ?)
+        - Slime (Clay + Jungle(?))
+        - Amethyst
+      - Nether:
+        - Nether Wart (Fungal + Nether)
+        - Nether Quartz (Resilient + Nether)
+        - Glowstone (Energized + Nether)
+        - Ancient Debris (Fossilized + Nether)
+      - End
+        - Chorus (Fungal + Ender)
+      - Monster Loot
+   */
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     AgrarianSpecies.defaults(bootstrap);
     BaseSpecies.defaults(bootstrap);
     CultivatedSpecies.defaults(bootstrap);
     DebugSpecies.defaults(bootstrap);
+    DyeSpecies.defaults(bootstrap);
+    EcstaticSpecies.defaults(bootstrap);
     FestiveSpecies.defaults(bootstrap);
     GemstoneSpecies.defaults(bootstrap);
     HeroicSpecies.defaults(bootstrap);

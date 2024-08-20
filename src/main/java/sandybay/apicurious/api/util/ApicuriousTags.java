@@ -27,6 +27,7 @@ public class ApicuriousTags
     public static final TagKey<Block> MUSHROOM = create("mushroom");
     public static final TagKey<Block> WHEAT = create("wheat");
     public static final TagKey<Block> LILY_PAD = create("lily_pad");
+    public static final TagKey<Block> REDSTONE = create("redstone");
 
     private static TagKey<Block> create(String path)
     {

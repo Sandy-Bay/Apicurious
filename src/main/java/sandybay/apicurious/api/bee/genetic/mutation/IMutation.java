@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
 

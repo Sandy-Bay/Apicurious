@@ -26,6 +26,7 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ItemRegistrar.PRINCESS.get(), "Princess");
     add(ItemRegistrar.QUEEN.get(), "Queen");
     add(ItemRegistrar.SIEVE.get(), "Sieve");
+    add(ItemRegistrar.ANALYZER.get(), "Bee Analyzer");
 
     // Housing
     add(BlockRegistrar.APIARY.asItem(), "Apiary");
@@ -38,6 +39,8 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ItemRegistrar.SOUL_FRAME.get(), "Soul Frame");
     add(ItemRegistrar.RESTRAINT_FRAME.get(), "Restraint Frame");
     add(ItemRegistrar.PROVEN_FRAME.get(), "Proven Frame");
+    add(ItemRegistrar.ROYAL_FRAME.get(), "Royal Frame");
+    add(ItemRegistrar.CREATIVE_FRAME.get(), "Creative Frame");
 
     // Products
     add(ItemRegistrar.BEESWAX.get(), "Beeswax");
@@ -129,13 +132,16 @@ public class ApicuriousLangProvider extends LanguageProvider
 
     /// Flower
     flower("normal_flowers", "Flowers");
-    flower("cactus", "Cactus");
+    flower("cacti", "Cacti");
     flower("jungle", "Jungle");
-    flower("mushroom", "Mushroom");
     flower("snow", "Snow");
+    flower("mushroom", "Mushroom");
     flower("wheat", "Wheat");
+    flower("lily_pad", "Lily Pad");
     flower("overworld_stone", "Stone");
     flower("nether_stone", "Nether Stone");
+    flower("end_stone", "End Stone");
+    flower("redstone", "Redstone");
 
 
     /// Humidity Preference
@@ -264,6 +270,30 @@ public class ApicuriousLangProvider extends LanguageProvider
     // Gemstone
     species("Diamantine");
     species("Emeraldine");
+    // Ecstatic
+    species("Excited");
+    species("Energetic");
+    species("Ecstatic");
+    // Dye
+    /// Primary
+    species("Maroon");
+    species("Saffron");
+    species("Prussian");
+    species("Natural");
+    species("Sepia");
+    species("Bleached");
+    species("Ebony");
+    /// Secondary
+    species("Amber");
+    species("Turquoise");
+    species("Indigo");
+    species("Slate");
+    species("Azure");
+    species("Lavender");
+    species("Lime");
+    /// Tertiary
+    species("Ashen");
+    species("Fuchsia");
   }
 
   public void addErrors()
@@ -318,6 +348,24 @@ public class ApicuriousLangProvider extends LanguageProvider
     comb(ItemRegistrar.GOLD_COMB, "Golden");
     comb(ItemRegistrar.LAPIS_COMB, "Lazulite");
     comb(ItemRegistrar.DAMP_COMB, "Damp");
+    comb(ItemRegistrar.ENERGETIC_COMB, "Energetic");
+    comb(ItemRegistrar.STATIC_COMB, "Static");
+    comb(ItemRegistrar.RED_TINTED_COMB, "Red Tinted");
+    comb(ItemRegistrar.YELLOW_TINTED_COMB, "Yellow Tinted");
+    comb(ItemRegistrar.BLUE_TINTED_COMB, "Blue Tinted");
+    comb(ItemRegistrar.GREEN_TINTED_COMB, "Green Tinted");
+    comb(ItemRegistrar.BROWN_TINTED_COMB, "Brown Tinted");
+    comb(ItemRegistrar.WHITE_TINTED_COMB, "White Tinted");
+    comb(ItemRegistrar.BLACK_TINTED_COMB, "Black Tinted");
+    comb(ItemRegistrar.ORANGE_TINTED_COMB, "Orange Tinted");
+    comb(ItemRegistrar.CYAN_TINTED_COMB, "Cyan Tinted");
+    comb(ItemRegistrar.PURPLE_TINTED_COMB, "Purple Tinted");
+    comb(ItemRegistrar.GRAY_TINTED_COMB, "Gray Tinted");
+    comb(ItemRegistrar.LIGHT_BLUE_TINTED_COMB, "Light Blue Tinted");
+    comb(ItemRegistrar.PINK_TINTED_COMB, "Pink Tinted");
+    comb(ItemRegistrar.LIME_TINTED_COMB, "Lime Tinted");
+    comb(ItemRegistrar.LIGHT_GRAY_TINTED_COMB, "Light Gray Tinted");
+    comb(ItemRegistrar.MAGENTA_TINTED_COMB, "Magenta Tinted");
   }
 
   public void comb(Holder<Item> item, String name)

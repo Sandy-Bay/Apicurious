@@ -5,7 +5,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.block.blockentity.SimpleBlockHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 public interface ICondition
 {

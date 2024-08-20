@@ -3,6 +3,8 @@ package sandybay.apicurious.common.bee.species;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,6 +17,7 @@ import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
@@ -168,6 +171,14 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   {
     Genome genome = new Genome();
     genome.getDefaultGenome(level.registryAccess().holderOrThrow(getSpeciesKey()));
+    return genome;
+  }
+
+  @Override
+  public Genome getSpeciesDefaultGenome(HolderLookup.Provider provider)
+  {
+    Genome genome = new Genome();
+    provider.lookupOrThrow(ApicuriousRegistries.ALLELES).get(getSpeciesKey()).ifPresent(genome::getDefaultGenome);
     return genome;
   }
 

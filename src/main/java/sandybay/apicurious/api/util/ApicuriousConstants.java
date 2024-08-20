@@ -99,13 +99,54 @@ public class ApicuriousConstants
   // Mineral
   public static final String LAZULI_OUTLINE = "3d2cdb";
   public static final String LAZULI_WING = "999999";
-  public static final String ENERGETIC_OUTLINE = "ff4545";
-  public static final String ENERGETIC_WING = "999999";
   // Gemstone
   public static final String DIAMANTINE_OUTLINE = "7fbdfa";
   public static final String DIAMANTINE_WING = "999999";
   public static final String EMERALDINE_OUTLINE = "1cff03";
   public static final String EMERALDINE_WING = "999999";
+  // Ecstatic
+  public static final String EXCITED_OUTLINE = "ff4545";
+  public static final String EXCITED_WING = "999999";
+  public static final String ENERGETIC_OUTLINE = "ff4545";
+  public static final String ENERGETIC_WING = "999999";
+  public static final String ECSTATIC_OUTLINE = "ff4545";
+  public static final String ECSTATIC_WING = "999999";
+  // Dye
+  /// Primary
+  public static final String MAROON_OUTLINE = "ff4545";
+  public static final String MAROON_WING = "999999";
+  public static final String SAFFRON_OUTLINE = "ff4545";
+  public static final String SAFFRON_WING = "999999";
+  public static final String PRUSSIAN_OUTLINE = "ff4545";
+  public static final String PRUSSIAN_WING = "999999";
+  public static final String NATURAL_OUTLINE = "ff4545";
+  public static final String NATURAL_WING = "999999";
+  public static final String SEPIA_OUTLINE = "ff4545";
+  public static final String SEPIA_WING = "999999";
+  public static final String BLEACHED_OUTLINE = "ff4545";
+  public static final String BLEACHED_WING = "999999";
+  public static final String EBONY_OUTLINE = "ff4545";
+  public static final String EBONY_WING = "999999";
+  /// Secondary
+  public static final String AMBER_OUTLINE = "ff4545";
+  public static final String AMBER_WING = "999999";
+  public static final String TURQUOISE_OUTLINE = "ff4545";
+  public static final String TURQUOISE_WING = "999999";
+  public static final String INDIGO_OUTLINE = "ff4545";
+  public static final String INDIGO_WING = "999999";
+  public static final String SLATE_OUTLINE = "ff4545";
+  public static final String SLATE_WING = "999999";
+  public static final String AZURE_OUTLINE = "ff4545";
+  public static final String AZURE_WING = "999999";
+  public static final String LAVENDER_OUTLINE = "ff4545";
+  public static final String LAVENDER_WING = "999999";
+  public static final String LIME_OUTLINE = "ff4545";
+  public static final String LIME_WING = "999999";
+  /// Tertiary
+  public static final String ASHEN_OUTLINE = "ff4545";
+  public static final String ASHEN_WING = "999999";
+  public static final String FUCHSIA_OUTLINE = "ff4545";
+  public static final String FUCHSIA_WING = "999999";
 
   //// BeeColor(s)
   // Debug
@@ -157,8 +198,31 @@ public class ApicuriousConstants
   public static final BeeColor AURUM = new BeeColor(AURUM_OUTLINE, AURUM_WING, ROCKY_BODY);
   // Mineral
   public static final BeeColor LAZULI = new BeeColor(LAZULI_OUTLINE, LAZULI_WING, ROCKY_BODY);
-  public static final BeeColor ENERGETIC = new BeeColor(ENERGETIC_OUTLINE, ENERGETIC_WING, ROCKY_BODY);
   // Gemstone
   public static final BeeColor DIAMANTINE = new BeeColor(DIAMANTINE_OUTLINE, DIAMANTINE_WING, ROCKY_BODY);
   public static final BeeColor EMERALDINE = new BeeColor(EMERALDINE_OUTLINE, EMERALDINE_WING, ROCKY_BODY);
+  // Ecstatic
+  public static final BeeColor EXCITED = new BeeColor(EXCITED_OUTLINE, EXCITED_WING, DEFAULT_BODY);
+  public static final BeeColor ENERGETIC = new BeeColor(ENERGETIC_OUTLINE, ENERGETIC_WING, DEFAULT_BODY);
+  public static final BeeColor ECSTATIC = new BeeColor(ECSTATIC_OUTLINE, ECSTATIC_WING, DEFAULT_BODY);
+  // Dye
+  /// Primary
+  public static final BeeColor MAROON = new BeeColor(MAROON_OUTLINE, MAROON_WING, DEFAULT_BODY);
+  public static final BeeColor SAFFRON = new BeeColor(SAFFRON_OUTLINE, SAFFRON_WING, DEFAULT_BODY);
+  public static final BeeColor PRUSSIAN = new BeeColor(PRUSSIAN_OUTLINE, PRUSSIAN_WING, DEFAULT_BODY);
+  public static final BeeColor NATURAL = new BeeColor(NATURAL_OUTLINE, NATURAL_WING, DEFAULT_BODY);
+  public static final BeeColor SEPIA = new BeeColor(SEPIA_OUTLINE, SEPIA_WING, DEFAULT_BODY);
+  public static final BeeColor BLEACHED = new BeeColor(BLEACHED_OUTLINE, BLEACHED_WING, DEFAULT_BODY);
+  public static final BeeColor EBONY = new BeeColor(EBONY_OUTLINE, EBONY_WING, DEFAULT_BODY);
+  /// Secondary
+  public static final BeeColor AMBER = new BeeColor(AMBER_OUTLINE, AMBER_WING, DEFAULT_BODY);
+  public static final BeeColor TURQUOISE = new BeeColor(TURQUOISE_OUTLINE, TURQUOISE_WING, DEFAULT_BODY);
+  public static final BeeColor INDIGO = new BeeColor(INDIGO_OUTLINE, INDIGO_WING, DEFAULT_BODY);
+  public static final BeeColor SLATE = new BeeColor(SLATE_OUTLINE, SLATE_WING, DEFAULT_BODY);
+  public static final BeeColor AZURE = new BeeColor(AZURE_OUTLINE, AZURE_WING, DEFAULT_BODY);
+  public static final BeeColor LAVENDER = new BeeColor(LAVENDER_OUTLINE, LAVENDER_WING, DEFAULT_BODY);
+  public static final BeeColor LIME = new BeeColor(LIME_OUTLINE, LIME_WING, DEFAULT_BODY);
+  /// Tertiary
+  public static final BeeColor ASHEN = new BeeColor(ASHEN_OUTLINE, ASHEN_WING, DEFAULT_BODY);
+  public static final BeeColor FUCHSIA = new BeeColor(FUCHSIA_OUTLINE, FUCHSIA_WING, DEFAULT_BODY);
 }

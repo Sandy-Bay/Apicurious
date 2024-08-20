@@ -8,6 +8,8 @@ public interface IFrameItem
 
   float getMutationChanceModifier();
 
+  float getAdditionalPrincessModifier();
+
   TerritoryModifier getTerritoryModifier();
 
   // TODO: Implement effects that can check for this.

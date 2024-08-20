@@ -1,5 +1,6 @@
 package sandybay.apicurious.common.registrar;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
@@ -18,10 +19,23 @@ import sandybay.apicurious.common.item.frame.RestraintFrame;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
+/*
+  TODO: Needs new textures / models
+    - Bees (Drone, Princess, Queen)
+      - Needs new baseline textures
+    - Sieve
+    - Analyzer
+      - Item + GUI
+    - All Combs
+    - All Products
+    - All Frames
+ */
 public class ItemRegistrar
 {
   public static final List<DeferredHolder<Item, Item>> COMBS = new ArrayList<>();
+  public static final List<DeferredHolder<Item, Item>> PRODUCTS = new ArrayList<>();
   public static final List<DeferredHolder<Item, FrameItem>> FRAMES = new ArrayList<>();
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
@@ -47,7 +61,6 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
   public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
   public static final DeferredHolder<Item, Item> SEEDY_COMB = comb("seedy");
-
   public static final DeferredHolder<Item, Item> DUSTY_COMB = comb("dusty");
   public static final DeferredHolder<Item, Item> DIAMOND_COMB = comb("diamond");
   public static final DeferredHolder<Item, Item> EMERALD_COMB = comb("emerald");
@@ -56,26 +69,46 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> GOLD_COMB = comb("gold");
   public static final DeferredHolder<Item, Item> LAPIS_COMB = comb("lapis");
   public static final DeferredHolder<Item, Item> DAMP_COMB = comb("damp");
+  public static final DeferredHolder<Item, Item> ENERGETIC_COMB = comb("energetic");
+  public static final DeferredHolder<Item, Item> STATIC_COMB = comb("static");
+  public static final DeferredHolder<Item, Item> RED_TINTED_COMB = comb("red_tinted");
+  public static final DeferredHolder<Item, Item> YELLOW_TINTED_COMB = comb("yellow_tinted");
+  public static final DeferredHolder<Item, Item> BLUE_TINTED_COMB = comb("blue_tinted");
+  public static final DeferredHolder<Item, Item> GREEN_TINTED_COMB = comb("green_tinted");
+  public static final DeferredHolder<Item, Item> BROWN_TINTED_COMB = comb("brown_tinted");
+  public static final DeferredHolder<Item, Item> WHITE_TINTED_COMB = comb("white_tinted");
+  public static final DeferredHolder<Item, Item> BLACK_TINTED_COMB = comb("black_tinted");
+  public static final DeferredHolder<Item, Item> ORANGE_TINTED_COMB = comb("orange_tinted");
+  public static final DeferredHolder<Item, Item> CYAN_TINTED_COMB = comb("cyan_tinted");
+  public static final DeferredHolder<Item, Item> PURPLE_TINTED_COMB = comb("purple_tinted");
+  public static final DeferredHolder<Item, Item> GRAY_TINTED_COMB = comb("gray_tinted");
+  public static final DeferredHolder<Item, Item> LIGHT_BLUE_TINTED_COMB = comb("light_blue_tinted");
+  public static final DeferredHolder<Item, Item> PINK_TINTED_COMB = comb("pink_tinted");
+  public static final DeferredHolder<Item, Item> LIME_TINTED_COMB = comb("lime_tinted");
+  public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted");
+  public static final DeferredHolder<Item, Item> MAGENTA_TINTED_COMB = comb("magenta_tinted");
 
   // Misc
-  public static final DeferredHolder<Item, Item> BEESWAX = item("beeswax");
-  public static final DeferredHolder<Item, Item> REFRACTORY_WAX = item("refractory_wax");
-  public static final DeferredHolder<Item, Item> HONEY_DROP = item("honey_drop");
-  public static final DeferredHolder<Item, Item> HONEY_DEW = item("honey_dew");
-  public static final DeferredHolder<Item, Item> ROYAL_JELLY = item("royal_jelly");
-  public static final DeferredHolder<Item, Item> PROPOLIS = item("propolis");
-  public static final DeferredHolder<Item, Item> SILKEN_PROPOLIS = item("silken_propolis");
-  public static final DeferredHolder<Item, Item> SILK_WISP = item("silk_wisp");
-  public static final DeferredHolder<Item, Item> POLLEN = item("pollen");
-  public static final DeferredHolder<Item, Item> ICE_SHARD = item("ice_shard");
+  public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");
+  public static final DeferredHolder<Item, Item> REFRACTORY_WAX = product("refractory_wax");
+  public static final DeferredHolder<Item, Item> HONEY_DROP = product("honey_drop");
+  public static final DeferredHolder<Item, Item> HONEY_DEW = product("honey_dew");
+  public static final DeferredHolder<Item, Item> ROYAL_JELLY = product("royal_jelly");
+  public static final DeferredHolder<Item, Item> PROPOLIS = product("propolis");
+  public static final DeferredHolder<Item, Item> SILKEN_PROPOLIS = product("silken_propolis");
+  public static final DeferredHolder<Item, Item> SILK_WISP = product("silk_wisp");
+  public static final DeferredHolder<Item, Item> POLLEN = product("pollen");
+  public static final DeferredHolder<Item, Item> ICE_SHARD = product("ice_shard");
 
   // Frames
-  public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f);
-  public static final DeferredHolder<Item, FrameItem> IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f);
-  public static final DeferredHolder<Item, FrameItem> HEALING_FRAME = frame("healing", 240, 1.5f, 1.25f, 0.5f);
-  public static final DeferredHolder<Item, FrameItem> SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f);
+  public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f, 1.0f);
+  public static final DeferredHolder<Item, FrameItem> IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f, 1.0f);
+  public static final DeferredHolder<Item, FrameItem> HEALING_FRAME = frame("healing", 240, 1.5f, 1.25f, 0.5f, 1.0f);
+  public static final DeferredHolder<Item, FrameItem> SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f, 1.0f);
   public static final DeferredHolder<Item, FrameItem> RESTRAINT_FRAME = ITEMS.register(frame("restraint"), () -> new RestraintFrame(SINGLETON_PROPS().durability(240)));
-  public static final DeferredHolder<Item, FrameItem> PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f);
+  public static final DeferredHolder<Item, FrameItem> PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f, 1.0f);
+  public static final DeferredHolder<Item, FrameItem> ROYAL_FRAME = frame("royal", 120, 2.0f, 500.0f, 0.0f, 2.5f);
+  public static final DeferredHolder<Item, FrameItem> CREATIVE_FRAME = frame("creative", Integer.MAX_VALUE, 0.00001f, 1.0f, 1.0f, 1.0f);
 
   public static Item.Properties SINGLETON_PROPS()
   {
@@ -87,21 +120,35 @@ public class ItemRegistrar
     ITEMS.register(bus);
   }
 
+  public static DeferredHolder<Item, Item> product(String name)
+  {
+    DeferredHolder<Item, Item> holder = ITEMS.register(name, () -> new Item(new Item.Properties()));
+    PRODUCTS.add(holder);
+    return holder;
+  }
+
+  public static DeferredHolder<Item, Item> product(String name, Item.Properties properties)
+  {
+    DeferredHolder<Item, Item> holder = ITEMS.register(name, () -> new Item(properties));
+    PRODUCTS.add(holder);
+    return holder;
+  }
+
   public static String frame(String name)
   {
     return name + "_frame";
   }
 
-  public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier)
+  public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier)
   {
-    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, new TerritoryModifier(xz -> xz, y -> y)));
+    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xz -> xz, y -> y)));
     FRAMES.add(frame);
     return frame;
   }
 
-  public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, Function<Integer, Integer> xzMod, Function<Integer, Integer> ymod)
+  public static DeferredHolder<Item, FrameItem> frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier, Function<Integer, Integer> xzMod, Function<Integer, Integer> ymod)
   {
-    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, new TerritoryModifier(xzMod, ymod)));
+    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xzMod, ymod)));
     FRAMES.add(frame);
     return frame;
   }

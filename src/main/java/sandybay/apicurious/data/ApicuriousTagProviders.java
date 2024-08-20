@@ -75,6 +75,13 @@ public class ApicuriousTagProviders
       this.tag(ApicuriousTags.BlockTags.LILY_PAD).add(
               Blocks.LILY_PAD.builtInRegistryHolder().getKey()
       );
+      this.tag(ApicuriousTags.BlockTags.REDSTONE).add(
+              Blocks.REDSTONE_ORE.builtInRegistryHolder().getKey(),
+              Blocks.REDSTONE_WIRE.builtInRegistryHolder().getKey(),
+              Blocks.REDSTONE_TORCH.builtInRegistryHolder().getKey(),
+              Blocks.REDSTONE_WALL_TORCH.builtInRegistryHolder().getKey(),
+              Blocks.REDSTONE_BLOCK.builtInRegistryHolder().getKey()
+      );
     }
   }
 

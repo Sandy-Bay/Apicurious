@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
-import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.BeeHousingBE;
 
 public class BeeHousingBlock extends BaseHousingBlock
 {

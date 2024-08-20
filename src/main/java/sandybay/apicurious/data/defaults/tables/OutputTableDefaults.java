@@ -14,6 +14,8 @@ public class OutputTableDefaults
     AgrarianOutputs.defaults(bootstrap);
     BaseOutputs.defaults(bootstrap);
     CultivatedOutputs.defaults(bootstrap);
+    DyeOutputs.defaults(bootstrap);
+    EcstaticOutputs.defaults(bootstrap);
     FestiveOutputs.defaults(bootstrap);
     GemstoneOutputs.defaults(bootstrap);
     HeroicOutputs.defaults(bootstrap);
