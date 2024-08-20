@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.defaults.allele.line;
+package sandybay.apicurious.data.defaults.allele.species;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
@@ -7,13 +7,13 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
 
-public class ImperialSpecies
+public class IndustriousSpecies
 {
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.NOBLE.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.NOBLE.species(), "noble")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.NOBLE))
+    bootstrap.register(ApicuriousSpecies.DILIGENT.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DILIGENT.species(), "diligent")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DILIGENT))
                     .withProductionData(builder ->
                     {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORT)
@@ -26,15 +26,15 @@ public class ImperialSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.NOBLE.output()))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.DILIGENT.output()))
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.MAJESTIC.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MAJESTIC.species(), "majestic")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MAJESTIC))
+    bootstrap.register(ApicuriousSpecies.UNWEARY.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.UNWEARY.species(), "unweary")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.UNWEARY))
                     .withProductionData(builder ->
                     {
-                      builder.withArea(Area.AVERAGE).withFertility(Fertility.MAXIMUM_FERTILITY).withLifespan(Lifespan.SHORTENED)
+                      builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.SHORTENED)
                               .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.AVERAGE)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
@@ -44,16 +44,16 @@ public class ImperialSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MAJESTIC.output()))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.UNWEARY.output()))
                     .build()
     );
-    bootstrap.register(ApicuriousSpecies.IMPERIAL.species(),
-            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.IMPERIAL.species(), "imperial")
-                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.IMPERIAL).hasEffect())
+    bootstrap.register(ApicuriousSpecies.INDUSTRIOUS.species(),
+            SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.INDUSTRIOUS.species(), "industrious")
+                    .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.INDUSTRIOUS).hasEffect())
                     .withProductionData(builder ->
                     {
                       builder.withArea(Area.AVERAGE).withFertility(Fertility.AVERAGE_FERTILITY).withLifespan(Lifespan.AVERAGE)
-                              .withPollinationRate(Pollination.SLOWEST).withProductionSpeed(Speed.SLOWER)
+                              .withPollinationRate(Pollination.FAST).withProductionSpeed(Speed.SLOWER)
                               .withWorkCycle(Workcycle.DIURNAL);
                     })
                     .withEnvironmentalData(builder ->
@@ -62,7 +62,7 @@ public class ImperialSpecies
                               .withHumidityPreference(HumidityPreference.AVERAGE).withHumidityTolerance(HumidityTolerance.NO_TOLERANCE)
                               .withTemperaturePreference(TemperaturePreference.AVERAGE).withTemperatureTolerance(TemperatureTolerance.NO_TOLERANCE);
                     })
-                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.IMPERIAL.output()))
+                    .withOutputData(builder -> builder.withTable(ApicuriousSpecies.INDUSTRIOUS.output()))
                     .build()
     );
   }

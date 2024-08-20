@@ -13,6 +13,7 @@ import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.mutation.ConditionalMutation;
 import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
+import sandybay.apicurious.data.defaults.branch.*;
 import sandybay.apicurious.data.defaults.mutation.line.*;
 
 import java.util.Arrays;
@@ -24,19 +25,11 @@ public class MutationDefaults
 {
   public static void registerDefaults(BootstrapContext<IMutation> bootstrap)
   {
-    AgrarianMutations.defaults(bootstrap);
-    CultivatedMutations.defaults(bootstrap);
-    DyeMutations.defaults(bootstrap);
-    EcstaticMutations.defaults(bootstrap);
-    FestiveMutations.defaults(bootstrap);
-    GemstoneMutations.defaults(bootstrap);
-    HeroicMutations.defaults(bootstrap);
-    ImperialMutations.defaults(bootstrap);
-    IndustriousMutations.defaults(bootstrap);
-    MetallicMutations.defaults(bootstrap);
-    MineralMutations.defaults(bootstrap);
-    ResilientMutations.defaults(bootstrap);
-    TimberedMutations.defaults(bootstrap);
+    AgrarianBranch.mutationsDefaults(bootstrap);
+    ApisBranch.mutationsDefaults(bootstrap);
+    AquaticBranch.mutationsDefaults(bootstrap);
+    AustereBranch.mutationsDefaults(bootstrap);
+    BarrenBranch.mutationsDefaults(bootstrap);
   }
 
   public static Builder mutation(BootstrapContext<IMutation> bootstrap)

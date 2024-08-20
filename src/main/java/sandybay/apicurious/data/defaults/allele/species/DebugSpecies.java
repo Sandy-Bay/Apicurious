@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.defaults.allele.line;
+package sandybay.apicurious.data.defaults.allele.species;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Items;

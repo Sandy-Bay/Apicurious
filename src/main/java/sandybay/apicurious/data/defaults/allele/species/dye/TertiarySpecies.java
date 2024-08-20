@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.defaults.allele.line.dye;
+package sandybay.apicurious.data.defaults.allele.species.dye;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;

@@ -5,26 +5,18 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Item;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.common.bee.condition.ChanceCondition;
+import sandybay.apicurious.data.defaults.branch.*;
 import sandybay.apicurious.data.defaults.tables.line.*;
 
 public class OutputTableDefaults
 {
   public static void defaults(BootstrapContext<OutputTable> bootstrap)
   {
-    AgrarianOutputs.defaults(bootstrap);
-    BaseOutputs.defaults(bootstrap);
-    CultivatedOutputs.defaults(bootstrap);
-    DyeOutputs.defaults(bootstrap);
-    EcstaticOutputs.defaults(bootstrap);
-    FestiveOutputs.defaults(bootstrap);
-    GemstoneOutputs.defaults(bootstrap);
-    HeroicOutputs.defaults(bootstrap);
-    ImperialOutputs.defaults(bootstrap);
-    IndustriousOutputs.defaults(bootstrap);
-    MetallicOutputs.defaults(bootstrap);
-    MineralOutputs.defaults(bootstrap);
-    ResilientOutputs.defaults(bootstrap);
-    TimberedOutputs.defaults(bootstrap);
+    AgrarianBranch.outputsDefaults(bootstrap);
+    ApisBranch.outputsDefaults(bootstrap);
+    AquaticBranch.outputsDefaults(bootstrap);
+    AustereBranch.outputsDefaults(bootstrap);
+    BarrenBranch.outputsDefaults(bootstrap);
   }
 
   public static OutputTable.Builder custom()

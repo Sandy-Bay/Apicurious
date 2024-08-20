@@ -1,10 +1,10 @@
-package sandybay.apicurious.data.defaults.allele.line;
+package sandybay.apicurious.data.defaults.allele.species;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
-import sandybay.apicurious.data.defaults.allele.line.dye.PrimarySpecies;
-import sandybay.apicurious.data.defaults.allele.line.dye.SecondarySpecies;
-import sandybay.apicurious.data.defaults.allele.line.dye.TertiarySpecies;
+import sandybay.apicurious.data.defaults.allele.species.dye.PrimarySpecies;
+import sandybay.apicurious.data.defaults.allele.species.dye.SecondarySpecies;
+import sandybay.apicurious.data.defaults.allele.species.dye.TertiarySpecies;
 
 public class DyeSpecies
 {

@@ -87,6 +87,10 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> LIME_TINTED_COMB = comb("lime_tinted");
   public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted");
   public static final DeferredHolder<Item, Item> MAGENTA_TINTED_COMB = comb("magenta_tinted");
+  public static final DeferredHolder<Item, Item> UNSTABLE_COMB = comb("unstable");
+  public static final DeferredHolder<Item, Item> CLAY_COMB = comb("clay");
+  public static final DeferredHolder<Item, Item> BARREN_COMB = comb("barren");
+  public static final DeferredHolder<Item, Item> DECOMPOSED_COMB = comb("decomposed");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");

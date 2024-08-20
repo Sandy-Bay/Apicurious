@@ -12,14 +12,10 @@ public class BaseOutputs
 {
   public static void defaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.FOREST.output(), OutputTableDefaults.simpleCombTable(Items.HONEYCOMB.builtInRegistryHolder(), 0.3f));
-    bootstrap.register(ApicuriousSpecies.MEADOW.output(), OutputTableDefaults.simpleCombTable(Items.HONEYCOMB.builtInRegistryHolder(), 0.3f));
-    bootstrap.register(ApicuriousSpecies.MODEST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.PARCHED_COMB, 0.2f));
     bootstrap.register(ApicuriousSpecies.TROPICAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.2f));
     bootstrap.register(ApicuriousSpecies.WINTRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.MARSHY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.ROCKY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.WATER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DAMP_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.NETHER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB, 0.25f));
     bootstrap.register(ApicuriousSpecies.ENDER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.STEADFAST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.COCOA_COMB, 0.2f));

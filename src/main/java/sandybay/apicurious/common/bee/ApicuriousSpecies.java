@@ -10,28 +10,54 @@ import sandybay.apicurious.common.bee.species.BeeColor;
 
 public class ApicuriousSpecies
 {
-
   // Debug
   public static final KeyHolder EMPTY = species("undefined");
   public static final KeyHolder DEBUG = species("debug");
+
   // Base Types
-  public static final KeyHolder FOREST = species("forest");
-  public static final KeyHolder MEADOW = species("meadow");
-  public static final KeyHolder MODEST = species("modest");
+
   public static final KeyHolder TROPICAL = species("tropical");
   public static final KeyHolder WINTRY = species("wintry");
-  public static final KeyHolder MARSHY = species("marshy");
   public static final KeyHolder ROCKY = species("rocky");
-  public static final KeyHolder WATER = species("water");
   public static final KeyHolder NETHER = species("nether");
   public static final KeyHolder ENDER = species("ender");
   public static final KeyHolder VALIANT = species("valiant");
   public static final KeyHolder STEADFAST = species("steadfast");
 
-  /// Bee-Lines:
-  // Common
+  /// Branches:
+  // Agrarian
+  public static final KeyHolder RURAL = species("rural");
+  public static final KeyHolder FARMERLY = species("farmed");
+  public static final KeyHolder AGRARIAN = species("agrarian");
+  // Apis
+  public static final KeyHolder FOREST = species("forest");
+  public static final KeyHolder MEADOW = species("meadow");
   public static final KeyHolder COMMON = species("common");
   public static final KeyHolder CULTIVATED = species("cultivated");
+  // Aquatic
+  public static final KeyHolder WATER = species("water");
+  public static final KeyHolder RIVER = species("river");
+  public static final KeyHolder OCEAN = species("ocean");
+  public static final KeyHolder STAINED = species("stained");
+  // Austere
+  public static final KeyHolder MODEST = species("modest");
+  public static final KeyHolder FRUGAL = species("frugal");
+  public static final KeyHolder AUSTERE = species("austere");
+  public static final KeyHolder HAZARDOUS = species("hazardous");
+  // Barren
+  public static final KeyHolder ARID = species("arid");
+  public static final KeyHolder BARREN = species("barren");
+  public static final KeyHolder DESOLATE = species("desolate");
+  public static final KeyHolder GNAWING = species("gnawing");
+  public static final KeyHolder DECOMPOSING = species("decomposing");
+  // Boggy
+  public static final KeyHolder MARSHY = species("marshy");
+  public static final KeyHolder DAMP = species("damp");
+  public static final KeyHolder BOGGY = species("boggy");
+  public static final KeyHolder FUNGAL = species("fungal");
+  public static final KeyHolder MIRY = species("miry");
+
+
   // Noble
   public static final KeyHolder NOBLE = species("noble");
   public static final KeyHolder MAJESTIC = species("majestic");
@@ -40,10 +66,7 @@ public class ApicuriousSpecies
   public static final KeyHolder DILIGENT = species("diligent");
   public static final KeyHolder UNWEARY = species("unweary");
   public static final KeyHolder INDUSTRIOUS = species("industrious");
-  // Agrarian
-  public static final KeyHolder RURAL = species("rural");
-  public static final KeyHolder FARMERLY = species("farmed");
-  public static final KeyHolder AGRARIAN = species("agrarian");
+
   // Festive
   public static final KeyHolder LEPORINE = species("leporine");
   public static final KeyHolder MERRY = species("merry");
