@@ -30,7 +30,7 @@
     "beeColor": {
       "bodyTint": "ffdc16",
       "outlineTint": "ff4545",
-      "wingTint": "999999"
+      "wingTint": "ffdc16"
     },
     "hasCustomRender": false
   }

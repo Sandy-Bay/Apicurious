@@ -29,8 +29,8 @@
   "visualData": {
     "beeColor": {
       "bodyTint": "ffdc16",
-      "outlineTint": "ff4545",
-      "wingTint": "999999"
+      "outlineTint": "009dff",
+      "wingTint": "8cff00"
     },
     "hasCustomRender": false
   }

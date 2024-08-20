@@ -11,6 +11,7 @@ public class ApicuriousConstants
   public static final String ROCKY_BODY = "999999";
   public static final String NETHER_BODY = "9a2323";
   public static final String ENDER_BODY = "d9de9e";
+  public static final String DYE_BODY = "8cff00";
 
   //// Outlines & Wings
   // Debug
@@ -106,47 +107,47 @@ public class ApicuriousConstants
   public static final String EMERALDINE_WING = "999999";
   // Ecstatic
   public static final String EXCITED_OUTLINE = "ff4545";
-  public static final String EXCITED_WING = "999999";
-  public static final String ENERGETIC_OUTLINE = "ff4545";
-  public static final String ENERGETIC_WING = "999999";
-  public static final String ECSTATIC_OUTLINE = "ff4545";
-  public static final String ECSTATIC_WING = "999999";
+  public static final String EXCITED_WING = "ffdc16";
+  public static final String ENERGETIC_OUTLINE = "e835c7";
+  public static final String ENERGETIC_WING = "ffdc16";
+  public static final String ECSTATIC_OUTLINE = "af35e8";
+  public static final String ECSTATIC_WING = "ffdc16";
   // Dye
   /// Primary
-  public static final String MAROON_OUTLINE = "ff4545";
-  public static final String MAROON_WING = "999999";
-  public static final String SAFFRON_OUTLINE = "ff4545";
-  public static final String SAFFRON_WING = "999999";
-  public static final String PRUSSIAN_OUTLINE = "ff4545";
-  public static final String PRUSSIAN_WING = "999999";
-  public static final String NATURAL_OUTLINE = "ff4545";
-  public static final String NATURAL_WING = "999999";
-  public static final String SEPIA_OUTLINE = "ff4545";
-  public static final String SEPIA_WING = "999999";
-  public static final String BLEACHED_OUTLINE = "ff4545";
-  public static final String BLEACHED_WING = "999999";
-  public static final String EBONY_OUTLINE = "ff4545";
-  public static final String EBONY_WING = "999999";
+  public static final String MAROON_OUTLINE = "ff0000";
+  public static final String MAROON_WING = "8cff00";
+  public static final String SAFFRON_OUTLINE = "ffdd00";
+  public static final String SAFFRON_WING = "8cff00";
+  public static final String PRUSSIAN_OUTLINE = "0022ff";
+  public static final String PRUSSIAN_WING = "8cff00";
+  public static final String NATURAL_OUTLINE = "009900";
+  public static final String NATURAL_WING = "8cff00";
+  public static final String SEPIA_OUTLINE = "5c350f";
+  public static final String SEPIA_WING = "8cff00";
+  public static final String BLEACHED_OUTLINE = "ffffff";
+  public static final String BLEACHED_WING = "8cff00";
+  public static final String EBONY_OUTLINE = "575757";
+  public static final String EBONY_WING = "8cff00";
   /// Secondary
-  public static final String AMBER_OUTLINE = "ff4545";
-  public static final String AMBER_WING = "999999";
-  public static final String TURQUOISE_OUTLINE = "ff4545";
-  public static final String TURQUOISE_WING = "999999";
-  public static final String INDIGO_OUTLINE = "ff4545";
-  public static final String INDIGO_WING = "999999";
-  public static final String SLATE_OUTLINE = "ff4545";
-  public static final String SLATE_WING = "999999";
-  public static final String AZURE_OUTLINE = "ff4545";
-  public static final String AZURE_WING = "999999";
-  public static final String LAVENDER_OUTLINE = "ff4545";
-  public static final String LAVENDER_WING = "999999";
-  public static final String LIME_OUTLINE = "ff4545";
-  public static final String LIME_WING = "999999";
+  public static final String AMBER_OUTLINE = "ff9d00";
+  public static final String AMBER_WING = "8cff00";
+  public static final String TURQUOISE_OUTLINE = "00ffe5";
+  public static final String TURQUOISE_WING = "8cff00";
+  public static final String INDIGO_OUTLINE = "ae00ff";
+  public static final String INDIGO_WING = "8cff00";
+  public static final String SLATE_OUTLINE = "bababa";
+  public static final String SLATE_WING = "8cff00";
+  public static final String AZURE_OUTLINE = "009dff";
+  public static final String AZURE_WING = "8cff00";
+  public static final String LAVENDER_OUTLINE = "ff80df";
+  public static final String LAVENDER_WING = "8cff00";
+  public static final String LIME_OUTLINE = "00ff08";
+  public static final String LIME_WING = "8cff00";
   /// Tertiary
-  public static final String ASHEN_OUTLINE = "ff4545";
-  public static final String ASHEN_WING = "999999";
-  public static final String FUCHSIA_OUTLINE = "ff4545";
-  public static final String FUCHSIA_WING = "999999";
+  public static final String ASHEN_OUTLINE = "c9c9c9";
+  public static final String ASHEN_WING = "8cff00";
+  public static final String FUCHSIA_OUTLINE = "ff00cc";
+  public static final String FUCHSIA_WING = "8cff00";
 
   //// BeeColor(s)
   // Debug
