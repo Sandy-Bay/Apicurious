@@ -208,22 +208,22 @@ public class ApicuriousConstants
   public static final BeeColor ECSTATIC = new BeeColor(ECSTATIC_OUTLINE, ECSTATIC_WING, DEFAULT_BODY);
   // Dye
   /// Primary
-  public static final BeeColor MAROON = new BeeColor(MAROON_OUTLINE, MAROON_WING, DEFAULT_BODY);
-  public static final BeeColor SAFFRON = new BeeColor(SAFFRON_OUTLINE, SAFFRON_WING, DEFAULT_BODY);
-  public static final BeeColor PRUSSIAN = new BeeColor(PRUSSIAN_OUTLINE, PRUSSIAN_WING, DEFAULT_BODY);
-  public static final BeeColor NATURAL = new BeeColor(NATURAL_OUTLINE, NATURAL_WING, DEFAULT_BODY);
-  public static final BeeColor SEPIA = new BeeColor(SEPIA_OUTLINE, SEPIA_WING, DEFAULT_BODY);
-  public static final BeeColor BLEACHED = new BeeColor(BLEACHED_OUTLINE, BLEACHED_WING, DEFAULT_BODY);
-  public static final BeeColor EBONY = new BeeColor(EBONY_OUTLINE, EBONY_WING, DEFAULT_BODY);
+  public static final BeeColor MAROON = new BeeColor(MAROON_OUTLINE, MAROON_WING, DYE_BODY);
+  public static final BeeColor SAFFRON = new BeeColor(SAFFRON_OUTLINE, SAFFRON_WING, DYE_BODY);
+  public static final BeeColor PRUSSIAN = new BeeColor(PRUSSIAN_OUTLINE, PRUSSIAN_WING, DYE_BODY);
+  public static final BeeColor NATURAL = new BeeColor(NATURAL_OUTLINE, NATURAL_WING, DYE_BODY);
+  public static final BeeColor SEPIA = new BeeColor(SEPIA_OUTLINE, SEPIA_WING, DYE_BODY);
+  public static final BeeColor BLEACHED = new BeeColor(BLEACHED_OUTLINE, BLEACHED_WING, DYE_BODY);
+  public static final BeeColor EBONY = new BeeColor(EBONY_OUTLINE, EBONY_WING, DYE_BODY);
   /// Secondary
-  public static final BeeColor AMBER = new BeeColor(AMBER_OUTLINE, AMBER_WING, DEFAULT_BODY);
-  public static final BeeColor TURQUOISE = new BeeColor(TURQUOISE_OUTLINE, TURQUOISE_WING, DEFAULT_BODY);
-  public static final BeeColor INDIGO = new BeeColor(INDIGO_OUTLINE, INDIGO_WING, DEFAULT_BODY);
-  public static final BeeColor SLATE = new BeeColor(SLATE_OUTLINE, SLATE_WING, DEFAULT_BODY);
-  public static final BeeColor AZURE = new BeeColor(AZURE_OUTLINE, AZURE_WING, DEFAULT_BODY);
-  public static final BeeColor LAVENDER = new BeeColor(LAVENDER_OUTLINE, LAVENDER_WING, DEFAULT_BODY);
-  public static final BeeColor LIME = new BeeColor(LIME_OUTLINE, LIME_WING, DEFAULT_BODY);
+  public static final BeeColor AMBER = new BeeColor(AMBER_OUTLINE, AMBER_WING, DYE_BODY);
+  public static final BeeColor TURQUOISE = new BeeColor(TURQUOISE_OUTLINE, TURQUOISE_WING, DYE_BODY);
+  public static final BeeColor INDIGO = new BeeColor(INDIGO_OUTLINE, INDIGO_WING, DYE_BODY);
+  public static final BeeColor SLATE = new BeeColor(SLATE_OUTLINE, SLATE_WING, DYE_BODY);
+  public static final BeeColor AZURE = new BeeColor(AZURE_OUTLINE, AZURE_WING, DYE_BODY);
+  public static final BeeColor LAVENDER = new BeeColor(LAVENDER_OUTLINE, LAVENDER_WING, DYE_BODY);
+  public static final BeeColor LIME = new BeeColor(LIME_OUTLINE, LIME_WING, DYE_BODY);
   /// Tertiary
-  public static final BeeColor ASHEN = new BeeColor(ASHEN_OUTLINE, ASHEN_WING, DEFAULT_BODY);
-  public static final BeeColor FUCHSIA = new BeeColor(FUCHSIA_OUTLINE, FUCHSIA_WING, DEFAULT_BODY);
+  public static final BeeColor ASHEN = new BeeColor(ASHEN_OUTLINE, ASHEN_WING, DYE_BODY);
+  public static final BeeColor FUCHSIA = new BeeColor(FUCHSIA_OUTLINE, FUCHSIA_WING, DYE_BODY);
 }
