@@ -16,8 +16,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
-import sandybay.apicurious.common.block.blockentity.ApiaryHousingBE;
-import sandybay.apicurious.common.block.blockentity.BeeHousingBE;
+import sandybay.apicurious.common.block.centrifuge.CentrifugeBlock;
+import sandybay.apicurious.common.block.centrifuge.blockentity.CentrifugeBE;
 import sandybay.apicurious.common.block.housing.blockentity.ApiaryHousingBE;
 import sandybay.apicurious.common.block.housing.blockentity.BeeHousingBE;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
@@ -65,6 +65,14 @@ public class BlockRegistrar
           () -> new BeeHousingBlock(HOUSING_PROPS),
           BlockRegistrar::getDefaultBlockItem,
           BeeHousingBE::new,
+          BlockRegistrar::getDefaultType
+  );
+
+  public static BlockHolderWithTile<CentrifugeBlock, BlockItem, CentrifugeBE> CENTRIFUGE = registerBlockWithTile(
+          "centrifuge",
+          () -> new CentrifugeBlock(HOUSING_PROPS),
+          BlockRegistrar::getDefaultBlockItem,
+          CentrifugeBE::new,
           BlockRegistrar::getDefaultType
   );
 

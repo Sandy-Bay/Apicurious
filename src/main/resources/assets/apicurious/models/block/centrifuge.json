@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "apicurious:block/housing/apiary_side"
+  }
+}
