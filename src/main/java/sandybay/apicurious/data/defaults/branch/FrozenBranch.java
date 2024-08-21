@@ -10,9 +10,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class FrozenBranch
 {
@@ -24,8 +24,8 @@ public class FrozenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.MAXIMUM_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.SNOW)
                             .withTemperaturePreference(TemperaturePreference.ICY)
@@ -38,8 +38,8 @@ public class FrozenBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ICY))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOW))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOW))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.SNOW)
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
@@ -53,8 +53,8 @@ public class FrozenBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.GLACIAL))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                             .withTemperaturePreference(TemperaturePreference.ICY)
@@ -68,8 +68,8 @@ public class FrozenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.MAXIMUM_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder
                             .withTemperaturePreference(TemperaturePreference.ICY)
                             .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
@@ -82,8 +82,8 @@ public class FrozenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.MAXIMUM_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder
                             .withTemperaturePreference(TemperaturePreference.ICY)
                             .withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE))
@@ -130,6 +130,7 @@ public class FrozenBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
+    bootstrap.register(ApicuriousSpecies.WINTRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.ICY.output(), OutputTableDefaults.custom()
             .withPool(pool -> pool
                     .when(new ChanceCondition(0.2f))

@@ -11,9 +11,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AquaticBranch
 {
@@ -25,8 +25,8 @@ public class AquaticBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WATER))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.LILY_PAD)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -40,8 +40,8 @@ public class AquaticBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.RIVER))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.LILY_PAD)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -55,8 +55,8 @@ public class AquaticBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.OCEAN))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.LILY_PAD)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -70,8 +70,8 @@ public class AquaticBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.STAINED))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.LILY_PAD)
                             .withHumidityPreference(HumidityPreference.DAMP)

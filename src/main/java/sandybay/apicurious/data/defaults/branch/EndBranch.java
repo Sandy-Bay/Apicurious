@@ -9,9 +9,9 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class EndBranch
 {
@@ -24,8 +24,8 @@ public class EndBranch
                             .withArea(Area.LARGE)
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.LONGER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.END_STONE)
@@ -41,8 +41,8 @@ public class EndBranch
                             .withArea(Area.LARGE)
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.LONGER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.END_STONE)
@@ -58,8 +58,8 @@ public class EndBranch
                             .withArea(Area.LARGE)
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.LONGEST)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.END_STONE)

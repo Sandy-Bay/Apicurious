@@ -45,6 +45,10 @@ public class ApicuriousSpecies
   public static final KeyHolder BOGGY = species("boggy");
   public static final KeyHolder FUNGAL = species("fungal");
   public static final KeyHolder MIRY = species("miry");
+  // Caustic
+  public static final KeyHolder CORROSIVE = species("corrosive");
+  public static final KeyHolder CAUSTIC = species("caustic");
+  public static final KeyHolder ACIDIC = species("acidic");
   // Dye
   /// Primary
   public static final KeyHolder MAROON = species("maroon");
@@ -79,70 +83,78 @@ public class ApicuriousSpecies
   public static final KeyHolder TIPSY = species("tispy");
   public static final KeyHolder CELEBRATORY = species("celebratory");
   public static final KeyHolder TRICKY = species("tricky");
-  // Infernal
-  public static final KeyHolder SINISTER = species("sinister");
-  public static final KeyHolder FIENDISH = species("fiendish");
-  public static final KeyHolder DEMONIC = species("demonic");
-  // Monastic
-  public static final KeyHolder MONASTIC = species("monastic");
-  public static final KeyHolder SECLUDED = species("secluded");
-  public static final KeyHolder HERMITIC = species("hermitic");
   // Fossilised
   public static final KeyHolder FOSSILISED = species("fossilised");
   public static final KeyHolder FORGOTTEN = species("forgotten");
+  // Frozen
+  public static final KeyHolder WINTRY = species("wintry");
+  public static final KeyHolder ICY = species("icy");
+  public static final KeyHolder GLACIAL = species("glacial");
+  public static final KeyHolder FRIGID = species("frigid");
+  public static final KeyHolder ABSOLUTE = species("absolute");
+  // Gemstone
+  public static final KeyHolder DIAMANTINE = species("diamantine");
+  public static final KeyHolder EMERALDINE = species("emeraldine");
+  // Heroic
+  public static final KeyHolder VALIANT = species("valiant");
+  public static final KeyHolder STEADFAST = species("steadfast");
+  public static final KeyHolder HEROIC = species("heroic");
   // Historic
   public static final KeyHolder ANCIENT = species("ancient");
   public static final KeyHolder PRIMEVAL = species("primeval");
   public static final KeyHolder PREHISTORIC = species("prehistoric");
   public static final KeyHolder RELIC = species("relic");
-  // Frozen
-  public static final KeyHolder ICY = species("icy");
-  public static final KeyHolder GLACIAL = species("glacial");
-  public static final KeyHolder FRIGID = species("frigid");
-  public static final KeyHolder ABSOLUTE = species("absolute");
-
-
-
-
-
-  // Base Types
-  public static final KeyHolder TROPICAL = species("tropical");
-  public static final KeyHolder WINTRY = species("wintry");
-  public static final KeyHolder ROCKY = species("rocky");
-  public static final KeyHolder NETHER = species("nether");
-  public static final KeyHolder VALIANT = species("valiant");
-  public static final KeyHolder STEADFAST = species("steadfast");
-  // Noble
+  // Imperial
   public static final KeyHolder NOBLE = species("noble");
   public static final KeyHolder MAJESTIC = species("majestic");
   public static final KeyHolder IMPERIAL = species("imperial");
-  // Diligent
+  // Industrious
   public static final KeyHolder DILIGENT = species("diligent");
   public static final KeyHolder UNWEARY = species("unweary");
   public static final KeyHolder INDUSTRIOUS = species("industrious");
-
-
-  // Wooden
-  public static final KeyHolder WOODEN = species("wooden");
-  public static final KeyHolder LUMBERED = species("lumbered");
-  public static final KeyHolder TIMBERED = species("timbered");
-  // Heroic
-  public static final KeyHolder HEROIC = species("heroic");
-  // Resilient
-  public static final KeyHolder TOLERANT = species("tolerant");
-  public static final KeyHolder ROBUST = species("robust");
-  public static final KeyHolder RESILIENT = species("resilient");
+  // Infernal
+  public static final KeyHolder SINISTER = species("sinister");
+  public static final KeyHolder FIENDISH = species("fiendish");
+  public static final KeyHolder DEMONIC = species("demonic");
   // Metallic
   public static final KeyHolder CUPRUM = species("cuprum");
   public static final KeyHolder FERRUS = species("ferrus");
   public static final KeyHolder AURUM = species("aurum");
   // Mineral
   public static final KeyHolder LAZULI = species("lazuli");
-  // Gemstone
-  public static final KeyHolder DIAMANTINE = species("diamantine");
-  public static final KeyHolder EMERALDINE = species("emeraldine");
-
-
+  // Monastic
+  public static final KeyHolder MONASTIC = species("monastic");
+  public static final KeyHolder SECLUDED = species("secluded");
+  public static final KeyHolder HERMITIC = species("hermitic");
+  // Resilient
+  public static final KeyHolder ROCKY = species("rocky");
+  public static final KeyHolder TOLERANT = species("tolerant");
+  public static final KeyHolder ROBUST = species("robust");
+  public static final KeyHolder RESILIENT = species("resilient");
+  // Saccharine
+  public static final KeyHolder SWEETENED = species("sweetened");
+  public static final KeyHolder SUGARY = species("sugary");
+  // Timbered
+  public static final KeyHolder WOODEN = species("wooden");
+  public static final KeyHolder LUMBERED = species("lumbered");
+  public static final KeyHolder TIMBERED = species("timbered");
+  // Tropical
+  public static final KeyHolder TROPICAL = species("tropical");
+  public static final KeyHolder EXOTIC = species("exotic");
+  public static final KeyHolder EDENIC = species("edenic");
+  // Virulent
+  public static final KeyHolder MALICIOUS = species("malicious");
+  public static final KeyHolder INFECTIOUS = species("infectious");
+  public static final KeyHolder VIRULENT = species("virulent");
+  // Viscous
+  public static final KeyHolder VISCOUS = species("viscous");
+  public static final KeyHolder GLUTINOUS = species("glutinous");
+  public static final KeyHolder STICKY = species("sticky");
+  // Volcanic
+  public static final KeyHolder NETHER = species("nether");
+  public static final KeyHolder FURIOUS = species("furious");
+  public static final KeyHolder VOLCANIC = species("volcanic");
+  public static final KeyHolder GLOWERING = species("glowering");
 
   private static KeyHolder species(String name)
   {

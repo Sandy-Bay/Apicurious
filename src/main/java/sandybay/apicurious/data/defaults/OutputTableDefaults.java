@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.defaults.tables;
+package sandybay.apicurious.data.defaults;
 
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -6,7 +6,6 @@ import net.minecraft.world.item.Item;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.data.defaults.branch.*;
-import sandybay.apicurious.data.defaults.tables.line.*;
 
 public class OutputTableDefaults
 {
@@ -34,7 +33,10 @@ public class OutputTableDefaults
     MineralBranch.outputsDefaults(bootstrap);
     MonasticBranch.outputsDefaults(bootstrap);
     ResilientBranch.outputsDefaults(bootstrap);
+    SaccharineBranch.outputsDefaults(bootstrap);
     TimberedBranch.outputsDefaults(bootstrap);
+    TropicalBranch.outputsDefaults(bootstrap);
+    VolcanicBranch.outputsDefaults(bootstrap);
   }
 
   public static OutputTable.Builder custom()

@@ -10,9 +10,9 @@ import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class ApisBranch
 {
@@ -24,8 +24,8 @@ public class ApisBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.HIGH_FERTILITY)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FOREST.output()))
                     .build()
     );
@@ -34,8 +34,8 @@ public class ApisBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MEADOW))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MEADOW.output()))
                     .build()
     );
@@ -44,8 +44,8 @@ public class ApisBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.COMMON))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output()))
                     .build()
     );
@@ -54,8 +54,8 @@ public class ApisBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.CULTIVATED))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTEST)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.FAST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.FAST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.CULTIVATED.output()))
                     .build()
     );

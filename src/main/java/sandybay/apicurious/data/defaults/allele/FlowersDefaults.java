@@ -24,6 +24,9 @@ public class FlowersDefaults
     bootstrap.register(Flowers.NETHER_STONE, flowers(BlockTags.BASE_STONE_NETHER, true, "nether_stone"));
     bootstrap.register(Flowers.END_STONE, flowers(Tags.Blocks.END_STONES, true, "end_stone"));
     bootstrap.register(Flowers.REDSTONE, flowers(ApicuriousTags.BlockTags.REDSTONE, true, "redstone"));
+    bootstrap.register(Flowers.DEAD_BUSH, flowers(ApicuriousTags.BlockTags.DEAD_BUSH, true, "dead_bush"));
+    bootstrap.register(Flowers.WOOD, flowers(ApicuriousTags.BlockTags.WOOD, true, "wood"));
+    bootstrap.register(Flowers.SUGAR_CANE, flowers(ApicuriousTags.BlockTags.SUGAR_CANE, true, "sugar_cane"));
   }
 
   private static Flowers flowers(TagKey<Block> flowers, boolean isDominantTrait, String name)

@@ -10,9 +10,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class BarrenBranch
 {
@@ -23,8 +23,8 @@ public class BarrenBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ARID))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.DEAD_BUSH)
@@ -41,8 +41,8 @@ public class BarrenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.DEAD_BUSH)
@@ -59,8 +59,8 @@ public class BarrenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.DEAD_BUSH)
@@ -77,8 +77,8 @@ public class BarrenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.WOOD)
@@ -95,8 +95,8 @@ public class BarrenBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.DEAD_BUSH)

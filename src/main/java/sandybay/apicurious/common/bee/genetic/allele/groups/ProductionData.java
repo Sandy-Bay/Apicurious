@@ -192,13 +192,13 @@ public class ProductionData
       return this;
     }
 
-    public Builder withProductionSpeed(ResourceKey<IAllele<?>> speed)
+    public Builder withSpeed(ResourceKey<IAllele<?>> speed)
     {
       this.speed = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(speed);
       return this;
     }
 
-    public Builder withPollinationRate(ResourceKey<IAllele<?>> pollination)
+    public Builder withPollination(ResourceKey<IAllele<?>> pollination)
     {
       this.pollination = context.lookup(ApicuriousRegistries.ALLELES).getOrThrow(pollination);
       return this;

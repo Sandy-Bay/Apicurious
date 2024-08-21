@@ -4,7 +4,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.data.defaults.allele.species.*;
 import sandybay.apicurious.data.defaults.branch.*;
 
 public class SpeciesDefaults
@@ -25,8 +24,7 @@ public class SpeciesDefaults
    */
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    BaseSpecies.defaults(bootstrap);
-    DebugSpecies.defaults(bootstrap);
+    DebugBranch.speciesDefaults(bootstrap);
     AgrarianBranch.speciesDefaults(bootstrap);
     ApisBranch.speciesDefaults(bootstrap);
     AquaticBranch.speciesDefaults(bootstrap);
@@ -49,7 +47,10 @@ public class SpeciesDefaults
     MineralBranch.speciesDefaults(bootstrap);
     MonasticBranch.speciesDefaults(bootstrap);
     ResilientBranch.speciesDefaults(bootstrap);
+    SaccharineBranch.speciesDefaults(bootstrap);
     TimberedBranch.speciesDefaults(bootstrap);
+    TropicalBranch.speciesDefaults(bootstrap);
+    VolcanicBranch.speciesDefaults(bootstrap);
   }
 
   public static BeeSpecies.Builder getSpeciesBuilder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)

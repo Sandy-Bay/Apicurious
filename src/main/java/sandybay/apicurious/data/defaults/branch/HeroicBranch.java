@@ -12,9 +12,9 @@ import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class HeroicBranch
 {
@@ -25,8 +25,8 @@ public class HeroicBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.VALIANT))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONG)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOW)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOW)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(EnvironmentalData.Builder::ignoresSky)
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.VALIANT.output()))
@@ -36,8 +36,8 @@ public class HeroicBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.STEADFAST.species(), "steadfast")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.STEADFAST).hasEffect())
                     .withProductionData(builder -> builder
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(EnvironmentalData.Builder::ignoresSky)
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.STEADFAST.output()))
@@ -48,8 +48,8 @@ public class HeroicBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.HEROIC).hasEffect())
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONG)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOW)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOW)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(EnvironmentalData.Builder::ignoresSky)
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.HEROIC.output()))

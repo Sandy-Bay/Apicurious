@@ -3,7 +3,6 @@ package sandybay.apicurious.data.defaults.branch;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.PlayerHeadBlock;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.output.OutputTable;
@@ -14,9 +13,9 @@ import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
 import sandybay.apicurious.data.defaults.condition.ConditionKeys;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 /*
     TODO:
@@ -35,8 +34,8 @@ public class FestiveBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.LEPORINE.species(), "leporine")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.LEPORINE))
                     .withProductionData(builder -> builder
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
                             .withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE))
@@ -47,8 +46,8 @@ public class FestiveBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MERRY.species(), "merry")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MERRY))
                     .withProductionData(builder -> builder
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
@@ -61,8 +60,8 @@ public class FestiveBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.TIPSY.species(), "tipsy")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.TIPSY))
                     .withProductionData(builder -> builder
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
@@ -75,8 +74,8 @@ public class FestiveBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.CELEBRATORY.species(), "celebratory")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.CELEBRATORY))
                     .withProductionData(builder -> builder
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
@@ -89,8 +88,8 @@ public class FestiveBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.TRICKY.species(), "tricky")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.TRICKY))
                     .withProductionData(builder -> builder
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)
@@ -181,6 +180,16 @@ public class FestiveBranch
             .withPool(pool -> pool
                     .when(new ChanceCondition(0.2f))
                     .withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))
+            ).build()
+    );
+    bootstrap.register(ApicuriousSpecies.CELEBRATORY.output(), OutputTableDefaults.custom()
+            .withPool(pool -> pool
+                    .when(new ChanceCondition(0.3f))
+                    .withResult(result -> result.withResult(ItemRegistrar.PARCHED_COMB.get()))
+            )
+            .withPool(pool -> pool
+                    .when(new ChanceCondition(0.2f))
+                    .withResult(result -> result.withResult(Items.GUNPOWDER))
             ).build()
     );
     bootstrap.register(ApicuriousSpecies.TRICKY.output(), OutputTableDefaults.custom()

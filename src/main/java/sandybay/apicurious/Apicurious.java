@@ -49,9 +49,8 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
   - Must Haves:
     - Apiary/BeeHousing
       - Add Particles for active housing
-      - Add extra Princess chance to Apiary/BeeHousing
     - Hives
-      - AddWorld gen for Hives
+      - Add WorldGen for Hives
     - Centrifuge
       - Add Centrifuge
     - Add Recipes

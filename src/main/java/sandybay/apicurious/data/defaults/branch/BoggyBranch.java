@@ -6,10 +6,13 @@ import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
+import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class BoggyBranch
 {
@@ -20,8 +23,8 @@ public class BoggyBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MARSHY))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.MUSHROOM)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -35,8 +38,8 @@ public class BoggyBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DAMP))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.MUSHROOM)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -51,8 +54,8 @@ public class BoggyBranch
                     .withProductionData(builder -> builder
                             .withArea(Area.LARGER)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.MUSHROOM)
@@ -67,8 +70,8 @@ public class BoggyBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FUNGAL))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.MUSHROOM)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -83,8 +86,8 @@ public class BoggyBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.MAXIMUM_FERTILITY)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWER)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWER)
+                            .withSpeed(Speed.SLOWEST))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.MUSHROOM)
                             .withHumidityPreference(HumidityPreference.DAMP)
@@ -132,6 +135,30 @@ public class BoggyBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-
+    bootstrap.register(ApicuriousSpecies.MARSHY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.3f));
+    bootstrap.register(ApicuriousSpecies.DAMP.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.3f));
+    bootstrap.register(ApicuriousSpecies.BOGGY.output(), OutputTableDefaults.custom()
+            .withPool(pool -> pool
+                    .when(new ChanceCondition(0.39f))
+                    .withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.get()))
+            )
+            .withPool(pool -> pool
+                    .when(new ChanceCondition(0.08f))
+                    .withResult(result -> result.withResult(ItemRegistrar.PEAT.get()))
+            )
+            .build()
+    );
+    bootstrap.register(ApicuriousSpecies.FUNGAL.output(), OutputTableDefaults.custom()
+            .withPool(pool -> pool
+                    .when(new ChanceCondition(0.3f))
+                    .withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.get()))
+            )
+            .withPool(pool -> pool
+                    .when(new ChanceCondition(0.15f))
+                    .withResult(result -> result.withResult(ItemRegistrar.FUNGAL_COMB.get()))
+            )
+            .build()
+    );
+    bootstrap.register(ApicuriousSpecies.MIRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.1f));
   }
 }

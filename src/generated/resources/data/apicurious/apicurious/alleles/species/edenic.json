@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/jungle",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/damp",
+      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/hot",
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
+    }
+  },
+  "key": "apicurious:species/edenic",
+  "name": "apicurious.species.edenic",
+  "outputData": {
+    "outputTable": "apicurious:edenic"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/longer",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slowest",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "388020",
+      "wingTint": "ffdc16"
+    },
+    "hasCustomRender": false
+  }
+}

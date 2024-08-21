@@ -9,9 +9,9 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class ResilientBranch
 {
@@ -23,8 +23,8 @@ public class ResilientBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)
@@ -40,8 +40,8 @@ public class ResilientBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)
@@ -57,8 +57,8 @@ public class ResilientBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)
@@ -74,8 +74,8 @@ public class ResilientBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)
@@ -117,6 +117,7 @@ public class ResilientBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
+    bootstrap.register(ApicuriousSpecies.ROCKY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.TOLERANT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.ROBUST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
     bootstrap.register(ApicuriousSpecies.RESILIENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));

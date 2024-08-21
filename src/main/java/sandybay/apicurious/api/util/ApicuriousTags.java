@@ -28,6 +28,9 @@ public class ApicuriousTags
     public static final TagKey<Block> WHEAT = create("wheat");
     public static final TagKey<Block> LILY_PAD = create("lily_pad");
     public static final TagKey<Block> REDSTONE = create("redstone");
+    public static final TagKey<Block> DEAD_BUSH = create("dead_bush");
+    public static final TagKey<Block> WOOD = create("wood");
+    public static final TagKey<Block> SUGAR_CANE = create("sugar_cane");
 
     private static TagKey<Block> create(String path)
     {

@@ -30,12 +30,7 @@ public record DateCondition(LocalDate from, LocalDate to) implements ICondition
           instance.group(
                   Codec.STRING.fieldOf("from").forGetter(c -> c.from().toString()),
                   Codec.STRING.fieldOf("to").forGetter(c -> c.to().toString())
-          ).apply(instance, (from, to) ->
-          {
-            if (LocalDate.parse(to).isBefore(LocalDate.parse(from)))
-              throw new IllegalArgumentException("To date can't be before From date!");
-            return new DateCondition(LocalDate.parse(from), LocalDate.parse(to));
-          })
+          ).apply(instance, (from, to) -> new DateCondition(LocalDate.parse(from), LocalDate.parse(to)))
   );
 
   @Override

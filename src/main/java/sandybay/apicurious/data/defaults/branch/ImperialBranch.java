@@ -10,9 +10,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class ImperialBranch
 {
@@ -23,8 +23,8 @@ public class ImperialBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.NOBLE))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.NOBLE.output()))
                     .build()
     );
@@ -34,8 +34,8 @@ public class ImperialBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.MAXIMUM_FERTILITY)
                             .withLifespan(Lifespan.SHORTENED)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.AVERAGE))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.AVERAGE))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MAJESTIC.output()))
                     .build()
     );
@@ -44,8 +44,8 @@ public class ImperialBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.IMPERIAL).hasEffect())
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.AVERAGE)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.IMPERIAL.output()))
                     .build()
     );

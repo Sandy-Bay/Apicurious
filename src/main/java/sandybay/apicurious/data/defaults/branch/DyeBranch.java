@@ -11,9 +11,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class DyeBranch
 {
@@ -24,8 +24,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MAROON))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.MAROON.output()))
                     .build()
     );
@@ -34,8 +34,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.SAFFRON))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.SAFFRON.output()))
                     .build()
     );
@@ -44,8 +44,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.PRUSSIAN))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.PRUSSIAN.output()))
                     .build()
     );
@@ -54,8 +54,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.NATURAL))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.NATURAL.output()))
                     .build()
     );
@@ -64,8 +64,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.SEPIA))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.SEPIA.output()))
                     .build()
     );
@@ -74,8 +74,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.BLEACHED))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.BLEACHED.output()))
                     .build()
     );
@@ -84,8 +84,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.EBONY))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.EBONY.output()))
                     .build()
     );
@@ -94,8 +94,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.AMBER))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.AMBER.output()))
                     .build()
     );
@@ -104,8 +104,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.TURQUOISE))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.TURQUOISE.output()))
                     .build()
     );
@@ -114,8 +114,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.INDIGO))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.INDIGO.output()))
                     .build()
     );
@@ -124,8 +124,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.SLATE))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.SLATE.output()))
                     .build()
     );
@@ -134,8 +134,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.AZURE))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.AZURE.output()))
                     .build()
     );
@@ -144,8 +144,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.LAVENDER))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.LAVENDER.output()))
                     .build()
     );
@@ -154,8 +154,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.LIME))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.LIME.output()))
                     .build()
     );
@@ -164,8 +164,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ASHEN))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.ASHEN.output()))
                     .build()
     );
@@ -174,8 +174,8 @@ public class DyeBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FUCHSIA))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST))
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FUCHSIA.output()))
                     .build()
     );

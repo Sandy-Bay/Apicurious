@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.defaults.mutation;
+package sandybay.apicurious.data.defaults;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -46,7 +46,10 @@ public class MutationDefaults
     MineralBranch.mutationsDefaults(bootstrap);
     MonasticBranch.mutationsDefaults(bootstrap);
     ResilientBranch.mutationsDefaults(bootstrap);
+    SaccharineBranch.mutationsDefaults(bootstrap);
     TimberedBranch.mutationsDefaults(bootstrap);
+    TropicalBranch.mutationsDefaults(bootstrap);
+    VolcanicBranch.mutationsDefaults(bootstrap);
   }
 
   public static Builder mutation(BootstrapContext<IMutation> bootstrap)

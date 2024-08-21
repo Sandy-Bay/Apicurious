@@ -9,9 +9,9 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class HistoricBranch
 {
@@ -22,8 +22,8 @@ public class HistoricBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ANCIENT))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.ELONGATED)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.ANCIENT.output()))
                     .build()
     );
@@ -32,8 +32,8 @@ public class HistoricBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.PRIMEVAL))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONG)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.PRIMEVAL.output()))
                     .build()
     );
@@ -43,8 +43,8 @@ public class HistoricBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.LONGER)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.PREHISTORIC.output()))
                     .build()
     );
@@ -53,8 +53,8 @@ public class HistoricBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.RELIC))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONGEST)
-                            .withPollinationRate(Pollination.SLOW)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.SLOW)
+                            .withSpeed(Speed.SLOWER))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.RELIC.output()))
                     .build()
     );

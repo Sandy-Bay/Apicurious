@@ -12,9 +12,9 @@ import sandybay.apicurious.common.bee.condition.BiomeCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AgrarianBranch
 {
@@ -25,8 +25,8 @@ public class AgrarianBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.RURAL))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.FASTER)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.FASTER)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder.withFlowers(Flowers.WHEAT))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.RURAL.output()))
                     .build()
@@ -36,8 +36,8 @@ public class AgrarianBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FARMED))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.FASTER)
-                            .withProductionSpeed(Speed.SLOWER))
+                            .withPollination(Pollination.FASTER)
+                            .withSpeed(Speed.SLOWER))
                     .withEnvironmentalData(builder -> builder.withFlowers(Flowers.WHEAT))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.FARMERLY.output()))
                     .build()
@@ -48,8 +48,8 @@ public class AgrarianBranch
                     .withProductionData(builder -> builder
                             .withArea(Area.LARGE)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.FASTER)
-                            .withProductionSpeed(Speed.SLOW))
+                            .withPollination(Pollination.FASTER)
+                            .withSpeed(Speed.SLOW))
                     .withEnvironmentalData(builder -> builder.withFlowers(Flowers.WHEAT))
                     .withOutputData(builder -> builder.withTable(ApicuriousSpecies.AGRARIAN.output()))
                     .build()

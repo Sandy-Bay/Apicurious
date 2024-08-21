@@ -10,9 +10,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class MetallicBranch
 {
@@ -24,8 +24,8 @@ public class MetallicBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)
@@ -39,8 +39,8 @@ public class MetallicBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)
@@ -54,8 +54,8 @@ public class MetallicBranch
                     .withProductionData(builder -> builder
                             .withFertility(Fertility.LOW_FERTILITY)
                             .withLifespan(Lifespan.SHORTER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.STONE)

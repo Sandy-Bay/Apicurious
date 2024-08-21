@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -81,6 +82,16 @@ public class ApicuriousTagProviders
               Blocks.REDSTONE_TORCH.builtInRegistryHolder().getKey(),
               Blocks.REDSTONE_WALL_TORCH.builtInRegistryHolder().getKey(),
               Blocks.REDSTONE_BLOCK.builtInRegistryHolder().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.DEAD_BUSH).add(
+              Blocks.DEAD_BUSH.builtInRegistryHolder().getKey(),
+              Blocks.POTTED_DEAD_BUSH.builtInRegistryHolder().getKey()
+      );
+      this.tag(ApicuriousTags.BlockTags.WOOD).addTags(
+              BlockTags.LOGS, BlockTags.PLANKS, BlockTags.SAPLINGS
+      );
+      this.tag(ApicuriousTags.BlockTags.SUGAR_CANE).add(
+              Blocks.SUGAR_CANE.builtInRegistryHolder().getKey()
       );
     }
   }

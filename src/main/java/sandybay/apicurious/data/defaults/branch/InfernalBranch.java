@@ -14,9 +14,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class InfernalBranch
 {
@@ -26,7 +26,7 @@ public class InfernalBranch
             SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.SINISTER.species(), "sinister")
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.SINISTER))
                     .withProductionData(builder -> builder
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.NETHER_STONE)
@@ -57,7 +57,7 @@ public class InfernalBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DEMONIC).hasEffect())
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONGER)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.NETHER_STONE)

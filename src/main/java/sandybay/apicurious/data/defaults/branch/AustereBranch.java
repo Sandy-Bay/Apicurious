@@ -13,9 +13,9 @@ import sandybay.apicurious.common.bee.condition.ChanceCondition;
 import sandybay.apicurious.common.bee.genetic.allele.*;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.data.defaults.allele.SpeciesDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
-import static sandybay.apicurious.data.defaults.mutation.MutationDefaults.mutation;
+import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AustereBranch
 {
@@ -26,8 +26,8 @@ public class AustereBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MODEST))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.SHORT)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWER)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWER)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.CACTI)
@@ -43,8 +43,8 @@ public class AustereBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FRUGAL))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONG)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.AVERAGE)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.AVERAGE)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.CACTI)
@@ -60,8 +60,8 @@ public class AustereBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.AUSTERE).hasEffect())
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONGER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.CACTI)
@@ -77,8 +77,8 @@ public class AustereBranch
                     .withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.HAZARDOUS))
                     .withProductionData(builder -> builder
                             .withLifespan(Lifespan.LONGER)
-                            .withPollinationRate(Pollination.SLOWEST)
-                            .withProductionSpeed(Speed.SLOWEST)
+                            .withPollination(Pollination.SLOWEST)
+                            .withSpeed(Speed.SLOWEST)
                             .withWorkCycle(Workcycle.ALWAYS))
                     .withEnvironmentalData(builder -> builder
                             .withFlowers(Flowers.CACTI)
