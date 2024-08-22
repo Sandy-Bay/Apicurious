@@ -9,6 +9,7 @@ import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.menu.AnalyzerMenu;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.menu.BeeHousingMenu;
+import sandybay.apicurious.common.menu.CentrifugeMenu;
 
 import java.util.function.Supplier;
 
@@ -24,5 +25,6 @@ public class MenuRegistrar
   public static final Supplier<MenuType<ApiaryMenu>> APIARY = MENU_TYPES.register("apiary", () -> IMenuTypeExtension.create(ApiaryMenu::new));
   public static final Supplier<MenuType<BeeHousingMenu>> BEE_HOUSING = MENU_TYPES.register("bee_housing", () -> IMenuTypeExtension.create(BeeHousingMenu::new));
   public static final Supplier<MenuType<AnalyzerMenu>> ANALYZER = MENU_TYPES.register("analyzer", () -> IMenuTypeExtension.create(AnalyzerMenu::new));
+  public static final Supplier<MenuType<CentrifugeMenu>> CENTRIFUGE = MENU_TYPES.register("centrifuge", () -> IMenuTypeExtension.create(CentrifugeMenu::new));
 
 }

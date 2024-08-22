@@ -51,9 +51,7 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
       - Add Particles for active housing
     - Hives
       - Add WorldGen for Hives
-    - Centrifuge
-      - Add Centrifuge
-    - Add Recipes
+    - Add JEI Support
   - Optionals:
     - Effects
     - General Code Clean-Up

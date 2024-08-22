@@ -3,9 +3,10 @@ package sandybay.apicurious.data;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.data.defaults.CentrifugeRecipeDefaults;
 import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
 import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
-import sandybay.apicurious.data.defaults.function.FunctionsDefaults;
+import sandybay.apicurious.data.defaults.FunctionsDefaults;
 import sandybay.apicurious.data.defaults.MutationDefaults;
 import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
@@ -20,6 +21,7 @@ public class ApicuriousDatapackRegistriesDefaults
     builder.add(ApicuriousRegistries.CONDITIONS, ConditionsDefaults::defaults);
     builder.add(ApicuriousRegistries.FUNCTIONS, FunctionsDefaults::defaults);
     builder.add(ApicuriousRegistries.OUTPUT_TABLES, OutputTableDefaults::defaults);
+    builder.add(ApicuriousRegistries.CENTRIFUGE_RECIPES, CentrifugeRecipeDefaults::defaults);
     builder.add(Registries.CONFIGURED_FEATURE, bootstrap ->
     {
       // TODO: Implement generation for the bee hives

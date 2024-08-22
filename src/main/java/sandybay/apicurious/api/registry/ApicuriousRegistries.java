@@ -15,6 +15,7 @@ import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.function.FunctionType;
 import sandybay.apicurious.api.function.IFunction;
+import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 
 public class ApicuriousRegistries
 {
@@ -42,6 +43,9 @@ public class ApicuriousRegistries
   // OutputTables
   public static final ResourceKey<Registry<OutputTable>> OUTPUT_TABLES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("output_tables"));
 
+  // CentrifugeRecipes
+  public static final ResourceKey<Registry<CentrifugeRecipe>> CENTRIFUGE_RECIPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("recipes/centrifuge"));
+
   public static void registerRegistries(final NewRegistryEvent event)
   {
     event.register(ALLELE_TYPE_REGISTRY);
@@ -57,5 +61,6 @@ public class ApicuriousRegistries
     event.dataPackRegistry(CONDITIONS, ICondition.TYPED_CODEC, ICondition.TYPED_CODEC);
     event.dataPackRegistry(FUNCTIONS, IFunction.TYPED_CODEC, IFunction.TYPED_CODEC);
     event.dataPackRegistry(OUTPUT_TABLES, OutputTable.DIRECT_CODEC, OutputTable.DIRECT_CODEC);
+    event.dataPackRegistry(CENTRIFUGE_RECIPES, CentrifugeRecipe.CODEC, CentrifugeRecipe.CODEC);
   }
 }

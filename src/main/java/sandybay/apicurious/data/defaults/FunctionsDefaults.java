@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.defaults.function;
+package sandybay.apicurious.data.defaults;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.function.IFunction;

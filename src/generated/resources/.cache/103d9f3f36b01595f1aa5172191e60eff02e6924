@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-21T16:05:39.4468139	Registries
+// 1.21.1	2024-08-21T21:49:47.2404242	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -369,3 +369,4 @@ fef9ba68750bfadebd827ff5c2a9107bd1ab67f0 data/apicurious/apicurious/output_table
 e2c00a45ce39c20580334ba931599153af2dc244 data/apicurious/apicurious/output_tables/water.json
 ba6008057df67c6def091f4f248dd4272f9b65e4 data/apicurious/apicurious/output_tables/wintry.json
 c8e72dbfce772796b5029d4c1b84dc3a5af8acc0 data/apicurious/apicurious/output_tables/wooden.json
+ca28a9d1402bd154815088a0c2df02bec2c6cecf data/apicurious/apicurious/recipes/centrifuge/test.json

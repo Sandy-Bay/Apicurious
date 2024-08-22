@@ -25,6 +25,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.gui.AnalyzerScreen;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
+import sandybay.apicurious.client.gui.CentrifugeScreen;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
@@ -113,6 +114,7 @@ public class ApicuriousClientEvents
     event.register(MenuRegistrar.APIARY.get(), ApiaryScreen::new);
     event.register(MenuRegistrar.BEE_HOUSING.get(), BeeHousingScreen::new);
     event.register(MenuRegistrar.ANALYZER.get(), AnalyzerScreen::new);
+    event.register(MenuRegistrar.CENTRIFUGE.get(), CentrifugeScreen::new);
   }
 
   private static int registerBeeTintHandler(ItemStack stack, int tintIndex)

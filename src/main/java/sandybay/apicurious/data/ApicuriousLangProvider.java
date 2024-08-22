@@ -27,10 +27,14 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ItemRegistrar.QUEEN.get(), "Queen");
     add(ItemRegistrar.SIEVE.get(), "Sieve");
     add(ItemRegistrar.ANALYZER.get(), "Bee Analyzer");
-
-    // Housing
     add(BlockRegistrar.APIARY.asItem(), "Apiary");
     add(BlockRegistrar.BEE_HOUSING.asItem(), "Bee Housing");
+    add(BlockRegistrar.CENTRIFUGE.asItem(), "Centrifuge");
+
+    // Blocks
+    add(BlockRegistrar.APIARY.asBlock(), "Apiary");
+    add(BlockRegistrar.BEE_HOUSING.asBlock(), "Bee Housing");
+    add(BlockRegistrar.CENTRIFUGE.asBlock(), "Centrifuge");
 
     // Frames
     add(ItemRegistrar.UNTREATED_FRAME.get(), "Untreated Frame");
@@ -113,6 +117,8 @@ public class ApicuriousLangProvider extends LanguageProvider
   {
     menu("apiary", "Apiary");
     menu("bee_housing", "Bee Housing");
+    menu("analyzer", "Analyzer");
+    menu("centrifuge", "Centrifuge");
   }
 
   public void addTraits()
@@ -144,7 +150,9 @@ public class ApicuriousLangProvider extends LanguageProvider
     flower("nether_stone", "Nether Stone");
     flower("end_stone", "End Stone");
     flower("redstone", "Redstone");
-
+    flower("dead_bush", "Dead Bush");
+    flower("wood", "Wood");
+    flower("sugar_cane", "Sugar Cane");
 
     /// Humidity Preference
     humidityPreference("Hellish");

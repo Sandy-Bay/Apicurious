@@ -11,8 +11,12 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
+import sandybay.apicurious.api.bee.EnumBeeType;
+import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
+import sandybay.apicurious.api.item.IFrameItem;
+import sandybay.apicurious.api.util.MenuHelper;
 
 import java.util.List;
 
@@ -36,7 +40,21 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory)
   {
-    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12), Lists.newArrayList());
+    this(type, containerId, playerInventory, ContainerLevelAccess.NULL,
+            new ConfigurableItemStackHandler(12)
+                    .setInputFilter((stack, slot) ->
+                    {
+                      if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
+                        return true;
+                      if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
+                        return true;
+                      return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
+                    })
+                    .setSlotLimit(0, 1)
+                    .setSlotLimit(2, 1)
+                    .setSlotLimit(3, 1)
+                    .setSlotLimit(4, 1),
+            Lists.newArrayList());
   }
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
@@ -48,15 +66,6 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     addApiarySlots(inventory);
     addInventorySlots(playerInventory);
     addHotbarSlots(playerInventory);
-  }
-
-  /**
-   * Determines if two @link {@link ItemStack} match and can be merged into a single slot
-   */
-  public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
-  {
-    if (stack1.isEmpty() || stack2.isEmpty()) return false;
-    return ItemStack.isSameItemSameComponents(stack1, stack2);
   }
 
   private void addApiarySlots(ConfigurableItemStackHandler inventory)
@@ -157,7 +166,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
       {
         Slot slot = slots.get(slotIndex);
         ItemStack stackInSlot = slot.getItem();
-        if (!stackInSlot.isEmpty() && canStacksMerge(stackInSlot, stackToShift))
+        if (!stackInSlot.isEmpty() && MenuHelper.canStacksMerge(stackInSlot, stackToShift))
         {
           int resultingStackSize = stackInSlot.getCount() + stackToShift.getCount();
           int max = Math.min(stackToShift.getMaxStackSize(), slot.getMaxStackSize());
