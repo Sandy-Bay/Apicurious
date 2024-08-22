@@ -1,7 +1,7 @@
 {
   "type": "apicurious:species",
   "environmentalData": {
-    "flowers": "apicurious:flowers/normal_flowers",
+    "flowers": "apicurious:flowers/wood",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
       "toleranceHolder": "apicurious:humidity/tolerance/none"

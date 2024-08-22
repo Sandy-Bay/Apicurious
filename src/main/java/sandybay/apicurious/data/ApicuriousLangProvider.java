@@ -53,6 +53,8 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ItemRegistrar.SILK_WISP.get(), "Silk Wisp");
     add(ItemRegistrar.POLLEN.get(), "Pollen");
     add(ItemRegistrar.ICE_SHARD.get(), "Ice Shard");
+    add(ItemRegistrar.ASH.get(), "Ash");
+    add(ItemRegistrar.PEAT.get(), "Peat");
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
@@ -220,60 +222,42 @@ public class ApicuriousLangProvider extends LanguageProvider
     // Debug
     species("Undefined");
     species("Debug");
-    // Baseline
-    species("Forest");
-    species("Meadow");
-    species("Modest");
-    species("Tropical");
-    species("Wintry");
-    species("Marshy");
-    species("Rocky");
-    species("Water");
-    species("Nether");
-    species("Ender");
-    species("Valiant");
-    species("Steadfast");
-    // Common
-    species("Common");
-    species("Cultivated");
-    // Noble
-    species("Noble");
-    species("Majestic");
-    species("Imperial");
-    // Diligent
-    species("Diligent");
-    species("Unweary");
-    species("Industrious");
+
     // Agrarian
     species("Rural");
     species("Farmed");
     species("Agrarian");
-    // Festive
-    species("Leporine");
-    species("Merry");
-    // Wooden
-    species("Wooden");
-    species("Lumbered");
-    species("Timbered");
-    // Heroic
-    species("Heroic");
-    // Resilient
-    species("Tolerant");
-    species("Robust");
-    species("Resilient");
-    // Metallic
-    species("Cuprum");
-    species("Ferrus");
-    species("Aurum");
-    // Mineral
-    species("Lazuli");
-    // Gemstone
-    species("Diamantine");
-    species("Emeraldine");
-    // Ecstatic
-    species("Excited");
-    species("Energetic");
-    species("Ecstatic");
+    // Apis
+    species("Forest");
+    species("Meadow");
+    species("Common");
+    species("Cultivated");
+    // Aquatic
+    species("Water");
+    species("River");
+    species("Ocean");
+    species("Stained");
+    // Austere
+    species("Modest");
+    species("Frugal");
+    species("Austere");
+    species("Hazardous");
+    // Barren
+    species("Arid");
+    species("Barren");
+    species("Desolate");
+    species("Gnawing");
+    species("Decomposing");
+    // Boggy
+    species("Marshy");
+    species("Damp");
+    species("Boggy");
+    species("Fungal");
+    species("Miry");
+    // Caustic
+    species("Corrosive");
+    species("Caustic");
+    species("Acidic");
     // Dye
     /// Primary
     species("Maroon");
@@ -294,6 +278,92 @@ public class ApicuriousLangProvider extends LanguageProvider
     /// Tertiary
     species("Ashen");
     species("Fuchsia");
+    // Ender
+    species("Ender");
+    species("Spectral");
+    species("Phantasmal");
+    // Ecstatic
+    species("Excited");
+    species("Energetic");
+    species("Ecstatic");
+    // Festive
+    species("Leporine");
+    species("Merry");
+    species("Tipsy");
+    species("Celebratory");
+    species("Tricky");
+    // Fossilised
+    species("Fossilised");
+    species("Forgotten");
+    // Frozen
+    species("Wintry");
+    species("Icy");
+    species("Glacial");
+    species("Frigid");
+    species("Absolute");
+    // Gemstone
+    species("Diamantine");
+    species("Emeraldine");
+    // Heroic
+    species("Valiant");
+    species("Steadfast");
+    species("Heroic");
+    // Historic
+    species("Ancient");
+    species("Primeval");
+    species("Prehistoric");
+    species("Relic");
+    // Imperial
+    species("Noble");
+    species("Majestic");
+    species("Imperial");
+    // Industrious
+    species("Diligent");
+    species("Unweary");
+    species("Industrious");
+    // Infernal
+    species("Sinister");
+    species("Fiendish");
+    species("Demonic");
+    // Metallic
+    species("Cuprum");
+    species("Ferrus");
+    species("Aurum");
+    // Mineral
+    species("Lazuli");
+    // Monastic
+    species("Monastic");
+    species("Secluded");
+    species("Hermitic");
+    // Resilient
+    species("Rocky");
+    species("Tolerant");
+    species("Robust");
+    species("Resilient");
+    // Saccharine
+    species("Sweetened");
+    species("Sugary");
+    // Timbered
+    species("Wooden");
+    species("Lumbered");
+    species("Timbered");
+    // Tropical
+    species("Tropical");
+    species("Exotic");
+    species("Edenic");
+    // Virulent
+    species("Malicious");
+    species("Infectious");
+    species("Virulent");
+    // Viscous
+    species("Viscous");
+    species("Glutinous");
+    species("Sticky");
+    // Volcanic
+    species("Nether");
+    species("Furious");
+    species("Volcanic");
+    species("Glowering");
   }
 
   public void addErrors()
@@ -366,6 +436,19 @@ public class ApicuriousLangProvider extends LanguageProvider
     comb(ItemRegistrar.LIME_TINTED_COMB, "Lime Tinted");
     comb(ItemRegistrar.LIGHT_GRAY_TINTED_COMB, "Light Gray Tinted");
     comb(ItemRegistrar.MAGENTA_TINTED_COMB, "Magenta Tinted");
+    comb(ItemRegistrar.UNSTABLE_COMB, "Unstable");
+    comb(ItemRegistrar.CLAY_COMB, "Clay");
+    comb(ItemRegistrar.BARREN_COMB, "Barren");
+    comb(ItemRegistrar.DECOMPOSED_COMB, "Decomposed");
+    comb(ItemRegistrar.ANCIENT_COMB, "Ancient");
+    comb(ItemRegistrar.FOSSILISED_COMB, "Fossilised");
+    comb(ItemRegistrar.GLACIAL_COMB, "Glacial");
+    comb(ItemRegistrar.FUNGAL_COMB, "Fungal");
+    comb(ItemRegistrar.BLAZING_COMB, "Blazing");
+    comb(ItemRegistrar.GLOWING_COMB, "Glowing");
+    comb(ItemRegistrar.VENOMOUS_COMB, "Venomous");
+    comb(ItemRegistrar.BRIMSTONE_COMB, "Brimstone");
+    comb(ItemRegistrar.MUCOUS_COMB, "Mucous");
   }
 
   public void comb(Holder<Item> item, String name)

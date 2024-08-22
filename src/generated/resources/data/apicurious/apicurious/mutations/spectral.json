@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.04,
+  "first": "apicurious:species/ender",
+  "output": "apicurious:species/spectral",
+  "second": "apicurious:species/hermitic"
+}

@@ -19,7 +19,7 @@
     "outputTable": "apicurious:resilient"
   },
   "productionData": {
-    "area": "apicurious:area/large",
+    "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/low",
     "lifespan": "apicurious:lifespan/short",
     "pollination": "apicurious:pollination/slowest",

@@ -1,0 +1,38 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/nether_stone",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/arid",
+      "toleranceHolder": "apicurious:humidity/tolerance/none"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/hellish",
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
+    }
+  },
+  "key": "apicurious:species/volcanic",
+  "name": "apicurious.species.volcanic",
+  "outputData": {
+    "outputTable": "apicurious:volcanic"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/average",
+    "pollination": "apicurious:pollination/average",
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/always"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "9a2323",
+      "outlineTint": "8c6969",
+      "wingTint": "9a2323"
+    },
+    "hasCustomRender": false,
+    "hasEffect": true
+  }
+}

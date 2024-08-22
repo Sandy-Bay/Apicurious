@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.3,
+  "first": "apicurious:species/fiendish",
+  "output": "apicurious:species/furious",
+  "second": "apicurious:species/nether"
+}

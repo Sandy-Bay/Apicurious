@@ -7,7 +7,7 @@
       "toleranceHolder": "apicurious:humidity/tolerance/low"
     },
     "ignoresRain": true,
-    "ignoresSky": true,
+    "ignoresSky": false,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/average",
       "toleranceHolder": "apicurious:temperature/tolerance/none"

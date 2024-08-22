@@ -6,8 +6,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
 import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
 import sandybay.apicurious.data.defaults.function.FunctionsDefaults;
-import sandybay.apicurious.data.defaults.mutation.MutationDefaults;
-import sandybay.apicurious.data.defaults.tables.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.MutationDefaults;
+import sandybay.apicurious.data.defaults.OutputTableDefaults;
 
 public class ApicuriousDatapackRegistriesDefaults
 {

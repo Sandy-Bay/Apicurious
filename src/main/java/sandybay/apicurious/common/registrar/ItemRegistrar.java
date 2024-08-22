@@ -87,6 +87,19 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> LIME_TINTED_COMB = comb("lime_tinted");
   public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted");
   public static final DeferredHolder<Item, Item> MAGENTA_TINTED_COMB = comb("magenta_tinted");
+  public static final DeferredHolder<Item, Item> UNSTABLE_COMB = comb("unstable");
+  public static final DeferredHolder<Item, Item> CLAY_COMB = comb("clay");
+  public static final DeferredHolder<Item, Item> BARREN_COMB = comb("barren");
+  public static final DeferredHolder<Item, Item> DECOMPOSED_COMB = comb("decomposed");
+  public static final DeferredHolder<Item, Item> ANCIENT_COMB = comb("ancient");
+  public static final DeferredHolder<Item, Item> FOSSILISED_COMB = comb("fossilised");
+  public static final DeferredHolder<Item, Item> GLACIAL_COMB = comb("glacial");
+  public static final DeferredHolder<Item, Item> FUNGAL_COMB = comb("fungal");
+  public static final DeferredHolder<Item, Item> BLAZING_COMB = comb("blazing");
+  public static final DeferredHolder<Item, Item> GLOWING_COMB = comb("glowing");
+  public static final DeferredHolder<Item, Item> VENOMOUS_COMB = comb("venomous");
+  public static final DeferredHolder<Item, Item> BRIMSTONE_COMB = comb("brimstone");
+  public static final DeferredHolder<Item, Item> MUCOUS_COMB = comb("mucous");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");
@@ -99,6 +112,8 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> SILK_WISP = product("silk_wisp");
   public static final DeferredHolder<Item, Item> POLLEN = product("pollen");
   public static final DeferredHolder<Item, Item> ICE_SHARD = product("ice_shard");
+  public static final DeferredHolder<Item, Item> ASH = product("ash");
+  public static final DeferredHolder<Item, Item> PEAT = product("peat");
 
   // Frames
   public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f, 1.0f);

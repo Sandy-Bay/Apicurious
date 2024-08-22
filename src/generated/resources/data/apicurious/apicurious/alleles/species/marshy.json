@@ -20,7 +20,7 @@
   },
   "productionData": {
     "area": "apicurious:area/average",
-    "fertility": "apicurious:fertility/low",
+    "fertility": "apicurious:fertility/average",
     "lifespan": "apicurious:lifespan/shorter",
     "pollination": "apicurious:pollination/slower",
     "speed": "apicurious:speed/slowest",

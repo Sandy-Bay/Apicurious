@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.15,
+  "first": "apicurious:species/forest",
+  "output": "apicurious:species/gnawing",
+  "second": "apicurious:species/barren"
+}

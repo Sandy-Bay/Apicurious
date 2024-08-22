@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/normal_flowers",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/average",
+      "toleranceHolder": "apicurious:humidity/tolerance/none"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/none"
+    }
+  },
+  "key": "apicurious:species/fossilised",
+  "name": "apicurious.species.fossilised",
+  "outputData": {
+    "outputTable": "apicurious:fossilised"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/average",
+    "pollination": "apicurious:pollination/slow",
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "9a2323",
+      "outlineTint": "7a7648",
+      "wingTint": "9a2323"
+    },
+    "hasCustomRender": false
+  }
+}

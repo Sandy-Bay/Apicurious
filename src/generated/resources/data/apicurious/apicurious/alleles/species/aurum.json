@@ -4,13 +4,13 @@
     "flowers": "apicurious:flowers/overworld_stone",
     "humidityData": {
       "preferenceHolder": "apicurious:humidity/preference/average",
-      "toleranceHolder": "apicurious:humidity/tolerance/low"
+      "toleranceHolder": "apicurious:humidity/tolerance/none"
     },
-    "ignoresRain": true,
+    "ignoresRain": false,
     "ignoresSky": true,
     "temperatureData": {
       "preferenceHolder": "apicurious:temperature/preference/average",
-      "toleranceHolder": "apicurious:temperature/tolerance/low"
+      "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
   "key": "apicurious:species/aurum",
@@ -21,7 +21,7 @@
   "productionData": {
     "area": "apicurious:area/average",
     "fertility": "apicurious:fertility/low",
-    "lifespan": "apicurious:lifespan/short",
+    "lifespan": "apicurious:lifespan/shorter",
     "pollination": "apicurious:pollination/slowest",
     "speed": "apicurious:speed/slowest",
     "workCycle": "apicurious:workcycle/always"
