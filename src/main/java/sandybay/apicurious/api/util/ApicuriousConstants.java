@@ -170,7 +170,6 @@ public class ApicuriousConstants
   public static final String GLOWERING_OUTLINE = "8c6969";
 
 
-
   //// BeeColor(s)
   // Debug
   public static final BeeColor UNDEFINED = new BeeColor(UNDEFIEND_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);

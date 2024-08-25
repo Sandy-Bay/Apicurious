@@ -29,19 +29,8 @@ public class Lifespan implements IAllele<Lifespan>
   public static final ResourceKey<IAllele<?>> LONGER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/longer"));
   public static final ResourceKey<IAllele<?>> LONGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/longest"));
 
-  public static final MapCodec<Lifespan> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("cycles").forGetter(Lifespan::getCycles),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Lifespan::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Lifespan::getName)
-          ).apply(instance, Lifespan::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, Lifespan::getCycles,
-          ByteBufCodecs.BOOL, Lifespan::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Lifespan::getName,
-          Lifespan::new
-  );
+  public static final MapCodec<Lifespan> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("cycles").forGetter(Lifespan::getCycles), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Lifespan::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Lifespan::getName)).apply(instance, Lifespan::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Lifespan::getCycles, ByteBufCodecs.BOOL, Lifespan::isDominantTrait, ByteBufCodecs.STRING_UTF8, Lifespan::getName, Lifespan::new);
 
   private final int cycles;
   private final boolean isDominantTrait;
@@ -73,15 +62,15 @@ public class Lifespan implements IAllele<Lifespan>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Lifespan lifespan = (Lifespan) o;
     return cycles == lifespan.cycles && isDominantTrait == lifespan.isDominantTrait && Objects.equals(name, lifespan.name);
   }

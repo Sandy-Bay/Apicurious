@@ -13,13 +13,9 @@ import java.util.function.BiFunction;
 
 public interface IFunction extends BiFunction<SimpleBlockHousingBE, List<ItemStack>, List<ItemStack>>
 {
-  Codec<IFunction> TYPED_CODEC = ApicuriousRegistries.FUNCTION_TYPE_REGISTRY
-          .byNameCodec()
-          .dispatch("function", IFunction::getFunctionType, FunctionType::codec);
+  Codec<IFunction> TYPED_CODEC = ApicuriousRegistries.FUNCTION_TYPE_REGISTRY.byNameCodec().dispatch("function", IFunction::getFunctionType, FunctionType::codec);
 
-  StreamCodec<RegistryFriendlyByteBuf, IFunction> NETWORK_TYPED_CODEC = ByteBufCodecs
-          .registry(ApicuriousRegistries.FUNCTION_TYPES)
-          .dispatch(IFunction::getFunctionType, FunctionType::streamCodec);
+  StreamCodec<RegistryFriendlyByteBuf, IFunction> NETWORK_TYPED_CODEC = ByteBufCodecs.registry(ApicuriousRegistries.FUNCTION_TYPES).dispatch(IFunction::getFunctionType, FunctionType::streamCodec);
 
   default List<ItemStack> resolve(SimpleBlockHousingBE housing, List<ItemStack> stacks)
   {

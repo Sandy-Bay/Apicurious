@@ -15,18 +15,9 @@ import java.util.Objects;
 
 public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
 {
-  public static Codec<Genotype> CODEC = RecordCodecBuilder.create(instance ->
-          instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("first").forGetter(Genotype::first),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("second").forGetter(Genotype::second)
-          ).apply(instance, Genotype::new)
-  );
+  public static Codec<Genotype> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("first").forGetter(Genotype::first), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("second").forGetter(Genotype::second)).apply(instance, Genotype::new));
 
-  public static StreamCodec<RegistryFriendlyByteBuf, Genotype> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::first,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::second,
-          Genotype::new
-  );
+  public static StreamCodec<RegistryFriendlyByteBuf, Genotype> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::first, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::second, Genotype::new);
 
   public static <T extends IAllele<T>> Genotype defaultOf(Holder<IAllele<?>> trait)
   {
@@ -40,8 +31,8 @@ public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
 
   public Holder<IAllele<?>> getActive()
   {
-    if (first.value().isDominantTrait()) return first;
-    if (second.value().isDominantTrait()) return second;
+    if (first.value().isDominantTrait()) {return first;}
+    if (second.value().isDominantTrait()) {return second;}
     return first;
   }
 
@@ -53,18 +44,14 @@ public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
 
   public Component getRenderableName()
   {
-    return Component.translatable("apicurious.genetics.active")
-            .append(getActive().value().getReadableName())
-            .append(Component.literal(", "))
-            .append(Component.translatable("apicurious.genetics.inactive"))
-            .append(getInactive().value().getReadableName());
+    return Component.translatable("apicurious.genetics.active").append(getActive().value().getReadableName()).append(Component.literal(", ")).append(Component.translatable("apicurious.genetics.inactive")).append(getInactive().value().getReadableName());
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Genotype genotype = (Genotype) o;
     return Objects.equals(first, genotype.first) && Objects.equals(second, genotype.second);
   }

@@ -13,9 +13,7 @@ import java.util.List;
 
 public interface IMutation
 {
-  Codec<IMutation> TYPED_CODEC = ApicuriousRegistries.MUTATION_TYPE_REGISTRY
-          .byNameCodec()
-          .dispatch("type", IMutation::getType, MutationType::codec);
+  Codec<IMutation> TYPED_CODEC = ApicuriousRegistries.MUTATION_TYPE_REGISTRY.byNameCodec().dispatch("type", IMutation::getType, MutationType::codec);
 
   MutationType getType();
 
@@ -28,7 +26,7 @@ public interface IMutation
     float mutationChance = baseChance;
     for (ItemStack frame : frames)
     {
-      if (frame.isEmpty()) continue;
+      if (frame.isEmpty()) {continue;}
       IFrameItem item = (IFrameItem) frame.getItem();
       mutationChance = Math.clamp(mutationChance * item.getMutationChanceModifier(), 0.0f, 1.0f);
     }

@@ -18,14 +18,9 @@ import java.util.function.Consumer;
 
 public record OutputData(Holder<OutputTable> outputTable)
 {
-  public static Codec<OutputData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-          OutputTable.CODEC.fieldOf("outputTable").forGetter(OutputData::outputTable)
-  ).apply(instance, OutputData::new));
+  public static Codec<OutputData> CODEC = RecordCodecBuilder.create(instance -> instance.group(OutputTable.CODEC.fieldOf("outputTable").forGetter(OutputData::outputTable)).apply(instance, OutputData::new));
 
-  public static StreamCodec<RegistryFriendlyByteBuf, OutputData> NETWORK_CODEC = StreamCodec.composite(
-          OutputTable.NETWORK_CODEC, OutputData::outputTable,
-          OutputData::new
-  );
+  public static StreamCodec<RegistryFriendlyByteBuf, OutputData> NETWORK_CODEC = StreamCodec.composite(OutputTable.NETWORK_CODEC, OutputData::outputTable, OutputData::new);
 
   public List<ItemStack> generate(SimpleBlockHousingBE housing)
   {

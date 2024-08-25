@@ -9,13 +9,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public interface ICondition
 {
-  Codec<ICondition> TYPED_CODEC = ApicuriousRegistries.CONDITION_TYPE_REGISTRY
-          .byNameCodec()
-          .dispatch("condition", ICondition::getConditionType, ConditionType::codec);
+  Codec<ICondition> TYPED_CODEC = ApicuriousRegistries.CONDITION_TYPE_REGISTRY.byNameCodec().dispatch("condition", ICondition::getConditionType, ConditionType::codec);
 
-  StreamCodec<RegistryFriendlyByteBuf, ICondition> NETWORK_TYPED_CODEC = ByteBufCodecs
-          .registry(ApicuriousRegistries.CONDITION_TYPES)
-          .dispatch(ICondition::getConditionType, ConditionType::streamCodec);
+  StreamCodec<RegistryFriendlyByteBuf, ICondition> NETWORK_TYPED_CODEC = ByteBufCodecs.registry(ApicuriousRegistries.CONDITION_TYPES).dispatch(ICondition::getConditionType, ConditionType::streamCodec);
 
   ConditionType getConditionType();
 

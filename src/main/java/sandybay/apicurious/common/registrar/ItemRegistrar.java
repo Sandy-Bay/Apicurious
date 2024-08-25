@@ -1,6 +1,5 @@
 package sandybay.apicurious.common.registrar;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
@@ -19,7 +18,6 @@ import sandybay.apicurious.common.item.frame.RestraintFrame;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /*
   TODO: Needs new textures / models

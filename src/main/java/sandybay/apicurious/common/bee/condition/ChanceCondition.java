@@ -15,16 +15,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record ChanceCondition(float chance) implements ICondition
 {
-  public static final MapCodec<ChanceCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  Codec.FLOAT.fieldOf("chance").forGetter(ChanceCondition::chance)
-          ).apply(instance, ChanceCondition::new)
-  );
+  public static final MapCodec<ChanceCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.FLOAT.fieldOf("chance").forGetter(ChanceCondition::chance)).apply(instance, ChanceCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, ChanceCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.FLOAT, ChanceCondition::chance,
-          ChanceCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, ChanceCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, ChanceCondition::chance, ChanceCondition::new);
 
   @Override
   public ConditionType getConditionType()
@@ -36,7 +29,7 @@ public record ChanceCondition(float chance) implements ICondition
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) return false;
+    if (level == null) {return false;}
     return level.getRandom().nextFloat() < chance();
   }
 }

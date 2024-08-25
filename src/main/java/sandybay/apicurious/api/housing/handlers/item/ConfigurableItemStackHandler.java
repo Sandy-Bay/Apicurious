@@ -64,7 +64,8 @@ public class ConfigurableItemStackHandler extends ItemStackHandler
       if (existingStack.isEmpty())
       {
         this.stacks.set(slot, reachedLimit ? stack.copyWithCount(limit) : stack);
-      } else
+      }
+      else
       {
         existingStack.grow(reachedLimit ? limit : stack.getCount());
       }
@@ -77,7 +78,7 @@ public class ConfigurableItemStackHandler extends ItemStackHandler
   @Override
   public ItemStack extractItem(int slot, int amount, boolean simulate)
   {
-    if (!extractPredicate.test(getStackInSlot(slot), slot)) return ItemStack.EMPTY;
+    if (!extractPredicate.test(getStackInSlot(slot), slot)) {return ItemStack.EMPTY;}
     return super.extractItem(slot, amount, simulate);
   }
 

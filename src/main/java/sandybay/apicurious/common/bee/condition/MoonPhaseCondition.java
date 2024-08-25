@@ -14,16 +14,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record MoonPhaseCondition(int moonPhase) implements ICondition
 {
-  public static final MapCodec<MoonPhaseCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  Codec.INT.fieldOf("moonPhase").forGetter(MoonPhaseCondition::moonPhase)
-          ).apply(instance, MoonPhaseCondition::new)
-  );
+  public static final MapCodec<MoonPhaseCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("moonPhase").forGetter(MoonPhaseCondition::moonPhase)).apply(instance, MoonPhaseCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, MoonPhaseCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, MoonPhaseCondition::moonPhase,
-          MoonPhaseCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, MoonPhaseCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, MoonPhaseCondition::moonPhase, MoonPhaseCondition::new);
 
   @Override
   public ConditionType getConditionType()
@@ -35,7 +28,7 @@ public record MoonPhaseCondition(int moonPhase) implements ICondition
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) return false;
+    if (level == null) {return false;}
     return level.getMoonPhase() == moonPhase();
   }
 }

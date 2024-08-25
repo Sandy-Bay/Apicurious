@@ -18,24 +18,9 @@ import java.util.Objects;
 public class EnvironmentalData
 {
 
-  public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(
-          instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("flowers").forGetter(EnvironmentalData::getFlowersHolder),
-                  HumidityData.CODEC.fieldOf("humidityData").forGetter(EnvironmentalData::getHumidityData),
-                  TemperatureData.CODEC.fieldOf("temperatureData").forGetter(EnvironmentalData::getTemperatureData),
-                  Codec.BOOL.fieldOf("ignoresRain").forGetter(EnvironmentalData::ignoresRain),
-                  Codec.BOOL.fieldOf("ignoresSky").forGetter(EnvironmentalData::ignoresSky)
-          ).apply(instance, EnvironmentalData::new)
-  );
+  public static final Codec<EnvironmentalData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("flowers").forGetter(EnvironmentalData::getFlowersHolder), HumidityData.CODEC.fieldOf("humidityData").forGetter(EnvironmentalData::getHumidityData), TemperatureData.CODEC.fieldOf("temperatureData").forGetter(EnvironmentalData::getTemperatureData), Codec.BOOL.fieldOf("ignoresRain").forGetter(EnvironmentalData::ignoresRain), Codec.BOOL.fieldOf("ignoresSky").forGetter(EnvironmentalData::ignoresSky)).apply(instance, EnvironmentalData::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), EnvironmentalData::getFlowersHolder,
-          HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData,
-          TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData,
-          ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain,
-          ByteBufCodecs.BOOL, EnvironmentalData::ignoresSky,
-          EnvironmentalData::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, EnvironmentalData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), EnvironmentalData::getFlowersHolder, HumidityData.NETWORK_CODEC, EnvironmentalData::getHumidityData, TemperatureData.NETWORK_CODEC, EnvironmentalData::getTemperatureData, ByteBufCodecs.BOOL, EnvironmentalData::ignoresRain, ByteBufCodecs.BOOL, EnvironmentalData::ignoresSky, EnvironmentalData::new);
 
   private final Holder<IAllele<?>> flowersHolder;
   private final HumidityData humidityData;
@@ -44,9 +29,7 @@ public class EnvironmentalData
   private final boolean ignoresSky;
   private Flowers flowers;
 
-  private EnvironmentalData(Holder<IAllele<?>> flowersHolder,
-                            HumidityData humidityData, TemperatureData temperatureData,
-                            boolean ignoresRain, boolean ignoresSky)
+  private EnvironmentalData(Holder<IAllele<?>> flowersHolder, HumidityData humidityData, TemperatureData temperatureData, boolean ignoresRain, boolean ignoresSky)
   {
     this.flowersHolder = flowersHolder;
     this.humidityData = humidityData;
@@ -68,7 +51,7 @@ public class EnvironmentalData
 
   public Flowers getFlowers()
   {
-    if (flowers == null && flowersHolder.isBound()) flowers = (Flowers) flowersHolder.value();
+    if (flowers == null && flowersHolder.isBound()) {flowers = (Flowers) flowersHolder.value();}
     return flowers;
   }
 
@@ -95,8 +78,8 @@ public class EnvironmentalData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     EnvironmentalData that = (EnvironmentalData) o;
     return ignoresRain == that.ignoresRain && ignoresSky == that.ignoresSky && Objects.equals(flowersHolder, that.flowersHolder) && Objects.equals(humidityData, that.humidityData) && Objects.equals(temperatureData, that.temperatureData);
   }
@@ -178,12 +161,7 @@ public class EnvironmentalData
 
     public EnvironmentalData build()
     {
-      return new EnvironmentalData(
-              flowers,
-              new HumidityData(humidityPreference, humidityTolerance),
-              new TemperatureData(temperaturePreference, temperatureTolerance),
-              ignoresRain, ignoresSky
-      );
+      return new EnvironmentalData(flowers, new HumidityData(humidityPreference, humidityTolerance), new TemperatureData(temperaturePreference, temperatureTolerance), ignoresRain, ignoresSky);
     }
   }
 }

@@ -21,7 +21,8 @@ public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeMenu>
   }
 
   @Override
-  public void render(GuiGraphics graphics, int mouseX, int mouseY, float partial) {
+  public void render(GuiGraphics graphics, int mouseX, int mouseY, float partial)
+  {
     this.renderBackground(graphics, mouseX, mouseY, partial);
     super.render(graphics, mouseX, mouseY, partial);
     this.renderTooltip(graphics, mouseX, mouseY);
@@ -29,12 +30,14 @@ public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeMenu>
   }
 
   @Override
-  protected void renderBg(GuiGraphics graphics, float partial, int mouseX, int mouseY) {
+  protected void renderBg(GuiGraphics graphics, float partial, int mouseX, int mouseY)
+  {
     graphics.blit(SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
   }
 
   @Override
-  protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+  protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY)
+  {
     graphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
     graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
   }

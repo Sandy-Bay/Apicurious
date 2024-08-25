@@ -29,7 +29,7 @@ public class ApiaryHousingBE extends SimpleBlockHousingBE
   @Override
   public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player)
   {
-    if (getLevel() == null) return null;
+    if (getLevel() == null) {return null;}
     return new ApiaryMenu(id, inventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
   }
 }

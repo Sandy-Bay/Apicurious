@@ -9,7 +9,7 @@ public class MenuHelper
    */
   public static boolean canStacksMerge(ItemStack stack1, ItemStack stack2)
   {
-    if (stack1.isEmpty() || stack2.isEmpty()) return false;
+    if (stack1.isEmpty() || stack2.isEmpty()) {return false;}
     return ItemStack.isSameItemSameComponents(stack1, stack2);
   }
 }

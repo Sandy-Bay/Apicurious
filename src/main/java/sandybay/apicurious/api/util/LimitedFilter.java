@@ -16,9 +16,9 @@ public class LimitedFilter<T> implements Predicate<T>
 
   public boolean test(T toTest)
   {
-    if (this.matches > this.limit) return false;
+    if (this.matches > this.limit) {return false;}
     boolean result = delegate.test(toTest);
-    if (result) matches++;
+    if (result) {matches++;}
     return result;
   }
 }

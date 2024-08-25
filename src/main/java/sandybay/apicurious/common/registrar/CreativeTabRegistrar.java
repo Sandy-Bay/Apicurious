@@ -1,12 +1,9 @@
 package sandybay.apicurious.common.registrar;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
@@ -29,50 +26,36 @@ public class CreativeTabRegistrar
 
   public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Apicurious.MODID);
 
-  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GENERAL_TAB = CREATIVE_MODE_TABS.register("apicurious", () -> CreativeModeTab.builder()
-          .title(Component.translatable("itemGroup.apicurious.general"))
-          .withTabsBefore(CreativeModeTabs.COMBAT)
-          .icon(() -> new ItemStack(ItemRegistrar.SIEVE.get()))
-          .displayItems((parameters, output) ->
-          {
-            output.accept(new ItemStack(ItemRegistrar.ANALYZER.get()));
-            output.accept(new ItemStack(ItemRegistrar.SIEVE.get()));
-            registerHousings(output);
-            registerFrames(output);
-            registerHives(output);
-            registerCombs(output);
-            registerProducts(output);
-          }).build());
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GENERAL_TAB = CREATIVE_MODE_TABS.register("apicurious", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.apicurious.general")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> new ItemStack(ItemRegistrar.SIEVE.get())).displayItems((parameters, output) ->
+  {
+    output.accept(new ItemStack(ItemRegistrar.ANALYZER.get()));
+    output.accept(new ItemStack(ItemRegistrar.SIEVE.get()));
+    registerHousings(output);
+    registerFrames(output);
+    registerHives(output);
+    registerCombs(output);
+    registerProducts(output);
+  }).build());
 
-  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder()
-          .title(Component.translatable("itemGroup.apicurious.bee"))
-          .withTabsBefore(CreativeTabRegistrar.GENERAL_TAB.getKey())
-          .icon(() -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN))
-          .displayItems(CreativeTabRegistrar::registerBees).build());
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.apicurious.bee")).withTabsBefore(CreativeTabRegistrar.GENERAL_TAB.getKey()).icon(() -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN)).displayItems(CreativeTabRegistrar::registerBees).build());
 
   private static void registerHousings(CreativeModeTab.Output output)
   {
-    output.acceptAll(List.of(
-            BlockRegistrar.APIARY.asItemStack(),
-            BlockRegistrar.BEE_HOUSING.asItemStack()
-    ));
+    output.acceptAll(List.of(BlockRegistrar.APIARY.asItemStack(), BlockRegistrar.BEE_HOUSING.asItemStack()));
   }
 
   public static void registerBees(CreativeModeTab.ItemDisplayParameters parameters, CreativeModeTab.Output output)
   {
     parameters.holders().lookup(ApicuriousRegistries.ALLELES).ifPresent(registry ->
     {
-      registry.listElements().forEach(allele -> {
+      registry.listElements().forEach(allele ->
+      {
         ResourceKey<IAllele<?>> rl = allele.key();
         if (rl.location().getPath().contains("species/"))
         {
-          if (rl.location().getPath().equals("undefined")) return;
-          if (rl.location().getPath().equals("debug") && !ApicuriousMainConfig.main_config.debug.get()) return;
-          List<ItemStack> bees = List.of(
-                  new ItemStack(ItemRegistrar.QUEEN),
-                  new ItemStack(ItemRegistrar.PRINCESS),
-                  new ItemStack(ItemRegistrar.DRONE)
-          );
+          if (rl.location().getPath().equals("undefined")) {return;}
+          if (rl.location().getPath().equals("debug") && !ApicuriousMainConfig.main_config.debug.get()) {return;}
+          List<ItemStack> bees = List.of(new ItemStack(ItemRegistrar.QUEEN), new ItemStack(ItemRegistrar.PRINCESS), new ItemStack(ItemRegistrar.DRONE));
           BeeSpecies species = (BeeSpecies) allele.value();
           bees.forEach(stack ->
           {

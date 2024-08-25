@@ -48,26 +48,26 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
         case EnumBeeType.DRONE ->
         {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_drone"));
-          if (species == null) return;
+          if (species == null) {return;}
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_drone"));
         }
         case EnumBeeType.PRINCESS ->
         {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_princess"));
-          if (species == null) return;
+          if (species == null) {return;}
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_princess"));
         }
         case EnumBeeType.QUEEN ->
         {
           fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_queen"));
-          if (species == null) return;
+          if (species == null) {return;}
           mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_queen"));
         }
         default ->
         {
         }
       }
-      if (fallback == null) return;
+      if (fallback == null) {return;}
       model = manager.getModel(mrl);
       if (model == manager.getMissingModel())
       {
@@ -78,7 +78,7 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
         poseStack.popPose();
         poseStack.pushPose();
         //This was not needed in the loop below, and if you scale do it before the translate
-        if (displayContext != ItemDisplayContext.GUI) poseStack.scale(0.5F, 0.5F, 0.5F);
+        if (displayContext != ItemDisplayContext.GUI) {poseStack.scale(0.5F, 0.5F, 0.5F);}
         poseStack.translate(-0.5F, -0.5F, -0.5F);
 
         for (var bakedModel : model.getRenderPasses(stack, false))

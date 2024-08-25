@@ -44,10 +44,7 @@ public class ApicuriousLootEvents
 
   private static LootPoolEntryContainer addBee(Holder<Item> bee, ResourceKey<IAllele<?>> species, int weight)
   {
-    return LootItem.lootTableItem(bee.value())
-            .setWeight(weight)
-            .apply(ApicuriousSpeciesFunction.getBuilder(species))
-            .build();
+    return LootItem.lootTableItem(bee.value()).setWeight(weight).apply(ApicuriousSpeciesFunction.getBuilder(species)).build();
   }
 
   @SubscribeEvent
@@ -58,8 +55,7 @@ public class ApicuriousLootEvents
     {
       switch (name.getPath())
       {
-        case "chests/desert_pyramid", "chests/jungle_temple", "chests/stronghold_corridor",
-                "chests/stronghold_crossing", "chests/stronghold_library", "chests/woodland_mansion":
+        case "chests/desert_pyramid", "chests/jungle_temple", "chests/stronghold_corridor", "chests/stronghold_crossing", "chests/stronghold_library", "chests/woodland_mansion":
           injectInto(event, "pool0", addBee(ItemRegistrar.DRONE, ApicuriousSpecies.STEADFAST.species(), 25));
           break;
         case "chests/abandoned_mineshaft", "chests/simple_dungeon":

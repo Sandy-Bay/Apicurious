@@ -3,7 +3,6 @@ package sandybay.apicurious.common.bee.species;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -17,7 +16,6 @@ import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
@@ -31,26 +29,9 @@ import java.util.function.Consumer;
 public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 {
 
-  public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("key").forGetter(BeeSpecies::getSpeciesKey),
-                  Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName),
-                  VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData),
-                  ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData),
-                  EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData),
-                  OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData)
-          ).apply(instance, BeeSpecies::new)
-  );
+  public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("key").forGetter(BeeSpecies::getSpeciesKey), Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName), VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData), ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData), EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData), OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData)).apply(instance, BeeSpecies::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(
-          ResourceKey.streamCodec(ApicuriousRegistries.ALLELES), BeeSpecies::getSpeciesKey,
-          ByteBufCodecs.STRING_UTF8, BeeSpecies::getName,
-          VisualData.NETWORK_CODEC, BeeSpecies::getVisualData,
-          ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData,
-          EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData,
-          OutputData.NETWORK_CODEC, BeeSpecies::getOutputData,
-          BeeSpecies::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(ResourceKey.streamCodec(ApicuriousRegistries.ALLELES), BeeSpecies::getSpeciesKey, ByteBufCodecs.STRING_UTF8, BeeSpecies::getName, VisualData.NETWORK_CODEC, BeeSpecies::getVisualData, ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData, EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData, OutputData.NETWORK_CODEC, BeeSpecies::getOutputData, BeeSpecies::new);
 
   private final String name;
   private final ResourceKey<IAllele<?>> key;
@@ -60,11 +41,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   private final OutputData outputs;
   private Component readableName;
 
-  public BeeSpecies(ResourceKey<IAllele<?>> key, String name,
-                    VisualData visualData,
-                    ProductionData productionData,
-                    EnvironmentalData environmentalData,
-                    OutputData outputs)
+  public BeeSpecies(ResourceKey<IAllele<?>> key, String name, VisualData visualData, ProductionData productionData, EnvironmentalData environmentalData, OutputData outputs)
   {
     this.key = key;
     this.name = name;
@@ -125,7 +102,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   @Override
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
@@ -150,14 +127,10 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     BeeSpecies species = (BeeSpecies) o;
-    return Objects.equals(name, species.name) &&
-            Objects.equals(visualData, species.visualData) &&
-            Objects.equals(productionData, species.productionData) &&
-            Objects.equals(environmentalData, species.environmentalData) &&
-            Objects.equals(readableName, species.readableName);
+    return Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData) && Objects.equals(productionData, species.productionData) && Objects.equals(environmentalData, species.environmentalData) && Objects.equals(readableName, species.readableName);
   }
 
   @Override
@@ -242,13 +215,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 
     public BeeSpecies build()
     {
-      return new BeeSpecies(
-              this.key, this.name,
-              this.visualData,
-              this.productionData,
-              this.environmentalData,
-              this.outputs
-      );
+      return new BeeSpecies(this.key, this.name, this.visualData, this.productionData, this.environmentalData, this.outputs);
     }
   }
 }

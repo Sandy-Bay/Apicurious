@@ -19,16 +19,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record BlockInAreaCondition(HolderSet<Block> blocks) implements ICondition
 {
-  public static final MapCodec<BlockInAreaCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("biomes").forGetter(BlockInAreaCondition::blocks)
-          ).apply(instance, BlockInAreaCondition::new)
-  );
+  public static final MapCodec<BlockInAreaCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("biomes").forGetter(BlockInAreaCondition::blocks)).apply(instance, BlockInAreaCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, BlockInAreaCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.BLOCK)), BlockInAreaCondition::blocks,
-          BlockInAreaCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, BlockInAreaCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.BLOCK)), BlockInAreaCondition::blocks, BlockInAreaCondition::new);
 
   @Override
   public ConditionType getConditionType()
@@ -40,9 +33,9 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block)) return false;
+    if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block)) {return false;}
     if (housing.territory == null)
-      housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
+    {housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));}
     return housing.territory.stream().anyMatch(pos -> blocks.contains(level.getBlockState(pos).getBlockHolder()));
   }
 }

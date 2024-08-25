@@ -4,11 +4,11 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.data.defaults.CentrifugeRecipeDefaults;
-import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
-import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
 import sandybay.apicurious.data.defaults.FunctionsDefaults;
 import sandybay.apicurious.data.defaults.MutationDefaults;
 import sandybay.apicurious.data.defaults.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
+import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
 
 public class ApicuriousDatapackRegistriesDefaults
 {

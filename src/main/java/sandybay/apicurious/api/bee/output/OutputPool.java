@@ -18,22 +18,9 @@ import java.util.function.Consumer;
 public record OutputPool(int rolls, List<OutputPoolEntry> entries, List<ICondition> conditions,
                          List<IFunction> functions)
 {
-  public static final Codec<OutputPool> CODEC = RecordCodecBuilder.create(instance ->
-          instance.group(
-                  Codec.INT.fieldOf("rolls").forGetter(OutputPool::rolls),
-                  Codec.list(OutputPoolEntry.CODEC).fieldOf("entries").forGetter(OutputPool::entries),
-                  Codec.list(ICondition.TYPED_CODEC).fieldOf("conditions").forGetter(OutputPool::conditions),
-                  Codec.list(IFunction.TYPED_CODEC).fieldOf("functions").forGetter(OutputPool::functions)
-          ).apply(instance, OutputPool::new)
-  );
+  public static final Codec<OutputPool> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.INT.fieldOf("rolls").forGetter(OutputPool::rolls), Codec.list(OutputPoolEntry.CODEC).fieldOf("entries").forGetter(OutputPool::entries), Codec.list(ICondition.TYPED_CODEC).fieldOf("conditions").forGetter(OutputPool::conditions), Codec.list(IFunction.TYPED_CODEC).fieldOf("functions").forGetter(OutputPool::functions)).apply(instance, OutputPool::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, OutputPool> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, OutputPool::rolls,
-          ByteBufCodecs.collection(ArrayList::new, OutputPoolEntry.NETWORK_CODEC), OutputPool::entries,
-          ByteBufCodecs.collection(ArrayList::new, ICondition.NETWORK_TYPED_CODEC), OutputPool::conditions,
-          ByteBufCodecs.collection(ArrayList::new, IFunction.NETWORK_TYPED_CODEC), OutputPool::functions,
-          OutputPool::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, OutputPool> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, OutputPool::rolls, ByteBufCodecs.collection(ArrayList::new, OutputPoolEntry.NETWORK_CODEC), OutputPool::entries, ByteBufCodecs.collection(ArrayList::new, ICondition.NETWORK_TYPED_CODEC), OutputPool::conditions, ByteBufCodecs.collection(ArrayList::new, IFunction.NETWORK_TYPED_CODEC), OutputPool::functions, OutputPool::new);
 
   public static Builder builder()
   {

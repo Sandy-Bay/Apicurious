@@ -61,7 +61,8 @@ public class InfoWidget extends AbstractWidget
     {
       lastUpdateTime = System.currentTimeMillis();
       updateTime = lastUpdateTime + Math.round(msPerUpdate);
-    } else
+    }
+    else
     {
       updateTime = System.currentTimeMillis();
     }
@@ -73,7 +74,7 @@ public class InfoWidget extends AbstractWidget
     {
       if (width < openSizeWidth)
       {
-        if (openLeft) setX(getX() - moveAmount);
+        if (openLeft) {setX(getX() - moveAmount);}
         width += moveAmount;
       }
 
@@ -87,18 +88,20 @@ public class InfoWidget extends AbstractWidget
     {
       if (width > closedSizeWidth)
       {
-        if (openLeft) setX(getX() + moveAmount);
+        if (openLeft) {setX(getX() + moveAmount);}
         width -= moveAmount;
-      } else
+      }
+      else
       {
-        if (openLeft) setX(defaultX);
+        if (openLeft) {setX(defaultX);}
         width = closedSizeWidth;
       }
 
       if (height > closedSizeHeight)
       {
         height -= moveAmount;
-      } else
+      }
+      else
       {
         height = closedSizeHeight;
       }

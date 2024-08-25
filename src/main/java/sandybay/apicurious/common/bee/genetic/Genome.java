@@ -21,16 +21,9 @@ import java.util.Objects;
 
 public class Genome implements IGenome
 {
-  public static Codec<Genome> CODEC = RecordCodecBuilder.create(instance ->
-          instance.group(
-                  Codec.unboundedMap(AlleleType.CODEC, Genotype.CODEC).fieldOf("genome").forGetter(Genome::getGenome)
-          ).apply(instance, Genome::new)
-  );
+  public static Codec<Genome> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.unboundedMap(AlleleType.CODEC, Genotype.CODEC).fieldOf("genome").forGetter(Genome::getGenome)).apply(instance, Genome::new));
 
-  public static StreamCodec<RegistryFriendlyByteBuf, Genome> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.map(HashMap::newHashMap, AlleleType.NETWORK_CODEC, Genotype.NETWORK_CODEC), Genome::getGenome,
-          Genome::new
-  );
+  public static StreamCodec<RegistryFriendlyByteBuf, Genome> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.map(HashMap::newHashMap, AlleleType.NETWORK_CODEC, Genotype.NETWORK_CODEC), Genome::getGenome, Genome::new);
 
   private final Map<AlleleType<? extends IAllele<?>>, Genotype> genome;
 
@@ -164,8 +157,8 @@ public class Genome implements IGenome
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Genome genome1 = (Genome) o;
     return Objects.equals(genome, genome1.genome);
   }

@@ -27,20 +27,9 @@ public class TemperatureTolerance implements IAllele<TemperatureTolerance>
   public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/maximum"));
 
 
-  public static final MapCodec<TemperatureTolerance> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperatureTolerance::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(TemperatureTolerance::getName)
-          ).apply(instance, TemperatureTolerance::new)
-  );
+  public static final MapCodec<TemperatureTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperatureTolerance::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(TemperatureTolerance::getName)).apply(instance, TemperatureTolerance::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, TemperatureTolerance::getToleranceModifier,
-          ByteBufCodecs.BOOL, TemperatureTolerance::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, TemperatureTolerance::getName,
-          TemperatureTolerance::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, TemperatureTolerance::getToleranceModifier, ByteBufCodecs.BOOL, TemperatureTolerance::isDominantTrait, ByteBufCodecs.STRING_UTF8, TemperatureTolerance::getName, TemperatureTolerance::new);
 
   private final int toleranceModifier;
   private final boolean isDominantTrait;
@@ -72,15 +61,15 @@ public class TemperatureTolerance implements IAllele<TemperatureTolerance>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     TemperatureTolerance that = (TemperatureTolerance) o;
     return toleranceModifier == that.toleranceModifier && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }

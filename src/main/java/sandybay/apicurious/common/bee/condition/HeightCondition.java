@@ -13,18 +13,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record HeightCondition(int yHeight, boolean above) implements ICondition
 {
-  public static final MapCodec<HeightCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  Codec.intRange(-64, 320).fieldOf("yHeight").forGetter(HeightCondition::yHeight),
-                  Codec.BOOL.optionalFieldOf("above", true).forGetter(HeightCondition::above)
-          ).apply(instance, HeightCondition::new)
-  );
+  public static final MapCodec<HeightCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.intRange(-64, 320).fieldOf("yHeight").forGetter(HeightCondition::yHeight), Codec.BOOL.optionalFieldOf("above", true).forGetter(HeightCondition::above)).apply(instance, HeightCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, HeightCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, HeightCondition::yHeight,
-          ByteBufCodecs.BOOL, HeightCondition::above,
-          HeightCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, HeightCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, HeightCondition::yHeight, ByteBufCodecs.BOOL, HeightCondition::above, HeightCondition::new);
 
   @Override
   public ConditionType getConditionType()

@@ -25,11 +25,7 @@ public class PacketHandler
     // Serverbound
 
     // Clientbound
-    registrar.playToClient(
-            GuiDataPacket.TYPE,
-            StreamCodec.of((buf, pkt) -> pkt.write(buf), GuiDataPacket::read),
-            new GuiDataPacket.Handler()
-    );
+    registrar.playToClient(GuiDataPacket.TYPE, StreamCodec.of((buf, pkt) -> pkt.write(buf), GuiDataPacket::read), new GuiDataPacket.Handler());
 
     // Bidirectional
   }

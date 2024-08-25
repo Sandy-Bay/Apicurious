@@ -57,50 +57,7 @@ public class ApicuriousLootTables extends LootTableProvider
 
     public static LootTable.Builder hiveTable(ResourceKey<IAllele<?>> speciesKey)
     {
-      return LootTable.lootTable()
-              .setParamSet(LootContextParamSet.builder().required(LootContextParams.TOOL).build())
-              .withPool(LootPool.lootPool()
-                      .setRolls(ConstantValue.exactly(1.0f))
-                      .add(LootItem
-                              .lootTableItem(ItemRegistrar.PRINCESS.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
-                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
-                      )
-              ).withPool(LootPool.lootPool()
-                      .setRolls(ConstantValue.exactly(1.0f))
-                      .add(LootItem
-                              .lootTableItem(ItemRegistrar.DRONE.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
-                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
-                      )
-              )
-              .withPool(LootPool.lootPool()
-                      .setRolls(ConstantValue.exactly(1.0f))
-                      .add(LootItem
-                              .lootTableItem(ItemRegistrar.DRONE.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
-                              .when(LootItemRandomChanceCondition.randomChance(0.5f))
-                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
-                      )
-              )
-              .withPool(LootPool.lootPool()
-                      .setRolls(ConstantValue.exactly(1.0f))
-                      .add(LootItem
-                              .lootTableItem(ItemRegistrar.DRONE.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(speciesKey))
-                              .when(LootItemRandomChanceCondition.randomChance(0.333f))
-                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
-                      )
-              )
-              .withPool(LootPool.lootPool()
-                      .setRolls(ConstantValue.exactly(1.0f))
-                      .add(LootItem
-                              .lootTableItem(ItemRegistrar.DRONE.get())
-                              .apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.VALIANT.species()))
-                              .when(LootItemRandomChanceCondition.randomChance(0.05f))
-                              .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))
-                      )
-              );
+      return LootTable.lootTable().setParamSet(LootContextParamSet.builder().required(LootContextParams.TOOL).build()).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.PRINCESS.get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(LootItemRandomChanceCondition.randomChance(0.5f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(LootItemRandomChanceCondition.randomChance(0.333f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.get()).apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.VALIANT.species())).when(LootItemRandomChanceCondition.randomChance(0.05f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))));
     }
 
     @Override

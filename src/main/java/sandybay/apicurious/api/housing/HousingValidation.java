@@ -32,8 +32,8 @@ public class HousingValidation
 
   public boolean validate(ItemStack key, Level level, BlockPos housingPosition, Set<BlockPos> territory)
   {
-    if (helper == null && level != null) helper = new ClimateHelper(level, errorHandler);
-    if (key.isEmpty()) return false;
+    if (helper == null && level != null) {helper = new ClimateHelper(level, errorHandler);}
+    if (key.isEmpty()) {return false;}
     if (!this.isValid || this.key != key)
     {
       this.key = key;
@@ -55,9 +55,9 @@ public class HousingValidation
   private void validateFlowers(Level level, Set<BlockPos> territory)
   {
     boolean foundValid = false;
-    if (!key.has(DataComponentRegistrar.GENOME)) return;
+    if (!key.has(DataComponentRegistrar.GENOME)) {return;}
     Genome genome = key.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return;
+    if (genome == null) {return;}
     Flowers flowers = (Flowers) genome.getFlowers(true).value();
     TagKey<Block> tagKey = flowers.getFlowers();
     for (BlockPos pos : territory)
@@ -69,8 +69,8 @@ public class HousingValidation
         break;
       }
     }
-    if (!foundValid) errorHandler.addError(HousingError.MISSING_FLOWER);
-    else errorHandler.removeError(HousingError.MISSING_FLOWER);
+    if (!foundValid) {errorHandler.addError(HousingError.MISSING_FLOWER);}
+    else {errorHandler.removeError(HousingError.MISSING_FLOWER);}
   }
 
   private void validateHumidity(BlockPos housingPosition)
@@ -86,38 +86,38 @@ public class HousingValidation
   protected void validateTime(ItemStack queen, Level level)
   {
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
-    if (genome == null || level == null) return;
+    if (genome == null || level == null) {return;}
     Workcycle speciesCycle = (Workcycle) genome.getWorkcycle(true).value();
     boolean isValidCycle = speciesCycle.isValidTime((int) level.getDayTime());
-    if (!isValidCycle) errorHandler.addError(HousingError.INVALID_TIME);
-    else errorHandler.removeError(HousingError.INVALID_TIME);
+    if (!isValidCycle) {errorHandler.addError(HousingError.INVALID_TIME);}
+    else {errorHandler.removeError(HousingError.INVALID_TIME);}
   }
 
   protected void validateSky(ItemStack queen, Level level, BlockPos pos)
   {
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
-    if (genome == null || level == null) return;
+    if (genome == null || level == null) {return;}
     boolean ignoresSky = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresSky();
     boolean canSeeSky = true;
     if (!ignoresSky)
     {
       canSeeSky = level.canSeeSky(pos.above());
     }
-    if (!canSeeSky) errorHandler.addError(HousingError.NO_SKY);
-    else errorHandler.removeError(HousingError.NO_SKY);
+    if (!canSeeSky) {errorHandler.addError(HousingError.NO_SKY);}
+    else {errorHandler.removeError(HousingError.NO_SKY);}
   }
 
   protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
   {
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
-    if (genome == null || level == null) return;
+    if (genome == null || level == null) {return;}
     boolean ignoresRain = ((BeeSpecies) genome.getSpecies(true).value()).getEnvironmentalData().ignoresRain();
     boolean isClear = true;
     if (!ignoresRain)
     {
       isClear = !level.isRainingAt(pos);
     }
-    if (!isClear) errorHandler.addError(HousingError.IS_RAINING);
-    else errorHandler.removeError(HousingError.IS_RAINING);
+    if (!isClear) {errorHandler.addError(HousingError.IS_RAINING);}
+    else {errorHandler.removeError(HousingError.IS_RAINING);}
   }
 }

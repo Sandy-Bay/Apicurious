@@ -32,22 +32,9 @@ public class HumidityPreference implements IAllele<HumidityPreference>
   public static final ResourceKey<IAllele<?>> AQUATIC = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/preference/aquatic"));
 
 
-  public static final MapCodec<HumidityPreference> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("humidity").forGetter(HumidityPreference::getHumidity),
-                  TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(HumidityPreference::getGroupTag),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityPreference::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(HumidityPreference::getName)
-          ).apply(instance, HumidityPreference::new)
-  );
+  public static final MapCodec<HumidityPreference> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("humidity").forGetter(HumidityPreference::getHumidity), TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(HumidityPreference::getGroupTag), Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityPreference::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(HumidityPreference::getName)).apply(instance, HumidityPreference::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityPreference> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, HumidityPreference::getHumidity,
-          ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), HumidityPreference::getGroupTag,
-          ByteBufCodecs.BOOL, HumidityPreference::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, HumidityPreference::getName,
-          HumidityPreference::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityPreference> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, HumidityPreference::getHumidity, ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), HumidityPreference::getGroupTag, ByteBufCodecs.BOOL, HumidityPreference::isDominantTrait, ByteBufCodecs.STRING_UTF8, HumidityPreference::getName, HumidityPreference::new);
 
   private final int humidity;
   private final TagKey<Biome> groupTag;
@@ -86,7 +73,7 @@ public class HumidityPreference implements IAllele<HumidityPreference>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
@@ -136,8 +123,8 @@ public class HumidityPreference implements IAllele<HumidityPreference>
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     HumidityPreference that = (HumidityPreference) o;
     return humidity == that.humidity && Objects.equals(groupTag, that.groupTag) && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }

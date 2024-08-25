@@ -102,7 +102,7 @@ public class BeeHousingScreen extends AbstractContainerScreen<BeeHousingMenu>
     for (ErrorWidget errorWidget : errorWidgets)
     {
       boolean done = errorWidget.mouseClicked(pMouseX, pMouseY, pButton);
-      if (done) return done;
+      if (done) {return done;}
     }
 
     return clicked;

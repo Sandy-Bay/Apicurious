@@ -40,25 +40,17 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
 
   public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory)
   {
-    this(type, containerId, playerInventory, ContainerLevelAccess.NULL,
-            new ConfigurableItemStackHandler(12)
-                    .setInputFilter((stack, slot) ->
-                    {
-                      if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
-                        return true;
-                      if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
-                        return true;
-                      return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
-                    })
-                    .setSlotLimit(0, 1)
-                    .setSlotLimit(2, 1)
-                    .setSlotLimit(3, 1)
-                    .setSlotLimit(4, 1),
-            Lists.newArrayList());
+    this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStackHandler(12).setInputFilter((stack, slot) ->
+    {
+      if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
+      {return true;}
+      if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
+      {return true;}
+      return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
+    }).setSlotLimit(0, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1), Lists.newArrayList());
   }
 
-  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
-                             ConfigurableItemStackHandler inventory, List<HousingError> errors)
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStackHandler inventory, List<HousingError> errors)
   {
     super(type, containerId);
     this.access = access;
@@ -93,7 +85,7 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     {
       for (int j = 0; j < 9; j++)
       {
-        if (j + i * 9 + 9 == 36) return;
+        if (j + i * 9 + 9 == 36) {return;}
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
       }
     }
@@ -124,19 +116,22 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
       if (slotIndex >= numSlots - 9 * 4 && tryShiftItem(stackInSlot, numSlots))
       {
         // NOOP
-      } else if (slotIndex >= numSlots - 9 * 4 && slotIndex < numSlots - 9)
+      }
+      else if (slotIndex >= numSlots - 9 * 4 && slotIndex < numSlots - 9)
       {
         if (!shiftItemStack(stackInSlot, numSlots - 9, numSlots))
         {
           return ItemStack.EMPTY;
         }
-      } else if (slotIndex >= numSlots - 9 && slotIndex < numSlots)
+      }
+      else if (slotIndex >= numSlots - 9 && slotIndex < numSlots)
       {
         if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots - 9))
         {
           return ItemStack.EMPTY;
         }
-      } else if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots))
+      }
+      else if (!shiftItemStack(stackInSlot, numSlots - 9 * 4, numSlots))
       {
         return ItemStack.EMPTY;
       }
@@ -144,7 +139,8 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
       if (stackInSlot.getCount() <= 0)
       {
         slot.set(ItemStack.EMPTY);
-      } else
+      }
+      else
       {
         slot.setChanged();
       }
@@ -176,7 +172,8 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
             stackInSlot.setCount(resultingStackSize);
             slot.setChanged();
             changed = true;
-          } else if (stackInSlot.getCount() < max)
+          }
+          else if (stackInSlot.getCount() < max)
           {
             stackToShift.setCount(stackToShift.getCount() - (max - stackInSlot.getCount()));
             stackInSlot.setCount(max);
@@ -212,8 +209,8 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
     {
       Slot slot = slots.get(machineIndex);
-      if (!slot.mayPlace(stackToShift)) continue;
-      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) return true;
+      if (!slot.mayPlace(stackToShift)) {continue;}
+      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) {return true;}
     }
     return false;
   }

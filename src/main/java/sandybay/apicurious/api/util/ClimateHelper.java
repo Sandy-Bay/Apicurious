@@ -32,7 +32,7 @@ public class ClimateHelper
   public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
   {
     Genome genome = bee.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return false;
+    if (genome == null) {return false;}
     TemperaturePreference preferenceHolder = (TemperaturePreference) genome.getTemperaturePreference(true).value();
     TemperatureTolerance toleranceHolder = (TemperatureTolerance) genome.getTemperatureTolerance(true).value();
     return isCorrectTemperature(preferenceHolder, toleranceHolder, pos);
@@ -41,7 +41,7 @@ public class ClimateHelper
   public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
   {
     Genome genome = bee.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return false;
+    if (genome == null) {return false;}
     HumidityPreference preferenceHolder = (HumidityPreference) genome.getHumidityPreference(true).value();
     HumidityTolerance toleranceHolder = (HumidityTolerance) genome.getHumidityTolerance(true).value();
     return isCorrectHumidity(preferenceHolder, toleranceHolder, pos);
@@ -73,27 +73,28 @@ public class ClimateHelper
             tooCold = true;
           case "Hot":
           {
-            if (tempAtPos.location().getPath().equals("hellish")) tooHot = true;
-            else tooCold = true;
+            if (tempAtPos.location().getPath().equals("hellish")) {tooHot = true;}
+            else {tooCold = true;}
           }
           case "Average":
           {
             if (tempAtPos.location().getPath().equals("hellish") || tempAtPos.location().getPath().equals("hot"))
-              tooHot = true;
+            {tooHot = true;}
             if (tempAtPos.location().getPath().equals("icy") || tempAtPos.location().getPath().equals("cold"))
-              tooCold = true;
+            {tooCold = true;}
           }
           case "Cold":
           {
-            if (tempAtPos.location().getPath().equals("icy")) tooCold = true;
-            else tooHot = true;
+            if (tempAtPos.location().getPath().equals("icy")) {tooCold = true;}
+            else {tooHot = true;}
           }
           case "Icy":
             tooHot = true;
         }
-        if (tooCold) handler.addError(HousingError.TOO_COLD);
-        if (tooHot) handler.addError(HousingError.TOO_HOT);
-      } else
+        if (tooCold) {handler.addError(HousingError.TOO_COLD);}
+        if (tooHot) {handler.addError(HousingError.TOO_HOT);}
+      }
+      else
       {
         handler.removeError(HousingError.TOO_COLD);
         handler.removeError(HousingError.TOO_HOT);
@@ -127,27 +128,28 @@ public class ClimateHelper
             tooHumid = true;
           case "Arid":
           {
-            if (humidAtPos.location().getPath().equals("hellish")) tooDry = true;
-            else tooHumid = true;
+            if (humidAtPos.location().getPath().equals("hellish")) {tooDry = true;}
+            else {tooHumid = true;}
           }
           case "Average":
           {
             if (humidAtPos.location().getPath().equals("hellish") || humidAtPos.location().getPath().equals("arid"))
-              tooDry = true;
+            {tooDry = true;}
             if (humidAtPos.location().getPath().equals("aquatic") || humidAtPos.location().getPath().equals("damp"))
-              tooHumid = true;
+            {tooHumid = true;}
           }
           case "Damp":
           {
-            if (humidAtPos.location().getPath().equals("aquatic")) tooHumid = true;
-            else tooDry = true;
+            if (humidAtPos.location().getPath().equals("aquatic")) {tooHumid = true;}
+            else {tooDry = true;}
           }
           case "Aquatic":
             tooDry = true;
         }
-        if (tooHumid) handler.addError(HousingError.TOO_HUMID);
-        if (tooDry) handler.addError(HousingError.TOO_DRY);
-      } else
+        if (tooHumid) {handler.addError(HousingError.TOO_HUMID);}
+        if (tooDry) {handler.addError(HousingError.TOO_DRY);}
+      }
+      else
       {
         handler.removeError(HousingError.TOO_HUMID);
         handler.removeError(HousingError.TOO_DRY);
@@ -182,13 +184,13 @@ public class ClimateHelper
   {
     TagKey<Biome> defaultedTag = null;
     if (!biome.isBound())
-      throw new IllegalArgumentException("Tried to get defaulted temperature tag from unbound biome! REPORT THIS!");
+    {throw new IllegalArgumentException("Tried to get defaulted temperature tag from unbound biome! REPORT THIS!");}
     float temperature = biome.value().getModifiedClimateSettings().temperature();
-    if (temperature <= 0.0f) defaultedTag = ApicuriousTags.BiomeTags.ICY_TEMPERATURE;
-    if (temperature > 0.0f && temperature <= 0.5f) defaultedTag = ApicuriousTags.BiomeTags.COLD_TEMPERATURE;
-    if (temperature > 0.5f && temperature <= 0.8f) defaultedTag = ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE;
-    if (temperature > 0.8f && temperature <= 1.2f) defaultedTag = ApicuriousTags.BiomeTags.HOT_TEMPERATURE;
-    if (temperature > 1.2f) defaultedTag = ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE;
+    if (temperature <= 0.0f) {defaultedTag = ApicuriousTags.BiomeTags.ICY_TEMPERATURE;}
+    if (temperature > 0.0f && temperature <= 0.5f) {defaultedTag = ApicuriousTags.BiomeTags.COLD_TEMPERATURE;}
+    if (temperature > 0.5f && temperature <= 0.8f) {defaultedTag = ApicuriousTags.BiomeTags.AVERAGE_TEMPERATURE;}
+    if (temperature > 0.8f && temperature <= 1.2f) {defaultedTag = ApicuriousTags.BiomeTags.HOT_TEMPERATURE;}
+    if (temperature > 1.2f) {defaultedTag = ApicuriousTags.BiomeTags.HELLISH_TEMPERATURE;}
     return defaultedTag;
   }
 
@@ -196,13 +198,13 @@ public class ClimateHelper
   {
     TagKey<Biome> defaultedTag = null;
     if (!biome.isBound())
-      throw new IllegalArgumentException("Tried to get defaulted humidity tag from unbound biome! REPORT THIS!");
+    {throw new IllegalArgumentException("Tried to get defaulted humidity tag from unbound biome! REPORT THIS!");}
     float humidity = biome.value().getModifiedClimateSettings().downfall();
-    if (humidity <= 0.1f) defaultedTag = ApicuriousTags.BiomeTags.HELLISH_HUMIDITY;
-    if (humidity > 0.1f && humidity <= 0.2f) defaultedTag = ApicuriousTags.BiomeTags.ARID_HUMIDITY;
-    if (humidity > 0.2f && humidity <= 0.8f) defaultedTag = ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY;
-    if (humidity > 0.8f && humidity < 0.9f) defaultedTag = ApicuriousTags.BiomeTags.DAMP_HUMIDITY;
-    if (humidity >= 0.9f) defaultedTag = ApicuriousTags.BiomeTags.AQUATIC_HUMIDITY;
+    if (humidity <= 0.1f) {defaultedTag = ApicuriousTags.BiomeTags.HELLISH_HUMIDITY;}
+    if (humidity > 0.1f && humidity <= 0.2f) {defaultedTag = ApicuriousTags.BiomeTags.ARID_HUMIDITY;}
+    if (humidity > 0.2f && humidity <= 0.8f) {defaultedTag = ApicuriousTags.BiomeTags.AVERAGE_HUMIDITY;}
+    if (humidity > 0.8f && humidity < 0.9f) {defaultedTag = ApicuriousTags.BiomeTags.DAMP_HUMIDITY;}
+    if (humidity >= 0.9f) {defaultedTag = ApicuriousTags.BiomeTags.AQUATIC_HUMIDITY;}
     return defaultedTag;
   }
 }

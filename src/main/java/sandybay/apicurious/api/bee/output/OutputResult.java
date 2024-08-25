@@ -9,15 +9,8 @@ import net.minecraft.world.item.ItemStack;
 
 public record OutputResult(ItemStack output)
 {
-  public static final Codec<OutputResult> CODEC = RecordCodecBuilder.create(instance ->
-          instance.group(
-                  ItemStack.CODEC.fieldOf("output").forGetter(OutputResult::output)
-          ).apply(instance, OutputResult::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, OutputResult> NETWORK_CODEC = StreamCodec.composite(
-          ItemStack.STREAM_CODEC, OutputResult::output,
-          OutputResult::new
-  );
+  public static final Codec<OutputResult> CODEC = RecordCodecBuilder.create(instance -> instance.group(ItemStack.CODEC.fieldOf("output").forGetter(OutputResult::output)).apply(instance, OutputResult::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, OutputResult> NETWORK_CODEC = StreamCodec.composite(ItemStack.STREAM_CODEC, OutputResult::output, OutputResult::new);
 
   public static Builder builder()
   {

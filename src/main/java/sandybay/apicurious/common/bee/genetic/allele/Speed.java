@@ -32,19 +32,8 @@ public class Speed implements IAllele<Speed>
   public static final ResourceKey<IAllele<?>> FASTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("speed/fastest"));
 
 
-  public static final MapCodec<Speed> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.FLOAT.fieldOf("productionModifier").forGetter(Speed::getProductionModifier),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Speed::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Speed::getName)
-          ).apply(instance, Speed::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, Speed> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.FLOAT, Speed::getProductionModifier,
-          ByteBufCodecs.BOOL, Speed::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Speed::getName,
-          Speed::new
-  );
+  public static final MapCodec<Speed> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.FLOAT.fieldOf("productionModifier").forGetter(Speed::getProductionModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Speed::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Speed::getName)).apply(instance, Speed::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, Speed> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, Speed::getProductionModifier, ByteBufCodecs.BOOL, Speed::isDominantTrait, ByteBufCodecs.STRING_UTF8, Speed::getName, Speed::new);
 
   private final float productionModifier;
   private final boolean isDominantTrait;
@@ -76,15 +65,15 @@ public class Speed implements IAllele<Speed>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Speed speed = (Speed) o;
     return Float.compare(productionModifier, speed.productionModifier) == 0 && isDominantTrait == speed.isDominantTrait && Objects.equals(name, speed.name);
   }

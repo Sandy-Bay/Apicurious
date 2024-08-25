@@ -94,6 +94,11 @@ public class Apicurious
     }
   }
 
+  public static ResourceLocation createResourceLocation(String path)
+  {
+    return ResourceLocation.tryBuild(MODID, path);
+  }
+
   private void loadEmptySpecies(final EntityJoinLevelEvent event)
   {
     if (BeeItem.EMPTY_SPECIES == null && event.getEntity() instanceof Player)
@@ -101,38 +106,29 @@ public class Apicurious
       Level level = event.getLevel();
       if (level instanceof ServerLevel serverLevel)
       {
-        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
-                BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
-      } else if (level instanceof ClientLevel)
+        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
+      }
+      else if (level instanceof ClientLevel)
       {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null)
         {
-          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
-                  BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
+          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
         }
       }
     }
   }
 
-  private void registerCapabilities(RegisterCapabilitiesEvent event) {
-    event.registerItem(
-            Capabilities.ItemHandler.ITEM,
-            new ICapabilityProvider<>()
-            {
-              @Override
-              public @Nullable IItemHandler getCapability(ItemStack stack, Void context)
-              {
-                return new ComponentItemHandler(stack, DataComponents.CONTAINER, 2);
-              }
-            },
-            ItemRegistrar.ANALYZER.get()
-    );
-  }
-
-  public static ResourceLocation createResourceLocation(String path)
+  private void registerCapabilities(RegisterCapabilitiesEvent event)
   {
-    return ResourceLocation.tryBuild(MODID, path);
+    event.registerItem(Capabilities.ItemHandler.ITEM, new ICapabilityProvider<>()
+    {
+      @Override
+      public @Nullable IItemHandler getCapability(ItemStack stack, Void context)
+      {
+        return new ComponentItemHandler(stack, DataComponents.CONTAINER, 2);
+      }
+    }, ItemRegistrar.ANALYZER.get());
   }
 
   private void commonSetup(final FMLCommonSetupEvent event)

@@ -17,16 +17,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record DimensionCondition(HolderSet<DimensionType> dimensions) implements ICondition
 {
-  public static final MapCodec<DimensionCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE).fieldOf("dimensions").forGetter(DimensionCondition::dimensions)
-          ).apply(instance, DimensionCondition::new)
-  );
+  public static final MapCodec<DimensionCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE).fieldOf("dimensions").forGetter(DimensionCondition::dimensions)).apply(instance, DimensionCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, DimensionCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE)), DimensionCondition::dimensions,
-          DimensionCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, DimensionCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE)), DimensionCondition::dimensions, DimensionCondition::new);
 
   @Override
   public ConditionType getConditionType()
@@ -38,7 +31,7 @@ public record DimensionCondition(HolderSet<DimensionType> dimensions) implements
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) return false;
+    if (level == null) {return false;}
     return dimensions().contains(level.dimensionTypeRegistration());
   }
 }

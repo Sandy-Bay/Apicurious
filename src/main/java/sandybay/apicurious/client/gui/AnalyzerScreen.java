@@ -90,9 +90,11 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
     }
   }
 
-  private void drawInformation(GuiGraphics graphics, int x, int y, Genome genome, boolean active) {
-    if (genome == null) return;
-    switch (this.currentPage) {
+  private void drawInformation(GuiGraphics graphics, int x, int y, Genome genome, boolean active)
+  {
+    if (genome == null) {return;}
+    switch (this.currentPage)
+    {
       case 0:
         graphics.drawString(this.font, Component.translatable("apicurious.tooltip.species").withStyle(ChatFormatting.WHITE).append(genome.getSpecies(active).value().getReadableName()), x, y + 19, 0);
         graphics.drawString(this.font, Component.translatable("apicurious.tooltip.lifespan").withStyle(ChatFormatting.WHITE).append(genome.getLifespan(active).value().getReadableName()), x, y + 29, 0);
@@ -109,8 +111,8 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
         graphics.drawString(this.font, Component.translatable("apicurious.tooltip.preference.humidity").withStyle(ChatFormatting.WHITE).append(genome.getHumidityPreference(active).value().getReadableName()), x, y + 39, ChatFormatting.AQUA.getColor());
         graphics.drawString(this.font, Component.translatable("apicurious.tooltip.tolerance").withStyle(ChatFormatting.WHITE).append(genome.getHumidityTolerance(active).value().getReadableName()), x, y + 49, ChatFormatting.AQUA.getColor());
         graphics.drawString(this.font, Component.translatable("apicurious.tooltip.workcycle").withStyle(ChatFormatting.WHITE).append(genome.getWorkcycle(active).value().getReadableName()), x, y + 59, ChatFormatting.AQUA.getColor());
-        graphics.drawString(this.font, Component.translatable("apicurious.tooltip.ignores_rain").withStyle(ChatFormatting.WHITE).append(((BeeSpecies)genome.getSpecies(active).value()).getEnvironmentalData().ignoresRain() ? "Yes" : "No"), x, y + 69, ChatFormatting.AQUA.getColor());
-        graphics.drawString(this.font, Component.translatable("apicurious.tooltip.ignores_sky").withStyle(ChatFormatting.WHITE).append(((BeeSpecies)genome.getSpecies(active).value()).getEnvironmentalData().ignoresSky() ? "Yes" : "No"), x, y + 79, ChatFormatting.AQUA.getColor());
+        graphics.drawString(this.font, Component.translatable("apicurious.tooltip.ignores_rain").withStyle(ChatFormatting.WHITE).append(((BeeSpecies) genome.getSpecies(active).value()).getEnvironmentalData().ignoresRain() ? "Yes" : "No"), x, y + 69, ChatFormatting.AQUA.getColor());
+        graphics.drawString(this.font, Component.translatable("apicurious.tooltip.ignores_sky").withStyle(ChatFormatting.WHITE).append(((BeeSpecies) genome.getSpecies(active).value()).getEnvironmentalData().ignoresSky() ? "Yes" : "No"), x, y + 79, ChatFormatting.AQUA.getColor());
         break;
       case 2:
         break;
@@ -120,9 +122,12 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
   protected void renderBees(GuiGraphics graphics)
   {
     BeeSpecies species = (BeeSpecies) this.menu.getGenome().getSpecies(true).value();
-    if (queen == null)    queen    = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.QUEEN);
-    if (princess == null) princess = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.PRINCESS);
-    if (drone == null)    drone    = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.DRONE);
+    if (queen == null)
+    {queen = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.QUEEN);}
+    if (princess == null)
+    {princess = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.PRINCESS);}
+    if (drone == null)
+    {drone = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.DRONE);}
     PoseStack stack = graphics.pose();
     stack.pushPose();
     stack.scale(1.25f, 1.25f, 1.25f);

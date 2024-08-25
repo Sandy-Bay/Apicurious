@@ -14,17 +14,8 @@ import java.util.Objects;
 
 public class HumidityData
 {
-  public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(
-          instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(HumidityData::getPreferenceHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(HumidityData::getToleranceHolder)
-          ).apply(instance, HumidityData::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getPreferenceHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getToleranceHolder,
-          HumidityData::new
-  );
+  public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(HumidityData::getPreferenceHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(HumidityData::getToleranceHolder)).apply(instance, HumidityData::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getPreferenceHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getToleranceHolder, HumidityData::new);
   private final Holder<IAllele<?>> preferenceHolder;
   private final Holder<IAllele<?>> toleranceHolder;
 
@@ -47,8 +38,8 @@ public class HumidityData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     HumidityData that = (HumidityData) o;
     return Objects.equals(preferenceHolder, that.preferenceHolder) && Objects.equals(toleranceHolder, that.toleranceHolder);
   }

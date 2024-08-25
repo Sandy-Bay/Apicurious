@@ -31,21 +31,8 @@ public class TemperaturePreference implements IAllele<TemperaturePreference>
   public static final ResourceKey<IAllele<?>> COLD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/preference/cold"));
   public static final ResourceKey<IAllele<?>> ICY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/preference/icy"));
 
-  public static final MapCodec<TemperaturePreference> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("temperature").forGetter(TemperaturePreference::getTemperature),
-                  TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(TemperaturePreference::getGroupTag),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperaturePreference::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(TemperaturePreference::getName)
-          ).apply(instance, TemperaturePreference::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, TemperaturePreference::getTemperature,
-          ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), TemperaturePreference::getGroupTag,
-          ByteBufCodecs.BOOL, TemperaturePreference::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, TemperaturePreference::getName,
-          TemperaturePreference::new
-  );
+  public static final MapCodec<TemperaturePreference> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("temperature").forGetter(TemperaturePreference::getTemperature), TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(TemperaturePreference::getGroupTag), Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperaturePreference::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(TemperaturePreference::getName)).apply(instance, TemperaturePreference::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperaturePreference> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, TemperaturePreference::getTemperature, ByteBufCodecs.fromCodec(TagKey.codec(Registries.BIOME)), TemperaturePreference::getGroupTag, ByteBufCodecs.BOOL, TemperaturePreference::isDominantTrait, ByteBufCodecs.STRING_UTF8, TemperaturePreference::getName, TemperaturePreference::new);
 
   private final int temperature;
   private final TagKey<Biome> groupTag;
@@ -84,15 +71,15 @@ public class TemperaturePreference implements IAllele<TemperaturePreference>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     TemperaturePreference that = (TemperaturePreference) o;
     return temperature == that.temperature && Objects.equals(groupTag, that.groupTag) && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }

@@ -49,10 +49,11 @@ public class BeeItem extends Item implements IBeeItem
       serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
       {
         BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
-        if (species == null) return;
+        if (species == null) {return;}
         bee.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(level));
       });
-    } else if (level instanceof ClientLevel || level == null)
+    }
+    else if (level instanceof ClientLevel || level == null)
     {
       ClientPacketListener connection = Minecraft.getInstance().getConnection();
       if (connection != null)
@@ -60,7 +61,7 @@ public class BeeItem extends Item implements IBeeItem
         connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
         {
           BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
-          if (species == null) return;
+          if (species == null) {return;}
           bee.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(level));
         });
       }
@@ -84,7 +85,7 @@ public class BeeItem extends Item implements IBeeItem
   public @NotNull Component getName(ItemStack stack)
   {
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return Component.literal("ERROR");
+    if (genome == null) {return Component.literal("ERROR");}
     return genome.getSpecies(true).value().getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));
   }
 
@@ -92,7 +93,7 @@ public class BeeItem extends Item implements IBeeItem
   public boolean isFoil(ItemStack stack)
   {
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return false;
+    if (genome == null) {return false;}
     return ((BeeSpecies) genome.getSpecies(true).value()).getVisualData().hasEffect();
   }
 
@@ -105,21 +106,20 @@ public class BeeItem extends Item implements IBeeItem
       if (Screen.hasShiftDown())
       {
         Genome genome = pStack.get(DataComponentRegistrar.GENOME);
-        if (genome == null) return;
+        if (genome == null) {return;}
         pTooltipComponents.add(Component.translatable("apicurious.tooltip.area").append(genome.getArea(true).value().getReadableName()));
         pTooltipComponents.add(Component.translatable("apicurious.tooltip.lifespan").append(genome.getLifespan(true).value().getReadableName()));
         pTooltipComponents.add(Component.translatable("apicurious.tooltip.speed").append(genome.getSpeed(true).value().getReadableName()));
         pTooltipComponents.add(Component.translatable("apicurious.tooltip.fertility").append(genome.getFertility(true).value().getReadableName()));
 
-        pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).value().getReadableName()).append(" / ")
-                .append(genome.getTemperatureTolerance(true).value().getReadableName()).withStyle(ChatFormatting.GREEN));
+        pTooltipComponents.add(Component.literal("T: ").append(genome.getTemperaturePreference(true).value().getReadableName()).append(" / ").append(genome.getTemperatureTolerance(true).value().getReadableName()).withStyle(ChatFormatting.GREEN));
 
-        pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).value().getReadableName()).append(" / ")
-                .append(genome.getHumidityTolerance(true).value().getReadableName()).withStyle(ChatFormatting.GREEN));
+        pTooltipComponents.add(Component.literal("H: ").append(genome.getHumidityPreference(true).value().getReadableName()).append(" / ").append(genome.getHumidityTolerance(true).value().getReadableName()).withStyle(ChatFormatting.GREEN));
 
         pTooltipComponents.add(Component.translatable("apicurious.tooltip.flowers").append(genome.getFlowers(true).value().getReadableName()));
 
-      } else
+      }
+      else
       {
         pTooltipComponents.add(Component.translatable("apicurious.bee.shiftdown"));
       }

@@ -28,8 +28,8 @@ public class Coloring
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Coloring coloring = (Coloring) o;
     return color == coloring.color;
   }

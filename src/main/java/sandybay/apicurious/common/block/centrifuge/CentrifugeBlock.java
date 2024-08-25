@@ -26,7 +26,8 @@ public class CentrifugeBlock extends Block implements EntityBlock
   }
 
   @Override
-  protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+  protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult)
+  {
     if (!level.isClientSide())
     {
       if (level.getBlockEntity(pos) instanceof CentrifugeBE centrifuge)
@@ -55,7 +56,8 @@ public class CentrifugeBlock extends Block implements EntityBlock
         if (level.isClientSide())
         {
           tickable.clientTick(level, pos, state);
-        } else
+        }
+        else
         {
           tickable.serverTick(level, pos, state);
         }

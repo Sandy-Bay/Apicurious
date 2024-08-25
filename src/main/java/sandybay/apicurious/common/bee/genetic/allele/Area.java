@@ -27,22 +27,9 @@ public class Area implements IAllele<Area>
   public static final ResourceKey<IAllele<?>> LARGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/largest"));
 
 
-  public static final MapCodec<Area> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("xzOffset").forGetter(Area::getXZOffset),
-                  Codec.INT.fieldOf("yOffset").forGetter(Area::getYOffset),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Area::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Area::getName)
-          ).apply(instance, Area::new)
-  );
+  public static final MapCodec<Area> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("xzOffset").forGetter(Area::getXZOffset), Codec.INT.fieldOf("yOffset").forGetter(Area::getYOffset), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Area::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Area::getName)).apply(instance, Area::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, Area::getXZOffset,
-          ByteBufCodecs.INT, Area::getYOffset,
-          ByteBufCodecs.BOOL, Area::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Area::getName,
-          Area::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Area::getXZOffset, ByteBufCodecs.INT, Area::getYOffset, ByteBufCodecs.BOOL, Area::isDominantTrait, ByteBufCodecs.STRING_UTF8, Area::getName, Area::new);
 
   private final int xzOffset;
   private final int yOffset;
@@ -82,15 +69,15 @@ public class Area implements IAllele<Area>
   @Override
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Area area = (Area) o;
     return xzOffset == area.xzOffset && yOffset == area.yOffset && isDominantTrait == area.isDominantTrait && Objects.equals(name, area.name);
   }

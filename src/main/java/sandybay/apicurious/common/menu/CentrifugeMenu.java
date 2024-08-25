@@ -7,15 +7,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import org.jetbrains.annotations.Nullable;
-import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.util.MenuHelper;
 import sandybay.apicurious.common.block.centrifuge.blockentity.CentrifugeBE;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
 
-import java.util.List;
 import java.util.Objects;
 
 public class CentrifugeMenu extends AbstractContainerMenu
@@ -44,10 +41,7 @@ public class CentrifugeMenu extends AbstractContainerMenu
     addDataSlots(containerData);
   }
 
-  public CentrifugeMenu(int pContainerId,
-                           Inventory playerInventory,
-                           ContainerLevelAccess access,
-                           CentrifugeBE centrifuge)
+  public CentrifugeMenu(int pContainerId, Inventory playerInventory, ContainerLevelAccess access, CentrifugeBE centrifuge)
   {
     super(MenuRegistrar.CENTRIFUGE.get(), pContainerId);
     this.access = access;
@@ -83,7 +77,7 @@ public class CentrifugeMenu extends AbstractContainerMenu
     {
       for (int j = 0; j < 9; j++)
       {
-        if (j + i * 9 + 9 == 36) return;
+        if (j + i * 9 + 9 == 36) {return;}
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
       }
     }
@@ -100,7 +94,8 @@ public class CentrifugeMenu extends AbstractContainerMenu
 
   // TODO: Figure out how to do shift-clicking from inventory into centrifuge
   @Override
-  public ItemStack quickMoveStack(Player pPlayer, int slotIndex) {
+  public ItemStack quickMoveStack(Player pPlayer, int slotIndex)
+  {
     ItemStack originalStack = ItemStack.EMPTY;
     Slot slot = slots.get(slotIndex);
     int numSlots = slots.size();
@@ -159,7 +154,8 @@ public class CentrifugeMenu extends AbstractContainerMenu
             stackInSlot.setCount(resultingStackSize);
             slot.setChanged();
             changed = true;
-          } else if (stackInSlot.getCount() < max)
+          }
+          else if (stackInSlot.getCount() < max)
           {
             stackToShift.setCount(stackToShift.getCount() - (max - stackInSlot.getCount()));
             stackInSlot.setCount(max);
@@ -195,14 +191,15 @@ public class CentrifugeMenu extends AbstractContainerMenu
     for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
     {
       Slot slot = slots.get(machineIndex);
-      if (!slot.mayPlace(stackToShift)) continue;
-      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) return true;
+      if (!slot.mayPlace(stackToShift)) {continue;}
+      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) {return true;}
     }
     return false;
   }
 
   @Override
-  public boolean stillValid(Player pPlayer) {
+  public boolean stillValid(Player pPlayer)
+  {
     return AbstractContainerMenu.stillValid(access, pPlayer, BlockRegistrar.CENTRIFUGE.asBlock());
   }
 

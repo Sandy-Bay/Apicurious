@@ -24,19 +24,8 @@ public class Fertility implements IAllele<Fertility>
   public static final ResourceKey<IAllele<?>> HIGH_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("fertility/high"));
   public static final ResourceKey<IAllele<?>> MAXIMUM_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("fertility/maximum"));
 
-  public static final MapCodec<Fertility> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Fertility::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Fertility::getName)
-          ).apply(instance, Fertility::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, Fertility::getOffspring,
-          ByteBufCodecs.BOOL, Fertility::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Fertility::getName,
-          Fertility::new
-  );
+  public static final MapCodec<Fertility> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Fertility::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Fertility::getName)).apply(instance, Fertility::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Fertility::getOffspring, ByteBufCodecs.BOOL, Fertility::isDominantTrait, ByteBufCodecs.STRING_UTF8, Fertility::getName, Fertility::new);
 
   private final int offspring;
   private final boolean isDominantTrait;
@@ -69,15 +58,15 @@ public class Fertility implements IAllele<Fertility>
   @Override
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Fertility fertility = (Fertility) o;
     return offspring == fertility.offspring && isDominantTrait == fertility.isDominantTrait && Objects.equals(name, fertility.name);
   }

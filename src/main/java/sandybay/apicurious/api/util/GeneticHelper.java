@@ -13,9 +13,9 @@ public class GeneticHelper
     Holder<IAllele<?>> firstAllele = random.nextBoolean() ? firstParent.getActive() : firstParent.getInactive();
     Holder<IAllele<?>> secondAllele = random.nextBoolean() ? secondParent.getActive() : secondParent.getInactive();
     if (firstAllele.value().isDominantTrait() && secondAllele.value().isDominantTrait())
-      return random.nextBoolean() ? Genotype.of(firstAllele, secondAllele) : Genotype.of(secondAllele, firstAllele);
-    if (firstAllele.value().isDominantTrait()) return Genotype.of(firstAllele, secondAllele);
-    if (secondAllele.value().isDominantTrait()) return Genotype.of(secondAllele, firstAllele);
+    {return random.nextBoolean() ? Genotype.of(firstAllele, secondAllele) : Genotype.of(secondAllele, firstAllele);}
+    if (firstAllele.value().isDominantTrait()) {return Genotype.of(firstAllele, secondAllele);}
+    if (secondAllele.value().isDominantTrait()) {return Genotype.of(secondAllele, firstAllele);}
     return Genotype.of(firstAllele, secondAllele);
   }
 

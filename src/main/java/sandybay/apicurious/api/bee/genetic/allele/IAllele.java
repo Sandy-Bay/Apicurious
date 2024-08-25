@@ -10,13 +10,9 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public interface IAllele<T extends IAllele<T>>
 {
-  Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.ALLELE_TYPE_REGISTRY
-          .byNameCodec()
-          .dispatch("type", IAllele::getTraitKey, AlleleType::codec);
+  Codec<IAllele<?>> TYPED_CODEC = ApicuriousRegistries.ALLELE_TYPE_REGISTRY.byNameCodec().dispatch("type", IAllele::getTraitKey, AlleleType::codec);
 
-  StreamCodec<RegistryFriendlyByteBuf, IAllele<?>> NETWORK_TYPED_CODEC = ByteBufCodecs
-          .registry(ApicuriousRegistries.ALLELE_TYPES)
-          .dispatch(IAllele::getTraitKey, AlleleType::streamCodec);
+  StreamCodec<RegistryFriendlyByteBuf, IAllele<?>> NETWORK_TYPED_CODEC = ByteBufCodecs.registry(ApicuriousRegistries.ALLELE_TYPES).dispatch(IAllele::getTraitKey, AlleleType::streamCodec);
 
   AlleleType<T> getTraitKey();
 

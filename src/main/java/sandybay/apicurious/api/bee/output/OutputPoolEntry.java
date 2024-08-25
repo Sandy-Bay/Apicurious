@@ -18,19 +18,8 @@ import java.util.function.Consumer;
 
 public record OutputPoolEntry(List<OutputResult> outputs, List<ICondition> conditions, List<IFunction> functions)
 {
-  public static final Codec<OutputPoolEntry> CODEC = RecordCodecBuilder.create(instance ->
-          instance.group(
-                  Codec.list(OutputResult.CODEC).fieldOf("outputs").forGetter(OutputPoolEntry::outputs),
-                  Codec.list(ICondition.TYPED_CODEC).fieldOf("conditions").forGetter(OutputPoolEntry::conditions),
-                  Codec.list(IFunction.TYPED_CODEC).fieldOf("functions").forGetter(OutputPoolEntry::functions)
-          ).apply(instance, OutputPoolEntry::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, OutputPoolEntry> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.collection(ArrayList::new, OutputResult.NETWORK_CODEC), OutputPoolEntry::outputs,
-          ByteBufCodecs.collection(ArrayList::new, ICondition.NETWORK_TYPED_CODEC), OutputPoolEntry::conditions,
-          ByteBufCodecs.collection(ArrayList::new, IFunction.NETWORK_TYPED_CODEC), OutputPoolEntry::functions,
-          OutputPoolEntry::new
-  );
+  public static final Codec<OutputPoolEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.list(OutputResult.CODEC).fieldOf("outputs").forGetter(OutputPoolEntry::outputs), Codec.list(ICondition.TYPED_CODEC).fieldOf("conditions").forGetter(OutputPoolEntry::conditions), Codec.list(IFunction.TYPED_CODEC).fieldOf("functions").forGetter(OutputPoolEntry::functions)).apply(instance, OutputPoolEntry::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, OutputPoolEntry> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.collection(ArrayList::new, OutputResult.NETWORK_CODEC), OutputPoolEntry::outputs, ByteBufCodecs.collection(ArrayList::new, ICondition.NETWORK_TYPED_CODEC), OutputPoolEntry::conditions, ByteBufCodecs.collection(ArrayList::new, IFunction.NETWORK_TYPED_CODEC), OutputPoolEntry::functions, OutputPoolEntry::new);
 
   public static Builder builder()
   {

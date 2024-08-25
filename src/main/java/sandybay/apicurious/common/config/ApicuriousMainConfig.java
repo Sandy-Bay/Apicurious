@@ -20,23 +20,13 @@ public class ApicuriousMainConfig
   public ApicuriousMainConfig(ModConfigSpec.Builder builder)
   {
     builder.push("debug");
-    debug = builder
-            .comment("Should debug logging & features be enabled?")
-            .define("debug", false);
-    debugApiaryCycleTime = builder
-            .comment("The amount of time the apiary should take to run")
-            .define("debugApiaryCycleTime", 100);
-    debugApiaryPollinationTime = builder
-            .comment("The amount of time before the apiary attempts to pollinate")
-            .define("debugApiaryPollinationTime", 20);
-    debugApiaryOutputTime = builder
-            .comment("The amount of time before the apiary attempts to produce an output")
-            .define("debugApiaryOutputTime", 20);
+    debug = builder.comment("Should debug logging & features be enabled?").define("debug", false);
+    debugApiaryCycleTime = builder.comment("The amount of time the apiary should take to run").define("debugApiaryCycleTime", 100);
+    debugApiaryPollinationTime = builder.comment("The amount of time before the apiary attempts to pollinate").define("debugApiaryPollinationTime", 20);
+    debugApiaryOutputTime = builder.comment("The amount of time before the apiary attempts to produce an output").define("debugApiaryOutputTime", 20);
     builder.pop();
     builder.push("general");
-    baseCycleTime = builder
-            .comment("Default cycle duration, defined in Ticks.", "This is used with the lifespan of the bee to decide the total run duration.", "Default: 550")
-            .defineInRange("baseCycleTime", 550, 1, Integer.MAX_VALUE);
+    baseCycleTime = builder.comment("Default cycle duration, defined in Ticks.", "This is used with the lifespan of the bee to decide the total run duration.", "Default: 550").defineInRange("baseCycleTime", 550, 1, Integer.MAX_VALUE);
     builder.pop();
   }
 

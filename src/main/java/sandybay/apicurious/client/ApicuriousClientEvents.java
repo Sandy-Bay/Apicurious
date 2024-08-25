@@ -62,42 +62,13 @@ public class ApicuriousClientEvents
 
   private static void handleBlockTint(final RegisterColorHandlersEvent.Block event)
   {
-    event.register(
-            ApicuriousClientEvents::registerHiveTintHandler,
-            BlockRegistrar.FOREST_HIVE.asBlock(),
-            BlockRegistrar.MEADOW_HIVE.asBlock(),
-            BlockRegistrar.MODEST_HIVE.asBlock(),
-            BlockRegistrar.TROPICAL_HIVE.asBlock(),
-            BlockRegistrar.WINTRY_HIVE.asBlock(),
-            BlockRegistrar.MARSHY_HIVE.asBlock(),
-            BlockRegistrar.ROCKY_HIVE.asBlock(),
-            BlockRegistrar.NETHER_HIVE.asBlock(),
-            BlockRegistrar.ENDER_HIVE.asBlock(),
-            BlockRegistrar.WATER_HIVE.asBlock()
-    );
+    event.register(ApicuriousClientEvents::registerHiveTintHandler, BlockRegistrar.FOREST_HIVE.asBlock(), BlockRegistrar.MEADOW_HIVE.asBlock(), BlockRegistrar.MODEST_HIVE.asBlock(), BlockRegistrar.TROPICAL_HIVE.asBlock(), BlockRegistrar.WINTRY_HIVE.asBlock(), BlockRegistrar.MARSHY_HIVE.asBlock(), BlockRegistrar.ROCKY_HIVE.asBlock(), BlockRegistrar.NETHER_HIVE.asBlock(), BlockRegistrar.ENDER_HIVE.asBlock(), BlockRegistrar.WATER_HIVE.asBlock());
   }
 
   private static void handleItemTint(final RegisterColorHandlersEvent.Item event)
   {
-    event.register(
-            ApicuriousClientEvents::registerBeeTintHandler,
-            ItemRegistrar.DRONE.get(),
-            ItemRegistrar.PRINCESS.get(),
-            ItemRegistrar.QUEEN.get()
-    );
-    event.register(
-            ApicuriousClientEvents::registerHiveItemTintHandler,
-            BlockRegistrar.FOREST_HIVE.asItem(),
-            BlockRegistrar.MEADOW_HIVE.asItem(),
-            BlockRegistrar.MODEST_HIVE.asItem(),
-            BlockRegistrar.TROPICAL_HIVE.asItem(),
-            BlockRegistrar.WINTRY_HIVE.asItem(),
-            BlockRegistrar.MARSHY_HIVE.asItem(),
-            BlockRegistrar.ROCKY_HIVE.asItem(),
-            BlockRegistrar.NETHER_HIVE.asItem(),
-            BlockRegistrar.ENDER_HIVE.asItem(),
-            BlockRegistrar.WATER_HIVE.asItem()
-    );
+    event.register(ApicuriousClientEvents::registerBeeTintHandler, ItemRegistrar.DRONE.get(), ItemRegistrar.PRINCESS.get(), ItemRegistrar.QUEEN.get());
+    event.register(ApicuriousClientEvents::registerHiveItemTintHandler, BlockRegistrar.FOREST_HIVE.asItem(), BlockRegistrar.MEADOW_HIVE.asItem(), BlockRegistrar.MODEST_HIVE.asItem(), BlockRegistrar.TROPICAL_HIVE.asItem(), BlockRegistrar.WINTRY_HIVE.asItem(), BlockRegistrar.MARSHY_HIVE.asItem(), BlockRegistrar.ROCKY_HIVE.asItem(), BlockRegistrar.NETHER_HIVE.asItem(), BlockRegistrar.ENDER_HIVE.asItem(), BlockRegistrar.WATER_HIVE.asItem());
   }
 
   private static void registerAlternativeBeeModels(final ModelEvent.RegisterAdditional event)
@@ -120,9 +91,9 @@ public class ApicuriousClientEvents
   private static int registerBeeTintHandler(ItemStack stack, int tintIndex)
   {
     int tint = 0xFFFFFFFF;
-    if (tintIndex == 0) tint = getColor(stack, true, false);
-    if (tintIndex == 1) tint = getColor(stack, false, true);
-    if (tintIndex == 4) tint = getColor(stack, false, false);
+    if (tintIndex == 0) {tint = getColor(stack, true, false);}
+    if (tintIndex == 1) {tint = getColor(stack, false, true);}
+    if (tintIndex == 4) {tint = getColor(stack, false, false);}
     return tint;
   }
 
@@ -151,7 +122,7 @@ public class ApicuriousClientEvents
       if (optional.isPresent())
       {
         BeeSpecies species = (BeeSpecies) optional.get().get(hiveBlock.getSpecies());
-        if (species == null) return 0xFFFFFFFF;
+        if (species == null) {return 0xFFFFFFFF;}
         return species.getVisualData().getBeeColor().getOutlineTint().getIntColor();
       }
     }
@@ -161,15 +132,10 @@ public class ApicuriousClientEvents
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
   {
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return 0xFFFFFFFF;
+    if (genome == null) {return 0xFFFFFFFF;}
     BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
-    if (species.getVisualData() == null || species.getVisualData().hasCustomRender())
-      return 0xFFFFFFFF;
-    return isOutline ?
-            species.getVisualData().getBeeColor().getOutlineTint().getIntColor() :
-            isBody ?
-                    species.getVisualData().getBeeColor().getBodyTint().getIntColor() :
-                    species.getVisualData().getBeeColor().getWingTint().getIntColor();
+    if (species.getVisualData() == null || species.getVisualData().hasCustomRender()) {return 0xFFFFFFFF;}
+    return isOutline ? species.getVisualData().getBeeColor().getOutlineTint().getIntColor() : isBody ? species.getVisualData().getBeeColor().getBodyTint().getIntColor() : species.getVisualData().getBeeColor().getWingTint().getIntColor();
   }
 
 

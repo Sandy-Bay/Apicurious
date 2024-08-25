@@ -15,20 +15,9 @@ public class VisualData
 
   public static final VisualData DEFAULT = VisualData.Builder.create().build();
 
-  public static final Codec<VisualData> CODEC = RecordCodecBuilder.create(
-          instance -> instance.group(
-                  BeeColor.CODEC.optionalFieldOf("beeColor", ApicuriousConstants.UNDEFINED).forGetter(VisualData::getBeeColor),
-                  Codec.BOOL.optionalFieldOf("hasEffect", false).forGetter(VisualData::hasEffect),
-                  Codec.BOOL.optionalFieldOf("hasCustomRender", true).forGetter(VisualData::hasCustomRender)
-          ).apply(instance, VisualData::new)
-  );
+  public static final Codec<VisualData> CODEC = RecordCodecBuilder.create(instance -> instance.group(BeeColor.CODEC.optionalFieldOf("beeColor", ApicuriousConstants.UNDEFINED).forGetter(VisualData::getBeeColor), Codec.BOOL.optionalFieldOf("hasEffect", false).forGetter(VisualData::hasEffect), Codec.BOOL.optionalFieldOf("hasCustomRender", true).forGetter(VisualData::hasCustomRender)).apply(instance, VisualData::new));
 
-  public static final StreamCodec<ByteBuf, VisualData> NETWORK_CODEC = StreamCodec.composite(
-          BeeColor.NETWORK_CODEC, VisualData::getBeeColor,
-          ByteBufCodecs.BOOL, VisualData::hasEffect,
-          ByteBufCodecs.BOOL, VisualData::hasCustomRender,
-          VisualData::new
-  );
+  public static final StreamCodec<ByteBuf, VisualData> NETWORK_CODEC = StreamCodec.composite(BeeColor.NETWORK_CODEC, VisualData::getBeeColor, ByteBufCodecs.BOOL, VisualData::hasEffect, ByteBufCodecs.BOOL, VisualData::hasCustomRender, VisualData::new);
 
   private final BeeColor beeColor;
   private final boolean hasEffect;
@@ -65,8 +54,8 @@ public class VisualData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     VisualData that = (VisualData) o;
     return hasEffect == that.hasEffect && hasCustomRender == that.hasCustomRender && Objects.equals(beeColor, that.beeColor);
   }
@@ -135,9 +124,7 @@ public class VisualData
 
     public VisualData build()
     {
-      return hasPredefinedColor ?
-              new VisualData(beeColor, hasEffect, hasCustomRender) :
-              new VisualData(new BeeColor(outlineTint, wingTint, bodyTint), hasEffect, hasCustomRender);
+      return hasPredefinedColor ? new VisualData(beeColor, hasEffect, hasCustomRender) : new VisualData(new BeeColor(outlineTint, wingTint, bodyTint), hasEffect, hasCustomRender);
     }
   }
 }

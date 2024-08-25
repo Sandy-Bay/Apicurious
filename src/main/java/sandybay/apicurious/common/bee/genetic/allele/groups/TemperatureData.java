@@ -14,18 +14,9 @@ import java.util.Objects;
 
 public class TemperatureData
 {
-  public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(
-          instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(TemperatureData::getPreferenceHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(TemperatureData::getToleranceHolder)
-          ).apply(instance, TemperatureData::new)
-  );
+  public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(TemperatureData::getPreferenceHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(TemperatureData::getToleranceHolder)).apply(instance, TemperatureData::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::getPreferenceHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::getToleranceHolder,
-          TemperatureData::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::getPreferenceHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::getToleranceHolder, TemperatureData::new);
 
   private final Holder<IAllele<?>> preferenceHolder;
   private final Holder<IAllele<?>> toleranceHolder;
@@ -49,8 +40,8 @@ public class TemperatureData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     TemperatureData that = (TemperatureData) o;
     return Objects.equals(preferenceHolder.value(), that.preferenceHolder.value()) && Objects.equals(toleranceHolder.value(), that.toleranceHolder.value());
   }

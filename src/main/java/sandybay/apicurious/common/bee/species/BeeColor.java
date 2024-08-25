@@ -15,19 +15,8 @@ import java.util.Objects;
 public class BeeColor implements IBeeColor
 {
 
-  public static final Codec<BeeColor> CODEC = RecordCodecBuilder.create(
-          instance -> instance.group(
-                  Codec.STRING.fieldOf("outlineTint").forGetter(BeeColor::getOutlineTintInternal),
-                  Codec.STRING.optionalFieldOf("wingTint", "").forGetter(BeeColor::getWingTintInternal),
-                  Codec.STRING.optionalFieldOf("bodyTint", "").forGetter(BeeColor::getBodyTintInternal)
-          ).apply(instance, BeeColor::new)
-  );
-  public static final StreamCodec<ByteBuf, BeeColor> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.STRING_UTF8, BeeColor::getOutlineTintInternal,
-          ByteBufCodecs.STRING_UTF8, BeeColor::getWingTintInternal,
-          ByteBufCodecs.STRING_UTF8, BeeColor::getBodyTintInternal,
-          BeeColor::new
-  );
+  public static final Codec<BeeColor> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.STRING.fieldOf("outlineTint").forGetter(BeeColor::getOutlineTintInternal), Codec.STRING.optionalFieldOf("wingTint", "").forGetter(BeeColor::getWingTintInternal), Codec.STRING.optionalFieldOf("bodyTint", "").forGetter(BeeColor::getBodyTintInternal)).apply(instance, BeeColor::new));
+  public static final StreamCodec<ByteBuf, BeeColor> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, BeeColor::getOutlineTintInternal, ByteBufCodecs.STRING_UTF8, BeeColor::getWingTintInternal, ByteBufCodecs.STRING_UTF8, BeeColor::getBodyTintInternal, BeeColor::new);
 
   private final String outlineTint;
   private final String wingTint;
@@ -82,8 +71,8 @@ public class BeeColor implements IBeeColor
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     BeeColor beeColor = (BeeColor) o;
     return Objects.equals(outlineTint, beeColor.outlineTint) && Objects.equals(wingTint, beeColor.wingTint) && Objects.equals(bodyTint, beeColor.bodyTint);
   }

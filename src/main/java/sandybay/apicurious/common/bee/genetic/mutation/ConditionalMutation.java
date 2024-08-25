@@ -21,15 +21,7 @@ import java.util.List;
 public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second, float chance,
                                   Holder<IAllele<?>> output, List<Holder<ICondition>> conditions) implements IMutation
 {
-  public static final MapCodec<ConditionalMutation> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  RegistryCodecs.homogeneousList(ApicuriousRegistries.ALLELES).fieldOf("first").forGetter(ConditionalMutation::first),
-                  RegistryCodecs.homogeneousList(ApicuriousRegistries.ALLELES).fieldOf("second").forGetter(ConditionalMutation::second),
-                  Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ConditionalMutation::chance),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("output").forGetter(ConditionalMutation::output),
-                  Codec.list(RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC)).fieldOf("conditions").forGetter(ConditionalMutation::conditions)
-          ).apply(instance, ConditionalMutation::new)
-  );
+  public static final MapCodec<ConditionalMutation> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(ApicuriousRegistries.ALLELES).fieldOf("first").forGetter(ConditionalMutation::first), RegistryCodecs.homogeneousList(ApicuriousRegistries.ALLELES).fieldOf("second").forGetter(ConditionalMutation::second), Codec.floatRange(0.0f, 1.0f).fieldOf("chance").forGetter(ConditionalMutation::chance), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("output").forGetter(ConditionalMutation::output), Codec.list(RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC)).fieldOf("conditions").forGetter(ConditionalMutation::conditions)).apply(instance, ConditionalMutation::new));
 
   @Override
   public MutationType getType()
@@ -48,7 +40,7 @@ public record ConditionalMutation(HolderSet<IAllele<?>> first, HolderSet<IAllele
   {
     Holder<IAllele<?>> first = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 0, true);
     Holder<IAllele<?>> second = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 1, true);
-    if (housing.getLevel() == null || first == null || second == null || first.is(second)) return false;
+    if (housing.getLevel() == null || first == null || second == null || first.is(second)) {return false;}
     if (conditions.stream().map(Holder::value).allMatch(condition -> condition.test(housing)))
     {
       if (first().contains(first) && second().contains(second) || first().contains(second) && second().contains(first))

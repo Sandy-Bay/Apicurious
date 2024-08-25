@@ -18,26 +18,9 @@ import java.util.Objects;
 public class ProductionData
 {
 
-  public static final Codec<ProductionData> CODEC = RecordCodecBuilder.create(
-          instance -> instance.group(
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("lifespan").forGetter(ProductionData::getLifespanHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("workCycle").forGetter(ProductionData::getWorkcycleHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("area").forGetter(ProductionData::getAreaHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("speed").forGetter(ProductionData::getSpeedHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("fertility").forGetter(ProductionData::getFertilityHolder),
-                  RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("pollination").forGetter(ProductionData::getPollinationHolder)
-          ).apply(instance, ProductionData::new)
-  );
+  public static final Codec<ProductionData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("lifespan").forGetter(ProductionData::getLifespanHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("workCycle").forGetter(ProductionData::getWorkcycleHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("area").forGetter(ProductionData::getAreaHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("speed").forGetter(ProductionData::getSpeedHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("fertility").forGetter(ProductionData::getFertilityHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("pollination").forGetter(ProductionData::getPollinationHolder)).apply(instance, ProductionData::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, ProductionData> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getLifespanHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getWorkcycleHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getAreaHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getSpeedHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getFertilityHolder,
-          ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getPollinationHolder,
-          ProductionData::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, ProductionData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getLifespanHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getWorkcycleHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getAreaHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getSpeedHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getFertilityHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), ProductionData::getPollinationHolder, ProductionData::new);
 
   private final Holder<IAllele<?>> lifespanHolder;
   private final Holder<IAllele<?>> workcycleHolder;
@@ -52,8 +35,7 @@ public class ProductionData
   private Fertility fertility;
   private Pollination pollination;
 
-  public ProductionData(Holder<IAllele<?>> lifespanHolder, Holder<IAllele<?>> workcycleHolder, Holder<IAllele<?>> areaHolder,
-                        Holder<IAllele<?>> speedHolder, Holder<IAllele<?>> fertilityHolder, Holder<IAllele<?>> pollinationHolder)
+  public ProductionData(Holder<IAllele<?>> lifespanHolder, Holder<IAllele<?>> workcycleHolder, Holder<IAllele<?>> areaHolder, Holder<IAllele<?>> speedHolder, Holder<IAllele<?>> fertilityHolder, Holder<IAllele<?>> pollinationHolder)
   {
     this.lifespanHolder = lifespanHolder;
     this.workcycleHolder = workcycleHolder;
@@ -76,7 +58,7 @@ public class ProductionData
 
   public Lifespan getLifespan()
   {
-    if (lifespan == null && lifespanHolder.isBound()) lifespan = (Lifespan) lifespanHolder.value();
+    if (lifespan == null && lifespanHolder.isBound()) {lifespan = (Lifespan) lifespanHolder.value();}
     return lifespan;
   }
 
@@ -87,7 +69,7 @@ public class ProductionData
 
   public Area getArea()
   {
-    if (area == null && areaHolder.isBound()) area = (Area) areaHolder.value();
+    if (area == null && areaHolder.isBound()) {area = (Area) areaHolder.value();}
     return area;
   }
 
@@ -98,7 +80,7 @@ public class ProductionData
 
   public Speed getSpeed()
   {
-    if (speed == null && speedHolder.isBound()) speed = (Speed) speedHolder.value();
+    if (speed == null && speedHolder.isBound()) {speed = (Speed) speedHolder.value();}
     return speed;
   }
 
@@ -109,7 +91,7 @@ public class ProductionData
 
   public Fertility getFertility()
   {
-    if (fertility == null && fertilityHolder.isBound()) fertility = (Fertility) fertilityHolder.value();
+    if (fertility == null && fertilityHolder.isBound()) {fertility = (Fertility) fertilityHolder.value();}
     return fertility;
   }
 
@@ -120,7 +102,7 @@ public class ProductionData
 
   public Pollination getPollination()
   {
-    if (pollination == null && pollinationHolder.isBound()) pollination = (Pollination) pollinationHolder.value();
+    if (pollination == null && pollinationHolder.isBound()) {pollination = (Pollination) pollinationHolder.value();}
     return pollination;
   }
 
@@ -131,19 +113,17 @@ public class ProductionData
 
   public Workcycle getWorkcycle()
   {
-    if (workcycle == null && workcycleHolder.isBound()) workcycle = (Workcycle) workcycleHolder.value();
+    if (workcycle == null && workcycleHolder.isBound()) {workcycle = (Workcycle) workcycleHolder.value();}
     return workcycle;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     ProductionData that = (ProductionData) o;
-    return Objects.equals(getLifespan(), that.getLifespan()) && Objects.equals(getWorkcycle(), that.getWorkcycle()) &&
-            Objects.equals(getArea(), that.getArea()) && Objects.equals(getSpeed(), that.getSpeed()) &&
-            Objects.equals(getFertility(), that.getFertility()) && Objects.equals(getPollination(), that.getPollination());
+    return Objects.equals(getLifespan(), that.getLifespan()) && Objects.equals(getWorkcycle(), that.getWorkcycle()) && Objects.equals(getArea(), that.getArea()) && Objects.equals(getSpeed(), that.getSpeed()) && Objects.equals(getFertility(), that.getFertility()) && Objects.equals(getPollination(), that.getPollination());
   }
 
   @Override

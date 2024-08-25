@@ -18,10 +18,10 @@ import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.block.centrifuge.CentrifugeBlock;
 import sandybay.apicurious.common.block.centrifuge.blockentity.CentrifugeBE;
-import sandybay.apicurious.common.block.housing.blockentity.ApiaryHousingBE;
-import sandybay.apicurious.common.block.housing.blockentity.BeeHousingBE;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.block.housing.BeeHousingBlock;
+import sandybay.apicurious.common.block.housing.blockentity.ApiaryHousingBE;
+import sandybay.apicurious.common.block.housing.blockentity.BeeHousingBE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,62 +51,30 @@ public class BlockRegistrar
   public static final BlockItemHolder<HiveBlock, BlockItem> WATER_HIVE = registerHive("water_hive", () -> new HiveBlock(ApicuriousSpecies.WATER.species(), HIVE_PROPS), (block) -> () -> new BlockItem(block.get(), new Item.Properties()));
   private static final Item.Properties DEFAULT_ITEM_BLOCK_PROPERTIES = new Item.Properties();
 
-  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile(
-          "apiary",
-          () -> new ApiaryBlock(HOUSING_PROPS),
-          BlockRegistrar::getDefaultBlockItem,
-          ApiaryHousingBE::new,
-          BlockRegistrar::getDefaultType
-  );
-
-
-  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile(
-          "bee_housing",
-          () -> new BeeHousingBlock(HOUSING_PROPS),
-          BlockRegistrar::getDefaultBlockItem,
-          BeeHousingBE::new,
-          BlockRegistrar::getDefaultType
-  );
-
-  public static BlockHolderWithTile<CentrifugeBlock, BlockItem, CentrifugeBE> CENTRIFUGE = registerBlockWithTile(
-          "centrifuge",
-          () -> new CentrifugeBlock(HOUSING_PROPS),
-          BlockRegistrar::getDefaultBlockItem,
-          CentrifugeBE::new,
-          BlockRegistrar::getDefaultType
-  );
-
   public static void register(IEventBus bus)
   {
     BLOCKS.register(bus);
     ITEMS.register(bus);
     BLOCK_ENTITY_TYPES.register(bus);
-  }
+  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile("apiary", () -> new ApiaryBlock(HOUSING_PROPS), BlockRegistrar::getDefaultBlockItem, ApiaryHousingBE::new, BlockRegistrar::getDefaultType);
 
-  public static <BLOCK extends Block, BLOCKITEM extends BlockItem> BlockItemHolder<BLOCK, BLOCKITEM> registerBlock
-          (String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item)
+  public static <BLOCK extends Block, BLOCKITEM extends BlockItem> BlockItemHolder<BLOCK, BLOCKITEM> registerBlock(String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item)
   {
     DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
     return new BlockItemHolder<>(b, i);
-  }
+  }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile("bee_housing", () -> new BeeHousingBlock(HOUSING_PROPS), BlockRegistrar::getDefaultBlockItem, BeeHousingBE::new, BlockRegistrar::getDefaultType);
 
-  public static <BLOCK extends HiveBlock, BLOCKITEM extends BlockItem> BlockItemHolder<BLOCK, BLOCKITEM> registerHive
-          (String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item)
+  public static <BLOCK extends HiveBlock, BLOCKITEM extends BlockItem> BlockItemHolder<BLOCK, BLOCKITEM> registerHive(String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item)
   {
     DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
     BlockItemHolder<BLOCK, BLOCKITEM> holder = new BlockItemHolder<>(b, i);
     HIVES.add(holder);
     return holder;
-  }
+  }  public static BlockHolderWithTile<CentrifugeBlock, BlockItem, CentrifugeBE> CENTRIFUGE = registerBlockWithTile("centrifuge", () -> new CentrifugeBlock(HOUSING_PROPS), BlockRegistrar::getDefaultBlockItem, CentrifugeBE::new, BlockRegistrar::getDefaultType);
 
-  public static <BLOCK extends Block, BLOCKITEM extends BlockItem, T extends BlockEntity>
-  BlockHolderWithTile<BLOCK, BLOCKITEM, T> registerBlockWithTile(String id,
-                                                                 Supplier<BLOCK> block,
-                                                                 Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item,
-                                                                 BlockEntityType.BlockEntitySupplier<T> factory,
-                                                                 BiFunction<BlockEntityType.BlockEntitySupplier<T>, DeferredHolder<Block, BLOCK>, Supplier<BlockEntityType<T>>> type)
+  public static <BLOCK extends Block, BLOCKITEM extends BlockItem, T extends BlockEntity> BlockHolderWithTile<BLOCK, BLOCKITEM, T> registerBlockWithTile(String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item, BlockEntityType.BlockEntitySupplier<T> factory, BiFunction<BlockEntityType.BlockEntitySupplier<T>, DeferredHolder<Block, BLOCK>, Supplier<BlockEntityType<T>>> type)
   {
     DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
@@ -119,8 +87,7 @@ public class BlockRegistrar
     return () -> new BlockItem(block.get(), DEFAULT_ITEM_BLOCK_PROPERTIES);
   }
 
-  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType
-          (BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
+  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType(BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
   {
     return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()), null);
   }
@@ -168,4 +135,10 @@ public class BlockRegistrar
       return entityType.get();
     }
   }
+
+
+
+
+
+
 }

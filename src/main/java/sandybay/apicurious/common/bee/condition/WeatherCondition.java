@@ -18,20 +18,9 @@ import java.util.Optional;
 public record WeatherCondition(Biome.Precipitation precipitation, boolean isRaining,
                                Optional<Boolean> isThundering) implements ICondition
 {
-  public static final MapCodec<WeatherCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  Biome.Precipitation.CODEC.fieldOf("precipitation").forGetter(WeatherCondition::precipitation),
-                  Codec.BOOL.fieldOf("isRaining").forGetter(WeatherCondition::isRaining),
-                  Codec.BOOL.optionalFieldOf("isThundering").forGetter(WeatherCondition::isThundering)
-          ).apply(instance, WeatherCondition::new)
-  );
+  public static final MapCodec<WeatherCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Biome.Precipitation.CODEC.fieldOf("precipitation").forGetter(WeatherCondition::precipitation), Codec.BOOL.fieldOf("isRaining").forGetter(WeatherCondition::isRaining), Codec.BOOL.optionalFieldOf("isThundering").forGetter(WeatherCondition::isThundering)).apply(instance, WeatherCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, WeatherCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodec(Biome.Precipitation.CODEC), WeatherCondition::precipitation,
-          ByteBufCodecs.BOOL, WeatherCondition::isRaining,
-          ByteBufCodecs.optional(ByteBufCodecs.BOOL), WeatherCondition::isThundering,
-          WeatherCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, WeatherCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodec(Biome.Precipitation.CODEC), WeatherCondition::precipitation, ByteBufCodecs.BOOL, WeatherCondition::isRaining, ByteBufCodecs.optional(ByteBufCodecs.BOOL), WeatherCondition::isThundering, WeatherCondition::new);
 
   @Override
   public ConditionType getConditionType()
@@ -43,11 +32,9 @@ public record WeatherCondition(Biome.Precipitation precipitation, boolean isRain
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) return false;
+    if (level == null) {return false;}
     Biome biome = level.getBiome(housing.getBlockPos()).value();
-    if (precipitation() == Biome.Precipitation.NONE) return !biome.hasPrecipitation();
-    return biome.getPrecipitationAt(housing.getBlockPos()) == precipitation() &&
-            level.isRainingAt(housing.getBlockPos()) == isRaining() &&
-            (isThundering().isEmpty() || level.isThundering() == isThundering().get());
+    if (precipitation() == Biome.Precipitation.NONE) {return !biome.hasPrecipitation();}
+    return biome.getPrecipitationAt(housing.getBlockPos()) == precipitation() && level.isRainingAt(housing.getBlockPos()) == isRaining() && (isThundering().isEmpty() || level.isThundering() == isThundering().get());
   }
 }

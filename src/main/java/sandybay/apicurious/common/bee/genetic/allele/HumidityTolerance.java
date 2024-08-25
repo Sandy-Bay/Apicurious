@@ -26,20 +26,9 @@ public class HumidityTolerance implements IAllele<HumidityTolerance>
   public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/high"));
   public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/maximum"));
 
-  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait),
-                  Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)
-          ).apply(instance, HumidityTolerance::new)
-  );
+  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait), Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)).apply(instance, HumidityTolerance::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier,
-          ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName,
-          HumidityTolerance::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier, ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait, ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName, HumidityTolerance::new);
 
   private final int toleranceModifier;
   private final boolean isDominantTrait;
@@ -71,15 +60,15 @@ public class HumidityTolerance implements IAllele<HumidityTolerance>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     HumidityTolerance that = (HumidityTolerance) o;
     return toleranceModifier == that.toleranceModifier && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }

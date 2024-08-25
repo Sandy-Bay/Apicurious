@@ -52,19 +52,8 @@ public class Workcycle implements IAllele<Workcycle>
    */
   public static final ResourceKey<IAllele<?>> ALWAYS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("workcycle/always"));
 
-  public static final MapCodec<Workcycle> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)
-          ).apply(instance, Workcycle::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes,
-          ByteBufCodecs.BOOL, Workcycle::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Workcycle::getName,
-          Workcycle::new
-  );
+  public static final MapCodec<Workcycle> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)).apply(instance, Workcycle::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes, ByteBufCodecs.BOOL, Workcycle::isDominantTrait, ByteBufCodecs.STRING_UTF8, Workcycle::getName, Workcycle::new);
 
   private final List<Interval> activeTimes;
   private final boolean isDominantTrait;
@@ -110,15 +99,15 @@ public class Workcycle implements IAllele<Workcycle>
 
   public Component getReadableName()
   {
-    if (readableName == null) this.readableName = Component.translatable(this.name);
+    if (readableName == null) {this.readableName = Component.translatable(this.name);}
     return this.readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Workcycle workCycle = (Workcycle) o;
     return Objects.equals(activeTimes, workCycle.activeTimes) && isDominantTrait == workCycle.isDominantTrait && Objects.equals(name, workCycle.name);
   }
@@ -149,17 +138,8 @@ public class Workcycle implements IAllele<Workcycle>
 
   public static class Interval
   {
-    public static final StreamCodec<ByteBuf, Interval> NETWORK_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT, interval -> interval.minTime,
-            ByteBufCodecs.INT, interval -> interval.maxTime,
-            Interval::new
-    );
-    public static Codec<Interval> CODEC = RecordCodecBuilder.create(
-            instance -> instance.group(
-                    Codec.INT.fieldOf("minTime").forGetter(interval -> interval.minTime),
-                    Codec.INT.fieldOf("maxTime").forGetter(interval -> interval.maxTime)
-            ).apply(instance, Interval::new)
-    );
+    public static final StreamCodec<ByteBuf, Interval> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, interval -> interval.minTime, ByteBufCodecs.INT, interval -> interval.maxTime, Interval::new);
+    public static Codec<Interval> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.INT.fieldOf("minTime").forGetter(interval -> interval.minTime), Codec.INT.fieldOf("maxTime").forGetter(interval -> interval.maxTime)).apply(instance, Interval::new));
     private final int minTime;
     private final int maxTime;
 
@@ -181,8 +161,8 @@ public class Workcycle implements IAllele<Workcycle>
     @Override
     public boolean equals(Object o)
     {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
+      if (this == o) {return true;}
+      if (o == null || getClass() != o.getClass()) {return false;}
       Interval interval = (Interval) o;
       return minTime == interval.minTime && maxTime == interval.maxTime;
     }

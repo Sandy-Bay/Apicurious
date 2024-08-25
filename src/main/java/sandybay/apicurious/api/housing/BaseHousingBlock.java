@@ -41,9 +41,9 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
   public Set<BlockPos> getTerritory(ItemStack queen, BlockPos housingPosition, List<ItemStack> frames)
   {
     Set<BlockPos> territory = new HashSet<>();
-    if (!queen.has(DataComponentRegistrar.GENOME)) return territory;
+    if (!queen.has(DataComponentRegistrar.GENOME)) {return territory;}
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return territory;
+    if (genome == null) {return territory;}
     Area area = (Area) genome.getArea(true).value();
     int xzOffset = area.getXZOffset();
     int yOffset = area.getYOffset();
@@ -64,7 +64,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
       {
         for (int z = housingPosition.getZ() - xzOffset; z < housingPosition.getZ() + xzOffset; z++)
         {
-          if (x == housingPosition.getX() && y == housingPosition.getY() && z == housingPosition.getZ()) continue;
+          if (x == housingPosition.getX() && y == housingPosition.getY() && z == housingPosition.getZ()) {continue;}
           territory.add(new BlockPos(x, y, z));
         }
       }
@@ -74,9 +74,9 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
 
   public boolean shouldPollinate(RandomSource random, ItemStack queen)
   {
-    if (!queen.has(DataComponentRegistrar.GENOME)) return false;
+    if (!queen.has(DataComponentRegistrar.GENOME)) {return false;}
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
-    if (genome == null) return false;
+    if (genome == null) {return false;}
     Pollination pollination = (Pollination) genome.getPollination(true).value();
     return random.nextFloat() < Math.clamp(pollination.getPollinationChance() * basePollinationModifier, 0f, 1f);
   }
@@ -92,7 +92,8 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
         if (level.isClientSide())
         {
           tickable.clientTick(level, pos, state);
-        } else
+        }
+        else
         {
           tickable.serverTick(level, pos, state);
         }

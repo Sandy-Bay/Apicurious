@@ -27,19 +27,8 @@ public class Pollination implements IAllele<Pollination>
   public static final ResourceKey<IAllele<?>> FASTER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/faster"));
   public static final ResourceKey<IAllele<?>> FASTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/fastest"));
 
-  public static final MapCodec<Pollination> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  Codec.FLOAT.fieldOf("pollinationChance").forGetter(Pollination::getPollinationChance),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Pollination::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Pollination::getName)
-          ).apply(instance, Pollination::new)
-  );
-  public static final StreamCodec<RegistryFriendlyByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.FLOAT, Pollination::getPollinationChance,
-          ByteBufCodecs.BOOL, Pollination::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Pollination::getName,
-          Pollination::new
-  );
+  public static final MapCodec<Pollination> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.FLOAT.fieldOf("pollinationChance").forGetter(Pollination::getPollinationChance), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Pollination::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Pollination::getName)).apply(instance, Pollination::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, Pollination::getPollinationChance, ByteBufCodecs.BOOL, Pollination::isDominantTrait, ByteBufCodecs.STRING_UTF8, Pollination::getName, Pollination::new);
 
   private final float pollinationChance;
   private final boolean isDominantTrait;
@@ -71,15 +60,15 @@ public class Pollination implements IAllele<Pollination>
 
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Pollination that = (Pollination) o;
     return Float.compare(pollinationChance, that.pollinationChance) == 0 && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }

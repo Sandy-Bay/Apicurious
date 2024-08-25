@@ -19,12 +19,7 @@ public class HiveBlock extends Block
 {
 
   public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-  public static final MapCodec<HiveBlock> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(HiveBlock::getSpecies),
-                  BlockBehaviour.propertiesCodec()
-          ).apply(instance, HiveBlock::new)
-  );
+  public static final MapCodec<HiveBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(HiveBlock::getSpecies), BlockBehaviour.propertiesCodec()).apply(instance, HiveBlock::new));
   private final ResourceKey<IAllele<?>> species;
 
   public HiveBlock(ResourceKey<IAllele<?>> species, Properties properties)

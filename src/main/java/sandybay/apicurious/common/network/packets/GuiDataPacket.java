@@ -72,7 +72,7 @@ public class GuiDataPacket implements CustomPacketPayload
     @Override
     public void handle(GuiDataPacket payload, IPayloadContext context)
     {
-      if (context.flow() != PacketFlow.CLIENTBOUND) return;
+      if (context.flow() != PacketFlow.CLIENTBOUND) {return;}
       context.enqueueWork(() -> handleClientSide(payload, context));
     }
   }

@@ -20,11 +20,7 @@ import java.util.List;
 public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
 {
 
-  public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> commonFields(instance)
-                  .and(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(func -> func.speciesKey))
-                  .apply(instance, ApicuriousSpeciesFunction::new)
-  );
+  public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).and(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(func -> func.speciesKey)).apply(instance, ApicuriousSpeciesFunction::new));
 
   private final ResourceKey<IAllele<?>> speciesKey;
 
@@ -51,7 +47,7 @@ public class ApicuriousSpeciesFunction extends LootItemConditionalFunction
     context.getLevel().registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry ->
     {
       BeeSpecies species = (BeeSpecies) registry.get(speciesKey);
-      if (species == null) return;
+      if (species == null) {return;}
       stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(context.getLevel()));
     });
     return stack;

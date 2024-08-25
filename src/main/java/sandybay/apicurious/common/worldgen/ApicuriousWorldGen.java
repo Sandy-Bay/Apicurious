@@ -39,7 +39,7 @@ public class ApicuriousWorldGen
       registry.keySet().forEach(id ->
       {
         ConfiguredFeature<?, ?> configuredFeature = registry.get(id);
-        if (configuredFeature == null || !(configuredFeature.feature() instanceof TreeFeature treeFeature)) return;
+        if (configuredFeature == null || !(configuredFeature.feature() instanceof TreeFeature treeFeature)) {return;}
         TreeConfiguration configuration = (TreeConfiguration) configuredFeature.config();
         switch (id.getPath())
         {
@@ -62,10 +62,7 @@ public class ApicuriousWorldGen
   {
 
     private static final Direction WORLDGEN_FACING = Direction.SOUTH;
-    private static final Direction[] SPAWN_DIRECTIONS = Direction.Plane.HORIZONTAL
-            .stream()
-            .filter(p_202307_ -> p_202307_ != WORLDGEN_FACING.getOpposite())
-            .toArray(Direction[]::new);
+    private static final Direction[] SPAWN_DIRECTIONS = Direction.Plane.HORIZONTAL.stream().filter(p_202307_ -> p_202307_ != WORLDGEN_FACING.getOpposite()).toArray(Direction[]::new);
     private final ServerLevel level;
     private final TagKey<Biome> biomeTagKey;
     private final HiveBlock hive;
@@ -88,25 +85,18 @@ public class ApicuriousWorldGen
     @Override
     public void place(Context context)
     {
-      if (!level.getBiome(context.logs().get(0)).is(biomeTagKey)) return;
+      if (!level.getBiome(context.logs().get(0)).is(biomeTagKey)) {return;}
       RandomSource randomsource = context.random();
       if (!(randomsource.nextFloat() >= this.probability))
       {
         List<BlockPos> leaves = context.leaves();
         List<BlockPos> logs = context.logs();
-        int targetY = !leaves.isEmpty()
-                ? Math.max(leaves.get(0).getY() - 1, logs.get(0).getY() + 1)
-                : Math.min(logs.get(0).getY() + 1 + randomsource.nextInt(3), logs.get(logs.size() - 1).getY());
-        List<BlockPos> validPositions = logs.stream()
-                .filter(pos -> pos.getY() == targetY)
-                .flatMap(pos -> Stream.of(SPAWN_DIRECTIONS).map(pos::relative))
-                .collect(Collectors.toList());
+        int targetY = !leaves.isEmpty() ? Math.max(leaves.get(0).getY() - 1, logs.get(0).getY() + 1) : Math.min(logs.get(0).getY() + 1 + randomsource.nextInt(3), logs.get(logs.size() - 1).getY());
+        List<BlockPos> validPositions = logs.stream().filter(pos -> pos.getY() == targetY).flatMap(pos -> Stream.of(SPAWN_DIRECTIONS).map(pos::relative)).collect(Collectors.toList());
         if (!validPositions.isEmpty())
         {
           Collections.shuffle(validPositions);
-          Optional<BlockPos> randomlyChosenPosition = validPositions.stream()
-                  .filter(pos -> context.isAir(pos) && context.isAir(pos.relative(WORLDGEN_FACING)))
-                  .findFirst();
+          Optional<BlockPos> randomlyChosenPosition = validPositions.stream().filter(pos -> context.isAir(pos) && context.isAir(pos.relative(WORLDGEN_FACING))).findFirst();
           randomlyChosenPosition.ifPresent(pos -> context.setBlock(pos, hive.defaultBlockState().setValue(BeehiveBlock.FACING, WORLDGEN_FACING)));
         }
       }

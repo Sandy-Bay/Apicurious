@@ -14,29 +14,11 @@ public class DebugBranch
 {
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.EMPTY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.EMPTY.species(), "undefined")
-            .withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output()))
-            .build()
-    );
-    bootstrap.register(ApicuriousSpecies.DEBUG.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DEBUG.species(), "debug")
-            .withVisualData(visual ->
-            {
-              visual.hasEffect().hasCustomRender().build();
-            })
-            .withProductionData(production ->
-                    production.withArea(Area.LARGEST)
-            ).withEnvironmentalData(environment ->
-                    environment.withFlowers(Flowers.STONE)
-            )
-            .withOutputData(outputs ->
-                    outputs.withTable(table ->
-                            table.withPool(pool -> pool
-                                    .withRolls(1)
-                                    .withResult(result -> result.withResult(Items.HONEYCOMB))
-                            )
-                    )
-            ).build()
-    );
+    bootstrap.register(ApicuriousSpecies.EMPTY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.EMPTY.species(), "undefined").withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output())).build());
+    bootstrap.register(ApicuriousSpecies.DEBUG.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DEBUG.species(), "debug").withVisualData(visual ->
+    {
+      visual.hasEffect().hasCustomRender().build();
+    }).withProductionData(production -> production.withArea(Area.LARGEST)).withEnvironmentalData(environment -> environment.withFlowers(Flowers.STONE)).withOutputData(outputs -> outputs.withTable(table -> table.withPool(pool -> pool.withRolls(1).withResult(result -> result.withResult(Items.HONEYCOMB))))).build());
   }
 
   public static void mutationsDefaults(BootstrapContext<IMutation> bootstrap)

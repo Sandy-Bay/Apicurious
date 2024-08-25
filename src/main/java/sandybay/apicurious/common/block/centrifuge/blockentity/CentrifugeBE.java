@@ -38,7 +38,8 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   private CentrifugeRecipe recipe;
   private int work;
   private int maxWork;
-  private final ContainerData containerData = new ContainerData() {
+  private final ContainerData containerData = new ContainerData()
+  {
     @Override
     public int get(int pIndex)
     {
@@ -79,14 +80,14 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public AbstractContainerMenu createMenu(int containerId, @NotNull Inventory playerInventory, @NotNull Player player)
   {
-    if (getLevel() == null) return null;
+    if (getLevel() == null) {return null;}
     return new CentrifugeMenu(containerId, playerInventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
   }
 
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (getLevel() == null) return;
+    if (getLevel() == null) {return;}
     ItemStack stack = inventory.getStackInSlot(0);
     if ((stack.isEmpty() || this.curr != stack) && (recipe != null || work != -1))
     {
@@ -100,7 +101,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
     {
       Registry<CentrifugeRecipe> recipes = getLevel().registryAccess().registry(ApicuriousRegistries.CENTRIFUGE_RECIPES).orElseThrow();
       this.recipe = recipes.entrySet().stream().filter(entry -> entry.getValue().matches(this)).map(Map.Entry::getValue).findFirst().orElse(null);
-      if (this.recipe == null) return;
+      if (this.recipe == null) {return;}
       this.work = this.maxWork = recipe.duration();
       this.curr = stack;
       return;
@@ -140,7 +141,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   }
 
   @Override
-  public void clientTick(Level level, BlockPos pos, BlockState state) { }
+  public void clientTick(Level level, BlockPos pos, BlockState state) {}
 
   public ConfigurableItemStackHandler getInventory()
   {

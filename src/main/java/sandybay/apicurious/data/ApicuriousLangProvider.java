@@ -27,14 +27,14 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ItemRegistrar.QUEEN.get(), "Queen");
     add(ItemRegistrar.SIEVE.get(), "Sieve");
     add(ItemRegistrar.ANALYZER.get(), "Bee Analyzer");
-    add(BlockRegistrar.APIARY.asItem(), "Apiary");
-    add(BlockRegistrar.BEE_HOUSING.asItem(), "Bee Housing");
-    add(BlockRegistrar.CENTRIFUGE.asItem(), "Centrifuge");
+    add(BlockRegistrar.APIARY.asItem() + ".item", "Apiary");
+    add(BlockRegistrar.BEE_HOUSING.asItem() + ".item", "Bee Housing");
+    add(BlockRegistrar.CENTRIFUGE.asItem() + ".item", "Centrifuge");
 
     // Blocks
-    add(BlockRegistrar.APIARY.asBlock(), "Apiary");
-    add(BlockRegistrar.BEE_HOUSING.asBlock(), "Bee Housing");
-    add(BlockRegistrar.CENTRIFUGE.asBlock(), "Centrifuge");
+    add(BlockRegistrar.APIARY.asBlock() + ".block", "Apiary");
+    add(BlockRegistrar.BEE_HOUSING.asBlock() + ".block", "Bee Housing");
+    add(BlockRegistrar.CENTRIFUGE.asBlock() + ".block", "Centrifuge");
 
     // Frames
     add(ItemRegistrar.UNTREATED_FRAME.get(), "Untreated Frame");
@@ -82,6 +82,9 @@ public class ApicuriousLangProvider extends LanguageProvider
     add("apicurious.genetics.active", "Active");
     add("apicurious.genetics.inactive", "Inactive");
 
+    // JEI
+    addJEI();
+
     // Hives
     addHives();
     addTabs();
@@ -90,6 +93,15 @@ public class ApicuriousLangProvider extends LanguageProvider
     addSpecies();
     addErrors();
     addCombs();
+  }
+
+  private void addJEI()
+  {
+    // Categories
+    add("apicurious.jei.centrifuge.title", "Centrifuge");
+
+    // Tooltips
+    add("apicurious.jei.tooltip.chance", "Chance: ");
   }
 
   // Collection-methods

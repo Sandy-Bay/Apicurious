@@ -18,16 +18,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
 {
 
-  public static final MapCodec<BiomeCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(BiomeCondition::biomes)
-          ).apply(instance, BiomeCondition::new)
-  );
+  public static final MapCodec<BiomeCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(BiomeCondition::biomes)).apply(instance, BiomeCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, BiomeCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.BIOME)), BiomeCondition::biomes,
-          BiomeCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, BiomeCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.BIOME)), BiomeCondition::biomes, BiomeCondition::new);
 
   @Override
   public ConditionType getConditionType()
@@ -38,7 +31,7 @@ public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
-    if (housing.getLevel() == null) return false;
+    if (housing.getLevel() == null) {return false;}
     Holder<Biome> biome = housing.getLevel().getBiome(housing.getBlockPos());
     return biomes().contains(biome);
   }

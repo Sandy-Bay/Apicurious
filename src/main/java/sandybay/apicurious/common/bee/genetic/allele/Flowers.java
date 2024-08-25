@@ -37,20 +37,9 @@ public class Flowers implements IAllele<Flowers>
   public static final ResourceKey<IAllele<?>> WOOD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/wood"));
   public static final ResourceKey<IAllele<?>> SUGAR_CANE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/sugar_cane"));
 
-  public static final MapCodec<Flowers> CODEC = RecordCodecBuilder.mapCodec(
-          instance -> instance.group(
-                  TagKey.codec(Registries.BLOCK).fieldOf("flowers").forGetter(Flowers::getFlowers),
-                  Codec.BOOL.fieldOf("isDominantTrait").forGetter(Flowers::isDominantTrait),
-                  Codec.STRING.fieldOf("name").forGetter(Flowers::getName)
-          ).apply(instance, Flowers::new)
-  );
+  public static final MapCodec<Flowers> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(TagKey.codec(Registries.BLOCK).fieldOf("flowers").forGetter(Flowers::getFlowers), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Flowers::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Flowers::getName)).apply(instance, Flowers::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)), Flowers::getFlowers,
-          ByteBufCodecs.BOOL, Flowers::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Flowers::getName,
-          Flowers::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)), Flowers::getFlowers, ByteBufCodecs.BOOL, Flowers::isDominantTrait, ByteBufCodecs.STRING_UTF8, Flowers::getName, Flowers::new);
 
   private final TagKey<Block> flowers;
   private final boolean isDominantTrait;
@@ -83,15 +72,15 @@ public class Flowers implements IAllele<Flowers>
   @Override
   public Component getReadableName()
   {
-    if (readableName == null) readableName = Component.translatable(this.name);
+    if (readableName == null) {readableName = Component.translatable(this.name);}
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {return true;}
+    if (o == null || getClass() != o.getClass()) {return false;}
     Flowers flowers = (Flowers) o;
     return Objects.equals(this.flowers, flowers.flowers) && isDominantTrait == flowers.isDominantTrait && Objects.equals(name, flowers.name);
   }

@@ -17,16 +17,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record TemperatureCondition(HolderSet<Biome> temperature) implements ICondition
 {
-  public static final MapCodec<TemperatureCondition> CODEC = RecordCodecBuilder.mapCodec(instance ->
-          instance.group(
-                  RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("temperature").forGetter(TemperatureCondition::temperature)
-          ).apply(instance, TemperatureCondition::new)
-  );
+  public static final MapCodec<TemperatureCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("temperature").forGetter(TemperatureCondition::temperature)).apply(instance, TemperatureCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.BIOME)), TemperatureCondition::temperature,
-          TemperatureCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodecWithRegistries(RegistryCodecs.homogeneousList(Registries.BIOME)), TemperatureCondition::temperature, TemperatureCondition::new);
 
   @Override
   public ConditionType getConditionType()
