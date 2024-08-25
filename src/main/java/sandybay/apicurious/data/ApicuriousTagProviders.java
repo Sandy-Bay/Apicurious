@@ -72,6 +72,7 @@ public class ApicuriousTagProviders
     {
       this.tag(ApicuriousTags.ItemTags.IS_SIEVE_TOOL).add(ItemRegistrar.SIEVE.getKey());
       this.tag(ApicuriousTags.ItemTags.DROP_HONEY).add(ItemRegistrar.HONEY_DROP.getKey(), ItemRegistrar.HONEY_DEW.getKey());
+      this.tag(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS).add(ItemRegistrar.DRONE.getKey(), ItemRegistrar.PRINCESS.getKey());
     }
   }
 

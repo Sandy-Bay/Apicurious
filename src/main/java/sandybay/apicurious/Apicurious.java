@@ -106,14 +106,14 @@ public class Apicurious
       Level level = event.getLevel();
       if (level instanceof ServerLevel serverLevel)
       {
-        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
+        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.UNDEFINED.species()));
       }
       else if (level instanceof ClientLevel)
       {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null)
         {
-          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.EMPTY.species()));
+          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.UNDEFINED.species()));
         }
       }
     }

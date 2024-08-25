@@ -14,7 +14,7 @@ public class DebugBranch
 {
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.EMPTY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.EMPTY.species(), "undefined").withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output())).build());
+    bootstrap.register(ApicuriousSpecies.UNDEFINED.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.UNDEFINED.species(), "undefined").withOutputData(builder -> builder.withTable(ApicuriousSpecies.COMMON.output())).build());
     bootstrap.register(ApicuriousSpecies.DEBUG.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DEBUG.species(), "debug").withVisualData(visual ->
     {
       visual.hasEffect().hasCustomRender().build();

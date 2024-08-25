@@ -10,7 +10,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 public class ApicuriousSpecies
 {
   // Debug
-  public static final KeyHolder EMPTY = species("undefined");
+  public static final KeyHolder UNDEFINED = species("undefined");
   public static final KeyHolder DEBUG = species("debug");
 
   /// Branches:
