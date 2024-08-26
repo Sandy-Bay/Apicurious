@@ -36,9 +36,9 @@ public class HistoricBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.ANCIENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.PRIMEVAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.PREHISTORIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.RELIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB, 0.3f));
+    bootstrap.register(ApicuriousSpecies.ANCIENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.PRIMEVAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.PREHISTORIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.RELIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB.comb(), 0.3f));
   }
 }

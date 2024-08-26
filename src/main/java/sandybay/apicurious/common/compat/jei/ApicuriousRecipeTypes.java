@@ -7,6 +7,6 @@ import sandybay.apicurious.common.compat.jei.category.CentrifugeCategory;
 
 public class ApicuriousRecipeTypes
 {
-  public static final RecipeType<BeeOutputCategory.Recipe> OUTPUTS = RecipeType.create(Apicurious.MODID, "outputs", BeeOutputCategory.Recipe.class);
+  public static final RecipeType<BeeOutputCategory.Recipe> BEE_OUTPUTS = RecipeType.create(Apicurious.MODID, "bee_outputs", BeeOutputCategory.Recipe.class);
   public static final RecipeType<CentrifugeCategory.Recipe> CENTRIFUGE = RecipeType.create(Apicurious.MODID, "centrifuge", CentrifugeCategory.Recipe.class);
 }

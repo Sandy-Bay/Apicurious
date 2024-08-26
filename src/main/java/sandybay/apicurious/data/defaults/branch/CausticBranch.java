@@ -32,8 +32,8 @@ public class CausticBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.CORROSIVE.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.CAUSTIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.03f)).withResult(result -> result.withResult(ItemRegistrar.BRIMSTONE_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.ACIDIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.16f)).withResult(result -> result.withResult(ItemRegistrar.BRIMSTONE_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.CORROSIVE.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.2f));
+    bootstrap.register(ApicuriousSpecies.CAUSTIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.03f)).withResult(result -> result.withResult(ItemRegistrar.BRIMSTONE_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.ACIDIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.16f)).withResult(result -> result.withResult(ItemRegistrar.BRIMSTONE_COMB.comb().get()))).build());
   }
 }

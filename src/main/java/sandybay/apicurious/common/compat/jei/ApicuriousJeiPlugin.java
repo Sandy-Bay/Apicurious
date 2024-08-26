@@ -30,7 +30,6 @@ import sandybay.apicurious.common.compat.jei.category.BeeOutputCategory;
 import sandybay.apicurious.common.compat.jei.category.CentrifugeCategory;
 import sandybay.apicurious.common.compat.jei.handler.JEICentrifugeContainerHandler;
 import sandybay.apicurious.common.item.BeeItem;
-import sandybay.apicurious.common.registrar.CreativeTabRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 import java.util.ArrayList;
@@ -56,10 +55,8 @@ public class ApicuriousJeiPlugin implements IModPlugin
       public @Nullable Object getSubtypeData(ItemStack stack, UidContext context)
       {
         stack.set(DataComponentRegistrar.IDENTIFIED, false);
-        if (stack.isEmpty() || !stack.has(DataComponentRegistrar.GENOME)) {return null;}
-        Genome genome = stack.get(DataComponentRegistrar.GENOME);
-        if (genome == null) {return null;}
-        return genome.getSpecies(true).value();
+        if (stack.isEmpty() || !stack.has(DataComponentRegistrar.GENOME)) return null;
+        return stack.get(DataComponentRegistrar.GENOME);
       }
 
       @Override
@@ -98,7 +95,7 @@ public class ApicuriousJeiPlugin implements IModPlugin
   public void registerRecipes(@NotNull IRecipeRegistration registration)
   {
     registration.addRecipes(ApicuriousRecipeTypes.CENTRIFUGE, getCentrifugeRecipes());
-    registration.addRecipes(ApicuriousRecipeTypes.OUTPUTS, getBeeOutputRecipes());
+    registration.addRecipes(ApicuriousRecipeTypes.BEE_OUTPUTS, getBeeOutputRecipes());
   }
 
   private List<CentrifugeCategory.Recipe> getCentrifugeRecipes()
@@ -118,7 +115,7 @@ public class ApicuriousJeiPlugin implements IModPlugin
     List<BeeOutputCategory.Recipe> recipes = new ArrayList<>();
     Registry<IAllele<?>> alleles = Minecraft.getInstance().level.registryAccess().registryOrThrow(ApicuriousRegistries.ALLELES);
     alleles.holders().filter(allele -> {
-      String path = allele.getKey().location().getPath();
+      String path = allele.key().location().getPath();
       return path.contains("species/") && (!path.contains("undefined") || !path.contains("debug"));
     }).forEach(allele ->
     {

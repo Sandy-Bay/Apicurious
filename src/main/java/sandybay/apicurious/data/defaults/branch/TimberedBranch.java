@@ -32,8 +32,8 @@ public class TimberedBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.WOODEN.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.LUMBERED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.TIMBERED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.WOODEN.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.LUMBERED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.TIMBERED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
   }
 }

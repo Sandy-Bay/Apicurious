@@ -35,10 +35,10 @@ public class FrozenBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.WINTRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.ICY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.GLACIAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.FRIGID.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.ABSOLUTE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(ItemRegistrar.GLACIAL_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.WINTRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.ICY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.GLACIAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.FRIGID.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.ABSOLUTE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(ItemRegistrar.GLACIAL_COMB.comb().get()))).build());
   }
 }

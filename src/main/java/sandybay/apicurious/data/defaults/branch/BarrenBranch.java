@@ -36,10 +36,10 @@ public class BarrenBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.ARID.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.BARREN_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.BARREN.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.BARREN_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.DESOLATE.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.BARREN_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.GNAWING.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.DECOMPOSING.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.DECOMPOSED_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.ARID.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.BARREN_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.BARREN.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.BARREN_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.DESOLATE.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.BARREN_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.GNAWING.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.DECOMPOSING.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.DECOMPOSED_COMB.comb().get()))).build());
   }
 }

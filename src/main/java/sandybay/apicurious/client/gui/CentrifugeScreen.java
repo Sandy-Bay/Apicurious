@@ -44,11 +44,14 @@ public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeMenu>
 
   protected void renderProgress(GuiGraphics graphics)
   {
-    int maxProgress = this.menu.getMaxWork(), width = 18; // Set width to an appropriate width
+    int maxProgress = this.menu.getMaxWork();
+    int width = 23; // Overlay Width
     if (maxProgress > 0)
     {
-      int remaining = (this.menu.getWork() * width) / maxProgress;
-      graphics.blit(SCREEN_LOCATION, leftPos + 69, topPos + 35, 177, 0, maxProgress - remaining, 15);
+      int remaining = this.menu.getWork();
+      float progressRatio = 1.0f - ((float) remaining / (float) maxProgress);
+      int uWidth = (int)(progressRatio * width);
+      graphics.blit(SCREEN_LOCATION, leftPos + 69, topPos + 35, 177, 0, uWidth, 15);
     }
   }
 }

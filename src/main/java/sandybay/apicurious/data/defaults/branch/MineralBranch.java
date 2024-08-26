@@ -28,6 +28,6 @@ public class MineralBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.LAZULI.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ROCKY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.05f)).withResult(result -> result.withResult(ItemRegistrar.LAPIS_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.LAZULI.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ROCKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.05f)).withResult(result -> result.withResult(ItemRegistrar.LAPIS_COMB.comb().get()))).build());
   }
 }

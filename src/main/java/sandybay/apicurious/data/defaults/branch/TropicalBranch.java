@@ -30,8 +30,8 @@ public class TropicalBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.TROPICAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.EXOTIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.EDENIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.2f));
+    bootstrap.register(ApicuriousSpecies.TROPICAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.2f));
+    bootstrap.register(ApicuriousSpecies.EXOTIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.EDENIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.2f));
   }
 }

@@ -1,0 +1,23 @@
+{
+  "duration": 100,
+  "input": {
+    "count": 1,
+    "id": "apicurious:stringy_comb"
+  },
+  "outputs": [
+    {
+      "chance": 1.0,
+      "output": {
+        "count": 1,
+        "id": "apicurious:propolis"
+      }
+    },
+    {
+      "chance": 0.4,
+      "output": {
+        "count": 1,
+        "id": "apicurious:honey_drop"
+      }
+    }
+  ]
+}

@@ -33,9 +33,9 @@ public class VolcanicBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.NETHER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.FURIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.VOLCANIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.BLAZING_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.GLOWERING.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.GLOWING_COMB, 0.15f));
+    bootstrap.register(ApicuriousSpecies.NETHER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.FURIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.VOLCANIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.BLAZING_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.GLOWERING.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.GLOWING_COMB.comb(), 0.15f));
   }
 }

@@ -32,8 +32,8 @@ public class ViscousBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.VISCOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.GLUTINOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.STICKY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.MUCOUS_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.VISCOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.GLUTINOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.STICKY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.MUCOUS_COMB.comb().get()))).build());
   }
 }

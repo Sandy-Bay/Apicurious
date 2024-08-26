@@ -31,8 +31,8 @@ public class MonasticBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.MONASTIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.WHEATEN_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(ItemRegistrar.MELLOW_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.SECLUDED.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MELLOW_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.HERMITIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MELLOW_COMB, 0.2f));
+    bootstrap.register(ApicuriousSpecies.MONASTIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.WHEATEN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(ItemRegistrar.MELLOW_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.SECLUDED.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MELLOW_COMB.comb(), 0.2f));
+    bootstrap.register(ApicuriousSpecies.HERMITIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MELLOW_COMB.comb(), 0.2f));
   }
 }

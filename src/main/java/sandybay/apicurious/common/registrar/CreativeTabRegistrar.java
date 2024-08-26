@@ -30,6 +30,7 @@ public class CreativeTabRegistrar
   {
     output.accept(new ItemStack(ItemRegistrar.ANALYZER.get()));
     output.accept(new ItemStack(ItemRegistrar.SIEVE.get()));
+    output.accept(BlockRegistrar.CENTRIFUGE.asItemStack());
     registerHousings(output);
     registerFrames(output);
     registerHives(output);

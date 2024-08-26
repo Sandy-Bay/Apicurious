@@ -32,9 +32,9 @@ public class ResilientBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.ROCKY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.TOLERANT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.ROBUST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.RESILIENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB, 0.3f));
+    bootstrap.register(ApicuriousSpecies.ROCKY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.TOLERANT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.ROBUST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.RESILIENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ROCKY_COMB.comb(), 0.3f));
   }
 }

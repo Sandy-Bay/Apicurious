@@ -34,8 +34,8 @@ public class IndustriousBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.DILIGENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.STRINGY_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.UNWEARY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.STRINGY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.INDUSTRIOUS.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.STRINGY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.POLLEN.get()))).build());
+    bootstrap.register(ApicuriousSpecies.DILIGENT.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.STRINGY_COMB.comb(), 0.2f));
+    bootstrap.register(ApicuriousSpecies.UNWEARY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.STRINGY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.INDUSTRIOUS.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.STRINGY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.POLLEN.get()))).build());
   }
 }

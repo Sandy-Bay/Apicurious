@@ -35,8 +35,8 @@ public class EnergeticBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.EXCITED.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ENERGETIC_COMB, 0.1f));
-    bootstrap.register(ApicuriousSpecies.ENERGETIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ENERGETIC_COMB, 0.12f));
-    bootstrap.register(ApicuriousSpecies.ECSTATIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ENERGETIC_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.STATIC_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.EXCITED.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ENERGETIC_COMB.comb(), 0.1f));
+    bootstrap.register(ApicuriousSpecies.ENERGETIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ENERGETIC_COMB.comb(), 0.12f));
+    bootstrap.register(ApicuriousSpecies.ECSTATIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ENERGETIC_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.STATIC_COMB.comb().get()))).build());
   }
 }

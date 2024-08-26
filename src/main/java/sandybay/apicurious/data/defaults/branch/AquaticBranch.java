@@ -35,9 +35,9 @@ public class AquaticBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.WATER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DAMP_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.RIVER.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DAMP_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.CLAY_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.OCEAN.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.UNSTABLE_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.STAINED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DAMP_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(Items.INK_SAC))).build());
+    bootstrap.register(ApicuriousSpecies.WATER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DAMP_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.RIVER.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DAMP_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.CLAY_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.OCEAN.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.UNSTABLE_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.STAINED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DAMP_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(Items.INK_SAC))).build());
   }
 }

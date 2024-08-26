@@ -1,6 +1,7 @@
 package sandybay.apicurious.common.registrar;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
@@ -9,6 +10,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.item.TerritoryModifier;
+import sandybay.apicurious.api.recipe.CentrifugeRecipe;
+import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.item.BeeAnalyzerItem;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.item.SieveItem;
@@ -45,59 +48,59 @@ public class ItemRegistrar
 
   // Products
   // Combs
-  public static final DeferredHolder<Item, Item> COCOA_COMB = comb("cocoa");
-  public static final DeferredHolder<Item, Item> DRIPPING_COMB = comb("dripping");
-  public static final DeferredHolder<Item, Item> FROZEN_COMB = comb("frozen");
-  public static final DeferredHolder<Item, Item> MELLOW_COMB = comb("mellow");
-  public static final DeferredHolder<Item, Item> MOSSY_COMB = comb("mossy");
-  public static final DeferredHolder<Item, Item> MYSTERIOUS_COMB = comb("mysterious");
-  public static final DeferredHolder<Item, Item> PARCHED_COMB = comb("parched");
-  public static final DeferredHolder<Item, Item> POWDERY_COMB = comb("powdery");
-  public static final DeferredHolder<Item, Item> SILKY_COMB = comb("silky");
-  public static final DeferredHolder<Item, Item> SIMMERING_COMB = comb("simmering");
-  public static final DeferredHolder<Item, Item> STRINGY_COMB = comb("stringy");
-  public static final DeferredHolder<Item, Item> WHEATEN_COMB = comb("wheaten");
-  public static final DeferredHolder<Item, Item> ROCKY_COMB = comb("rocky");
-  public static final DeferredHolder<Item, Item> SEEDY_COMB = comb("seedy");
-  public static final DeferredHolder<Item, Item> DUSTY_COMB = comb("dusty");
-  public static final DeferredHolder<Item, Item> DIAMOND_COMB = comb("diamond");
-  public static final DeferredHolder<Item, Item> EMERALD_COMB = comb("emerald");
-  public static final DeferredHolder<Item, Item> COPPER_COMB = comb("copper");
-  public static final DeferredHolder<Item, Item> IRON_COMB = comb("iron");
-  public static final DeferredHolder<Item, Item> GOLD_COMB = comb("gold");
-  public static final DeferredHolder<Item, Item> LAPIS_COMB = comb("lapis");
-  public static final DeferredHolder<Item, Item> DAMP_COMB = comb("damp");
-  public static final DeferredHolder<Item, Item> ENERGETIC_COMB = comb("energetic");
-  public static final DeferredHolder<Item, Item> STATIC_COMB = comb("static");
-  public static final DeferredHolder<Item, Item> RED_TINTED_COMB = comb("red_tinted");
-  public static final DeferredHolder<Item, Item> YELLOW_TINTED_COMB = comb("yellow_tinted");
-  public static final DeferredHolder<Item, Item> BLUE_TINTED_COMB = comb("blue_tinted");
-  public static final DeferredHolder<Item, Item> GREEN_TINTED_COMB = comb("green_tinted");
-  public static final DeferredHolder<Item, Item> BROWN_TINTED_COMB = comb("brown_tinted");
-  public static final DeferredHolder<Item, Item> WHITE_TINTED_COMB = comb("white_tinted");
-  public static final DeferredHolder<Item, Item> BLACK_TINTED_COMB = comb("black_tinted");
-  public static final DeferredHolder<Item, Item> ORANGE_TINTED_COMB = comb("orange_tinted");
-  public static final DeferredHolder<Item, Item> CYAN_TINTED_COMB = comb("cyan_tinted");
-  public static final DeferredHolder<Item, Item> PURPLE_TINTED_COMB = comb("purple_tinted");
-  public static final DeferredHolder<Item, Item> GRAY_TINTED_COMB = comb("gray_tinted");
-  public static final DeferredHolder<Item, Item> LIGHT_BLUE_TINTED_COMB = comb("light_blue_tinted");
-  public static final DeferredHolder<Item, Item> PINK_TINTED_COMB = comb("pink_tinted");
-  public static final DeferredHolder<Item, Item> LIME_TINTED_COMB = comb("lime_tinted");
-  public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted");
-  public static final DeferredHolder<Item, Item> MAGENTA_TINTED_COMB = comb("magenta_tinted");
-  public static final DeferredHolder<Item, Item> UNSTABLE_COMB = comb("unstable");
-  public static final DeferredHolder<Item, Item> CLAY_COMB = comb("clay");
-  public static final DeferredHolder<Item, Item> BARREN_COMB = comb("barren");
-  public static final DeferredHolder<Item, Item> DECOMPOSED_COMB = comb("decomposed");
-  public static final DeferredHolder<Item, Item> ANCIENT_COMB = comb("ancient");
-  public static final DeferredHolder<Item, Item> FOSSILISED_COMB = comb("fossilised");
-  public static final DeferredHolder<Item, Item> GLACIAL_COMB = comb("glacial");
-  public static final DeferredHolder<Item, Item> FUNGAL_COMB = comb("fungal");
-  public static final DeferredHolder<Item, Item> BLAZING_COMB = comb("blazing");
-  public static final DeferredHolder<Item, Item> GLOWING_COMB = comb("glowing");
-  public static final DeferredHolder<Item, Item> VENOMOUS_COMB = comb("venomous");
-  public static final DeferredHolder<Item, Item> BRIMSTONE_COMB = comb("brimstone");
-  public static final DeferredHolder<Item, Item> MUCOUS_COMB = comb("mucous");
+  public static final CombHolder COCOA_COMB = comb("cocoa");
+  public static final CombHolder DRIPPING_COMB = comb("dripping");
+  public static final CombHolder FROZEN_COMB = comb("frozen");
+  public static final CombHolder MELLOW_COMB = comb("mellow");
+  public static final CombHolder MOSSY_COMB = comb("mossy");
+  public static final CombHolder MYSTERIOUS_COMB = comb("mysterious");
+  public static final CombHolder PARCHED_COMB = comb("parched");
+  public static final CombHolder POWDERY_COMB = comb("powdery");
+  public static final CombHolder SILKY_COMB = comb("silky");
+  public static final CombHolder SIMMERING_COMB = comb("simmering");
+  public static final CombHolder STRINGY_COMB = comb("stringy");
+  public static final CombHolder WHEATEN_COMB = comb("wheaten");
+  public static final CombHolder ROCKY_COMB = comb("rocky");
+  public static final CombHolder SEEDY_COMB = comb("seedy");
+  public static final CombHolder DUSTY_COMB = comb("dusty");
+  public static final CombHolder DIAMOND_COMB = comb("diamond");
+  public static final CombHolder EMERALD_COMB = comb("emerald");
+  public static final CombHolder COPPER_COMB = comb("copper");
+  public static final CombHolder IRON_COMB = comb("iron");
+  public static final CombHolder GOLD_COMB = comb("gold");
+  public static final CombHolder LAPIS_COMB = comb("lapis");
+  public static final CombHolder DAMP_COMB = comb("damp");
+  public static final CombHolder ENERGETIC_COMB = comb("energetic");
+  public static final CombHolder STATIC_COMB = comb("static");
+  public static final CombHolder RED_TINTED_COMB = comb("red_tinted");
+  public static final CombHolder YELLOW_TINTED_COMB = comb("yellow_tinted");
+  public static final CombHolder BLUE_TINTED_COMB = comb("blue_tinted");
+  public static final CombHolder GREEN_TINTED_COMB = comb("green_tinted");
+  public static final CombHolder BROWN_TINTED_COMB = comb("brown_tinted");
+  public static final CombHolder WHITE_TINTED_COMB = comb("white_tinted");
+  public static final CombHolder BLACK_TINTED_COMB = comb("black_tinted");
+  public static final CombHolder ORANGE_TINTED_COMB = comb("orange_tinted");
+  public static final CombHolder CYAN_TINTED_COMB = comb("cyan_tinted");
+  public static final CombHolder PURPLE_TINTED_COMB = comb("purple_tinted");
+  public static final CombHolder GRAY_TINTED_COMB = comb("gray_tinted");
+  public static final CombHolder LIGHT_BLUE_TINTED_COMB = comb("light_blue_tinted");
+  public static final CombHolder PINK_TINTED_COMB = comb("pink_tinted");
+  public static final CombHolder LIME_TINTED_COMB = comb("lime_tinted");
+  public static final CombHolder LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted");
+  public static final CombHolder MAGENTA_TINTED_COMB = comb("magenta_tinted");
+  public static final CombHolder UNSTABLE_COMB = comb("unstable");
+  public static final CombHolder CLAY_COMB = comb("clay");
+  public static final CombHolder BARREN_COMB = comb("barren");
+  public static final CombHolder DECOMPOSED_COMB = comb("decomposed");
+  public static final CombHolder ANCIENT_COMB = comb("ancient");
+  public static final CombHolder FOSSILISED_COMB = comb("fossilised");
+  public static final CombHolder GLACIAL_COMB = comb("glacial");
+  public static final CombHolder FUNGAL_COMB = comb("fungal");
+  public static final CombHolder BLAZING_COMB = comb("blazing");
+  public static final CombHolder GLOWING_COMB = comb("glowing");
+  public static final CombHolder VENOMOUS_COMB = comb("venomous");
+  public static final CombHolder BRIMSTONE_COMB = comb("brimstone");
+  public static final CombHolder MUCOUS_COMB = comb("mucous");
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");
@@ -112,6 +115,30 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> ICE_SHARD = product("ice_shard");
   public static final DeferredHolder<Item, Item> ASH = product("ash");
   public static final DeferredHolder<Item, Item> PEAT = product("peat");
+  public static final DeferredHolder<Item, Item> PHOSPHOR = product("phosphor");
+  public static final DeferredHolder<Item, Item> DIAMOND_NUGGET = product("diamond_nugget");
+  public static final DeferredHolder<Item, Item> EMERALD_NUGGET = product("emerald_nugget");
+  public static final DeferredHolder<Item, Item> COPPER_NUGGET = product("copper_nugget");
+  public static final DeferredHolder<Item, Item> WATERY_PROPOLIS = product("watery_propolis");
+  public static final DeferredHolder<Item, Item> RED_TINTED_DROP = product("red_tinted_drop");
+  public static final DeferredHolder<Item, Item> YELLOW_TINTED_DROP = product("yellow_tinted_drop");
+  public static final DeferredHolder<Item, Item> BLUE_TINTED_DROP = product("blue_tinted_drop");
+  public static final DeferredHolder<Item, Item> GREEN_TINTED_DROP = product("green_tinted_drop");
+  public static final DeferredHolder<Item, Item> BROWN_TINTED_DROP = product("brown_tinted_drop");
+  public static final DeferredHolder<Item, Item> WHITE_TINTED_DROP = product("white_tinted_drop");
+  public static final DeferredHolder<Item, Item> BLACK_TINTED_DROP = product("black_tinted_drop");
+  public static final DeferredHolder<Item, Item> ORANGE_TINTED_DROP = product("orange_tinted_drop");
+  public static final DeferredHolder<Item, Item> CYAN_TINTED_DROP = product("cyan_tinted_drop");
+  public static final DeferredHolder<Item, Item> PURPLE_TINTED_DROP = product("purple_tinted_drop");
+  public static final DeferredHolder<Item, Item> GRAY_TINTED_DROP = product("gray_tinted_drop");
+  public static final DeferredHolder<Item, Item> LIGHT_BLUE_TINTED_DROP = product("light_blue_tinted_drop");
+  public static final DeferredHolder<Item, Item> PINK_TINTED_DROP = product("pink_tinted_drop");
+  public static final DeferredHolder<Item, Item> LIME_TINTED_DROP = product("lime_tinted_drop");
+  public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_DROP = product("light_gray_tinted_drop");
+  public static final DeferredHolder<Item, Item> MAGENTA_TINTED_DROP = product("magenta_tinted_drop");
+  public static final DeferredHolder<Item, Item> SALTPETER = product("saltpeter");
+  public static final DeferredHolder<Item, Item> ACIDIC_DROP = product("acidic_drop");
+  public static final DeferredHolder<Item, Item> SULFUR = product("sulfur");
 
   // Frames
   public static final DeferredHolder<Item, FrameItem> UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f, 1.0f);
@@ -166,11 +193,11 @@ public class ItemRegistrar
     return frame;
   }
 
-  public static DeferredHolder<Item, Item> comb(String type)
+  public static CombHolder comb(String type)
   {
     DeferredHolder<Item, Item> comb = ITEMS.register(type + "_comb", () -> new Item(new Item.Properties()));
     COMBS.add(comb);
-    return comb;
+    return new CombHolder(comb, ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createResourceLocation(type)));
   }
 
   public static DeferredHolder<Item, Item> item(String name)
@@ -183,4 +210,5 @@ public class ItemRegistrar
     return ITEMS.register(name, () -> new Item(properties));
   }
 
+  public record CombHolder(DeferredHolder<Item, Item> comb, ResourceKey<CentrifugeRecipe> recipe) {}
 }

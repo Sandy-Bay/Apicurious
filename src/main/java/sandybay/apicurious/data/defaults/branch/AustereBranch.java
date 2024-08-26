@@ -37,9 +37,9 @@ public class AustereBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.MODEST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.PARCHED_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.FRUGAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.PARCHED_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.AUSTERE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.PARCHED_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.5f)).withResult(result -> result.withResult(ItemRegistrar.POWDERY_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.HAZARDOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.UNSTABLE_COMB, 0.12f));
+    bootstrap.register(ApicuriousSpecies.MODEST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.PARCHED_COMB.comb(), 0.2f));
+    bootstrap.register(ApicuriousSpecies.FRUGAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.PARCHED_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.AUSTERE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.PARCHED_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.5f)).withResult(result -> result.withResult(ItemRegistrar.POWDERY_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.HAZARDOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.UNSTABLE_COMB.comb(), 0.12f));
   }
 }

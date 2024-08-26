@@ -1,0 +1,30 @@
+{
+  "duration": 100,
+  "input": {
+    "count": 1,
+    "id": "apicurious:brown_tinted_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.8,
+      "output": {
+        "count": 1,
+        "id": "apicurious:honey_drop"
+      }
+    },
+    {
+      "chance": 0.6,
+      "output": {
+        "count": 1,
+        "id": "apicurious:beeswax"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "count": 1,
+        "id": "apicurious:brown_tinted_drop"
+      }
+    }
+  ]
+}

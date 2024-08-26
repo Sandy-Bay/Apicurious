@@ -30,8 +30,8 @@ public class EndBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.ENDER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.SPECTRAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB, 0.5f));
-    bootstrap.register(ApicuriousSpecies.PHANTASMAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB, 0.4f));
+    bootstrap.register(ApicuriousSpecies.ENDER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.SPECTRAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB.comb(), 0.5f));
+    bootstrap.register(ApicuriousSpecies.PHANTASMAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB.comb(), 0.4f));
   }
 }

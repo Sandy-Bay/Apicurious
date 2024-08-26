@@ -35,10 +35,10 @@ public class BoggyBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.MARSHY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.DAMP.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.BOGGY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.39f)).withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.PEAT.get()))).build());
-    bootstrap.register(ApicuriousSpecies.FUNGAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.FUNGAL_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.MIRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB, 0.1f));
+    bootstrap.register(ApicuriousSpecies.MARSHY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.DAMP.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.BOGGY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.39f)).withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.PEAT.get()))).build());
+    bootstrap.register(ApicuriousSpecies.FUNGAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.FUNGAL_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.MIRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB.comb(), 0.1f));
   }
 }

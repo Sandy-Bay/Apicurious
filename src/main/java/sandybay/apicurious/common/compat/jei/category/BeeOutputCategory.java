@@ -64,7 +64,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   @Override
   public @NotNull RecipeType<Recipe> getRecipeType()
   {
-    return ApicuriousRecipeTypes.OUTPUTS;
+    return ApicuriousRecipeTypes.BEE_OUTPUTS;
   }
 
   @Override
@@ -79,7 +79,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
       {
         for (OutputResult result : entry.outputs())
         {
-          builder.addSlot(RecipeIngredientRole.OUTPUT, 19 + x * 18, 40 + y * 18)
+          builder.addSlot(RecipeIngredientRole.OUTPUT, 20 + x * 18, 40 + y * 18)
                   .addIngredients(Ingredient.of(result.output()))
                   .addRichTooltipCallback((view, tooltip) -> {
                     // Todo: Make this all translatable / clean-up

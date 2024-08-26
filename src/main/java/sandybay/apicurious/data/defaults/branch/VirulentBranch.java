@@ -32,8 +32,8 @@ public class VirulentBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.MALICIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.INFECTIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB, 0.25f));
-    bootstrap.register(ApicuriousSpecies.VIRULENT.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.12f)).withResult(result -> result.withResult(ItemRegistrar.VENOMOUS_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.MALICIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.INFECTIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.25f));
+    bootstrap.register(ApicuriousSpecies.VIRULENT.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.12f)).withResult(result -> result.withResult(ItemRegistrar.VENOMOUS_COMB.comb().get()))).build());
   }
 }

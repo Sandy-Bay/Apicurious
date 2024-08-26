@@ -35,8 +35,8 @@ public class ImperialBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.NOBLE.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DRIPPING_COMB, 0.2f));
-    bootstrap.register(ApicuriousSpecies.MAJESTIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DRIPPING_COMB, 0.3f));
-    bootstrap.register(ApicuriousSpecies.IMPERIAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.DRIPPING_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.ROYAL_JELLY.get()))).build());
+    bootstrap.register(ApicuriousSpecies.NOBLE.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DRIPPING_COMB.comb(), 0.2f));
+    bootstrap.register(ApicuriousSpecies.MAJESTIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.DRIPPING_COMB.comb(), 0.3f));
+    bootstrap.register(ApicuriousSpecies.IMPERIAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.DRIPPING_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.ROYAL_JELLY.get()))).build());
   }
 }

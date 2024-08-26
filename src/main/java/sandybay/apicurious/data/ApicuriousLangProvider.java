@@ -475,9 +475,9 @@ public class ApicuriousLangProvider extends LanguageProvider
     comb(ItemRegistrar.MUCOUS_COMB, "Mucous");
   }
 
-  public void comb(Holder<Item> item, String name)
+  public void comb(ItemRegistrar.CombHolder item, String name)
   {
-    add(item.value(), name + " Comb");
+    add(item.comb().get(), name + " Comb");
   }
 
   public void error(String message, String translation)

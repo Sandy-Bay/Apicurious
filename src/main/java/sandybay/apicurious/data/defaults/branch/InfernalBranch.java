@@ -39,8 +39,8 @@ public class InfernalBranch
 
   public static void outputsDefaults(BootstrapContext<OutputTable> bootstrap)
   {
-    bootstrap.register(ApicuriousSpecies.SINISTER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB, 0.45f));
-    bootstrap.register(ApicuriousSpecies.FIENDISH.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.ASH.get()))).withPool(pool -> pool.when(new ChanceCondition(0.55f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.get()))).build());
-    bootstrap.register(ApicuriousSpecies.DEMONIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(Items.GLOWSTONE_DUST))).withPool(pool -> pool.when(new ChanceCondition(0.45f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.get()))).build());
+    bootstrap.register(ApicuriousSpecies.SINISTER.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SIMMERING_COMB.comb(), 0.45f));
+    bootstrap.register(ApicuriousSpecies.FIENDISH.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.ASH.get()))).withPool(pool -> pool.when(new ChanceCondition(0.55f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.comb().get()))).build());
+    bootstrap.register(ApicuriousSpecies.DEMONIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(Items.GLOWSTONE_DUST))).withPool(pool -> pool.when(new ChanceCondition(0.45f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.comb().get()))).build());
   }
 }
