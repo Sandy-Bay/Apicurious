@@ -4,10 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import org.apache.commons.lang3.StringUtils;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
@@ -36,5 +38,26 @@ public record WeatherCondition(Biome.Precipitation precipitation, boolean isRain
     Biome biome = level.getBiome(housing.getBlockPos()).value();
     if (precipitation() == Biome.Precipitation.NONE) {return !biome.hasPrecipitation();}
     return biome.getPrecipitationAt(housing.getBlockPos()) == precipitation() && level.isRainingAt(housing.getBlockPos()) == isRaining() && (isThundering().isEmpty() || level.isThundering() == isThundering().get());
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    return isThundering.map(exists ->
+            Component.literal(
+                    "Weather:" +
+                            "Precipitation=" +
+                            StringUtils.capitalize(precipitation.getSerializedName()) +
+                            ", isRaining=" +
+                            StringUtils.capitalize(String.valueOf(isRaining)) +
+                            ", isThundering=" +
+                            StringUtils.capitalize(String.valueOf(exists))))
+            .orElseGet(() ->
+                    Component.literal(
+                            "Weather:" +
+                                    "Precipitation=" +
+                                    StringUtils.capitalize(precipitation.getSerializedName()) +
+                                    ", isRaining=" +
+                                    StringUtils.capitalize(String.valueOf(isRaining))));
   }
 }

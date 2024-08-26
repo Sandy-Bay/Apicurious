@@ -90,12 +90,19 @@ public class ApicuriousLangProvider extends LanguageProvider
     addSpecies();
     addErrors();
     addCombs();
+    addConditions();
+  }
+
+  private void addConditions()
+  {
+    add("apicurious.condition.chance", "Chance: ");
   }
 
   private void addJEI()
   {
     // Categories
     add("apicurious.jei.centrifuge.title", "Centrifuge");
+    add("apicurious.jei.bee_output.title", "Bee Output");
 
     // Tooltips
     add("apicurious.jei.tooltip.chance", "Chance: ");

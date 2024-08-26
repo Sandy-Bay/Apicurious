@@ -56,14 +56,6 @@
             {
               "chance": 0.02,
               "condition": "apicurious:chance"
-            },
-            {
-              "chance": 0.02,
-              "condition": "apicurious:chance"
-            },
-            {
-              "chance": 0.02,
-              "condition": "apicurious:chance"
             }
           ],
           "functions": [],

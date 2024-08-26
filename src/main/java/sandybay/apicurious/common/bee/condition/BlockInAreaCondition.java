@@ -6,6 +6,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
@@ -37,5 +38,13 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
     if (housing.territory == null)
     {housing.territory = block.getTerritory(housing.getInventory().getStackInSlot(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));}
     return housing.territory.stream().anyMatch(pos -> blocks.contains(level.getBlockState(pos).getBlockHolder()));
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    Component base = Component.translatable("apicurious.condition.block_in_area");
+    // TODO: Implement display text
+    return base;
   }
 }

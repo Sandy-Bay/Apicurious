@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
@@ -31,5 +32,11 @@ public record XNOrCondition(Holder<ICondition> first, Holder<ICondition> second)
     ICondition first = first().value();
     ICondition second = second().value();
     return (first.test(housing) && second.test(housing)) || (!first.test(housing) && !second.test(housing));
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    return first.value().getDisplayText().copy().append(" XNOR ").append(second.value().getDisplayText().copy());
   }
 }

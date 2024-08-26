@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
@@ -30,5 +31,23 @@ public record MoonPhaseCondition(int moonPhase) implements ICondition
     Level level = housing.getLevel();
     if (level == null) {return false;}
     return level.getMoonPhase() == moonPhase();
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    String moonPhaseName = switch (moonPhase)
+    {
+      case 0: yield "Full Moon";
+      case 1: yield "Waning Gibbous";
+      case 2: yield "Last Quarter";
+      case 3: yield "Waning Cresent";
+      case 4: yield "New Moon";
+      case 5: yield "Waxing Crescent";
+      case 6: yield "First Quarter";
+      case 7: yield "Waxing Gibbous";
+      default: yield "Unknown";
+    };
+    return Component.literal("Moon Phase: " + moonPhaseName);
   }
 }

@@ -6,6 +6,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
@@ -32,5 +33,13 @@ public record HumidityCondition(HolderSet<Biome> humidity) implements ICondition
   {
     TagKey<Biome> humidityAtPosition = housing.validation.helper.getHumidityAtPosition(housing.getBlockPos());
     return humidity.stream().anyMatch(h -> h.is(humidityAtPosition));
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    Component base = Component.translatable("apicurious.condition.humidity");
+    // TODO: Implement display text
+    return base;
   }
 }

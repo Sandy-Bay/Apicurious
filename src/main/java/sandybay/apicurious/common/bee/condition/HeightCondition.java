@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.condition.ConditionType;
@@ -27,5 +28,12 @@ public record HeightCondition(int yHeight, boolean above) implements ICondition
   public boolean test(SimpleBlockHousingBE housing)
   {
     return above() ? housing.getBlockPos().getY() >= yHeight() : housing.getBlockPos().getY() <= yHeight();
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    return above ? Component.literal("Check if above=" + yHeight) :
+                   Component.literal("Check if at=" + yHeight);
   }
 }

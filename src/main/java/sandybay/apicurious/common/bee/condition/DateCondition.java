@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.condition.ConditionType;
@@ -39,4 +40,12 @@ public record DateCondition(LocalDate from, LocalDate to) implements ICondition
     int currentMonth = currentDate.getMonthValue();
     return (from.getMonthValue() >= currentMonth && currentMonth <= to.getMonthValue()) && (from.getDayOfMonth() >= currentDay && currentDay <= to.getDayOfMonth());
   }
+
+  @Override
+  public Component getDisplayText()
+  {
+    return Component.literal("Date: from=" + from.toString() + ", to=" + to.toString());
+  }
+
+
 }

@@ -38,7 +38,10 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
   @Override
   public @NotNull IDrawable getBackground()
   {
-    return iGuiHelper.drawableBuilder(Apicurious.createResourceLocation("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54).setTextureSize(107, 54).build();
+    return iGuiHelper
+            .drawableBuilder(Apicurious.createResourceLocation("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54)
+            .setTextureSize(107, 54)
+            .build();
   }
 
   @Override

@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-21T21:49:47.2404242	Registries
+// 1.21.1	2024-08-26T02:49:21.30926	Registries
 4513c61321b80ff589060788a5fb9c07b1ccc131 data/apicurious/apicurious/alleles/area/average.json
 44e380623164f7243354d43ea17af3bc5acbe9eb data/apicurious/apicurious/alleles/area/large.json
 66996da2899e7f4d247ac43bdf655c00bc6634b9 data/apicurious/apicurious/alleles/area/larger.json
@@ -360,7 +360,7 @@ fd76a6afc1e0e83a564a819d7ae88f8c29c4a327 data/apicurious/apicurious/output_table
 c8e72dbfce772796b5029d4c1b84dc3a5af8acc0 data/apicurious/apicurious/output_tables/timbered.json
 70ab00279c83da3facd4cb05c38b786847c80f50 data/apicurious/apicurious/output_tables/tispy.json
 ba3bd4101f1b1716213c4aad9922afd904b0a624 data/apicurious/apicurious/output_tables/tolerant.json
-dc140a5162345964ced4318c49467964203a1f62 data/apicurious/apicurious/output_tables/tricky.json
+c8e1ecd86009c7537e9c4b7be36ed4d5a1cf33a3 data/apicurious/apicurious/output_tables/tricky.json
 3e96d3815b1e6007bbac3fcb3cab17138368b0b8 data/apicurious/apicurious/output_tables/tropical.json
 b9e782c91352244c850d7433a90b1855bddccd86 data/apicurious/apicurious/output_tables/turquoise.json
 c41641a1c466f0c5b64d405615e05755992f2424 data/apicurious/apicurious/output_tables/unweary.json

@@ -62,11 +62,11 @@ public class FestiveBranch
     bootstrap.register(ApicuriousSpecies.MERRY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))).build());
     bootstrap.register(ApicuriousSpecies.TIPSY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ICE_SHARD.get()))).build());
     bootstrap.register(ApicuriousSpecies.CELEBRATORY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.PARCHED_COMB.get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(Items.GUNPOWDER))).build());
-    bootstrap.register(ApicuriousSpecies.TRICKY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(Items.HONEYCOMB))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(Items.COOKIE))).withPool(pool -> pool.withResult(result ->
-    {
-      result.when(new ChanceCondition(0.02f)).withResult(Blocks.ZOMBIE_HEAD.asItem());
-      result.when(new ChanceCondition(0.02f)).withResult(Blocks.CREEPER_HEAD.asItem());
-      result.when(new ChanceCondition(0.02f)).withResult(Blocks.SKELETON_SKULL.asItem());
-    })).build());
+    bootstrap.register(ApicuriousSpecies.TRICKY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(Items.HONEYCOMB))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(Items.COOKIE))).withPool(pool -> pool.withResult(result -> result.when(new ChanceCondition(0.02f))
+            .withResult(Blocks.ZOMBIE_HEAD.asItem())
+            .withResult(Blocks.CREEPER_HEAD.asItem())
+            .withResult(Blocks.SKELETON_SKULL.asItem())))
+            .build()
+    );
   }
 }

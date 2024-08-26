@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
@@ -29,5 +30,11 @@ public record NotCondition(Holder<ICondition> condition) implements ICondition
   public boolean test(SimpleBlockHousingBE housing)
   {
     return !condition.value().test(housing);
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    return Component.literal("NOT ").append(condition.value().getDisplayText());
   }
 }

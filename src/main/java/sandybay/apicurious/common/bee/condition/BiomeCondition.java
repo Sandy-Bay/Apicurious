@@ -7,6 +7,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.biome.Biome;
@@ -34,5 +35,13 @@ public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
     if (housing.getLevel() == null) {return false;}
     Holder<Biome> biome = housing.getLevel().getBiome(housing.getBlockPos());
     return biomes().contains(biome);
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    Component base = Component.translatable("apicurious.condition.biome");
+    // TODO: Implement display text
+    return base;
   }
 }

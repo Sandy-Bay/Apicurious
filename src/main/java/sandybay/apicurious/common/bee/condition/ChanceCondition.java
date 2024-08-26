@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.Level;
@@ -11,6 +12,8 @@ import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
+
+import java.text.DecimalFormat;
 
 
 public record ChanceCondition(float chance) implements ICondition
@@ -31,5 +34,11 @@ public record ChanceCondition(float chance) implements ICondition
     Level level = housing.getLevel();
     if (level == null) {return false;}
     return level.getRandom().nextFloat() < chance();
+  }
+
+  @Override
+  public Component getDisplayText()
+  {
+    return Component.translatable("apicurious.condition.chance").append(DecimalFormat.getPercentInstance().format(chance));
   }
 }
