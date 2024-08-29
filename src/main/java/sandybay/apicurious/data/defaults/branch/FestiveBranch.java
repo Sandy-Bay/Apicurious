@@ -18,13 +18,12 @@ import sandybay.apicurious.data.defaults.condition.ConditionKeys;
 import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 /*
-    TODO:
-      - Tipsy   (Calendar New Years)
+    Todo:
       - Lucky   (St. Patricks)
       - Native  (Thanksgiving)
       - Pagan   (Midsummer Solstice)
       - Zodiac  (Chinese New Years)
-      - Haunted (Day of the Dead / Halloween)
+      - Haunted (Day of the Dead)
    */
 public class FestiveBranch
 {
@@ -45,7 +44,7 @@ public class FestiveBranch
                     .withFirst(ApicuriousSpecies.FOREST)
                     .withSecond(ApicuriousSpecies.MEADOW)
                     .withChance(0.1f)
-                    //.withCondition() TODO: Figure out how to do date conditions that respect date changes...
+                    //.withCondition() Todo: Figure out how to do date conditions that respect date changes...
                     .withOutput(ApicuriousSpecies.LEPORINE)
                     .build()
     );

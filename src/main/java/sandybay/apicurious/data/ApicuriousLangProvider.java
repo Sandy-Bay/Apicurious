@@ -95,17 +95,19 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   private void addConditions()
   {
-    add("apicurious.condition.chance", "Chance: ");
+    add("apicurious.condition.chance", "- Chance: ");
+    add("apicurious.condition.biome", "- In Biome:");
   }
 
   private void addJEI()
   {
     // Categories
     add("apicurious.jei.centrifuge.title", "Centrifuge");
-    add("apicurious.jei.bee_output.title", "Bee Output");
+    add("apicurious.jei.bee_outputs.title", "Bee Outputs");
+    add("apicurious.jei.bee_mutations.title", "Bee Mutations");
 
     // Tooltips
-    add("apicurious.jei.tooltip.chance", "Chance: ");
+    add("apicurious.jei.tooltip.conditions", "Conditions:");
   }
 
   // Collection-methods

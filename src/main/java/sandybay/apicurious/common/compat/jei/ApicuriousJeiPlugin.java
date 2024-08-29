@@ -11,31 +11,42 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.output.OutputTable;
+import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.client.gui.ApiaryScreen;
+import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.client.gui.CentrifugeScreen;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.Genome;
+import sandybay.apicurious.common.bee.genetic.mutation.ConditionalMutation;
+import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.compat.jei.category.BeeMutationCategory;
 import sandybay.apicurious.common.compat.jei.category.BeeOutputCategory;
 import sandybay.apicurious.common.compat.jei.category.CentrifugeCategory;
 import sandybay.apicurious.common.compat.jei.handler.JEICentrifugeContainerHandler;
+import sandybay.apicurious.common.compat.jei.handler.JEIHousingContainerHandler;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-// Todo: Figure out how to make it so you can press "U" on queens in the jei field to see their outputs.
 @JeiPlugin
 public class ApicuriousJeiPlugin implements IModPlugin
 {
@@ -77,6 +88,11 @@ public class ApicuriousJeiPlugin implements IModPlugin
   public void registerGuiHandlers(IGuiHandlerRegistration registry)
   {
     registry.addGuiContainerHandler(CentrifugeScreen.class, new JEICentrifugeContainerHandler());
+    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    {
+      registry.addGuiContainerHandler(ApiaryScreen.class, new JEIHousingContainerHandler.JEIApiaryContainerHandler());
+      registry.addGuiContainerHandler(BeeHousingScreen.class, new JEIHousingContainerHandler.JEIBeeHousingContainerHandler());
+    }
   }
 
   @Override
@@ -89,6 +105,10 @@ public class ApicuriousJeiPlugin implements IModPlugin
     IJeiHelpers jeiHelpers = registry.getJeiHelpers();
     registry.addRecipeCategories(new CentrifugeCategory(jeiHelpers.getGuiHelper()));
     registry.addRecipeCategories(new BeeOutputCategory(jeiHelpers.getGuiHelper()));
+    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    {
+      registry.addRecipeCategories(new BeeMutationCategory(jeiHelpers.getGuiHelper()));
+    }
   }
 
   @Override
@@ -96,6 +116,34 @@ public class ApicuriousJeiPlugin implements IModPlugin
   {
     registration.addRecipes(ApicuriousRecipeTypes.CENTRIFUGE, getCentrifugeRecipes());
     registration.addRecipes(ApicuriousRecipeTypes.BEE_OUTPUTS, getBeeOutputRecipes());
+    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    {
+      registration.addRecipes(ApicuriousRecipeTypes.BEE_MUTATIONS, getBeeMutationRecipes());
+    }
+  }
+
+  private List<BeeMutationCategory.Recipe> getBeeMutationRecipes() {
+    List<BeeMutationCategory.Recipe> recipes = new ArrayList<>();
+    Registry<IMutation> mutations = Minecraft.getInstance().level.registryAccess().registryOrThrow(ApicuriousRegistries.MUTATIONS);
+    for (IMutation mutation : mutations.holders().map(Holder::value).toList()) {
+      List<ItemStack> firstOptions = getBeeOptions(mutation.getFirst());
+      List<ItemStack> secondOptions = getBeeOptions(mutation.getSecond());
+      BeeSpecies outputSpecies = (BeeSpecies) mutation.getOutput().value();
+      ItemStack outputBee = BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, outputSpecies.getSpeciesKey(), ItemRegistrar.DRONE);
+      if (mutation instanceof ConditionalMutation conditionalMutation) {
+        List<ICondition> conditions = conditionalMutation.conditions().stream().map(Holder::value).toList();
+        recipes.add(new BeeMutationCategory.Recipe(firstOptions, secondOptions, conditionalMutation.chance(), conditions, outputBee));
+      } else {
+        recipes.add(new BeeMutationCategory.Recipe(firstOptions, secondOptions, mutation.getChance(), List.of(), outputBee));
+      }
+    }
+    return recipes;
+  }
+
+  private List<ItemStack> getBeeOptions(HolderSet<? extends IAllele<?>> alleles) {
+    List<ItemStack> options = new ArrayList<>(alleles.stream().map(Holder::value).map(allele -> (BeeSpecies) allele).map(species -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, species.getSpeciesKey(), ItemRegistrar.DRONE)).toList());
+    Collections.shuffle(options);
+    return options;
   }
 
   private List<CentrifugeCategory.Recipe> getCentrifugeRecipes()

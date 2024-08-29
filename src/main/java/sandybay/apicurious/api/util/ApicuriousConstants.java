@@ -314,4 +314,6 @@ public class ApicuriousConstants
   public static final BeeColor FURIOUS = new BeeColor(FURIOUS_OUTLINE, NETHER_BODY, NETHER_BODY);
   public static final BeeColor VOLCANIC = new BeeColor(VOLCANIC_OUTLINE, NETHER_BODY, NETHER_BODY);
   public static final BeeColor GLOWERING = new BeeColor(GLOWERING_OUTLINE, NETHER_BODY, NETHER_BODY);
+
+
 }

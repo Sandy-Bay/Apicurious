@@ -12,8 +12,10 @@ import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.item.TerritoryModifier;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.Coloring;
 import sandybay.apicurious.common.item.BeeAnalyzerItem;
 import sandybay.apicurious.common.item.BeeItem;
+import sandybay.apicurious.common.item.CombItem;
 import sandybay.apicurious.common.item.SieveItem;
 import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.frame.RestraintFrame;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.function.Function;
 
 /*
-  TODO: Needs new textures / models
+  Todo: Needs new textures / models
     - Bees (Drone, Princess, Queen)
       - Needs new baseline textures
     - Sieve
@@ -35,7 +37,7 @@ import java.util.function.Function;
  */
 public class ItemRegistrar
 {
-  public static final List<DeferredHolder<Item, Item>> COMBS = new ArrayList<>();
+  public static final List<DeferredHolder<Item, CombItem>> COMBS = new ArrayList<>();
   public static final List<DeferredHolder<Item, Item>> PRODUCTS = new ArrayList<>();
   public static final List<DeferredHolder<Item, FrameItem>> FRAMES = new ArrayList<>();
 
@@ -48,59 +50,60 @@ public class ItemRegistrar
 
   // Products
   // Combs
-  public static final CombHolder COCOA_COMB = comb("cocoa");
-  public static final CombHolder DRIPPING_COMB = comb("dripping");
-  public static final CombHolder FROZEN_COMB = comb("frozen");
-  public static final CombHolder MELLOW_COMB = comb("mellow");
-  public static final CombHolder MOSSY_COMB = comb("mossy");
-  public static final CombHolder MYSTERIOUS_COMB = comb("mysterious");
-  public static final CombHolder PARCHED_COMB = comb("parched");
-  public static final CombHolder POWDERY_COMB = comb("powdery");
-  public static final CombHolder SILKY_COMB = comb("silky");
-  public static final CombHolder SIMMERING_COMB = comb("simmering");
-  public static final CombHolder STRINGY_COMB = comb("stringy");
-  public static final CombHolder WHEATEN_COMB = comb("wheaten");
-  public static final CombHolder ROCKY_COMB = comb("rocky");
-  public static final CombHolder SEEDY_COMB = comb("seedy");
-  public static final CombHolder DUSTY_COMB = comb("dusty");
-  public static final CombHolder DIAMOND_COMB = comb("diamond");
-  public static final CombHolder EMERALD_COMB = comb("emerald");
-  public static final CombHolder COPPER_COMB = comb("copper");
-  public static final CombHolder IRON_COMB = comb("iron");
-  public static final CombHolder GOLD_COMB = comb("gold");
-  public static final CombHolder LAPIS_COMB = comb("lapis");
-  public static final CombHolder DAMP_COMB = comb("damp");
-  public static final CombHolder ENERGETIC_COMB = comb("energetic");
-  public static final CombHolder STATIC_COMB = comb("static");
-  public static final CombHolder RED_TINTED_COMB = comb("red_tinted");
-  public static final CombHolder YELLOW_TINTED_COMB = comb("yellow_tinted");
-  public static final CombHolder BLUE_TINTED_COMB = comb("blue_tinted");
-  public static final CombHolder GREEN_TINTED_COMB = comb("green_tinted");
-  public static final CombHolder BROWN_TINTED_COMB = comb("brown_tinted");
-  public static final CombHolder WHITE_TINTED_COMB = comb("white_tinted");
-  public static final CombHolder BLACK_TINTED_COMB = comb("black_tinted");
-  public static final CombHolder ORANGE_TINTED_COMB = comb("orange_tinted");
-  public static final CombHolder CYAN_TINTED_COMB = comb("cyan_tinted");
-  public static final CombHolder PURPLE_TINTED_COMB = comb("purple_tinted");
-  public static final CombHolder GRAY_TINTED_COMB = comb("gray_tinted");
-  public static final CombHolder LIGHT_BLUE_TINTED_COMB = comb("light_blue_tinted");
-  public static final CombHolder PINK_TINTED_COMB = comb("pink_tinted");
-  public static final CombHolder LIME_TINTED_COMB = comb("lime_tinted");
-  public static final CombHolder LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted");
-  public static final CombHolder MAGENTA_TINTED_COMB = comb("magenta_tinted");
-  public static final CombHolder UNSTABLE_COMB = comb("unstable");
-  public static final CombHolder CLAY_COMB = comb("clay");
-  public static final CombHolder BARREN_COMB = comb("barren");
-  public static final CombHolder DECOMPOSED_COMB = comb("decomposed");
-  public static final CombHolder ANCIENT_COMB = comb("ancient");
-  public static final CombHolder FOSSILISED_COMB = comb("fossilised");
-  public static final CombHolder GLACIAL_COMB = comb("glacial");
-  public static final CombHolder FUNGAL_COMB = comb("fungal");
-  public static final CombHolder BLAZING_COMB = comb("blazing");
-  public static final CombHolder GLOWING_COMB = comb("glowing");
-  public static final CombHolder VENOMOUS_COMB = comb("venomous");
-  public static final CombHolder BRIMSTONE_COMB = comb("brimstone");
-  public static final CombHolder MUCOUS_COMB = comb("mucous");
+  public static final CombHolder COCOA_COMB = comb("cocoa", Coloring.fromHex("d16200"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder DRIPPING_COMB = comb("dripping", Coloring.fromHex("D39728"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder FROZEN_COMB = comb("frozen", Coloring.fromHex("efffff"), Coloring.fromHex("daf5f3"));
+  public static final CombHolder MELLOW_COMB = comb("mellow", Coloring.fromHex("7f0000"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder MOSSY_COMB = comb("mossy", Coloring.fromHex("698948"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder MYSTERIOUS_COMB = comb("mysterious", Coloring.fromHex("ec9a19"), Coloring.fromHex("d9de9e"));
+  public static final CombHolder PARCHED_COMB = comb("parched", Coloring.fromHex("c5be86"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder POWDERY_COMB = comb("powdery", Coloring.fromHex("999999"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder SILKY_COMB = comb("silky", Coloring.fromHex("546626"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder SIMMERING_COMB = comb("simmering", Coloring.fromHex("ec9a19"), Coloring.fromHex("9a2323"));
+  public static final CombHolder STRINGY_COMB = comb("stringy", Coloring.fromHex("19ec5a"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder WHEATEN_COMB = comb("wheaten", Coloring.fromHex("feff8f"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder ROCKY_COMB = comb("rocky", Coloring.fromHex("6e757d"), Coloring.fromHex("999999"));
+  public static final CombHolder SEEDY_COMB = comb("seedy", Coloring.fromHex("D39728"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder DUSTY_COMB = comb("dusty", Coloring.fromHex("7a7648"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder DIAMOND_COMB = comb("diamond", Coloring.fromHex("7fbdfa"), Coloring.fromHex("999999"));
+  public static final CombHolder EMERALD_COMB = comb("emerald", Coloring.fromHex("1cff03"), Coloring.fromHex("999999"));
+  public static final CombHolder COPPER_COMB = comb("copper", Coloring.fromHex("d16308"), Coloring.fromHex("999999"));
+  public static final CombHolder IRON_COMB = comb("iron", Coloring.fromHex("a87058"), Coloring.fromHex("999999"));
+  public static final CombHolder GOLD_COMB = comb("gold", Coloring.fromHex("e6cc0b"), Coloring.fromHex("999999"));
+  public static final CombHolder LAPIS_COMB = comb("lapis", Coloring.fromHex("3d2cdb"), Coloring.fromHex("999999"));
+  public static final CombHolder DAMP_COMB = comb("damp", Coloring.fromHex("356933"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder ENERGETIC_COMB = comb("energetic", Coloring.fromHex("e835c7"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder STATIC_COMB = comb("static", Coloring.fromHex("af35e8"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder RED_TINTED_COMB = comb("red_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ff0000"));
+  public static final CombHolder YELLOW_TINTED_COMB = comb("yellow_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ffdd00"));
+  public static final CombHolder BLUE_TINTED_COMB = comb("blue_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("0022ff"));
+  public static final CombHolder GREEN_TINTED_COMB = comb("green_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("009900"));
+  public static final CombHolder BROWN_TINTED_COMB = comb("brown_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("5c350f"));
+  public static final CombHolder WHITE_TINTED_COMB = comb("white_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ffffff"));
+  public static final CombHolder BLACK_TINTED_COMB = comb("black_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("575757"));
+  public static final CombHolder ORANGE_TINTED_COMB = comb("orange_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ff9d00"));
+  public static final CombHolder CYAN_TINTED_COMB = comb("cyan_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("00ffe5"));
+  public static final CombHolder PURPLE_TINTED_COMB = comb("purple_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ae00ff"));
+  public static final CombHolder GRAY_TINTED_COMB = comb("gray_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("bababa"));
+  public static final CombHolder LIGHT_BLUE_TINTED_COMB = comb("light_blue_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("009dff"));
+  public static final CombHolder PINK_TINTED_COMB = comb("pink_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ff80df"));
+  public static final CombHolder LIME_TINTED_COMB = comb("lime_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("00ff08"));
+  public static final CombHolder LIGHT_GRAY_TINTED_COMB = comb("light_gray_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("c9c9c9"));
+  public static final CombHolder MAGENTA_TINTED_COMB = comb("magenta_tinted", Coloring.fromHex("8cff00"), Coloring.fromHex("ff00cc"));
+  public static final CombHolder UNSTABLE_COMB = comb("unstable", Coloring.fromHex("388020"), Coloring.fromHex("999999"));
+  public static final CombHolder CLAY_COMB = comb("clay", Coloring.fromHex("999999"), Coloring.fromHex("83b3d4"));
+
+  public static final CombHolder BARREN_COMB = comb("barren", Coloring.fromHex("ec9a19"), Coloring.fromHex("cbe374"));
+  public static final CombHolder DECOMPOSED_COMB = comb("decomposed", Coloring.fromHex("523711"), Coloring.fromHex("ffffff"));
+  public static final CombHolder ANCIENT_COMB = comb("ancient", Coloring.fromHex("f2db8f"), Coloring.fromHex("cbe374"));
+  public static final CombHolder FOSSILISED_COMB = comb("fossilised", Coloring.fromHex("ec9a19"), Coloring.fromHex("cbe374"));
+  public static final CombHolder GLACIAL_COMB = comb("glacial", Coloring.fromHex("7be3e3"), Coloring.fromHex("daf5f3"));
+  public static final CombHolder FUNGAL_COMB = comb("fungal", Coloring.fromHex("ec9a19"), Coloring.fromHex("ffdc16"));
+  public static final CombHolder BLAZING_COMB = comb("blazing", Coloring.fromHex("b06c28"), Coloring.fromHex("9a2323"));
+  public static final CombHolder GLOWING_COMB = comb("glowing", Coloring.fromHex("ffd46c"), Coloring.fromHex("9a2323"));
+  public static final CombHolder VENOMOUS_COMB = comb("venomous", Coloring.fromHex("f013ec"), Coloring.fromHex("069764"));
+  public static final CombHolder BRIMSTONE_COMB = comb("brimstone", Coloring.fromHex("ec9a19"), Coloring.fromHex("9a2323"));
+  public static final CombHolder MUCOUS_COMB = comb("mucous", Coloring.fromHex("17e328"), Coloring.fromHex("069764"));
 
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");
@@ -193,9 +196,9 @@ public class ItemRegistrar
     return frame;
   }
 
-  public static CombHolder comb(String type)
+  public static CombHolder comb(String type, Coloring outline, Coloring cells)
   {
-    DeferredHolder<Item, Item> comb = ITEMS.register(type + "_comb", () -> new Item(new Item.Properties()));
+    DeferredHolder<Item, CombItem> comb = ITEMS.register(type + "_comb", () -> new CombItem(new Item.Properties(), outline, cells));
     COMBS.add(comb);
     return new CombHolder(comb, ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createResourceLocation(type)));
   }
@@ -210,5 +213,5 @@ public class ItemRegistrar
     return ITEMS.register(name, () -> new Item(properties));
   }
 
-  public record CombHolder(DeferredHolder<Item, Item> comb, ResourceKey<CentrifugeRecipe> recipe) {}
+  public record CombHolder(DeferredHolder<Item, CombItem> comb, ResourceKey<CentrifugeRecipe> recipe) {}
 }

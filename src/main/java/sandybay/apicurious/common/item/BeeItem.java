@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -66,6 +67,17 @@ public class BeeItem extends Item implements IBeeItem
         });
       }
     }
+    return bee;
+  }
+
+  public static ItemStack getBeeWithSpecies(HolderLookup.Provider provider, ResourceKey<IAllele<?>> speciesKey, Holder<Item> item)
+  {
+    ItemStack bee = new ItemStack(item);
+    provider.lookup(ApicuriousRegistries.ALLELES).ifPresent(registry ->
+    {
+      BeeSpecies species = (BeeSpecies) registry.getOrThrow(speciesKey).value();
+      bee.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(provider));
+    });
     return bee;
   }
 

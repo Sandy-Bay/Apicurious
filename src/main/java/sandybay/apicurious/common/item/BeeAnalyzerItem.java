@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.util.ClimateHelper;
 import sandybay.apicurious.common.menu.AnalyzerMenu;
 
-// TODO: Figure out how to sync the inventory storage between client and server.
 public class BeeAnalyzerItem extends Item
 {
   private ClimateHelper helper;

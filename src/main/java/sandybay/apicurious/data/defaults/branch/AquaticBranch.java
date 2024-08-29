@@ -17,7 +17,6 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AquaticBranch
 {
-  //TODO: Fix the stats
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.WATER.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.WATER.species(), "water").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WATER)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOW).withSpeed(Speed.SLOWEST)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.LILY_PAD).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE).ignoresRain()).withOutputData(builder -> builder.withTable(ApicuriousSpecies.WATER.output())).build());

@@ -25,7 +25,7 @@ import sandybay.apicurious.common.bee.output.OutputData;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-// TODO: Implement custom effect system, not just potion effects.
+// Todo: Implement custom effect system, not just potion effects.
 public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 {
 

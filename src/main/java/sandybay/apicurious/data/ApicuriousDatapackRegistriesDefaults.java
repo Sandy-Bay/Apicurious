@@ -24,11 +24,11 @@ public class ApicuriousDatapackRegistriesDefaults
     builder.add(ApicuriousRegistries.CENTRIFUGE_RECIPES, CentrifugeRecipeDefaults::defaults);
     builder.add(Registries.CONFIGURED_FEATURE, bootstrap ->
     {
-      // TODO: Implement generation for the bee hives
+      // Todo: Implement generation for the bee hives
     });
     builder.add(Registries.PLACED_FEATURE, bootstrap ->
     {
-      // TODO: Implement generation for the bee hives
+      // Todo: Implement generation for the bee hives
     });
 
     return builder;

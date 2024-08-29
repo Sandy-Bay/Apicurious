@@ -45,14 +45,15 @@ import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.LootItemFunctionRegistration;
 
 /*
- TODO: Before MVP Alpha Release
+ Todo: Before MVP Alpha Release
   - Must Haves:
     - Apiary/BeeHousing
       - Add Particles for active housing
     - Hives
       - Add WorldGen for Hives
-    - Add JEI Support
-  - Optionals:
+  - Beta:
+    - Alveary (Multiblock)
+    - Bee Branch Rework
     - Effects
     - General Code Clean-Up
  */
@@ -79,9 +80,9 @@ public class Apicurious
     BlockRegistrar.register(bus);
     ItemRegistrar.register(bus);
     DataComponentRegistrar.register(bus);
-    CreativeTabRegistrar.register(bus);
     LootItemFunctionRegistration.register(bus);
     MenuRegistrar.register(bus);
+    CreativeTabRegistrar.register(bus);
     AlleleTypeRegistrar.init(bus);
     MutationTypeRegistrar.init(bus);
     ConditionTypeRegistrar.init(bus);

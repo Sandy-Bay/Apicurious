@@ -92,7 +92,7 @@ public class CentrifugeMenu extends AbstractContainerMenu
     }
   }
 
-  // TODO: Figure out how to do shift-clicking from inventory into centrifuge
+  // Todo: Figure out how to do shift-clicking from inventory into centrifuge
   @Override
   public ItemStack quickMoveStack(Player pPlayer, int slotIndex)
   {

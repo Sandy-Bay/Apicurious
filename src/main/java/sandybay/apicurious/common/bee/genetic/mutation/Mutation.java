@@ -28,6 +28,24 @@ public record Mutation(HolderSet<IAllele<?>> first, HolderSet<IAllele<?>> second
   }
 
   @Override
+  public HolderSet<IAllele<?>> getFirst()
+  {
+    return first();
+  }
+
+  @Override
+  public HolderSet<IAllele<?>> getSecond()
+  {
+    return second();
+  }
+
+  @Override
+  public float getChance()
+  {
+    return chance();
+  }
+
+  @Override
   public Holder<IAllele<?>> getOutput()
   {
     return output();

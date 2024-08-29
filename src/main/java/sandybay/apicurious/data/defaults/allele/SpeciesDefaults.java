@@ -8,20 +8,6 @@ import sandybay.apicurious.data.defaults.branch.*;
 
 public class SpeciesDefaults
 {
-
-  /*
-    TODO: Add species for following materials:
-      - Overworld:
-        - Slime (Clay + Jungle(?))
-        - Amethyst
-      - Nether:
-        - Nether Wart (Fungal + Nether)
-        - Nether Quartz (Resilient + Nether)
-        - Glowstone (Energized + Nether)
-      - End
-        - Chorus (Fungal + Ender)
-      - Monster Loot
-   */
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     DebugBranch.speciesDefaults(bootstrap);

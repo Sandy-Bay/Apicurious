@@ -1,15 +1,18 @@
 package sandybay.apicurious.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
@@ -18,6 +21,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
@@ -29,6 +33,7 @@ import sandybay.apicurious.client.gui.CentrifugeScreen;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
+import sandybay.apicurious.common.item.CombItem;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
@@ -69,6 +74,8 @@ public class ApicuriousClientEvents
   {
     event.register(ApicuriousClientEvents::registerBeeTintHandler, ItemRegistrar.DRONE.get(), ItemRegistrar.PRINCESS.get(), ItemRegistrar.QUEEN.get());
     event.register(ApicuriousClientEvents::registerHiveItemTintHandler, BlockRegistrar.FOREST_HIVE.asItem(), BlockRegistrar.MEADOW_HIVE.asItem(), BlockRegistrar.MODEST_HIVE.asItem(), BlockRegistrar.TROPICAL_HIVE.asItem(), BlockRegistrar.WINTRY_HIVE.asItem(), BlockRegistrar.MARSHY_HIVE.asItem(), BlockRegistrar.ROCKY_HIVE.asItem(), BlockRegistrar.NETHER_HIVE.asItem(), BlockRegistrar.ENDER_HIVE.asItem(), BlockRegistrar.WATER_HIVE.asItem());
+    ItemLike[] combs = ItemRegistrar.COMBS.stream().map(Holder::value).toArray(ItemLike[]::new);
+    event.register(ApicuriousClientEvents::registerCombTintHandler, combs);
   }
 
   private static void registerAlternativeBeeModels(final ModelEvent.RegisterAdditional event)
@@ -106,6 +113,16 @@ public class ApicuriousClientEvents
       tint = getHiveTint(block);
     }
     return tint;
+  }
+
+  private static int registerCombTintHandler(ItemStack stack, int tintIndex)
+  {
+    if (stack.getItem() instanceof CombItem comb)
+    {
+      if (tintIndex == 0) return comb.getOutline().getIntColor();
+      else return comb.getCells().getIntColor();
+    }
+    return 0xFFFFFFFF;
   }
 
   private static int registerHiveTintHandler(BlockState state, @Nullable BlockAndTintGetter level, @Nullable BlockPos pos, int tintIndex)

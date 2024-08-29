@@ -19,7 +19,6 @@ import sandybay.apicurious.common.item.BeeAnalyzerItem;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
 
-// TODO: Figure out how to sync the inventory data.
 public class AnalyzerMenu extends AbstractContainerMenu
 {
   private static final IdentificationListener listener = new IdentificationListener((menu, slot, stack) ->
@@ -29,7 +28,7 @@ public class AnalyzerMenu extends AbstractContainerMenu
     ItemStack s2 = menu.getSlot(1).getItem();
     if (!(s1.getItem() instanceof BeeItem && s2.is(ApicuriousTags.ItemTags.DROP_HONEY)) && !s1.has(DataComponentRegistrar.IDENTIFIED))
     {return false;}
-    if (s1.get(DataComponentRegistrar.IDENTIFIED)) {return false;}
+    if (Boolean.TRUE.equals(s1.get(DataComponentRegistrar.IDENTIFIED))) {return false;}
     s2.shrink(1);
     s1.set(DataComponentRegistrar.IDENTIFIED, true);
     menu.getSlot(0).set(s1);

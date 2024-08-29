@@ -26,7 +26,7 @@ import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Recipe>
 {
-  public static final Component TITLE = Component.translatable("apicurious.jei.bee_output.title");
+  public static final Component TITLE = Component.translatable("apicurious.jei.bee_outputs.title");
   private final IGuiHelper iGuiHelper;
 
   public BeeOutputCategory(final IGuiHelper helper)
@@ -82,11 +82,8 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
           builder.addSlot(RecipeIngredientRole.OUTPUT, 20 + x * 18, 40 + y * 18)
                   .addIngredients(Ingredient.of(result.output()))
                   .addRichTooltipCallback((view, tooltip) -> {
-                    // Todo: Make this all translatable / clean-up
-                    //tooltip.add(Component.literal("Pool: " + recipe.output().pools().indexOf(pool)));
                     if (!pool.conditions().isEmpty())
                     {
-                      //tooltip.add(Component.literal("With pool conditions:"));
                       for (ICondition condition : pool.conditions())
                       {
                         tooltip.add(Component.literal("- ").append(condition.getDisplayText()));
@@ -94,7 +91,6 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
                     }
                     if (!entry.conditions().isEmpty())
                     {
-                      //tooltip.add(Component.literal("With entry conditions:"));
                       for (ICondition condition : entry.conditions())
                       {
                         tooltip.add(Component.literal("- ").append(condition.getDisplayText()));

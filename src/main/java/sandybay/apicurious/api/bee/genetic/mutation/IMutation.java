@@ -2,6 +2,7 @@ package sandybay.apicurious.api.bee.genetic.mutation;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
@@ -16,6 +17,12 @@ public interface IMutation
   Codec<IMutation> TYPED_CODEC = ApicuriousRegistries.MUTATION_TYPE_REGISTRY.byNameCodec().dispatch("type", IMutation::getType, MutationType::codec);
 
   MutationType getType();
+
+  HolderSet<IAllele<?>> getFirst();
+
+  HolderSet<IAllele<?>> getSecond();
+
+  float getChance();
 
   Holder<IAllele<?>> getOutput();
 

@@ -114,7 +114,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       validate(level, pos, true);
       if (getErrorList().isEmpty())
       {
-        updateGuiData(); // Perform extra update just to clear any junk data on the client.
+        updateGuiData();
         if (currentWork == 0 && maxWork == 0)
         {
           this.currentWork = 75;
@@ -172,7 +172,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       }
       if (getErrorList().isEmpty())
       {
-        updateGuiData(); // Perform extra update just to clear any junk data on the client.
+        updateGuiData();
 
         if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
         {
@@ -181,8 +181,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
             Genome genome = stack.get(DataComponentRegistrar.GENOME);
             if (genome == null) {return;}
             handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
-            // TODO: Implement effect occurrences here.
-            // Only do output if it's an apiary
+            // Beta: Implement effect occurrences here.
             if (getBlockState().getBlock() instanceof ApiaryBlock && !handleOutput(genome)) {updateGuiData();}
             this.currentWork--;
             damageFrames((ServerLevel) level, genome);
@@ -219,7 +218,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (shouldRenderParticles)
     {
-      // TODO: Render Particles
+      // Todo: Render Particles
     }
   }
 
@@ -492,7 +491,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void updateGuiData()
   {
     if (getLevel() == null) {return;}
-    //TODO change this, this is just for debug
+    //Todo change this, this is just for debug
     for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
     {
       if (player instanceof ServerPlayer serverPlayer)

@@ -38,7 +38,8 @@ public class CreativeTabRegistrar
     registerProducts(output);
   }).build());
 
-  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.apicurious.bee")).withTabsBefore(CreativeTabRegistrar.GENERAL_TAB.getKey()).icon(() -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN)).displayItems(CreativeTabRegistrar::registerBees).build());
+  public static ItemStack bee_tab_icon = ItemStack.EMPTY;
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BEE_TAB = CREATIVE_MODE_TABS.register("apicurious_bee", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.apicurious.bee")).withTabsBefore(CreativeTabRegistrar.GENERAL_TAB.getKey()).icon(() -> bee_tab_icon).displayItems(CreativeTabRegistrar::registerBees).build());
 
   private static void registerHousings(CreativeModeTab.Output output)
   {
@@ -47,6 +48,7 @@ public class CreativeTabRegistrar
 
   public static void registerBees(CreativeModeTab.ItemDisplayParameters parameters, CreativeModeTab.Output output)
   {
+    bee_tab_icon = BeeItem.getBeeWithSpecies(parameters.holders(), ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN);
     parameters.holders().lookup(ApicuriousRegistries.ALLELES).ifPresent(registry ->
     {
       registry.listElements().forEach(allele ->

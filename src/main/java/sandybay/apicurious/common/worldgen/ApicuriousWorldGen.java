@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 public class ApicuriousWorldGen
 {
 
-  //TODO: Figure out Worldgen because this approach didnt work :feelsbadman:
+  //Todo: Figure out Worldgen because this approach didnt work :feelsbadman:
   public static void hackTheHives(final ServerAboutToStartEvent event)
   {
     MinecraftServer serverRef = event.getServer();
