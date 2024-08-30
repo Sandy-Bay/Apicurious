@@ -39,7 +39,7 @@ public record HumidityCondition(HolderSet<Biome> humidity) implements ICondition
   public Component getDisplayText()
   {
     Component base = Component.translatable("apicurious.condition.humidity");
-    // TODO: Implement display text
+    // Todo: Implement display text
     return base;
   }
 }

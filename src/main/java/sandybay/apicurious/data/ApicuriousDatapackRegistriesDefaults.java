@@ -9,6 +9,9 @@ import sandybay.apicurious.data.defaults.MutationDefaults;
 import sandybay.apicurious.data.defaults.OutputTableDefaults;
 import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
 import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
+import sandybay.apicurious.data.defaults.feature.DefaultFeatures;
+import sandybay.apicurious.data.defaults.feature.configured.DefaultConfiguredFeatures;
+import sandybay.apicurious.data.defaults.feature.placed.DefaultPlacedFeatures;
 
 public class ApicuriousDatapackRegistriesDefaults
 {
@@ -22,22 +25,9 @@ public class ApicuriousDatapackRegistriesDefaults
     builder.add(ApicuriousRegistries.FUNCTIONS, FunctionsDefaults::defaults);
     builder.add(ApicuriousRegistries.OUTPUT_TABLES, OutputTableDefaults::defaults);
     builder.add(ApicuriousRegistries.CENTRIFUGE_RECIPES, CentrifugeRecipeDefaults::defaults);
-    builder.add(Registries.CONFIGURED_FEATURE, bootstrap ->
-    {
-      // Todo: Implement generation for the bee hives
-    });
-    builder.add(Registries.PLACED_FEATURE, bootstrap ->
-    {
-      // Todo: Implement generation for the bee hives
-    });
-
-    return builder;
-  }
-
-  public static RegistrySetBuilder registerPostAlleleRegistryDefaults()
-  {
-    RegistrySetBuilder builder = new RegistrySetBuilder();
-
+    builder.add(Registries.FEATURE, DefaultFeatures::defaults);
+    builder.add(Registries.CONFIGURED_FEATURE, DefaultConfiguredFeatures::defaults);
+    builder.add(Registries.PLACED_FEATURE, DefaultPlacedFeatures::defaults);
     return builder;
   }
 }

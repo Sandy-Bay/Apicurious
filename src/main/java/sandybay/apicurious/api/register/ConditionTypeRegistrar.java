@@ -16,7 +16,7 @@ import sandybay.apicurious.common.bee.condition.combinatorial.inverted.NOrCondit
 import sandybay.apicurious.common.bee.condition.combinatorial.inverted.XNOrCondition;
 
 /*
-TODO: To Add
+Todo: To Add
   - Entities in Area
   - Current Jukebox Record
   - Is affected by potion cloud

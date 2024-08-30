@@ -44,7 +44,7 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   public Component getDisplayText()
   {
     Component base = Component.translatable("apicurious.condition.block_in_area");
-    // TODO: Implement display text
+    // Todo: Implement display text
     return base;
   }
 }

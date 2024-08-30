@@ -14,7 +14,7 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 import java.time.LocalDate;
 
-// TODO: Figure out how to make this work with just days and months, since years would fuck-up things and require rewriting.
+// Todo: Figure out how to make this work with just days and months, since years would fuck-up things and require rewriting.
 public record DateCondition(LocalDate from, LocalDate to) implements ICondition
 {
   public static final StreamCodec<RegistryFriendlyByteBuf, DateCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, condition -> condition.from.toString(), ByteBufCodecs.STRING_UTF8, condition -> condition.to.toString(), (from, to) ->

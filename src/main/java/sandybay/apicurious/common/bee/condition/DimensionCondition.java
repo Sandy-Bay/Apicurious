@@ -40,7 +40,7 @@ public record DimensionCondition(HolderSet<DimensionType> dimensions) implements
   public Component getDisplayText()
   {
     Component base = Component.translatable("apicurious.condition.dimension");
-    // TODO: Implement display text
+    // Todo: Implement display text
     return base;
   }
 

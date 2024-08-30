@@ -39,7 +39,7 @@ public record TemperatureCondition(HolderSet<Biome> temperature) implements ICon
   public Component getDisplayText()
   {
     Component base = Component.translatable("apicurious.condition.temperature");
-    // TODO: Implement display text
+    // Todo: Implement display text
     return base;
   }
 }

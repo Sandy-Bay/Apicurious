@@ -140,7 +140,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
 
   protected void pageForward()
   {
-    if (this.currentPage < 5) // TODO: Set this to a correct value
+    if (this.currentPage < 5) // Todo: Set this to a correct value
     {
       this.currentPage++;
     }
@@ -158,7 +158,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
 
   private void updateButtonVisibility()
   {
-    this.forwardButton.visible = this.menu.hasIdentifiedBee() && this.currentPage < 5; // TODO: Set this to a correct value
+    this.forwardButton.visible = this.menu.hasIdentifiedBee() && this.currentPage < 5; // Todo: Set this to a correct value
     this.backButton.visible = this.menu.hasIdentifiedBee() && this.currentPage > 0;
   }
 }

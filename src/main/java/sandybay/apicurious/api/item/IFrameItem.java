@@ -12,7 +12,7 @@ public interface IFrameItem
 
   TerritoryModifier getTerritoryModifier();
 
-  // TODO: Implement effects that can check for this.
+  // Todo: Implement effects that can check for this.
   default boolean pacifies()
   {
     return false;

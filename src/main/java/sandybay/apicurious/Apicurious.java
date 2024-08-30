@@ -51,7 +51,9 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
       - Add Particles for active housing
     - Hives
       - Add WorldGen for Hives
-  - Beta:
+ */
+/*
+ Todo: Before MVP Beta Release
     - Alveary (Multiblock)
     - Bee Branch Rework
     - Effects

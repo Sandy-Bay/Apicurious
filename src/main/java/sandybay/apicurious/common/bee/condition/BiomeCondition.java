@@ -41,7 +41,7 @@ public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
   public Component getDisplayText()
   {
     Component base = Component.translatable("apicurious.condition.biome");
-    // TODO: Implement display text
+    // Todo: Implement display text
     return base;
   }
 }
