@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_desert",
+  "features": "apicurious:placed_modest_hive",
+  "step": "vegetal_decoration"
+}

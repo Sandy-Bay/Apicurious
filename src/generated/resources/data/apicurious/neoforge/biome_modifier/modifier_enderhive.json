@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#c:is_end",
+  "features": "apicurious:placed_ender_hive",
+  "step": "vegetal_decoration"
+}

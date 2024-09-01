@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#apicurious:is_meadow",
+  "features": "apicurious:placed_meadows_hive",
+  "step": "vegetal_decoration"
+}
