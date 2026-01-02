@@ -16,6 +16,25 @@
       4
     ]
   },
+  "tints": [
+    {
+      "type": "apicurious:bee_item_tinter",
+      "isOutline": true
+    },
+    {
+      "type": "apicurious:bee_item_tinter",
+      "isBody": true
+    },
+    {
+      "type": "apicurious:bee_item_tinter"
+    },
+    {
+      "type": "apicurious:bee_item_tinter"
+    },
+    {
+      "type": "apicurious:bee_item_tinter"
+    }
+  ],
   "gui_light": "front",
   "display": {
     "ground": {

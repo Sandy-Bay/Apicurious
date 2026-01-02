@@ -3,8 +3,10 @@ package sandybay.apicurious.client.gui;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +22,7 @@ import java.util.List;
 
 public class BeeHousingScreen extends AbstractContainerScreen<BeeHousingMenu>
 {
-  public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/apiary.png");
+  public static final Identifier SCREEN_LOCATION = Apicurious.createIdentifier("textures/gui/apiary.png");
   private final Player player;
   private final List<ErrorWidget> errorWidgets = new ArrayList<>();
 
@@ -38,7 +40,7 @@ public class BeeHousingScreen extends AbstractContainerScreen<BeeHousingMenu>
   protected void init()
   {
     super.init();
-    addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, 0.0F, 0.0F, 1.5F, Apicurious.createResourceLocation("textures/gui/widget/habitats/plains.png"), getTempTabInfo()));
+    addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, 0.0F, 0.0F, 1.5F, Apicurious.createIdentifier("textures/gui/widget/habitats/plains.png"), getTempTabInfo()));
     updateErrorList();
   }
 
@@ -91,17 +93,17 @@ public class BeeHousingScreen extends AbstractContainerScreen<BeeHousingMenu>
     if (maxProgress > 0)
     {
       int remaining = (this.menu.getProgress() * height) / maxProgress;
-      guiGraphics.blit(SCREEN_LOCATION, leftPos + 21, topPos + 83 - remaining, 177, 45 - remaining, 2, remaining);
+      guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, leftPos + 21, topPos + 83 - remaining, 177, 45 - remaining, 2, remaining, 256, 256);
     }
   }
 
   @Override
-  public boolean mouseClicked(double pMouseX, double pMouseY, int pButton)
+  public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick)
   {
-    boolean clicked = super.mouseClicked(pMouseX, pMouseY, pButton);
+    boolean clicked = super.mouseClicked(event, isDoubleClick);
     for (ErrorWidget errorWidget : errorWidgets)
     {
-      boolean done = errorWidget.mouseClicked(pMouseX, pMouseY, pButton);
+      boolean done = errorWidget.mouseClicked(event, isDoubleClick);
       if (done) {return done;}
     }
 
@@ -111,7 +113,7 @@ public class BeeHousingScreen extends AbstractContainerScreen<BeeHousingMenu>
   @Override
   protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY)
   {
-    guiGraphics.blit(SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
   }
 
   @Override

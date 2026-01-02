@@ -2,16 +2,18 @@ package sandybay.apicurious.client.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.menu.CentrifugeMenu;
 
-public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeMenu>
+public class CentrifugeScreen extends AbstractContainerScreen<@NotNull CentrifugeMenu>
 {
-  public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/centrifuge.png");
+  public static final Identifier SCREEN_LOCATION = Apicurious.createIdentifier("textures/gui/centrifuge.png");
   private final Player player;
 
   public CentrifugeScreen(CentrifugeMenu menu, Inventory playerInventory, Component title)
@@ -32,7 +34,7 @@ public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeMenu>
   @Override
   protected void renderBg(GuiGraphics graphics, float partial, int mouseX, int mouseY)
   {
-    graphics.blit(SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
   }
 
   @Override
@@ -51,7 +53,7 @@ public class CentrifugeScreen extends AbstractContainerScreen<CentrifugeMenu>
       int remaining = this.menu.getWork();
       float progressRatio = 1.0f - ((float) remaining / (float) maxProgress);
       int uWidth = (int)(progressRatio * width);
-      graphics.blit(SCREEN_LOCATION, leftPos + 69, topPos + 35, 177, 0, uWidth, 15);
+      graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, leftPos + 69, topPos + 35, 177, 0, uWidth, 15, 256, 256);
     }
   }
 }

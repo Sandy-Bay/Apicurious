@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.housing.HousingError;
-import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.util.MenuHelper;
 

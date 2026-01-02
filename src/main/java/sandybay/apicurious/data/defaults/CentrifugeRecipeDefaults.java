@@ -15,7 +15,7 @@ public class CentrifugeRecipeDefaults
 {
   public static void defaults(BootstrapContext<CentrifugeRecipe> bootstrap)
   {
-    bootstrap.register(ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createResourceLocation("honey")), CentrifugeRecipe.recipe(Items.HONEYCOMB).withOutput(ItemRegistrar.HONEY_DROP, 0.9f).withOutput(ItemRegistrar.BEESWAX, 1f).build());
+    bootstrap.register(ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createIdentifier("honey")), CentrifugeRecipe.recipe(Items.HONEYCOMB).withOutput(ItemRegistrar.HONEY_DROP, 0.9f).withOutput(ItemRegistrar.BEESWAX, 1f).build());
     recipe(bootstrap, ItemRegistrar.COCOA_COMB, builder -> builder.withOutput(ItemRegistrar.BEESWAX, 1f).withOutput(Items.COCOA_BEANS, 0.5f));
     recipe(bootstrap, ItemRegistrar.DRIPPING_COMB, builder -> builder.withOutput(ItemRegistrar.HONEY_DROP, 0.4f).withOutput(ItemRegistrar.HONEY_DEW, 1f));
     recipe(bootstrap, ItemRegistrar.FROZEN_COMB, builder -> builder.withOutput(ItemRegistrar.BEESWAX, 0.8f).withOutput(Items.SNOWBALL, 0.4f).withOutput(ItemRegistrar.HONEY_DROP, 0.7f));

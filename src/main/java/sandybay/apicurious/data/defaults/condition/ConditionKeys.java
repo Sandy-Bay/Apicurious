@@ -13,6 +13,6 @@ public class ConditionKeys
 
   public static ResourceKey<ICondition> condition(String name)
   {
-    return ResourceKey.create(ApicuriousRegistries.CONDITIONS, Apicurious.createResourceLocation(name));
+    return ResourceKey.create(ApicuriousRegistries.CONDITIONS, Apicurious.createIdentifier(name));
   }
 }

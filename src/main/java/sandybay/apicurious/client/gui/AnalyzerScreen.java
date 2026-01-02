@@ -1,14 +1,16 @@
 package sandybay.apicurious.client.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix3x2f;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
@@ -16,10 +18,10 @@ import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.menu.AnalyzerMenu;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
-public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
+public class AnalyzerScreen extends AbstractContainerScreen<@NotNull AnalyzerMenu>
 {
 
-  public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/analyzer.png");
+  public static final Identifier SCREEN_LOCATION = Apicurious.createIdentifier("textures/gui/analyzer.png");
   private int currentPage;
   private PageButton forwardButton;
   private PageButton backButton;
@@ -67,7 +69,7 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
   @Override
   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY)
   {
-    pGuiGraphics.blit(SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, this.leftPos, this.topPos, 0f, 0f, this.imageWidth, this.imageHeight, 255, 255);
   }
 
   public void renderInformation(GuiGraphics graphics)
@@ -128,14 +130,12 @@ public class AnalyzerScreen extends AbstractContainerScreen<AnalyzerMenu>
     {princess = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.PRINCESS);}
     if (drone == null)
     {drone = BeeItem.getBeeWithSpecies(getMinecraft().level, species.getSpeciesKey(), ItemRegistrar.DRONE);}
-    PoseStack stack = graphics.pose();
-    stack.pushPose();
-    stack.scale(1.25f, 1.25f, 1.25f);
+    Matrix3x2f stack = graphics.pose();
+    stack.scale(1.25f, 1.25f);
     graphics.renderItem(queen, 255, -65);
     graphics.renderItem(princess, 255, -45);
     graphics.renderItem(drone, 255, -25);
-    stack.scale(0.75f, 0.75f, 0.75f);
-    stack.popPose();
+    stack.scale(0.75f, 0.75f);
   }
 
   protected void pageForward()

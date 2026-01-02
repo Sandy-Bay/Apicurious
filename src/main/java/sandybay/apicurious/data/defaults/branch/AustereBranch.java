@@ -29,8 +29,8 @@ public class AustereBranch
 
   public static void mutationsDefaults(BootstrapContext<IMutation> bootstrap)
   {
-    bootstrap.register(ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation("frugal_sinister")), mutation(bootstrap).withFirst(ApicuriousSpecies.MODEST.species()).withSecond(ApicuriousSpecies.SINISTER.species()).withChance(0.16f).withOutput(ApicuriousSpecies.FRUGAL.species()).build());
-    bootstrap.register(ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation("frugal_fiendish")), mutation(bootstrap).withFirst(ApicuriousSpecies.MODEST.species()).withSecond(ApicuriousSpecies.FIENDISH.species()).withChance(0.1f).withOutput(ApicuriousSpecies.FRUGAL.species()).build());
+    bootstrap.register(ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createIdentifier("frugal_sinister")), mutation(bootstrap).withFirst(ApicuriousSpecies.MODEST.species()).withSecond(ApicuriousSpecies.SINISTER.species()).withChance(0.16f).withOutput(ApicuriousSpecies.FRUGAL.species()).build());
+    bootstrap.register(ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createIdentifier("frugal_fiendish")), mutation(bootstrap).withFirst(ApicuriousSpecies.MODEST.species()).withSecond(ApicuriousSpecies.FIENDISH.species()).withChance(0.1f).withOutput(ApicuriousSpecies.FRUGAL.species()).build());
     bootstrap.register(ApicuriousSpecies.AUSTERE.mutation(), mutation(bootstrap).withFirst(ApicuriousSpecies.MODEST.species()).withSecond(ApicuriousSpecies.FRUGAL.species()).withChance(0.08f).withOutput(ApicuriousSpecies.AUSTERE.species()).build());
     bootstrap.register(ApicuriousSpecies.HAZARDOUS.mutation(), mutation(bootstrap).withFirst(ApicuriousSpecies.AUSTERE.species()).withSecond(ApicuriousSpecies.DESOLATE.species()).withChance(0.05f).withOutput(ApicuriousSpecies.HAZARDOUS.species()).build());
   }

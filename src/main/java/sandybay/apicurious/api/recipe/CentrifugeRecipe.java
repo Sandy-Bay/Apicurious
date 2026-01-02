@@ -30,7 +30,7 @@ public record CentrifugeRecipe(ItemStack input, int duration, List<CentrifugeOut
 
   public boolean matches(CentrifugeBE centrifuge)
   {
-    return ItemStack.isSameItem(centrifuge.getInventory().getStackInSlot(0), input);
+    return ItemStack.isSameItem(centrifuge.getInventory().getResource(0).toStack(), input);
   }
 
   public List<ItemStack> resolve(CentrifugeBE centrifuge)

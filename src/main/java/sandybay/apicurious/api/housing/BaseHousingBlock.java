@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.item.IFrameItem;
@@ -38,7 +39,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     this.basePollinationModifier = basePollinationModifier;
   }
 
-  public Set<BlockPos> getTerritory(ItemStack queen, BlockPos housingPosition, List<ItemStack> frames)
+  public Set<BlockPos> getTerritory(ItemResource queen, BlockPos housingPosition, List<ItemResource> frames)
   {
     Set<BlockPos> territory = new HashSet<>();
     if (!queen.has(DataComponentRegistrar.GENOME)) {return territory;}
@@ -48,7 +49,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     int xzOffset = area.getXZOffset();
     int yOffset = area.getYOffset();
 
-    for (ItemStack stack : frames)
+    for (ItemResource stack : frames)
     {
       if (stack.getItem() instanceof IFrameItem frame)
       {
@@ -72,7 +73,7 @@ public abstract class BaseHousingBlock extends Block implements EntityBlock
     return territory;
   }
 
-  public boolean shouldPollinate(RandomSource random, ItemStack queen)
+  public boolean shouldPollinate(RandomSource random, ItemResource queen)
   {
     if (!queen.has(DataComponentRegistrar.GENOME)) {return false;}
     Genome genome = queen.get(DataComponentRegistrar.GENOME);

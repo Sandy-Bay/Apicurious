@@ -13,14 +13,13 @@ import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 
 import java.util.List;
 
 public class GuiDataPacket implements CustomPacketPayload
 {
-  public static final Type<GuiDataPacket> TYPE = new Type<>(Apicurious.createResourceLocation("gui_data"));
+  public static final Type<GuiDataPacket> TYPE = new Type<>(Apicurious.createIdentifier("gui_data"));
 
   private final List<HousingError> errors;
 

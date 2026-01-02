@@ -26,31 +26,31 @@ public class Workcycle implements IAllele<Workcycle>
    * Matutinal (Dawn Time)
    * Bees will only produce between 4000 and 10000 time-wise.
    */
-  public static final ResourceKey<IAllele<?>> MATUTINAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("workcycle/matutinal"));
+  public static final ResourceKey<IAllele<?>> MATUTINAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/matutinal"));
 
   /**
    * Diurnal (Day Time)
    * Bees will only produce between 6000 and 18000 time-wise.
    */
-  public static final ResourceKey<IAllele<?>> DIURNAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("workcycle/diurnal"));
+  public static final ResourceKey<IAllele<?>> DIURNAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/diurnal"));
 
   /**
    * Vespertinal (Evening Time)
    * Bees will only produce between 14000 and 20000 time-wise.
    */
-  public static final ResourceKey<IAllele<?>> VESPERTINAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("workcycle/vespertinal"));
+  public static final ResourceKey<IAllele<?>> VESPERTINAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/vespertinal"));
 
   /**
    * Nocturnal (Night Time)
    * Bees will only produce between 18000 and 6000 time-wise.
    */
-  public static final ResourceKey<IAllele<?>> NOCTURNAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("workcycle/nocturnal"));
+  public static final ResourceKey<IAllele<?>> NOCTURNAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/nocturnal"));
 
   /**
    * Always active work cycle.
    * Bees will always produce an output.
    */
-  public static final ResourceKey<IAllele<?>> ALWAYS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("workcycle/always"));
+  public static final ResourceKey<IAllele<?>> ALWAYS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/always"));
 
   public static final MapCodec<Workcycle> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.list(Interval.CODEC).fieldOf("activeTimes").forGetter(Workcycle::getActiveTimes), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Workcycle::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Workcycle::getName)).apply(instance, Workcycle::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes, ByteBufCodecs.BOOL, Workcycle::isDominantTrait, ByteBufCodecs.STRING_UTF8, Workcycle::getName, Workcycle::new);

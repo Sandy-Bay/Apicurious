@@ -19,13 +19,13 @@ import java.util.Objects;
 public class Pollination implements IAllele<Pollination>
 {
 
-  public static final ResourceKey<IAllele<?>> SLOWEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/slowest"));
-  public static final ResourceKey<IAllele<?>> SLOWER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/slower"));
-  public static final ResourceKey<IAllele<?>> SLOW = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/slow"));
-  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/average"));
-  public static final ResourceKey<IAllele<?>> FAST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/fast"));
-  public static final ResourceKey<IAllele<?>> FASTER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/faster"));
-  public static final ResourceKey<IAllele<?>> FASTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("pollination/fastest"));
+  public static final ResourceKey<IAllele<?>> SLOWEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/slowest"));
+  public static final ResourceKey<IAllele<?>> SLOWER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/slower"));
+  public static final ResourceKey<IAllele<?>> SLOW = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/slow"));
+  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/average"));
+  public static final ResourceKey<IAllele<?>> FAST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/fast"));
+  public static final ResourceKey<IAllele<?>> FASTER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/faster"));
+  public static final ResourceKey<IAllele<?>> FASTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/fastest"));
 
   public static final MapCodec<Pollination> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.FLOAT.fieldOf("pollinationChance").forGetter(Pollination::getPollinationChance), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Pollination::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Pollination::getName)).apply(instance, Pollination::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, Pollination::getPollinationChance, ByteBufCodecs.BOOL, Pollination::isDominantTrait, ByteBufCodecs.STRING_UTF8, Pollination::getName, Pollination::new);

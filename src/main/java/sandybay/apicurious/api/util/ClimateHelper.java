@@ -6,6 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
@@ -29,7 +30,7 @@ public class ClimateHelper
     this.handler = handler;
   }
 
-  public boolean isCorrectTemperature(ItemStack bee, BlockPos pos)
+  public boolean isCorrectTemperature(ItemResource bee, BlockPos pos)
   {
     Genome genome = bee.get(DataComponentRegistrar.GENOME);
     if (genome == null) {return false;}
@@ -38,7 +39,7 @@ public class ClimateHelper
     return isCorrectTemperature(preferenceHolder, toleranceHolder, pos);
   }
 
-  public boolean isCorrectHumidity(ItemStack bee, BlockPos pos)
+  public boolean isCorrectHumidity(ItemResource bee, BlockPos pos)
   {
     Genome genome = bee.get(DataComponentRegistrar.GENOME);
     if (genome == null) {return false;}

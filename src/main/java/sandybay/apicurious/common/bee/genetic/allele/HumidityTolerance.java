@@ -19,12 +19,12 @@ import java.util.Objects;
 public class HumidityTolerance implements IAllele<HumidityTolerance>
 {
 
-  public static final ResourceKey<IAllele<?>> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/none"));
-  public static final ResourceKey<IAllele<?>> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/lowest"));
-  public static final ResourceKey<IAllele<?>> LOW_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/low"));
-  public static final ResourceKey<IAllele<?>> AVERAGE_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/average"));
-  public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/high"));
-  public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/tolerance/maximum"));
+  public static final ResourceKey<IAllele<?>> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/none"));
+  public static final ResourceKey<IAllele<?>> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/lowest"));
+  public static final ResourceKey<IAllele<?>> LOW_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/low"));
+  public static final ResourceKey<IAllele<?>> AVERAGE_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/average"));
+  public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/high"));
+  public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/maximum"));
 
   public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait), Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)).apply(instance, HumidityTolerance::new));
 

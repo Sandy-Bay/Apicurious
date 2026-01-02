@@ -19,15 +19,15 @@ import java.util.Objects;
 public class Lifespan implements IAllele<Lifespan>
 {
 
-  public static final ResourceKey<IAllele<?>> SHORTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shortest"));
-  public static final ResourceKey<IAllele<?>> SHORTER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shorter"));
-  public static final ResourceKey<IAllele<?>> SHORT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/short"));
-  public static final ResourceKey<IAllele<?>> SHORTENED = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/shortened"));
-  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/average"));
-  public static final ResourceKey<IAllele<?>> ELONGATED = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/elongated"));
-  public static final ResourceKey<IAllele<?>> LONG = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/long"));
-  public static final ResourceKey<IAllele<?>> LONGER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/longer"));
-  public static final ResourceKey<IAllele<?>> LONGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("lifespan/longest"));
+  public static final ResourceKey<IAllele<?>> SHORTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/shortest"));
+  public static final ResourceKey<IAllele<?>> SHORTER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/shorter"));
+  public static final ResourceKey<IAllele<?>> SHORT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/short"));
+  public static final ResourceKey<IAllele<?>> SHORTENED = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/shortened"));
+  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/average"));
+  public static final ResourceKey<IAllele<?>> ELONGATED = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/elongated"));
+  public static final ResourceKey<IAllele<?>> LONG = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/long"));
+  public static final ResourceKey<IAllele<?>> LONGER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/longer"));
+  public static final ResourceKey<IAllele<?>> LONGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/longest"));
 
   public static final MapCodec<Lifespan> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("cycles").forGetter(Lifespan::getCycles), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Lifespan::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Lifespan::getName)).apply(instance, Lifespan::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Lifespan::getCycles, ByteBufCodecs.BOOL, Lifespan::isDominantTrait, ByteBufCodecs.STRING_UTF8, Lifespan::getName, Lifespan::new);

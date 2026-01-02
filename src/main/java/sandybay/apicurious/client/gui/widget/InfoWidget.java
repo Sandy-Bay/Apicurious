@@ -1,12 +1,16 @@
 package sandybay.apicurious.client.gui.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 
@@ -14,7 +18,7 @@ import java.util.List;
 
 public class InfoWidget extends AbstractWidget
 {
-  public static final ResourceLocation SCREEN_LOCATION = Apicurious.createResourceLocation("textures/gui/info.png");
+  public static final Identifier SCREEN_LOCATION = Apicurious.createIdentifier("textures/gui/info.png");
   private static final float msPerUpdate = 16.667f;
   private final int closedSizeWidth;
   private final int closedSizeHeight;
@@ -24,13 +28,13 @@ public class InfoWidget extends AbstractWidget
   private final float red;
   private final float green;
   private final float blue;
-  private final ResourceLocation icon;
+  private final Identifier icon;
   private final List<Component> info;
   private final int defaultX;
   private boolean isOpen;
   private long lastUpdateTime = 0;
 
-  public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft, float red, float green, float blue, ResourceLocation icon, List<Component> info)
+  public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft, float red, float green, float blue, Identifier icon, List<Component> info)
   {
     super(pX, pY, pWidth, pHeight, Component.empty());
     this.closedSizeWidth = pWidth;
@@ -48,10 +52,10 @@ public class InfoWidget extends AbstractWidget
   }
 
   @Override
-  public void onClick(double mouseX, double mouseY, int button)
+  public void onClick(MouseButtonEvent event, boolean isDoubleClick)
   {
     isOpen = !isOpen;
-    super.onClick(mouseX, mouseY, button);
+    super.onClick(event, isDoubleClick);
   }
 
   private void update()
@@ -108,46 +112,35 @@ public class InfoWidget extends AbstractWidget
     }
   }
 
-  private void renderBackground(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick)
+  private void renderBackground(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick)
   {
     update();
 
-    pGuiGraphics.setColor(red, green, blue, this.alpha);
+    // top edge
+    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, getX(), getY() + 4, 0, 256 - height + 4, 4, height - 4, 256, 256, ARGB.color((int) this.alpha, (int) red, (int) green, (int) blue));
+    // top left corner
+    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, getX(), getY(), 0, 0, 4, 4, 256, 256, ARGB.color((int) this.alpha, (int) red, (int) green, (int) blue));
+    // body + bottom + right
+    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, getX() + 4, getY() + 4, 256 - width + 4, 256 - height + 4, width - 4, height - 4, 256, 256, ARGB.color((int) this.alpha, (int) red, (int) green, (int) blue));
 
-
-    pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY() + 4, 0, 256 - height + 4, 4, height - 4); // left edge
-    pGuiGraphics.blit(SCREEN_LOCATION, getX() + 4, getY(), 256 - width + 4, 0, width - 4, 4); // top edge
-    pGuiGraphics.blit(SCREEN_LOCATION, getX(), getY(), 0, 0, 4, 4); // top left corner
-
-    pGuiGraphics.blit(SCREEN_LOCATION, getX() + 4, getY() + 4, 256 - width + 4, 256 - height + 4, width - 4, height - 4); // body + bottom + right
-
-    pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-
-    pGuiGraphics.blit(icon, getX() + 4, getY() + 4, 0, 0, 16, 16, 16, 16);
+    graphics.blit(icon, getX() + 4, getY() + 4, 0, 0, 16, 16, 16, 16);
   }
 
   @Override
-  public void renderWidget(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick)
+  public void renderWidget(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick)
   {
-    RenderSystem.enableBlend();
-    RenderSystem.enableDepthTest();
-
-    renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+    renderBackground(graphics, pMouseX, pMouseY, pPartialTick);
 
     if (isOpen)
     {
       int xOffset = 22;
       int yOffset = 8;
-      pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
-
       for (Component component : info)
       {
-        pGuiGraphics.drawString(Minecraft.getInstance().font, component, getX() + xOffset, getY() + 5 + yOffset, -1, false);
+        graphics.drawString(Minecraft.getInstance().font, component, getX() + xOffset, getY() + 5 + yOffset, -1, false);
         yOffset += 10;
       }
     }
-    pGuiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
   }
 
 

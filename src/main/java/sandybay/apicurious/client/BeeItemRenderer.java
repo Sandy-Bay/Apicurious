@@ -47,21 +47,21 @@ public class BeeItemRenderer extends BlockEntityWithoutLevelRenderer
       {
         case EnumBeeType.DRONE ->
         {
-          fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_drone"));
+          fallback = ModelResourceLocation.standalone(Apicurious.createIdentifier("item/species/default_drone"));
           if (species == null) {return;}
-          mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_drone"));
+          mrl = ModelResourceLocation.standalone(Apicurious.createIdentifier("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_drone"));
         }
         case EnumBeeType.PRINCESS ->
         {
-          fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_princess"));
+          fallback = ModelResourceLocation.standalone(Apicurious.createIdentifier("item/species/default_princess"));
           if (species == null) {return;}
-          mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_princess"));
+          mrl = ModelResourceLocation.standalone(Apicurious.createIdentifier("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_princess"));
         }
         case EnumBeeType.QUEEN ->
         {
-          fallback = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/default_queen"));
+          fallback = ModelResourceLocation.standalone(Apicurious.createIdentifier("item/species/default_queen"));
           if (species == null) {return;}
-          mrl = ModelResourceLocation.standalone(Apicurious.createResourceLocation("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_queen"));
+          mrl = ModelResourceLocation.standalone(Apicurious.createIdentifier("item/species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_queen"));
         }
         default ->
         {

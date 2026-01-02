@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,8 +22,9 @@ import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.items.ComponentItemHandler;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -89,15 +90,15 @@ public class Apicurious
     PacketHandler.init(bus);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
-    if (FMLLoader.getDist() == Dist.CLIENT)
+    if (FMLLoader.getCurrent().getDist() == Dist.CLIENT)
     {
       ApicuriousClientEvents.registerClientEvents(bus);
     }
   }
 
-  public static ResourceLocation createResourceLocation(String path)
+  public static Identifier createIdentifier(String path)
   {
-    return ResourceLocation.tryBuild(MODID, path);
+    return Identifier.tryBuild(MODID, path);
   }
 
   private void loadEmptySpecies(final EntityJoinLevelEvent event)
@@ -107,14 +108,14 @@ public class Apicurious
       Level level = event.getLevel();
       if (level instanceof ServerLevel serverLevel)
       {
-        serverLevel.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.UNDEFINED.species()));
+        serverLevel.registryAccess().get(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.getData(ApicuriousSpecies.UNDEFINED.species()));
       }
       else if (level instanceof ClientLevel)
       {
         ClientPacketListener connection = Minecraft.getInstance().getConnection();
         if (connection != null)
         {
-          connection.registryAccess().registry(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.UNDEFINED.species()));
+          connection.registryAccess().get(ApicuriousRegistries.ALLELES).ifPresent(registry -> BeeItem.EMPTY_SPECIES = (BeeSpecies) registry.get(ApicuriousSpecies.UNDEFINED.species()));
         }
       }
     }
@@ -122,10 +123,11 @@ public class Apicurious
 
   private void registerCapabilities(RegisterCapabilitiesEvent event)
   {
-    event.registerItem(Capabilities.ItemHandler.ITEM, new ICapabilityProvider<>()
+    event.registerItem(Capabilities.Item.ITEM, new ICapabilityProvider<>()
     {
+
       @Override
-      public @Nullable IItemHandler getCapability(ItemStack stack, Void context)
+      public @Nullable ResourceHandler<ItemResource> getCapability(ItemStack stack, ItemAccess itemAccess)
       {
         return new ComponentItemHandler(stack, DataComponents.CONTAINER, 2);
       }

@@ -1,8 +1,8 @@
 package sandybay.apicurious.common.loot;
 
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -50,7 +50,7 @@ public class ApicuriousLootEvents
   @SubscribeEvent
   public static void onLootTableLoad(LootTableLoadEvent event)
   {
-    ResourceLocation name = event.getName();
+    Identifier name = event.getName();
     if ("minecraft".equals(name.getNamespace()))
     {
       switch (name.getPath())

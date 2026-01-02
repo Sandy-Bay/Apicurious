@@ -21,30 +21,30 @@ public class ApicuriousRegistries
 {
 
   // Allele Registries
-  public static final ResourceKey<Registry<AlleleType<?>>> ALLELE_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("allele_type"));
+  public static final ResourceKey<Registry<AlleleType<?>>> ALLELE_TYPES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("allele_type"));
   public static final Registry<AlleleType<?>> ALLELE_TYPE_REGISTRY = new RegistryBuilder<>(ALLELE_TYPES).sync(true).create();
-  public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("alleles"));
+  public static final ResourceKey<Registry<IAllele<?>>> ALLELES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("alleles"));
 
   // Mutation
-  public static final ResourceKey<Registry<MutationType>> MUTATION_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutation_types"));
+  public static final ResourceKey<Registry<MutationType>> MUTATION_TYPES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("mutation_types"));
   public static final Registry<MutationType> MUTATION_TYPE_REGISTRY = new RegistryBuilder<>(MUTATION_TYPES).sync(true).create();
-  public static final ResourceKey<Registry<IMutation>> MUTATIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("mutations"));
+  public static final ResourceKey<Registry<IMutation>> MUTATIONS = ResourceKey.createRegistryKey(Apicurious.createIdentifier("mutations"));
 
   // Conditions
-  public static final ResourceKey<Registry<ConditionType>> CONDITION_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("condition_types"));
+  public static final ResourceKey<Registry<ConditionType>> CONDITION_TYPES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("condition_types"));
   public static final Registry<ConditionType> CONDITION_TYPE_REGISTRY = new RegistryBuilder<>(CONDITION_TYPES).sync(true).create();
-  public static final ResourceKey<Registry<ICondition>> CONDITIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("conditions"));
+  public static final ResourceKey<Registry<ICondition>> CONDITIONS = ResourceKey.createRegistryKey(Apicurious.createIdentifier("conditions"));
 
   // Functions
-  public static final ResourceKey<Registry<FunctionType>> FUNCTION_TYPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("function_types"));
+  public static final ResourceKey<Registry<FunctionType>> FUNCTION_TYPES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("function_types"));
   public static final Registry<FunctionType> FUNCTION_TYPE_REGISTRY = new RegistryBuilder<>(FUNCTION_TYPES).sync(true).create();
-  public static final ResourceKey<Registry<IFunction>> FUNCTIONS = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("functions"));
+  public static final ResourceKey<Registry<IFunction>> FUNCTIONS = ResourceKey.createRegistryKey(Apicurious.createIdentifier("functions"));
 
   // OutputTables
-  public static final ResourceKey<Registry<OutputTable>> OUTPUT_TABLES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("output_tables"));
+  public static final ResourceKey<Registry<OutputTable>> OUTPUT_TABLES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("output_tables"));
 
   // CentrifugeRecipes
-  public static final ResourceKey<Registry<CentrifugeRecipe>> CENTRIFUGE_RECIPES = ResourceKey.createRegistryKey(Apicurious.createResourceLocation("recipes/centrifuge"));
+  public static final ResourceKey<Registry<CentrifugeRecipe>> CENTRIFUGE_RECIPES = ResourceKey.createRegistryKey(Apicurious.createIdentifier("recipes/centrifuge"));
 
   public static void registerRegistries(final NewRegistryEvent event)
   {

@@ -25,11 +25,11 @@ import java.util.Objects;
 public class HumidityPreference implements IAllele<HumidityPreference>
 {
 
-  public static final ResourceKey<IAllele<?>> HELLISH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/preference/hellish"));
-  public static final ResourceKey<IAllele<?>> ARID = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/preference/arid"));
-  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/preference/average"));
-  public static final ResourceKey<IAllele<?>> DAMP = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/preference/damp"));
-  public static final ResourceKey<IAllele<?>> AQUATIC = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("humidity/preference/aquatic"));
+  public static final ResourceKey<IAllele<?>> HELLISH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/preference/hellish"));
+  public static final ResourceKey<IAllele<?>> ARID = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/preference/arid"));
+  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/preference/average"));
+  public static final ResourceKey<IAllele<?>> DAMP = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/preference/damp"));
+  public static final ResourceKey<IAllele<?>> AQUATIC = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/preference/aquatic"));
 
 
   public static final MapCodec<HumidityPreference> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("humidity").forGetter(HumidityPreference::getHumidity), TagKey.codec(Registries.BIOME).fieldOf("groupTag").forGetter(HumidityPreference::getGroupTag), Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityPreference::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(HumidityPreference::getName)).apply(instance, HumidityPreference::new));

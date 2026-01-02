@@ -14,7 +14,6 @@ public interface ITicker
    * @param level     The level of the BlockEntity, this can be null.
    * @param pos       The position of the BlockEntity in the world.
    * @param state     The state of the BlockState of the Block holding the BlockEntity.
-   * @param housingBE The BlockEntity itself.
    */
   void serverTick(Level level, BlockPos pos, BlockState state);
 
@@ -25,7 +24,6 @@ public interface ITicker
    * @param level     The level of the BlockEntity.
    * @param pos       The position of the BlockEntity in the world.
    * @param state     The state of the BlockState of the Block holding the BlockEntity.
-   * @param housingBE The BlockEntity itself.
    */
   void clientTick(Level level, BlockPos pos, BlockState state);
 }

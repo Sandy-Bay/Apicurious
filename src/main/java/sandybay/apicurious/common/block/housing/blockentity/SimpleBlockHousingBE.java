@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -15,6 +16,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
@@ -24,7 +28,7 @@ import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
 import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
-import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
+import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStacksResourceHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -53,7 +57,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public final HousingValidation validation;
   // Server-sided Data
-  private final ConfigurableItemStackHandler inventory;
+  private final ConfigurableItemStacksResourceHandler inventory;
   private final List<HousingError> errorList = new ArrayList<>();
   public Set<BlockPos> territory;
   public boolean isActive = false;
@@ -91,7 +95,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
     super(type, pos, state);
-    this.inventory = new ConfigurableItemStackHandler(12).setInputFilter((stack, slot) ->
+    this.inventory = new ConfigurableItemStacksResourceHandler(12).setInputFilter((stack, slot) ->
     {
       if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
       {return true;}
@@ -126,11 +130,11 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
           this.currentWork--;
           if (this.currentWork == 0)
           {
-            ItemStack princess = getInventory().getStackInSlot(0);
-            ItemStack drone = getInventory().getStackInSlot(1);
+            ItemResource princess = getInventory().getResource(0);
+            ItemResource drone = getInventory().getResource(1);
             Genome princessGenome = princess.get(DataComponentRegistrar.GENOME);
             Genome droneGenome = drone.get(DataComponentRegistrar.GENOME);
-            ItemStack queen = new ItemStack(ItemRegistrar.QUEEN);
+            ItemResource queen = ItemResource.of(ItemRegistrar.QUEEN);
             if (princessGenome != null && droneGenome != null)
             {
               Genome queenGenome;
@@ -144,10 +148,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
                 BeeSpecies mutatedSpecies = (BeeSpecies) mutation.getOutput().value();
                 queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
               }
-              queen.set(DataComponentRegistrar.GENOME, queenGenome);
-              getInventory().extractItem(0, 1, false);
-              getInventory().extractItem(1, 1, false);
-              getInventory().setStackInSlot(0, queen);
+              queen.with(DataComponentRegistrar.GENOME, queenGenome);
+              getInventory().extract(0, princess, 1, false);
+              getInventory().extract(1, drone, 1, false);
+              getInventory().set(0, queen, 1);
               changeActiveState(state, true);
               this.maxWork = 0;
               if (ApicuriousMainConfig.main_config.debug.get())
@@ -164,7 +168,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     else
     {
       validate(level, pos, false);
-      ItemStack stack = getInventory().getStackInSlot(0);
+      ItemResource stack = getInventory().getResource(0);
       if (stack.has(DataComponentRegistrar.GENOME))
       {
         Genome genome = stack.get(DataComponentRegistrar.GENOME);
@@ -206,9 +210,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     {
       for (int i = 2; i < 5; i++)
       {
-        ItemStack frame = getInventory().getStackInSlot(i);
-        frame.hurtAndBreak(1, level, null, item ->
-        {});
+        ItemResource frame = getInventory().getResource(i);
+        frame.toStack().hurtAndBreak(1, level, null, item -> {});
       }
     }
   }
@@ -223,32 +226,52 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   }
 
   @Override
-  public void saveData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave)
+  public void saveSyncData(CompoundTag tag, HolderLookup.Provider registries)
   {
     CompoundTag apiaryData = new CompoundTag();
     apiaryData.putBoolean("isActive", isActive);
-    if (clientOnly)
-    {
-      tag.putBoolean("shouldRenderParticles", shouldRenderParticles);
-    }
-    else
-    {
-      if (alwaysSave || inventory.hasChanged()) {apiaryData.put("inventory", inventory.serializeNBT(registries));}
-    }
     tag.put("apiary_data", apiaryData);
   }
 
   @Override
-  public void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave)
+  public void saveUpdateData(CompoundTag tag, HolderLookup.Provider registries)
   {
-    CompoundTag apiaryData = tag.getCompound("apiary_data");
-    if (apiaryData.contains("shouldRenderParticles"))
-    {shouldRenderParticles = apiaryData.getBoolean("shouldRenderParticles");}
-    this.isActive = apiaryData.getBoolean("isActive");
-    if (apiaryData.contains("inventory")) {inventory.deserializeNBT(registries, apiaryData.getCompound("inventory"));}
+    CompoundTag apiaryData = new CompoundTag();
+    apiaryData.putBoolean("isActive", isActive);
+    tag.put("apiary_data", apiaryData);
   }
 
-  public ConfigurableItemStackHandler getInventory()
+  @Override
+  public void saveWorldData(ValueOutput output)
+  {
+    inventory.serialize(output);
+  }
+
+  @Override
+  public void readSyncData(ValueInput input)
+  {
+    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
+    this.isActive = input.getBooleanOr("isActive", false);
+    inventory.deserialize(input);
+  }
+
+  @Override
+  public void readUpdateData(Connection net, ValueInput input)
+  {
+    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
+    this.isActive = input.getBooleanOr("isActive", false);
+    inventory.deserialize(input);
+  }
+
+  @Override
+  public void readWorldData(ValueInput input)
+  {
+    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
+    this.isActive = input.getBooleanOr("isActive", false);
+    inventory.deserialize(input);
+  }
+
+  public ConfigurableItemStacksResourceHandler getInventory()
   {
     return inventory;
   }
@@ -263,15 +286,15 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   }
 
 
-  protected boolean canOutputSuccessfully(ItemStack output)
+  protected boolean canOutputSuccessfully(ItemResource output)
   {
     boolean canOutput = false;
-    ItemStack out = output.copy();
+    ItemStack out;
     for (int i = 5; i < 12; i++)
     {
-      if (inventory.insertItem(i, out.copy(), true) != out)
+      if (inventory.insert(i, output, output.toStack().getCount(), true) != out)
       {
-        out = inventory.insertItem(i, out.copy(), true);
+        out = inventory.insert(i, output.toStack().getCount(), true);
         if (out.isEmpty())
         {
           canOutput = true;
@@ -285,13 +308,13 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    Genome genome = inventory.getStackInSlot(0).get(DataComponentRegistrar.GENOME);
+    Genome genome = inventory.getResource(0).get(DataComponentRegistrar.GENOME);
     if (genome == null) {return 0;}
     Speed speed = (Speed) genome.getSpeed(true).value();
     int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
     for (int i = 2; i < 5; i++)
     {
-      ItemStack stack = inventory.getStackInSlot(i);
+      ItemResource stack = inventory.getResource(i);
       if (stack.isEmpty()) {continue;}
       if (stack.getItem() instanceof IFrameItem frame)
       {
@@ -308,7 +331,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     int lifespan = ApicuriousMainConfig.main_config.baseCycleTime.get() * lifespanHolder.getCycles();
     for (int i = 2; i < 5; i++)
     {
-      ItemStack stack = inventory.getStackInSlot(i);
+      ItemResource stack = inventory.getResource(i);
       if (stack.getItem() instanceof IFrameItem frame)
       {
         lifespan = Math.round(lifespan * frame.getLifespanModifier());
@@ -348,11 +371,11 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
     else
     {
-      ItemStack queen = inventory.getStackInSlot(0);
+      ItemResource queen = inventory.getResource(0);
       BlockState state = level.getBlockState(pos);
       if (state.getBlock() instanceof ApiaryBlock apiary)
       {
-        List<ItemStack> frames = List.of(getInventory().getStackInSlot(2), getInventory().getStackInSlot(3), getInventory().getStackInSlot(4));
+        List<ItemResource> frames = List.of(getInventory().getResource(2), getInventory().getResource(3), getInventory().getResource(4));
         if (this.territory == null) {this.territory = apiary.getTerritory(queen, pos, frames);}
         validation.validate(queen, level, pos, this.territory);
       }
@@ -361,8 +384,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public void hasPrincessAndDrone()
   {
-    boolean hasPrincess = inventory.getStackInSlot(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
-    boolean hasDrone = inventory.getStackInSlot(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
+    boolean hasPrincess = inventory.getResource(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
+    boolean hasDrone = inventory.getResource(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
     if (!hasPrincess) {addError(HousingError.MISSING_PRINCESS);}
     else {errorList.remove(HousingError.MISSING_PRINCESS);}
     if (!hasDrone) {addError(HousingError.MISSING_DRONE);}
@@ -377,10 +400,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
   }
 
-  private void handlePollination(Level level, BaseHousingBlock housing, ItemStack stack)
+  private void handlePollination(Level level, BaseHousingBlock housing, ItemResource stack)
   {
     if (territory == null)
-    {territory = housing.getTerritory(getInventory().getStackInSlot(0), getBlockPos(), SimpleBlockHousingHelper.getFrames(this));}
+    {territory = housing.getTerritory(getInventory().getResource(0), getBlockPos(), SimpleBlockHousingHelper.getFrames(this));}
     if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getPollinationRate() == 0 && housing.shouldPollinate(level.getRandom(), stack))
     {
       Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT) && level.getBlockState(filteredPos.above()).isAir() && level.random.nextFloat() < 0.15f, 2);
@@ -388,7 +411,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       if (!stack.has(DataComponentRegistrar.GENOME)) {return;}
       Genome genome = stack.get(DataComponentRegistrar.GENOME);
       if (genome == null) {return;}
-      Registry<Block> blockRegistry = level.registryAccess().registry(Registries.BLOCK).orElseThrow();
+      Registry<Block> blockRegistry = level.registryAccess().get(Registries.BLOCK).orElseThrow().value();
       for (BlockPos f : found)
       {
         Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.random);
@@ -404,13 +427,13 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().generate(this);
       for (ItemStack output : outputs)
       {
-        if (!canOutputSuccessfully(output)) {return false;}
-        ItemStack out = output;
+        if (!canOutputSuccessfully(ItemResource.of(output))) {return false;}
+        ItemStack out = output.copy();
         for (int i = 5; i < 12; i++)
         {
-          if (getInventory().insertItem(i, out.copy(), true) != out)
+          if (getInventory().insert(i, ItemResource.of(out.copy()), out.getCount(), true) != out)
           {
-            out = getInventory().insertItem(i, out.copy(), false);
+            out = getInventory().insert(i, ItemResource.of(out.copy()), out.getCount(), false);
             if (out.isEmpty())
             {
               break;
@@ -433,7 +456,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   private void handleQueenLifecycleEnd(Genome genome)
   {
-    getInventory().extractItem(0, 1, false);
+    getInventory().extract(0, inventory.getResource(0), 1, false);
     ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.get(), getLevel().getRandom().nextDouble() < getAdditionalPrincessChance() ? 2 : 1);
     Fertility fertility = (Fertility) genome.getFertility(true).value();
     ItemStack drones = new ItemStack(ItemRegistrar.DRONE.get(), fertility.getOffspring());
@@ -441,17 +464,17 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     drones.set(DataComponentRegistrar.GENOME, genome);
     for (int i = 5; i < 12; i++)
     {
-      if (getInventory().insertItem(i, princess, true) != princess)
+      if (getInventory().insert(i, ItemResource.of(princess), princess.getCount(), true) != princess)
       {
-        getInventory().insertItem(i, princess, false);
+        getInventory().insert(i, ItemResource.of(princess), princess.getCount(), false);
         break;
       }
     }
     for (int i = 5; i < 12; i++)
     {
-      if (getInventory().insertItem(i, drones, true) != drones)
+      if (getInventory().insert(i, ItemResource.of(drones), drones.getCount(), true) != drones)
       {
-        getInventory().insertItem(i, drones, false);
+        getInventory().insert(i, ItemResource.of(drones), drones.getCount(), false);
         break;
       }
     }
@@ -460,8 +483,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   private float getAdditionalPrincessChance()
   {
     float chance = 0.05f;
-    List<ItemStack> frames = SimpleBlockHousingHelper.getFrames(this);
-    for (ItemStack frame : frames)
+    List<ItemResource> frames = SimpleBlockHousingHelper.getFrames(this);
+    for (ItemResource frame : frames)
     {
       FrameItem frameItem = (FrameItem) frame.getItem();
       chance *= frameItem.getAdditionalPrincessModifier();
@@ -473,8 +496,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     Level level = getLevel();
     if (level == null) {return null;}
-    IGenome first = getInventory().getStackInSlot(0).get(DataComponentRegistrar.GENOME);
-    IGenome second = getInventory().getStackInSlot(1).get(DataComponentRegistrar.GENOME);
+    IGenome first = getInventory().getResource(0).get(DataComponentRegistrar.GENOME);
+    IGenome second = getInventory().getResource(1).get(DataComponentRegistrar.GENOME);
     Optional<Registry<IMutation>> mutationRegistry = level.registryAccess().registry(ApicuriousRegistries.MUTATIONS);
     if (mutationRegistry.isPresent() && first != null && second != null)
     {

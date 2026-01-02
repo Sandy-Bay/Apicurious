@@ -49,7 +49,7 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
   public IDrawable getBackground()
   {
     return iGuiHelper
-            .drawableBuilder(Apicurious.createResourceLocation("textures/gui/jei/bee_mutation.png"), 0, 0, 116, 18)
+            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_mutation.png"), 0, 0, 116, 18)
             .setTextureSize(116, 18)
             .build();
   }

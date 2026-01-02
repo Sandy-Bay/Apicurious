@@ -44,7 +44,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   public @NotNull IDrawable getBackground()
   {
     return iGuiHelper
-            .drawableBuilder(Apicurious.createResourceLocation("textures/gui/jei/bee_output.png"), 0, 0, 90, 96)
+            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_output.png"), 0, 0, 90, 96)
             .setTextureSize(90, 96)
             .build();
   }

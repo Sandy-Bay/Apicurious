@@ -11,6 +11,8 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.ITicker;
 
@@ -24,18 +26,19 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
   }
 
   // World Save / Read Methods
+
   @Override
-  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries)
+  protected void saveAdditional(ValueOutput output)
   {
-    super.saveAdditional(tag, registries);
-    saveData(tag, registries, false, true);
+    super.saveAdditional(output);
+    saveWorldData(output); //false, true
   }
 
   @Override
-  protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries)
+  protected void loadAdditional(ValueInput input)
   {
-    super.loadAdditional(tag, registries);
-    readData(tag, registries, false, true);
+    super.loadAdditional(input);
+    readWorldData(input);
   }
 
   // Data Syncing Methods
@@ -43,15 +46,15 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
   public CompoundTag getUpdateTag(HolderLookup.Provider registries)
   {
     CompoundTag tag = super.getUpdateTag(registries);
-    saveData(tag, registries, true, true);
+    saveSyncData(tag, registries); // false, false
     return tag;
   }
 
   @Override
-  public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries)
+  public void handleUpdateTag(ValueInput input)
   {
-    super.handleUpdateTag(tag, registries);
-    readData(tag, registries, true, true);
+    super.handleUpdateTag(input);
+    readSyncData(input); // true, true
   }
 
   // Data Update Methods
@@ -62,19 +65,24 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
     return ClientboundBlockEntityDataPacket.create(this, (be, reg) ->
     {
       CompoundTag tag = new CompoundTag();
-      saveData(tag, reg, false, false);
+      saveUpdateData(tag, reg);
       return tag;
     });
   }
 
   @Override
-  public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries)
+  public void onDataPacket(Connection net, ValueInput valueInput)
   {
-    readData(pkt.getTag(), registries, false, false);
+    super.onDataPacket(net, valueInput);
+    readUpdateData(net, valueInput); // false, false
   }
 
   // Utility Methods
-  public abstract void saveData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave);
+  public abstract void saveWorldData(ValueOutput output);
+  public abstract void readWorldData(ValueInput input);
+  public abstract void saveSyncData(CompoundTag tag, HolderLookup.Provider registries);
+  public abstract void readSyncData(ValueInput input);
+  public abstract void saveUpdateData(CompoundTag tag, HolderLookup.Provider registries);
+  public abstract void readUpdateData(Connection net, ValueInput output);
 
-  public abstract void readData(CompoundTag tag, HolderLookup.Provider registries, boolean clientOnly, boolean alwaysSave);
 }

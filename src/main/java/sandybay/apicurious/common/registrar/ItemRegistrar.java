@@ -200,7 +200,7 @@ public class ItemRegistrar
   {
     DeferredHolder<Item, CombItem> comb = ITEMS.register(type + "_comb", () -> new CombItem(new Item.Properties(), outline, cells));
     COMBS.add(comb);
-    return new CombHolder(comb, ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createResourceLocation(type)));
+    return new CombHolder(comb, ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createIdentifier(type)));
   }
 
   public static DeferredHolder<Item, Item> item(String name)

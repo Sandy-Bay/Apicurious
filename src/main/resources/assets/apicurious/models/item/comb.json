@@ -3,5 +3,14 @@
   "textures": {
     "layer0": "apicurious:item/comb_outline",
     "layer1": "apicurious:item/comb_cells"
-  }
+  },
+  "tints": [
+    {
+      "type": "apicurious:bee_comb_item_tinter",
+      "isOutline": true
+    },
+    {
+      "type": "apicurious:bee_comb_item_tinter"
+    }
+  ]
 }

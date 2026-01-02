@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -82,7 +82,7 @@ public class BeeItem extends Item implements IBeeItem
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
+  public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand)
   {
     pPlayer.getItemInHand(pUsedHand).set(DataComponentRegistrar.IDENTIFIED, true);
     return super.use(pLevel, pPlayer, pUsedHand);

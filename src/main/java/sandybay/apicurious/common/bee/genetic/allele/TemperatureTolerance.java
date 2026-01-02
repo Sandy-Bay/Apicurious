@@ -19,12 +19,12 @@ import java.util.Objects;
 public class TemperatureTolerance implements IAllele<TemperatureTolerance>
 {
 
-  public static final ResourceKey<IAllele<?>> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/none"));
-  public static final ResourceKey<IAllele<?>> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/lowest"));
-  public static final ResourceKey<IAllele<?>> LOW_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/low"));
-  public static final ResourceKey<IAllele<?>> AVERAGE_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/average"));
-  public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/high"));
-  public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("temperature/tolerance/maximum"));
+  public static final ResourceKey<IAllele<?>> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/none"));
+  public static final ResourceKey<IAllele<?>> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/lowest"));
+  public static final ResourceKey<IAllele<?>> LOW_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/low"));
+  public static final ResourceKey<IAllele<?>> AVERAGE_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/average"));
+  public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/high"));
+  public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/maximum"));
 
 
   public static final MapCodec<TemperatureTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("toleranceModifier").forGetter(TemperatureTolerance::getToleranceModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(TemperatureTolerance::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(TemperatureTolerance::getName)).apply(instance, TemperatureTolerance::new));

@@ -19,10 +19,10 @@ import java.util.Objects;
 public class Fertility implements IAllele<Fertility>
 {
 
-  public static final ResourceKey<IAllele<?>> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("fertility/low"));
-  public static final ResourceKey<IAllele<?>> AVERAGE_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("fertility/average"));
-  public static final ResourceKey<IAllele<?>> HIGH_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("fertility/high"));
-  public static final ResourceKey<IAllele<?>> MAXIMUM_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("fertility/maximum"));
+  public static final ResourceKey<IAllele<?>> LOW_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("fertility/low"));
+  public static final ResourceKey<IAllele<?>> AVERAGE_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("fertility/average"));
+  public static final ResourceKey<IAllele<?>> HIGH_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("fertility/high"));
+  public static final ResourceKey<IAllele<?>> MAXIMUM_FERTILITY = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("fertility/maximum"));
 
   public static final MapCodec<Fertility> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("offspring").forGetter(Fertility::getOffspring), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Fertility::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Fertility::getName)).apply(instance, Fertility::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, Fertility> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Fertility::getOffspring, ByteBufCodecs.BOOL, Fertility::isDominantTrait, ByteBufCodecs.STRING_UTF8, Fertility::getName, Fertility::new);

@@ -18,13 +18,13 @@ import java.util.Objects;
 
 public class Area implements IAllele<Area>
 {
-  public static final ResourceKey<IAllele<?>> SMALLEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/smallest"));
-  public static final ResourceKey<IAllele<?>> SMALLER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/smaller"));
-  public static final ResourceKey<IAllele<?>> SMALL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/small"));
-  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/average"));
-  public static final ResourceKey<IAllele<?>> LARGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/large"));
-  public static final ResourceKey<IAllele<?>> LARGER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/larger"));
-  public static final ResourceKey<IAllele<?>> LARGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("area/largest"));
+  public static final ResourceKey<IAllele<?>> SMALLEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/smallest"));
+  public static final ResourceKey<IAllele<?>> SMALLER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/smaller"));
+  public static final ResourceKey<IAllele<?>> SMALL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/small"));
+  public static final ResourceKey<IAllele<?>> AVERAGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/average"));
+  public static final ResourceKey<IAllele<?>> LARGE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/large"));
+  public static final ResourceKey<IAllele<?>> LARGER = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/larger"));
+  public static final ResourceKey<IAllele<?>> LARGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/largest"));
 
 
   public static final MapCodec<Area> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("xzOffset").forGetter(Area::getXZOffset), Codec.INT.fieldOf("yOffset").forGetter(Area::getYOffset), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Area::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Area::getName)).apply(instance, Area::new));

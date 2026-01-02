@@ -22,20 +22,20 @@ import java.util.Objects;
 public class Flowers implements IAllele<Flowers>
 {
 
-  public static final ResourceKey<IAllele<?>> FLOWERS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/normal_flowers"));
-  public static final ResourceKey<IAllele<?>> CACTI = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/cacti"));
-  public static final ResourceKey<IAllele<?>> JUNGLE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/jungle"));
-  public static final ResourceKey<IAllele<?>> SNOW = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/snow"));
-  public static final ResourceKey<IAllele<?>> MUSHROOM = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/mushroom"));
-  public static final ResourceKey<IAllele<?>> WHEAT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/wheat"));
-  public static final ResourceKey<IAllele<?>> LILY_PAD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/lily_pad"));
-  public static final ResourceKey<IAllele<?>> STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/overworld_stone"));
-  public static final ResourceKey<IAllele<?>> NETHER_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/nether_stone"));
-  public static final ResourceKey<IAllele<?>> END_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/end_stone"));
-  public static final ResourceKey<IAllele<?>> REDSTONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/redstone"));
-  public static final ResourceKey<IAllele<?>> DEAD_BUSH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/dead_bush"));
-  public static final ResourceKey<IAllele<?>> WOOD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/wood"));
-  public static final ResourceKey<IAllele<?>> SUGAR_CANE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("flowers/sugar_cane"));
+  public static final ResourceKey<IAllele<?>> FLOWERS = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/normal_flowers"));
+  public static final ResourceKey<IAllele<?>> CACTI = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/cacti"));
+  public static final ResourceKey<IAllele<?>> JUNGLE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/jungle"));
+  public static final ResourceKey<IAllele<?>> SNOW = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/snow"));
+  public static final ResourceKey<IAllele<?>> MUSHROOM = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/mushroom"));
+  public static final ResourceKey<IAllele<?>> WHEAT = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/wheat"));
+  public static final ResourceKey<IAllele<?>> LILY_PAD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/lily_pad"));
+  public static final ResourceKey<IAllele<?>> STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/overworld_stone"));
+  public static final ResourceKey<IAllele<?>> NETHER_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/nether_stone"));
+  public static final ResourceKey<IAllele<?>> END_STONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/end_stone"));
+  public static final ResourceKey<IAllele<?>> REDSTONE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/redstone"));
+  public static final ResourceKey<IAllele<?>> DEAD_BUSH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/dead_bush"));
+  public static final ResourceKey<IAllele<?>> WOOD = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/wood"));
+  public static final ResourceKey<IAllele<?>> SUGAR_CANE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("flowers/sugar_cane"));
 
   public static final MapCodec<Flowers> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(TagKey.codec(Registries.BLOCK).fieldOf("flowers").forGetter(Flowers::getFlowers), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Flowers::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Flowers::getName)).apply(instance, Flowers::new));
 

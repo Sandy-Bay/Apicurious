@@ -7,6 +7,11 @@
     "side": "apicurious:block/hive/hive_side",
     "top": "apicurious:block/hive/hive_top"
   },
+  "tints": [
+    {
+      "type": "apicurious:bee_hive_item_tinter"
+    }
+  ],
   "elements": [
     {
       "from": [

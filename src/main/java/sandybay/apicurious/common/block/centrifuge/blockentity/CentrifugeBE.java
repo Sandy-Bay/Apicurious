@@ -19,10 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.ITicker;
-import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStackHandler;
+import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStacksResourceHandler;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.menu.CentrifugeMenu;
@@ -33,8 +36,8 @@ import java.util.Map;
 
 public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
 {
-  private final ConfigurableItemStackHandler inventory;
-  private ItemStack curr;
+  private final ConfigurableItemStacksResourceHandler inventory;
+  private ItemResource curr;
   private CentrifugeRecipe recipe;
   private int work;
   private int maxWork;
@@ -67,7 +70,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   public CentrifugeBE(BlockPos pPos, BlockState pBlockState)
   {
     super(BlockRegistrar.CENTRIFUGE.getType(), pPos, pBlockState);
-    this.inventory = new ConfigurableItemStackHandler(10).setInputFilter((stack, slot) -> slot == 0);
+    this.inventory = new ConfigurableItemStacksResourceHandler(10).setInputFilter((stack, slot) -> slot == 0);
   }
 
   @Override
@@ -88,7 +91,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
     if (getLevel() == null) {return;}
-    ItemStack stack = inventory.getStackInSlot(0);
+    ItemResource stack = inventory.getResource(0);
     if ((stack.isEmpty() || this.curr != stack) && (recipe != null || work != -1))
     {
       this.recipe = null;
@@ -115,18 +118,18 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
       this.work--;
       if (this.work == 0)
       {
-        ItemStack comb = this.inventory.getStackInSlot(0);
-        comb.shrink(1);
-        this.inventory.setStackInSlot(0, comb);
+        ItemResource comb = this.inventory.getResource(0);
+        comb.toStack().shrink(1);
+        this.inventory.set(0, comb, comb.toStack().getCount());
         List<ItemStack> outputs = this.recipe.resolve(this);
         for (ItemStack output : outputs)
         {
           ItemStack out = output;
           for (int i = 1; i < 10; i++)
           {
-            if (this.inventory.insertItem(i, out.copy(), true) != out)
+            if (this.inventory.insert(i, ItemResource.of(out.copy()), out.getCount(), true) != out)
             {
-              out = this.inventory.insertItem(i, out.copy(), false);
+              out = this.inventory.insert(i, ItemResource.of(out.copy()), out.getCount(), false);
               if (out.isEmpty())
               {
                 break;
@@ -143,7 +146,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public void clientTick(Level level, BlockPos pos, BlockState state) {}
 
-  public ConfigurableItemStackHandler getInventory()
+  public ConfigurableItemStacksResourceHandler getInventory()
   {
     return inventory;
   }
@@ -155,21 +158,21 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
 
   // World Save / Read Methods
   @Override
-  protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries)
+  protected void saveAdditional(ValueOutput output)
   {
-    super.saveAdditional(tag, registries);
-    tag.put("inventory", inventory.serializeNBT(registries));
-    tag.putInt("work", work);
-    tag.putInt("maxWork", maxWork);
+    super.saveAdditional(output);
+    this.inventory.serialize(output);
+    output.putInt("work", work);
+    output.putInt("maxWork", maxWork);
   }
 
   @Override
-  protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries)
+  protected void loadAdditional(ValueInput input)
   {
-    super.loadAdditional(tag, registries);
-    this.inventory.deserializeNBT(registries, tag.getCompound("inventory"));
-    this.work = tag.getInt("work");
-    this.maxWork = tag.getInt("maxWork");
+    super.loadAdditional(input);
+    this.inventory.deserialize(input);
+    this.work = input.getIntOr("work", 0);
+    this.maxWork = input.getIntOr("maxWork", 0);
   }
 
   // Data Syncing Methods
@@ -184,12 +187,12 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   }
 
   @Override
-  public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries)
+  public void handleUpdateTag(ValueInput input)
   {
-    super.handleUpdateTag(tag, registries);
-    this.inventory.deserializeNBT(registries, tag.getCompound("inventory"));
-    this.work = tag.getInt("work");
-    this.maxWork = tag.getInt("maxWork");
+    super.handleUpdateTag(input);
+    this.inventory.deserialize(input);
+    this.work = input.getIntOr("work", 0);
+    this.maxWork = input.getIntOr("maxWork", 0);
   }
 
   // Data Update Methods
@@ -208,11 +211,10 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   }
 
   @Override
-  public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider registries)
+  public void onDataPacket(Connection net, ValueInput valueInput)
   {
-    CompoundTag tag = pkt.getTag();
-    this.inventory.deserializeNBT(registries, tag.getCompound("inventory"));
-    this.work = tag.getInt("work");
-    this.maxWork = tag.getInt("maxWork");
+    this.inventory.deserialize(valueInput);
+    this.work = valueInput.getIntOr("work", 0);
+    this.maxWork = valueInput.getIntOr("maxWork", 0);
   }
 }

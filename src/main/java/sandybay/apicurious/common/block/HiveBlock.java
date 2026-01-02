@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
@@ -18,7 +18,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 public class HiveBlock extends Block
 {
 
-  public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+  public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
   public static final MapCodec<HiveBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(HiveBlock::getSpecies), BlockBehaviour.propertiesCodec()).apply(instance, HiveBlock::new));
   private final ResourceKey<IAllele<?>> species;
 

@@ -14,9 +14,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
@@ -33,7 +32,6 @@ import sandybay.apicurious.client.gui.CentrifugeScreen;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.mutation.ConditionalMutation;
-import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.compat.jei.category.BeeMutationCategory;
 import sandybay.apicurious.common.compat.jei.category.BeeOutputCategory;
@@ -45,16 +43,15 @@ import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @JeiPlugin
 public class ApicuriousJeiPlugin implements IModPlugin
 {
 
   @Override
-  public @NotNull ResourceLocation getPluginUid()
+  public @NotNull Identifier getPluginUid()
   {
-    return Apicurious.createResourceLocation("jei_plugin");
+    return Apicurious.createIdentifier("jei_plugin");
   }
 
   @Override

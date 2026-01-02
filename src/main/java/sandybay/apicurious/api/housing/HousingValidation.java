@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import sandybay.apicurious.api.housing.blockentity.IApiaryErrorHandler;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.util.ClimateHelper;
@@ -22,7 +23,7 @@ public class HousingValidation
   private final IApiaryErrorHandler errorHandler;
   private final boolean isValid;
   public ClimateHelper helper;
-  private ItemStack key;
+  private ItemResource key;
 
   public HousingValidation(IApiaryErrorHandler errorHandler)
   {
@@ -30,7 +31,7 @@ public class HousingValidation
     this.isValid = false;
   }
 
-  public boolean validate(ItemStack key, Level level, BlockPos housingPosition, Set<BlockPos> territory)
+  public boolean validate(ItemResource key, Level level, BlockPos housingPosition, Set<BlockPos> territory)
   {
     if (helper == null && level != null) {helper = new ClimateHelper(level, errorHandler);}
     if (key.isEmpty()) {return false;}
@@ -42,7 +43,7 @@ public class HousingValidation
     return isValid;
   }
 
-  private void revalidate(ItemStack queen, Level level, BlockPos housingPosition, Set<BlockPos> territory)
+  private void revalidate(ItemResource queen, Level level, BlockPos housingPosition, Set<BlockPos> territory)
   {
     validateFlowers(level, territory);
     validateHumidity(housingPosition);
@@ -83,7 +84,7 @@ public class HousingValidation
     helper.isCorrectTemperature(key, housingPosition);
   }
 
-  protected void validateTime(ItemStack queen, Level level)
+  protected void validateTime(ItemResource queen, Level level)
   {
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) {return;}
@@ -93,7 +94,7 @@ public class HousingValidation
     else {errorHandler.removeError(HousingError.INVALID_TIME);}
   }
 
-  protected void validateSky(ItemStack queen, Level level, BlockPos pos)
+  protected void validateSky(ItemResource queen, Level level, BlockPos pos)
   {
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) {return;}
@@ -107,7 +108,7 @@ public class HousingValidation
     else {errorHandler.removeError(HousingError.NO_SKY);}
   }
 
-  protected void validateWeather(ItemStack queen, Level level, BlockPos pos)
+  protected void validateWeather(ItemResource queen, Level level, BlockPos pos)
   {
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) {return;}

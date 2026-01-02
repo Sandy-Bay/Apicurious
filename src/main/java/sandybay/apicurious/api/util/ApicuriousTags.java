@@ -16,7 +16,7 @@ public class ApicuriousTags
 
   private static <T> TagKey<T> bind(ResourceKey<Registry<T>> registry, String path)
   {
-    return TagKey.create(registry, Apicurious.createResourceLocation(path));
+    return TagKey.create(registry, Apicurious.createIdentifier(path));
   }
 
   public static class BlockTags

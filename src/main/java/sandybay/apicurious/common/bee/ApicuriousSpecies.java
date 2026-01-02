@@ -158,7 +158,7 @@ public class ApicuriousSpecies
 
   private static KeyHolder species(String name)
   {
-    return new KeyHolder(ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createResourceLocation("species/" + name)), ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createResourceLocation(name)), ResourceKey.create(ApicuriousRegistries.OUTPUT_TABLES, Apicurious.createResourceLocation(name)));
+    return new KeyHolder(ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("species/" + name)), ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createIdentifier(name)), ResourceKey.create(ApicuriousRegistries.OUTPUT_TABLES, Apicurious.createIdentifier(name)));
   }
 
   public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation,
