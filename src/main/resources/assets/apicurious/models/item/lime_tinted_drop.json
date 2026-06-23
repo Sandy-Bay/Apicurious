@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "apicurious:item/lime_tinted_drop"
+  }
+}

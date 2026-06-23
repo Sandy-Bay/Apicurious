@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "apicurious:block/housing/beehouse_side",
+    "down": "apicurious:block/housing/beehouse_bottom",
+    "up": "apicurious:block/housing/beehouse_top",
+    "north": "apicurious:block/housing/beehouse_side",
+    "east": "apicurious:block/housing/beehouse_side",
+    "south": "apicurious:block/housing/beehouse_side",
+    "west": "apicurious:block/housing/beehouse_side"
+  }
+}
