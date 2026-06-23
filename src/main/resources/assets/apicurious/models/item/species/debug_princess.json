@@ -1,5 +1,5 @@
 {
-  "loader": "neoforge:composite",
+  "parent": "item/generated",
   "textures": {
     "layer0": "apicurious:item/bee/drone_outline",
     "layer1": "apicurious:item/bee/drone_body",
@@ -16,8 +16,7 @@
       2,
       3,
       4,
-      5,
-      6
+      5
     ]
   },
   "tints": [

@@ -31,9 +31,7 @@ public record OutputResult(ItemStack output)
   {
     private ItemStack stack;
 
-    private Builder()
-    {
-    }
+    private Builder() {}
 
     public Builder withItemstack(ItemStack stack)
     {

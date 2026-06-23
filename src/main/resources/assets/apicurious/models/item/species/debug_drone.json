@@ -1,5 +1,5 @@
 {
-  "loader": "neoforge:item_layers",
+  "parent": "item/generated",
   "textures": {
     "layer0": "apicurious:item/bee/drone_outline",
     "layer1": "apicurious:item/bee/drone_body",
