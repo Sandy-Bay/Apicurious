@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "apicurious:item/drop",
+    "layer1": "apicurious:item/drop_shine"
+  }
+}

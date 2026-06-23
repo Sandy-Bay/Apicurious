@@ -2,13 +2,16 @@ package sandybay.apicurious.data;
 
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+import org.apache.commons.lang3.StringUtils;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class ApicuriousLangProvider extends LanguageProvider
@@ -56,6 +59,12 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(ItemRegistrar.ICE_SHARD.get(), "Ice Shard");
     add(ItemRegistrar.ASH.get(), "Ash");
     add(ItemRegistrar.PEAT.get(), "Peat");
+    add(ItemRegistrar.COPPER_NUGGET.get(), "Copper Nugget");
+    add(ItemRegistrar.WATERY_PROPOLIS.get(), "Watery Propolis");
+    add(ItemRegistrar.SALTPETER.get(), "Saltpeter");
+    add(ItemRegistrar.ACIDIC_DROP.get(), "Acidic Drop");
+    add(ItemRegistrar.SULFUR.get(), "Sulfur Dust");
+    addDrops();
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
@@ -91,6 +100,22 @@ public class ApicuriousLangProvider extends LanguageProvider
     addErrors();
     addCombs();
     addConditions();
+  }
+
+  private void addDrops()
+  {
+    for (DyeColor color : DyeColor.values())
+    {
+      String name = color.getName().toLowerCase();
+      if (name.contains("_"))
+      {
+        String[] split = name.split("_");
+        split = Arrays.stream(split).map(StringUtils::capitalize).toArray(String[]::new);
+        add("item.apicurious." + name + "_tinted_drop", split[0] + " " + split[1] + " Tinted Drop");
+        continue;
+      }
+      add("item.apicurious." + name + "_tinted_drop", StringUtils.capitalize(name) + " Tinted Drop");
+    }
   }
 
   private void addConditions()

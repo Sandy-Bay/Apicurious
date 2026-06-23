@@ -13,13 +13,11 @@ import sandybay.apicurious.api.item.TerritoryModifier;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.Coloring;
-import sandybay.apicurious.common.item.BeeAnalyzerItem;
-import sandybay.apicurious.common.item.BeeItem;
-import sandybay.apicurious.common.item.CombItem;
-import sandybay.apicurious.common.item.SieveItem;
+import sandybay.apicurious.common.item.*;
 import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.frame.RestraintFrame;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -108,13 +106,13 @@ public class ItemRegistrar
   // Misc
   public static final DeferredHolder<Item, Item> BEESWAX = product("beeswax");
   public static final DeferredHolder<Item, Item> REFRACTORY_WAX = product("refractory_wax");
-  public static final DeferredHolder<Item, Item> HONEY_DROP = product("honey_drop");
+  public static final DeferredHolder<Item, Item> HONEY_DROP = drop("honey_drop", Coloring.fromHex("ecb42d"), Coloring.fromHex("e8c814"));
   public static final DeferredHolder<Item, Item> HONEY_DEW = product("honey_dew");
   public static final DeferredHolder<Item, Item> ROYAL_JELLY = product("royal_jelly");
-  public static final DeferredHolder<Item, Item> PROPOLIS = product("propolis");
-  public static final DeferredHolder<Item, Item> SILKEN_PROPOLIS = product("silken_propolis");
+  public static final DeferredHolder<Item, Item> PROPOLIS = propolis("propolis", Coloring.fromHex("c5b24e"));
+  public static final DeferredHolder<Item, Item> SILKEN_PROPOLIS = propolis("silken_propolis", Coloring.fromHex("ddff00"));
   public static final DeferredHolder<Item, Item> SILK_WISP = product("silk_wisp");
-  public static final DeferredHolder<Item, Item> POLLEN = product("pollen");
+  public static final DeferredHolder<Item, Item> POLLEN = pollen("pollen", Coloring.fromHex("a28a25"), Coloring.fromHex("a28a25"));
   public static final DeferredHolder<Item, Item> ICE_SHARD = product("ice_shard");
   public static final DeferredHolder<Item, Item> ASH = product("ash");
   public static final DeferredHolder<Item, Item> PEAT = product("peat");
@@ -122,25 +120,25 @@ public class ItemRegistrar
   public static final DeferredHolder<Item, Item> DIAMOND_NUGGET = product("diamond_nugget");
   public static final DeferredHolder<Item, Item> EMERALD_NUGGET = product("emerald_nugget");
   public static final DeferredHolder<Item, Item> COPPER_NUGGET = product("copper_nugget");
-  public static final DeferredHolder<Item, Item> WATERY_PROPOLIS = product("watery_propolis");
-  public static final DeferredHolder<Item, Item> RED_TINTED_DROP = product("red_tinted_drop");
-  public static final DeferredHolder<Item, Item> YELLOW_TINTED_DROP = product("yellow_tinted_drop");
-  public static final DeferredHolder<Item, Item> BLUE_TINTED_DROP = product("blue_tinted_drop");
-  public static final DeferredHolder<Item, Item> GREEN_TINTED_DROP = product("green_tinted_drop");
-  public static final DeferredHolder<Item, Item> BROWN_TINTED_DROP = product("brown_tinted_drop");
-  public static final DeferredHolder<Item, Item> WHITE_TINTED_DROP = product("white_tinted_drop");
-  public static final DeferredHolder<Item, Item> BLACK_TINTED_DROP = product("black_tinted_drop");
-  public static final DeferredHolder<Item, Item> ORANGE_TINTED_DROP = product("orange_tinted_drop");
-  public static final DeferredHolder<Item, Item> CYAN_TINTED_DROP = product("cyan_tinted_drop");
-  public static final DeferredHolder<Item, Item> PURPLE_TINTED_DROP = product("purple_tinted_drop");
-  public static final DeferredHolder<Item, Item> GRAY_TINTED_DROP = product("gray_tinted_drop");
-  public static final DeferredHolder<Item, Item> LIGHT_BLUE_TINTED_DROP = product("light_blue_tinted_drop");
-  public static final DeferredHolder<Item, Item> PINK_TINTED_DROP = product("pink_tinted_drop");
-  public static final DeferredHolder<Item, Item> LIME_TINTED_DROP = product("lime_tinted_drop");
-  public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_DROP = product("light_gray_tinted_drop");
-  public static final DeferredHolder<Item, Item> MAGENTA_TINTED_DROP = product("magenta_tinted_drop");
+  public static final DeferredHolder<Item, Item> WATERY_PROPOLIS = propolis("watery_propolis", Coloring.fromHex("24B3C9"));
+  public static final DeferredHolder<Item, Item> RED_TINTED_DROP = drop("red_tinted_drop", Coloring.fromHex("FF0000"), Coloring.fromHex("CC4C4C"));
+  public static final DeferredHolder<Item, Item> YELLOW_TINTED_DROP = drop("yellow_tinted_drop", Coloring.fromHex("FFDD00"), Coloring.fromHex("E5E533"));
+  public static final DeferredHolder<Item, Item> BLUE_TINTED_DROP = drop("blue_tinted_drop", Coloring.fromHex("0022FF"), Coloring.fromHex("99B2F2"));
+  public static final DeferredHolder<Item, Item> GREEN_TINTED_DROP = drop("green_tinted_drop", Coloring.fromHex("009900"), Coloring.fromHex("667F33"));
+  public static final DeferredHolder<Item, Item> BROWN_TINTED_DROP = drop("brown_tinted_drop", Coloring.fromHex("5C350F"), Coloring.fromHex("7F664C"));
+  public static final DeferredHolder<Item, Item> WHITE_TINTED_DROP = drop("white_tinted_drop", Coloring.fromHex("FFFFFF"), Coloring.fromHex("D6D6D6"));
+  public static final DeferredHolder<Item, Item> BLACK_TINTED_DROP = drop("black_tinted_drop", Coloring.fromHex("191919"), Coloring.fromHex("575757"));
+  public static final DeferredHolder<Item, Item> ORANGE_TINTED_DROP = drop("orange_tinted_drop", Coloring.fromHex("FF9D00"), Coloring.fromHex("F2B233"));
+  public static final DeferredHolder<Item, Item> CYAN_TINTED_DROP = drop("cyan_tinted_drop", Coloring.fromHex("4C99B2"), Coloring.fromHex("00FFE5"));
+  public static final DeferredHolder<Item, Item> PURPLE_TINTED_DROP = drop("purple_tinted_drop", Coloring.fromHex("AE00FF"), Coloring.fromHex("B266E5"));
+  public static final DeferredHolder<Item, Item> GRAY_TINTED_DROP = drop("gray_tinted_drop", Coloring.fromHex("4C4C4C"), Coloring.fromHex("BABABA"));
+  public static final DeferredHolder<Item, Item> LIGHT_BLUE_TINTED_DROP = drop("light_blue_tinted_drop", Coloring.fromHex("009DFF"), Coloring.fromHex("99B2F2"));
+  public static final DeferredHolder<Item, Item> PINK_TINTED_DROP = drop("pink_tinted_drop", Coloring.fromHex("FF80DF"), Coloring.fromHex("F2B2CC"));
+  public static final DeferredHolder<Item, Item> LIME_TINTED_DROP = drop("lime_tinted_drop", Coloring.fromHex("00FF08"), Coloring.fromHex("7FCC19"));
+  public static final DeferredHolder<Item, Item> LIGHT_GRAY_TINTED_DROP = drop("light_gray_tinted_drop", Coloring.fromHex("999999"), Coloring.fromHex("C9C9C9"));
+  public static final DeferredHolder<Item, Item> MAGENTA_TINTED_DROP = drop("magenta_tinted_drop", Coloring.fromHex("FF00CC"), Coloring.fromHex("E57FD8"));
   public static final DeferredHolder<Item, Item> SALTPETER = product("saltpeter");
-  public static final DeferredHolder<Item, Item> ACIDIC_DROP = product("acidic_drop");
+  public static final DeferredHolder<Item, Item> ACIDIC_DROP = drop("acidic_drop", Coloring.fromHex("49DE3C"), Coloring.fromHex("4BB541"));
   public static final DeferredHolder<Item, Item> SULFUR = product("sulfur");
 
   // Frames
@@ -173,6 +171,27 @@ public class ItemRegistrar
   public static DeferredHolder<Item, Item> product(String name, Item.Properties properties)
   {
     DeferredHolder<Item, Item> holder = ITEMS.register(name, () -> new Item(properties));
+    PRODUCTS.add(holder);
+    return holder;
+  }
+
+  public static DeferredHolder<Item, Item> drop(String name, Coloring dropTint, Coloring shineTint)
+  {
+    DeferredHolder<Item, Item> holder = ITEMS.register(name, () -> new DropItem(new Item.Properties(), dropTint, shineTint));
+    PRODUCTS.add(holder);
+    return holder;
+  }
+
+  public static DeferredHolder<Item, Item> pollen(String name, Coloring primary, Coloring secondary)
+  {
+    DeferredHolder<Item, Item> holder = ITEMS.register(name, () -> new PollenItem(new Item.Properties(), primary, secondary));
+    PRODUCTS.add(holder);
+    return holder;
+  }
+
+  public static DeferredHolder<Item, Item> propolis(String name, Coloring tint)
+  {
+    DeferredHolder<Item, Item> holder = ITEMS.register(name, () -> new PropolisItem(new Item.Properties(), tint));
     PRODUCTS.add(holder);
     return holder;
   }

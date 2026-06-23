@@ -34,6 +34,9 @@ import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.item.CombItem;
+import sandybay.apicurious.common.item.DropItem;
+import sandybay.apicurious.common.item.PollenItem;
+import sandybay.apicurious.common.item.PropolisItem;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
@@ -72,10 +75,48 @@ public class ApicuriousClientEvents
 
   private static void handleItemTint(final RegisterColorHandlersEvent.Item event)
   {
+    // Bee Tinting
     event.register(ApicuriousClientEvents::registerBeeTintHandler, ItemRegistrar.DRONE.get(), ItemRegistrar.PRINCESS.get(), ItemRegistrar.QUEEN.get());
+    // Hive Tinting
     event.register(ApicuriousClientEvents::registerHiveItemTintHandler, BlockRegistrar.FOREST_HIVE.asItem(), BlockRegistrar.MEADOW_HIVE.asItem(), BlockRegistrar.MODEST_HIVE.asItem(), BlockRegistrar.TROPICAL_HIVE.asItem(), BlockRegistrar.WINTRY_HIVE.asItem(), BlockRegistrar.MARSHY_HIVE.asItem(), BlockRegistrar.ROCKY_HIVE.asItem(), BlockRegistrar.NETHER_HIVE.asItem(), BlockRegistrar.ENDER_HIVE.asItem(), BlockRegistrar.WATER_HIVE.asItem());
+    // Comb Tinting
     ItemLike[] combs = ItemRegistrar.COMBS.stream().map(Holder::value).toArray(ItemLike[]::new);
     event.register(ApicuriousClientEvents::registerCombTintHandler, combs);
+    // Drop Tinting
+    DropItem[] drops = ItemRegistrar.PRODUCTS.stream().map(Holder::value).filter(i -> i instanceof DropItem).toArray(DropItem[]::new);
+    event.register(ApicuriousClientEvents::registerDropTintHandler, drops);
+    // Pollen Tinting
+    PollenItem[] pollens = ItemRegistrar.PRODUCTS.stream().map(Holder::value).filter(i -> i instanceof PollenItem).toArray(PollenItem[]::new);
+    event.register(ApicuriousClientEvents::registerPollenTintHandler, pollens);
+    // Propolis Tinting
+    PropolisItem[] propolis = ItemRegistrar.PRODUCTS.stream().map(Holder::value).filter(i -> i instanceof PropolisItem).toArray(PropolisItem[]::new);
+    event.register(ApicuriousClientEvents::registerPropolisTintHandler, propolis);
+  }
+
+  private static int registerDropTintHandler(ItemStack stack, int tintIndex)
+  {
+    int tint = 0xFFFFFFFF;
+    DropItem drop = (DropItem) stack.getItem();
+    if (tintIndex == 0) tint = drop.getDropTint().getIntColor();
+    if (tintIndex == 1) tint = drop.getShineTint().getIntColor();
+    return tint;
+  }
+
+  private static int registerPollenTintHandler(ItemStack stack, int tintIndex)
+  {
+    int tint = 0xFFFFFFFF;
+    PollenItem pollen = (PollenItem) stack.getItem();
+    if (tintIndex == 0) tint = pollen.getPrimary().getIntColor();
+    if (tintIndex == 1) tint = pollen.getSecondary().getIntColor();
+    return tint;
+  }
+
+  private static int registerPropolisTintHandler(ItemStack stack, int tintIndex)
+  {
+    int tint = 0xFFFFFFFF;
+    PropolisItem propolis = (PropolisItem) stack.getItem();
+    if (tintIndex == 0) tint = propolis.getTint().getIntColor();
+    return tint;
   }
 
   private static void registerAlternativeBeeModels(final ModelEvent.RegisterAdditional event)

@@ -35,6 +35,7 @@ import sandybay.apicurious.client.ApicuriousClientEvents;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
+import sandybay.apicurious.common.event.ApicuriousTrades;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
@@ -51,6 +52,8 @@ import sandybay.apicurious.data.LootItemFunctionRegistration;
       - Add Particles for active housing
     - Hives
       - Add WorldGen for Hives
+    - Add Steadfast Drones to Dungeon Gen
+    - Add Monastic Drones to Villager Trading
  */
 /*
  Todo: Before MVP Beta Release
@@ -89,6 +92,7 @@ public class Apicurious
     MutationTypeRegistrar.init(bus);
     ConditionTypeRegistrar.init(bus);
     PacketHandler.init(bus);
+    ApicuriousTrades.init(NeoForge.EVENT_BUS);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
     if (FMLLoader.getDist() == Dist.CLIENT)
