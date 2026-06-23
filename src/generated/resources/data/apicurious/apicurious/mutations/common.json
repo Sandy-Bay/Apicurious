@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.15,
-  "first": "#apicurious:baseline_bee",
-  "output": "apicurious:species/common",
-  "second": "#apicurious:baseline_bee"
-}

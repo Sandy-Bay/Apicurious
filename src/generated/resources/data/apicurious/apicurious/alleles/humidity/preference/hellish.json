@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:humidity_preference",
-  "groupTag": "apicurious:humidity/hellish",
-  "humidity": 1,
-  "isDominantTrait": true,
-  "name": "apicurious.preferenceHolder.humidity.hellish"
-}

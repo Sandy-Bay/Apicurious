@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.1,
-  "first": "apicurious:species/meadow",
-  "output": "apicurious:species/arid",
-  "second": "apicurious:species/frugal"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:temperature_preference",
-  "groupTag": "apicurious:temperature/hot",
-  "isDominantTrait": true,
-  "name": "apicurious.preference.temperature.hot",
-  "temperature": 4
-}

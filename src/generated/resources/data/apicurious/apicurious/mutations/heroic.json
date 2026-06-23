@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.06,
-  "first": "apicurious:species/steadfast",
-  "output": "apicurious:species/heroic",
-  "second": "apicurious:species/valiant"
-}

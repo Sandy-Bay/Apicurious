@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.2,
-  "first": "apicurious:species/furious",
-  "output": "apicurious:species/volcanic",
-  "second": "apicurious:species/demonic"
-}

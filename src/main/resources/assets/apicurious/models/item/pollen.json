@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "apicurious:item/pollen_primary",
-    "layer1": "apicurious:item/pollen_secondary"
-  }
-}

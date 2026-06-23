@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.08,
-  "first": "apicurious:species/arid",
-  "output": "apicurious:species/desolate",
-  "second": "apicurious:species/barren"
-}

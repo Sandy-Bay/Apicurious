@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.1,
-  "first": "apicurious:species/noble",
-  "output": "apicurious:species/ancient",
-  "second": "apicurious:species/diligent"
-}

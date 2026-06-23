@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.15,
-  "first": "apicurious:species/industrious",
-  "output": "apicurious:species/resilient",
-  "second": "apicurious:species/robust"
-}
