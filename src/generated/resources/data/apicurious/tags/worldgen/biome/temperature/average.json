@@ -1,0 +1,25 @@
+{
+  "values": [
+    "minecraft:forest",
+    "minecraft:dark_forest",
+    "minecraft:flower_forest",
+    "minecraft:windswept_forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:meadow",
+    "minecraft:cherry_grove",
+    "minecraft:ocean",
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:river",
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:windswept_hills",
+    "minecraft:beach",
+    "minecraft:lush_caves",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp",
+    "minecraft:dripstone_caves",
+    "minecraft:mushroom_fields",
+    "#c:is_hot/end"
+  ]
+}

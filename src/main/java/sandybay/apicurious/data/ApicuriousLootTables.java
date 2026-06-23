@@ -9,11 +9,14 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.ConditionUserBuilder;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -71,6 +74,9 @@ public class ApicuriousLootTables extends LootTableProvider
       this.add(BlockRegistrar.NETHER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.NETHER.species()));
       this.add(BlockRegistrar.ENDER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.ENDER.species()));
       this.add(BlockRegistrar.WATER_HIVE.asBlock(), block -> hiveTable(ApicuriousSpecies.WATER.species()));
+      dropSelf(BlockRegistrar.APIARY.asBlock());
+      dropSelf(BlockRegistrar.BEE_HOUSING.asBlock());
+      dropSelf(BlockRegistrar.CENTRIFUGE.asBlock());
     }
 
     @Override
@@ -85,6 +91,18 @@ public class ApicuriousLootTables extends LootTableProvider
     {
       return BlockRegistrar.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
+  }
+
+  protected LootTable.Builder dropSelf(Block block) {
+    return this.dropOther(block, block);
+  }
+
+  protected LootTable.Builder dropOther(Block block, ItemLike drop) {
+    return this.createSingleItemTable(drop);
+  }
+
+  public LootTable.Builder createSingleItemTable(ItemLike drop) {
+    return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(drop)));
   }
 
 }

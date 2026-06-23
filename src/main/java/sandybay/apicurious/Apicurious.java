@@ -35,6 +35,8 @@ import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.registrar.*;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
+import sandybay.apicurious.data.ApicuriousDataGen;
+import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
 import sandybay.apicurious.data.LootItemFunctionRegistration;
 
 /*
@@ -66,6 +68,7 @@ public class Apicurious
     // Register the commonSetup method for modloading
     ApicuriousMainConfig.init();
     modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue(), "apicurious/apicurious.toml");
+    ApicuriousSpecies.init();
     bus.addListener(this::commonSetup);
     bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
@@ -75,13 +78,15 @@ public class Apicurious
     DataComponentRegistrar.register(bus);
     LootItemFunctionRegistration.register(bus);
     MenuRegistrar.register(bus);
-    CreativeTabRegistrar.register(bus);
     AlleleTypeRegistrar.init(bus);
     MutationTypeRegistrar.init(bus);
     ConditionTypeRegistrar.init(bus);
     PacketHandler.init(bus);
+    bus.addListener(ApicuriousDataGen::generateClientData);
+    bus.addListener(ApicuriousDataGen::generateServerData);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
+    CreativeTabRegistrar.register(bus);
     if (FMLLoader.getCurrent().getDist() == Dist.CLIENT)
     {
       ApicuriousClientEvents.registerClientEvents(bus);

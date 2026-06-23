@@ -1,8 +1,6 @@
 package sandybay.apicurious.data;
 
-import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;

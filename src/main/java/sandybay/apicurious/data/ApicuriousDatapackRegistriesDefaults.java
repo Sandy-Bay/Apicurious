@@ -33,11 +33,4 @@ public class ApicuriousDatapackRegistriesDefaults
 
     return builder;
   }
-
-  public static RegistrySetBuilder registerPostAlleleRegistryDefaults()
-  {
-    RegistrySetBuilder builder = new RegistrySetBuilder();
-
-    return builder;
-  }
 }
