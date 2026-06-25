@@ -1,0 +1,14 @@
+{
+  "values": [
+    "apicurious:species/forest",
+    "apicurious:species/meadow",
+    "apicurious:species/modest",
+    "apicurious:species/tropical",
+    "apicurious:species/wintry",
+    "apicurious:species/marshy",
+    "apicurious:species/rocky",
+    "apicurious:species/water",
+    "apicurious:species/nether",
+    "apicurious:species/ender"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "apicurious:conditional",
+  "chance": 0.1,
+  "conditions": [
+    "apicurious:is_halloween"
+  ],
+  "first": "apicurious:species/sinister",
+  "output": "apicurious:species/tricky",
+  "second": "apicurious:species/common"
+}

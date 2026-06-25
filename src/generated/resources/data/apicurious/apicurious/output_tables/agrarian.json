@@ -1,0 +1,27 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "chance": 0.35,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "id": "apicurious:wheaten_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

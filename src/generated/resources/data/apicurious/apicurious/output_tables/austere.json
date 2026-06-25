@@ -1,0 +1,50 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "chance": 0.2,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "id": "apicurious:parched_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    },
+    {
+      "conditions": [
+        {
+          "chance": 0.5,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "id": "apicurious:powdery_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

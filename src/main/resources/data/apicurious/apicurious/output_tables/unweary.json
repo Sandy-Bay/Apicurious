@@ -1,0 +1,27 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "chance": 0.3,
+          "condition": "apicurious:chance"
+        }
+      ],
+      "entries": [
+        {
+          "conditions": [],
+          "functions": [],
+          "outputs": [
+            {
+              "output": {
+                "id": "apicurious:stringy_comb"
+              }
+            }
+          ]
+        }
+      ],
+      "functions": [],
+      "rolls": 1
+    }
+  ]
+}

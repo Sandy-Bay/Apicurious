@@ -80,7 +80,7 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     int j = 0;
     for (CentrifugeRecipe.CentrifugeOutput output : recipe.output)
     {
-      builder.addSlot(RecipeIngredientRole.OUTPUT, x + j * 18, y + i * 18).add(output.output().copy()).addRichTooltipCallback((view, tooltip) -> tooltip.add(Component.translatable("apicurious.condition.chance").append(NumberFormat.getPercentInstance().format(output.chance()))));
+      builder.addSlot(RecipeIngredientRole.OUTPUT, x + j * 18, y + i * 18).add(output.output().create().copy()).addRichTooltipCallback((view, tooltip) -> tooltip.add(Component.translatable("apicurious.condition.chance").append(NumberFormat.getPercentInstance().format(output.chance()))));
       j++;
       if (j == 3)
       {

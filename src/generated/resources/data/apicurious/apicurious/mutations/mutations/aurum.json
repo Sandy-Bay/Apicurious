@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.02,
+  "first": "apicurious:species/cuprum",
+  "output": "apicurious:species/aurum",
+  "second": "apicurious:species/imperial"
+}

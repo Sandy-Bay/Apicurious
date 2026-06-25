@@ -36,8 +36,7 @@ import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.registrar.*;
 import sandybay.apicurious.common.worldgen.ApicuriousWorldGen;
 import sandybay.apicurious.data.ApicuriousDataGen;
-import sandybay.apicurious.data.ApicuriousDatapackRegistriesDefaults;
-import sandybay.apicurious.data.LootItemFunctionRegistration;
+import sandybay.apicurious.data.server.LootItemFunctionRegistration;
 
 /*
  Todo: Before MVP Alpha Release

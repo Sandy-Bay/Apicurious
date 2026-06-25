@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.05,
+  "first": "apicurious:species/forest",
+  "output": "apicurious:species/maroon",
+  "second": "apicurious:species/valiant"
+}

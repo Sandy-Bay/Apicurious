@@ -1,0 +1,21 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "apicurious:blazing_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.75,
+      "output": {
+        "id": "apicurious:beeswax"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "count": 3,
+        "id": "minecraft:blaze_powder"
+      }
+    }
+  ]
+}

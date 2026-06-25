@@ -1,25 +1,19 @@
 package sandybay.apicurious.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockTintSource;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.renderer.block.BlockAndTintGetter;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.resources.model.ModelDebugName;
+import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.model.standalone.SimpleUnbakedStandaloneModel;
 import net.neoforged.neoforge.client.model.standalone.StandaloneModelKey;
-import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.client.gui.AnalyzerScreen;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
@@ -29,16 +23,10 @@ import sandybay.apicurious.client.tinter.BeeCombItemTinter;
 import sandybay.apicurious.client.tinter.BeeHiveBlockTinter;
 import sandybay.apicurious.client.tinter.BeeHiveItemTinter;
 import sandybay.apicurious.client.tinter.BeeItemTinter;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.block.HiveBlock;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
-import sandybay.apicurious.common.registrar.DataMapTypeRegistrar;
-import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
 
-import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 public class ApicuriousClientEvents
 {
@@ -49,6 +37,7 @@ public class ApicuriousClientEvents
     bus.addListener(ApicuriousClientEvents::handleBlockTint);
     bus.addListener(ApicuriousClientEvents::registerScreens);
     bus.addListener(ApicuriousClientEvents::registerItemModels);
+    bus.addListener(ApicuriousClientEvents::registerAlternativeBeeModels);
   }
 
   private static void registerItemModels(RegisterItemModelsEvent event)
@@ -74,5 +63,16 @@ public class ApicuriousClientEvents
     event.register(MenuRegistrar.BEE_HOUSING.get(), BeeHousingScreen::new);
     event.register(MenuRegistrar.ANALYZER.get(), AnalyzerScreen::new);
     event.register(MenuRegistrar.CENTRIFUGE.get(), CentrifugeScreen::new);
+  }
+
+  private static void registerAlternativeBeeModels(final ModelEvent.RegisterStandalone event)
+  {
+    FileToIdConverter converter = FileToIdConverter.json("models/item/species");
+    converter.listMatchingResources(Minecraft.getInstance().getResourceManager()).forEach((name, resource) ->
+    {
+      Identifier id = converter.fileToId(name).withPrefix("item/species/");
+      StandaloneModelKey<QuadCollection> key = new StandaloneModelKey<>(id::toString);
+      event.register(key, SimpleUnbakedStandaloneModel.quadCollection(id));
+    });
   }
 }

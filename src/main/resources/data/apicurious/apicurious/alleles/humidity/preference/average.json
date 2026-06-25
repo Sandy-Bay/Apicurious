@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:humidity_preference",
+  "groupTag": "apicurious:humidity/average",
+  "humidity": 3,
+  "isDominantTrait": true,
+  "name": "apicurious.preferenceHolder.humidity.average"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "apicurious:conditional",
+  "chance": 0.1,
+  "conditions": [
+    "apicurious:is_new_years"
+  ],
+  "first": "apicurious:species/meadow",
+  "output": "apicurious:species/tispy",
+  "second": "apicurious:species/wintry"
+}

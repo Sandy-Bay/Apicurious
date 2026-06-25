@@ -1,0 +1,20 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "apicurious:venomous_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.2,
+      "output": {
+        "id": "apicurious:beeswax"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "id": "apicurious:honey_drop"
+      }
+    }
+  ]
+}

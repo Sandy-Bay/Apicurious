@@ -1,0 +1,10 @@
+{
+  "type": "apicurious:conditional",
+  "chance": 0.1,
+  "conditions": [
+    "apicurious:is_christmas"
+  ],
+  "first": "apicurious:species/forest",
+  "output": "apicurious:species/merry",
+  "second": "apicurious:species/wintry"
+}

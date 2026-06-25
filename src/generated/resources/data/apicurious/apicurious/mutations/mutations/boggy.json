@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.1,
+  "first": "apicurious:species/damp",
+  "output": "apicurious:species/boggy",
+  "second": "apicurious:species/majestic"
+}

@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:pollination",
+  "isDominantTrait": true,
+  "name": "apicurious.pollination.fast",
+  "pollinationChance": 0.25
+}

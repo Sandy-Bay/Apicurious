@@ -93,7 +93,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
         for (OutputResult result : entry.outputs())
         {
           builder.addSlot(RecipeIngredientRole.OUTPUT, 20 + x * 18, 40 + y * 18)
-                  .add(Ingredient.of(result.output().getItem()))
+                  .add(result.output().create())
                   .addRichTooltipCallback((view, tooltip) -> {
                     if (!pool.conditions().isEmpty())
                     {

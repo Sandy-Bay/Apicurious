@@ -1,0 +1,20 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "apicurious:glacial_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.75,
+      "output": {
+        "id": "apicurious:honey_drop"
+      }
+    },
+    {
+      "chance": 0.8,
+      "output": {
+        "id": "apicurious:beeswax"
+      }
+    }
+  ]
+}

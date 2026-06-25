@@ -149,7 +149,7 @@ public class ApicuriousJeiPlugin implements IModPlugin
     recipeRegistry.entrySet().forEach(recipe ->
     {
       CentrifugeRecipe centrifuge = recipe.getValue();
-      recipes.add(new CentrifugeCategory.Recipe(centrifuge.input(), centrifuge.duration(), centrifuge.outputs()));
+      recipes.add(new CentrifugeCategory.Recipe(centrifuge.input().create(), centrifuge.duration(), centrifuge.outputs()));
     });
     return recipes;
   }

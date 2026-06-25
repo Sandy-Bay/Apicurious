@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:lifespan",
+  "cycles": 30,
+  "isDominantTrait": false,
+  "name": "apicurious.lifespan.short"
+}

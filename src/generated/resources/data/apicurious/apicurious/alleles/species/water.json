@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/lily_pad",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/damp",
+      "toleranceHolder": "apicurious:humidity/tolerance/low"
+    },
+    "ignoresRain": true,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/none"
+    }
+  },
+  "key": "apicurious:species/water",
+  "name": "apicurious.species.water",
+  "outputData": {
+    "outputTable": "apicurious:water"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/average",
+    "lifespan": "apicurious:lifespan/shorter",
+    "pollination": "apicurious:pollination/slow",
+    "speed": "apicurious:speed/slowest",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "ffdc16",
+      "outlineTint": "94a2ff",
+      "wingTint": "ffdc16"
+    },
+    "hasCustomRender": false
+  }
+}

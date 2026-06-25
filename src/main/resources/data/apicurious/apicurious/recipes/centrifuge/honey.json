@@ -1,0 +1,20 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "minecraft:honeycomb"
+  },
+  "outputs": [
+    {
+      "chance": 0.9,
+      "output": {
+        "id": "apicurious:honey_drop"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "id": "apicurious:beeswax"
+      }
+    }
+  ]
+}

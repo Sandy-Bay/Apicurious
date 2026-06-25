@@ -1,0 +1,20 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "apicurious:dripping_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.4,
+      "output": {
+        "id": "apicurious:honey_drop"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "id": "apicurious:honey_dew"
+      }
+    }
+  ]
+}

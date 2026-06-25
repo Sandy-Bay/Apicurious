@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "apicurious:bee",
+    "fallback": "apicurious:species/default_queen"
+  }
+}

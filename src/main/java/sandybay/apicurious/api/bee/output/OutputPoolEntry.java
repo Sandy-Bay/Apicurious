@@ -7,6 +7,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.apache.commons.compress.utils.Lists;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.function.IFunction;
@@ -31,7 +32,7 @@ public record OutputPoolEntry(List<OutputResult> outputs, List<ICondition> condi
     List<ItemStack> stacks = Lists.newArrayList();
     if (conditions.stream().allMatch(c -> c.test(context)))
     {
-      stacks = outputs.stream().map(OutputResult::output).toList();
+      stacks = outputs.stream().map(OutputResult::output).map(ItemStackTemplate::create).toList();
       for (IFunction function : functions)
       {
         stacks = function.resolve(context, stacks);

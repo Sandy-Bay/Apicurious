@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/wheat",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/average",
+      "toleranceHolder": "apicurious:humidity/tolerance/lowest"
+    },
+    "ignoresRain": false,
+    "ignoresSky": false,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/lowest"
+    }
+  },
+  "key": "apicurious:species/monastic",
+  "name": "apicurious.species.monastic",
+  "outputData": {
+    "outputTable": "apicurious:monastic"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/low",
+    "lifespan": "apicurious:lifespan/long",
+    "pollination": "apicurious:pollination/faster",
+    "speed": "apicurious:speed/slower",
+    "workCycle": "apicurious:workcycle/diurnal"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "fff7b6",
+      "outlineTint": "42371c",
+      "wingTint": "fff7b6"
+    },
+    "hasCustomRender": false
+  }
+}

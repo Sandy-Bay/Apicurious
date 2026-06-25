@@ -6,6 +6,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.item.MissingItemModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ItemOwner;
@@ -25,7 +26,7 @@ import java.util.Locale;
  * Replaces the old BeeItemRenderer (BlockEntityWithoutLevelRenderer).
  * Picks a per-species "item/species/<name>_<type>" client item if one
  * exists, otherwise falls back to "item/species/default_<type>".
- *
+ * <p>
  * Registered via RegisterItemModelsEvent and referenced from each bee
  * item's own client item JSON (assets/apicurious/items/drone.json, etc.)
  */
@@ -50,7 +51,7 @@ public record BeeItemModel(Identifier fallback) implements ItemModel
       String suffix = switch (beeItem.getBeeType())
       {
         case DRONE -> "drone";
-        case PRINCESS ->  "princess";
+        case PRINCESS -> "princess";
         case QUEEN -> "queen";
         default -> null;
       };
@@ -58,14 +59,14 @@ public record BeeItemModel(Identifier fallback) implements ItemModel
       if (suffix != null)
       {
         Identifier speciesModelId = Apicurious.createIdentifier("species/" + species.getReadableName().getString().toLowerCase(Locale.ROOT) + "_" + suffix);
-        if (manager.getItemModel(speciesModelId) != null)
+        if (manager.bakedItemStackModels.containsKey(speciesModelId))
         {
           modelId = speciesModelId;
         }
       }
 
       ItemModel resolved = manager.getItemModel(modelId);
-      if (resolved != null) {
+      if (!(resolved instanceof MissingItemModel)) {
         resolved.update(state, stack, resolver, displayContext, level, owner, seed);
       }
     }

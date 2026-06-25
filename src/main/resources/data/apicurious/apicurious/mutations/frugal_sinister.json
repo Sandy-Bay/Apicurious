@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.16,
+  "first": "apicurious:species/modest",
+  "output": "apicurious:species/frugal",
+  "second": "apicurious:species/sinister"
+}

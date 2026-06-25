@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:temperature_tolerance",
+  "isDominantTrait": true,
+  "name": "apicurious.tolerance.temperature.none",
+  "toleranceModifier": 0
+}

@@ -1,0 +1,21 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "apicurious:glowing_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.25,
+      "output": {
+        "id": "apicurious:honey_drop"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "count": 3,
+        "id": "minecraft:glowstone_dust"
+      }
+    }
+  ]
+}

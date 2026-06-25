@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.15,
+  "first": "apicurious:species/diligent",
+  "output": "apicurious:species/tolerant",
+  "second": "apicurious:species/rocky"
+}

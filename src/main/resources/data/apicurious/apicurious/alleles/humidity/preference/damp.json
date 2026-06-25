@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:humidity_preference",
+  "groupTag": "apicurious:humidity/damp",
+  "humidity": 4,
+  "isDominantTrait": true,
+  "name": "apicurious.preferenceHolder.humidity.damp"
+}

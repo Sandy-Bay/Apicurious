@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:flowers",
+  "flowers": "apicurious:sugar_cane",
+  "isDominantTrait": true,
+  "name": "apicurious.flowers.sugar_cane"
+}

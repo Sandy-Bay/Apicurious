@@ -1,0 +1,6 @@
+{
+  "type": "apicurious:pollination",
+  "isDominantTrait": true,
+  "name": "apicurious.pollination.average",
+  "pollinationChance": 0.2
+}

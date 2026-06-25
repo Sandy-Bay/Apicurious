@@ -1,0 +1,7 @@
+{
+  "type": "apicurious:mutation",
+  "chance": 0.08,
+  "first": "apicurious:species/ancient",
+  "output": "apicurious:species/primeval",
+  "second": "apicurious:species/secluded"
+}

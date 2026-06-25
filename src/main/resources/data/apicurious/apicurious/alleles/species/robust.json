@@ -1,0 +1,37 @@
+{
+  "type": "apicurious:species",
+  "environmentalData": {
+    "flowers": "apicurious:flowers/overworld_stone",
+    "humidityData": {
+      "preferenceHolder": "apicurious:humidity/preference/average",
+      "toleranceHolder": "apicurious:humidity/tolerance/low"
+    },
+    "ignoresRain": true,
+    "ignoresSky": true,
+    "temperatureData": {
+      "preferenceHolder": "apicurious:temperature/preference/average",
+      "toleranceHolder": "apicurious:temperature/tolerance/low"
+    }
+  },
+  "key": "apicurious:species/robust",
+  "name": "apicurious.species.robust",
+  "outputData": {
+    "outputTable": "apicurious:robust"
+  },
+  "productionData": {
+    "area": "apicurious:area/average",
+    "fertility": "apicurious:fertility/low",
+    "lifespan": "apicurious:lifespan/short",
+    "pollination": "apicurious:pollination/slowest",
+    "speed": "apicurious:speed/slowest",
+    "workCycle": "apicurious:workcycle/always"
+  },
+  "visualData": {
+    "beeColor": {
+      "bodyTint": "999999",
+      "outlineTint": "695555",
+      "wingTint": "999999"
+    },
+    "hasCustomRender": false
+  }
+}

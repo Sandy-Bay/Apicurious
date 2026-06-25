@@ -1,0 +1,26 @@
+{
+  "duration": 100,
+  "input": {
+    "id": "apicurious:iron_comb"
+  },
+  "outputs": [
+    {
+      "chance": 0.25,
+      "output": {
+        "id": "apicurious:honey_drop"
+      }
+    },
+    {
+      "chance": 0.5,
+      "output": {
+        "id": "apicurious:beeswax"
+      }
+    },
+    {
+      "chance": 1.0,
+      "output": {
+        "id": "minecraft:iron_nugget"
+      }
+    }
+  ]
+}
