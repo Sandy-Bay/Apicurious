@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.15,
-  "first": "apicurious:species/barren",
-  "output": "apicurious:species/decomposing",
-  "second": "apicurious:species/marshy"
-}

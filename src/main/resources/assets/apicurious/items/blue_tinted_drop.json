@@ -1,0 +1,26 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "apicurious:item/drop",
+        "tints": [
+          {
+            "type": "apicurious:drop_item_tinter"
+          }
+        ]
+      },
+      {
+        "type": "minecraft:model",
+        "model": "apicurious:item/drop_highlight",
+        "tints": [
+          {
+            "type": "apicurious:drop_item_tinter",
+            "isHighlight": true
+          }
+        ]
+      }
+    ]
+  }
+}

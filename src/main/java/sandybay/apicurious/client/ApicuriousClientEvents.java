@@ -1,7 +1,6 @@
 package sandybay.apicurious.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelDebugName;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
@@ -13,16 +12,13 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.model.standalone.SimpleUnbakedStandaloneModel;
 import net.neoforged.neoforge.client.model.standalone.StandaloneModelKey;
 import sandybay.apicurious.Apicurious;
-import sandybay.apicurious.api.util.ApicuriousConstants;
 import sandybay.apicurious.client.gui.AnalyzerScreen;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.client.gui.CentrifugeScreen;
 import sandybay.apicurious.client.renderer.BeeItemModel;
-import sandybay.apicurious.client.tinter.BeeCombItemTinter;
-import sandybay.apicurious.client.tinter.BeeHiveBlockTinter;
-import sandybay.apicurious.client.tinter.BeeHiveItemTinter;
-import sandybay.apicurious.client.tinter.BeeItemTinter;
+import sandybay.apicurious.client.tinter.block.HiveBlockTinter;
+import sandybay.apicurious.client.tinter.item.*;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
 
@@ -47,14 +43,19 @@ public class ApicuriousClientEvents
 
   private static void handleBlockTint(final RegisterColorHandlersEvent.BlockTintSources event)
   {
-    event.register(List.of(new BeeHiveBlockTinter()), BlockRegistrar.FOREST_HIVE.asBlock(), BlockRegistrar.MEADOW_HIVE.asBlock(), BlockRegistrar.MODEST_HIVE.asBlock(), BlockRegistrar.TROPICAL_HIVE.asBlock(), BlockRegistrar.WINTRY_HIVE.asBlock(), BlockRegistrar.MARSHY_HIVE.asBlock(), BlockRegistrar.ROCKY_HIVE.asBlock(), BlockRegistrar.NETHER_HIVE.asBlock(), BlockRegistrar.ENDER_HIVE.asBlock(), BlockRegistrar.WATER_HIVE.asBlock());
+    event.register(List.of(
+            new HiveBlockTinter()
+    ), BlockRegistrar.FOREST_HIVE.asBlock(), BlockRegistrar.MEADOW_HIVE.asBlock(), BlockRegistrar.MODEST_HIVE.asBlock(), BlockRegistrar.TROPICAL_HIVE.asBlock(), BlockRegistrar.WINTRY_HIVE.asBlock(), BlockRegistrar.MARSHY_HIVE.asBlock(), BlockRegistrar.ROCKY_HIVE.asBlock(), BlockRegistrar.NETHER_HIVE.asBlock(), BlockRegistrar.ENDER_HIVE.asBlock(), BlockRegistrar.WATER_HIVE.asBlock());
   }
 
   private static void handleItemTint(final RegisterColorHandlersEvent.ItemTintSources event)
   {
     event.register(Apicurious.createIdentifier("bee_item_tinter"), BeeItemTinter.MAP_CODEC);
-    event.register(Apicurious.createIdentifier("bee_hive_item_tinter"), BeeHiveItemTinter.MAP_CODEC);
-    event.register(Apicurious.createIdentifier("bee_comb_item_tinter"), BeeCombItemTinter.MAP_CODEC);
+    event.register(Apicurious.createIdentifier("comb_item_tinter"), CombItemTinter.MAP_CODEC);
+    event.register(Apicurious.createIdentifier("drop_item_tinter"), DropItemTinter.MAP_CODEC);
+    event.register(Apicurious.createIdentifier("hive_item_tinter"), HiveItemTinter.MAP_CODEC);
+    event.register(Apicurious.createIdentifier("pollen_item_tinter"), PollenItemTinter.MAP_CODEC);
+    event.register(Apicurious.createIdentifier("propolis_item_tinter"), PropolisItemTinter.MAP_CODEC);
   }
 
   private static void registerScreens(RegisterMenuScreensEvent event)

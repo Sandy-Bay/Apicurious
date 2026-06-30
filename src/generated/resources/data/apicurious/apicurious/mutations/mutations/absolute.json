@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.1,
-  "first": "apicurious:species/frigid",
-  "output": "apicurious:species/absolute",
-  "second": "apicurious:species/ocean"
-}

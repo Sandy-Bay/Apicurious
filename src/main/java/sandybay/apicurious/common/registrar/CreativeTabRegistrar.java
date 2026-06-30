@@ -33,10 +33,12 @@ public class CreativeTabRegistrar
     output.accept(new ItemStack(ItemRegistrar.SIEVE.item().get()));
     output.accept(BlockRegistrar.CENTRIFUGE.asItemStack());
     registerHousings(output);
-    registerFrames(output);
     registerHives(output);
-    registerCombs(output);
     registerProducts(output);
+    registerCombs(output);
+    registerDrops(output);
+    registerPropolis(output);
+    registerFrames(output);
   }).build());
 
   public static ItemStack bee_tab_icon = ItemStack.EMPTY;
@@ -77,19 +79,29 @@ public class CreativeTabRegistrar
     BlockRegistrar.HIVES.forEach(holder -> output.accept(holder.asBlock()));
   }
 
-  private static void registerCombs(CreativeModeTab.Output output)
-  {
-    ItemRegistrar.COMBS.forEach(comb -> output.accept(comb.get()));
-  }
-
   private static void registerProducts(CreativeModeTab.Output output)
   {
-    ItemRegistrar.PRODUCTS.forEach(product -> output.accept(product.get()));
+    ItemRegistrar.PRODUCTS_LIST.forEach(product -> output.accept(product.get()));
+  }
+
+  private static void registerCombs(CreativeModeTab.Output output)
+  {
+    ItemRegistrar.COMBS_LIST.forEach(comb -> output.accept(comb.get()));
+  }
+
+  private static void registerDrops(CreativeModeTab.Output output)
+  {
+    ItemRegistrar.DROPS_LIST.forEach(drop -> output.accept(drop.get()));
+  }
+
+  private static void registerPropolis(CreativeModeTab.Output output)
+  {
+    ItemRegistrar.PROPOLIS_LIST.forEach(propolis -> output.accept(propolis.get()));
   }
 
   private static void registerFrames(CreativeModeTab.Output output)
   {
-    ItemRegistrar.FRAMES.forEach(frame -> output.accept(frame.get()));
+    ItemRegistrar.FRAMES_LIST.forEach(frame -> output.accept(frame.get()));
   }
 
   public static void register(IEventBus bus)

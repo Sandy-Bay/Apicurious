@@ -1,0 +1,26 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "apicurious:item/comb_outline",
+        "tints": [
+          {
+            "type": "apicurious:comb_item_tinter",
+            "isOutline": true
+          }
+        ]
+      },
+      {
+        "type": "minecraft:model",
+        "model": "apicurious:item/comb_cells",
+        "tints": [
+          {
+            "type": "apicurious:comb_item_tinter"
+          }
+        ]
+      }
+    ]
+  }
+}

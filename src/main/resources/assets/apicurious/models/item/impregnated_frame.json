@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "apicurious:item/frame/impregnated"
+    "layer0": "apicurious:item/impregnated_frame"
   }
 }

@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.1,
-  "first": "apicurious:species/wintry",
-  "output": "apicurious:species/frigid",
-  "second": "apicurious:species/diligent"
-}

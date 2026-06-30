@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.05,
-  "first": "apicurious:species/lazuli",
-  "output": "apicurious:species/emeraldine",
-  "second": "apicurious:species/forest"
-}

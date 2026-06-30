@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.1,
-  "first": "apicurious:species/river",
-  "output": "apicurious:species/ocean",
-  "second": "apicurious:species/diligent"
-}

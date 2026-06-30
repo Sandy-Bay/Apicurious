@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "apicurious:item/bee/bee_outline",
+    "layer1": "apicurious:item/bee/bee_body",
+    "layer2": "apicurious:item/bee/bee_body_stripes",
+    "layer3": "apicurious:item/bee/bee_wing_fill",
+    "layer4": "apicurious:item/bee/bee_wing_tint"
+  }
+}

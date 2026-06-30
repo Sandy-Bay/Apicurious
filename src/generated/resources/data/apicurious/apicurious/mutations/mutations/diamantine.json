@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.05,
-  "first": "apicurious:species/lazuli",
-  "output": "apicurious:species/diamantine",
-  "second": "apicurious:species/cultivated"
-}

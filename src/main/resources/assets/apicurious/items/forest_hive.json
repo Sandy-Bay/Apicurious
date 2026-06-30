@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "apicurious:block/hive",
+    "tints": [
+      {
+        "type": "apicurious:hive_item_tinter"
+      }
+    ]
+  }
+}

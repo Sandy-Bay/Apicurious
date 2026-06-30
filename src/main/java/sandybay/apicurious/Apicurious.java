@@ -40,12 +40,15 @@ import sandybay.apicurious.data.server.LootItemFunctionRegistration;
 
 /*
  Todo: Before MVP Alpha Release
-  - Must Haves:
+  - Must Haves
     - Apiary/BeeHousing
       - Add Particles for active housing
     - Hives
       - Add WorldGen for Hives
-  - Beta:
+ */
+/*
+ TODO: Before MVP Beta Release
+  - Must haves
     - Alveary (Multiblock)
     - Bee Branch Rework
     - Effects

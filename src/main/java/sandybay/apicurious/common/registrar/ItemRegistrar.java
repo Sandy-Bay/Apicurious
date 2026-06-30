@@ -13,10 +13,7 @@ import sandybay.apicurious.api.item.TerritoryModifier;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.Coloring;
-import sandybay.apicurious.common.item.BeeAnalyzerItem;
-import sandybay.apicurious.common.item.BeeItem;
-import sandybay.apicurious.common.item.CombItem;
-import sandybay.apicurious.common.item.SieveItem;
+import sandybay.apicurious.common.item.*;
 import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.item.frame.RestraintFrame;
 
@@ -38,9 +35,13 @@ import java.util.function.Function;
  */
 public class ItemRegistrar
 {
-  public static final List<DeferredHolder<Item, CombItem>> COMBS = new ArrayList<>();
-  public static final List<DeferredHolder<Item, Item>> PRODUCTS = new ArrayList<>();
-  public static final List<DeferredHolder<Item, FrameItem>> FRAMES = new ArrayList<>();
+
+  public static final List<DeferredHolder<Item, Item>> PRODUCTS_LIST = new ArrayList<>();
+  public static final List<DeferredHolder<Item, CombItem>> COMBS_LIST = new ArrayList<>();
+  public static final List<DeferredHolder<Item, DropItem>> DROPS_LIST = new  ArrayList<>();
+  public static final List<DeferredHolder<Item, PropolisItem>> PROPOLIS_LIST = new ArrayList<>();
+  public static final List<DeferredHolder<Item, FrameItem>> FRAMES_LIST = new ArrayList<>();
+  public static final List<DeferredHolder<Item, PollenItem>> POLLEN_LIST = new ArrayList<>();
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
   public static final ItemHolder DRONE = bee("drone", EnumBeeType.DRONE, new Item.Properties(), BeeItem::new);
@@ -109,13 +110,13 @@ public class ItemRegistrar
   // Misc
   public static final ItemHolder BEESWAX = product("beeswax");
   public static final ItemHolder REFRACTORY_WAX = product("refractory_wax");
-  public static final ItemHolder HONEY_DROP = product("honey_drop");
+  public static final DropHolder HONEY_DROP = drop("honey_drop", Coloring.fromHex("ecb42d"), Coloring.fromHex("e8c814"));
   public static final ItemHolder HONEY_DEW = product("honey_dew");
   public static final ItemHolder ROYAL_JELLY = product("royal_jelly");
-  public static final ItemHolder PROPOLIS = product("propolis");
-  public static final ItemHolder SILKEN_PROPOLIS = product("silken_propolis");
+  public static final PropolisHolder PROPOLIS = propolis("propolis", Coloring.fromHex("c5b24e"));
+  public static final PropolisHolder SILKEN_PROPOLIS = propolis("silken_propolis", Coloring.fromHex("ddff00"));
   public static final ItemHolder SILK_WISP = product("silk_wisp");
-  public static final ItemHolder POLLEN = product("pollen");
+  public static final PollenHolder POLLEN = pollen("pollen", Coloring.fromHex("a28a25"), Coloring.fromHex("a28a25"));
   public static final ItemHolder ICE_SHARD = product("ice_shard");
   public static final ItemHolder ASH = product("ash");
   public static final ItemHolder PEAT = product("peat");
@@ -123,25 +124,25 @@ public class ItemRegistrar
   public static final ItemHolder DIAMOND_NUGGET = product("diamond_nugget");
   public static final ItemHolder EMERALD_NUGGET = product("emerald_nugget");
   public static final ItemHolder COPPER_NUGGET = product("copper_nugget");
-  public static final ItemHolder WATERY_PROPOLIS = product("watery_propolis");
-  public static final ItemHolder RED_TINTED_DROP = product("red_tinted_drop");
-  public static final ItemHolder YELLOW_TINTED_DROP = product("yellow_tinted_drop");
-  public static final ItemHolder BLUE_TINTED_DROP = product("blue_tinted_drop");
-  public static final ItemHolder GREEN_TINTED_DROP = product("green_tinted_drop");
-  public static final ItemHolder BROWN_TINTED_DROP = product("brown_tinted_drop");
-  public static final ItemHolder WHITE_TINTED_DROP = product("white_tinted_drop");
-  public static final ItemHolder BLACK_TINTED_DROP = product("black_tinted_drop");
-  public static final ItemHolder ORANGE_TINTED_DROP = product("orange_tinted_drop");
-  public static final ItemHolder CYAN_TINTED_DROP = product("cyan_tinted_drop");
-  public static final ItemHolder PURPLE_TINTED_DROP = product("purple_tinted_drop");
-  public static final ItemHolder GRAY_TINTED_DROP = product("gray_tinted_drop");
-  public static final ItemHolder LIGHT_BLUE_TINTED_DROP = product("light_blue_tinted_drop");
-  public static final ItemHolder PINK_TINTED_DROP = product("pink_tinted_drop");
-  public static final ItemHolder LIME_TINTED_DROP = product("lime_tinted_drop");
-  public static final ItemHolder LIGHT_GRAY_TINTED_DROP = product("light_gray_tinted_drop");
-  public static final ItemHolder MAGENTA_TINTED_DROP = product("magenta_tinted_drop");
+  public static final PropolisHolder WATERY_PROPOLIS = propolis("watery_propolis", Coloring.fromHex("24B3C9"));
+  public static final DropHolder RED_TINTED_DROP = drop("red_tinted_drop", Coloring.fromHex("FF0000"), Coloring.fromHex("CC4C4C"));
+  public static final DropHolder YELLOW_TINTED_DROP = drop("yellow_tinted_drop", Coloring.fromHex("FFDD00"), Coloring.fromHex("E5E533"));
+  public static final DropHolder BLUE_TINTED_DROP = drop("blue_tinted_drop", Coloring.fromHex("0022FF"), Coloring.fromHex("99B2F2"));
+  public static final DropHolder GREEN_TINTED_DROP = drop("green_tinted_drop", Coloring.fromHex("009900"), Coloring.fromHex("667F33"));
+  public static final DropHolder BROWN_TINTED_DROP = drop("brown_tinted_drop", Coloring.fromHex("5C350F"), Coloring.fromHex("7F664C"));
+  public static final DropHolder WHITE_TINTED_DROP = drop("white_tinted_drop", Coloring.fromHex("FFFFFF"), Coloring.fromHex("D6D6D6"));
+  public static final DropHolder BLACK_TINTED_DROP = drop("black_tinted_drop", Coloring.fromHex("191919"), Coloring.fromHex("575757"));
+  public static final DropHolder ORANGE_TINTED_DROP = drop("orange_tinted_drop", Coloring.fromHex("FF9D00"), Coloring.fromHex("F2B233"));
+  public static final DropHolder CYAN_TINTED_DROP = drop("cyan_tinted_drop", Coloring.fromHex("4C99B2"), Coloring.fromHex("00FFE5"));
+  public static final DropHolder PURPLE_TINTED_DROP = drop("purple_tinted_drop", Coloring.fromHex("AE00FF"), Coloring.fromHex("B266E5"));
+  public static final DropHolder GRAY_TINTED_DROP = drop("gray_tinted_drop", Coloring.fromHex("4C4C4C"), Coloring.fromHex("BABABA"));
+  public static final DropHolder LIGHT_BLUE_TINTED_DROP = drop("light_blue_tinted_drop", Coloring.fromHex("009DFF"), Coloring.fromHex("99B2F2"));
+  public static final DropHolder PINK_TINTED_DROP = drop("pink_tinted_drop", Coloring.fromHex("FF80DF"), Coloring.fromHex("F2B2CC"));
+  public static final DropHolder LIME_TINTED_DROP = drop("lime_tinted_drop", Coloring.fromHex("00FF08"), Coloring.fromHex("7FCC19"));
+  public static final DropHolder LIGHT_GRAY_TINTED_DROP = drop("light_gray_tinted_drop", Coloring.fromHex("999999"), Coloring.fromHex("C9C9C9"));
+  public static final DropHolder MAGENTA_TINTED_DROP = drop("magenta_tinted_drop", Coloring.fromHex("FF00CC"), Coloring.fromHex("E57FD8"));
   public static final ItemHolder SALTPETER = product("saltpeter");
-  public static final ItemHolder ACIDIC_DROP = product("acidic_drop");
+  public static final DropHolder ACIDIC_DROP = drop("acidic_drop", Coloring.fromHex("49DE3C"), Coloring.fromHex("4BB541"));
   public static final ItemHolder SULFUR = product("sulfur");
 
   // Frames
@@ -180,8 +181,47 @@ public class ItemRegistrar
   {
     ResourceKey<Item> itemKey = create(name);
     DeferredHolder<Item, Item> product = ITEMS.register(name, () -> new Item(properties.setId(itemKey)));
-    PRODUCTS.add(product);
+    PRODUCTS_LIST.add(product);
     return new ItemHolder(itemKey, product);
+  }
+
+  public static DropHolder drop(String name, Coloring dropTint, Coloring dropHighlight)
+  {
+    return drop(name, dropTint, dropHighlight, new Item.Properties());
+  }
+
+  public static DropHolder drop(String name, Coloring dropTint, Coloring dropHighlight, Item.Properties properties)
+  {
+    ResourceKey<Item> itemKey = create(name);
+    DeferredHolder<Item, DropItem> product = ITEMS.register(name, () -> new DropItem(properties.setId(itemKey), dropTint, dropHighlight));
+    DROPS_LIST.add(product);
+    return new DropHolder(itemKey, product);
+  }
+
+  public static PropolisHolder propolis(String name, Coloring propolisTint)
+  {
+    return propolis(name, propolisTint, new Item.Properties());
+  }
+
+  public static PropolisHolder propolis(String name, Coloring propolisTint, Item.Properties properties)
+  {
+    ResourceKey<Item> itemKey = create(name);
+    DeferredHolder<Item, PropolisItem> product = ITEMS.register(name, () -> new PropolisItem(properties.setId(itemKey), propolisTint));
+    PROPOLIS_LIST.add(product);
+    return new PropolisHolder(itemKey, product);
+  }
+
+  public static PollenHolder pollen(String name, Coloring pollenTint, Coloring pollenHighlight)
+  {
+    return pollen(name, pollenTint, pollenHighlight, new Item.Properties());
+  }
+
+  public static PollenHolder pollen(String name, Coloring pollenTint, Coloring pollenHighlight, Item.Properties properties)
+  {
+    ResourceKey<Item> itemKey = create(name);
+    DeferredHolder<Item, PollenItem> product = ITEMS.register(name, () -> new PollenItem(properties.setId(itemKey), pollenTint, pollenHighlight));
+    POLLEN_LIST.add(product);
+    return new PollenHolder(itemKey, product);
   }
 
   public static String frame(String name)
@@ -193,7 +233,7 @@ public class ItemRegistrar
   {
     ResourceKey<Item> frameKey = create(name + "_frame");
     DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> func.apply(props.setId(frameKey)));
-    FRAMES.add(frame);
+    FRAMES_LIST.add(frame);
     return new FrameHolder(frameKey, frame);
   }
 
@@ -201,15 +241,7 @@ public class ItemRegistrar
   {
     ResourceKey<Item> itemKey = create(name + "_frame");
     DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().setId(itemKey).durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xz -> xz, y -> y)));
-    FRAMES.add(frame);
-    return new FrameHolder(itemKey, frame);
-  }
-
-  public static FrameHolder frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier, Function<Integer, Integer> xzMod, Function<Integer, Integer> ymod)
-  {
-    ResourceKey<Item> itemKey = create(name + "_frame");
-    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().setId(itemKey).durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xzMod, ymod)));
-    FRAMES.add(frame);
+    FRAMES_LIST.add(frame);
     return new FrameHolder(itemKey, frame);
   }
 
@@ -217,7 +249,7 @@ public class ItemRegistrar
   {
     ResourceKey<Item> itemKey = create(type + "_comb");
     DeferredHolder<Item, CombItem> comb = ITEMS.register(type + "_comb", () -> new CombItem(new Item.Properties().setId(itemKey), outline, cells));
-    COMBS.add(comb);
+    COMBS_LIST.add(comb);
     return new CombHolder(itemKey, comb, ResourceKey.create(ApicuriousRegistries.CENTRIFUGE_RECIPES, Apicurious.createIdentifier(type)));
   }
 
@@ -240,7 +272,10 @@ public class ItemRegistrar
 
   public record ItemHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, Item> item) {}
   public record CombHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, CombItem> comb, ResourceKey<CentrifugeRecipe> recipe) {}
+  public record DropHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, DropItem> drop) {}
   public record FrameHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, FrameItem> frame) {}
+  public record PollenHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PollenItem> pollen) {}
+  public record PropolisHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PropolisItem> propolis) {}
 
   public static ResourceKey<Item> create(String id)
   {

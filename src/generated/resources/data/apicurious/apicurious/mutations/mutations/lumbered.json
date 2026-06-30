@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.05,
-  "first": "apicurious:species/wooden",
-  "output": "apicurious:species/lumbered",
-  "second": "apicurious:species/diligent"
-}

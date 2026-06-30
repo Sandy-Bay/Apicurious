@@ -5,6 +5,7 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.data.client.ApicuriousLangProvider;
+import sandybay.apicurious.data.client.ApicuriousModelProvider;
 import sandybay.apicurious.data.server.ApicuriousDatapackRegistriesDefaults;
 import sandybay.apicurious.data.server.ApicuriousLootTables;
 import sandybay.apicurious.data.server.ApicuriousTagProviders;
@@ -16,6 +17,7 @@ public class ApicuriousDataGen
   public static void generateClientData(final GatherDataEvent.Client event)
   {
     event.createProvider(ApicuriousLangProvider::new);
+    event.createProvider(ApicuriousModelProvider::new);
   }
 
   public static void generateServerData(final GatherDataEvent.Server event)

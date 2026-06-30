@@ -1,0 +1,26 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "apicurious:item/pollen_base",
+        "tints": [
+          {
+            "type": "apicurious:pollen_item_tinter"
+          }
+        ]
+      },
+      {
+        "type": "minecraft:model",
+        "model": "apicurious:item/pollen_highlight",
+        "tints": [
+          {
+            "type": "apicurious:pollen_item_tinter",
+            "isHighlight": true
+          }
+        ]
+      }
+    ]
+  }
+}

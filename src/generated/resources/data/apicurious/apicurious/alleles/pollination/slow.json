@@ -1,6 +1,0 @@
-{
-  "type": "apicurious:pollination",
-  "isDominantTrait": true,
-  "name": "apicurious.pollination.slow",
-  "pollinationChance": 0.15
-}

@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "apicurious:item/frame/restraint"
+    "layer0": "apicurious:item/restraint_frame"
   }
 }

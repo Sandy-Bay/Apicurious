@@ -76,7 +76,6 @@ public record BeeItemModel(Identifier fallback) implements ItemModel
   {
     public static final MapCodec<Unbaked> MAP_CODEC = Identifier.CODEC.fieldOf("fallback").xmap(Unbaked::new, Unbaked::fallback);
 
-
     @Override
     public MapCodec<? extends ItemModel.Unbaked> type()
     {

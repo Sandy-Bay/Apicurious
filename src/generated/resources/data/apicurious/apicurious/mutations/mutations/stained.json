@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.08,
-  "first": "apicurious:species/ebony",
-  "output": "apicurious:species/stained",
-  "second": "apicurious:species/ocean"
-}

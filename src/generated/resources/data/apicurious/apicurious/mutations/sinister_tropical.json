@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.6,
-  "first": "apicurious:species/tropical",
-  "output": "apicurious:species/sinister",
-  "second": "apicurious:species/cultivated"
-}

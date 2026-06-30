@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "apicurious:item/frame/soul"
+    "layer0": "apicurious:item/soul_frame"
   }
 }

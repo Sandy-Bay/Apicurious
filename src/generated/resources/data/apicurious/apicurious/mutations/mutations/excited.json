@@ -1,7 +1,0 @@
-{
-  "type": "apicurious:mutation",
-  "chance": 0.1,
-  "first": "apicurious:species/cultivated",
-  "output": "apicurious:species/excited",
-  "second": "apicurious:species/valiant"
-}

@@ -96,7 +96,7 @@ public class BlockRegistrar
     return () -> new BlockItem(block.get(), props);
   }
 
-  private static <BLOCK extends Block, T extends BlockEntity, TYPE extends BlockEntityType<T>> Supplier<BlockEntityType<T>> getDefaultType(BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
+  private static <BLOCK extends Block, T extends BlockEntity> Supplier<BlockEntityType<T>> getDefaultType(BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
   {
     return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()));
   }

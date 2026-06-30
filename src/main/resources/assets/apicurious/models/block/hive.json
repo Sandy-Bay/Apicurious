@@ -1,19 +1,39 @@
 {
   "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "bottom": "apicurious:block/hive/hive_bottom",
-    "front": "apicurious:block/hive/hive_front",
-    "particle": "apicurious:block/hive/hive_side",
-    "side": "apicurious:block/hive/hive_side",
-    "top": "apicurious:block/hive/hive_top"
-  },
-  "tints": [
-    {
-      "type": "apicurious:bee_hive_item_tinter"
-    }
-  ],
   "elements": [
     {
+      "faces": {
+        "down": {
+          "cullface": "down",
+          "texture": "#bottom",
+          "tintindex": 0
+        },
+        "east": {
+          "cullface": "east",
+          "texture": "#side",
+          "tintindex": 0
+        },
+        "north": {
+          "cullface": "north",
+          "texture": "#front",
+          "tintindex": 0
+        },
+        "south": {
+          "cullface": "south",
+          "texture": "#side",
+          "tintindex": 0
+        },
+        "up": {
+          "cullface": "up",
+          "texture": "#top",
+          "tintindex": 0
+        },
+        "west": {
+          "cullface": "west",
+          "texture": "#side",
+          "tintindex": 0
+        }
+      },
       "from": [
         0,
         0,
@@ -23,75 +43,14 @@
         16,
         16,
         16
-      ],
-      "faces": {
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#bottom",
-          "tintindex": 0,
-          "cullface": "down"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#top",
-          "tintindex": 0,
-          "cullface": "up"
-        },
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#front",
-          "tintindex": 0,
-          "cullface": "north"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#side",
-          "tintindex": 0,
-          "cullface": "south"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#side",
-          "tintindex": 0,
-          "cullface": "west"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#side",
-          "tintindex": 0,
-          "cullface": "east"
-        }
-      }
+      ]
     }
-  ]
+  ],
+  "textures": {
+    "bottom": "apicurious:block/hive/hive_bottom",
+    "front": "apicurious:block/hive/hive_front",
+    "particle": "apicurious:block/hive/hive_side",
+    "side": "apicurious:block/hive/hive_side",
+    "top": "apicurious:block/hive/hive_top"
+  }
 }

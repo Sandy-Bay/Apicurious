@@ -1,12 +1,43 @@
 {
-  "parent": "block/cube",
+  "parent": "minecraft:block/cube",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#bottom"
+        },
+        "east": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#top"
+        },
+        "west": {
+          "texture": "#side"
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
   "textures": {
+    "bottom": "apicurious:block/housing/apiary_bottom",
     "particle": "apicurious:block/housing/apiary_side",
-    "down": "apicurious:block/housing/apiary_bottom",
-    "up": "apicurious:block/housing/apiary_top",
-    "north": "apicurious:block/housing/apiary_side",
-    "east": "apicurious:block/housing/apiary_side",
-    "south": "apicurious:block/housing/apiary_side",
-    "west": "apicurious:block/housing/apiary_side"
+    "side": "apicurious:block/housing/apiary_side",
+    "top": "apicurious:block/housing/apiary_top"
   }
 }

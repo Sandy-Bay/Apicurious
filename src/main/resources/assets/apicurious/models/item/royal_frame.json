@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "apicurious:item/frame/royal"
+    "layer0": "apicurious:item/royal_frame"
   }
 }
