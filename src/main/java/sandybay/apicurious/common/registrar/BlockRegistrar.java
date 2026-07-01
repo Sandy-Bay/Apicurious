@@ -53,7 +53,6 @@ public class BlockRegistrar
   public static final BlockItemHolder<HiveBlock, BlockItem> NETHER_HIVE = registerHive("nether_hive", ApicuriousSpecies.NETHER.species(), (props, block) -> new BlockItem(block.get(), props));
   public static final BlockItemHolder<HiveBlock, BlockItem> ENDER_HIVE = registerHive("ender_hive", ApicuriousSpecies.ENDER.species(), (props, block) -> new BlockItem(block.get(), props));
   public static final BlockItemHolder<HiveBlock, BlockItem> WATER_HIVE = registerHive("water_hive", ApicuriousSpecies.WATER.species(), (props, block) -> new BlockItem(block.get(), props));
-  private static final Item.Properties DEFAULT_ITEM_BLOCK_PROPERTIES = new Item.Properties();
 
   public static void register(IEventBus bus)
   {
@@ -75,7 +74,7 @@ public class BlockRegistrar
   {
     BlockItemId bii = createId(id);
     DeferredHolder<Block, HiveBlock> b = BLOCKS.register(id, () -> new HiveBlock(speciesKey, HIVE_PROPS.setId(bii.block())));
-    DeferredHolder<Item, BlockItem> i = ITEMS.register(id, () -> item.apply(DEFAULT_ITEM_BLOCK_PROPERTIES.setId(bii.item()), b));
+    DeferredHolder<Item, BlockItem> i = ITEMS.register(id, () -> item.apply(new Item.Properties().setId(bii.item()), b));
     BlockItemHolder<HiveBlock, BlockItem> holder = new BlockItemHolder<>(b, i, bii);
     HIVES.add(holder);
     return holder;
@@ -86,7 +85,7 @@ public class BlockRegistrar
   {
     BlockItemId bii = createId(id);
     DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, () -> block.apply(props.setId(bii.block())));
-    DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(DEFAULT_ITEM_BLOCK_PROPERTIES.setId(bii.item()), b));
+    DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(new Item.Properties().setId(bii.item()), b));
     DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> t = BLOCK_ENTITY_TYPES.register(id, type.apply(factory, b));
     return new BlockHolderWithTile<>(b, i, t, bii);
   }

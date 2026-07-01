@@ -19,12 +19,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.util.ProblemReporter;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.ITicker;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStacksResourceHandler;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
@@ -37,11 +40,34 @@ import java.util.Map;
 
 public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
 {
+  private static final int SLOT_COUNT = 10;
+  private static final int INPUT_SLOT = 0;
+  private static final int OUTPUT_SLOT_START = 1;
+  private static final int OUTPUT_SLOT_END = SLOT_COUNT;
+
+  private static final int DATA_WORK = 0;
+  private static final int DATA_MAX_WORK = 1;
+  private static final int DATA_COUNT = 2;
+
+  // Value meaning "not currently working".
+  private static final int NO_WORK = -1;
+
   private final ConfigurableItemStacksResourceHandler inventory;
-  private ItemResource curr;
+
+  /** Last input stack we reacted to; used to detect the input slot changing. */
+  private ItemResource lastSeenInput = ItemResource.EMPTY;
   private CentrifugeRecipe recipe;
-  private int work;
+  private int work = NO_WORK;
   private int maxWork;
+
+  /**
+   * Set after loading from NBT when a recipe was mid-progress. The recipe object itself
+   * isn't persisted, so on the first tick after load we re-resolve it against whatever is
+   * currently sitting in the input slot, instead of letting the normal "input changed"
+   * detection wipe the in-progress work back to zero.
+   */
+  private boolean pendingResume = false;
+
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -49,8 +75,8 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
     {
       return switch (pIndex)
       {
-        case 0 -> work;
-        case 1 -> maxWork;
+        case DATA_WORK -> work;
+        case DATA_MAX_WORK -> maxWork;
         default -> throw new IllegalArgumentException("Invalid index: " + pIndex);
       };
     }
@@ -64,14 +90,14 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
     @Override
     public int getCount()
     {
-      return 2;
+      return DATA_COUNT;
     }
   };
 
   public CentrifugeBE(BlockPos pPos, BlockState pBlockState)
   {
     super(BlockRegistrar.CENTRIFUGE.getType(), pPos, pBlockState);
-    this.inventory = new ConfigurableItemStacksResourceHandler(10).setInputFilter((stack, slot) -> slot == 0);
+    this.inventory = new ConfigurableItemStacksResourceHandler(SLOT_COUNT).setOnSlotChanged((stack, slot) -> this.setChanged());
   }
 
   @Override
@@ -91,63 +117,87 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (getLevel() == null) {return;}
-    ItemResource stack = inventory.getResource(0);
-    if ((stack.isEmpty() || this.curr != stack) && (recipe != null || work != -1))
+    if (getLevel() == null) return;
+
+    if (pendingResume)
     {
-      this.recipe = null;
-      this.work = -1;
-      this.maxWork = 0;
-      this.curr = stack;
+      resumeAfterLoad();
+    }
+
+    ItemResource stack = inventory.getResource(INPUT_SLOT);
+
+    if (inputWasRemovedOrSwapped(stack))
+    {
+      cancelWork();
+      this.lastSeenInput = stack;
       return;
     }
-    if (!stack.isEmpty() && this.recipe == null && this.curr != stack)
+
+    if (shouldStartNewRecipe(stack))
     {
-      Registry<CentrifugeRecipe> recipes = getLevel().registryAccess().get(ApicuriousRegistries.CENTRIFUGE_RECIPES).orElseThrow().value();
-      this.recipe = recipes.entrySet().stream().filter(entry -> entry.getValue().matches(this)).map(Map.Entry::getValue).findFirst().orElse(null);
-      if (this.recipe == null) {return;}
-      this.work = this.maxWork = recipe.duration();
-      this.curr = stack;
+      startNewRecipe(stack);
       return;
     }
-    if (!stack.isEmpty() && this.recipe != null && this.work == -1)
+
+    if (isWorking() && work == NO_WORK)
     {
-      this.work = this.maxWork = recipe.duration();
+      startWork();
+      return;
     }
-    if (this.work > 0)
+
+    if (!isWorking() || work <= 0) return;
+
+    work--;
+    if (work == 0)
     {
-      this.work--;
-      if (this.work == 0)
-      {
-        ItemResource comb = this.inventory.getResource(0);
-        comb.toStack().shrink(1);
-        this.inventory.set(0, comb, comb.toStack().getCount());
-        List<ItemStack> outputs = this.recipe.resolve(this);
-        for (ItemStack output : outputs)
-        {
-          for (int i = 1; i < 10; i++)
-          {
-            try (Transaction tx = Transaction.openRoot())
-            {
-              if (this.inventory.insert(i, ItemResource.of(output.copy()), output.getCount(), tx) != output.getCount())
-              {
-                this.inventory.insert(i, ItemResource.of(output.copy()), output.getCount(), tx);
-                if (output.isEmpty())
-                {
-                  break;
-                }
-              }
-            }
-          }
-        }
-        this.work = -1;
-        this.maxWork = 0;
-      }
+      tryFinishCraft();
     }
   }
 
   @Override
   public void clientTick(Level level, BlockPos pos, BlockState state) {}
+
+  private boolean isWorking()
+  {
+    return recipe != null;
+  }
+
+  private boolean inputWasRemovedOrSwapped(ItemResource stack)
+  {
+    boolean inputChanged = this.lastSeenInput != stack;
+    return (stack.isEmpty() || inputChanged) && (isWorking() || work != NO_WORK);
+  }
+
+  private boolean shouldStartNewRecipe(ItemResource stack)
+  {
+    boolean inputChanged = this.lastSeenInput != stack;
+    return !stack.isEmpty() && !isWorking() && inputChanged;
+  }
+
+  private void startNewRecipe(ItemResource stack)
+  {
+    this.recipe = findRecipe();
+    if (this.recipe == null) return;
+    this.lastSeenInput = stack;
+    startWork();
+  }
+
+  private void resumeAfterLoad()
+  {
+    pendingResume = false;
+
+    ItemResource stack = inventory.getResource(INPUT_SLOT);
+    if (!stack.isEmpty())
+    {
+      this.recipe = findRecipe();
+      this.lastSeenInput = stack;
+    }
+
+    if (this.recipe == null)
+    {
+      cancelWork();
+    }
+  }
 
   public ConfigurableItemStacksResourceHandler getInventory()
   {
@@ -159,7 +209,6 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
     return containerData;
   }
 
-  // World Save / Read Methods
   @Override
   protected void saveAdditional(ValueOutput output)
   {
@@ -174,18 +223,22 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   {
     super.loadAdditional(input);
     this.inventory.deserialize(input);
-    this.work = input.getIntOr("work", 0);
+    this.work = input.getIntOr("work", NO_WORK);
     this.maxWork = input.getIntOr("maxWork", 0);
+    this.pendingResume = this.work != NO_WORK;
   }
 
-  // Data Syncing Methods
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries)
   {
-    CompoundTag tag = super.getUpdateTag(registries);
-    tag.putInt("work", work);
-    tag.putInt("maxWork", maxWork);
-    return tag;
+    try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), Apicurious.LOGGER)) {
+      TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
+      output.store(super.getUpdateTag(registries));
+      this.inventory.serialize(output);
+      output.putInt("work", work);
+      output.putInt("maxWork", maxWork);
+      return output.buildResult();
+    }
   }
 
   @Override
@@ -193,29 +246,115 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   {
     super.handleUpdateTag(input);
     this.inventory.deserialize(input);
-    this.work = input.getIntOr("work", 0);
+    this.work = input.getIntOr("work", NO_WORK);
     this.maxWork = input.getIntOr("maxWork", 0);
   }
 
-  // Data Update Methods
   @Nullable
   @Override
   public Packet<ClientGamePacketListener> getUpdatePacket()
   {
-    return ClientboundBlockEntityDataPacket.create(this, (be, reg) ->
-    {
-      CompoundTag tag = new CompoundTag();
-      tag.putInt("work", work);
-      tag.putInt("maxWork", maxWork);
-      return tag;
-    });
+    return ClientboundBlockEntityDataPacket.create(this);
   }
 
   @Override
   public void onDataPacket(Connection net, ValueInput valueInput)
   {
     this.inventory.deserialize(valueInput);
-    this.work = valueInput.getIntOr("work", 0);
+    this.work = valueInput.getIntOr("work", NO_WORK);
     this.maxWork = valueInput.getIntOr("maxWork", 0);
   }
+
+  private void cancelWork()
+  {
+    this.recipe = null;
+    this.work = NO_WORK;
+    this.maxWork = 0;
+  }
+
+  private void startWork()
+  {
+    this.work = this.maxWork = recipe.duration();
+  }
+
+  private CentrifugeRecipe findRecipe()
+  {
+    Registry<CentrifugeRecipe> recipes = getLevel().registryAccess()
+            .lookup(ApicuriousRegistries.CENTRIFUGE_RECIPES)
+            .orElseThrow();
+
+    return recipes.entrySet().stream()
+            .map(Map.Entry::getValue)
+            .filter(r -> r.matches(this))
+            .findFirst()
+            .orElse(null);
+  }
+
+  private void tryFinishCraft()
+  {
+    ItemResource inputStack = this.inventory.getResource(INPUT_SLOT);
+    List<ItemStack> outputs = this.recipe.resolve(this);
+
+    try (Transaction tx = Transaction.openRoot())
+    {
+      if (!canInsertOutputs(outputs, tx))
+      {
+        this.work++;
+        return;
+      }
+
+      if (this.inventory.extract(INPUT_SLOT, inputStack, 1, tx) == 1)
+      {
+        insertOutputs(outputs, tx);
+        tx.commit();
+        cancelWork();
+      }
+    }
+  }
+
+  private boolean canInsertOutputs(List<ItemStack> outputs, Transaction tx)
+  {
+    for (ItemStack output : outputs)
+    {
+      if (!canInsertSingle(output, tx)) return false;
+    }
+    return true;
+  }
+
+  /**
+   * Dry-run: simulates placing {@code stack} into the output slots. Runs inside a nested
+   * transaction that's never committed, so anything it inserts is automatically rolled back.
+   */
+  private boolean canInsertSingle(ItemStack stack, Transaction tx)
+  {
+    try (Transaction txt = Transaction.open(tx))
+    {
+      ItemResource item = ItemResource.of(stack);
+      return insertIntoOutputSlots(item, stack.getCount(), txt) == stack.getCount();
+    }
+  }
+
+  private void insertOutputs(List<ItemStack> outputs, Transaction tx)
+  {
+    for (ItemStack output : outputs)
+    {
+      ItemResource item = ItemResource.of(output);
+      insertIntoOutputSlots(item, output.getCount(), tx);
+    }
+  }
+
+  /**
+   * Attempts to insert up to {@code count} of {@code item} across the output slots.
+   * Returns the amount actually inserted.
+   */
+  private int insertIntoOutputSlots(ItemResource item, int count, Transaction tx)
+  {
+    int remaining = count;
+    for (int i = OUTPUT_SLOT_START; i < OUTPUT_SLOT_END && remaining > 0; i++)
+    {
+      remaining -= this.inventory.insert(i, item, remaining, tx);
+    }
+    return count - remaining;
+  }
+
 }

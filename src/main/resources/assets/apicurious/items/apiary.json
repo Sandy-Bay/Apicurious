@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "apicurious:block/apiary"
+    "model": "apicurious:item/apiary"
   }
 }

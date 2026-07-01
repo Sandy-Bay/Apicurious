@@ -55,8 +55,17 @@ import java.util.function.Predicate;
 
 public abstract class SimpleBlockHousingBE extends BaseHousingBE
 {
+  // Slot layout constants — replaces the "magic numbers" scattered through the original class.
+  private static final int SLOT_ROYAL = 0;
+  private static final int SLOT_DRONE = 1;
+  private static final int SLOT_FRAME_START = 2;
+  private static final int SLOT_FRAME_END = 5; // exclusive
+  private static final int SLOT_OUTPUT_START = 5;
+  private static final int SLOT_OUTPUT_END = 12; // exclusive
+  private static final int DEFAULT_BREEDING_TICKS = 75;
 
   public final HousingValidation validation;
+
   // Server-sided Data
   private final ConfigurableItemStacksResourceHandler inventory;
   private final List<HousingError> errorList = new ArrayList<>();
@@ -64,6 +73,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
+  public boolean shouldRenderParticles;
+
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -90,23 +101,25 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       return 3;
     }
   };
-  public int outputTimer;
-  public boolean shouldRenderParticles;
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
     super(type, pos, state);
     this.inventory = new ConfigurableItemStacksResourceHandler(12).setInputFilter((stack, slot) ->
     {
-      if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
+      if (slot == SLOT_ROYAL && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
       {return true;}
-      if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
+      if (slot == SLOT_DRONE && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
       {return true;}
-      return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
-    }).setSlotLimit(0, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1).setOnSlotChanged((stack, slot) ->
+      if ((slot >= SLOT_FRAME_START && slot < SLOT_FRAME_END && stack.getItem() instanceof IFrameItem))
+      {return true;}
+      return true;
+    }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1)
+            .setOnSlotChanged((stack, slot) ->
     {
       this.setChanged();
-      if (stack.isEmpty() && slot >= 5) {errorList.remove(HousingError.FULL_INVENTORY);}
+      if ((slot == 0 || slot == 1) && currentWork > 0 && maxWork > 0 && !territory.isEmpty()) {resetHousing(state);}
+      if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) {errorList.remove(HousingError.FULL_INVENTORY);}
     });
     this.validation = new HousingValidation(this);
   }
@@ -116,108 +129,168 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (!this.isActive)
     {
-      validate(level, pos, true);
-      if (getErrorList().isEmpty())
+      ItemResource royal = getInventory().getResource(SLOT_ROYAL);
+      if (!royal.isEmpty() && royal.is(ItemRegistrar.QUEEN.item()))
       {
-        updateGuiData();
-        if (currentWork == 0 && maxWork == 0)
-        {
-          this.currentWork = 75;
-          this.maxWork = currentWork;
-          this.clearErrors();
-        }
-        if (this.currentWork != 0)
-        {
-          this.currentWork--;
-          if (this.currentWork == 0)
-          {
-            ItemResource princess = getInventory().getResource(0);
-            ItemResource drone = getInventory().getResource(1);
-            Genome princessGenome = princess.get(DataComponentRegistrar.GENOME);
-            Genome droneGenome = drone.get(DataComponentRegistrar.GENOME);
-            ItemResource queen = ItemResource.of(ItemRegistrar.QUEEN.item());
-            if (princessGenome != null && droneGenome != null)
-            {
-              Genome queenGenome;
-              IMutation mutation = getPotentialMutation();
-              if (mutation == null)
-              {
-                queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
-              }
-              else
-              {
-                BeeSpecies mutatedSpecies = (BeeSpecies) mutation.getOutput().value();
-                queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
-              }
-              queen.with(DataComponentRegistrar.GENOME, queenGenome);
-              try (Transaction tx = Transaction.openRoot())
-              {
-                if (getInventory().extract(0, princess, 1, tx) > 0 && getInventory().extract(1, drone, 1, tx) > 0)
-                {
-                  tx.commit();
-                }
-              }
-
-              getInventory().set(0, queen, 1);
-              changeActiveState(state, true);
-              this.maxWork = 0;
-              if (ApicuriousMainConfig.main_config.debug.get())
-              {Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(princessGenome.getSpecies(true).value().getReadableName().getString(), queenGenome.getSpecies(true).value().getReadableName().getString()));}
-            }
-          }
-        }
-      }
-      else
+        changeActiveState(state, true);
+        this.maxWork = 0;
+      } else
       {
-        updateGuiData();
+        tickBreeding(level, pos, state);
       }
     }
     else
     {
-      validate(level, pos, false);
-      ItemResource stack = getInventory().getResource(0);
-      if (stack.has(DataComponentRegistrar.GENOME))
-      {
-        Genome genome = stack.get(DataComponentRegistrar.GENOME);
-        handleInitialRunData(genome);
-      }
-      if (getErrorList().isEmpty())
-      {
-        updateGuiData();
+      tickActiveQueen(level, pos, state);
+    }
+  }
 
-        if (stack.getItem() instanceof IBeeItem bee && bee.getBeeType() == EnumBeeType.QUEEN)
-        {
-          if (stack.has(DataComponentRegistrar.GENOME))
-          {
-            Genome genome = stack.get(DataComponentRegistrar.GENOME);
-            if (genome == null) {return;}
-            handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
-            // Beta: Implement effect occurrences here.
-            if (getBlockState().getBlock() instanceof ApiaryBlock && !handleOutput(genome)) {updateGuiData();}
-            this.currentWork--;
-            damageFrames((ServerLevel) level, genome);
-            if (this.currentWork == 0)
-            {
-              resetHousing(state);
-              handleQueenLifecycleEnd(genome);
-            }
-          }
-        }
-      }
-      else
+  /**
+   * Idle phase: waiting for a princess + drone to be combined into a queen.
+   */
+  private void tickBreeding(Level level, BlockPos pos, BlockState state)
+  {
+    validate(level, pos, true);
+    if (!getErrorList().isEmpty())
+    {
+      updateGuiData();
+      return;
+    }
+
+    updateGuiData();
+
+    if (currentWork == 0 && maxWork == 0)
+    {
+      this.currentWork = DEFAULT_BREEDING_TICKS;
+      this.maxWork = currentWork;
+      this.clearErrors();
+    }
+
+    if (this.currentWork != 0)
+    {
+      this.currentWork--;
+      if (this.currentWork == 0)
       {
-        updateGuiData();
+        completeBreeding(level, state);
       }
     }
   }
 
+  /**
+   * Combines the princess and drone into a queen, once breeding has finished.
+   * The active-state transition only happens if the inventory transaction
+   * (extract princess, extract drone, insert queen) actually commits — previously
+   * the block was flipped to "active" unconditionally, even on a failed transaction,
+   * leaving it stuck active with no queen.
+   */
+  private void completeBreeding(Level level, BlockState state)
+  {
+    ItemResource princess = getInventory().getResource(SLOT_ROYAL);
+    ItemResource drone = getInventory().getResource(SLOT_DRONE);
+    Genome princessGenome = princess.get(DataComponentRegistrar.GENOME);
+    Genome droneGenome = drone.get(DataComponentRegistrar.GENOME);
+    if (princessGenome == null || droneGenome == null) {return;}
+
+    Genome queenGenome;
+    IMutation mutation = getPotentialMutation();
+    if (mutation == null)
+    {
+      queenGenome = (Genome) princessGenome.combineGenomes(droneGenome, level.getRandom());
+    }
+    else
+    {
+      BeeSpecies mutatedSpecies = (BeeSpecies) mutation.getOutput().value();
+      queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
+    }
+
+    ItemResource queen = ItemResource.of(ItemRegistrar.QUEEN.item()).with(DataComponentRegistrar.GENOME, queenGenome);
+
+    boolean success;
+    try (Transaction tx = Transaction.openRoot())
+    {
+      success = getInventory().extract(SLOT_ROYAL, princess, 1, tx) > 0
+              && getInventory().extract(SLOT_DRONE, drone, 1, tx) > 0
+              && getInventory().insert(SLOT_ROYAL, queen, 1, tx) > 0;
+      if (success) {tx.commit();}
+    }
+
+    if (!success)
+    {
+      // Breeding didn't complete (inventory changed out from under us, etc.) — stay idle
+      // instead of silently flipping to an active state with no queen present.
+      addError(HousingError.FULL_INVENTORY);
+      return;
+    }
+
+    changeActiveState(state, true);
+    this.maxWork = 0;
+
+    if (ApicuriousMainConfig.main_config.debug.get())
+    {
+      Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(
+              princessGenome.getSpecies(true).value().getReadableName().getString(),
+              queenGenome.getSpecies(true).value().getReadableName().getString()));
+    }
+  }
+
+  /**
+   * Active phase: a queen is present and producing output / offspring over time.
+   */
+  private void tickActiveQueen(Level level, BlockPos pos, BlockState state)
+  {
+    validate(level, pos, false);
+
+    ItemResource stack = getInventory().getResource(SLOT_ROYAL);
+    if (stack.has(DataComponentRegistrar.GENOME) && this.maxWork == 0)
+    {
+      Genome genome = stack.get(DataComponentRegistrar.GENOME);
+      handleInitialRunData(genome);
+    }
+
+    if (!getErrorList().isEmpty())
+    {
+      updateGuiData();
+      return;
+    }
+
+    if ((!(stack.getItem() instanceof IBeeItem bee) || bee.getBeeType() != EnumBeeType.QUEEN) || !stack.has(DataComponentRegistrar.GENOME))
+    {
+      return;
+    }
+
+    Genome genome = stack.get(DataComponentRegistrar.GENOME);
+    if (genome == null) {return;}
+
+    handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
+    if (getBlockState().getBlock() instanceof ApiaryBlock) {handleOutput(genome);}
+
+    this.currentWork--;
+    damageFrames((ServerLevel) level, genome);
+
+    if (this.currentWork == 0)
+    {
+      resetHousing(state);
+      handleQueenLifecycleEnd(genome);
+    }
+  }
+
+  /**
+   * Damages held frames at fixed intervals tied to the queen's lifespan.
+   * Guarded against a zero-cycle-length or zero-interval divisor, which
+   * previously could throw ArithmeticException and crash the tick.
+   */
   private void damageFrames(ServerLevel level, Genome genome)
   {
-    if (Math.abs(currentWork - maxWork) % (maxWork / ((Lifespan) genome.getLifespan(true).value()).getCycles()) == 0)
+    int cycles = ((Lifespan) genome.getLifespan(true).value()).getCycles();
+    int interval = cycles > 0 ? maxWork / cycles : 0;
+    if (interval <= 0) {return;}
+
+    if ((maxWork - currentWork) % interval == 0)
     {
-      for (int i = 2; i < 5; i++)
+      for (int i = SLOT_FRAME_START; i < SLOT_FRAME_END; i++)
       {
         ItemResource frame = getInventory().getResource(i);
+        if (frame.isEmpty()) {continue;}
         frame.toStack().hurtAndBreak(1, level, null, item -> {});
       }
     }
@@ -243,35 +316,43 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   @Override
   public void saveUpdateData(CompoundTag tag, HolderLookup.Provider registries)
   {
-    CompoundTag apiaryData = new CompoundTag();
-    apiaryData.putBoolean("isActive", isActive);
-    tag.put("apiary_data", apiaryData);
+    saveSyncData(tag, registries);
   }
 
   @Override
   public void saveWorldData(ValueOutput output)
   {
     inventory.serialize(output);
+    // Previously only the inventory was persisted here — isActive/currentWork/maxWork
+    // were never written, so save+reload during an active breeding/production cycle
+    // silently reset progress even though the queen item was still in the inventory.
+    output.putBoolean("isActive", isActive);
+    output.putInt("currentWork", currentWork);
+    output.putInt("maxWork", maxWork);
+    output.putBoolean("shouldRenderParticles", shouldRenderParticles);
   }
 
   @Override
   public void readSyncData(ValueInput input)
   {
-    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
-    this.isActive = input.getBooleanOr("isActive", false);
-    inventory.deserialize(input);
+    readCommon(input);
   }
 
   @Override
   public void readUpdateData(Connection net, ValueInput input)
   {
-    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
-    this.isActive = input.getBooleanOr("isActive", false);
-    inventory.deserialize(input);
+    readCommon(input);
   }
 
   @Override
   public void readWorldData(ValueInput input)
+  {
+    readCommon(input);
+    this.currentWork = input.getIntOr("currentWork", 0);
+    this.maxWork = input.getIntOr("maxWork", 0);
+  }
+
+  private void readCommon(ValueInput input)
   {
     this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
     this.isActive = input.getBooleanOr("isActive", false);
@@ -292,24 +373,32 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.shouldRenderParticles = shouldBeActive;
   }
 
-
-  protected boolean canOutputSuccessfully(ItemResource output)
+  /**
+   * Attempts to insert `count` of `resource` spread across the output slots.
+   * Tracks the remaining amount explicitly instead of relying on the input
+   * ItemResource mutating itself (it never does — ItemResource is immutable),
+   * which previously caused the same full count to be re-offered to every
+   * slot and could over-insert items.
+   *
+   * @return true if the full count was placed somewhere in the output range.
+   */
+  private boolean tryDistributeToOutput(ItemResource resource, int count, Transaction tx)
   {
-    boolean canOutput = false;
-    for (int i = 5; i < 12; i++)
+    int remaining = count;
+    for (int i = SLOT_OUTPUT_START; i < SLOT_OUTPUT_END && remaining > 0; i++)
     {
-      try (Transaction tx = Transaction.openRoot())
-      {
-        if (inventory.insert(i, output, output.toStack().getCount(), tx) != output.toStack().getCount())
-        {
-          tx.commit();
-          if (output.isEmpty())
-          {
-            canOutput = true;
-            break;
-          }
-        }
-      }
+      remaining -= getInventory().insert(i, resource, remaining, tx);
+    }
+    return remaining == 0;
+  }
+
+  protected boolean canOutputSuccessfully(ItemResource output, int count)
+  {
+    boolean canOutput;
+    try (Transaction tx = Transaction.openRoot())
+    {
+      canOutput = tryDistributeToOutput(output, count, tx);
+      if (canOutput) {tx.commit();}
     }
     if (!canOutput) {addError(HousingError.FULL_INVENTORY);}
     return canOutput;
@@ -317,11 +406,11 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   public int getModifiedOutputDuration()
   {
-    Genome genome = inventory.getResource(0).get(DataComponentRegistrar.GENOME);
+    Genome genome = inventory.getResource(SLOT_ROYAL).get(DataComponentRegistrar.GENOME);
     if (genome == null) {return 0;}
     Speed speed = (Speed) genome.getSpeed(true).value();
     int outputDuration = Math.round(ApicuriousMainConfig.main_config.baseCycleTime.get() * (speed.getProductionModifier() == 0.0f ? 1.0f : speed.getProductionModifier()));
-    for (int i = 2; i < 5; i++)
+    for (int i = SLOT_FRAME_START; i < SLOT_FRAME_END; i++)
     {
       ItemResource stack = inventory.getResource(i);
       if (stack.isEmpty()) {continue;}
@@ -338,7 +427,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (genome == null) {return 0;}
     Lifespan lifespanHolder = (Lifespan) genome.getLifespan(true).value();
     int lifespan = ApicuriousMainConfig.main_config.baseCycleTime.get() * lifespanHolder.getCycles();
-    for (int i = 2; i < 5; i++)
+    for (int i = SLOT_FRAME_START; i < SLOT_FRAME_END; i++)
     {
       ItemResource stack = inventory.getResource(i);
       if (stack.getItem() instanceof IFrameItem frame)
@@ -380,21 +469,36 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
     else
     {
-      ItemResource queen = inventory.getResource(0);
+      errorList.clear();
+      ItemResource queen = inventory.getResource(SLOT_ROYAL);
       BlockState state = level.getBlockState(pos);
       if (state.getBlock() instanceof ApiaryBlock apiary)
       {
-        List<ItemResource> frames = List.of(getInventory().getResource(2), getInventory().getResource(3), getInventory().getResource(4));
-        if (this.territory == null) {this.territory = apiary.getTerritory(queen, pos, frames);}
+        ensureTerritory(apiary, pos, queen);
         validation.validate(queen, level, pos, this.territory);
       }
     }
   }
 
+  /**
+   * Territory was previously computed two different ways depending on which
+   * code path ran first (validate() built the frame list manually, while
+   * handlePollination() used SimpleBlockHousingHelper.getFrames(this)), which
+   * could produce inconsistent results depending on call order. Consolidated
+   * into a single path.
+   */
+  private void ensureTerritory(ApiaryBlock apiary, BlockPos pos, ItemResource queen)
+  {
+    if (this.territory == null)
+    {
+      this.territory = apiary.getTerritory(queen, pos, SimpleBlockHousingHelper.getFrames(this));
+    }
+  }
+
   public void hasPrincessAndDrone()
   {
-    boolean hasPrincess = inventory.getResource(0).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
-    boolean hasDrone = inventory.getResource(1).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
+    boolean hasPrincess = inventory.getResource(SLOT_ROYAL).getItem() instanceof IBeeItem princess && princess.getBeeType() == EnumBeeType.PRINCESS;
+    boolean hasDrone = inventory.getResource(SLOT_DRONE).getItem() instanceof IBeeItem drone && drone.getBeeType() == EnumBeeType.DRONE;
     if (!hasPrincess) {addError(HousingError.MISSING_PRINCESS);}
     else {errorList.remove(HousingError.MISSING_PRINCESS);}
     if (!hasDrone) {addError(HousingError.MISSING_DRONE);}
@@ -411,47 +515,50 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   private void handlePollination(Level level, BaseHousingBlock housing, ItemResource stack)
   {
-    if (territory == null)
-    {territory = housing.getTerritory(getInventory().getResource(0), getBlockPos(), SimpleBlockHousingHelper.getFrames(this));}
-    if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getPollinationRate() == 0 && housing.shouldPollinate(level.getRandom(), stack))
+    if (territory == null && housing instanceof ApiaryBlock apiary)
     {
-      Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT) && level.getBlockState(filteredPos.above()).isAir() && level.getRandom().nextFloat() < 0.15f, 2);
-      List<BlockPos> found = this.territory.stream().filter(filter).toList();
-      if (!stack.has(DataComponentRegistrar.GENOME)) {return;}
-      Genome genome = stack.get(DataComponentRegistrar.GENOME);
-      if (genome == null) {return;}
-      Registry<Block> blockRegistry = level.registryAccess().get(Registries.BLOCK).orElseThrow().value();
-      for (BlockPos f : found)
-      {
-        Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.getRandom());
-        flower.ifPresent(blockHolder -> level.setBlock(f.above(), blockHolder.value().defaultBlockState(), Block.UPDATE_ALL));
-      }
+      ensureTerritory(apiary, getBlockPos(), getInventory().getResource(SLOT_ROYAL));
+    }
+    if (territory == null) {return;}
+
+    int pollinationRate = ApicuriousMainConfig.main_config.getPollinationRate();
+    if (pollinationRate <= 0 || (maxWork - currentWork) % pollinationRate != 0) {return;}
+    if (!housing.shouldPollinate(level.getRandom(), stack)) {return;}
+
+    if (!stack.has(DataComponentRegistrar.GENOME)) {return;}
+    Genome genome = stack.get(DataComponentRegistrar.GENOME);
+    if (genome == null) {return;}
+
+    Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
+            level.getBlockState(filteredPos).is(BlockTags.DIRT)
+                    && level.getBlockState(filteredPos.above()).isAir()
+                    && level.getRandom().nextFloat() < 0.15f, 2);
+    List<BlockPos> found = this.territory.stream().filter(filter).toList();
+
+    Registry<Block> blockRegistry = level.registryAccess().lookupOrThrow(Registries.BLOCK);
+    for (BlockPos f : found)
+    {
+      Optional<Holder<Block>> flower = blockRegistry.getRandomElementOf(BlockTags.SMALL_FLOWERS, level.getRandom());
+      flower.ifPresent(blockHolder -> level.setBlock(f.above(), blockHolder.value().defaultBlockState(), Block.UPDATE_ALL));
     }
   }
 
+  /**
+   * @return true if output was successfully produced (or none was due), false if
+   * an output couldn't be placed (inventory full) and the caller should back off.
+   */
   private boolean handleOutput(Genome genome)
   {
-    if (Math.abs(this.currentWork - this.maxWork) % ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration()) == 0)
+    int outputRate = ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration());
+    if (outputRate <= 0 || (maxWork - currentWork) % outputRate != 0) {return true;}
+
+    List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().generate(this);
+    for (ItemStack output : outputs)
     {
-      List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().generate(this);
-      for (ItemStack output : outputs)
+      if (output.isEmpty()) {continue;}
+      if (!canOutputSuccessfully(ItemResource.of(output), output.getCount()))
       {
-        if (!canOutputSuccessfully(ItemResource.of(output))) {return false;}
-        ItemStack out = output.copy();
-        for (int i = 5; i < 12; i++)
-        {
-          try (Transaction tx = Transaction.openRoot())
-          {
-            if (getInventory().insert(i, ItemResource.of(out.copy()), out.getCount(), tx) != out.getCount())
-            {
-              tx.commit();
-              if (out.isEmpty())
-              {
-                break;
-              }
-            }
-          }
-        }
+        return false;
       }
     }
     return true;
@@ -463,38 +570,30 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.currentWork = 0;
     this.maxWork = 0;
     this.territory = null;
-    this.outputTimer = -1;
   }
 
   private void handleQueenLifecycleEnd(Genome genome)
   {
     try (Transaction tx = Transaction.openRoot())
     {
-      if (getInventory().extract(0, inventory.getResource(0), 1, tx) > 0) tx.commit();
-    }
-    ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.item().get(), getLevel().getRandom().nextDouble() < getAdditionalPrincessChance() ? 2 : 1);
-    Fertility fertility = (Fertility) genome.getFertility(true).value();
-    ItemStack drones = new ItemStack(ItemRegistrar.DRONE.item().get(), fertility.getOffspring());
-    princess.set(DataComponentRegistrar.GENOME, genome);
-    drones.set(DataComponentRegistrar.GENOME, genome);
-    for (int i = 5; i < 12; i++)
-    {
-      try (Transaction tx = Transaction.openRoot())
+      if (getInventory().extract(SLOT_ROYAL, inventory.getResource(SLOT_ROYAL), 1, tx) > 0)
       {
-        if (getInventory().insert(i, ItemResource.of(princess), princess.getCount(), tx) > 0)
+        int princessCount = getLevel().getRandom().nextDouble() < getAdditionalPrincessChance() ? 2 : 1;
+        ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.item().get(), princessCount);
+        Fertility fertility = (Fertility) genome.getFertility(true).value();
+        ItemStack drones = new ItemStack(ItemRegistrar.DRONE.item().get(), fertility.getOffspring());
+        princess.set(DataComponentRegistrar.GENOME, genome);
+        drones.set(DataComponentRegistrar.GENOME, genome);
+
+        boolean princessPlaced = tryDistributeToOutput(ItemResource.of(princess), princess.getCount(), tx);
+        boolean dronesPlaced = tryDistributeToOutput(ItemResource.of(drones), drones.getCount(), tx);
+        if (princessPlaced && dronesPlaced)
         {
           tx.commit();
-          break;
         }
-      }
-    }
-    for (int i = 5; i < 12; i++)
-    {
-      try (Transaction tx = Transaction.openRoot()) {
-        if (getInventory().insert(i, ItemResource.of(drones), drones.getCount(), tx) > 0)
+        else
         {
-          tx.commit();
-          break;
+          addError(HousingError.FULL_INVENTORY);
         }
       }
     }
@@ -506,39 +605,43 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     List<ItemResource> frames = SimpleBlockHousingHelper.getFrames(this);
     for (ItemResource frame : frames)
     {
+      if (frame.isEmpty()) {continue;}
       FrameItem frameItem = (FrameItem) frame.getItem();
       chance *= frameItem.getAdditionalPrincessModifier();
     }
     return chance;
   }
 
+  /**
+   * Uses findFirst() rather than findAny() so mutation selection is deterministic
+   * with respect to registry iteration order — with findAny() there was no
+   * guarantee which of several matching mutations would win, which matters if
+   * mutation priority/specificity is meant to be respected.
+   */
   private IMutation getPotentialMutation()
   {
     Level level = getLevel();
     if (level == null) {return null;}
-    IGenome first = getInventory().getResource(0).get(DataComponentRegistrar.GENOME);
-    IGenome second = getInventory().getResource(1).get(DataComponentRegistrar.GENOME);
+    IGenome first = getInventory().getResource(SLOT_ROYAL).get(DataComponentRegistrar.GENOME);
+    IGenome second = getInventory().getResource(SLOT_DRONE).get(DataComponentRegistrar.GENOME);
+    if (first == null || second == null) {return null;}
+
     Optional<Registry<IMutation>> mutationRegistry = level.registryAccess().lookup(ApicuriousRegistries.MUTATIONS);
-    if (mutationRegistry.isPresent() && first != null && second != null)
-    {
-      Registry<IMutation> mutations = mutationRegistry.get();
-      Optional<IMutation> mutation = mutations.stream().filter(mut -> mut.test(this)).findAny();
-      if (mutation.isPresent())
-      {
-        return mutation.get();
-      }
-    }
-    return null;
+    if (mutationRegistry.isEmpty()) {return null;}
+
+    return mutationRegistry.get().stream().filter(mut -> mut.test(this)).findFirst().orElse(null);
   }
 
   public void updateGuiData()
   {
     if (getLevel() == null) {return;}
-    //Todo change this, this is just for debug
+    // Todo: this still broadcasts to every online player on every tick of every
+    // housing block with no errors — a real cost at scale. Should be tracking
+    // only players with this block's menu open (e.g. via ContainerLevelAccess /
+    // a menu listener list) rather than iterating the whole player list here.
     for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
     {
-      if (player instanceof ServerPlayer serverPlayer)
-      {PacketHandler.sendTo(new GuiDataPacket(getErrorList()), serverPlayer);}
+      PacketHandler.sendTo(new GuiDataPacket(getErrorList()), player);
     }
   }
 
@@ -546,5 +649,4 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     return containerData;
   }
-
 }

@@ -50,6 +50,21 @@ public class ApicuriousModelTemplates
                   .face(Direction.WEST, faceBuilder -> faceBuilder.texture(TextureSlot.SIDE))
           ).build();
 
+  public static final ModelTemplate APIARY_ITEM_TEMPLATE = new ModelTemplate(
+          Optional.of(Apicurious.createIdentifier("block/apiary")),
+          Optional.empty()
+  );
+
+  public static final ModelTemplate BEE_HOUSING_ITEM_TEMPLATE = new ModelTemplate(
+          Optional.of(Apicurious.createIdentifier("block/bee_housing")),
+          Optional.empty()
+  );
+
+  public static final ModelTemplate CENTRIFUGE_ITEM_TEMPLATE = new ModelTemplate(
+          Optional.of(Apicurious.createIdentifier("block/centrifuge")),
+          Optional.empty()
+  );
+
   public static TextureMapping createBeeTextures()
   {
     return new TextureMapping()

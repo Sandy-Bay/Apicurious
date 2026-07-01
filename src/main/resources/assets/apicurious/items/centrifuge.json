@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "apicurious:block/centrifuge"
+    "model": "apicurious:item/centrifuge"
   }
 }

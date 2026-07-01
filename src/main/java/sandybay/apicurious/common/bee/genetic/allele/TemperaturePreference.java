@@ -124,8 +124,8 @@ public class TemperaturePreference implements IAllele<TemperaturePreference>
   public List<TagKey<Biome>> getTemperatureWithTolerance(TemperatureTolerance tolerance)
   {
     List<TagKey<Biome>> temperatureTags = new ArrayList<>();
-    int minValue = Math.max(temperature - tolerance.getToleranceModifier(), 0);
-    int maxValue = Math.min(temperature + tolerance.getToleranceModifier(), 4);
+    int minValue = Math.max(temperature - tolerance.getToleranceModifier(), 1);
+    int maxValue = Math.min(temperature + tolerance.getToleranceModifier(), 5);
     for (int i = minValue; i <= maxValue; i++)
     {
       temperatureTags.add(getTagByOrdinal(i));

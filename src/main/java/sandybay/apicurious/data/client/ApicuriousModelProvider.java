@@ -31,8 +31,6 @@ public class ApicuriousModelProvider extends ModelProvider
     super(output, "apicurious");
   }
 
-  private static final ModelTemplate COMB = new ModelTemplate(Optional.of(Apicurious.createIdentifier("item/comb")), Optional.empty(), TextureSlot.LAYER0, TextureSlot.LAYER1);
-
   @Override
   protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels)
   {
@@ -42,6 +40,7 @@ public class ApicuriousModelProvider extends ModelProvider
     generateCombs(itemModels);
     generateDrops(itemModels);
     generatePropolis(itemModels);
+    generatePollen(itemModels);
     generateFrames(itemModels);
     generateBees(itemModels);
     generateMisc(itemModels);
@@ -50,7 +49,9 @@ public class ApicuriousModelProvider extends ModelProvider
   private static void generateMisc(ItemModelGenerators itemModels)
   {
     itemModels.itemModelOutput.accept(ItemRegistrar.SIEVE.item().get(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/sieve")));
+    ModelTemplates.FLAT_ITEM.create(ItemRegistrar.SIEVE.item().get(), TextureMapping.layer0(ItemRegistrar.SIEVE.item().get()), itemModels.modelOutput);
     itemModels.itemModelOutput.accept(ItemRegistrar.ANALYZER.item().get(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/analyzer")));
+    ModelTemplates.FLAT_ITEM.create(ItemRegistrar.ANALYZER.item().get(), TextureMapping.layer0(ItemRegistrar.ANALYZER.item().get()), itemModels.modelOutput);
   }
 
   private static void generateBees(ItemModelGenerators itemModels)
@@ -97,14 +98,6 @@ public class ApicuriousModelProvider extends ModelProvider
     ItemRegistrar.FRAMES_LIST.forEach(holder -> itemModels.generateFlatItem(holder.get(), ModelTemplates.FLAT_ITEM));
   }
 
-  private static void generatePropolis(ItemModelGenerators itemModels)
-  {
-    ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/propolis"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/propolis"))), itemModels.modelOutput);
-    ItemRegistrar.PROPOLIS_LIST.forEach(holder -> {
-      itemModels.itemModelOutput.accept(holder.get(), new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/propolis"),  Optional.empty(), List.of(new PropolisItemTinter())));
-    });
-  }
-
   private static void generateDrops(ItemModelGenerators itemModels)
   {
     ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/drop"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/drop"))), itemModels.modelOutput);
@@ -132,24 +125,33 @@ public class ApicuriousModelProvider extends ModelProvider
     });
   }
 
+  private static void generatePollen(ItemModelGenerators itemModels)
+  {
+    ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/pollen_base"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/pollen_base"))), itemModels.modelOutput);
+    ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/pollen_highlight"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/pollen_highlight"))), itemModels.modelOutput);
+
+    ItemRegistrar.POLLEN_LIST.forEach(holder -> {
+      itemModels.itemModelOutput.accept(holder.get(), new CompositeModel.Unbaked(List.of(
+              new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/pollen_base"), Optional.empty(), List.of(new PollenItemTinter(false))),
+              new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/pollen_highlight"), Optional.empty(), List.of(new PollenItemTinter(true)))
+      ), Optional.empty()));
+    });
+  }
+
+  private static void generatePropolis(ItemModelGenerators itemModels)
+  {
+    ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/propolis"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/propolis"))), itemModels.modelOutput);
+    ItemRegistrar.PROPOLIS_LIST.forEach(holder -> {
+      itemModels.itemModelOutput.accept(holder.get(), new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/propolis"), Optional.empty(), List.of(new PropolisItemTinter())), ClientItem.Properties.DEFAULT);
+    });
+  }
+
   private static void generateProducts(ItemModelGenerators itemModels)
   {
     // TODO: Textures for Saltpeter, Sulfur
     // Models - Item
-    ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/pollen_base"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/pollen_base"))), itemModels.modelOutput);
-    ModelTemplates.FLAT_ITEM.create(Apicurious.createIdentifier("item/pollen_highlight"), TextureMapping.layer0(new Material(Apicurious.createIdentifier("item/pollen_highlight"))), itemModels.modelOutput);
     // ItemModels
     ItemRegistrar.PRODUCTS_LIST.forEach(holder -> {
-      if (holder.getId().getPath().contains("pollen")) {
-        itemModels.itemModelOutput.accept(holder.get(), new CompositeModel.Unbaked(List.of(
-                new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/pollen_base"), Optional.empty(), List.of(new PollenItemTinter(false))),
-                new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/pollen_highlight"), Optional.empty(), List.of(new PollenItemTinter(true)))
-        ), Optional.empty()));
-        return;
-      } else if (holder.getId().getPath().contains("propolis"))
-      {
-        itemModels.itemModelOutput.accept(holder.get(), new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/propolis"), Optional.empty(), List.of(new PropolisItemTinter())), ClientItem.Properties.DEFAULT);
-      }
       itemModels.generateFlatItem(holder.get(), ModelTemplates.FLAT_ITEM);
     });
   }
@@ -183,7 +185,8 @@ public class ApicuriousModelProvider extends ModelProvider
     );
     ApicuriousModelTemplates.HOUSING_TEMPLATE.create(Apicurious.createIdentifier("block/apiary"), ApicuriousModelTemplates.createApiaryTextures(), blockModels.modelOutput);
     ApicuriousModelTemplates.HOUSING_TEMPLATE.create(Apicurious.createIdentifier("block/apiary_active"), ApicuriousModelTemplates.createActiveApiaryTextures(), blockModels.modelOutput);
-    itemModels.itemModelOutput.accept(BlockRegistrar.APIARY.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("block/apiary")));
+    itemModels.itemModelOutput.accept(BlockRegistrar.APIARY.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/apiary")));
+    ApicuriousModelTemplates.APIARY_ITEM_TEMPLATE.create(BlockRegistrar.APIARY.asItem(), new TextureMapping(), itemModels.modelOutput);
 
     // Bee Housing
     blockModels.blockStateOutput.accept(
@@ -195,15 +198,17 @@ public class ApicuriousModelProvider extends ModelProvider
     );
     ApicuriousModelTemplates.HOUSING_TEMPLATE.create(Apicurious.createIdentifier("block/bee_housing"), ApicuriousModelTemplates.createBeeHousingTextures(), blockModels.modelOutput);
     ApicuriousModelTemplates.HOUSING_TEMPLATE.create(Apicurious.createIdentifier("block/bee_housing_active"), ApicuriousModelTemplates.createActiveBeeHousingTextures(), blockModels.modelOutput);
-    itemModels.itemModelOutput.accept(BlockRegistrar.BEE_HOUSING.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("block/bee_housing")));
+    itemModels.itemModelOutput.accept(BlockRegistrar.BEE_HOUSING.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/bee_housing")));
+    ApicuriousModelTemplates.BEE_HOUSING_ITEM_TEMPLATE.create(BlockRegistrar.BEE_HOUSING.asItem(), new TextureMapping(), itemModels.modelOutput);
 
     // Centrifuge
     blockModels.blockStateOutput.accept(
             BlockModelGenerators.createSimpleBlock(BlockRegistrar.CENTRIFUGE.asBlock(), new MultiVariant(WeightedList.of(new Variant(Apicurious.createIdentifier("block/centrifuge")))))
     );
     //TODO: Replace with new Centrifuge textures
-    ApicuriousModelTemplates.HOUSING_TEMPLATE.create(Apicurious.createIdentifier("block/centrifuge"), ApicuriousModelTemplates.createApiaryTextures(), blockModels.modelOutput);
-    itemModels.itemModelOutput.accept(BlockRegistrar.CENTRIFUGE.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("block/centrifuge")));
+    ApicuriousModelTemplates.HOUSING_TEMPLATE.create(BlockRegistrar.CENTRIFUGE.asBlock(), ApicuriousModelTemplates.createApiaryTextures(), blockModels.modelOutput);
+    itemModels.itemModelOutput.accept(BlockRegistrar.CENTRIFUGE.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/centrifuge")));
+    ApicuriousModelTemplates.CENTRIFUGE_ITEM_TEMPLATE.create(BlockRegistrar.CENTRIFUGE.asItem(), new TextureMapping(), itemModels.modelOutput);
   }
 
 

@@ -45,10 +45,10 @@ public class ItemRegistrar
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Apicurious.MODID);
   public static final ItemHolder DRONE = bee("drone", EnumBeeType.DRONE, new Item.Properties(), BeeItem::new);
-  public static final ItemHolder PRINCESS = bee("princess", EnumBeeType.PRINCESS, SINGLETON_PROPS(), BeeItem::new);
-  public static final ItemHolder QUEEN = bee("queen", EnumBeeType.QUEEN, SINGLETON_PROPS(), BeeItem::new);
-  public static final ItemHolder SIEVE = item("sieve", SINGLETON_PROPS(), SieveItem::new);
-  public static final ItemHolder ANALYZER = item("analyzer", SINGLETON_PROPS(), BeeAnalyzerItem::new);
+  public static final ItemHolder PRINCESS = bee("princess", EnumBeeType.PRINCESS, new Item.Properties().stacksTo(1), BeeItem::new);
+  public static final ItemHolder QUEEN = bee("queen", EnumBeeType.QUEEN, new Item.Properties().stacksTo(1), BeeItem::new);
+  public static final ItemHolder SIEVE = item("sieve", new Item.Properties().stacksTo(1), SieveItem::new);
+  public static final ItemHolder ANALYZER = item("analyzer", new Item.Properties().stacksTo(1), BeeAnalyzerItem::new);
 
   // Products
   // Combs
@@ -150,15 +150,10 @@ public class ItemRegistrar
   public static final FrameHolder IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f, 1.0f);
   public static final FrameHolder HEALING_FRAME = frame("healing", 240, 1.5f, 1.25f, 0.5f, 1.0f);
   public static final FrameHolder SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f, 1.0f);
-  public static final FrameHolder RESTRAINT_FRAME = frame("restraint", SINGLETON_PROPS().durability(240), RestraintFrame::new);
+  public static final FrameHolder RESTRAINT_FRAME = frame("restraint", new Item.Properties().stacksTo(1).durability(240), RestraintFrame::new);
   public static final FrameHolder PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f, 1.0f);
   public static final FrameHolder ROYAL_FRAME = frame("royal", 120, 2.0f, 500.0f, 0.0f, 2.5f);
   public static final FrameHolder CREATIVE_FRAME = frame("creative", Integer.MAX_VALUE, 0.00001f, 1.0f, 1.0f, 1.0f);
-
-  public static Item.Properties SINGLETON_PROPS()
-  {
-    return new Item.Properties().stacksTo(1);
-  }
 
   public static void register(IEventBus bus)
   {
@@ -240,7 +235,7 @@ public class ItemRegistrar
   public static FrameHolder frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier)
   {
     ResourceKey<Item> itemKey = create(name + "_frame");
-    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(SINGLETON_PROPS().setId(itemKey).durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xz -> xz, y -> y)));
+    DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(new Item.Properties().stacksTo(1).setId(itemKey).durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xz -> xz, y -> y)));
     FRAMES_LIST.add(frame);
     return new FrameHolder(itemKey, frame);
   }

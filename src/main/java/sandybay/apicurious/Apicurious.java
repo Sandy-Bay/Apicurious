@@ -71,7 +71,7 @@ public class Apicurious
     ApicuriousMainConfig.init();
     modContainer.registerConfig(ModConfig.Type.COMMON, ApicuriousMainConfig.configPair.getValue(), "apicurious/apicurious.toml");
     ApicuriousSpecies.init();
-    bus.addListener(this::commonSetup);
+    bus.addListener(this::registerDMT);
     bus.addListener(ApicuriousRegistries::registerRegistries);
     bus.addListener(ApicuriousRegistries::registerDatapackRegistries);
     bus.addListener(this::registerCapabilities);
@@ -125,7 +125,7 @@ public class Apicurious
     event.registerItem(Capabilities.Item.ITEM, (stack, itemAccess) -> new ItemAccessItemHandler(itemAccess, DataComponents.CONTAINER, 2), ItemRegistrar.ANALYZER.item().get());
   }
 
-  private void commonSetup(final RegisterDataMapTypesEvent event)
+  private void registerDMT(final RegisterDataMapTypesEvent event)
   {
     event.register(DataMapTypeRegistrar.ALLELE_DATA_MAP_TYPE);
     event.register(DataMapTypeRegistrar.MUTATION_DATA_MAP_TYPE);

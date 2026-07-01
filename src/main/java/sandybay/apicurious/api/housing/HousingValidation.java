@@ -89,7 +89,7 @@ public class HousingValidation
     Genome genome = queen.get(DataComponentRegistrar.GENOME);
     if (genome == null || level == null) {return;}
     Workcycle speciesCycle = (Workcycle) genome.getWorkcycle(true).value();
-    boolean isValidCycle = speciesCycle.isValidTime((int) level.getDefaultClockTime());
+    boolean isValidCycle = speciesCycle.isValidTime((int) (level.getOverworldClockTime() % 24000));
     if (!isValidCycle) {errorHandler.addError(HousingError.INVALID_TIME);}
     else {errorHandler.removeError(HousingError.INVALID_TIME);}
   }

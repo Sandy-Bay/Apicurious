@@ -28,8 +28,11 @@ public class ApicuriousLangProvider extends LanguageProvider
 
     // Blocks
     add(BlockRegistrar.APIARY.asBlock(), "Apiary");
+    add(BlockRegistrar.APIARY.asItem(), "Apiary");
     add(BlockRegistrar.BEE_HOUSING.asBlock(), "Bee Housing");
+    add(BlockRegistrar.BEE_HOUSING.asItem(), "Bee Housing");
     add(BlockRegistrar.CENTRIFUGE.asBlock(), "Centrifuge");
+    add(BlockRegistrar.CENTRIFUGE.asItem(), "Centrifuge");
 
     // Frames
     add(ItemRegistrar.UNTREATED_FRAME.frame().get(), "Untreated Frame");
