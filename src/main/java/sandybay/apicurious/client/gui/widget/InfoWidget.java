@@ -16,8 +16,21 @@ import java.util.List;
 
 public class InfoWidget extends AbstractWidget
 {
-  public static final Identifier SCREEN_LOCATION = Apicurious.createIdentifier("textures/gui/info.png");
-  private static final float msPerUpdate = 16.667f;
+  public static final Identifier LEFT_LOCATION = Apicurious.createIdentifier("textures/gui/info_left.png");
+  public static final Identifier RIGHT_LOCATION = Apicurious.createIdentifier("textures/gui/info_right.png");
+
+  // -- animation / layout constants --
+  private static final float MS_PER_UPDATE = 33.334f;
+  private static final int CORNER_SIZE = 4;
+  private static final int ANIM_PIXELS_PER_FRAME = 8;
+  private static final int ICON_SIZE = 16;
+  private static final int PANEL_TEX_SIZE = 256;
+  private static final int TEXT_X_OFFSET = 22;
+  private static final int TEXT_RIGHT_PADDING = 4;
+  private static final int TEXT_Y_OFFSET = 8;
+  private static final int TEXT_Y_START = 5;
+  private static final int LINE_HEIGHT = 10;
+
   private final int closedSizeWidth;
   private final int closedSizeHeight;
   private final int openSizeWidth;
@@ -52,7 +65,10 @@ public class InfoWidget extends AbstractWidget
   @Override
   public void onClick(MouseButtonEvent event, boolean isDoubleClick)
   {
-    isOpen = !isOpen;
+    if (!isDoubleClick)
+    {
+      isOpen = !isOpen;
+    }
     super.onClick(event, isDoubleClick);
   }
 
@@ -62,14 +78,15 @@ public class InfoWidget extends AbstractWidget
     if (lastUpdateTime == 0)
     {
       lastUpdateTime = System.currentTimeMillis();
-      updateTime = lastUpdateTime + Math.round(msPerUpdate);
+      updateTime = lastUpdateTime + Math.round(MS_PER_UPDATE);
     }
     else
     {
       updateTime = System.currentTimeMillis();
     }
 
-    int moveAmount = (int) (8 * (updateTime - lastUpdateTime) / msPerUpdate);
+    int moveAmount = (int) (ANIM_PIXELS_PER_FRAME * (updateTime - lastUpdateTime) / MS_PER_UPDATE);
+    moveAmount = Math.min(moveAmount, Math.max(openSizeWidth, openSizeHeight));
     lastUpdateTime = updateTime;
 
     if (isOpen)
@@ -77,21 +94,28 @@ public class InfoWidget extends AbstractWidget
       if (width < openSizeWidth)
       {
         if (openLeft) {setX(getX() - moveAmount);}
-        width += moveAmount;
+        width = Math.min(width + moveAmount, openSizeWidth);
+      }
+      else
+      {
+        width = openSizeWidth;
       }
 
       if (height < openSizeHeight)
       {
-        height += moveAmount;
+        height = Math.min(height + moveAmount, openSizeHeight);
+      }
+      else
+      {
+        height = openSizeHeight;
       }
     }
-
-    if (!isOpen)
+    else
     {
       if (width > closedSizeWidth)
       {
         if (openLeft) {setX(getX() + moveAmount);}
-        width -= moveAmount;
+        width = Math.max(width - moveAmount, closedSizeWidth);
       }
       else
       {
@@ -101,7 +125,7 @@ public class InfoWidget extends AbstractWidget
 
       if (height > closedSizeHeight)
       {
-        height -= moveAmount;
+        height = Math.max(height - moveAmount, closedSizeHeight);
       }
       else
       {
@@ -110,18 +134,30 @@ public class InfoWidget extends AbstractWidget
     }
   }
 
+  private int panelColor()
+  {
+    return ARGB.color((int) (this.alpha * 255), (int) red * 255, (int) green * 255, (int) blue * 255);
+  }
+
+  private void blitPanelPart(GuiGraphicsExtractor graphics, int x, int y, int u, int v, int w, int h, boolean left)
+  {
+    graphics.blit(RenderPipelines.GUI_TEXTURED, left ? LEFT_LOCATION : RIGHT_LOCATION, x, y, u, v, w, h, PANEL_TEX_SIZE, PANEL_TEX_SIZE, panelColor());
+  }
+
   private void renderBackground(@NotNull GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pPartialTick)
   {
     update();
 
-    // top edge
-    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, getX(), getY() + 4, 0, 256 - height + 4, 4, height - 4, 256, 256, ARGB.color((int) this.alpha, (int) red, (int) green, (int) blue));
-    // top left corner
-    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, getX(), getY(), 0, 0, 4, 4, 256, 256, ARGB.color((int) this.alpha, (int) red, (int) green, (int) blue));
-    // body + bottom + right
-    graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, getX() + 4, getY() + 4, 256 - width + 4, 256 - height + 4, width - 4, height - 4, 256, 256, ARGB.color((int) this.alpha, (int) red, (int) green, (int) blue));
+    // left/right edge
+    blitPanelPart(graphics, getX(), getY() + CORNER_SIZE, 0, PANEL_TEX_SIZE - height + CORNER_SIZE, CORNER_SIZE, height - CORNER_SIZE, openLeft);
+    // top left/right corner
+    blitPanelPart(graphics, getX(), getY(), 0, 0, CORNER_SIZE, CORNER_SIZE, openLeft);
+    // body + bottom + top
+    blitPanelPart(graphics, getX() + CORNER_SIZE, getY(), PANEL_TEX_SIZE - width + CORNER_SIZE, 0, width - CORNER_SIZE, CORNER_SIZE, openLeft);
+    blitPanelPart(graphics, getX() + CORNER_SIZE, getY() + CORNER_SIZE, PANEL_TEX_SIZE - width + CORNER_SIZE, PANEL_TEX_SIZE - height + CORNER_SIZE, width - CORNER_SIZE, height - CORNER_SIZE, openLeft);
 
-    graphics.blit(icon, getX() + 4, getY() + 4, 0, 0, 16, 16, 16, 16);
+    // icon is its own 16x16 texture — do NOT reuse PANEL_TEX_SIZE here, and don't tint it with panelColor()
+    graphics.blit(RenderPipelines.GUI_TEXTURED, icon, getX() + 4, getY() + 4, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
   }
 
   @Override
@@ -131,13 +167,14 @@ public class InfoWidget extends AbstractWidget
 
     if (isOpen)
     {
-      int xOffset = 22;
-      int yOffset = 8;
+      int yOffset = TEXT_Y_OFFSET;
+      int minX = getX() + TEXT_X_OFFSET;
+      int maxX = getX() + width - TEXT_RIGHT_PADDING;
+
       for (Component component : info)
       {
-        // TODO: FIX
-        //graphics.drawScrollingString(Minecraft.getInstance().font, component, getX() + xOffset, getY() + 5 + yOffset, -1, false);
-        yOffset += 10;
+        graphics.drawScrollingString(graphics.textRenderer(), Minecraft.getInstance().font, component, minX + 4, maxX, getY() + TEXT_Y_START + yOffset - 7);
+        yOffset += LINE_HEIGHT;
       }
     }
   }
@@ -145,5 +182,37 @@ public class InfoWidget extends AbstractWidget
   @Override
   protected void updateWidgetNarration(@NotNull NarrationElementOutput pNarrationElementOutput)
   {
+  }
+
+  public boolean isOpen()
+  {
+    return isOpen;
+  }
+
+  public int getOpenSizeHeight()
+  {
+    return openSizeHeight;
+  }
+
+  public int getClosedSizeHeight()
+  {
+    return closedSizeHeight;
+  }
+
+  public void setOpen(boolean open)
+  {
+    this.isOpen = open;
+    if (isOpen)
+    {
+      this.width = openSizeWidth;
+      this.height = openSizeHeight;
+      if (openLeft) { setX(defaultX - (openSizeWidth - closedSizeWidth)); }
+    }
+    else
+    {
+      this.width = closedSizeWidth;
+      this.height = closedSizeHeight;
+      if (openLeft) { setX(defaultX); }
+    }
   }
 }

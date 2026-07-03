@@ -1,6 +1,7 @@
 package sandybay.apicurious.client.gui;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -116,9 +117,8 @@ public class BeeHousingScreen extends AbstractContainerScreen<BeeHousingMenu>
   @Override
   protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym)
   {
-    // TODO: FIX
-    //graphics.drawScrollingString(graphics.textRenderer(), this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
-    //graphics.drawScrollingString(graphics.textRenderer(), this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
+    graphics.text(this.font, this.title, this.titleLabelX, this.titleLabelY, -12566464, false);
+    graphics.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, -12566464, false);
   }
 
 }

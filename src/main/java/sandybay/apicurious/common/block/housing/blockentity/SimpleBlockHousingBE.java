@@ -120,7 +120,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       this.setChanged();
       if ((slot == 0 || slot == 1) && currentWork > 0 && maxWork > 0 && !territory.isEmpty()) {resetHousing(state);}
       if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) {errorList.remove(HousingError.FULL_INVENTORY);}
-    });
+    }).setOutputFilter((stack, slot) -> !(slot == SLOT_ROYAL && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN));
     this.validation = new HousingValidation(this);
   }
 
@@ -570,6 +570,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.currentWork = 0;
     this.maxWork = 0;
     this.territory = null;
+    clearErrors();
   }
 
   private void handleQueenLifecycleEnd(Genome genome)

@@ -9,6 +9,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.neoforged.neoforge.client.event.ContainerScreenEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
@@ -32,7 +35,6 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
     super(pMenu, pPlayerInventory, pTitle, 176, 190);
     this.player = pPlayerInventory.player;
     this.titleLabelX = this.titleLabelX + this.imageWidth / 2;
-    this.inventoryLabelY = this.inventoryLabelY + 22;
   }
 
   @Override
@@ -40,7 +42,23 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
   {
     super.init();
     addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, 0.0F, 0.0F, 1.5F, Apicurious.createIdentifier("textures/gui/widget/habitats/plains.png"), getTempTabInfo()));
+
+    // snapshot open state before the old widgets are discarded
+    List<Boolean> previousOpenStates = errorWidgets.stream()
+            .map(InfoWidget::isOpen)
+            .toList();
+
+    errorWidgets.clear();
     updateErrorList();
+
+    // reapply state to the freshly built widgets (matched by list order)
+    for (int i = 0; i < errorWidgets.size() && i < previousOpenStates.size(); i++)
+    {
+      if (previousOpenStates.get(i))
+      {
+        errorWidgets.get(i).setOpen(true);
+      }
+    }
   }
 
   public void updateErrorList()
@@ -49,11 +67,11 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
     {
       errorWidgets.clear();
       int y = topPos + 10;
-      int space = 25;
+      int space = 27;
 
       for (HousingError error : getMenu().getErrors())
       {
-        ErrorWidget errorWidget = new ErrorWidget(leftPos - 25, y, 25, 25, 120, 80, true, 1.0F, 0F, 0F, error);
+        ErrorWidget errorWidget = new ErrorWidget(leftPos - 24, y, 25, 25, 120, 80, true, 1.0F, 0.1F, 0.1F, error);
         errorWidgets.add(errorWidget);
         y += space;
       }
@@ -71,21 +89,26 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
     tempTab.add(Component.literal("Humidity:").withStyle(ChatFormatting.GRAY));
     var humid = climateHelper.getHumidityAtPosition(player.blockPosition()).location().getPath();
     tempTab.add(Component.literal(humid).withStyle(ChatFormatting.BLACK));
-
     return tempTab;
   }
 
   @Override
   public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a)
   {
-    this.extractBackground(graphics, mouseX, mouseY, a);
     super.extractRenderState(graphics, mouseX, mouseY, a);
+    this.extractContents(graphics, mouseX, mouseY, a);
+    this.extractCarriedItem(graphics, mouseX, mouseY);
+    this.extractTooltip(graphics, mouseX, mouseY);
     this.extractTooltip(graphics, mouseX, mouseY);
 
     updateErrorList();
+
+    int cursorY = topPos + 10;
     for (ErrorWidget errorWidget : errorWidgets)
     {
-      errorWidget.extractRenderState(graphics, mouseX, mouseY, a);
+      errorWidget.setY(cursorY);
+      errorWidget.extractRenderState(graphics, mouseX, mouseY, a); // advances its own height animation internally
+      cursorY += errorWidget.getHeight() + 2; // use the just-updated, current-frame height
     }
 
     int maxProgress = this.menu.getMaxProgress(), height = 46;
@@ -100,26 +123,17 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
   public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick)
   {
     boolean clicked = super.mouseClicked(event, isDoubleClick);
-    for (ErrorWidget errorWidget : errorWidgets)
-    {
-      boolean done = errorWidget.mouseClicked(event, isDoubleClick);
-      if (done) {return done;}
-    }
-
-    return clicked;
+    boolean done = errorWidgets.stream()
+            .filter(widget -> widget.isMouseOver(event.x(), event.y()))
+            .findFirst()
+            .map(widget -> widget.mouseClicked(event, isDoubleClick))
+            .orElse(false);
+    return done ? done : clicked;
   }
 
   @Override
   public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a)
   {
     graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
-  }
-
-  @Override
-  protected void extractLabels(GuiGraphicsExtractor graphics, int xm, int ym)
-  {
-    // Todo: Fix this
-    //graphics.drawScrollingString(graphics.textRenderer(), this.font, this.title, this.titleLabelX, this.titleLabelY, 4210752, false);
-    //graphics.drawScrollingString(graphics.textRenderer(), this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752, false);
   }
 }
