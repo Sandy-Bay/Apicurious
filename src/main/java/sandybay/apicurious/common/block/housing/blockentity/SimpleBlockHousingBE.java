@@ -1,6 +1,5 @@
 package sandybay.apicurious.common.block.housing.blockentity;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -13,8 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -38,7 +37,7 @@ import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.LimitedFilter;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
-import sandybay.apicurious.client.renderer.particle.BeeParticle;
+import sandybay.apicurious.client.renderer.particle.BeeParticleOption;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
@@ -50,6 +49,7 @@ import sandybay.apicurious.common.item.frame.FrameItem;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
+import sandybay.apicurious.common.registrar.ParticleTypeRegistrar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -646,21 +646,14 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (!(level instanceof ClientLevel clientLevel)) {return;}
 
     BlockPos flower = findNearbyFlower(level, pos, FLOWER_SEARCH_RADIUS);
-    ItemStack beeStack = new ItemStack(ItemRegistrar.DRONE.item());
     ItemResource queen = getInventory().getResource(SLOT_ROYAL);
-    Genome genome = queen.get(DataComponentRegistrar.GENOME);
-    beeStack.set(DataComponentRegistrar.GENOME, genome);
+    ItemStackTemplate template = new ItemStackTemplate(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch());
 
     double spawnX = pos.getX() + 0.5;
     double spawnY = pos.getY() + 1.0;
     double spawnZ = pos.getZ() + 0.5;
 
-    BeeParticle particle = new BeeParticle(
-            clientLevel, spawnX, spawnY, spawnZ, pos, flower, beeStack,
-            ItemDisplayContext.GROUND
-    );
-
-    Minecraft.getInstance().particleEngine.add(particle);
+    clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), template, flower, pos), spawnX, spawnY, spawnZ, 0d,0d,0d);
   }
 
   private BlockPos findNearbyFlower(Level level, BlockPos origin, int radius)

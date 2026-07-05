@@ -2,82 +2,51 @@ package sandybay.apicurious.client.renderer.particle;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.BlockPos;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-/**
- * Purely a state/movement holder. Does not render itself — the owning
- * {@link BeeParticleGroup} reads {@link #getItemRenderState()} and this
- * particle's position each frame during extractRenderState().
- */
-public class BeeParticle extends Particle
+public class BeeParticle extends SingleQuadParticle
 {
-  private enum State { TO_FLOWER, CIRCLING, RETURNING }
 
-  private final BlockPos homePos;
-  private final BlockPos flowerPos;
-  private State state;
-
-  private int circleTicks;
-  private final int maxCircleTicks;
-  private final double circleRadius;
-  private double circleAngle;
-
-  /** Baked once at construction — the bee item's appearance doesn't change mid-flight. */
-  private final ItemStackRenderState itemRenderState = new ItemStackRenderState();
-
-  public BeeParticle(ClientLevel level, double x, double y, double z,
-                     BlockPos homePos, BlockPos flowerPos,
-                     ItemStack stackToRender, ItemDisplayContext displayContext)
+  public BeeParticle(ClientLevel level, double x, double y, double z, BlockPos homePos, BlockPos flowerPos, TextureAtlasSprite sprite)
   {
-    super(level, x, y, z);
+    super(level, x, y, z, sprite);
     this.homePos = homePos;
     this.flowerPos = flowerPos;
-
     this.state = flowerPos != null ? State.TO_FLOWER : State.RETURNING;
     this.circleTicks = 0;
     this.maxCircleTicks = 40 + this.random.nextInt(40);
     this.circleRadius = 0.6 + this.random.nextDouble() * 0.4;
     this.circleAngle = this.random.nextDouble() * Math.PI * 2;
-
     this.lifetime = 20 * 20; // hard safety cap
     this.hasPhysics = false;
     this.gravity = 0f;
-
-    bakeItemRenderState(level, stackToRender, displayContext);
   }
 
-  /**
-   * Resolves the layered bee item model into {@link #itemRenderState} once.
-   * The tint is expected to come from whatever data component / ItemColor your
-   * layered model's tinted layer already reads off {@code stackToRender} — set
-   * that component on the stack BEFORE calling this (see the Apiary spawn code),
-   * since there is no supported way to override a tint after ItemModel#update runs.
-   */
-  private void bakeItemRenderState(ClientLevel level, ItemStack stack, ItemDisplayContext displayContext)
-  {
-    ItemModelResolver resolver = Minecraft.getInstance().getItemModelResolver();
-    resolver.updateForTopItem(
-            itemRenderState,
-            stack,
-            displayContext,
-            level,
-            null,   // ItemOwner — no holding entity for a free-floating particle
-            0             // seed
-    );
-  }
+  private enum State { TO_FLOWER, CIRCLING, RETURNING }
 
-  public ItemStackRenderState getItemRenderState()
-  {
-    return itemRenderState;
-  }
+  private final BlockPos homePos;
+  private final BlockPos flowerPos;
+  private BeeParticle.State state;
+
+  private int circleTicks;
+  private final int maxCircleTicks;
+  private final double circleRadius;
+  private double circleAngle;
 
   @Override
   public void tick()
@@ -102,7 +71,10 @@ public class BeeParticle extends Particle
       case CIRCLING ->
       {
         tickCircle();
-        if (++circleTicks >= maxCircleTicks) {state = State.RETURNING;}
+        if (++circleTicks >= maxCircleTicks)
+        {
+          state = State.RETURNING;
+        }
       }
       case RETURNING -> tickFlyTo(homeCenter(), this::remove);
     }
@@ -151,13 +123,26 @@ public class BeeParticle extends Particle
     this.setPos(px, py, pz);
   }
 
-  public double interpX(float partialTick) {return Mth.lerp(partialTick, xo, x);}
-  public double interpY(float partialTick) {return Mth.lerp(partialTick, yo, y);}
-  public double interpZ(float partialTick) {return Mth.lerp(partialTick, zo, z);}
-
   @Override
-  public ParticleRenderType getGroup()
+  protected @NonNull Layer getLayer()
   {
-    return BeeParticleGroup.BEE_ITEM_MODEL;
+    return Layer.OPAQUE_ITEMS;
+  }
+
+  public static class Provider implements ParticleProvider<BeeParticleOption>
+  {
+    private final ItemStackRenderState scratchRenderState = new ItemStackRenderState();
+
+    protected TextureAtlasSprite getSprite(ItemStackTemplate item, ClientLevel level, RandomSource random) {
+      Minecraft.getInstance().getItemModelResolver().updateForTopItem(this.scratchRenderState, item.create(), ItemDisplayContext.GROUND, level, null, 0);
+      Material.Baked material = this.scratchRenderState.pickParticleMaterial(random);
+      return material != null ? material.sprite() : Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.ITEMS).missingSprite();
+    }
+
+    @Override
+    public @Nullable Particle createParticle(BeeParticleOption beeParticleOption, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, RandomSource random)
+    {
+      return new BeeParticle(clientLevel, x, y, z, beeParticleOption.homePos(), beeParticleOption.flowerPos(), this.getSprite(beeParticleOption.stack(), clientLevel, random));
+    }
   }
 }

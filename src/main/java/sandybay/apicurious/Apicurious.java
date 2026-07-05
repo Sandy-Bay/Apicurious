@@ -80,6 +80,7 @@ public class Apicurious
     DataComponentRegistrar.register(bus);
     LootItemFunctionRegistration.register(bus);
     MenuRegistrar.register(bus);
+    ParticleTypeRegistrar.register(bus);
     AlleleTypeRegistrar.init(bus);
     MutationTypeRegistrar.init(bus);
     ConditionTypeRegistrar.init(bus);

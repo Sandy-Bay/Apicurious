@@ -15,7 +15,6 @@ import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.client.gui.CentrifugeScreen;
 import sandybay.apicurious.client.renderer.model.BeeItemModel;
-import sandybay.apicurious.client.renderer.particle.BeeParticleGroup;
 import sandybay.apicurious.client.tinter.block.HiveBlockTinter;
 import sandybay.apicurious.client.tinter.item.*;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
@@ -33,7 +32,6 @@ public class ApicuriousClientEvents
     bus.addListener(ApicuriousClientEvents::registerScreens);
     bus.addListener(ApicuriousClientEvents::registerItemModels);
     bus.addListener(ApicuriousClientEvents::registerAlternativeBeeModels);
-    bus.addListener(ApicuriousClientEvents::registerParticleGroups);
   }
 
   private static void registerItemModels(RegisterItemModelsEvent event)
@@ -75,10 +73,4 @@ public class ApicuriousClientEvents
     });
   }
 
-  public static final ParticleRenderType BEE_PARTICLE = new ParticleRenderType("BEE_PARTICLE", "BP");
-
-  private static void registerParticleGroups(final RegisterParticleGroupsEvent event)
-  {
-    event.register(BEE_PARTICLE, BeeParticleGroup::new);
-  }
 }
