@@ -13,10 +13,7 @@ import sandybay.apicurious.common.item.PollenItem;
 
 public record PollenItemTinter(boolean isHighLight) implements ItemTintSource
 {
-  public static final MapCodec<PollenItemTinter> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance
-          .group(Codec.BOOL.optionalFieldOf("isHighlight", false).forGetter(PollenItemTinter::isHighLight))
-          .apply(instance, PollenItemTinter::new)
-  );
+  public static final MapCodec<PollenItemTinter> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("isHighlight", false).forGetter(PollenItemTinter::isHighLight)).apply(instance, PollenItemTinter::new));
 
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)

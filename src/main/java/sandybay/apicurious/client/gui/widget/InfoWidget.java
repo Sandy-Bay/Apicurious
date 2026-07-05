@@ -189,6 +189,23 @@ public class InfoWidget extends AbstractWidget
     return isOpen;
   }
 
+  public void setOpen(boolean open)
+  {
+    this.isOpen = open;
+    if (isOpen)
+    {
+      this.width = openSizeWidth;
+      this.height = openSizeHeight;
+      if (openLeft) {setX(defaultX - (openSizeWidth - closedSizeWidth));}
+    }
+    else
+    {
+      this.width = closedSizeWidth;
+      this.height = closedSizeHeight;
+      if (openLeft) {setX(defaultX);}
+    }
+  }
+
   public int getOpenSizeHeight()
   {
     return openSizeHeight;
@@ -197,22 +214,5 @@ public class InfoWidget extends AbstractWidget
   public int getClosedSizeHeight()
   {
     return closedSizeHeight;
-  }
-
-  public void setOpen(boolean open)
-  {
-    this.isOpen = open;
-    if (isOpen)
-    {
-      this.width = openSizeWidth;
-      this.height = openSizeHeight;
-      if (openLeft) { setX(defaultX - (openSizeWidth - closedSizeWidth)); }
-    }
-    else
-    {
-      this.width = closedSizeWidth;
-      this.height = closedSizeHeight;
-      if (openLeft) { setX(defaultX); }
-    }
   }
 }

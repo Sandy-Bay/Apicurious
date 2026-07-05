@@ -66,7 +66,8 @@ public record BeeItemModel(Identifier fallback) implements ItemModel
       }
 
       ItemModel resolved = manager.getItemModel(modelId);
-      if (!(resolved instanceof MissingItemModel)) {
+      if (!(resolved instanceof MissingItemModel))
+      {
         resolved.update(state, stack, resolver, displayContext, level, owner, seed);
       }
     }

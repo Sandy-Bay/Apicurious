@@ -2,8 +2,6 @@ package sandybay.apicurious.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.Holder;
@@ -27,9 +25,7 @@ import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
-import sandybay.apicurious.common.registrar.DataMapTypeRegistrar;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -52,20 +48,14 @@ public class BeeItem extends Item implements IBeeItem
     ItemStack bee = new ItemStack(item);
     if (level instanceof ServerLevel serverLevel)
     {
-      serverLevel.registryAccess()
-              .get(ApicuriousRegistries.ALLELES)
-              .flatMap(registryReference -> registryReference.value().getOptional(speciesKey))
-              .ifPresent(allele -> bee.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(level)));
+      serverLevel.registryAccess().get(ApicuriousRegistries.ALLELES).flatMap(registryReference -> registryReference.value().getOptional(speciesKey)).ifPresent(allele -> bee.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(level)));
     }
     else if (level instanceof ClientLevel || level == null)
     {
       ClientPacketListener connection = Minecraft.getInstance().getConnection();
       if (connection != null)
       {
-        connection.registryAccess()
-                .get(ApicuriousRegistries.ALLELES)
-                .flatMap(registryReference -> registryReference.value().getOptional(speciesKey))
-                .ifPresent(allele -> bee.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(Objects.requireNonNull(level))));
+        connection.registryAccess().get(ApicuriousRegistries.ALLELES).flatMap(registryReference -> registryReference.value().getOptional(speciesKey)).ifPresent(allele -> bee.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(Objects.requireNonNull(level))));
       }
     }
     return bee;

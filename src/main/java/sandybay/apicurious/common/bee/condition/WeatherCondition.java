@@ -43,21 +43,6 @@ public record WeatherCondition(Biome.Precipitation precipitation, boolean isRain
   @Override
   public Component getDisplayText()
   {
-    return isThundering.map(exists ->
-            Component.literal(
-                    "Weather:" +
-                            "Precipitation=" +
-                            StringUtils.capitalize(precipitation.getSerializedName()) +
-                            ", isRaining=" +
-                            StringUtils.capitalize(String.valueOf(isRaining)) +
-                            ", isThundering=" +
-                            StringUtils.capitalize(String.valueOf(exists))))
-            .orElseGet(() ->
-                    Component.literal(
-                            "Weather:" +
-                                    "Precipitation=" +
-                                    StringUtils.capitalize(precipitation.getSerializedName()) +
-                                    ", isRaining=" +
-                                    StringUtils.capitalize(String.valueOf(isRaining))));
+    return isThundering.map(exists -> Component.literal("Weather:" + "Precipitation=" + StringUtils.capitalize(precipitation.getSerializedName()) + ", isRaining=" + StringUtils.capitalize(String.valueOf(isRaining)) + ", isThundering=" + StringUtils.capitalize(String.valueOf(exists)))).orElseGet(() -> Component.literal("Weather:" + "Precipitation=" + StringUtils.capitalize(precipitation.getSerializedName()) + ", isRaining=" + StringUtils.capitalize(String.valueOf(isRaining))));
   }
 }

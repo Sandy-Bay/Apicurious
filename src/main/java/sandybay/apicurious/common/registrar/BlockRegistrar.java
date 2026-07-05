@@ -60,7 +60,6 @@ public class BlockRegistrar
     ITEMS.register(bus);
     BLOCK_ENTITY_TYPES.register(bus);
   }
-  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile("apiary", HOUSING_PROPS, ApiaryBlock::new, BlockRegistrar::getDefaultBlockItem, ApiaryHousingBE::new, BlockRegistrar::getDefaultType);
 
   public static <BLOCK extends Block, BLOCKITEM extends BlockItem> BlockItemHolder<BLOCK, BLOCKITEM> registerBlock(String id, Supplier<BLOCK> block, Function<DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item)
   {
@@ -68,7 +67,7 @@ public class BlockRegistrar
     DeferredHolder<Block, BLOCK> b = BLOCKS.register(id, block);
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(b));
     return new BlockItemHolder<>(b, i, bii);
-  }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile("bee_housing", HOUSING_PROPS, BeeHousingBlock::new, BlockRegistrar::getDefaultBlockItem, BeeHousingBE::new, BlockRegistrar::getDefaultType);
+  }  public static BlockHolderWithTile<ApiaryBlock, BlockItem, ApiaryHousingBE> APIARY = registerBlockWithTile("apiary", HOUSING_PROPS, ApiaryBlock::new, BlockRegistrar::getDefaultBlockItem, ApiaryHousingBE::new, BlockRegistrar::getDefaultType);
 
   public static BlockItemHolder<HiveBlock, BlockItem> registerHive(String id, ResourceKey<IAllele<?>> speciesKey, BiFunction<Item.Properties, DeferredHolder<Block, HiveBlock>, BlockItem> item)
   {
@@ -79,7 +78,6 @@ public class BlockRegistrar
     HIVES.add(holder);
     return holder;
   }
-  public static BlockHolderWithTile<CentrifugeBlock, BlockItem, CentrifugeBE> CENTRIFUGE = registerBlockWithTile("centrifuge", HOUSING_PROPS, CentrifugeBlock::new, BlockRegistrar::getDefaultBlockItem, CentrifugeBE::new, BlockRegistrar::getDefaultType);
 
   public static <BLOCK extends Block, BLOCKITEM extends BlockItem, T extends BlockEntity> BlockHolderWithTile<BLOCK, BLOCKITEM, T> registerBlockWithTile(String id, BlockBehaviour.Properties props, Function<BlockBehaviour.Properties, BLOCK> block, BiFunction<Item.Properties, DeferredHolder<Block, BLOCK>, Supplier<BLOCKITEM>> item, BlockEntityType.BlockEntitySupplier<T> factory, BiFunction<BlockEntityType.BlockEntitySupplier<T>, DeferredHolder<Block, BLOCK>, Supplier<BlockEntityType<T>>> type)
   {
@@ -88,7 +86,7 @@ public class BlockRegistrar
     DeferredHolder<Item, BLOCKITEM> i = ITEMS.register(id, item.apply(new Item.Properties().setId(bii.item()), b));
     DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> t = BLOCK_ENTITY_TYPES.register(id, type.apply(factory, b));
     return new BlockHolderWithTile<>(b, i, t, bii);
-  }
+  }  public static BlockHolderWithTile<BeeHousingBlock, BlockItem, BeeHousingBE> BEE_HOUSING = registerBlockWithTile("bee_housing", HOUSING_PROPS, BeeHousingBlock::new, BlockRegistrar::getDefaultBlockItem, BeeHousingBE::new, BlockRegistrar::getDefaultType);
 
   private static <BLOCK extends Block> Supplier<BlockItem> getDefaultBlockItem(Item.Properties props, DeferredHolder<Block, BLOCK> block)
   {
@@ -98,10 +96,27 @@ public class BlockRegistrar
   private static <BLOCK extends Block, T extends BlockEntity> Supplier<BlockEntityType<T>> getDefaultType(BlockEntityType.BlockEntitySupplier<T> factory, DeferredHolder<Block, BLOCK> block)
   {
     return () -> new BlockEntityType<>(factory, Sets.newHashSet(block.get()));
+  }  public static BlockHolderWithTile<CentrifugeBlock, BlockItem, CentrifugeBE> CENTRIFUGE = registerBlockWithTile("centrifuge", HOUSING_PROPS, CentrifugeBlock::new, BlockRegistrar::getDefaultBlockItem, CentrifugeBE::new, BlockRegistrar::getDefaultType);
+
+  public static BlockItemId createId(String name)
+  {
+    Identifier id = Apicurious.createIdentifier(name);
+    return createId(id, id);
+  }
+
+  public static BlockItemId createId(String blockName, String itemName)
+  {
+    return createId(Apicurious.createIdentifier(blockName), Apicurious.createIdentifier(itemName));
+  }
+
+  public static BlockItemId createId(Identifier blockId, Identifier itemId)
+  {
+    return new BlockItemId(ResourceKey.create(Registries.BLOCK, blockId), ResourceKey.create(Registries.ITEM, itemId));
   }
 
   public record BlockItemHolder<BLOCK extends Block, ITEM extends BlockItem>(DeferredHolder<Block, BLOCK> block,
-                                                                             DeferredHolder<Item, ITEM> item, BlockItemId id)
+                                                                             DeferredHolder<Item, ITEM> item,
+                                                                             BlockItemId id)
   {
 
     public BLOCK asBlock()
@@ -146,16 +161,9 @@ public class BlockRegistrar
     }
   }
 
-  public static BlockItemId createId(String name) {
-    Identifier id = Apicurious.createIdentifier(name);
-    return createId(id, id);
-  }
 
-  public static BlockItemId createId(String blockName, String itemName) {
-    return createId(Apicurious.createIdentifier(blockName), Apicurious.createIdentifier(itemName));
-  }
 
-  public static BlockItemId createId(Identifier blockId, Identifier itemId) {
-    return new BlockItemId(ResourceKey.create(Registries.BLOCK, blockId), ResourceKey.create(Registries.ITEM, itemId));
-  }
+
+
+
 }

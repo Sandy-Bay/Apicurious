@@ -5,7 +5,7 @@ import sandybay.apicurious.common.bee.species.BeeColor;
 public class ApicuriousConstants
 {
   // Color-values
-  //// Bodies
+  /// / Bodies
   public static final String DEFAULT_BODY = "ffdc16";
   public static final String WINTRY_BODY = "daf5f3";
   public static final String ROCKY_BODY = "999999";
@@ -24,7 +24,7 @@ public class ApicuriousConstants
   public static final String DEADLY_BODY = "069764";
 
 
-  //// Outlines
+  /// / Outlines
   // Debug
   public static final String UNDEFIEND_OUTLINE = "999999";
   // Agrarian
@@ -170,7 +170,7 @@ public class ApicuriousConstants
   public static final String GLOWERING_OUTLINE = "8c6969";
 
 
-  //// BeeColor(s)
+  /// / BeeColor(s)
   // Debug
   public static final BeeColor UNDEFINED = new BeeColor(UNDEFIEND_OUTLINE, DEFAULT_BODY, DEFAULT_BODY);
   // Agrarian

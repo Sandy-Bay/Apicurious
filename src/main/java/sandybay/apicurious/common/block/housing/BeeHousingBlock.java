@@ -33,7 +33,8 @@ public class BeeHousingBlock extends BaseHousingBlock
   {
     if (!level.isClientSide())
     {
-      if (level.getBlockEntity(pos) instanceof BaseHousingBE apiaryHousingBE) {
+      if (level.getBlockEntity(pos) instanceof BaseHousingBE apiaryHousingBE)
+      {
         player.openMenu(apiaryHousingBE, pos);
         return InteractionResult.FAIL;
       }

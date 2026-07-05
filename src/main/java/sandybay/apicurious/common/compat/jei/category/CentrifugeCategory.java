@@ -5,15 +5,12 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
@@ -49,14 +46,14 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     return 54;
   }
 
-//  @Override
-//  public @NotNull IDrawable getBackground()
-//  {
-//    return iGuiHelper
-//            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54)
-//            .setTextureSize(107, 54)
-//            .build();
-//  }
+  //  @Override
+  //  public @NotNull IDrawable getBackground()
+  //  {
+  //    return iGuiHelper
+  //            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54)
+  //            .setTextureSize(107, 54)
+  //            .build();
+  //  }
 
   @Override
   public @Nullable IDrawable getIcon()

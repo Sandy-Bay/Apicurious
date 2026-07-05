@@ -7,7 +7,7 @@ public class PropolisItem extends Item
 {
   private final Coloring tint;
 
-  public PropolisItem(Properties properties,  Coloring tint)
+  public PropolisItem(Properties properties, Coloring tint)
   {
     super(properties);
     this.tint = tint;

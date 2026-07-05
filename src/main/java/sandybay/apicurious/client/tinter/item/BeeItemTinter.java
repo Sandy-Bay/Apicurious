@@ -15,16 +15,7 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 public record BeeItemTinter(boolean isOutline, boolean isBody) implements ItemTintSource
 {
-  public static final MapCodec<BeeItemTinter> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance
-          .group(Codec.BOOL.optionalFieldOf("isOutline", false).forGetter(BeeItemTinter::isOutline), Codec.BOOL.optionalFieldOf("isBody", false).forGetter(BeeItemTinter::isBody))
-          .apply(instance, BeeItemTinter::new)
-  );
-
-  @Override
-  public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
-  {
-    return ARGB.opaque(getColor(stack, this.isOutline(), this.isBody()));
-  }
+  public static final MapCodec<BeeItemTinter> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("isOutline", false).forGetter(BeeItemTinter::isOutline), Codec.BOOL.optionalFieldOf("isBody", false).forGetter(BeeItemTinter::isBody)).apply(instance, BeeItemTinter::new));
 
   private static int getColor(ItemStack stack, boolean isOutline, boolean isBody)
   {
@@ -33,6 +24,12 @@ public record BeeItemTinter(boolean isOutline, boolean isBody) implements ItemTi
     BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
     if (species.getVisualData() == null || species.getVisualData().hasCustomRender()) {return 0xFFFFFFFF;}
     return isOutline ? species.getVisualData().getBeeColor().getOutlineTint().getIntColor() : isBody ? species.getVisualData().getBeeColor().getBodyTint().getIntColor() : species.getVisualData().getBeeColor().getWingTint().getIntColor();
+  }
+
+  @Override
+  public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
+  {
+    return ARGB.opaque(getColor(stack, this.isOutline(), this.isBody()));
   }
 
   @Override

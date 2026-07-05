@@ -79,10 +79,15 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
 
   // Utility Methods
   public abstract void saveWorldData(ValueOutput output);
+
   public abstract void readWorldData(ValueInput input);
+
   public abstract void saveSyncData(CompoundTag tag, HolderLookup.Provider registries);
+
   public abstract void readSyncData(ValueInput input);
+
   public abstract void saveUpdateData(CompoundTag tag, HolderLookup.Provider registries);
+
   public abstract void readUpdateData(Connection net, ValueInput output);
 
 }

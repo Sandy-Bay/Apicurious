@@ -12,30 +12,11 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class TemperatureData
+public record TemperatureData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
 {
-  public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(TemperatureData::getPreferenceHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(TemperatureData::getToleranceHolder)).apply(instance, TemperatureData::new));
+  public static final Codec<TemperatureData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(TemperatureData::preferenceHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(TemperatureData::toleranceHolder)).apply(instance, TemperatureData::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::getPreferenceHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::getToleranceHolder, TemperatureData::new);
-
-  private final Holder<IAllele<?>> preferenceHolder;
-  private final Holder<IAllele<?>> toleranceHolder;
-
-  public TemperatureData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
-  {
-    this.preferenceHolder = preferenceHolder;
-    this.toleranceHolder = toleranceHolder;
-  }
-
-  public Holder<IAllele<?>> getPreferenceHolder()
-  {
-    return preferenceHolder;
-  }
-
-  public Holder<IAllele<?>> getToleranceHolder()
-  {
-    return toleranceHolder;
-  }
+  public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::preferenceHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), TemperatureData::toleranceHolder, TemperatureData::new);
 
   @Override
   public boolean equals(Object o)
@@ -46,9 +27,4 @@ public class TemperatureData
     return Objects.equals(preferenceHolder.value(), that.preferenceHolder.value()) && Objects.equals(toleranceHolder.value(), that.toleranceHolder.value());
   }
 
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(preferenceHolder, toleranceHolder);
-  }
 }

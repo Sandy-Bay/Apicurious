@@ -11,9 +11,9 @@ public interface ITicker
    * Server-side ticking method.
    * This method is used to implement any business-side logic for the ticking BlockEntity.
    *
-   * @param level     The level of the BlockEntity, this can be null.
-   * @param pos       The position of the BlockEntity in the world.
-   * @param state     The state of the BlockState of the Block holding the BlockEntity.
+   * @param level The level of the BlockEntity, this can be null.
+   * @param pos   The position of the BlockEntity in the world.
+   * @param state The state of the BlockState of the Block holding the BlockEntity.
    */
   void serverTick(Level level, BlockPos pos, BlockState state);
 
@@ -21,9 +21,9 @@ public interface ITicker
    * Client-side ticking method.
    * This method is used to implement any presentation-side logic for the ticking BlockEntity.
    *
-   * @param level     The level of the BlockEntity.
-   * @param pos       The position of the BlockEntity in the world.
-   * @param state     The state of the BlockState of the Block holding the BlockEntity.
+   * @param level The level of the BlockEntity.
+   * @param pos   The position of the BlockEntity in the world.
+   * @param state The state of the BlockState of the Block holding the BlockEntity.
    */
   void clientTick(Level level, BlockPos pos, BlockState state);
 }

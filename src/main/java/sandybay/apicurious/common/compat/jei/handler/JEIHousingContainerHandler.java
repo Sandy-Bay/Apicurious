@@ -24,5 +24,6 @@ public class JEIHousingContainerHandler<M extends AbstractContainerMenu, T exten
   }
 
   public static class JEIApiaryContainerHandler extends JEIHousingContainerHandler<ApiaryMenu, ApiaryScreen> {}
+
   public static class JEIBeeHousingContainerHandler extends JEIHousingContainerHandler<BeeHousingMenu, BeeHousingScreen> {}
 }

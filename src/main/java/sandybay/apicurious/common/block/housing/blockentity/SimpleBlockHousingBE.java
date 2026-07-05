@@ -73,8 +73,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public boolean isActive = false;
   public int currentWork;
   public int maxWork;
-  public boolean shouldRenderParticles;
-
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -101,6 +99,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       return 3;
     }
   };
+  public boolean shouldRenderParticles;
 
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
@@ -114,8 +113,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       if ((slot >= SLOT_FRAME_START && slot < SLOT_FRAME_END && stack.getItem() instanceof IFrameItem))
       {return true;}
       return true;
-    }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1)
-            .setOnSlotChanged((stack, slot) ->
+    }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1).setOnSlotChanged((stack, slot) ->
     {
       this.setChanged();
       if ((slot == 0 || slot == 1) && currentWork > 0 && maxWork > 0 && !territory.isEmpty()) {resetHousing(state);}
@@ -134,7 +132,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       {
         changeActiveState(state, true);
         this.maxWork = 0;
-      } else
+      }
+      else
       {
         tickBreeding(level, pos, state);
       }
@@ -208,9 +207,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     boolean success;
     try (Transaction tx = Transaction.openRoot())
     {
-      success = getInventory().extract(SLOT_ROYAL, princess, 1, tx) > 0
-              && getInventory().extract(SLOT_DRONE, drone, 1, tx) > 0
-              && getInventory().insert(SLOT_ROYAL, queen, 1, tx) > 0;
+      success = getInventory().extract(SLOT_ROYAL, princess, 1, tx) > 0 && getInventory().extract(SLOT_DRONE, drone, 1, tx) > 0 && getInventory().insert(SLOT_ROYAL, queen, 1, tx) > 0;
       if (success) {tx.commit();}
     }
 
@@ -227,9 +224,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
     if (ApicuriousMainConfig.main_config.debug.get())
     {
-      Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(
-              princessGenome.getSpecies(true).value().getReadableName().getString(),
-              queenGenome.getSpecies(true).value().getReadableName().getString()));
+      Apicurious.LOGGER.info("Successfully turned Princess of type %s, into Queen of type %s".formatted(princessGenome.getSpecies(true).value().getReadableName().getString(), queenGenome.getSpecies(true).value().getReadableName().getString()));
     }
   }
 
@@ -262,7 +257,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (genome == null) {return;}
 
     handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
-    if (getBlockState().getBlock() instanceof ApiaryBlock) {handleOutput(genome);}
+    if (getBlockState().getBlock() instanceof ApiaryBlock)
+    {
+      handleOutput(genome);
+    }
 
     this.currentWork--;
     damageFrames((ServerLevel) level, genome);
@@ -291,7 +289,8 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       {
         ItemResource frame = getInventory().getResource(i);
         if (frame.isEmpty()) {continue;}
-        frame.toStack().hurtAndBreak(1, level, null, item -> {});
+        frame.toStack().hurtAndBreak(1, level, null, item ->
+        {});
       }
     }
   }
@@ -529,10 +528,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
     if (genome == null) {return;}
 
-    Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos ->
-            level.getBlockState(filteredPos).is(BlockTags.DIRT)
-                    && level.getBlockState(filteredPos.above()).isAir()
-                    && level.getRandom().nextFloat() < 0.15f, 2);
+    Predicate<BlockPos> filter = new LimitedFilter<>(filteredPos -> level.getBlockState(filteredPos).is(BlockTags.DIRT) && level.getBlockState(filteredPos.above()).isAir() && level.getRandom().nextFloat() < 0.15f, 2);
     List<BlockPos> found = this.territory.stream().filter(filter).toList();
 
     Registry<Block> blockRegistry = level.registryAccess().lookupOrThrow(Registries.BLOCK);
@@ -630,7 +626,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     Optional<Registry<IMutation>> mutationRegistry = level.registryAccess().lookup(ApicuriousRegistries.MUTATIONS);
     if (mutationRegistry.isEmpty()) {return null;}
 
-    return mutationRegistry.get().stream().filter(mut -> mut.test(this)).findFirst().orElse(null);
+    return mutationRegistry.get().stream().filter(mut -> mut.test(this)).findAny().orElse(null);
   }
 
   public void updateGuiData()

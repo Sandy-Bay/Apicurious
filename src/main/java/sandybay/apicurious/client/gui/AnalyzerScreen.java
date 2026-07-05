@@ -80,12 +80,12 @@ public class AnalyzerScreen extends AbstractContainerScreen<@NotNull AnalyzerMen
   {
     if (active)
     {
-      graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.genetics.active"), x + 12, x +32, y + 9);
+      graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.genetics.active"), x + 12, x + 32, y + 9);
       drawInformation(graphics, x + 12, y, this.menu.getGenome(), true);
     }
     else
     {
-      graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.genetics.inactive"), x + 120, x +32, y + 9);
+      graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.genetics.inactive"), x + 120, x + 32, y + 9);
       drawInformation(graphics, x + 120, y, this.menu.getGenome(), false);
     }
   }
@@ -99,20 +99,20 @@ public class AnalyzerScreen extends AbstractContainerScreen<@NotNull AnalyzerMen
         graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.species").withStyle(ChatFormatting.WHITE).append(genome.getSpecies(active).value().getReadableName()), x, y + 19, 0);
         graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.lifespan").withStyle(ChatFormatting.WHITE).append(genome.getLifespan(active).value().getReadableName()), x, y + 29, 0);
         graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.production").withStyle(ChatFormatting.WHITE).append(genome.getSpeed(active).value().getReadableName()), x, y + 39, 0);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.pollination").withStyle(ChatFormatting.WHITE).append(genome.getPollination(active).value().getReadableName()), x, y + 49, 0);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.flowers").withStyle(ChatFormatting.WHITE).append(genome.getFlowers(active).value().getReadableName()), x, y + 59, 0);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.fertility").withStyle(ChatFormatting.WHITE).append(genome.getFertility(active).value().getReadableName()), x, y + 69, 0);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.territory").withStyle(ChatFormatting.WHITE).append(genome.getArea(active).value().getReadableName()), x, y + 79, 0);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.effect").withStyle(ChatFormatting.WHITE).append("NYI"), x, y + 89, 0);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.pollination").withStyle(ChatFormatting.WHITE).append(genome.getPollination(active).value().getReadableName()), x, y + 49, 0);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.flowers").withStyle(ChatFormatting.WHITE).append(genome.getFlowers(active).value().getReadableName()), x, y + 59, 0);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.fertility").withStyle(ChatFormatting.WHITE).append(genome.getFertility(active).value().getReadableName()), x, y + 69, 0);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.territory").withStyle(ChatFormatting.WHITE).append(genome.getArea(active).value().getReadableName()), x, y + 79, 0);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.effect").withStyle(ChatFormatting.WHITE).append("NYI"), x, y + 89, 0);
         break;
       case 1:
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.preference.temperature").withStyle(ChatFormatting.WHITE).append(genome.getTemperaturePreference(active).value().getReadableName()), x, x+20,y + 19); //ChatFormatting.AQUA
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.tolerance").withStyle(ChatFormatting.WHITE).append(genome.getTemperatureTolerance(active).value().getReadableName()), x, x+20,y + 29);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.preference.humidity").withStyle(ChatFormatting.WHITE).append(genome.getHumidityPreference(active).value().getReadableName()), x, x+20,y + 39);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.tolerance").withStyle(ChatFormatting.WHITE).append(genome.getHumidityTolerance(active).value().getReadableName()), x, x+20,y + 49);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.workcycle").withStyle(ChatFormatting.WHITE).append(genome.getWorkcycle(active).value().getReadableName()), x, x+20,y + 59);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.ignores_rain").withStyle(ChatFormatting.WHITE).append(((BeeSpecies) genome.getSpecies(active).value()).getEnvironmentalData().ignoresRain() ? "Yes" : "No"), x, x+20,y + 69);
-        graphics.drawScrollingString(graphics.textRenderer(),this.font, Component.translatable("apicurious.tooltip.ignores_sky").withStyle(ChatFormatting.WHITE).append(((BeeSpecies) genome.getSpecies(active).value()).getEnvironmentalData().ignoresSky() ? "Yes" : "No"), x, x+20,y + 79);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.preference.temperature").withStyle(ChatFormatting.WHITE).append(genome.getTemperaturePreference(active).value().getReadableName()), x, x + 20, y + 19); //ChatFormatting.AQUA
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.tolerance").withStyle(ChatFormatting.WHITE).append(genome.getTemperatureTolerance(active).value().getReadableName()), x, x + 20, y + 29);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.preference.humidity").withStyle(ChatFormatting.WHITE).append(genome.getHumidityPreference(active).value().getReadableName()), x, x + 20, y + 39);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.tolerance").withStyle(ChatFormatting.WHITE).append(genome.getHumidityTolerance(active).value().getReadableName()), x, x + 20, y + 49);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.workcycle").withStyle(ChatFormatting.WHITE).append(genome.getWorkcycle(active).value().getReadableName()), x, x + 20, y + 59);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.ignores_rain").withStyle(ChatFormatting.WHITE).append(((BeeSpecies) genome.getSpecies(active).value()).getEnvironmentalData().ignoresRain() ? "Yes" : "No"), x, x + 20, y + 69);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.ignores_sky").withStyle(ChatFormatting.WHITE).append(((BeeSpecies) genome.getSpecies(active).value()).getEnvironmentalData().ignoresSky() ? "Yes" : "No"), x, x + 20, y + 79);
         break;
       case 2:
         break;

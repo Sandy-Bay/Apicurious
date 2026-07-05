@@ -10,43 +10,9 @@ import net.minecraft.resources.RegistryFileCodec;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
-import java.util.Objects;
-
-public class HumidityData
+public record HumidityData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
 {
-  public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(HumidityData::getPreferenceHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(HumidityData::getToleranceHolder)).apply(instance, HumidityData::new));
-  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getPreferenceHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::getToleranceHolder, HumidityData::new);
-  private final Holder<IAllele<?>> preferenceHolder;
-  private final Holder<IAllele<?>> toleranceHolder;
+  public static final Codec<HumidityData> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("preferenceHolder").forGetter(HumidityData::preferenceHolder), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("toleranceHolder").forGetter(HumidityData::toleranceHolder)).apply(instance, HumidityData::new));
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityData> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::preferenceHolder, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), HumidityData::toleranceHolder, HumidityData::new);
 
-  public HumidityData(Holder<IAllele<?>> preferenceHolder, Holder<IAllele<?>> toleranceHolder)
-  {
-    this.preferenceHolder = preferenceHolder;
-    this.toleranceHolder = toleranceHolder;
-  }
-
-  public Holder<IAllele<?>> getPreferenceHolder()
-  {
-    return preferenceHolder;
-  }
-
-  public Holder<IAllele<?>> getToleranceHolder()
-  {
-    return toleranceHolder;
-  }
-
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    HumidityData that = (HumidityData) o;
-    return Objects.equals(preferenceHolder, that.preferenceHolder) && Objects.equals(toleranceHolder, that.toleranceHolder);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    return Objects.hash(preferenceHolder, toleranceHolder);
-  }
 }

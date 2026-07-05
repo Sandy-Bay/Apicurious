@@ -1,7 +1,6 @@
 package sandybay.apicurious.common.registrar;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.references.ItemIds;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -38,7 +37,7 @@ public class ItemRegistrar
 
   public static final List<DeferredHolder<Item, Item>> PRODUCTS_LIST = new ArrayList<>();
   public static final List<DeferredHolder<Item, CombItem>> COMBS_LIST = new ArrayList<>();
-  public static final List<DeferredHolder<Item, DropItem>> DROPS_LIST = new  ArrayList<>();
+  public static final List<DeferredHolder<Item, DropItem>> DROPS_LIST = new ArrayList<>();
   public static final List<DeferredHolder<Item, PropolisItem>> PROPOLIS_LIST = new ArrayList<>();
   public static final List<DeferredHolder<Item, FrameItem>> FRAMES_LIST = new ArrayList<>();
   public static final List<DeferredHolder<Item, PollenItem>> POLLEN_LIST = new ArrayList<>();
@@ -265,15 +264,21 @@ public class ItemRegistrar
     return new ItemHolder(itemKey, item);
   }
 
-  public record ItemHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, Item> item) {}
-  public record CombHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, CombItem> comb, ResourceKey<CentrifugeRecipe> recipe) {}
-  public record DropHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, DropItem> drop) {}
-  public record FrameHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, FrameItem> frame) {}
-  public record PollenHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PollenItem> pollen) {}
-  public record PropolisHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PropolisItem> propolis) {}
-
   public static ResourceKey<Item> create(String id)
   {
     return ResourceKey.create(Registries.ITEM, Apicurious.createIdentifier(id));
   }
+
+  public record ItemHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, Item> item) {}
+
+  public record CombHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, CombItem> comb,
+                           ResourceKey<CentrifugeRecipe> recipe) {}
+
+  public record DropHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, DropItem> drop) {}
+
+  public record FrameHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, FrameItem> frame) {}
+
+  public record PollenHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PollenItem> pollen) {}
+
+  public record PropolisHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PropolisItem> propolis) {}
 }

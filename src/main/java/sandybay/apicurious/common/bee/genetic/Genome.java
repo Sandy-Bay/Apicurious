@@ -72,13 +72,13 @@ public class Genome implements IGenome
     this.genome.put(AlleleTypeRegistrar.AREA_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getAreaHolder()));
     this.genome.put(AlleleTypeRegistrar.FERTILITY_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getFertilityHolder()));
     this.genome.put(AlleleTypeRegistrar.FLOWERS_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getFlowersHolder()));
-    this.genome.put(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().getPreferenceHolder()));
-    this.genome.put(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().getToleranceHolder()));
+    this.genome.put(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().preferenceHolder()));
+    this.genome.put(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getHumidityData().toleranceHolder()));
     this.genome.put(AlleleTypeRegistrar.LIFESPAN_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getLifespanHolder()));
     this.genome.put(AlleleTypeRegistrar.POLLINATION_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getPollinationHolder()));
     this.genome.put(AlleleTypeRegistrar.SPEED_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getSpeedHolder()));
-    this.genome.put(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().getPreferenceHolder()));
-    this.genome.put(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().getToleranceHolder()));
+    this.genome.put(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().preferenceHolder()));
+    this.genome.put(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get(), Genotype.defaultOf(raw.getEnvironmentalData().getTemperatureData().toleranceHolder()));
     this.genome.put(AlleleTypeRegistrar.WORKCYCLE_TYPE.get(), Genotype.defaultOf(raw.getProductionData().getWorkcycleHolder()));
   }
 

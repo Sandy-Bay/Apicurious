@@ -13,10 +13,7 @@ import sandybay.apicurious.common.item.CombItem;
 
 public record CombItemTinter(boolean isOutline) implements ItemTintSource
 {
-  public static final MapCodec<CombItemTinter> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance
-          .group(Codec.BOOL.optionalFieldOf("isOutline", false).forGetter(CombItemTinter::isOutline))
-          .apply(instance, CombItemTinter::new)
-  );
+  public static final MapCodec<CombItemTinter> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.BOOL.optionalFieldOf("isOutline", false).forGetter(CombItemTinter::isOutline)).apply(instance, CombItemTinter::new));
 
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)

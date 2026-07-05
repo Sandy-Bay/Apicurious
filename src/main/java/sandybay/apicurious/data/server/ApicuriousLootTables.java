@@ -41,6 +41,21 @@ public class ApicuriousLootTables extends LootTableProvider
     super(output, Set.of(), List.of(new SubProviderEntry(ApicuriousBlockLoot::new, LootContextParamSets.BLOCK)), registries);
   }
 
+  protected LootTable.Builder dropSelf(Block block)
+  {
+    return this.dropOther(block, block);
+  }
+
+  protected LootTable.Builder dropOther(Block block, ItemLike drop)
+  {
+    return this.createSingleItemTable(drop);
+  }
+
+  public LootTable.Builder createSingleItemTable(ItemLike drop)
+  {
+    return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(drop)));
+  }
+
   public static class ApicuriousBlockLoot extends BlockLootSubProvider
   {
 
@@ -89,18 +104,6 @@ public class ApicuriousLootTables extends LootTableProvider
     {
       return BlockRegistrar.BLOCKS.getEntries().stream().map(DeferredHolder::get).collect(Collectors.toList());
     }
-  }
-
-  protected LootTable.Builder dropSelf(Block block) {
-    return this.dropOther(block, block);
-  }
-
-  protected LootTable.Builder dropOther(Block block, ItemLike drop) {
-    return this.createSingleItemTable(drop);
-  }
-
-  public LootTable.Builder createSingleItemTable(ItemLike drop) {
-    return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(drop)));
   }
 
 }

@@ -9,9 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
-import net.neoforged.neoforge.client.event.ContainerScreenEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
@@ -44,9 +41,7 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
     addRenderableWidget(new InfoWidget(leftPos + imageWidth, topPos + 10, 25, 25, 120, 80, false, 0.0F, 0.0F, 1.5F, Apicurious.createIdentifier("textures/gui/widget/habitats/plains.png"), getTempTabInfo()));
 
     // snapshot open state before the old widgets are discarded
-    List<Boolean> previousOpenStates = errorWidgets.stream()
-            .map(InfoWidget::isOpen)
-            .toList();
+    List<Boolean> previousOpenStates = errorWidgets.stream().map(InfoWidget::isOpen).toList();
 
     errorWidgets.clear();
     updateErrorList();
@@ -123,11 +118,7 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
   public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick)
   {
     boolean clicked = super.mouseClicked(event, isDoubleClick);
-    boolean done = errorWidgets.stream()
-            .filter(widget -> widget.isMouseOver(event.x(), event.y()))
-            .findFirst()
-            .map(widget -> widget.mouseClicked(event, isDoubleClick))
-            .orElse(false);
+    boolean done = errorWidgets.stream().filter(widget -> widget.isMouseOver(event.x(), event.y())).findFirst().map(widget -> widget.mouseClicked(event, isDoubleClick)).orElse(false);
     return done ? done : clicked;
   }
 

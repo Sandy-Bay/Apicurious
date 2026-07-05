@@ -53,7 +53,7 @@ public class CentrifugeScreen extends AbstractContainerScreen<@NotNull Centrifug
     {
       int remaining = this.menu.getWork();
       float progressRatio = 1.0f - ((float) remaining / (float) maxProgress);
-      int uWidth = (int)(progressRatio * width);
+      int uWidth = (int) (progressRatio * width);
       graphics.blit(RenderPipelines.GUI_TEXTURED, SCREEN_LOCATION, leftPos + 69, topPos + 35, 177, 0, uWidth, 15, 256, 256);
     }
   }

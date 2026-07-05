@@ -44,10 +44,7 @@ public record DateCondition(LocalDate from, LocalDate to) implements ICondition
   @Override
   public Component getDisplayText()
   {
-    return Component.literal("- Date: " +
-            from.getMonthValue() + "-" + from.getDayOfMonth() +
-            " -> " +
-            to.getMonthValue() + "-" + to.getDayOfMonth());
+    return Component.literal("- Date: " + from.getMonthValue() + "-" + from.getDayOfMonth() + " -> " + to.getMonthValue() + "-" + to.getDayOfMonth());
   }
 
 

@@ -39,7 +39,8 @@ public class ApicuriousWorldGen
       Registry<ConfiguredFeature<?, ?>> registry = server.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
       registry.keySet().forEach(id ->
       {
-        registry.get(id).map(Holder.Reference::value).ifPresent(configuredFeature -> {
+        registry.get(id).map(Holder.Reference::value).ifPresent(configuredFeature ->
+        {
           if (!(configuredFeature.feature() instanceof TreeFeature treeFeature)) {return;}
           TreeConfiguration configuration = (TreeConfiguration) configuredFeature.config();
           switch (id.getPath())

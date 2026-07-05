@@ -15,9 +15,12 @@ import java.util.Objects;
 
 public record ApicuriousSpeciesFunction(ResourceKey<IAllele<?>> speciesKey) implements LootItemFunction
 {
-  public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> instance
-          .group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(func -> func.speciesKey))
-          .apply(instance, ApicuriousSpeciesFunction::new));
+  public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(func -> func.speciesKey)).apply(instance, ApicuriousSpeciesFunction::new));
+
+  public static Builder getBuilder(ResourceKey<IAllele<?>> speciesKey)
+  {
+    return new Builder(speciesKey);
+  }
 
   @Override
   public MapCodec<? extends LootItemFunction> codec()
@@ -28,17 +31,8 @@ public record ApicuriousSpeciesFunction(ResourceKey<IAllele<?>> speciesKey) impl
   @Override
   public ItemStack apply(ItemStack stack, LootContext context)
   {
-    context.getLevel()
-            .registryAccess()
-            .get(ApicuriousRegistries.ALLELES)
-            .flatMap(registryReference -> Objects.requireNonNull(registryReference.value()).getOptional(speciesKey))
-            .ifPresent(allele -> stack.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(context.getLevel())));
+    context.getLevel().registryAccess().get(ApicuriousRegistries.ALLELES).flatMap(registryReference -> Objects.requireNonNull(registryReference.value()).getOptional(speciesKey)).ifPresent(allele -> stack.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(context.getLevel())));
     return stack;
-  }
-
-  public static Builder getBuilder(ResourceKey<IAllele<?>> speciesKey)
-  {
-    return new Builder(speciesKey);
   }
 
   public record Builder(ResourceKey<IAllele<?>> speciesKey) implements LootItemFunction.Builder

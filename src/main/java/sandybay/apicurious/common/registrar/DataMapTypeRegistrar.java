@@ -1,6 +1,5 @@
 package sandybay.apicurious.common.registrar;
 
-import net.minecraft.core.Registry;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;

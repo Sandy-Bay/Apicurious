@@ -7,7 +7,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.attribute.EnvironmentAttribute;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.condition.ConditionType;
@@ -40,15 +39,24 @@ public record MoonPhaseCondition(int moonPhase) implements ICondition
   {
     String moonPhaseName = switch (moonPhase)
     {
-      case 0: yield "Full Moon";
-      case 1: yield "Waning Gibbous";
-      case 2: yield "Last Quarter";
-      case 3: yield "Waning Cresent";
-      case 4: yield "New Moon";
-      case 5: yield "Waxing Crescent";
-      case 6: yield "First Quarter";
-      case 7: yield "Waxing Gibbous";
-      default: yield "Unknown";
+      case 0:
+        yield "Full Moon";
+      case 1:
+        yield "Waning Gibbous";
+      case 2:
+        yield "Last Quarter";
+      case 3:
+        yield "Waning Cresent";
+      case 4:
+        yield "New Moon";
+      case 5:
+        yield "Waxing Crescent";
+      case 6:
+        yield "First Quarter";
+      case 7:
+        yield "Waxing Gibbous";
+      default:
+        yield "Unknown";
     };
     return Component.literal("Moon Phase: " + moonPhaseName);
   }

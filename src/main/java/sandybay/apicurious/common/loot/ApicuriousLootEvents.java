@@ -55,7 +55,8 @@ public class ApicuriousLootEvents
     {
       switch (name.getPath())
       {
-        case "chests/desert_pyramid", "chests/jungle_temple", "chests/stronghold_corridor", "chests/stronghold_crossing", "chests/stronghold_library", "chests/woodland_mansion":
+        case "chests/desert_pyramid", "chests/jungle_temple", "chests/stronghold_corridor",
+             "chests/stronghold_crossing", "chests/stronghold_library", "chests/woodland_mansion":
           injectInto(event, "pool0", addBee(ItemRegistrar.DRONE.item(), ApicuriousSpecies.STEADFAST.species(), 25));
           break;
         case "chests/abandoned_mineshaft", "chests/simple_dungeon":

@@ -9,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +23,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.util.ProblemReporter;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
@@ -54,20 +54,13 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
 
   private final ConfigurableItemStacksResourceHandler inventory;
 
-  /** Last input stack we reacted to; used to detect the input slot changing. */
+  /**
+   * Last input stack we reacted to; used to detect the input slot changing.
+   */
   private ItemResource lastSeenInput = ItemResource.EMPTY;
   private CentrifugeRecipe recipe;
   private int work = NO_WORK;
   private int maxWork;
-
-  /**
-   * Set after loading from NBT when a recipe was mid-progress. The recipe object itself
-   * isn't persisted, so on the first tick after load we re-resolve it against whatever is
-   * currently sitting in the input slot, instead of letting the normal "input changed"
-   * detection wipe the in-progress work back to zero.
-   */
-  private boolean pendingResume = false;
-
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -93,6 +86,13 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
       return DATA_COUNT;
     }
   };
+  /**
+   * Set after loading from NBT when a recipe was mid-progress. The recipe object itself
+   * isn't persisted, so on the first tick after load we re-resolve it against whatever is
+   * currently sitting in the input slot, instead of letting the normal "input changed"
+   * detection wipe the in-progress work back to zero.
+   */
+  private boolean pendingResume = false;
 
   public CentrifugeBE(BlockPos pPos, BlockState pBlockState)
   {
@@ -117,7 +117,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (getLevel() == null) return;
+    if (getLevel() == null) {return;}
 
     if (pendingResume)
     {
@@ -145,7 +145,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
       return;
     }
 
-    if (!isWorking() || work <= 0) return;
+    if (!isWorking() || work <= 0) {return;}
 
     work--;
     if (work == 0)
@@ -177,7 +177,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   private void startNewRecipe(ItemResource stack)
   {
     this.recipe = findRecipe();
-    if (this.recipe == null) return;
+    if (this.recipe == null) {return;}
     this.lastSeenInput = stack;
     startWork();
   }
@@ -231,7 +231,8 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public CompoundTag getUpdateTag(HolderLookup.Provider registries)
   {
-    try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), Apicurious.LOGGER)) {
+    try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), Apicurious.LOGGER))
+    {
       TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
       output.store(super.getUpdateTag(registries));
       this.inventory.serialize(output);
@@ -279,15 +280,9 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
 
   private CentrifugeRecipe findRecipe()
   {
-    Registry<CentrifugeRecipe> recipes = getLevel().registryAccess()
-            .lookup(ApicuriousRegistries.CENTRIFUGE_RECIPES)
-            .orElseThrow();
+    Registry<CentrifugeRecipe> recipes = getLevel().registryAccess().lookup(ApicuriousRegistries.CENTRIFUGE_RECIPES).orElseThrow();
 
-    return recipes.entrySet().stream()
-            .map(Map.Entry::getValue)
-            .filter(r -> r.matches(this))
-            .findFirst()
-            .orElse(null);
+    return recipes.entrySet().stream().map(Map.Entry::getValue).filter(r -> r.matches(this)).findFirst().orElse(null);
   }
 
   private void tryFinishCraft()
@@ -316,7 +311,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   {
     for (ItemStack output : outputs)
     {
-      if (!canInsertSingle(output, tx)) return false;
+      if (!canInsertSingle(output, tx)) {return false;}
     }
     return true;
   }
