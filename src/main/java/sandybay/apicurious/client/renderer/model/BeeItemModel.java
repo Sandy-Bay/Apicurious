@@ -1,4 +1,4 @@
-package sandybay.apicurious.client.renderer;
+package sandybay.apicurious.client.renderer.model;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;

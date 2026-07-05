@@ -18,7 +18,7 @@ import net.minecraft.util.random.WeightedList;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.util.ApicuriousModelTemplates;
-import sandybay.apicurious.client.renderer.BeeItemModel;
+import sandybay.apicurious.client.renderer.model.BeeItemModel;
 import sandybay.apicurious.client.tinter.item.*;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;

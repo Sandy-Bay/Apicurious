@@ -1,14 +1,12 @@
 package sandybay.apicurious.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.resources.model.geometry.QuadCollection;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.model.standalone.SimpleUnbakedStandaloneModel;
 import net.neoforged.neoforge.client.model.standalone.StandaloneModelKey;
 import sandybay.apicurious.Apicurious;
@@ -16,7 +14,8 @@ import sandybay.apicurious.client.gui.AnalyzerScreen;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.client.gui.CentrifugeScreen;
-import sandybay.apicurious.client.renderer.BeeItemModel;
+import sandybay.apicurious.client.renderer.model.BeeItemModel;
+import sandybay.apicurious.client.renderer.particle.BeeParticleGroup;
 import sandybay.apicurious.client.tinter.block.HiveBlockTinter;
 import sandybay.apicurious.client.tinter.item.*;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
@@ -34,6 +33,7 @@ public class ApicuriousClientEvents
     bus.addListener(ApicuriousClientEvents::registerScreens);
     bus.addListener(ApicuriousClientEvents::registerItemModels);
     bus.addListener(ApicuriousClientEvents::registerAlternativeBeeModels);
+    bus.addListener(ApicuriousClientEvents::registerParticleGroups);
   }
 
   private static void registerItemModels(RegisterItemModelsEvent event)
@@ -73,5 +73,12 @@ public class ApicuriousClientEvents
       StandaloneModelKey<QuadCollection> key = new StandaloneModelKey<>(id::toString);
       event.register(key, SimpleUnbakedStandaloneModel.quadCollection(id));
     });
+  }
+
+  public static final ParticleRenderType BEE_PARTICLE = new ParticleRenderType("BEE_PARTICLE", "BP");
+
+  private static void registerParticleGroups(final RegisterParticleGroupsEvent event)
+  {
+    event.register(BEE_PARTICLE, BeeParticleGroup::new);
   }
 }

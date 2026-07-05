@@ -1,5 +1,7 @@
 package sandybay.apicurious.common.block.housing.blockentity;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -11,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -35,6 +38,7 @@ import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.LimitedFilter;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
+import sandybay.apicurious.client.renderer.particle.BeeParticle;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
@@ -63,6 +67,11 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   private static final int SLOT_OUTPUT_START = 5;
   private static final int SLOT_OUTPUT_END = 12; // exclusive
   private static final int DEFAULT_BREEDING_TICKS = 75;
+
+  // Particle constants
+  private int particleSpawnCooldown;
+  private static final int PARTICLE_SPAWN_INTERVAL = 1; // ~5s, tweak to taste
+  private static final int FLOWER_SEARCH_RADIUS = 8;
 
   public final HousingValidation validation;
 
@@ -115,10 +124,12 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       return true;
     }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1).setOnSlotChanged((stack, slot) ->
     {
-      this.setChanged();
       if ((slot == 0 || slot == 1) && currentWork > 0 && maxWork > 0 && !territory.isEmpty()) {resetHousing(state);}
       if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) {errorList.remove(HousingError.FULL_INVENTORY);}
-    }).setOutputFilter((stack, slot) -> !(slot == SLOT_ROYAL && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN));
+    });
+    // TODO: Make it so the queen outputs to a list, and if removed clear the list, if finished dump the contents of the list into the inventory.
+    // .setOutputFilter((stack, slot) -> !(slot == SLOT_ROYAL && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN));
+
     this.validation = new HousingValidation(this);
   }
 
@@ -141,12 +152,14 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     else
     {
       tickActiveQueen(level, pos, state);
+      if (!this.shouldRenderParticles)
+      {
+        this.shouldRenderParticles = true;
+        this.setChanged();
+      }
     }
   }
 
-  /**
-   * Idle phase: waiting for a princess + drone to be combined into a queen.
-   */
   private void tickBreeding(Level level, BlockPos pos, BlockState state)
   {
     validate(level, pos, true);
@@ -175,13 +188,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
   }
 
-  /**
-   * Combines the princess and drone into a queen, once breeding has finished.
-   * The active-state transition only happens if the inventory transaction
-   * (extract princess, extract drone, insert queen) actually commits — previously
-   * the block was flipped to "active" unconditionally, even on a failed transaction,
-   * leaving it stuck active with no queen.
-   */
   private void completeBreeding(Level level, BlockState state)
   {
     ItemResource princess = getInventory().getResource(SLOT_ROYAL);
@@ -213,8 +219,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
     if (!success)
     {
-      // Breeding didn't complete (inventory changed out from under us, etc.) — stay idle
-      // instead of silently flipping to an active state with no queen present.
       addError(HousingError.FULL_INVENTORY);
       return;
     }
@@ -228,9 +232,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
   }
 
-  /**
-   * Active phase: a queen is present and producing output / offspring over time.
-   */
   private void tickActiveQueen(Level level, BlockPos pos, BlockState state)
   {
     validate(level, pos, false);
@@ -289,8 +290,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       {
         ItemResource frame = getInventory().getResource(i);
         if (frame.isEmpty()) {continue;}
-        frame.toStack().hurtAndBreak(1, level, null, item ->
-        {});
+        frame.toStack().hurtAndBreak(1, level, null, _ -> {});
       }
     }
   }
@@ -300,7 +300,15 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (shouldRenderParticles)
     {
-      // Todo: Render Particles
+      if (particleSpawnCooldown > 0)
+      {
+        particleSpawnCooldown--;
+      }
+      else
+      {
+        particleSpawnCooldown = PARTICLE_SPAWN_INTERVAL + level.getRandom().nextInt(PARTICLE_SPAWN_INTERVAL);
+        spawnBeeParticle(level, pos);
+      }
     }
   }
 
@@ -309,6 +317,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     CompoundTag apiaryData = new CompoundTag();
     apiaryData.putBoolean("isActive", isActive);
+    tag.putBoolean("shouldRenderParticles", shouldRenderParticles);
     tag.put("apiary_data", apiaryData);
   }
 
@@ -322,9 +331,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void saveWorldData(ValueOutput output)
   {
     inventory.serialize(output);
-    // Previously only the inventory was persisted here — isActive/currentWork/maxWork
-    // were never written, so save+reload during an active breeding/production cycle
-    // silently reset progress even though the queen item was still in the inventory.
     output.putBoolean("isActive", isActive);
     output.putInt("currentWork", currentWork);
     output.putInt("maxWork", maxWork);
@@ -367,9 +373,9 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (this.level == null) {return;}
     this.level.sendBlockUpdated(worldPosition, state, state.setValue(BaseHousingBlock.ACTIVE, shouldBeActive), Block.UPDATE_IMMEDIATE);
-    this.setChanged();
     this.isActive = shouldBeActive;
     this.shouldRenderParticles = shouldBeActive;
+    this.setChanged();
   }
 
   /**
@@ -479,13 +485,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
   }
 
-  /**
-   * Territory was previously computed two different ways depending on which
-   * code path ran first (validate() built the frame list manually, while
-   * handlePollination() used SimpleBlockHousingHelper.getFrames(this)), which
-   * could produce inconsistent results depending on call order. Consolidated
-   * into a single path.
-   */
   private void ensureTerritory(ApiaryBlock apiary, BlockPos pos, ItemResource queen)
   {
     if (this.territory == null)
@@ -567,6 +566,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     this.maxWork = 0;
     this.territory = null;
     clearErrors();
+    this.setChanged();
   }
 
   private void handleQueenLifecycleEnd(Genome genome)
@@ -609,12 +609,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     return chance;
   }
 
-  /**
-   * Uses findFirst() rather than findAny() so mutation selection is deterministic
-   * with respect to registry iteration order — with findAny() there was no
-   * guarantee which of several matching mutations would win, which matters if
-   * mutation priority/specificity is meant to be respected.
-   */
   private IMutation getPotentialMutation()
   {
     Level level = getLevel();
@@ -646,4 +640,49 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     return containerData;
   }
+
+  private void spawnBeeParticle(Level level, BlockPos pos)
+  {
+    if (!(level instanceof ClientLevel clientLevel)) {return;}
+
+    BlockPos flower = findNearbyFlower(level, pos, FLOWER_SEARCH_RADIUS);
+    ItemStack beeStack = new ItemStack(ItemRegistrar.DRONE.item());
+    ItemResource queen = getInventory().getResource(SLOT_ROYAL);
+    Genome genome = queen.get(DataComponentRegistrar.GENOME);
+    beeStack.set(DataComponentRegistrar.GENOME, genome);
+
+    double spawnX = pos.getX() + 0.5;
+    double spawnY = pos.getY() + 1.0;
+    double spawnZ = pos.getZ() + 0.5;
+
+    BeeParticle particle = new BeeParticle(
+            clientLevel, spawnX, spawnY, spawnZ, pos, flower, beeStack,
+            ItemDisplayContext.GROUND
+    );
+
+    Minecraft.getInstance().particleEngine.add(particle);
+  }
+
+  private BlockPos findNearbyFlower(Level level, BlockPos origin, int radius)
+  {
+    List<BlockPos> candidates = new ArrayList<>();
+    BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+    for (int dx = -radius; dx <= radius; dx++)
+    {
+      for (int dy = -3; dy <= 3; dy++)
+      {
+        for (int dz = -radius; dz <= radius; dz++)
+        {
+          cursor.set(origin.getX() + dx, origin.getY() + dy, origin.getZ() + dz);
+          if (level.getBlockState(cursor).is(BlockTags.SMALL_FLOWERS))
+          {
+            candidates.add(cursor.immutable());
+          }
+        }
+      }
+    }
+    if (candidates.isEmpty()) {return null;}
+    return candidates.get(level.getRandom().nextInt(candidates.size()));
+  }
+
 }
