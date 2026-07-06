@@ -17,6 +17,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleGroupsEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -28,6 +30,8 @@ import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.register.MutationTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.client.ApicuriousClientEvents;
+import sandybay.apicurious.client.renderer.particle.BeeParticle;
+import sandybay.apicurious.client.renderer.particle.BeeParticleGroup;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
@@ -89,6 +93,8 @@ public class Apicurious
     bus.addListener(ApicuriousDataGen::generateServerData);
     NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
+    bus.addListener(Apicurious::registerParticleGroups);
+    bus.addListener(Apicurious::registerParticleProviders);
     CreativeTabRegistrar.register(bus);
     if (FMLLoader.getCurrent().getDist() == Dist.CLIENT)
     {
@@ -134,5 +140,17 @@ public class Apicurious
     event.register(DataMapTypeRegistrar.FUNCTION_DATA_MAP_TYPE);
     event.register(DataMapTypeRegistrar.OUTPUT_TABLE_DATA_MAP_TYPE);
     event.register(DataMapTypeRegistrar.CENTRIFUGE_RECIPES_DATA_MAP_TYPE);
+  }
+
+  private static void registerParticleGroups(RegisterParticleGroupsEvent event)
+  {
+    event.register(BeeParticle.BEE, BeeParticleGroup::new);
+  }
+
+  private static void registerParticleProviders(RegisterParticleProvidersEvent event)
+  {
+    event.registerSpecial(ParticleTypeRegistrar.BEE.get(),
+            (beeParticleOption, clientLevel, x, y, z, xd, yd, zd, randomSource) ->
+            new BeeParticle.Provider().createParticle(beeParticleOption, clientLevel, x, y, z, xd, yd, zd, randomSource));
   }
 }

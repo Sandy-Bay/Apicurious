@@ -19,6 +19,7 @@ import sandybay.apicurious.client.tinter.block.HiveBlockTinter;
 import sandybay.apicurious.client.tinter.item.*;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.MenuRegistrar;
+import sandybay.apicurious.common.registrar.ParticleTypeRegistrar;
 
 import java.util.List;
 

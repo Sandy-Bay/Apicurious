@@ -70,7 +70,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   // Particle constants
   private int particleSpawnCooldown;
-  private static final int PARTICLE_SPAWN_INTERVAL = 1; // ~5s, tweak to taste
+  private static final int PARTICLE_SPAWN_INTERVAL = 100; // ~5s, tweak to taste
   private static final int FLOWER_SEARCH_RADIUS = 8;
 
   public final HousingValidation validation;
@@ -647,13 +647,12 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
     BlockPos flower = findNearbyFlower(level, pos, FLOWER_SEARCH_RADIUS);
     ItemResource queen = getInventory().getResource(SLOT_ROYAL);
-    ItemStackTemplate template = new ItemStackTemplate(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch());
 
     double spawnX = pos.getX() + 0.5;
     double spawnY = pos.getY() + 1.0;
     double spawnZ = pos.getZ() + 0.5;
 
-    clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), template, flower, pos), spawnX, spawnY, spawnZ, 0d,0d,0d);
+    clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), new ItemStack(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch()), flower, pos), spawnX, spawnY, spawnZ, 0d,0d,0d);
   }
 
   private BlockPos findNearbyFlower(Level level, BlockPos origin, int radius)

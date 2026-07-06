@@ -1,51 +1,52 @@
 package sandybay.apicurious.client.renderer.particle;
 
-import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.BreakingItemParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaternionf;
 import org.jspecify.annotations.Nullable;
+import sandybay.apicurious.Apicurious;
 
 public class BeeParticle extends Particle
 {
+  public static final ParticleRenderType BEE = new ParticleRenderType("BEE_PARTICLE", "BP");
 
-  public BeeParticle(ClientLevel level, double x, double y, double z, BlockPos homePos, BlockPos flowerPos, ItemStackTemplate bee)
+  private enum State {TO_FLOWER, CIRCLING, RETURNING}
+
+  private final ItemModel model;
+  private final ItemStack stack;
+  private final BlockPos homePos;
+  private final BlockPos flowerPos;
+
+  private BeeParticle.State state;
+  private int circleTicks;
+  private final int maxCircleTicks;
+  private final double circleRadius;
+  private double circleAngle;
+
+  public BeeParticle(ClientLevel level, double x, double y, double z, ItemStack stack, BlockPos homePos, BlockPos flowerPos)
   {
     super(level, x, y, z);
+    this.stack = stack;
     this.homePos = homePos;
     this.flowerPos = flowerPos;
-    this.bee = bee;
+    this.model = Minecraft.getInstance().getModelManager().getItemModel(Apicurious.createIdentifier("species/default_drone"));
     this.state = flowerPos != null ? State.TO_FLOWER : State.RETURNING;
     this.circleTicks = 0;
     this.maxCircleTicks = 40 + this.random.nextInt(40);
     this.circleRadius = 0.6 + this.random.nextDouble() * 0.4;
     this.circleAngle = this.random.nextDouble() * Math.PI * 2;
-    this.lifetime = 20 * 20; // hard safety cap
+    this.lifetime = 20 * 20;
     this.hasPhysics = false;
     this.gravity = 0f;
   }
-
-
-
-  private enum State { TO_FLOWER, CIRCLING, RETURNING }
-
-  private final BlockPos homePos;
-  private final BlockPos flowerPos;
-  private final ItemStackTemplate bee;
-  private BeeParticle.State state;
-
-  private int circleTicks;
-  private final int maxCircleTicks;
-  private final double circleRadius;
-  private double circleAngle;
 
   @Override
   public void tick()
@@ -53,14 +54,12 @@ public class BeeParticle extends Particle
     this.xo = this.x;
     this.yo = this.y;
     this.zo = this.z;
-
     if (this.age++ >= this.lifetime)
     {
       this.remove();
       return;
     }
-
-    switch (state)
+    switch (this.state)
     {
       case TO_FLOWER -> tickFlyTo(flowerCenter(), () ->
       {
@@ -79,17 +78,6 @@ public class BeeParticle extends Particle
     }
   }
 
-  public void extract(BeeParticleGroup.BeeParticleRenderState particleRenderState, Camera camera, float partialTickTime)
-  {
-
-  }
-
-  @Override
-  public ParticleRenderType getGroup()
-  {
-    return null;
-  }
-
   private Vec3 flowerCenter()
   {
     return flowerPos == null ? homeCenter() : Vec3.atCenterOf(flowerPos).add(0, 0.3, 0);
@@ -102,21 +90,18 @@ public class BeeParticle extends Particle
 
   private void tickFlyTo(Vec3 target, Runnable onArrive)
   {
-    Vec3 current = new Vec3(x, y, z);
-    Vec3 delta = target.subtract(current);
+    Vec3 current = new Vec3(this.x, this.y, this.z);
+    Vec3 delta =  target.subtract(current);
     double dist = delta.length();
-
     if (dist < 0.15)
     {
       onArrive.run();
       return;
     }
-
     double speed = Mth.clamp(dist * 0.1, 0.02, 0.18);
     Vec3 step = delta.normalize().scale(speed);
     double wobble = Math.sin((age + circleAngle) * 0.5) * 0.01;
-
-    this.setPos(x + step.x, y + step.y + wobble, z + step.z);
+    this.setPos(x + step.x,  y + step.y, z + step.z);
     this.xd = step.x;
     this.yd = step.y;
     this.zd = step.z;
@@ -126,21 +111,36 @@ public class BeeParticle extends Particle
   {
     circleAngle += 0.12;
     Vec3 center = flowerCenter();
-    double bob = Math.sin(circleAngle * 2.0) * 0.08;
+    double bob = Math.sqrt(circleAngle * 2.0) * 0.08;
     double px = center.x + Math.cos(circleAngle) * circleRadius;
     double pz = center.z + Math.sin(circleAngle) * circleRadius;
     double py = center.y + bob;
     this.setPos(px, py, pz);
   }
 
-  public static class Provider extends BreakingItemParticle.ItemParticleProvider<BeeParticleOption>
+  public ItemStack getStack()
+  {
+    return stack;
+  }
+
+  public ItemModel getModel()
+  {
+    return model;
+  }
+
+  @Override
+  public ParticleRenderType getGroup()
+  {
+    return BEE;
+  }
+
+  public static class Provider implements ParticleProvider<BeeParticleOption>
   {
 
     @Override
     public @Nullable Particle createParticle(BeeParticleOption beeParticleOption, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, RandomSource random)
     {
-      return new BeeParticle(clientLevel, x, y, z, beeParticleOption.homePos(), beeParticleOption.flowerPos(), beeParticleOption.stack());
+      return new BeeParticle(clientLevel, x, y, z, beeParticleOption.stack(), beeParticleOption.homePos(), beeParticleOption.flowerPos());
     }
-
   }
 }
