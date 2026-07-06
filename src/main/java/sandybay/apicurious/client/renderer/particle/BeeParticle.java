@@ -1,32 +1,28 @@
 package sandybay.apicurious.client.renderer.particle;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.BreakingItemParticle;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.SingleQuadParticle;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.AtlasIds;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.ItemOwner;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
+import org.joml.Quaternionf;
 import org.jspecify.annotations.Nullable;
 
-public class BeeParticle extends SingleQuadParticle
+public class BeeParticle extends Particle
 {
 
-  public BeeParticle(ClientLevel level, double x, double y, double z, BlockPos homePos, BlockPos flowerPos, TextureAtlasSprite sprite)
+  public BeeParticle(ClientLevel level, double x, double y, double z, BlockPos homePos, BlockPos flowerPos, ItemStackTemplate bee)
   {
-    super(level, x, y, z, sprite);
+    super(level, x, y, z);
     this.homePos = homePos;
     this.flowerPos = flowerPos;
+    this.bee = bee;
     this.state = flowerPos != null ? State.TO_FLOWER : State.RETURNING;
     this.circleTicks = 0;
     this.maxCircleTicks = 40 + this.random.nextInt(40);
@@ -37,10 +33,13 @@ public class BeeParticle extends SingleQuadParticle
     this.gravity = 0f;
   }
 
+
+
   private enum State { TO_FLOWER, CIRCLING, RETURNING }
 
   private final BlockPos homePos;
   private final BlockPos flowerPos;
+  private final ItemStackTemplate bee;
   private BeeParticle.State state;
 
   private int circleTicks;
@@ -78,6 +77,17 @@ public class BeeParticle extends SingleQuadParticle
       }
       case RETURNING -> tickFlyTo(homeCenter(), this::remove);
     }
+  }
+
+  public void extract(BeeParticleGroup.BeeParticleRenderState particleRenderState, Camera camera, float partialTickTime)
+  {
+
+  }
+
+  @Override
+  public ParticleRenderType getGroup()
+  {
+    return null;
   }
 
   private Vec3 flowerCenter()
@@ -123,26 +133,14 @@ public class BeeParticle extends SingleQuadParticle
     this.setPos(px, py, pz);
   }
 
-  @Override
-  protected @NonNull Layer getLayer()
+  public static class Provider extends BreakingItemParticle.ItemParticleProvider<BeeParticleOption>
   {
-    return Layer.OPAQUE_ITEMS;
-  }
-
-  public static class Provider implements ParticleProvider<BeeParticleOption>
-  {
-    private final ItemStackRenderState scratchRenderState = new ItemStackRenderState();
-
-    protected TextureAtlasSprite getSprite(ItemStackTemplate item, ClientLevel level, RandomSource random) {
-      Minecraft.getInstance().getItemModelResolver().updateForTopItem(this.scratchRenderState, item.create(), ItemDisplayContext.GROUND, level, null, 0);
-      Material.Baked material = this.scratchRenderState.pickParticleMaterial(random);
-      return material != null ? material.sprite() : Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.ITEMS).missingSprite();
-    }
 
     @Override
     public @Nullable Particle createParticle(BeeParticleOption beeParticleOption, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, RandomSource random)
     {
-      return new BeeParticle(clientLevel, x, y, z, beeParticleOption.homePos(), beeParticleOption.flowerPos(), this.getSprite(beeParticleOption.stack(), clientLevel, random));
+      return new BeeParticle(clientLevel, x, y, z, beeParticleOption.homePos(), beeParticleOption.flowerPos(), beeParticleOption.stack());
     }
+
   }
 }
