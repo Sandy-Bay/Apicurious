@@ -652,7 +652,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     double spawnY = pos.getY() + 1.0;
     double spawnZ = pos.getZ() + 0.5;
 
-    clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), new ItemStack(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch()), flower, pos), spawnX, spawnY, spawnZ, 0d,0d,0d);
+    clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), new ItemStack(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch()), pos, flower), spawnX, spawnY, spawnZ, 0d,0d,0d);
   }
 
   private BlockPos findNearbyFlower(Level level, BlockPos origin, int radius)
