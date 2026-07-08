@@ -25,7 +25,7 @@ public record BeeParticleRenderState(List<Entry> entries) implements ParticleGro
     {
       ItemStackRenderState renderState = new ItemStackRenderState();
       entry.model().update(renderState, entry.stack(), Minecraft.getInstance().getItemModelResolver(), ItemDisplayContext.GROUND, Minecraft.getInstance().level, null, 0);
-      renderState.submit(entry.pose(), collector, Brightness.FULL_BRIGHT.block(), OverlayTexture.NO_OVERLAY, -1);
+      renderState.submit(entry.pose(), collector, Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, 0);
     }
   }
 }
