@@ -20,6 +20,9 @@ public class ApicuriousMainConfig
   // Compat
   public ModConfigSpec.ConfigValue<Boolean> shouldJEIMutations;
 
+  // "Totally normal configs"
+  public ModConfigSpec.ConfigValue<Boolean> whyAreTheHorsesOnFire;
+
   public ApicuriousMainConfig(ModConfigSpec.Builder builder)
   {
     builder.push("debug");
@@ -33,6 +36,9 @@ public class ApicuriousMainConfig
     builder.pop();
     builder.push("compat");
     shouldJEIMutations = builder.comment("Should bee mutations be visible in JEI?").define("shouldJEIMutations", true);
+    builder.pop();
+    builder.push("totally-normal-configs");
+    whyAreTheHorsesOnFire = builder.comment("Why are the horses on fire?").define("whyAreTheHorsesOnFire", false);
     builder.pop();
   }
 

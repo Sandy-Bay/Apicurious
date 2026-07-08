@@ -35,6 +35,7 @@ import sandybay.apicurious.client.renderer.particle.BeeParticleGroup;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
+import sandybay.apicurious.common.normal.ApicuriousNormalEvents;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.registrar.*;
@@ -95,6 +96,7 @@ public class Apicurious
     NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
     bus.addListener(Apicurious::registerParticleGroups);
     bus.addListener(Apicurious::registerParticleProviders);
+    bus.addListener(ApicuriousNormalEvents::registerTotallyNormalEvents);
     CreativeTabRegistrar.register(bus);
     if (FMLLoader.getCurrent().getDist() == Dist.CLIENT)
     {
@@ -153,4 +155,5 @@ public class Apicurious
             (beeParticleOption, clientLevel, x, y, z, xd, yd, zd, randomSource) ->
             new BeeParticle.Provider().createParticle(beeParticleOption, clientLevel, x, y, z, xd, yd, zd, randomSource));
   }
+
 }
