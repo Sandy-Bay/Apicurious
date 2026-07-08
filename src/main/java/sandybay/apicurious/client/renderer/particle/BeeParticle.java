@@ -134,6 +134,11 @@ public class BeeParticle extends Particle
     return BEE;
   }
 
+  protected Vec3 getRenderPos(float a)
+  {
+    return new Vec3(this.xo, this.yo, this.zo).lerp(this.getPos(), a);
+  }
+
   public static class Provider implements ParticleProvider<BeeParticleOption>
   {
 
