@@ -11,6 +11,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -70,7 +72,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   // Particle constants
   private int particleSpawnCooldown;
-  private static final int PARTICLE_SPAWN_INTERVAL = 100; // ~5s, tweak to taste
+  private static final int PARTICLE_SPAWN_INTERVAL = 50; // ~5s, tweak to taste
   private static final int FLOWER_SEARCH_RADIUS = 8;
 
   public final HousingValidation validation;
@@ -110,23 +112,73 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   };
   public boolean shouldRenderParticles;
 
+  @Override
+  public void saveSyncData(CompoundTag tag, HolderLookup.Provider registries)
+  {
+    try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), Apicurious.LOGGER))
+    {
+      TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
+      this.inventory.serialize(output);
+      output.putBoolean("isActive", isActive);
+      output.putBoolean("shouldRenderParticles", shouldRenderParticles);
+      tag.put("housingData", output.buildResult());
+    }
+  }
+
+  @Override
+  public void readSyncData(ValueInput input)
+  {
+    ValueInput housingInput = input.childOrEmpty("housingData");
+    inventory.deserialize(housingInput);
+    this.isActive = housingInput.getBooleanOr("isActive", false);
+    this.shouldRenderParticles = housingInput.getBooleanOr("shouldRenderParticles", false);
+  }
+
+  @Override
+  public void saveWorldData(ValueOutput output)
+  {
+    inventory.serialize(output);
+    output.putBoolean("isActive", isActive);
+    output.putBoolean("shouldRenderParticles", shouldRenderParticles);
+  }
+
+  @Override
+  public void readWorldData(ValueInput input)
+  {
+    inventory.deserialize(input);
+    input.getBooleanOr("isActive", false);
+    input.getBooleanOr("shouldRenderParticles", false);
+  }
+
+  @Override
+  public void saveUpdateData(CompoundTag tag, HolderLookup.Provider registries)
+  {
+    saveSyncData(tag, registries);
+  }
+
+  @Override
+  public void readUpdateData(Connection net, ValueInput input)
+  {
+    readSyncData(input);
+  }
+
   public SimpleBlockHousingBE(BlockEntityType<?> type, BlockPos pos, BlockState state)
   {
     super(type, pos, state);
     this.inventory = new ConfigurableItemStacksResourceHandler(12).setInputFilter((stack, slot) ->
-    {
-      if (slot == SLOT_ROYAL && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
-      {return true;}
-      if (slot == SLOT_DRONE && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
-      {return true;}
-      if ((slot >= SLOT_FRAME_START && slot < SLOT_FRAME_END && stack.getItem() instanceof IFrameItem))
-      {return true;}
-      return true;
-    }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1).setOnSlotChanged((stack, slot) ->
-    {
-      if ((slot == 0 || slot == 1) && currentWork > 0 && maxWork > 0 && !territory.isEmpty()) {resetHousing(state);}
-      if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) {errorList.remove(HousingError.FULL_INVENTORY);}
-    });
+            {
+              if (slot == SLOT_ROYAL && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
+              {return true;}
+              if (slot == SLOT_DRONE && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
+              {return true;}
+              if ((slot >= SLOT_FRAME_START && slot < SLOT_FRAME_END && stack.getItem() instanceof IFrameItem))
+              {return true;}
+              return true;
+            }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1)
+            .setOnSlotChanged((stack, slot) -> {
+              if (slot == SLOT_ROYAL && currentWork > 0) {resetHousing(state);}
+              if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) errorList.remove(HousingError.FULL_INVENTORY);
+            });
     // TODO: Make it so the queen outputs to a list, and if removed clear the list, if finished dump the contents of the list into the inventory.
     // .setOutputFilter((stack, slot) -> !(slot == SLOT_ROYAL && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN));
 
@@ -136,27 +188,15 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (!this.isActive)
+    ItemResource royal = getInventory().getResource(SLOT_ROYAL);
+    boolean holdsQueen = !royal.isEmpty() && royal.is(ItemRegistrar.QUEEN.item());
+    if (holdsQueen)
     {
-      ItemResource royal = getInventory().getResource(SLOT_ROYAL);
-      if (!royal.isEmpty() && royal.is(ItemRegistrar.QUEEN.item()))
-      {
-        changeActiveState(state, true);
-        this.maxWork = 0;
-      }
-      else
-      {
-        tickBreeding(level, pos, state);
-      }
+      tickActiveQueen(level, pos, state);
     }
     else
     {
-      tickActiveQueen(level, pos, state);
-      if (!this.shouldRenderParticles)
-      {
-        this.shouldRenderParticles = true;
-        this.setChanged();
-      }
+      tickBreeding(level, pos, state);
     }
   }
 
@@ -166,10 +206,12 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (!getErrorList().isEmpty())
     {
       updateGuiData();
+      changeActiveState(state, false);
       return;
     }
 
     updateGuiData();
+
 
     if (currentWork == 0 && maxWork == 0)
     {
@@ -246,17 +288,20 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (!getErrorList().isEmpty())
     {
       updateGuiData();
+      changeActiveState(state, false);
       return;
     }
 
     if ((!(stack.getItem() instanceof IBeeItem bee) || bee.getBeeType() != EnumBeeType.QUEEN) || !stack.has(DataComponentRegistrar.GENOME))
     {
+      changeActiveState(state, false);
       return;
     }
 
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
     if (genome == null) {return;}
 
+    if (!isActive) changeActiveState(state, true);
     handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
     if (getBlockState().getBlock() instanceof ApiaryBlock)
     {
@@ -310,58 +355,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
         spawnBeeParticle(level, pos);
       }
     }
-  }
-
-  @Override
-  public void saveSyncData(CompoundTag tag, HolderLookup.Provider registries)
-  {
-    CompoundTag apiaryData = new CompoundTag();
-    apiaryData.putBoolean("isActive", isActive);
-    tag.putBoolean("shouldRenderParticles", shouldRenderParticles);
-    tag.put("apiary_data", apiaryData);
-  }
-
-  @Override
-  public void saveUpdateData(CompoundTag tag, HolderLookup.Provider registries)
-  {
-    saveSyncData(tag, registries);
-  }
-
-  @Override
-  public void saveWorldData(ValueOutput output)
-  {
-    inventory.serialize(output);
-    output.putBoolean("isActive", isActive);
-    output.putInt("currentWork", currentWork);
-    output.putInt("maxWork", maxWork);
-    output.putBoolean("shouldRenderParticles", shouldRenderParticles);
-  }
-
-  @Override
-  public void readSyncData(ValueInput input)
-  {
-    readCommon(input);
-  }
-
-  @Override
-  public void readUpdateData(Connection net, ValueInput input)
-  {
-    readCommon(input);
-  }
-
-  @Override
-  public void readWorldData(ValueInput input)
-  {
-    readCommon(input);
-    this.currentWork = input.getIntOr("currentWork", 0);
-    this.maxWork = input.getIntOr("maxWork", 0);
-  }
-
-  private void readCommon(ValueInput input)
-  {
-    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
-    this.isActive = input.getBooleanOr("isActive", false);
-    inventory.deserialize(input);
   }
 
   public ConfigurableItemStacksResourceHandler getInventory()
@@ -649,7 +642,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     ItemResource queen = getInventory().getResource(SLOT_ROYAL);
 
     double spawnX = pos.getX() + 0.5;
-    double spawnY = pos.getY() + 1.0;
+    double spawnY = pos.getY() + 0.5;
     double spawnZ = pos.getZ() + 0.5;
 
     clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), new ItemStack(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch()), pos, flower), spawnX, spawnY, spawnZ, 0d,0d,0d);

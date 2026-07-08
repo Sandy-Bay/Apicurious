@@ -16,7 +16,6 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.api.housing.ITicker;
 
-//This does not really need to be in the API, we can just fire events for the users
 public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApiaryErrorHandler, MenuProvider
 {
 
@@ -31,7 +30,7 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
   protected void saveAdditional(ValueOutput output)
   {
     super.saveAdditional(output);
-    saveWorldData(output); //false, true
+    saveWorldData(output);
   }
 
   @Override
@@ -46,7 +45,7 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
   public CompoundTag getUpdateTag(HolderLookup.Provider registries)
   {
     CompoundTag tag = super.getUpdateTag(registries);
-    saveSyncData(tag, registries); // false, false
+    saveSyncData(tag, registries);
     return tag;
   }
 
@@ -54,7 +53,7 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
   public void handleUpdateTag(ValueInput input)
   {
     super.handleUpdateTag(input);
-    readSyncData(input); // true, true
+    readSyncData(input);
   }
 
   // Data Update Methods
@@ -74,7 +73,7 @@ public abstract class BaseHousingBE extends BlockEntity implements ITicker, IApi
   public void onDataPacket(Connection net, ValueInput valueInput)
   {
     super.onDataPacket(net, valueInput);
-    readUpdateData(net, valueInput); // false, false
+    readUpdateData(net, valueInput);
   }
 
   // Utility Methods
