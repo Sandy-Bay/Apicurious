@@ -2,6 +2,7 @@ package sandybay.apicurious.common.menu;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,6 +38,20 @@ public class ApiaryMenu extends AbstractHousingMenu
     this.apiary = apiary;
     this.containerData = apiary.getContainerData();
     addDataSlots(containerData);
+    if (playerInventory.player instanceof ServerPlayer serverPlayer)
+    {
+      apiary.addViewer(serverPlayer);
+    }
+  }
+
+  @Override
+  public void removed(Player player)
+  {
+    super.removed(player);
+    if (player instanceof ServerPlayer serverPlayer)
+    {
+      apiary.removeViewer(serverPlayer);
+    }
   }
 
   public boolean isActive()

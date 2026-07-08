@@ -14,7 +14,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -48,15 +47,13 @@ import sandybay.apicurious.common.bee.species.BeeSpecies;
 import sandybay.apicurious.common.block.housing.ApiaryBlock;
 import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.item.frame.FrameItem;
+import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.network.packets.GuiDataPacket;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 import sandybay.apicurious.common.registrar.ParticleTypeRegistrar;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 
 public abstract class SimpleBlockHousingBE extends BaseHousingBE
@@ -111,6 +108,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
   };
   public boolean shouldRenderParticles;
+  private final Set<ServerPlayer> viewingPlayers = new HashSet<>();
 
   @Override
   public void saveSyncData(CompoundTag tag, HolderLookup.Provider registries)
@@ -146,8 +144,10 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void readWorldData(ValueInput input)
   {
     inventory.deserialize(input);
-    input.getBooleanOr("isActive", false);
-    input.getBooleanOr("shouldRenderParticles", false);
+    // BUGFIX: these results were previously discarded instead of being assigned,
+    // so isActive/shouldRenderParticles were silently lost on world load.
+    this.isActive = input.getBooleanOr("isActive", false);
+    this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
   }
 
   @Override
@@ -167,12 +167,23 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     super(type, pos, state);
     this.inventory = new ConfigurableItemStacksResourceHandler(12).setInputFilter((stack, slot) ->
             {
-              if (slot == SLOT_ROYAL && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
-              {return true;}
-              if (slot == SLOT_DRONE && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
-              {return true;}
-              if ((slot >= SLOT_FRAME_START && slot < SLOT_FRAME_END && stack.getItem() instanceof IFrameItem))
-              {return true;}
+              // BUGFIX: the original filter ended with an unconditional `return true`,
+              // which meant every check below was dead code — any item could go in any
+              // slot 0-4 regardless of type. Now each restricted slot returns its own
+              // pass/fail, and only the output slots (5-11) fall through to accept
+              // anything (needed so generated bee products can be inserted there).
+              if (slot == SLOT_ROYAL)
+              {
+                return stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE;
+              }
+              if (slot == SLOT_DRONE)
+              {
+                return stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE;
+              }
+              if (slot >= SLOT_FRAME_START && slot < SLOT_FRAME_END)
+              {
+                return stack.getItem() instanceof IFrameItem;
+              }
               return true;
             }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1)
             .setOnSlotChanged((stack, slot) -> {
@@ -305,7 +316,16 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
     if (getBlockState().getBlock() instanceof ApiaryBlock)
     {
-      handleOutput(genome);
+      // BUGFIX: handleOutput()'s return value was previously discarded. It's
+      // documented to return false when the output inventory is full so the
+      // caller can back off, but nothing acted on that — work kept ticking
+      // down and freshly generated output items were silently lost instead
+      // of the queen pausing production until space frees up.
+      if (!handleOutput(genome))
+      {
+        updateGuiData();
+        return;
+      }
     }
 
     this.currentWork--;
@@ -411,8 +431,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     for (int i = SLOT_FRAME_START; i < SLOT_FRAME_END; i++)
     {
       ItemResource stack = inventory.getResource(i);
-      if (stack.isEmpty()) {continue;}
-      if (stack.getItem() instanceof IFrameItem frame)
+      if (!stack.isEmpty() && stack.getItem() instanceof IFrameItem frame)
       {
         outputDuration = Math.round(outputDuration * frame.getProductionModifier());
       }
@@ -428,7 +447,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     for (int i = SLOT_FRAME_START; i < SLOT_FRAME_END; i++)
     {
       ItemResource stack = inventory.getResource(i);
-      if (stack.getItem() instanceof IFrameItem frame)
+      if (!stack.isEmpty() && stack.getItem() instanceof IFrameItem frame)
       {
         lifespan = Math.round(lifespan * frame.getLifespanModifier());
       }
@@ -609,24 +628,34 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     IGenome first = getInventory().getResource(SLOT_ROYAL).get(DataComponentRegistrar.GENOME);
     IGenome second = getInventory().getResource(SLOT_DRONE).get(DataComponentRegistrar.GENOME);
     if (first == null || second == null) {return null;}
-
     Optional<Registry<IMutation>> mutationRegistry = level.registryAccess().lookup(ApicuriousRegistries.MUTATIONS);
-    if (mutationRegistry.isEmpty()) {return null;}
+    return mutationRegistry.flatMap(iMutations -> iMutations.stream().filter(mut -> mut.test(this)).findAny()).orElse(null);
 
-    return mutationRegistry.get().stream().filter(mut -> mut.test(this)).findAny().orElse(null);
   }
+
+  private List<HousingError> lastSentErrors = List.of();
 
   public void updateGuiData()
   {
-    if (getLevel() == null) {return;}
-    // Todo: this still broadcasts to every online player on every tick of every
-    // housing block with no errors — a real cost at scale. Should be tracking
-    // only players with this block's menu open (e.g. via ContainerLevelAccess /
-    // a menu listener list) rather than iterating the whole player list here.
-    for (ServerPlayer player : getLevel().getServer().getPlayerList().getPlayers())
+    if (getLevel() == null || viewingPlayers.isEmpty()) {return;}
+    viewingPlayers.removeIf(player -> !(player.containerMenu instanceof ApiaryMenu menu) || menu.getApiary() != this);
+    if (viewingPlayers.isEmpty() || getErrorList().equals(lastSentErrors)) {return;}
+    lastSentErrors = List.copyOf(getErrorList());
+    GuiDataPacket packet = new GuiDataPacket(lastSentErrors);
+    for (ServerPlayer player : viewingPlayers)
     {
-      PacketHandler.sendTo(new GuiDataPacket(getErrorList()), player);
+      PacketHandler.sendTo(packet, player);
     }
+  }
+
+  public void addViewer(ServerPlayer player)
+  {
+    viewingPlayers.add(player);
+  }
+
+  public void removeViewer(ServerPlayer player)
+  {
+    viewingPlayers.remove(player);
   }
 
   public ContainerData getContainerData()
