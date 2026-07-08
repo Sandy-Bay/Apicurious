@@ -61,7 +61,7 @@ public class BeeParticle extends Particle
     }
     switch (this.state)
     {
-      case TO_FLOWER -> tickFlyTo(flowerCenter(), () ->
+      case TO_FLOWER -> tickFlyTo(flowerCircle(), () ->
       {
         state = State.CIRCLING;
         circleTicks = 0;
@@ -76,6 +76,11 @@ public class BeeParticle extends Particle
       }
       case RETURNING -> tickFlyTo(homeCenter(), this::remove);
     }
+  }
+
+  private Vec3 flowerCircle()
+  {
+    return new Vec3(this.circleX(), this.circleY(), this.circleZ());
   }
 
   private Vec3 flowerCenter()
@@ -107,15 +112,24 @@ public class BeeParticle extends Particle
     this.zd = step.z;
   }
 
-  private void tickCircle()
-  {
-    circleAngle += 0.12;
+  private double circleX() {
     Vec3 center = flowerCenter();
-    double bob = Math.sqrt(circleAngle * 2.0) * 0.08;
-    double px = center.x + Math.cos(circleAngle) * circleRadius;
-    double pz = center.z + Math.sin(circleAngle) * circleRadius;
-    double py = center.y + bob;
-    this.setPos(px, py, pz);
+    return center.x + Math.cos(circleAngle) * circleRadius;
+  }
+
+  private double circleY() {
+    Vec3 center = flowerCenter();
+    return center.y + (Math.sqrt(circleAngle * 2.0) * 0.08);
+  }
+
+  private double circleZ() {
+    Vec3 center = flowerCenter();
+    return center.z + Math.sin(circleAngle) * circleRadius;
+  }
+
+  private void tickCircle() {
+    circleAngle += 0.12;
+    this.setPos(circleX(), circleY(), circleZ());
   }
 
   public ItemStack getStack()
