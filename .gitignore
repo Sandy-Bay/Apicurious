@@ -26,3 +26,4 @@ run-data
 repo
 .cache
 /temp/
+/src/generated/
