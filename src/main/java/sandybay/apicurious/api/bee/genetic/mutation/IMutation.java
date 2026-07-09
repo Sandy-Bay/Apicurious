@@ -8,6 +8,7 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 import java.util.List;
@@ -18,15 +19,42 @@ public interface IMutation
 
   MutationType getType();
 
-  HolderSet<IAllele<?>> getFirst();
+  HolderSet<IAllele<?>> first();
 
-  HolderSet<IAllele<?>> getSecond();
+  HolderSet<IAllele<?>> second();
 
-  float getChance();
+  float chance();
 
-  Holder<IAllele<?>> getOutput();
+  Holder<IAllele<?>> output();
 
-  boolean test(SimpleBlockHousingBE housing);
+  default boolean matchesSpeciesPair(Holder<IAllele<?>> firstParent, Holder<IAllele<?>> secondParent)
+  {
+    return first().contains(firstParent) && second().contains(secondParent)
+            || first().contains(secondParent) && second().contains(firstParent);
+  }
+
+  default boolean matches(SimpleBlockHousingBE housing)
+  {
+    if (housing.getLevel() == null) {return false;}
+    Holder<IAllele<?>> first = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 0, true);
+    Holder<IAllele<?>> second = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 1, true);
+    if (first == null || second == null || first.is(second)) {return false;}
+    return matchesSpeciesPair(first, second);
+  }
+
+  /**
+   * Rolls this mutation's chance, modified by any frames present in the housing.
+   * Only call on a mutation that has already passed {@link #matches}.
+   */
+  default boolean rollSuccess(SimpleBlockHousingBE housing)
+  {
+    return isValidMutation(SimpleBlockHousingHelper.getFrames(housing), chance(), housing.getLevel().getRandom());
+  }
+
+  default boolean test(SimpleBlockHousingBE housing)
+  {
+    return matches(housing) && rollSuccess(housing);
+  }
 
   default boolean isValidMutation(List<ItemResource> frames, float baseChance, RandomSource random)
   {

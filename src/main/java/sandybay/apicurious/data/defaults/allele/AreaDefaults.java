@@ -2,6 +2,7 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.allele.Area;
 
 public class AreaDefaults
@@ -19,6 +20,6 @@ public class AreaDefaults
 
   private static Area area(int xzOffset, int yOffset, boolean isDominantTrait, String name)
   {
-    return new Area(xzOffset, yOffset, isDominantTrait, "apicurious.area." + name);
+    return new Area(xzOffset, yOffset, isDominantTrait, AlleleNaming.key("area", name));
   }
 }

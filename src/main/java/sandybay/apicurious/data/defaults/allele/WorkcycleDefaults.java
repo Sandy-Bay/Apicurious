@@ -2,6 +2,7 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.allele.Workcycle;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public class WorkcycleDefaults
 
   private static Workcycle workcycle(List<Workcycle.Interval> activeTimes, boolean isDominantTrait, String name)
   {
-    return new Workcycle(activeTimes, isDominantTrait, "apicurious.workcycle." + name);
+    return new Workcycle(activeTimes, isDominantTrait, AlleleNaming.key("workcycle", name));
   }
 }

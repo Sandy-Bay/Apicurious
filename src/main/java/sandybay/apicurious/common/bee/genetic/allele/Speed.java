@@ -9,6 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -20,7 +21,7 @@ import java.util.Objects;
  * Speed is a trait inherited by Bees which alters the chance of a bee to produce output.
  * The faster the speed, the higher the chance of a bee creating a product per bee cycle update.
  */
-public class Speed implements IAllele<Speed>
+public class Speed extends AbstractAllele<Speed>
 {
 
   public static final ResourceKey<IAllele<?>> SLOWEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("speed/slowest"));
@@ -36,15 +37,11 @@ public class Speed implements IAllele<Speed>
   public static final StreamCodec<RegistryFriendlyByteBuf, Speed> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, Speed::getProductionModifier, ByteBufCodecs.BOOL, Speed::isDominantTrait, ByteBufCodecs.STRING_UTF8, Speed::getName, Speed::new);
 
   private final float productionModifier;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public Speed(float productionModifier, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.productionModifier = productionModifier;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   public float getProductionModifier()
@@ -53,35 +50,18 @@ public class Speed implements IAllele<Speed>
   }
 
   @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
-  }
-
-  @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    Speed speed = (Speed) o;
-    return Float.compare(productionModifier, speed.productionModifier) == 0 && isDominantTrait == speed.isDominantTrait && Objects.equals(name, speed.name);
+    if (!super.equals(o)) {return false;}
+    Speed that = (Speed) o;
+    return Float.compare(productionModifier, that.productionModifier) == 0;
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(productionModifier, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), productionModifier);
   }
 
   @Override

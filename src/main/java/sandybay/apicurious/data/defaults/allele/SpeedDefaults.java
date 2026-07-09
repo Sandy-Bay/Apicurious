@@ -2,6 +2,7 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.allele.Speed;
 
 public class SpeedDefaults
@@ -19,6 +20,6 @@ public class SpeedDefaults
 
   private static Speed speed(float productionModifier, boolean isDominantTrait, String name)
   {
-    return new Speed(productionModifier, isDominantTrait, "apicurious.speed." + name);
+    return new Speed(productionModifier, isDominantTrait, AlleleNaming.key("speed", name));
   }
 }

@@ -9,6 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -16,7 +17,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Lifespan implements IAllele<Lifespan>
+public class Lifespan extends AbstractAllele<Lifespan>
 {
 
   public static final ResourceKey<IAllele<?>> SHORTEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("lifespan/shortest"));
@@ -33,15 +34,11 @@ public class Lifespan implements IAllele<Lifespan>
   public static final StreamCodec<RegistryFriendlyByteBuf, Lifespan> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Lifespan::getCycles, ByteBufCodecs.BOOL, Lifespan::isDominantTrait, ByteBufCodecs.STRING_UTF8, Lifespan::getName, Lifespan::new);
 
   private final int cycles;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public Lifespan(int cycles, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.cycles = cycles;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   public int getCycles()
@@ -50,35 +47,18 @@ public class Lifespan implements IAllele<Lifespan>
   }
 
   @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
-  }
-
-  @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    Lifespan lifespan = (Lifespan) o;
-    return cycles == lifespan.cycles && isDominantTrait == lifespan.isDominantTrait && Objects.equals(name, lifespan.name);
+    if (!super.equals(o)) {return false;}
+    Lifespan that = (Lifespan) o;
+    return cycles == that.cycles;
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(cycles, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), cycles);
   }
 
   @Override

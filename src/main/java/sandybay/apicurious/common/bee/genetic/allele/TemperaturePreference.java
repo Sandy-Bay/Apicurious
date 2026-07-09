@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TemperaturePreference implements IAllele<TemperaturePreference>
+public class TemperaturePreference extends AbstractAllele<TemperaturePreference>
 {
 
   public static final ResourceKey<IAllele<?>> HELLISH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/preference/hellish"));
@@ -36,16 +37,12 @@ public class TemperaturePreference implements IAllele<TemperaturePreference>
 
   private final int temperature;
   private final TagKey<Biome> groupTag;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public TemperaturePreference(int temperature, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.temperature = temperature;
     this.groupTag = groupTag;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   private int getTemperature()
@@ -59,35 +56,18 @@ public class TemperaturePreference implements IAllele<TemperaturePreference>
   }
 
   @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
-  }
-
-  @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (!super.equals(o)) {return false;}
     TemperaturePreference that = (TemperaturePreference) o;
-    return temperature == that.temperature && Objects.equals(groupTag, that.groupTag) && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
+    return temperature == that.temperature && groupTag.equals(that.groupTag);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(temperature, groupTag, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), temperature, groupTag);
   }
 
   @Override

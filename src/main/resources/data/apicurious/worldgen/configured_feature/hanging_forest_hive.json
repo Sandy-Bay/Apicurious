@@ -1,0 +1,17 @@
+{
+  "type": "apicurious:hanging_hive",
+  "config": {
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "apicurious:forest_hive",
+        "Properties": {
+          "facing": "north"
+        }
+      }
+    },
+    "leafTag": "minecraft:leaves",
+    "logTag": "minecraft:logs",
+    "requireLog": true
+  }
+}

@@ -9,6 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -16,7 +17,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class Pollination implements IAllele<Pollination>
+public class Pollination extends AbstractAllele<Pollination>
 {
 
   public static final ResourceKey<IAllele<?>> SLOWEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("pollination/slowest"));
@@ -31,15 +32,11 @@ public class Pollination implements IAllele<Pollination>
   public static final StreamCodec<RegistryFriendlyByteBuf, Pollination> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, Pollination::getPollinationChance, ByteBufCodecs.BOOL, Pollination::isDominantTrait, ByteBufCodecs.STRING_UTF8, Pollination::getName, Pollination::new);
 
   private final float pollinationChance;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public Pollination(float pollinationChance, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.pollinationChance = pollinationChance;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   public float getPollinationChance()
@@ -48,35 +45,18 @@ public class Pollination implements IAllele<Pollination>
   }
 
   @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
-  }
-
-  @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (!super.equals(o)) {return false;}
     Pollination that = (Pollination) o;
-    return Float.compare(pollinationChance, that.pollinationChance) == 0 && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
+    return pollinationChance == that.pollinationChance;
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(pollinationChance, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), pollinationChance);
   }
 
   @Override

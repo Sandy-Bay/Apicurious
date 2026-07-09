@@ -3,6 +3,7 @@ package sandybay.apicurious.common.bee.species;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -12,21 +13,25 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import sandybay.apicurious.api.bee.IBeeSpecies;
+import sandybay.apicurious.api.bee.genetic.IDefaultGenomeProvider;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.genetic.allele.groups.EnvironmentalData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.ProductionData;
 import sandybay.apicurious.common.bee.genetic.allele.groups.VisualData;
 import sandybay.apicurious.common.bee.output.OutputData;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 // Todo: Implement custom effect system, not just potion effects.
-public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
+public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGenomeProvider
 {
 
   public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("key").forGetter(BeeSpecies::getSpeciesKey), Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName), VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData), ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData), EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData), OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData)).apply(instance, BeeSpecies::new));
@@ -143,7 +148,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   public Genome getSpeciesDefaultGenome(Level level)
   {
     Genome genome = new Genome();
-    genome.getDefaultGenome(level.registryAccess().holderOrThrow(getSpeciesKey()));
+    genome.initializeDefaults(level.registryAccess().holderOrThrow(getSpeciesKey()));
     return genome;
   }
 
@@ -151,8 +156,29 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
   public Genome getSpeciesDefaultGenome(HolderLookup.Provider provider)
   {
     Genome genome = new Genome();
-    provider.lookupOrThrow(ApicuriousRegistries.ALLELES).get(getSpeciesKey()).ifPresent(genome::getDefaultGenome);
+    Holder<IAllele<?>> holder = provider.lookupOrThrow(ApicuriousRegistries.ALLELES)
+            .get(getSpeciesKey())
+            .orElseThrow(() -> new IllegalStateException("Species " + getSpeciesKey() + " not found in registry"));
+    genome.initializeDefaults(holder);
     return genome;
+  }
+
+  @Override
+  public Map<AlleleType<? extends IAllele<?>>, Holder<IAllele<?>>> getDefaultTraits()
+  {
+    Map<AlleleType<? extends IAllele<?>>, Holder<IAllele<?>>> defaults = new HashMap<>();
+    defaults.put(AlleleTypeRegistrar.AREA_TYPE.get(), productionData.getAreaHolder());
+    defaults.put(AlleleTypeRegistrar.FERTILITY_TYPE.get(), productionData.getFertilityHolder());
+    defaults.put(AlleleTypeRegistrar.FLOWERS_TYPE.get(), environmentalData.getFlowersHolder());
+    defaults.put(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get(), environmentalData.getHumidityData().preferenceHolder());
+    defaults.put(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(), environmentalData.getHumidityData().toleranceHolder());
+    defaults.put(AlleleTypeRegistrar.LIFESPAN_TYPE.get(), productionData.getLifespanHolder());
+    defaults.put(AlleleTypeRegistrar.POLLINATION_TYPE.get(), productionData.getPollinationHolder());
+    defaults.put(AlleleTypeRegistrar.SPEED_TYPE.get(), productionData.getSpeedHolder());
+    defaults.put(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get(), environmentalData.getTemperatureData().preferenceHolder());
+    defaults.put(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get(), environmentalData.getTemperatureData().toleranceHolder());
+    defaults.put(AlleleTypeRegistrar.WORKCYCLE_TYPE.get(), productionData.getWorkcycleHolder());
+    return defaults;
   }
 
   public static class Builder
@@ -178,7 +204,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>
 
     public static Builder create(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
     {
-      return new Builder(context, key, "apicurious.species." + name);
+      return new Builder(context, key, AlleleNaming.key("species", name));
     }
 
     public Builder withVisualData(Consumer<VisualData.Builder> consumer)

@@ -113,9 +113,9 @@ public class ApicuriousJeiPlugin implements IModPlugin
     Registry<IMutation> mutations = Minecraft.getInstance().level.registryAccess().lookupOrThrow(ApicuriousRegistries.MUTATIONS);
     for (IMutation mutation : mutations.entrySet().stream().map(Map.Entry::getValue).toList())
     {
-      List<ItemStack> firstOptions = getBeeOptions(mutation.getFirst());
-      List<ItemStack> secondOptions = getBeeOptions(mutation.getSecond());
-      BeeSpecies outputSpecies = (BeeSpecies) mutation.getOutput().value();
+      List<ItemStack> firstOptions = getBeeOptions(mutation.first());
+      List<ItemStack> secondOptions = getBeeOptions(mutation.second());
+      BeeSpecies outputSpecies = (BeeSpecies) mutation.output().value();
       ItemStack outputBee = BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, outputSpecies.getSpeciesKey(), ItemRegistrar.DRONE.item());
       if (mutation instanceof ConditionalMutation conditionalMutation)
       {
@@ -124,7 +124,7 @@ public class ApicuriousJeiPlugin implements IModPlugin
       }
       else
       {
-        recipes.add(new BeeMutationCategory.Recipe(firstOptions, secondOptions, mutation.getChance(), List.of(), outputBee));
+        recipes.add(new BeeMutationCategory.Recipe(firstOptions, secondOptions, mutation.chance(), List.of(), outputBee));
       }
     }
     return recipes;

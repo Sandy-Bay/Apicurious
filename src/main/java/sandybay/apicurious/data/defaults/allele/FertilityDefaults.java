@@ -2,6 +2,7 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.allele.Fertility;
 
 public class FertilityDefaults
@@ -16,6 +17,6 @@ public class FertilityDefaults
 
   private static Fertility fertility(int offspring, boolean isDominantTrait, String name)
   {
-    return new Fertility(offspring, isDominantTrait, "apicurious.fertility." + name);
+    return new Fertility(offspring, isDominantTrait, AlleleNaming.key("fertility", name));
   }
 }

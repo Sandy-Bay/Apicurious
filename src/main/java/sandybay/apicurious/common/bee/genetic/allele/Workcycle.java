@@ -10,6 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Workcycle implements IAllele<Workcycle>
+public class Workcycle extends AbstractAllele<Workcycle>
 {
 
   /**
@@ -56,15 +57,11 @@ public class Workcycle implements IAllele<Workcycle>
   public static final StreamCodec<RegistryFriendlyByteBuf, Workcycle> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.collection(ArrayList::new, Interval.NETWORK_CODEC), Workcycle::getActiveTimes, ByteBufCodecs.BOOL, Workcycle::isDominantTrait, ByteBufCodecs.STRING_UTF8, Workcycle::getName, Workcycle::new);
 
   private final List<Interval> activeTimes;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public Workcycle(List<Interval> activeTimes, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.activeTimes = activeTimes;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   public boolean isValidTime(int time)
@@ -87,35 +84,18 @@ public class Workcycle implements IAllele<Workcycle>
   }
 
   @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return this.name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {this.readableName = Component.translatable(this.name);}
-    return this.readableName;
-  }
-
-  @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    Workcycle workCycle = (Workcycle) o;
-    return Objects.equals(activeTimes, workCycle.activeTimes) && isDominantTrait == workCycle.isDominantTrait && Objects.equals(name, workCycle.name);
+    if (!super.equals(o)) {return false;}
+    Workcycle that = (Workcycle) o;
+    return Objects.equals(this.activeTimes, that.activeTimes);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(activeTimes, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), activeTimes);
   }
 
   @Override

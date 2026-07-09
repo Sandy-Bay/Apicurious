@@ -6,6 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.genetic.allele.Flowers;
 
@@ -31,6 +32,6 @@ public class FlowersDefaults
 
   private static Flowers flowers(TagKey<Block> flowers, boolean isDominantTrait, String name)
   {
-    return new Flowers(flowers, isDominantTrait, "apicurious.flowers." + name);
+    return new Flowers(flowers, isDominantTrait, AlleleNaming.key("flowers", name));
   }
 }

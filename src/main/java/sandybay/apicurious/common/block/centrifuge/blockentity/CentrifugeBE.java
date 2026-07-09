@@ -53,14 +53,6 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   private static final int NO_WORK = -1;
 
   private final ConfigurableItemStacksResourceHandler inventory;
-
-  /**
-   * Last input stack we reacted to; used to detect the input slot changing.
-   */
-  private ItemResource lastSeenInput = ItemResource.EMPTY;
-  private CentrifugeRecipe recipe;
-  private int work = NO_WORK;
-  private int maxWork;
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -86,6 +78,12 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
       return DATA_COUNT;
     }
   };
+
+  private ItemResource lastSeenInput = ItemResource.EMPTY;
+  private CentrifugeRecipe recipe;
+  private int work = NO_WORK;
+  private int maxWork;
+
   /**
    * Set after loading from NBT when a recipe was mid-progress. The recipe object itself
    * isn't persisted, so on the first tick after load we re-resolve it against whatever is
@@ -97,7 +95,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   public CentrifugeBE(BlockPos pPos, BlockState pBlockState)
   {
     super(BlockRegistrar.CENTRIFUGE.getType(), pPos, pBlockState);
-    this.inventory = new ConfigurableItemStacksResourceHandler(SLOT_COUNT).setOnSlotChanged((stack, slot) -> this.setChanged());
+    this.inventory = new ConfigurableItemStacksResourceHandler(SLOT_COUNT).setOnSlotChanged((_, _) -> this.setChanged());
   }
 
   @Override
@@ -164,35 +162,33 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
 
   private boolean inputWasRemovedOrSwapped(ItemResource stack)
   {
-    boolean inputChanged = this.lastSeenInput != stack;
-    return (stack.isEmpty() || inputChanged) && (isWorking() || work != NO_WORK);
+    boolean inputChanged = !this.lastSeenInput.equals(stack);
+    return (stack.isEmpty() || inputChanged) && isWorking();
   }
 
   private boolean shouldStartNewRecipe(ItemResource stack)
   {
-    boolean inputChanged = this.lastSeenInput != stack;
+    boolean inputChanged = !this.lastSeenInput.equals(stack);
     return !stack.isEmpty() && !isWorking() && inputChanged;
   }
 
   private void startNewRecipe(ItemResource stack)
   {
+    this.lastSeenInput = stack;
     this.recipe = findRecipe();
     if (this.recipe == null) {return;}
-    this.lastSeenInput = stack;
     startWork();
   }
 
   private void resumeAfterLoad()
   {
     pendingResume = false;
-
     ItemResource stack = inventory.getResource(INPUT_SLOT);
     if (!stack.isEmpty())
     {
       this.recipe = findRecipe();
       this.lastSeenInput = stack;
     }
-
     if (this.recipe == null)
     {
       cancelWork();
@@ -213,18 +209,14 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   protected void saveAdditional(ValueOutput output)
   {
     super.saveAdditional(output);
-    this.inventory.serialize(output);
-    output.putInt("work", work);
-    output.putInt("maxWork", maxWork);
+    writeSharedData(output);
   }
 
   @Override
   protected void loadAdditional(ValueInput input)
   {
     super.loadAdditional(input);
-    this.inventory.deserialize(input);
-    this.work = input.getIntOr("work", NO_WORK);
-    this.maxWork = input.getIntOr("maxWork", 0);
+    readSharedData(input);
     this.pendingResume = this.work != NO_WORK;
   }
 
@@ -235,9 +227,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
     {
       TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
       output.store(super.getUpdateTag(registries));
-      this.inventory.serialize(output);
-      output.putInt("work", work);
-      output.putInt("maxWork", maxWork);
+      writeSharedData(output);
       return output.buildResult();
     }
   }
@@ -246,9 +236,7 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   public void handleUpdateTag(ValueInput input)
   {
     super.handleUpdateTag(input);
-    this.inventory.deserialize(input);
-    this.work = input.getIntOr("work", NO_WORK);
-    this.maxWork = input.getIntOr("maxWork", 0);
+    readSharedData(input);
   }
 
   @Nullable
@@ -261,9 +249,27 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public void onDataPacket(Connection net, ValueInput valueInput)
   {
-    this.inventory.deserialize(valueInput);
-    this.work = valueInput.getIntOr("work", NO_WORK);
-    this.maxWork = valueInput.getIntOr("maxWork", 0);
+    readSharedData(valueInput);
+  }
+
+  /**
+   * Writes the inventory + progress fields shared between disk saves and the client sync payload.
+   */
+  private void writeSharedData(ValueOutput output)
+  {
+    this.inventory.serialize(output);
+    output.putInt("work", work);
+    output.putInt("maxWork", maxWork);
+  }
+
+  /**
+   * Reads the inventory + progress fields shared between disk loads and the client sync payload.
+   */
+  private void readSharedData(ValueInput input)
+  {
+    this.inventory.deserialize(input);
+    this.work = input.getIntOr("work", NO_WORK);
+    this.maxWork = input.getIntOr("maxWork", 0);
   }
 
   private void cancelWork()
@@ -281,7 +287,6 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   private CentrifugeRecipe findRecipe()
   {
     Registry<CentrifugeRecipe> recipes = getLevel().registryAccess().lookup(ApicuriousRegistries.CENTRIFUGE_RECIPES).orElseThrow();
-
     return recipes.entrySet().stream().map(Map.Entry::getValue).filter(r -> r.matches(this)).findFirst().orElse(null);
   }
 

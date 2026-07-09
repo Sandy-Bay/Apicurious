@@ -4,6 +4,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.genetic.allele.TemperaturePreference;
 import sandybay.apicurious.common.bee.genetic.allele.TemperatureTolerance;
@@ -29,11 +30,11 @@ public class TemperatureDefaults
 
   private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
-    return new TemperaturePreference(temperature, groupTag, isDominantTrait, "apicurious.preference.temperature." + name);
+    return new TemperaturePreference(temperature, groupTag, isDominantTrait, AlleleNaming.key("preference.temperature", name));
   }
 
   private static TemperatureTolerance temperatureTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
-    return new TemperatureTolerance(toleranceModifier, isDominantTrait, "apicurious.tolerance.temperature." + name);
+    return new TemperatureTolerance(toleranceModifier, isDominantTrait, AlleleNaming.key("tolerance.temperature", name));
   }
 }

@@ -28,6 +28,7 @@ import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
 import sandybay.apicurious.api.bee.genetic.IGenome;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
+import sandybay.apicurious.api.bee.genetic.mutation.MutationResolver;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
 import sandybay.apicurious.api.housing.HousingError;
 import sandybay.apicurious.api.housing.HousingValidation;
@@ -257,7 +258,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
     else
     {
-      BeeSpecies mutatedSpecies = (BeeSpecies) mutation.getOutput().value();
+      BeeSpecies mutatedSpecies = (BeeSpecies) mutation.output().value();
       queenGenome = mutatedSpecies.getSpeciesDefaultGenome(level);
     }
 
@@ -316,11 +317,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     handlePollination(level, (BaseHousingBlock) level.getBlockState(pos).getBlock(), stack);
     if (getBlockState().getBlock() instanceof ApiaryBlock)
     {
-      // BUGFIX: handleOutput()'s return value was previously discarded. It's
-      // documented to return false when the output inventory is full so the
-      // caller can back off, but nothing acted on that — work kept ticking
-      // down and freshly generated output items were silently lost instead
-      // of the queen pausing production until space frees up.
       if (!handleOutput(genome))
       {
         updateGuiData();
@@ -624,13 +620,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   private IMutation getPotentialMutation()
   {
     Level level = getLevel();
-    if (level == null) {return null;}
-    IGenome first = getInventory().getResource(SLOT_ROYAL).get(DataComponentRegistrar.GENOME);
-    IGenome second = getInventory().getResource(SLOT_DRONE).get(DataComponentRegistrar.GENOME);
-    if (first == null || second == null) {return null;}
-    Optional<Registry<IMutation>> mutationRegistry = level.registryAccess().lookup(ApicuriousRegistries.MUTATIONS);
-    return mutationRegistry.flatMap(iMutations -> iMutations.stream().filter(mut -> mut.test(this)).findAny()).orElse(null);
-
+    return level == null ? null : MutationResolver.resolve(level, this);
   }
 
   private List<HousingError> lastSentErrors = List.of();

@@ -4,11 +4,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -16,9 +16,8 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class HumidityTolerance implements IAllele<HumidityTolerance>
+public class HumidityTolerance extends AbstractAllele<HumidityTolerance>
 {
-
   public static final ResourceKey<IAllele<?>> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/none"));
   public static final ResourceKey<IAllele<?>> LOWEST_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/lowest"));
   public static final ResourceKey<IAllele<?>> LOW_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/low"));
@@ -26,74 +25,49 @@ public class HumidityTolerance implements IAllele<HumidityTolerance>
   public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/high"));
   public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/maximum"));
 
-  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait), Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)).apply(instance, HumidityTolerance::new));
+  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+          Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier),
+          Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait),
+          Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)
+  ).apply(instance, HumidityTolerance::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier, ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait, ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName, HumidityTolerance::new);
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(
+          ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier,
+          ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait,
+          ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName,
+          HumidityTolerance::new);
 
   private final int toleranceModifier;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public HumidityTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.toleranceModifier = toleranceModifier;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
-  public int getToleranceModifier()
-  {
-    return toleranceModifier;
-  }
-
-  @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
-  }
+  public int getToleranceModifier() { return toleranceModifier; }
 
   @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (!super.equals(o)) {return false;}
     HumidityTolerance that = (HumidityTolerance) o;
-    return toleranceModifier == that.toleranceModifier && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
+    return toleranceModifier == that.toleranceModifier;
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(toleranceModifier, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), toleranceModifier);
   }
 
   @Override
-  public MapCodec<HumidityTolerance> getCodec()
-  {
-    return CODEC;
-  }
+  public MapCodec<HumidityTolerance> getCodec() { return CODEC; }
 
   @Override
-  public StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> getStreamCodec()
-  {
-    return NETWORK_CODEC;
-  }
+  public StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> getStreamCodec() { return NETWORK_CODEC; }
 
   @Override
-  public AlleleType<HumidityTolerance> getTraitKey()
-  {
-    return AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get();
-  }
+  public AlleleType<HumidityTolerance> getTraitKey() { return AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(); }
 }

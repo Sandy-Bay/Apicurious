@@ -19,13 +19,19 @@ public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
 
   public static StreamCodec<RegistryFriendlyByteBuf, Genotype> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::first, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::second, Genotype::new);
 
-  public static <T extends IAllele<T>> Genotype defaultOf(Holder<IAllele<?>> trait)
+  public static Genotype defaultOf(Holder<IAllele<?>> trait)
   {
     return new Genotype(trait, trait);
   }
 
-  public static <T extends IAllele<T>> Genotype of(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
+  public static Genotype of(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
   {
+    if (active.value().getTraitKey() != inactive.value().getTraitKey())
+    {
+      throw new IllegalArgumentException(
+              "Attempted to create Genotype with mismatched allele types: " +
+                      active.value().getTraitKey() + " vs " + inactive.value().getTraitKey());
+    }
     return new Genotype(active, inactive);
   }
 

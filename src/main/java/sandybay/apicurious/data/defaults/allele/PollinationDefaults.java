@@ -2,6 +2,7 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.allele.Pollination;
 
 public class PollinationDefaults
@@ -19,6 +20,6 @@ public class PollinationDefaults
 
   private static Pollination pollination(float pollinationChance, boolean isDominantTrait, String name)
   {
-    return new Pollination(pollinationChance, isDominantTrait, "apicurious.pollination." + name);
+    return new Pollination(pollinationChance, isDominantTrait, AlleleNaming.key("pollination", name));
   }
 }

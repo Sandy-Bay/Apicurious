@@ -6,5 +6,5 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 public record MutationType(MapCodec<? extends IMutation> codec)
 {
-  public static Codec<MutationType> CODEC = ApicuriousRegistries.MUTATION_TYPE_REGISTRY.byNameCodec();
+  public static final Codec<MutationType> CODEC = ApicuriousRegistries.MUTATION_TYPE_REGISTRY.byNameCodec();
 }

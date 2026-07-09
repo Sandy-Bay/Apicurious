@@ -4,6 +4,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityPreference;
 import sandybay.apicurious.common.bee.genetic.allele.HumidityTolerance;
@@ -30,11 +31,11 @@ public class HumidityDefaults
 
   private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
-    return new HumidityPreference(humidity, groupTag, isDominantTrait, "apicurious.preferenceHolder.humidity." + name);
+    return new HumidityPreference(humidity, groupTag, isDominantTrait, AlleleNaming.key("preference.humidity", name));
   }
 
   private static HumidityTolerance humidityTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
-    return new HumidityTolerance(toleranceModifier, isDominantTrait, "apicurious.toleranceHolder.humidity." + name);
+    return new HumidityTolerance(toleranceModifier, isDominantTrait, AlleleNaming.key("tolerance.humidity", name));
   }
 }

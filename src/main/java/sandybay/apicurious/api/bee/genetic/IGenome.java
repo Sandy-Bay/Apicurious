@@ -11,5 +11,5 @@ public interface IGenome
 
   IGenome combineGenomes(IGenome other, RandomSource random);
 
-  void getDefaultGenome(Holder<IAllele<?>> species);
+  void initializeDefaults(Holder<IAllele<?>> species);
 }

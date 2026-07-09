@@ -2,6 +2,7 @@ package sandybay.apicurious.data.server;
 
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.data.defaults.CentrifugeRecipeDefaults;
 import sandybay.apicurious.data.defaults.FunctionsDefaults;
@@ -9,6 +10,9 @@ import sandybay.apicurious.data.defaults.MutationDefaults;
 import sandybay.apicurious.data.defaults.OutputTableDefaults;
 import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
 import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
+import sandybay.apicurious.data.defaults.worldgen.ApicuriousBiomeModifiers;
+import sandybay.apicurious.data.defaults.worldgen.ApicuriousConfiguredFeatureProvider;
+import sandybay.apicurious.data.defaults.worldgen.ApicuriousPlacedFeatureProvider;
 
 public class ApicuriousDatapackRegistriesDefaults
 {
@@ -22,15 +26,9 @@ public class ApicuriousDatapackRegistriesDefaults
     builder.add(ApicuriousRegistries.FUNCTIONS, FunctionsDefaults::defaults);
     builder.add(ApicuriousRegistries.OUTPUT_TABLES, OutputTableDefaults::defaults);
     builder.add(ApicuriousRegistries.CENTRIFUGE_RECIPES, CentrifugeRecipeDefaults::defaults);
-    builder.add(Registries.CONFIGURED_FEATURE, bootstrap ->
-    {
-      // Todo: Implement generation for the bee hives
-    });
-    builder.add(Registries.PLACED_FEATURE, bootstrap ->
-    {
-      // Todo: Implement generation for the bee hives
-    });
-
+    builder.add(Registries.CONFIGURED_FEATURE, ApicuriousConfiguredFeatureProvider::defaults);
+    builder.add(Registries.PLACED_FEATURE, ApicuriousPlacedFeatureProvider::defaults);
+    builder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ApicuriousBiomeModifiers::defaults);
     return builder;
   }
 }

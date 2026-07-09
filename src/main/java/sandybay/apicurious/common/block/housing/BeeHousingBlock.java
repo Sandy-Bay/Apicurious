@@ -31,13 +31,9 @@ public class BeeHousingBlock extends BaseHousingBlock
   @Override
   protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult)
   {
-    if (!level.isClientSide())
+    if (!level.isClientSide() && level.getBlockEntity(pos) instanceof BaseHousingBE housingBE)
     {
-      if (level.getBlockEntity(pos) instanceof BaseHousingBE apiaryHousingBE)
-      {
-        player.openMenu(apiaryHousingBE, pos);
-        return InteractionResult.FAIL;
-      }
+      player.openMenu(housingBE, pos);
     }
     return InteractionResult.SUCCESS;
   }

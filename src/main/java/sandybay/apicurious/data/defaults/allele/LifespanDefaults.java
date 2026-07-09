@@ -2,6 +2,7 @@ package sandybay.apicurious.data.defaults.allele;
 
 import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.bee.genetic.allele.Lifespan;
 
 public class LifespanDefaults
@@ -21,6 +22,6 @@ public class LifespanDefaults
 
   private static Lifespan lifespan(int cycles, boolean isDominantTrait, String name)
   {
-    return new Lifespan(cycles, isDominantTrait, "apicurious.lifespan." + name);
+    return new Lifespan(cycles, isDominantTrait, AlleleNaming.key("lifespan", name));
   }
 }

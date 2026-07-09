@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HumidityPreference implements IAllele<HumidityPreference>
+public class HumidityPreference extends AbstractAllele<HumidityPreference>
 {
 
   public static final ResourceKey<IAllele<?>> HELLISH = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/preference/hellish"));
@@ -38,16 +39,13 @@ public class HumidityPreference implements IAllele<HumidityPreference>
 
   private final int humidity;
   private final TagKey<Biome> groupTag;
-  private final boolean isDominantTrait;
-  private final String name;
   private Component readableName;
 
   public HumidityPreference(int humidity, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.humidity = humidity;
     this.groupTag = groupTag;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   private int getHumidity()
@@ -58,23 +56,6 @@ public class HumidityPreference implements IAllele<HumidityPreference>
   private TagKey<Biome> getGroupTag()
   {
     return groupTag;
-  }
-
-  @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
   }
 
   @Override
@@ -124,15 +105,15 @@ public class HumidityPreference implements IAllele<HumidityPreference>
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    HumidityPreference that = (HumidityPreference) o;
-    return humidity == that.humidity && Objects.equals(groupTag, that.groupTag) && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
+    if (!super.equals(o)) {return false;}
+    HumidityPreference otherPreference = (HumidityPreference) o;
+    return humidity == otherPreference.humidity && Objects.equals(groupTag, otherPreference.groupTag);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(humidity, groupTag, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), humidity, groupTag);
   }
 
   @Override

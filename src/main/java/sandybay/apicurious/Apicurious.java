@@ -89,14 +89,14 @@ public class Apicurious
     AlleleTypeRegistrar.init(bus);
     MutationTypeRegistrar.init(bus);
     ConditionTypeRegistrar.init(bus);
+    FeatureRegistrar.register(bus);
     PacketHandler.init(bus);
     bus.addListener(ApicuriousDataGen::generateClientData);
     bus.addListener(ApicuriousDataGen::generateServerData);
-    NeoForge.EVENT_BUS.addListener(ApicuriousWorldGen::hackTheHives);
     NeoForge.EVENT_BUS.addListener(this::loadEmptySpecies);
     bus.addListener(Apicurious::registerParticleGroups);
     bus.addListener(Apicurious::registerParticleProviders);
-    bus.addListener(ApicuriousNormalEvents::registerTotallyNormalEvents);
+    NeoForge.EVENT_BUS.addListener(ApicuriousNormalEvents::whyAreTheHorsesOnFire);
     CreativeTabRegistrar.register(bus);
     if (FMLLoader.getCurrent().getDist() == Dist.CLIENT)
     {

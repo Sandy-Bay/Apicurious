@@ -76,8 +76,7 @@ public class MutationDefaults
 
     public Builder withFirst(ResourceKey<IAllele<?>> first)
     {
-      Optional<Holder.Reference<IAllele<?>>> firstSpecies = alleleGetter.get(first);
-      firstSpecies.ifPresent(ref -> this.first = HolderSet.direct(ref));
+      this.first = HolderSet.direct(alleleGetter.getOrThrow(first));
       return this;
     }
 
@@ -89,8 +88,7 @@ public class MutationDefaults
 
     public Builder withSecond(ResourceKey<IAllele<?>> second)
     {
-      Optional<Holder.Reference<IAllele<?>>> secondSpecies = alleleGetter.get(second);
-      secondSpecies.ifPresent(ref -> this.second = HolderSet.direct(ref));
+      this.second = HolderSet.direct(alleleGetter.getOrThrow(second));
       return this;
     }
 
@@ -132,9 +130,9 @@ public class MutationDefaults
       return this;
     }
 
-    public Builder withConditions(ResourceKey<ICondition>... mutationConditions)
+    public Builder withConditions(List<ResourceKey<ICondition>> mutationConditions)
     {
-      Arrays.stream(mutationConditions).forEach(k ->
+      mutationConditions.forEach(k ->
       {
         conditionGetter.get(k).ifPresent(conditions::add);
       });
@@ -143,6 +141,9 @@ public class MutationDefaults
 
     public IMutation build()
     {
+      if (first == null && second == null) throw new IllegalArgumentException("Invalid first and/or second parameters for Mutation");
+      if (chance == 0.0f) throw new IllegalArgumentException("Invalid chance for Mutation");
+      if (output == null) throw new IllegalArgumentException("Invalid output for Mutation");
       return conditions.isEmpty() ? new Mutation(first, second, chance, output) : new ConditionalMutation(first, second, chance, output, conditions);
     }
   }

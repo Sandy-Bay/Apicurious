@@ -9,6 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.AbstractAllele;
 import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
@@ -16,7 +17,7 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public class TemperatureTolerance implements IAllele<TemperatureTolerance>
+public class TemperatureTolerance extends AbstractAllele<TemperatureTolerance>
 {
 
   public static final ResourceKey<IAllele<?>> NO_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("temperature/tolerance/none"));
@@ -32,15 +33,11 @@ public class TemperatureTolerance implements IAllele<TemperatureTolerance>
   public static final StreamCodec<RegistryFriendlyByteBuf, TemperatureTolerance> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, TemperatureTolerance::getToleranceModifier, ByteBufCodecs.BOOL, TemperatureTolerance::isDominantTrait, ByteBufCodecs.STRING_UTF8, TemperatureTolerance::getName, TemperatureTolerance::new);
 
   private final int toleranceModifier;
-  private final boolean isDominantTrait;
-  private final String name;
-  private Component readableName;
 
   public TemperatureTolerance(int toleranceModifier, boolean isDominantTrait, String name)
   {
+    super(isDominantTrait, name);
     this.toleranceModifier = toleranceModifier;
-    this.isDominantTrait = isDominantTrait;
-    this.name = name;
   }
 
   public int getToleranceModifier()
@@ -49,35 +46,18 @@ public class TemperatureTolerance implements IAllele<TemperatureTolerance>
   }
 
   @Override
-  public boolean isDominantTrait()
-  {
-    return isDominantTrait;
-  }
-
-  private String getName()
-  {
-    return name;
-  }
-
-  public Component getReadableName()
-  {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
-    return readableName;
-  }
-
-  @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (!super.equals(o)) {return false;}
     TemperatureTolerance that = (TemperatureTolerance) o;
-    return toleranceModifier == that.toleranceModifier && isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
+    return toleranceModifier == that.toleranceModifier;
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(toleranceModifier, isDominantTrait, name);
+    return Objects.hash(super.hashCode(), toleranceModifier);
   }
 
   @Override
