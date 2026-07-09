@@ -17,7 +17,7 @@ public class ApicuriousNormalEvents
    * Credit goes to Thiakil :^I <3
    * @param event The entity tick event
    */
-  private static void whyAreTheHorsesOnFire(EntityTickEvent.Post event)
+  public static void whyAreTheHorsesOnFire(EntityTickEvent.Post event)
   {
     if (ApicuriousMainConfig.main_config.whyAreTheHorsesOnFire.get() && event.getEntity() instanceof Horse horse)
     {

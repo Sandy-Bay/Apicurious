@@ -25,6 +25,7 @@ import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.genetic.Genome;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -87,6 +88,10 @@ public class BeeItem extends Item implements IBeeItem
   @Override
   public @NotNull Component getName(ItemStack stack)
   {
+    if (ApicuriousMainConfig.main_config.weDontTalkAboutThat.get() && getBeeType() == EnumBeeType.DRONE)
+    {
+      return Component.translatable("item.apicurious.drone.secret");
+    }
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
     if (genome == null) {return Component.literal("ERROR");}
     return genome.getSpecies(true).value().getReadableName().copy().append(" ").append(Component.translatable("item.apicurious." + getBeeType().toString().toLowerCase()));

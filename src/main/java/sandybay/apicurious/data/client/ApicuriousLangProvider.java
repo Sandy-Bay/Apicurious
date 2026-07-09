@@ -21,6 +21,7 @@ public class ApicuriousLangProvider extends LanguageProvider
   {
     // Items
     add(ItemRegistrar.DRONE.item().get(), "Drone");
+    add("item.apicurious.drone.secret", "Bruno");
     add(ItemRegistrar.PRINCESS.item().get(), "Princess");
     add(ItemRegistrar.QUEEN.item().get(), "Queen");
     add(ItemRegistrar.SIEVE.item().get(), "Sieve");

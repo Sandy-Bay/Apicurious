@@ -22,6 +22,7 @@ public class ApicuriousMainConfig
 
   // "Totally normal configs"
   public ModConfigSpec.ConfigValue<Boolean> whyAreTheHorsesOnFire;
+  public ModConfigSpec.ConfigValue<Boolean> weDontTalkAboutThat;
 
   public ApicuriousMainConfig(ModConfigSpec.Builder builder)
   {
@@ -39,6 +40,7 @@ public class ApicuriousMainConfig
     builder.pop();
     builder.push("totally-normal-configs");
     whyAreTheHorsesOnFire = builder.comment("Why are the horses on fire?").define("whyAreTheHorsesOnFire", false);
+    weDontTalkAboutThat = builder.comment("We don't talk about that...").define("weDontTalkAboutThat", false);
     builder.pop();
   }
 
