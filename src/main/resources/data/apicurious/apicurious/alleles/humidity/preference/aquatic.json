@@ -3,5 +3,5 @@
   "groupTag": "apicurious:humidity/aquatic",
   "humidity": 5,
   "isDominantTrait": true,
-  "name": "apicurious.preferenceHolder.humidity.aquatic"
+  "name": "apicurious.preference.humidity.aquatic"
 }

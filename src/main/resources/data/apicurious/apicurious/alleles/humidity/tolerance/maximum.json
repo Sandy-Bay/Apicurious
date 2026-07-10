@@ -1,6 +1,6 @@
 {
   "type": "apicurious:humidity_tolerance",
-  "humidityTolerance": "apicurious.toleranceHolder.humidity.maximum",
+  "humidityTolerance": "apicurious.tolerance.humidity.maximum",
   "isDominantTrait": false,
   "toleranceModifier": 5
 }
