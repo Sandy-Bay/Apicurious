@@ -22,6 +22,7 @@ public class HiveBlock extends Block
   public HiveBlock(ResourceKey<IAllele<?>> species, Properties properties)
   {
     super(properties);
+    properties.requiresCorrectToolForDrops();
     this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.FACING, Direction.NORTH));
     this.species = species;
   }

@@ -44,6 +44,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
   private final ProductionData productionData;
   private final EnvironmentalData environmentalData;
   private final OutputData outputs;
+
   private Component readableName;
 
   public BeeSpecies(ResourceKey<IAllele<?>> key, String name, VisualData visualData, ProductionData productionData, EnvironmentalData environmentalData, OutputData outputs)
@@ -135,13 +136,13 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     if (this == o) {return true;}
     if (o == null || getClass() != o.getClass()) {return false;}
     BeeSpecies species = (BeeSpecies) o;
-    return Objects.equals(key, species.key) && Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData) && Objects.equals(productionData, species.productionData) && Objects.equals(environmentalData, species.environmentalData) && Objects.equals(outputs, species.outputs) && Objects.equals(readableName, species.readableName);
+    return Objects.equals(key, species.key) && Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData) && Objects.equals(productionData, species.productionData) && Objects.equals(environmentalData, species.environmentalData) && Objects.equals(outputs, species.outputs);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(key, name, visualData, productionData, environmentalData, outputs, readableName);
+    return Objects.hash(key, name, visualData, productionData, environmentalData, outputs);
   }
 
   @Override

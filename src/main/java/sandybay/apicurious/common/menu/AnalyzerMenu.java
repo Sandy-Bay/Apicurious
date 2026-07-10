@@ -59,8 +59,7 @@ public class AnalyzerMenu extends AbstractContainerMenu
     this.inventory = playerInventory;
     this.analyzerSlot = analyzerSlot;
     ItemStack analyzer = playerInventory.getItem(analyzerSlot);
-    if (!(analyzer.getItem() instanceof BeeAnalyzerItem))
-    {throw new IllegalArgumentException("Item was not Analyzer Item!");}
+    if (!(analyzer.getItem() instanceof BeeAnalyzerItem)) throw new IllegalArgumentException("Item was not Analyzer Item!");
     this.analyzerInventory = (ItemStacksResourceHandler) analyzer.getCapability(Capabilities.Item.ITEM, null);
     addAnalyzerSlots(analyzerInventory);
     addInventorySlots(playerInventory);

@@ -2,17 +2,24 @@ package sandybay.apicurious.common.compat.jei.category;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.bee.output.OutputPool;
 import sandybay.apicurious.api.bee.output.OutputPoolEntry;
 import sandybay.apicurious.api.bee.output.OutputResult;
@@ -21,6 +28,7 @@ import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
 import sandybay.apicurious.common.item.BeeItem;
+import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
 public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Recipe>
@@ -28,7 +36,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   public static final Component TITLE = Component.translatable("apicurious.jei.bee_outputs.title");
   private final IGuiHelper iGuiHelper;
 
-  public BeeOutputCategory(final IGuiHelper helper)
+  public BeeOutputCategory(IGuiHelper helper)
   {
     this.iGuiHelper = helper;
   }
@@ -51,19 +59,25 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
     return 96;
   }
 
-  //  @Override
-  //  public @NotNull IDrawable getBackground()
-  //  {
-  //    return iGuiHelper
-  //            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_output.png"), 0, 0, 90, 96)
-  //            .setTextureSize(90, 96)
-  //            .build();
-  //  }
+  @Override
+  public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY)
+  {
+    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_output.png"), 0, 0, 90, 96)
+            .setTextureSize(90, 96)
+            .build();
+    background.draw(guiGraphics);
+  }
 
   @Override
   public @Nullable IDrawable getIcon()
   {
-    return iGuiHelper.createDrawableItemStack(BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN.item()));
+    return iGuiHelper.createDrawableItemStack(new ItemStack(BlockRegistrar.APIARY.asItem()));
+  }
+
+  @Override
+  public @Nullable Identifier getIdentifier(Recipe recipe)
+  {
+    return recipe.key.identifier();
   }
 
   @Override
@@ -75,7 +89,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   @Override
   public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Recipe recipe, @NotNull IFocusGroup focuses)
   {
-    builder.addSlot(RecipeIngredientRole.INPUT, 38, 4).add(Ingredient.of(recipe.input.getItem()));
+    builder.addInputSlot(38, 4).add(recipe.input);
     int x = 0;
     int y = 0;
     for (OutputPool pool : recipe.output().pools())
@@ -84,20 +98,20 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
       {
         for (OutputResult result : entry.outputs())
         {
-          builder.addSlot(RecipeIngredientRole.OUTPUT, 20 + x * 18, 40 + y * 18).add(result.output().create()).addRichTooltipCallback((view, tooltip) ->
+          builder.addOutputSlot(20 + x * 18, 40 + y * 18).add(result.output().create()).addRichTooltipCallback((view, tooltip) ->
           {
             if (!pool.conditions().isEmpty())
             {
               for (ICondition condition : pool.conditions())
               {
-                tooltip.add(Component.literal("- ").append(condition.getDisplayText()));
+                tooltip.add(condition.getDisplayText());
               }
             }
             if (!entry.conditions().isEmpty())
             {
               for (ICondition condition : entry.conditions())
               {
-                tooltip.add(Component.literal("- ").append(condition.getDisplayText()));
+                tooltip.add(condition.getDisplayText());
               }
             }
           });
@@ -116,5 +130,5 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
     }
   }
 
-  public record Recipe(ItemStack input, OutputTable output) {}
+  public record Recipe(ResourceKey<IAllele<?>> key, ItemStack input, OutputTable output) {}
 }

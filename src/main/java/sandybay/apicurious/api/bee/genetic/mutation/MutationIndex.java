@@ -1,4 +1,3 @@
-// api/bee/genetic/mutation/MutationIndex.java
 package sandybay.apicurious.api.bee.genetic.mutation;
 
 import net.minecraft.core.Holder;

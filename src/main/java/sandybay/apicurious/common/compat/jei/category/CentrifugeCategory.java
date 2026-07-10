@@ -2,15 +2,20 @@ package sandybay.apicurious.common.compat.jei.category;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.recipe.CentrifugeRecipe;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
@@ -46,14 +51,14 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     return 54;
   }
 
-  //  @Override
-  //  public @NotNull IDrawable getBackground()
-  //  {
-  //    return iGuiHelper
-  //            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54)
-  //            .setTextureSize(107, 54)
-  //            .build();
-  //  }
+  @Override
+  public void draw(CentrifugeCategory.Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY)
+  {
+    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54)
+            .setTextureSize(107, 54)
+            .build();
+    background.draw(guiGraphics);
+  }
 
   @Override
   public @Nullable IDrawable getIcon()
@@ -70,14 +75,19 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
   @Override
   public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull CentrifugeCategory.Recipe recipe, @NotNull IFocusGroup focuses)
   {
-    builder.addSlot(RecipeIngredientRole.INPUT, 1, 17).add(recipe.input);
+    builder.addInputSlot(1, 17).add(recipe.input);
     int x = 54;
     int y = 1;
     int i = 0;
     int j = 0;
     for (CentrifugeRecipe.CentrifugeOutput output : recipe.output)
     {
-      builder.addSlot(RecipeIngredientRole.OUTPUT, x + j * 18, y + i * 18).add(output.output().create().copy()).addRichTooltipCallback((view, tooltip) -> tooltip.add(Component.translatable("apicurious.condition.chance").append(NumberFormat.getPercentInstance().format(output.chance()))));
+      builder.addOutputSlot(x + j * 18, y + i * 18)
+              .add(output.output().create())
+              .addRichTooltipCallback((_, tooltip) -> {
+                tooltip.add(Component.translatable("apicurious.condition.chance")
+                        .append(NumberFormat.getPercentInstance().format(output.chance())));
+              });
       j++;
       if (j == 3)
       {
@@ -87,5 +97,11 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     }
   }
 
-  public record Recipe(ItemStack input, int duration, List<CentrifugeRecipe.CentrifugeOutput> output) {}
+  @Override
+  public @Nullable Identifier getIdentifier(Recipe recipe)
+  {
+    return recipe.key.identifier();
+  }
+
+  public record Recipe(ResourceKey<CentrifugeRecipe> key, ItemStack input, int duration, List<CentrifugeRecipe.CentrifugeOutput> output) {}
 }

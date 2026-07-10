@@ -47,18 +47,11 @@ public class BeeItem extends Item implements IBeeItem
   public static ItemStack getBeeWithSpecies(Level level, ResourceKey<IAllele<?>> speciesKey, Holder<Item> item)
   {
     ItemStack bee = new ItemStack(item);
-    if (level instanceof ServerLevel serverLevel)
-    {
-      serverLevel.registryAccess().get(ApicuriousRegistries.ALLELES).flatMap(registryReference -> registryReference.value().getOptional(speciesKey)).ifPresent(allele -> bee.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(level)));
-    }
-    else if (level instanceof ClientLevel || level == null)
-    {
-      ClientPacketListener connection = Minecraft.getInstance().getConnection();
-      if (connection != null)
-      {
-        connection.registryAccess().get(ApicuriousRegistries.ALLELES).flatMap(registryReference -> registryReference.value().getOptional(speciesKey)).ifPresent(allele -> bee.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(Objects.requireNonNull(level))));
-      }
-    }
+    level.registryAccess().lookup(ApicuriousRegistries.ALLELES)
+            .ifPresent(alleles -> {
+              BeeSpecies species = (BeeSpecies) alleles.getOrThrow(speciesKey).value();
+              bee.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(level));
+            });
     return bee;
   }
 

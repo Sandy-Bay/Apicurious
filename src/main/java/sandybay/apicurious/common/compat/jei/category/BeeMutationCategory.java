@@ -2,6 +2,7 @@ package sandybay.apicurious.common.compat.jei.category;
 
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -9,13 +10,19 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
+import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
+import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
@@ -57,30 +64,37 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
     return 18;
   }
 
-  //  @Override
-  //  public IDrawable getBackground()
-  //  {
-  //    return iGuiHelper
-  //            .drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_mutation.png"), 0, 0, 116, 18)
-  //            .setTextureSize(116, 18)
-  //            .build();
-  //  }
+  @Override
+  public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY)
+  {
+    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_mutation.png"), 0, 0, 116, 18)
+            .setTextureSize(116, 18)
+            .build();
+    background.draw(guiGraphics);
+  }
 
   @Override
   public @Nullable IDrawable getIcon()
   {
-    return iGuiHelper.createDrawableItemStack(BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.MEADOW.species(), ItemRegistrar.QUEEN.item()));
+    return iGuiHelper.createDrawableItemStack(BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.FOREST.species(), ItemRegistrar.QUEEN.item()));
+  }
+
+  @Override
+  public @Nullable Identifier getIdentifier(Recipe recipe)
+  {
+    return recipe.key.identifier();
   }
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, Recipe recipe, IFocusGroup focuses)
   {
-    builder.addSlot(RecipeIngredientRole.INPUT, 1, 1).add(Ingredient.of(recipe.first.stream().map(ItemStack::getItem).toArray(ItemLike[]::new)));
-    builder.addSlot(RecipeIngredientRole.INPUT, 50, 1).add(Ingredient.of(recipe.second.stream().map(ItemStack::getItem).toArray(ItemLike[]::new)));
-    builder.addSlot(RecipeIngredientRole.INPUT, 99, 1).add(Ingredient.of(recipe.output.getItem())).addRichTooltipCallback((view, tooltip) ->
+    builder.addInputSlot(1, 1).addItemStacks(recipe.first);
+    builder.addInputSlot(50, 1).addItemStacks(recipe.second);
+    builder.addOutputSlot(99, 1).add(recipe.output).addRichTooltipCallback((view, tooltip) ->
     {
       tooltip.add(Component.literal(""));
-      tooltip.add(Component.translatable("apicurious.condition.chance").withStyle(ChatFormatting.DARK_AQUA).append(Component.literal(DecimalFormat.getPercentInstance().format(recipe.chance)).withStyle(ChatFormatting.WHITE)));
+      tooltip.add(Component.translatable("apicurious.condition.chance").withStyle(ChatFormatting.DARK_AQUA)
+              .append(Component.literal(DecimalFormat.getPercentInstance().format(recipe.chance)).withStyle(ChatFormatting.WHITE)));
       if (!recipe.conditions.isEmpty())
       {
         tooltip.add(Component.translatable("apicurious.jei.tooltip.conditions").withStyle(ChatFormatting.GOLD));
@@ -92,6 +106,6 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
     });
   }
 
-  public record Recipe(List<ItemStack> first, List<ItemStack> second, float chance, List<ICondition> conditions,
+  public record Recipe(ResourceKey<IMutation> key, List<ItemStack> first, List<ItemStack> second, float chance, List<ICondition> conditions,
                        ItemStack output) {}
 }

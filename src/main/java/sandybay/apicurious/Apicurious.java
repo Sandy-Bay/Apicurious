@@ -23,6 +23,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 import net.neoforged.neoforge.transfer.item.ItemAccessItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.slf4j.Logger;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
@@ -46,8 +47,6 @@ import sandybay.apicurious.data.server.LootItemFunctionRegistration;
 /*
  Todo: Before MVP Alpha Release
   - Must Haves
-    - Apiary/BeeHousing
-      - Add Particles for active housing
     - Hives
       - Add WorldGen for Hives
  */
@@ -131,7 +130,7 @@ public class Apicurious
 
   private void registerCapabilities(RegisterCapabilitiesEvent event)
   {
-    event.registerItem(Capabilities.Item.ITEM, (stack, itemAccess) -> new ItemAccessItemHandler(itemAccess, DataComponents.CONTAINER, 2), ItemRegistrar.ANALYZER.item().get());
+    event.registerItem(Capabilities.Item.ITEM, (stack, itemAccess) -> new ItemStacksResourceHandler(2), ItemRegistrar.ANALYZER.item().get());
   }
 
   private void registerDMT(final RegisterDataMapTypesEvent event)
