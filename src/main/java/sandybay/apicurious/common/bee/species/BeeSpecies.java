@@ -56,9 +56,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     this.outputs = outputs;
   }
 
-  // BUGFIX (B6): the real implementation was previously commented out, leaving debug
-  // logging (e.g. in SimpleBlockHousingBE's B7 warnings) to fall back on the generic
-  // Object#toString(), which gives no useful information about which species is involved.
   @Override
   public String toString()
   {
@@ -132,9 +129,6 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     return true;
   }
 
-  // BUGFIX (B5): previously omitted `key` and `outputs`, meaning two species differing
-  // only by species key or output table would compare equal and hash identically. This
-  // matters anywhere species get deduplicated or used as map/set keys (e.g. JEI, caching).
   @Override
   public boolean equals(Object o)
   {

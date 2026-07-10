@@ -145,8 +145,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   public void readWorldData(ValueInput input)
   {
     inventory.deserialize(input);
-    // BUGFIX: these results were previously discarded instead of being assigned,
-    // so isActive/shouldRenderParticles were silently lost on world load.
     this.isActive = input.getBooleanOr("isActive", false);
     this.shouldRenderParticles = input.getBooleanOr("shouldRenderParticles", false);
   }
@@ -168,11 +166,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     super(type, pos, state);
     this.inventory = new ConfigurableItemStacksResourceHandler(12).setInputFilter((stack, slot) ->
             {
-              // BUGFIX: the original filter ended with an unconditional `return true`,
-              // which meant every check below was dead code — any item could go in any
-              // slot 0-4 regardless of type. Now each restricted slot returns its own
-              // pass/fail, and only the output slots (5-11) fall through to accept
-              // anything (needed so generated bee products can be inserted there).
               if (slot == SLOT_ROYAL)
               {
                 return stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE;
@@ -188,10 +181,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
               return true;
             }).setSlotLimit(SLOT_ROYAL, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1)
             .setOnSlotChanged((stack, slot) -> {
-              // BUGFIX (B2 follow-on): previously only reset when `currentWork > 0`, which
-              // missed the "breeding finished but blocked on a full inventory" state, where
-              // currentWork sits at 0 with maxWork still non-zero. A player swapping out the
-              // stuck princess in that state used to bypass the reset entirely.
               if (slot == SLOT_ROYAL && (currentWork > 0 || maxWork > 0)) {resetHousing(state);}
               if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) errorList.remove(HousingError.FULL_INVENTORY);
             });
@@ -219,16 +208,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   private void tickBreeding(Level level, BlockPos pos, BlockState state)
   {
     validate(level, pos, true);
-
-    // BUGFIX (B2): breeding previously got permanently stuck here. If completeBreeding()
-    // failed because the output couldn't be placed (FULL_INVENTORY), the block entity was
-    // left at currentWork == 0 with maxWork still non-zero. The general error-gate check
-    // below would then see a non-empty error list and `return` every tick forever, so
-    // completeBreeding() was never retried — even after the player freed up space, since
-    // FULL_INVENTORY has nothing to do with the output slots and was never cleared.
-    // This branch specifically retries completion every tick while in that state, bypassing
-    // the general error gate (missing princess/drone can't be the cause here, since breeding
-    // only reaches this state after both were already consumed into the transaction attempt).
     if (this.currentWork == 0 && this.maxWork > 0)
     {
       completeBreeding(level, state);
@@ -272,9 +251,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     if (princessGenome == null || droneGenome == null) {return;}
 
     Genome queenGenome;
-    // BUGFIX (B3): previously called getPotentialMutation(), which re-fetched getLevel()
-    // instead of reusing the Level already passed into this method. Now resolves directly
-    // against the level the caller gave us, avoiding any possible divergence between the two.
     IMutation mutation = MutationResolver.resolve(level, this);
     if (mutation == null)
     {
@@ -301,11 +277,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       return;
     }
 
-    // BUGFIX (B2): clear a previously-added FULL_INVENTORY error now that the retry
-    // succeeded. Without this, a stale error could keep showing in the GUI even though
-    // breeding just completed successfully.
     removeError(HousingError.FULL_INVENTORY);
-
     changeActiveState(state, true);
     this.maxWork = 0;
 
@@ -450,13 +422,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   /**
    * Computes how many ticks must pass between output attempts, after applying the
    * queen's Speed allele and any held frame production modifiers.
-   * <p>
-   * BUGFIX: previously floored at a hardcoded {@code Math.max(1, outputDuration)}. Because
-   * frame and speed modifiers stack multiplicatively with no other limit, a fast-speed queen
-   * combined with a couple of production-boosting frames could legitimately round this down
-   * to 1 tick — at which point {@code handleOutput} fires on every server tick instead of
-   * every few hundred, which is almost certainly what was causing excessive output. This now
-   * floors against the configurable {@code minOutputInterval} instead.
    */
   public int getModifiedOutputDuration()
   {
@@ -466,8 +431,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     float speedModifier = speed.getProductionModifier();
     if (speedModifier == 0.0f)
     {
-      // BUGFIX (B7): this used to silently substitute 1.0f with no indication that the
-      // underlying data was likely a mistake (a Speed allele registered with a 0 modifier).
       BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
       Apicurious.LOGGER.warn("Bee species '{}' resolved a Speed allele '{}' with a productionModifier of 0.0 - falling back to 1.0. This is likely a datapack error.", species.getReadableName().getString(), speed.getName());
       speedModifier = 1.0f;
@@ -486,10 +449,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
 
   /**
    * Computes the queen's total lifespan in ticks, after applying frame lifespan modifiers.
-   * <p>
-   * BUGFIX: previously floored at a hardcoded {@code Math.max(1, lifespan)}, with no
-   * warning if a Lifespan allele resolved to 0 or fewer cycles. Now floors against the
-   * configurable {@code minLifespanTicks} and logs when the underlying data looks wrong.
    */
   public int getModifiedLifeSpan(Genome genome)
   {
@@ -498,7 +457,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     int cycles = lifespanHolder.getCycles();
     if (cycles <= 0)
     {
-      // BUGFIX (B7): surface likely datapack errors instead of silently coercing to 1 cycle.
       BeeSpecies species = (BeeSpecies) genome.getSpecies(true).value();
       Apicurious.LOGGER.warn("Bee species '{}' resolved a Lifespan allele '{}' with {} cycles - falling back to 1 cycle. This is likely a datapack error.", species.getReadableName().getString(), lifespanHolder.getName(), cycles);
       cycles = 1;
@@ -579,7 +537,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (this.currentWork == 0 && this.maxWork == 0)
     {
-      this.currentWork = this.maxWork = ApicuriousMainConfig.main_config.getApiaryRunTime(getModifiedLifeSpan(genome));
+      this.currentWork = this.maxWork = getModifiedLifeSpan(genome);
     }
   }
 
@@ -616,7 +574,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
    */
   private boolean handleOutput(Genome genome)
   {
-    int outputRate = ApicuriousMainConfig.main_config.getOutputRate(getModifiedOutputDuration());
+    int outputRate = getModifiedOutputDuration();
     if (outputRate <= 0 || (maxWork - currentWork) % outputRate != 0) {return true;}
 
     List<ItemStack> outputs = ((BeeSpecies) genome.getSpecies(true).value()).getOutputData().generate(this);
@@ -668,10 +626,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     }
   }
 
-  /**
-   * BUGFIX (B1): the per-frame chance modifiers were previously multiplied together with
-   * no clamp, so stacking frames could push this outside the valid [0, 1] probability range.
-   */
   private float getAdditionalPrincessChance()
   {
     float chance = 0.05f;

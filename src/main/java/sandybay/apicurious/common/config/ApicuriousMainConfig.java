@@ -10,9 +10,7 @@ public class ApicuriousMainConfig
 
   // Debug
   public ModConfigSpec.ConfigValue<Boolean> debug;
-  public ModConfigSpec.ConfigValue<Integer> debugApiaryCycleTime;
   public ModConfigSpec.ConfigValue<Integer> debugApiaryPollinationTime;
-  public ModConfigSpec.ConfigValue<Integer> debugApiaryOutputTime;
 
   // General
   public ModConfigSpec.ConfigValue<Integer> baseCycleTime;
@@ -30,14 +28,12 @@ public class ApicuriousMainConfig
   {
     builder.push("debug");
     debug = builder.comment("Should debug logging & features be enabled?").define("debug", false);
-    debugApiaryCycleTime = builder.comment("The amount of time the apiary should take to run").define("debugApiaryCycleTime", 100);
     debugApiaryPollinationTime = builder.comment("The amount of time before the apiary attempts to pollinate").define("debugApiaryPollinationTime", 20);
-    debugApiaryOutputTime = builder.comment("The amount of time before the apiary attempts to produce an output").define("debugApiaryOutputTime", 20);
     builder.pop();
     builder.push("general");
-    baseCycleTime = builder.comment("Default cycle duration, defined in Ticks.", "This is used with the lifespan of the bee to decide the total run duration.", "Default: 550").defineInRange("baseCycleTime", 550, 1, Integer.MAX_VALUE);
-    minOutputInterval = builder.comment("The minimum number of ticks that must pass between output attempts, regardless of how far Speed alleles and frames reduce the cycle time below this.", "Prevents stacked speed/frame modifiers from collapsing output generation down to firing every tick.", "Default: 20").defineInRange("minOutputInterval", 50, 1, Integer.MAX_VALUE);
-    minLifespanTicks = builder.comment("The minimum total lifespan (in ticks) a queen can have after Lifespan allele and frame modifiers are applied.", "Default: 100").defineInRange("minLifespanTicks", 100, 1, Integer.MAX_VALUE);
+    baseCycleTime = builder.comment("Default cycle duration, defined in Ticks.", "This is used with the lifespan of the bee to decide the total run duration.").defineInRange("baseCycleTime", 550, 1, Integer.MAX_VALUE);
+    minOutputInterval = builder.comment("The minimum number of ticks that must pass between output attempts, regardless of how far Speed alleles and frames reduce the cycle time below this.", "Prevents stacked speed/frame modifiers from collapsing output generation down to firing every tick.").defineInRange("minOutputInterval", 60, 1, Integer.MAX_VALUE);
+    minLifespanTicks = builder.comment("The minimum total lifespan (in ticks) a queen can have after Lifespan allele and frame modifiers are applied.").defineInRange("minLifespanTicks", 100, 1, Integer.MAX_VALUE);
     builder.pop();
     builder.push("compat");
     shouldJEIMutations = builder.comment("Should bee mutations be visible in JEI?").define("shouldJEIMutations", true);
@@ -54,20 +50,9 @@ public class ApicuriousMainConfig
     main_config = configPair.getKey();
   }
 
-  public int getApiaryRunTime(int normalRunTime)
-  {
-    return debug.get() ? debugApiaryCycleTime.get() : normalRunTime;
-  }
-
   public int getPollinationRate()
   {
     return debug.get() ? debugApiaryPollinationTime.get() : 375;
   }
-
-  public int getOutputRate(int normalOutputTime)
-  {
-    return debug.get() ? debugApiaryOutputTime.get() : normalOutputTime;
-  }
-
 
 }
