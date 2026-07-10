@@ -26,7 +26,6 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.EnumBeeType;
 import sandybay.apicurious.api.bee.IBeeItem;
-import sandybay.apicurious.api.bee.genetic.IGenome;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.bee.genetic.mutation.MutationResolver;
 import sandybay.apicurious.api.housing.BaseHousingBlock;
@@ -36,7 +35,6 @@ import sandybay.apicurious.api.housing.blockentity.BaseHousingBE;
 import sandybay.apicurious.api.housing.handlers.item.ConfigurableItemStacksResourceHandler;
 import sandybay.apicurious.api.item.IFrameItem;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
-import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.api.util.LimitedFilter;
 import sandybay.apicurious.api.util.SimpleBlockHousingHelper;
 import sandybay.apicurious.client.renderer.particle.BeeParticleOption;
@@ -184,9 +182,6 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
               if (slot == SLOT_ROYAL && (currentWork > 0 || maxWork > 0)) {resetHousing(state);}
               if (stack.isEmpty() && slot >= SLOT_OUTPUT_START) errorList.remove(HousingError.FULL_INVENTORY);
             });
-    // TODO: Make it so the queen outputs to a list, and if removed clear the list, if finished dump the contents of the list into the inventory.
-    // .setOutputFilter((stack, slot) -> !(slot == SLOT_ROYAL && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.QUEEN));
-
     this.validation = new HousingValidation(this);
   }
 
@@ -605,6 +600,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     {
       if (getInventory().extract(SLOT_ROYAL, inventory.getResource(SLOT_ROYAL), 1, tx) > 0)
       {
+        if (getLevel() == null) return;
         int princessCount = getLevel().getRandom().nextDouble() < getAdditionalPrincessChance() ? 2 : 1;
         ItemStack princess = new ItemStack(ItemRegistrar.PRINCESS.item().get(), princessCount);
         Fertility fertility = (Fertility) genome.getFertility(true).value();
@@ -636,7 +632,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
       FrameItem frameItem = (FrameItem) frame.getItem();
       chance *= frameItem.getAdditionalPrincessModifier();
     }
-    return Math.max(0.0f, Math.min(1.0f, chance));
+    return Math.clamp(chance, 0.0f, 1.0f);
   }
 
   private List<HousingError> lastSentErrors = List.of();
@@ -673,7 +669,7 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
   {
     if (!(level instanceof ClientLevel clientLevel)) {return;}
 
-    BlockPos flower = findNearbyFlower(level, pos, FLOWER_SEARCH_RADIUS);
+    BlockPos flower = findNearbyFlower(level, pos);
     ItemResource queen = getInventory().getResource(SLOT_ROYAL);
 
     double spawnX = pos.getX() + 0.5;
@@ -683,15 +679,15 @@ public abstract class SimpleBlockHousingBE extends BaseHousingBE
     clientLevel.addParticle(new BeeParticleOption(ParticleTypeRegistrar.BEE.get(), new ItemStack(ItemRegistrar.DRONE.item(), 1, queen.getComponentsPatch()), pos, flower), spawnX, spawnY, spawnZ, 0d,0d,0d);
   }
 
-  private BlockPos findNearbyFlower(Level level, BlockPos origin, int radius)
+  private BlockPos findNearbyFlower(Level level, BlockPos origin)
   {
     List<BlockPos> candidates = new ArrayList<>();
     BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
-    for (int dx = -radius; dx <= radius; dx++)
+    for (int dx = -SimpleBlockHousingBE.FLOWER_SEARCH_RADIUS; dx <= SimpleBlockHousingBE.FLOWER_SEARCH_RADIUS; dx++)
     {
       for (int dy = -3; dy <= 3; dy++)
       {
-        for (int dz = -radius; dz <= radius; dz++)
+        for (int dz = -SimpleBlockHousingBE.FLOWER_SEARCH_RADIUS; dz <= SimpleBlockHousingBE.FLOWER_SEARCH_RADIUS; dz++)
         {
           cursor.set(origin.getX() + dx, origin.getY() + dy, origin.getZ() + dz);
           if (level.getBlockState(cursor).is(BlockTags.SMALL_FLOWERS))
