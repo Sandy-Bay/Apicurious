@@ -148,7 +148,7 @@ public class ItemRegistrar
   public static final FrameHolder UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f, 1.0f);
   public static final FrameHolder IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f, 1.0f);
   public static final FrameHolder HEALING_FRAME = frame("healing", 240, 1.5f, 1.25f, 0.5f, 1.0f);
-  public static final FrameHolder SOUL_FRAME = frame("soul", 240, 0.75f, 0.25f, 1.5f, 1.0f);
+  public static final FrameHolder SOUL_FRAME = frame("soul", 240, 0.75f, 1.75f, 1.5f, 1.0f);
   public static final FrameHolder RESTRAINT_FRAME = frame("restraint", new Item.Properties().stacksTo(1).durability(240), RestraintFrame::new);
   public static final FrameHolder PROVEN_FRAME = frame("proven", 720, 1.0f, 0.714f, 1.0f, 1.0f);
   public static final FrameHolder ROYAL_FRAME = frame("royal", 120, 2.0f, 500.0f, 0.0f, 2.5f);

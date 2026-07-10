@@ -43,25 +43,25 @@ public class ApicuriousBiomeModifiers
                     GenerationStep.Decoration.TOP_LAYER_MODIFICATION
             )
     );
-    bootstrap.register(ADD_MEADOW_HIVE,
-            new BiomeModifiers.AddFeaturesBiomeModifier(
-                    biomeGetter.getOrThrow(ApicuriousTags.BiomeTags.IS_MEADOW),
-                    HolderSet.direct(placedFeatureGetter.getOrThrow(ApicuriousFeatureKeys.HANGING_FOREST_HIVE)),
-                    GenerationStep.Decoration.TOP_LAYER_MODIFICATION
-            )
-    );
-    List<Holder<Biome>> MODEST_BIOMES = new ArrayList<>();
-    MODEST_BIOMES.addAll(biomeGetter.getOrThrow(Tags.Biomes.IS_DESERT).stream().toList());
-    MODEST_BIOMES.addAll(biomeGetter.getOrThrow(Tags.Biomes.IS_SAVANNA).stream().toList());
-    MODEST_BIOMES.addAll(biomeGetter.getOrThrow(Tags.Biomes.IS_BADLANDS).stream().toList());
-    bootstrap.register(ADD_MODEST_HIVE,
-            new BiomeModifiers.AddFeaturesBiomeModifier(
-                    HolderSet.direct(MODEST_BIOMES),
-                    HolderSet.direct(placedFeatureGetter.getOrThrow(ApicuriousFeatureKeys.HANGING_FOREST_HIVE)),
-                    GenerationStep.Decoration.TOP_LAYER_MODIFICATION
-            )
-    );
     /**
+     * bootstrap.register(ADD_MEADOW_HIVE,
+     *             new BiomeModifiers.AddFeaturesBiomeModifier(
+     *                     biomeGetter.getOrThrow(ApicuriousTags.BiomeTags.IS_MEADOW),
+     *                     HolderSet.direct(placedFeatureGetter.getOrThrow(ApicuriousFeatureKeys.HANGING_FOREST_HIVE)),
+     *                     GenerationStep.Decoration.TOP_LAYER_MODIFICATION
+     *             )
+     *     );
+     * List<Holder<Biome>> MODEST_BIOMES = new ArrayList<>();
+     * MODEST_BIOMES.addAll(biomeGetter.getOrThrow(Tags.Biomes.IS_DESERT).stream().toList());
+     * MODEST_BIOMES.addAll(biomeGetter.getOrThrow(Tags.Biomes.IS_SAVANNA).stream().toList());
+     * MODEST_BIOMES.addAll(biomeGetter.getOrThrow(Tags.Biomes.IS_BADLANDS).stream().toList());
+     * bootstrap.register(ADD_MODEST_HIVE,
+     *         new BiomeModifiers.AddFeaturesBiomeModifier(
+     *                 HolderSet.direct(MODEST_BIOMES),
+     *                 HolderSet.direct(placedFeatureGetter.getOrThrow(ApicuriousFeatureKeys.HANGING_FOREST_HIVE)),
+     *                 GenerationStep.Decoration.TOP_LAYER_MODIFICATION
+     *         )
+     * );
      * bootstrap.register(ADD_MEADOW_HIVE,
      *             new BiomeModifiers.AddFeaturesBiomeModifier()
      *     );

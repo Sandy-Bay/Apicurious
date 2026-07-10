@@ -22,7 +22,7 @@ public abstract class AbstractAllele<T extends IAllele<T>> implements IAllele<T>
     return isDominantTrait;
   }
 
-  protected String getName()
+  public String getName()
   {
     return name;
   }

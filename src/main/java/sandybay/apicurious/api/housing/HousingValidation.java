@@ -20,7 +20,7 @@ public class HousingValidation
 {
 
   private final IApiaryErrorHandler errorHandler;
-  private final boolean isValid;
+  private boolean isValid;
   public ClimateHelper helper;
   private ItemResource key;
 
@@ -30,16 +30,20 @@ public class HousingValidation
     this.isValid = false;
   }
 
-  public boolean validate(ItemResource key, Level level, BlockPos housingPosition, Set<BlockPos> territory)
+  public void validate(ItemResource key, Level level, BlockPos housingPosition, Set<BlockPos> territory)
   {
     if (helper == null && level != null) {helper = new ClimateHelper(level, errorHandler);}
-    if (key.isEmpty()) {return false;}
-    if (!this.isValid || this.key != key)
+    if (key.isEmpty())
+    {
+      this.isValid = false;
+      return;
+    }
+    if (!this.isValid || !key.equals(this.key))
     {
       this.key = key;
       revalidate(this.key, level, housingPosition, territory);
+      this.isValid = true;
     }
-    return isValid;
   }
 
   private void revalidate(ItemResource queen, Level level, BlockPos housingPosition, Set<BlockPos> territory)

@@ -15,6 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * A pool of output entries, generated {@code rolls} times per invocation.
+ * <p>
+ * <b>Placement of {@code ChanceCondition} matters:</b> conditions attached to this pool
+ * (via {@link Builder#when(ICondition)}) are checked <em>once</em>, before any rolls happen —
+ * so a {@code ChanceCondition} on the pool gates the entire batch of rolls together (all of
+ * them happen, or none of them do). A {@code ChanceCondition} attached to an individual
+ * {@link OutputPoolEntry} instead, is re-checked independently on every roll, since entries
+ * re-evaluate their own conditions each time {@link OutputPoolEntry#generate} is called.
+ * <p>
+ * In practice: put a chance on the entry (not the pool) if you want each roll to
+ * independently succeed or fail. Put a chance on the pool if you want an all-or-nothing gate
+ * around a guaranteed set of rolls (e.g. "20% chance this pool produces anything at all,
+ * but if it does, produce 3 guaranteed rolls").
+ */
 public record OutputPool(int rolls, List<OutputPoolEntry> entries, List<ICondition> conditions,
                          List<IFunction> functions)
 {
@@ -32,7 +47,7 @@ public record OutputPool(int rolls, List<OutputPoolEntry> entries, List<IConditi
     List<ItemStack> output = Lists.newArrayList();
     if (conditions.stream().allMatch(c -> c.test(housing)))
     {
-      for (float i = 0; i < rolls; i++)
+      for (int i = 0; i < rolls; i++)
       {
         List<List<ItemStack>> entryResults = entries.stream().map(e -> e.generate(housing)).toList();
         for (List<ItemStack> result : entryResults)

@@ -24,7 +24,7 @@ public class Genome implements IGenome
   public static Codec<Genome> CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.unboundedMap(AlleleType.CODEC, Genotype.CODEC).fieldOf("genome").forGetter(Genome::getGenome)).apply(instance, Genome::new));
 
   public static StreamCodec<RegistryFriendlyByteBuf, Genome> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.map(HashMap::newHashMap, AlleleType.NETWORK_CODEC, Genotype.NETWORK_CODEC), Genome::getGenome, Genome::new);
-  
+
   private Map<AlleleType<? extends IAllele<?>>, Genotype> genome;
 
   public Genome()

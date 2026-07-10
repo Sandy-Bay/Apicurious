@@ -56,10 +56,13 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     this.outputs = outputs;
   }
 
+  // BUGFIX (B6): the real implementation was previously commented out, leaving debug
+  // logging (e.g. in SimpleBlockHousingBE's B7 warnings) to fall back on the generic
+  // Object#toString(), which gives no useful information about which species is involved.
   @Override
   public String toString()
   {
-    return super.toString(); //+ " BeeSpecies{" + "name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
+    return "BeeSpecies{" + "key=" + key + ", name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
   }
 
 
@@ -129,19 +132,22 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     return true;
   }
 
+  // BUGFIX (B5): previously omitted `key` and `outputs`, meaning two species differing
+  // only by species key or output table would compare equal and hash identically. This
+  // matters anywhere species get deduplicated or used as map/set keys (e.g. JEI, caching).
   @Override
   public boolean equals(Object o)
   {
     if (this == o) {return true;}
     if (o == null || getClass() != o.getClass()) {return false;}
     BeeSpecies species = (BeeSpecies) o;
-    return Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData) && Objects.equals(productionData, species.productionData) && Objects.equals(environmentalData, species.environmentalData) && Objects.equals(readableName, species.readableName);
+    return Objects.equals(key, species.key) && Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData) && Objects.equals(productionData, species.productionData) && Objects.equals(environmentalData, species.environmentalData) && Objects.equals(outputs, species.outputs) && Objects.equals(readableName, species.readableName);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(name, visualData, productionData, environmentalData, readableName);
+    return Objects.hash(key, name, visualData, productionData, environmentalData, outputs, readableName);
   }
 
   @Override
