@@ -43,7 +43,6 @@ public class Flowers extends AbstractAllele<Flowers>
   public static final StreamCodec<RegistryFriendlyByteBuf, Flowers> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)), Flowers::getFlowers, ByteBufCodecs.BOOL, Flowers::isDominantTrait, ByteBufCodecs.STRING_UTF8, Flowers::getName, Flowers::new);
 
   private final TagKey<Block> flowers;
-  private Component readableName;
 
   public Flowers(TagKey<Block> flowers, boolean isDominantTrait, String name)
   {

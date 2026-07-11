@@ -4,6 +4,7 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.housing.HousingError;
+import sandybay.apicurious.api.util.AlleleNaming;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
@@ -533,57 +534,57 @@ public class ApicuriousLangProvider extends LanguageProvider
   // Traits
   public void area(String translation)
   {
-    add("apicurious.area." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("area", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void fertility(String translation)
   {
-    add("apicurious.fertility." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("fertility", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void flower(String definition, String translation)
   {
-    add("apicurious.flowers." + definition, translation);
+    add(AlleleNaming.key("flowers", definition.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void humidityPreference(String translation)
   {
-    add("apicurious.preferenceHolder.humidity." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("preference.humidity", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void humidityTolerance(String translation)
   {
-    add("apicurious.toleranceHolder.humidity." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("tolerance.humidity", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void lifespan(String translation)
   {
-    add("apicurious.lifespan." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("lifespan", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void pollination(String translation)
   {
-    add("apicurious.pollination." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("pollination", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void speed(String translation)
   {
-    add("apicurious.speed." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("speed", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void temperaturePreference(String translation)
   {
-    add("apicurious.preference.temperature." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("preference.temperature", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void temperatureTolerance(String translation)
   {
-    add("apicurious.tolerance.temperature." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("tolerance.temperature", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   public void workcycle(String translation)
   {
-    add("apicurious.workcycle." + translation.toLowerCase(Locale.ROOT), translation);
+    add(AlleleNaming.key("workcycle", translation.toLowerCase(Locale.ROOT)), translation);
   }
 
   // Species
