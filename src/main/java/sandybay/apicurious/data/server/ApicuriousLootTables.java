@@ -9,7 +9,6 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -26,11 +25,9 @@ import sandybay.apicurious.common.loot.function.ApicuriousSpeciesFunction;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class ApicuriousLootTables extends LootTableProvider
@@ -41,37 +38,27 @@ public class ApicuriousLootTables extends LootTableProvider
     super(output, Set.of(), List.of(new SubProviderEntry(ApicuriousBlockLoot::new, LootContextParamSets.BLOCK)), registries);
   }
 
-  protected LootTable.Builder dropSelf(Block block)
-  {
-    return this.dropOther(block, block);
-  }
-
-  protected LootTable.Builder dropOther(Block block, ItemLike drop)
-  {
-    return this.createSingleItemTable(drop);
-  }
-
-  public LootTable.Builder createSingleItemTable(ItemLike drop)
-  {
-    return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(LootItem.lootTableItem(drop)));
-  }
-
   public static class ApicuriousBlockLoot extends BlockLootSubProvider
   {
 
-    private static final Set<Item> EXPLOSION_RESISTANT = Collections.emptySet();
-    private static HolderLookup.Provider provider;
+    private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
+    private final HolderLookup.Provider provider;
 
     protected ApicuriousBlockLoot(HolderLookup.Provider provider)
     {
       super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags(), provider);
-      ApicuriousBlockLoot.provider = provider;
-
+      this.provider = provider;
     }
 
-    public static LootTable.Builder hiveTable(ResourceKey<IAllele<?>> speciesKey)
+    public LootTable.Builder hiveTable(ResourceKey<IAllele<?>> speciesKey)
     {
-      return LootTable.lootTable().setParamSet(LootContextParamSets.EQUIPMENT).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.PRINCESS.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(LootItemRandomChanceCondition.randomChance(0.5f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(LootItemRandomChanceCondition.randomChance(0.333f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL))))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.VALIANT.species())).when(LootItemRandomChanceCondition.randomChance(0.05f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))));
+      return LootTable.lootTable()
+              .setParamSet(LootContextParamSets.BLOCK)
+              .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.PRINCESS.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))))
+              .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))))
+              .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(LootItemRandomChanceCondition.randomChance(0.5f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))))
+              .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(speciesKey)).when(LootItemRandomChanceCondition.randomChance(0.333f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))))
+              .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ItemRegistrar.DRONE.item().get()).apply(ApicuriousSpeciesFunction.getBuilder(ApicuriousSpecies.VALIANT.species())).when(LootItemRandomChanceCondition.randomChance(0.05f)).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(provider.lookupOrThrow(Registries.ITEM), ApicuriousTags.ItemTags.IS_SIEVE_TOOL)))));
     }
 
     @Override
@@ -90,13 +77,6 @@ public class ApicuriousLootTables extends LootTableProvider
       dropSelf(BlockRegistrar.APIARY.asBlock());
       dropSelf(BlockRegistrar.BEE_HOUSING.asBlock());
       dropSelf(BlockRegistrar.CENTRIFUGE.asBlock());
-    }
-
-    @Override
-    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output)
-    {
-      this.generate();
-      super.generate(output);
     }
 
     @Override

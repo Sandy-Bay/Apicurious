@@ -41,7 +41,7 @@ public class ApicuriousTagProviders
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
-      this.getOrCreateRawBuilder(ApicuriousTags.BlockTags.HIVE).addElement(BlockRegistrar.FOREST_HIVE.block().getId()).addElement(BlockRegistrar.MEADOW_HIVE.block().getId()).addElement(BlockRegistrar.MODEST_HIVE.block().getId()).addElement(BlockRegistrar.TROPICAL_HIVE.block().getId()).addElement(BlockRegistrar.WINTRY_HIVE.block().getId()).addElement(BlockRegistrar.MARSHY_HIVE.block().getId()).addElement(BlockRegistrar.ENDER_HIVE.block().getId()).addElement(BlockRegistrar.WATER_HIVE.block().getId());
+      this.getOrCreateRawBuilder(ApicuriousTags.BlockTags.HIVE).addElement(BlockRegistrar.FOREST_HIVE.block().getId()).addElement(BlockRegistrar.MEADOW_HIVE.block().getId()).addElement(BlockRegistrar.MODEST_HIVE.block().getId()).addElement(BlockRegistrar.TROPICAL_HIVE.block().getId()).addElement(BlockRegistrar.WINTRY_HIVE.block().getId()).addElement(BlockRegistrar.MARSHY_HIVE.block().getId()).addElement(BlockRegistrar.ENDER_HIVE.block().getId()).addElement(BlockRegistrar.WATER_HIVE.block().getId()).addElement(BlockRegistrar.NETHER_HIVE.block().getId()).addElement(BlockRegistrar.ROCKY_HIVE.block().getId());
       this.getOrCreateRawBuilder(ApicuriousTags.BlockTags.CACTUS).addElement(Blocks.CACTUS.builtInRegistryHolder().getKey().identifier());
       this.getOrCreateRawBuilder(ApicuriousTags.BlockTags.JUNGLE).addElement(Blocks.COCOA.builtInRegistryHolder().getKey().identifier()).addElement(Blocks.VINE.builtInRegistryHolder().getKey().identifier());
       this.getOrCreateRawBuilder(ApicuriousTags.BlockTags.MUSHROOM).addElement(Blocks.RED_MUSHROOM.builtInRegistryHolder().getKey().identifier()).addElement(Blocks.RED_MUSHROOM_BLOCK.builtInRegistryHolder().getKey().identifier()).addElement(Blocks.BROWN_MUSHROOM.builtInRegistryHolder().getKey().identifier()).addElement(Blocks.BROWN_MUSHROOM_BLOCK.builtInRegistryHolder().getKey().identifier()).addElement(Blocks.MUSHROOM_STEM.builtInRegistryHolder().getKey().identifier());
@@ -65,9 +65,9 @@ public class ApicuriousTagProviders
     @Override
     protected void addTags(HolderLookup.Provider provider)
     {
-      this.getOrCreateRawBuilder(ApicuriousTags.ItemTags.IS_SIEVE_TOOL).addElement(ItemRegistrar.SIEVE.item().getKey().identifier());
+      this.getOrCreateRawBuilder(ApicuriousTags.ItemTags.IS_SIEVE_TOOL).addElement(ItemRegistrar.SIEVE.itemKey().identifier());
       this.getOrCreateRawBuilder(ApicuriousTags.ItemTags.DROP_HONEY).addElement(ItemRegistrar.HONEY_DROP.itemKey().identifier()).addElement(ItemRegistrar.HONEY_DEW.itemKey().identifier());
-      this.getOrCreateRawBuilder(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS).addElement(ItemRegistrar.DRONE.item().getKey().identifier()).addElement(ItemRegistrar.PRINCESS.item().getKey().identifier());
+      this.getOrCreateRawBuilder(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS).addElement(ItemRegistrar.DRONE.itemKey().identifier()).addElement(ItemRegistrar.PRINCESS.itemKey().identifier());
     }
   }
 

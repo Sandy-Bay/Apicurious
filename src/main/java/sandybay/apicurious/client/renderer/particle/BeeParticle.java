@@ -163,8 +163,6 @@ public class BeeParticle extends Particle
   private double circleY() {
     AABB bounds = flowerBounds();
     double hoverY = bounds.maxY + radiusMargin * 0.5 + (Math.sqrt(circleAngle * 2.0) * 0.08);
-    // Where the bee's "head" reaches when it dips in to grab pollen/nectar -
-    // just above the bottom of the flower's shape, rather than the dead center.
     double touchY = Mth.lerp(0.25, bounds.minY, bounds.maxY);
     return Mth.lerp(dipFactor(), touchY, hoverY);
   }

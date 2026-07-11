@@ -4,12 +4,14 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.DataComponentRegistrar;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
 import sandybay.apicurious.common.bee.species.BeeSpecies;
+import sandybay.apicurious.common.item.BeeItem;
 
 import java.util.Objects;
 
@@ -31,7 +33,15 @@ public record ApicuriousSpeciesFunction(ResourceKey<IAllele<?>> speciesKey) impl
   @Override
   public ItemStack apply(ItemStack stack, LootContext context)
   {
-    context.getLevel().registryAccess().get(ApicuriousRegistries.ALLELES).flatMap(registryReference -> Objects.requireNonNull(registryReference.value()).getOptional(speciesKey)).ifPresent(allele -> stack.set(DataComponentRegistrar.GENOME, ((BeeSpecies) allele).getSpeciesDefaultGenome(context.getLevel())));
+    if (stack.getItem() instanceof BeeItem)
+    {
+      Level level = context.getLevel();
+      level.registryAccess().lookup(ApicuriousRegistries.ALLELES)
+              .ifPresent(alleles -> {
+                BeeSpecies species = (BeeSpecies) alleles.getOrThrow(speciesKey).value();
+                stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(level));
+              });
+    }
     return stack;
   }
 
