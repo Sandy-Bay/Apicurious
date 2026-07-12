@@ -31,15 +31,20 @@ public record HumidityCondition(HolderSet<Biome> humidity) implements ICondition
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
+    if (housing.getLevel() == null || housing.validation == null || housing.validation.helper == null) {return false;}
     TagKey<Biome> humidityAtPosition = housing.validation.helper.getHumidityAtPosition(housing.getBlockPos());
+    if (humidityAtPosition == null) {return false;}
     return humidity.stream().anyMatch(h -> h.is(humidityAtPosition));
   }
 
   @Override
   public Component getDisplayText()
   {
-    Component base = Component.translatable("apicurious.condition.humidity");
-    // TODO: Implement display text
-    return base;
+    String biomeList = humidity().stream()
+            .map(holder -> holder.unwrapKey()
+                    .map(key -> key.identifier().toString())
+                    .orElse("unknown"))
+            .collect(java.util.stream.Collectors.joining(", "));
+    return Component.translatable("apicurious.condition.humidity", biomeList);
   }
 }

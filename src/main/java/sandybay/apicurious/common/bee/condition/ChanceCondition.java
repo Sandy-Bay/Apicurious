@@ -18,8 +18,7 @@ import java.text.DecimalFormat;
 
 public record ChanceCondition(float chance) implements ICondition
 {
-  public static final MapCodec<ChanceCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.FLOAT.fieldOf("chance").forGetter(ChanceCondition::chance)).apply(instance, ChanceCondition::new));
-
+  public static final MapCodec<ChanceCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("chance").forGetter(ChanceCondition::chance)).apply(instance, ChanceCondition::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, ChanceCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.FLOAT, ChanceCondition::chance, ChanceCondition::new);
 
   @Override

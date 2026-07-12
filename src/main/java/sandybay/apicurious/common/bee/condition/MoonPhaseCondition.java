@@ -16,8 +16,7 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record MoonPhaseCondition(int moonPhase) implements ICondition
 {
-  public static final MapCodec<MoonPhaseCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("moonPhase").forGetter(MoonPhaseCondition::moonPhase)).apply(instance, MoonPhaseCondition::new));
-
+  public static final MapCodec<MoonPhaseCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.intRange(0, 7).fieldOf("moonPhase").forGetter(MoonPhaseCondition::moonPhase)).apply(instance, MoonPhaseCondition::new));
   public static final StreamCodec<RegistryFriendlyByteBuf, MoonPhaseCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, MoonPhaseCondition::moonPhase, MoonPhaseCondition::new);
 
   @Override
@@ -46,7 +45,7 @@ public record MoonPhaseCondition(int moonPhase) implements ICondition
       case 2:
         yield "Last Quarter";
       case 3:
-        yield "Waning Cresent";
+        yield "Waning Crescent";
       case 4:
         yield "New Moon";
       case 5:

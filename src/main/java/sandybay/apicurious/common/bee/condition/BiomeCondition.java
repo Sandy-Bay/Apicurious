@@ -16,6 +16,8 @@ import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
+import java.util.stream.Collectors;
+
 public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
 {
 
@@ -40,8 +42,12 @@ public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
   @Override
   public Component getDisplayText()
   {
-    Component base = Component.translatable("apicurious.condition.biome");
-    // TODO: Implement display text
-    return base;
+    // Implemented: list the resource locations of the required biomes.
+    String biomeList = biomes().stream()
+            .map(holder -> holder.unwrapKey()
+                    .map(key -> key.identifier().toString())
+                    .orElse("unknown"))
+            .collect(Collectors.joining(", "));
+    return Component.translatable("apicurious.condition.biome", biomeList);
   }
 }

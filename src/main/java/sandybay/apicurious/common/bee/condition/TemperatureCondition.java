@@ -31,15 +31,20 @@ public record TemperatureCondition(HolderSet<Biome> temperature) implements ICon
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
+    if (housing.getLevel() == null || housing.validation == null || housing.validation.helper == null) {return false;}
     TagKey<Biome> temperatureAtPosition = housing.validation.helper.getTemperatureAtPosition(housing.getBlockPos());
+    if (temperatureAtPosition == null) {return false;}
     return temperature.stream().anyMatch(h -> h.is(temperatureAtPosition));
   }
 
   @Override
   public Component getDisplayText()
   {
-    Component base = Component.translatable("apicurious.condition.temperature");
-    // TODO: Implement display text
-    return base;
+    String biomeList = temperature().stream()
+            .map(holder -> holder.unwrapKey()
+                    .map(key -> key.identifier().toString())
+                    .orElse("unknown"))
+            .collect(java.util.stream.Collectors.joining(", "));
+    return Component.translatable("apicurious.condition.temperature", biomeList);
   }
 }

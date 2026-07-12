@@ -16,6 +16,8 @@ import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
+import java.util.stream.Collectors;
+
 public record DimensionCondition(HolderSet<DimensionType> dimensions) implements ICondition
 {
   public static final MapCodec<DimensionCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryCodecs.homogeneousList(Registries.DIMENSION_TYPE).fieldOf("dimensions").forGetter(DimensionCondition::dimensions)).apply(instance, DimensionCondition::new));
@@ -39,9 +41,12 @@ public record DimensionCondition(HolderSet<DimensionType> dimensions) implements
   @Override
   public Component getDisplayText()
   {
-    Component base = Component.translatable("apicurious.condition.dimension");
-    // TODO: Implement display text
-    return base;
+    String dimensionList = dimensions().stream()
+            .map(holder -> holder.unwrapKey()
+                    .map(key -> key.identifier().toString())
+                    .orElse("unknown"))
+            .collect(Collectors.joining(", "));
+    return Component.translatable("apicurious.condition.dimension", dimensionList);
   }
 
 }

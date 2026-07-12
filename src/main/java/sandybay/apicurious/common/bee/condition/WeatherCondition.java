@@ -36,8 +36,13 @@ public record WeatherCondition(Biome.Precipitation precipitation, boolean isRain
     Level level = housing.getLevel();
     if (level == null) {return false;}
     Biome biome = level.getBiome(housing.getBlockPos()).value();
-    if (precipitation() == Biome.Precipitation.NONE) {return !biome.hasPrecipitation();}
-    return biome.getPrecipitationAt(housing.getBlockPos(), level.getSeaLevel()) == precipitation() && level.isRainingAt(housing.getBlockPos()) == isRaining() && (isThundering().isEmpty() || level.isThundering() == isThundering().get());
+    boolean precipitationMatches = precipitation() == Biome.Precipitation.NONE
+            ? !biome.hasPrecipitation()
+            : biome.getPrecipitationAt(housing.getBlockPos(), level.getSeaLevel()) == precipitation();
+
+    boolean rainMatches = level.isRainingAt(housing.getBlockPos()) == isRaining();
+    boolean thunderMatches = isThundering().isEmpty() || level.isThundering() == isThundering().get();
+    return precipitationMatches && rainMatches && thunderMatches;
   }
 
   @Override
