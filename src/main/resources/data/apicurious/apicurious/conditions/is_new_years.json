@@ -1,5 +1,11 @@
 {
   "condition": "apicurious:is_correct_date",
-  "from": "1970-12-27",
-  "to": "1970-01-02"
+  "from": {
+    "day": 31,
+    "month": 12
+  },
+  "to": {
+    "day": 2,
+    "month": 1
+  }
 }

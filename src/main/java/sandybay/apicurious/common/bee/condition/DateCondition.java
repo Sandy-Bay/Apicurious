@@ -1,11 +1,9 @@
 package sandybay.apicurious.common.bee.condition;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import sandybay.apicurious.api.condition.ConditionType;
 import sandybay.apicurious.api.condition.ICondition;
@@ -13,17 +11,28 @@ import sandybay.apicurious.api.register.ConditionTypeRegistrar;
 import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE;
 
 import java.time.LocalDate;
+import java.time.MonthDay;
 
-// TODO: Figure out how to make this work with just days and months, since years would fuck-up things and require rewriting.
-public record DateCondition(LocalDate from, LocalDate to) implements ICondition
+import static sandybay.apicurious.api.codec.ApicuriousCodecs.*;
+import static sandybay.apicurious.api.codec.ApicuriousCodecs.MONTH_DAY_CODEC;
+
+public record DateCondition(MonthDay from, MonthDay to) implements ICondition
 {
-  public static final StreamCodec<RegistryFriendlyByteBuf, DateCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.STRING_UTF8, condition -> condition.from.toString(), ByteBufCodecs.STRING_UTF8, condition -> condition.to.toString(), (from, to) ->
-  {
-    if (LocalDate.parse(to).isBefore(LocalDate.parse(from)))
-    {throw new IllegalArgumentException("To date can't be before From date!");}
-    return new DateCondition(LocalDate.parse(from), LocalDate.parse(to));
-  });
-  public static MapCodec<DateCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.STRING.fieldOf("from").forGetter(c -> c.from().toString()), Codec.STRING.fieldOf("to").forGetter(c -> c.to().toString())).apply(instance, (from, to) -> new DateCondition(LocalDate.parse(from), LocalDate.parse(to))));
+
+  public static final StreamCodec<RegistryFriendlyByteBuf, DateCondition> NETWORK_CODEC =
+          StreamCodec.composite(
+                  MONTH_DAY_STREAM_CODEC,
+                  DateCondition::from,
+                  MONTH_DAY_STREAM_CODEC,
+                  DateCondition::to,
+                  DateCondition::new
+          );
+
+  public static final MapCodec<DateCondition> CODEC =
+          RecordCodecBuilder.mapCodec(instance -> instance.group(
+                  MONTH_DAY_CODEC.fieldOf("from").forGetter(DateCondition::from),
+                  MONTH_DAY_CODEC.fieldOf("to").forGetter(DateCondition::to)
+          ).apply(instance, DateCondition::new));
 
   @Override
   public ConditionType getConditionType()
@@ -34,18 +43,28 @@ public record DateCondition(LocalDate from, LocalDate to) implements ICondition
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
-    if (to().isBefore(from())) {return false;}
-    LocalDate currentDate = LocalDate.now();
-    int currentDay = currentDate.getDayOfMonth();
-    int currentMonth = currentDate.getMonthValue();
-    return (from.getMonthValue() >= currentMonth && currentMonth <= to.getMonthValue()) && (from.getDayOfMonth() >= currentDay && currentDay <= to.getDayOfMonth());
+    MonthDay today = MonthDay.from(LocalDate.now());
+
+    // Normal range (Apr 1 -> Jun 30)
+    if (!to.isBefore(from))
+    {
+      return !today.isBefore(from) && !today.isAfter(to);
+    }
+
+    // Wrapped range (Dec 20 -> Jan 10)
+    return !today.isBefore(from) || !today.isAfter(to);
   }
 
   @Override
   public Component getDisplayText()
   {
-    return Component.literal("- Date: " + from.getMonthValue() + "-" + from.getDayOfMonth() + " -> " + to.getMonthValue() + "-" + to.getDayOfMonth());
+    return Component.literal(
+            "- Date: %02d-%02d -> %02d-%02d".formatted(
+                    from.getMonthValue(),
+                    from.getDayOfMonth(),
+                    to.getMonthValue(),
+                    to.getDayOfMonth()
+            )
+    );
   }
-
-
 }
