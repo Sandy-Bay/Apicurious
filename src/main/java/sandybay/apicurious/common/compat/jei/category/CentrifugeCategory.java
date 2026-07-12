@@ -5,7 +5,6 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -76,7 +75,7 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
   public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull CentrifugeCategory.Recipe recipe, @NotNull IFocusGroup focuses)
   {
     builder.addInputSlot(1, 17).add(recipe.input);
-    int x = 54;
+    int x = 52;
     int y = 1;
     int i = 0;
     int j = 0;
@@ -84,7 +83,7 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     {
       builder.addOutputSlot(x + j * 18, y + i * 18)
               .add(output.output().create())
-              .addRichTooltipCallback((_, tooltip) -> {
+              .addRichTooltipCallback((view, tooltip) -> {
                 tooltip.add(Component.translatable("apicurious.condition.chance")
                         .append(NumberFormat.getPercentInstance().format(output.chance())));
               });
@@ -93,6 +92,10 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
       {
         i++;
         j = 0;
+      }
+      if (i == 2)
+      {
+        return;
       }
     }
   }

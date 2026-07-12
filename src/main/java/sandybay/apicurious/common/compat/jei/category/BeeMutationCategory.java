@@ -5,7 +5,6 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.ChatFormatting;
@@ -15,14 +14,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
 import sandybay.apicurious.api.bee.genetic.mutation.IMutation;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
-import sandybay.apicurious.common.bee.genetic.mutation.Mutation;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
 import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
@@ -90,7 +86,7 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
   {
     builder.addInputSlot(1, 1).addItemStacks(recipe.first);
     builder.addInputSlot(50, 1).addItemStacks(recipe.second);
-    builder.addOutputSlot(99, 1).add(recipe.output).addRichTooltipCallback((view, tooltip) ->
+    builder.addOutputSlot(99, 1).addItemStacks(recipe.output).addRichTooltipCallback((view, tooltip) ->
     {
       tooltip.add(Component.literal(""));
       tooltip.add(Component.translatable("apicurious.condition.chance").withStyle(ChatFormatting.DARK_AQUA)
@@ -107,5 +103,5 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
   }
 
   public record Recipe(ResourceKey<IMutation> key, List<ItemStack> first, List<ItemStack> second, float chance, List<ICondition> conditions,
-                       ItemStack output) {}
+                       List<ItemStack> output) {}
 }

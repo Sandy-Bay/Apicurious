@@ -47,11 +47,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 @JeiPlugin
 public class ApicuriousJeiPlugin implements IModPlugin
 {
+  /**
+   * Captured during registerCategories (which is world-independent) so that
+   * registerRecipes (which reruns per-world) can reuse it for ingredient-list
+   * operations that DO require a live level.
+   */
+  private IJeiHelpers jeiHelpers;
 
   @Override
   public @NotNull Identifier getPluginUid()
@@ -62,82 +67,120 @@ public class ApicuriousJeiPlugin implements IModPlugin
   @Override
   public void registerItemSubtypes(ISubtypeRegistration registry)
   {
-        registry.registerSubtypeInterpreter(ItemRegistrar.QUEEN.item().get(), new ISubtypeInterpreter<>()
-        {
-          @Override
-          public @Nullable Object getSubtypeData(ItemStack stack, UidContext context)
-          {
-            stack.set(DataComponentRegistrar.IDENTIFIED, false);
-            if (stack.isEmpty() || !stack.has(DataComponentRegistrar.GENOME)) return null;
-            return stack.get(DataComponentRegistrar.GENOME);
-          }
-        });
+    registry.registerSubtypeInterpreter(ItemRegistrar.QUEEN.item().get(), createGenomeSubtypeInterpreter());
+    registry.registerSubtypeInterpreter(ItemRegistrar.PRINCESS.item().get(), createGenomeSubtypeInterpreter());
+    registry.registerSubtypeInterpreter(ItemRegistrar.DRONE.item().get(), createGenomeSubtypeInterpreter());
+  }
+
+  private ISubtypeInterpreter<ItemStack> createGenomeSubtypeInterpreter()
+  {
+    return new ISubtypeInterpreter<>()
+    {
+      @Override
+      public @Nullable Object getSubtypeData(ItemStack stack, UidContext context)
+      {
+        if (stack.isEmpty() || !stack.has(DataComponentRegistrar.GENOME)) return null;
+        return stack.get(DataComponentRegistrar.GENOME);
+      }
+    };
   }
 
   @Override
   public void registerGuiHandlers(IGuiHandlerRegistration registry)
   {
-        registry.addGuiContainerHandler(CentrifugeScreen.class, new JEICentrifugeContainerHandler());
-        registry.addGuiContainerHandler(ApiaryScreen.class, new JEIHousingContainerHandler.JEIApiaryContainerHandler());
-        registry.addGuiContainerHandler(BeeHousingScreen.class, new JEIHousingContainerHandler.JEIBeeHousingContainerHandler());
+    registry.addGuiContainerHandler(CentrifugeScreen.class, new JEICentrifugeContainerHandler());
+    registry.addGuiContainerHandler(ApiaryScreen.class, new JEIHousingContainerHandler.JEIApiaryContainerHandler());
+    registry.addGuiContainerHandler(BeeHousingScreen.class, new JEIHousingContainerHandler.JEIBeeHousingContainerHandler());
   }
 
   @Override
   public void registerCategories(@NotNull IRecipeCategoryRegistration registry)
   {
-        registry.getJeiHelpers().getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, List.of(
-                BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.DEBUG.species(), ItemRegistrar.QUEEN.item()),
-                BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, ApicuriousSpecies.UNDEFINED.species(), ItemRegistrar.QUEEN.item())
-        ));
-        IJeiHelpers jeiHelpers = registry.getJeiHelpers();
-        registry.addRecipeCategories(new CentrifugeCategory(jeiHelpers.getGuiHelper()));
-        registry.addRecipeCategories(new BeeOutputCategory(jeiHelpers.getGuiHelper()));
-        if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
-        {
-          registry.addRecipeCategories(new BeeMutationCategory(jeiHelpers.getGuiHelper()));
-        }
+    this.jeiHelpers = registry.getJeiHelpers();
+    registry.addRecipeCategories(new CentrifugeCategory(jeiHelpers.getGuiHelper()));
+    registry.addRecipeCategories(new BeeOutputCategory(jeiHelpers.getGuiHelper()));
+    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    {
+      registry.addRecipeCategories(new BeeMutationCategory(jeiHelpers.getGuiHelper()));
+    }
   }
 
   @Override
   public void registerRecipes(@NotNull IRecipeRegistration registration)
   {
-        registration.addRecipes(ApicuriousRecipeTypes.CENTRIFUGE, getCentrifugeRecipes());
-        registration.addRecipes(ApicuriousRecipeTypes.BEE_OUTPUTS, getBeeOutputRecipes());
-        if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
-        {
-          registration.addRecipes(ApicuriousRecipeTypes.BEE_MUTATIONS, getBeeMutationRecipes());
-        }
+    removeDebugAndUndefinedBeesFromIngredientList();
+    registration.addRecipes(ApicuriousRecipeTypes.CENTRIFUGE, getCentrifugeRecipes());
+    registration.addRecipes(ApicuriousRecipeTypes.BEE_OUTPUTS, getBeeOutputRecipes());
+    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    {
+      registration.addRecipes(ApicuriousRecipeTypes.BEE_MUTATIONS, getBeeMutationRecipes());
+    }
+  }
+
+  private void removeDebugAndUndefinedBeesFromIngredientList()
+  {
+    ClientLevel level = Minecraft.getInstance().level;
+    if (level == null || jeiHelpers == null) return;
+    jeiHelpers.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, List.of(
+            BeeItem.getBeeWithSpecies(level, ApicuriousSpecies.DEBUG.species(), ItemRegistrar.QUEEN.item()),
+            BeeItem.getBeeWithSpecies(level, ApicuriousSpecies.UNDEFINED.species(), ItemRegistrar.QUEEN.item())
+    ));
   }
 
   private List<BeeMutationCategory.Recipe> getBeeMutationRecipes()
   {
     List<BeeMutationCategory.Recipe> recipes = new ArrayList<>();
     ClientLevel level = Minecraft.getInstance().level;
+    if (level == null) return recipes;
     Registry<IMutation> mutations = level.registryAccess().lookupOrThrow(ApicuriousRegistries.MUTATIONS);
     for (Map.Entry<ResourceKey<IMutation>, IMutation> mutation : mutations.entrySet().stream().toList())
     {
       IMutation imutation = mutation.getValue();
-      List<ItemStack> firstOptions = getBeeOptions(imutation.first());
-      List<ItemStack> secondOptions = getBeeOptions(imutation.second());
+      List<ItemStack> firstOptions = getBeeOptions(level, imutation.first());
+      List<ItemStack> secondOptions = getBeeOptions(level, imutation.second());
       BeeSpecies outputSpecies = (BeeSpecies) imutation.output().value();
-      ItemStack outputBee = BeeItem.getBeeWithSpecies(level, outputSpecies.getSpeciesKey(), ItemRegistrar.DRONE.item());
+      List<ItemStack> outputMorphs = getBeeMorphs(level, outputSpecies.getSpeciesKey());
       if (imutation instanceof ConditionalMutation conditionalMutation)
       {
         List<ICondition> conditions = conditionalMutation.conditions().stream().map(Holder::value).toList();
-        recipes.add(new BeeMutationCategory.Recipe(mutation.getKey(), firstOptions, secondOptions, conditionalMutation.chance(), conditions, outputBee));
+        recipes.add(new BeeMutationCategory.Recipe(mutation.getKey(), firstOptions, secondOptions, conditionalMutation.chance(), conditions, outputMorphs));
       }
       else
       {
-        recipes.add(new BeeMutationCategory.Recipe(mutation.getKey(), firstOptions, secondOptions, imutation.chance(), List.of(), outputBee));
+        recipes.add(new BeeMutationCategory.Recipe(mutation.getKey(), firstOptions, secondOptions, imutation.chance(), List.of(), outputMorphs));
       }
     }
     return recipes;
   }
 
-  private List<ItemStack> getBeeOptions(HolderSet<? extends IAllele<?>> alleles)
+  /**
+   * Builds the Queen/Princess/Drone ItemStacks for a single species.
+   * <br><br>
+   * Listing all three bee-types in a recipe's input/output slots is what allows JEI's
+   * "recipes using/producing this ingredient" lookup to work no matter which morph the player clicks on.
+   * <br><br>
+   * Provided each morph's
+   * subtype interpreter normalizes to the same genome-based identity
+   * (see {createGenomeSubtypeInterpreter}).
+   */
+  private List<ItemStack> getBeeMorphs(ClientLevel level, ResourceKey<IAllele<?>> speciesKey)
   {
-    List<ItemStack> options = new ArrayList<>(alleles.stream().map(Holder::value).map(allele -> (BeeSpecies) allele).map(species -> BeeItem.getBeeWithSpecies(Minecraft.getInstance().level, species.getSpeciesKey(), ItemRegistrar.DRONE.item())).toList());
-    Collections.shuffle(options);
+    List<ItemStack> morphs = new ArrayList<>();
+    morphs.add(BeeItem.getBeeWithSpecies(level, speciesKey, ItemRegistrar.QUEEN.item()));
+    morphs.add(BeeItem.getBeeWithSpecies(level, speciesKey, ItemRegistrar.PRINCESS.item()));
+    morphs.add(BeeItem.getBeeWithSpecies(level, speciesKey, ItemRegistrar.DRONE.item()));
+    return morphs;
+  }
+
+  private List<ItemStack> getBeeOptions(ClientLevel level, HolderSet<? extends IAllele<?>> alleles)
+  {
+    List<BeeSpecies> speciesList = new ArrayList<>(alleles.stream().map(Holder::value).map(allele -> (BeeSpecies) allele).toList());
+    Collections.shuffle(speciesList);
+    List<ItemStack> options = new ArrayList<>();
+    for (BeeSpecies species : speciesList)
+    {
+      options.addAll(getBeeMorphs(level, species.getSpeciesKey()));
+    }
     return options;
   }
 
@@ -164,14 +207,14 @@ public class ApicuriousJeiPlugin implements IModPlugin
     alleles.entrySet().stream().filter(allele ->
     {
       String path = allele.getKey().identifier().getPath();
-      return path.contains("species/") && (!path.contains("undefined") || !path.contains("debug"));
+      return path.contains("species/") && !path.contains("undefined") && !path.contains("debug");
     }).forEach(allele ->
     {
       if (allele.getValue() instanceof BeeSpecies species)
       {
-        ItemStack input = BeeItem.getBeeWithSpecies(level, species.getSpeciesKey(), ItemRegistrar.DRONE.item());
+        List<ItemStack> inputMorphs = getBeeMorphs(level, species.getSpeciesKey());
         OutputTable output = species.getOutputData().outputTable().value();
-        recipes.add(new BeeOutputCategory.Recipe(allele.getKey(), input, output));
+        recipes.add(new BeeOutputCategory.Recipe(allele.getKey(), inputMorphs, output));
       }
     });
     return recipes;

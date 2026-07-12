@@ -7,6 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import sandybay.apicurious.client.gui.ApiaryScreen;
 import sandybay.apicurious.client.gui.BeeHousingScreen;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
+import sandybay.apicurious.common.config.ApicuriousMainConfig;
 import sandybay.apicurious.common.menu.ApiaryMenu;
 import sandybay.apicurious.common.menu.BeeHousingMenu;
 
@@ -19,11 +20,60 @@ public class JEIHousingContainerHandler<M extends AbstractContainerMenu, T exten
   public Collection<IGuiClickableArea> getGuiClickableAreas(T containerScreen, double guiMouseX, double guiMouseY)
   {
     Collection<IGuiClickableArea> areas = new ArrayList<>();
-    areas.add(IGuiClickableArea.createBasic(20, 36, 4, 48, ApicuriousRecipeTypes.BEE_MUTATIONS));
+    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    {
+      areas.add(IGuiClickableArea.createBasic(getMutationAreaX(), getMutationAreaY(), getMutationAreaWidth(), getMutationAreaHeight(), ApicuriousRecipeTypes.BEE_MUTATIONS));
+    }
     return areas;
   }
 
-  public static class JEIApiaryContainerHandler extends JEIHousingContainerHandler<ApiaryMenu, ApiaryScreen> {}
+  protected int getMutationAreaX()
+  {
+    return 20;
+  }
 
-  public static class JEIBeeHousingContainerHandler extends JEIHousingContainerHandler<BeeHousingMenu, BeeHousingScreen> {}
+  protected int getMutationAreaY()
+  {
+    return 36;
+  }
+
+  protected int getMutationAreaWidth()
+  {
+    return 4;
+  }
+
+  protected int getMutationAreaHeight()
+  {
+    return 48;
+  }
+
+  public static class JEIApiaryContainerHandler extends JEIHousingContainerHandler<ApiaryMenu, ApiaryScreen>
+  {
+    @Override
+    protected int getMutationAreaX()
+    {
+      return 20;
+    }
+
+    @Override
+    protected int getMutationAreaY()
+    {
+      return 36;
+    }
+  }
+
+  public static class JEIBeeHousingContainerHandler extends JEIHousingContainerHandler<BeeHousingMenu, BeeHousingScreen>
+  {
+    @Override
+    protected int getMutationAreaX()
+    {
+      return 20;
+    }
+
+    @Override
+    protected int getMutationAreaY()
+    {
+      return 36;
+    }
+  }
 }

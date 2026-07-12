@@ -3,19 +3,15 @@ package sandybay.apicurious.common.compat.jei.category;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import sandybay.apicurious.Apicurious;
@@ -25,11 +21,10 @@ import sandybay.apicurious.api.bee.output.OutputPoolEntry;
 import sandybay.apicurious.api.bee.output.OutputResult;
 import sandybay.apicurious.api.bee.output.OutputTable;
 import sandybay.apicurious.api.condition.ICondition;
-import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.compat.jei.ApicuriousRecipeTypes;
-import sandybay.apicurious.common.item.BeeItem;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
-import sandybay.apicurious.common.registrar.ItemRegistrar;
+
+import java.util.List;
 
 public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Recipe>
 {
@@ -89,7 +84,10 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   @Override
   public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Recipe recipe, @NotNull IFocusGroup focuses)
   {
-    builder.addInputSlot(38, 4).add(recipe.input);
+    // Queen/Princess/Drone morphs of the input species are all offered here
+    // (instead of a single Drone stack) so that clicking any of them in JEI
+    // or the player's inventory surfaces this output recipe.
+    builder.addInputSlot(38, 4).addItemStacks(recipe.input);
     int x = 0;
     int y = 0;
     for (OutputPool pool : recipe.output().pools())
@@ -130,5 +128,5 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
     }
   }
 
-  public record Recipe(ResourceKey<IAllele<?>> key, ItemStack input, OutputTable output) {}
+  public record Recipe(ResourceKey<IAllele<?>> key, List<ItemStack> input, OutputTable output) {}
 }
