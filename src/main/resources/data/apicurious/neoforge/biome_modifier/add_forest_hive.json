@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
   "biomes": "#minecraft:is_forest",
-  "features": "apicurious:hanging_forest_hive",
+  "features": "apicurious:forest_hive",
   "step": "top_layer_modification"
 }

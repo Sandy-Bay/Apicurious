@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#apicurious:is_meadow",
+  "features": "apicurious:meadow_hive",
+  "step": "top_layer_modification"
+}

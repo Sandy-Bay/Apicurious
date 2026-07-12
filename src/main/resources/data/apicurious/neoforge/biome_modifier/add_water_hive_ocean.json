@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_ocean",
+  "features": "apicurious:water_hive",
+  "step": "top_layer_modification"
+}

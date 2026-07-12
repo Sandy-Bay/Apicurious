@@ -1,0 +1,14 @@
+{
+  "type": "apicurious:submerged_hive",
+  "config": {
+    "hive": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "apicurious:water_hive",
+        "Properties": {
+          "facing": "north"
+        }
+      }
+    }
+  }
+}

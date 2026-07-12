@@ -1,0 +1,15 @@
+{
+  "type": "apicurious:ground_hive",
+  "config": {
+    "hive": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "apicurious:rocky_hive",
+        "Properties": {
+          "facing": "north"
+        }
+      }
+    },
+    "underground_only": true
+  }
+}
