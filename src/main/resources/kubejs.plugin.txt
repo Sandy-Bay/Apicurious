@@ -1,0 +1,1 @@
+sandybay.apicurious.common.compat.kubejs.ApicuriousKubeJSPlugin

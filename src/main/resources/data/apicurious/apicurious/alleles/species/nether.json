@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/low"
     }
   },
+  "isDominant": true,
   "key": "apicurious:species/nether",
   "name": "apicurious.species.nether",
   "outputData": {

@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
+  "isDominant": true,
   "key": "apicurious:species/monastic",
   "name": "apicurious.species.monastic",
   "outputData": {

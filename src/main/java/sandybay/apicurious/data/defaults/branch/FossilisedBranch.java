@@ -21,7 +21,7 @@ public class FossilisedBranch
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.FOSSILISED.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FOSSILISED.species(), "fossilised").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FOSSILISED)).withProductionData(builder -> builder.withPollination(Pollination.SLOW).withSpeed(Speed.SLOWER)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.FOSSILISED.output())).build());
-    bootstrap.register(ApicuriousSpecies.FORGOTTEN.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FORGOTTEN.species(), "ancient").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FORGOTTEN)).withProductionData(builder -> builder.withPollination(Pollination.SLOW).withSpeed(Speed.SLOWER)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.FORGOTTEN.output())).build());
+    bootstrap.register(ApicuriousSpecies.FORGOTTEN.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FORGOTTEN.species(), "ancient").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FORGOTTEN)).withProductionData(builder -> builder.withPollination(Pollination.SLOW).withSpeed(Speed.SLOWER)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.FORGOTTEN.output())).recessive().build());
   }
 
   public static void mutationsDefaults(BootstrapContext<IMutation> bootstrap)

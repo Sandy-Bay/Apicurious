@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
+  "isDominant": false,
   "key": "apicurious:species/absolute",
   "name": "apicurious.species.absolute",
   "outputData": {

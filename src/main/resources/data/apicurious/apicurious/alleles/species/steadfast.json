@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
+  "isDominant": true,
   "key": "apicurious:species/steadfast",
   "name": "apicurious.species.steadfast",
   "outputData": {

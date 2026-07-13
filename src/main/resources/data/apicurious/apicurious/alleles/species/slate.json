@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/none"
     }
   },
+  "isDominant": true,
   "key": "apicurious:species/slate",
   "name": "apicurious.species.slate",
   "outputData": {

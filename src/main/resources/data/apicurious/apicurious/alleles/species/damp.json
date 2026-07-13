@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/lowest"
     }
   },
+  "isDominant": true,
   "key": "apicurious:species/damp",
   "name": "apicurious.species.damp",
   "outputData": {

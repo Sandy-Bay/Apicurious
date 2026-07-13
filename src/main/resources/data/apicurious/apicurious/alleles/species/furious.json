@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/low"
     }
   },
+  "isDominant": true,
   "key": "apicurious:species/furious",
   "name": "apicurious.species.furious",
   "outputData": {

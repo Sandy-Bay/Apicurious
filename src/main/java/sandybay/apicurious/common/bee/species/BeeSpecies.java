@@ -34,9 +34,9 @@ import java.util.function.Consumer;
 public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGenomeProvider
 {
 
-  public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("key").forGetter(BeeSpecies::getSpeciesKey), Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName), VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData), ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData), EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData), OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData)).apply(instance, BeeSpecies::new));
+  public static final MapCodec<BeeSpecies> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("key").forGetter(BeeSpecies::getSpeciesKey), Codec.STRING.fieldOf("name").forGetter(BeeSpecies::getName), VisualData.CODEC.optionalFieldOf("visualData", VisualData.DEFAULT).forGetter(BeeSpecies::getVisualData), ProductionData.CODEC.fieldOf("productionData").forGetter(BeeSpecies::getProductionData), EnvironmentalData.CODEC.fieldOf("environmentalData").forGetter(BeeSpecies::getEnvironmentalData), OutputData.CODEC.fieldOf("outputData").forGetter(BeeSpecies::getOutputData), Codec.BOOL.fieldOf("isDominant").forGetter(BeeSpecies::isDominantTrait)).apply(instance, BeeSpecies::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(ResourceKey.streamCodec(ApicuriousRegistries.ALLELES), BeeSpecies::getSpeciesKey, ByteBufCodecs.STRING_UTF8, BeeSpecies::getName, VisualData.NETWORK_CODEC, BeeSpecies::getVisualData, ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData, EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData, OutputData.NETWORK_CODEC, BeeSpecies::getOutputData, BeeSpecies::new);
+  public static final StreamCodec<RegistryFriendlyByteBuf, BeeSpecies> NETWORK_CODEC = StreamCodec.composite(ResourceKey.streamCodec(ApicuriousRegistries.ALLELES), BeeSpecies::getSpeciesKey, ByteBufCodecs.STRING_UTF8, BeeSpecies::getName, VisualData.NETWORK_CODEC, BeeSpecies::getVisualData, ProductionData.NETWORK_CODEC, BeeSpecies::getProductionData, EnvironmentalData.NETWORK_CODEC, BeeSpecies::getEnvironmentalData, OutputData.NETWORK_CODEC, BeeSpecies::getOutputData, ByteBufCodecs.BOOL, BeeSpecies::isDominantTrait, BeeSpecies::new);
 
   private final String name;
   private final ResourceKey<IAllele<?>> key;
@@ -44,10 +44,11 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
   private final ProductionData productionData;
   private final EnvironmentalData environmentalData;
   private final OutputData outputs;
+  private final boolean isDominant;
 
   private Component readableName;
 
-  public BeeSpecies(ResourceKey<IAllele<?>> key, String name, VisualData visualData, ProductionData productionData, EnvironmentalData environmentalData, OutputData outputs)
+  public BeeSpecies(ResourceKey<IAllele<?>> key, String name, VisualData visualData, ProductionData productionData, EnvironmentalData environmentalData, OutputData outputs, boolean isDominant)
   {
     this.key = key;
     this.name = name;
@@ -55,12 +56,13 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     this.productionData = productionData;
     this.environmentalData = environmentalData;
     this.outputs = outputs;
+    this.isDominant = isDominant;
   }
 
   @Override
   public String toString()
   {
-    return "BeeSpecies{" + "key=" + key + ", name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + '}';
+    return "BeeSpecies{" + "key=" + key + ", name='" + name + '\'' + ", visualData=" + visualData + ", productionData=" + productionData + ", environmentalData=" + environmentalData + ", readableName=" + readableName + ",  isDominant=" + isDominant + '}';
   }
 
 
@@ -127,7 +129,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
   @Override
   public boolean isDominantTrait()
   {
-    return true;
+    return isDominant;
   }
 
   @Override
@@ -191,6 +193,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
     private ProductionData productionData;
     private EnvironmentalData environmentalData;
     private OutputData outputs;
+    private boolean isDominant;
 
     private Builder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
     {
@@ -201,6 +204,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
       this.productionData = ProductionData.Builder.create(context).build();
       this.environmentalData = EnvironmentalData.Builder.create(context).build();
       this.outputs = OutputData.Builder.create(context).build();
+      this.isDominant = true;
     }
 
     public static Builder create(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
@@ -240,9 +244,15 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
       return this;
     }
 
+    public Builder recessive()
+    {
+      this.isDominant = false;
+      return this;
+    }
+
     public BeeSpecies build()
     {
-      return new BeeSpecies(this.key, this.name, this.visualData, this.productionData, this.environmentalData, this.outputs);
+      return new BeeSpecies(this.key, this.name, this.visualData, this.productionData, this.environmentalData, this.outputs, this.isDominant);
     }
   }
 }

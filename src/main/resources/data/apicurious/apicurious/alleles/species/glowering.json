@@ -13,6 +13,7 @@
       "toleranceHolder": "apicurious:temperature/tolerance/low"
     }
   },
+  "isDominant": false,
   "key": "apicurious:species/glowering",
   "name": "apicurious.species.glowering",
   "outputData": {
