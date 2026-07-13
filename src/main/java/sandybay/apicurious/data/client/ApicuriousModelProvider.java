@@ -43,8 +43,6 @@ public class ApicuriousModelProvider extends ModelProvider
 
   private static void generateBees(ItemModelGenerators itemModels)
   {
-    // TODO: Implement Models for Drone, Princess and Queen
-
     // Item Models
     itemModels.itemModelOutput.accept(ItemRegistrar.DRONE.item().get(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_drone")));
     itemModels.itemModelOutput.accept(ItemRegistrar.PRINCESS.item().get(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_princess")));

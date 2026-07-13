@@ -21,7 +21,9 @@ import java.util.function.Consumer;
  * <b>Placement of {@code ChanceCondition} matters:</b> conditions attached to this pool
  * (via {@link Builder#when(ICondition)}) are checked <em>once</em>, before any rolls happen —
  * so a {@code ChanceCondition} on the pool gates the entire batch of rolls together (all of
- * them happen, or none of them do). A {@code ChanceCondition} attached to an individual
+ * them happen, or none of them do).
+ * <br><br>
+ * A {@code ChanceCondition} attached to an individual
  * {@link OutputPoolEntry} instead, is re-checked independently on every roll, since entries
  * re-evaluate their own conditions each time {@link OutputPoolEntry#generate} is called.
  * <p>
