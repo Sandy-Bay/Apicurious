@@ -17,6 +17,9 @@ public class ApicuriousMainConfig
   public ModConfigSpec.ConfigValue<Integer> minOutputInterval;
   public ModConfigSpec.ConfigValue<Integer> minLifespanTicks;
 
+  // Genetics
+  public ModConfigSpec.ConfigValue<Float> recessiveLeakChance;
+
   // Compat
   public ModConfigSpec.ConfigValue<Boolean> shouldJEIMutations;
 
@@ -34,6 +37,9 @@ public class ApicuriousMainConfig
     baseCycleTime = builder.comment("Default cycle duration, defined in Ticks.", "This is used with the lifespan of the bee to decide the total run duration.").defineInRange("baseCycleTime", 550, 1, Integer.MAX_VALUE);
     minOutputInterval = builder.comment("The minimum number of ticks that must pass between output attempts, regardless of how far Speed alleles and frames reduce the cycle time below this.", "Prevents stacked speed/frame modifiers from collapsing output generation down to firing every tick.").defineInRange("minOutputInterval", 60, 1, Integer.MAX_VALUE);
     minLifespanTicks = builder.comment("The minimum total lifespan (in ticks) a queen can have after Lifespan allele and frame modifiers are applied.").defineInRange("minLifespanTicks", 100, 1, Integer.MAX_VALUE);
+    builder.pop();
+    builder.push("genetics");
+    recessiveLeakChance = builder.comment("Chance for a recessive gene to outperform a dominant gene and 'leak through'").define("recessiveLeakChance", 0.1f);
     builder.pop();
     builder.push("compat");
     shouldJEIMutations = builder.comment("Should bee mutations be visible in JEI?").define("shouldJEIMutations", true);

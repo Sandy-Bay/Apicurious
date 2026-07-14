@@ -13,17 +13,21 @@ import sandybay.apicurious.api.registry.ApicuriousRegistries;
 
 import java.util.Objects;
 
-public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
+public record Genotype(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
 {
-  public static Codec<Genotype> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("first").forGetter(Genotype::first), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("second").forGetter(Genotype::second)).apply(instance, Genotype::new));
+  public static Codec<Genotype> CODEC = RecordCodecBuilder.create(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("active").forGetter(Genotype::active), RegistryFileCodec.create(ApicuriousRegistries.ALLELES, IAllele.TYPED_CODEC).fieldOf("inactive").forGetter(Genotype::inactive)).apply(instance, Genotype::new));
 
-  public static StreamCodec<RegistryFriendlyByteBuf, Genotype> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::first, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::second, Genotype::new);
+  public static StreamCodec<RegistryFriendlyByteBuf, Genotype> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::active, ByteBufCodecs.holder(ApicuriousRegistries.ALLELES, IAllele.NETWORK_TYPED_CODEC), Genotype::inactive, Genotype::new);
 
   public static Genotype defaultOf(Holder<IAllele<?>> trait)
   {
     return new Genotype(trait, trait);
   }
 
+  /**
+   * Constructs a genotype with a fixed expressed/hidden ordering. Callers are
+   * responsible for deciding which allele should be active before calling this.
+   */
   public static Genotype of(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
   {
     if (active.value().getTraitKey() != inactive.value().getTraitKey())
@@ -37,15 +41,12 @@ public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
 
   public Holder<IAllele<?>> getActive()
   {
-    if (first.value().isDominantTrait()) {return first;}
-    if (second.value().isDominantTrait()) {return second;}
-    return first;
+    return active;
   }
 
   public Holder<IAllele<?>> getInactive()
   {
-    Holder<IAllele<?>> active = getActive();
-    return active == first ? second : first;
+    return inactive;
   }
 
   public Component getRenderableName()
@@ -59,12 +60,12 @@ public record Genotype(Holder<IAllele<?>> first, Holder<IAllele<?>> second)
     if (this == o) {return true;}
     if (o == null || getClass() != o.getClass()) {return false;}
     Genotype genotype = (Genotype) o;
-    return Objects.equals(first, genotype.first) && Objects.equals(second, genotype.second);
+    return Objects.equals(active, genotype.active) && Objects.equals(inactive, genotype.inactive);
   }
 
   @Override
   public int hashCode()
   {
-    return Objects.hash(first, second);
+    return Objects.hash(active, inactive);
   }
 }
