@@ -141,9 +141,18 @@ public class MutationDefaults
 
     public IMutation build()
     {
-      if (first == null && second == null) throw new IllegalArgumentException("Invalid first and/or second parameters for Mutation");
-      if (chance == 0.0f) throw new IllegalArgumentException("Invalid chance for Mutation");
-      if (output == null) throw new IllegalArgumentException("Invalid output for Mutation");
+      if (first == null && second == null)
+      {
+        throw new IllegalArgumentException("Invalid first and/or second parameters for Mutation");
+      }
+      if (chance == 0.0f)
+      {
+        throw new IllegalArgumentException("Invalid chance for Mutation");
+      }
+      if (output == null)
+      {
+        throw new IllegalArgumentException("Invalid output for Mutation");
+      }
       return conditions.isEmpty() ? new Mutation(first, second, chance, output) : new ConditionalMutation(first, second, chance, output, conditions);
     }
   }

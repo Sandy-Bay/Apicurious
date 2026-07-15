@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
@@ -58,8 +57,14 @@ public class TemperaturePreference extends AbstractAllele<TemperaturePreference>
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (!super.equals(o)) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (!super.equals(o))
+    {
+      return false;
+    }
     TemperaturePreference that = (TemperaturePreference) o;
     return temperature == that.temperature && groupTag.equals(that.groupTag);
   }

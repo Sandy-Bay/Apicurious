@@ -30,15 +30,24 @@ public abstract class AbstractAllele<T extends IAllele<T>> implements IAllele<T>
   @Override
   public Component getReadableName()
   {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
+    if (readableName == null)
+    {
+      readableName = Component.translatable(this.name);
+    }
     return readableName;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     AbstractAllele<?> that = (AbstractAllele<?>) o;
     return isDominantTrait == that.isDominantTrait && Objects.equals(name, that.name);
   }

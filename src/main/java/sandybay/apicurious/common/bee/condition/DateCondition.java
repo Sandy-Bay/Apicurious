@@ -17,20 +17,9 @@ import java.time.MonthDay;
 public record DateCondition(MonthDay from, MonthDay to) implements ICondition
 {
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, DateCondition> NETWORK_CODEC =
-          StreamCodec.composite(
-                  ApicuriousCodecs.MONTH_DAY_STREAM_CODEC,
-                  DateCondition::from,
-                  ApicuriousCodecs.MONTH_DAY_STREAM_CODEC,
-                  DateCondition::to,
-                  DateCondition::new
-          );
+  public static final StreamCodec<RegistryFriendlyByteBuf, DateCondition> NETWORK_CODEC = StreamCodec.composite(ApicuriousCodecs.MONTH_DAY_STREAM_CODEC, DateCondition::from, ApicuriousCodecs.MONTH_DAY_STREAM_CODEC, DateCondition::to, DateCondition::new);
 
-  public static final MapCodec<DateCondition> CODEC =
-          RecordCodecBuilder.mapCodec(instance -> instance.group(
-                  ApicuriousCodecs.MONTH_DAY_CODEC.fieldOf("from").forGetter(DateCondition::from),
-                  ApicuriousCodecs.MONTH_DAY_CODEC.fieldOf("to").forGetter(DateCondition::to)
-          ).apply(instance, DateCondition::new));
+  public static final MapCodec<DateCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ApicuriousCodecs.MONTH_DAY_CODEC.fieldOf("from").forGetter(DateCondition::from), ApicuriousCodecs.MONTH_DAY_CODEC.fieldOf("to").forGetter(DateCondition::to)).apply(instance, DateCondition::new));
 
   @Override
   public ConditionType getConditionType()
@@ -56,13 +45,6 @@ public record DateCondition(MonthDay from, MonthDay to) implements ICondition
   @Override
   public Component getDisplayText()
   {
-    return Component.literal(
-            "- Date: %02d-%02d -> %02d-%02d".formatted(
-                    from.getMonthValue(),
-                    from.getDayOfMonth(),
-                    to.getMonthValue(),
-                    to.getDayOfMonth()
-            )
-    );
+    return Component.literal("- Date: %02d-%02d -> %02d-%02d".formatted(from.getMonthValue(), from.getDayOfMonth(), to.getMonthValue(), to.getDayOfMonth()));
   }
 }

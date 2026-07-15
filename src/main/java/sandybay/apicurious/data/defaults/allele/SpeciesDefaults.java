@@ -39,7 +39,8 @@ public class SpeciesDefaults
     VolcanicBranch.speciesDefaults(bootstrap);
   }
 
-  public static BeeSpecies.Builder getSpeciesBuilder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key, String name)
+  public static BeeSpecies.Builder getSpeciesBuilder(BootstrapContext<IAllele<?>> context, ResourceKey<IAllele<?>> key,
+                                                     String name)
   {
     return BeeSpecies.Builder.create(context, key, name);
   }

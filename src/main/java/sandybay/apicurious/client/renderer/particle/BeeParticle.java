@@ -20,32 +20,27 @@ import sandybay.apicurious.Apicurious;
 public class BeeParticle extends Particle
 {
   public static final ParticleRenderType BEE = new ParticleRenderType("BEE_PARTICLE", "BP");
-
-  private enum State {TO_FLOWER, CIRCLING, RETURNING}
-
+  private static final int MIN_DIP_INTERVAL = 30;
+  private static final int DIP_INTERVAL_RANGE = 50;
+  private static final int MIN_DIP_DURATION = 10;
+  private static final int DIP_DURATION_RANGE = 10;
   private final ItemModel model;
   private final ItemStack stack;
   private final BlockPos homePos;
   private final BlockPos flowerPos;
   private final AABB flowerAabb;
   private final double radiusMargin;
-
-  private static final int MIN_DIP_INTERVAL = 30;
-  private static final int DIP_INTERVAL_RANGE = 50;
-  private static final int MIN_DIP_DURATION = 10;
-  private static final int DIP_DURATION_RANGE = 10;
-
+  private final int maxCircleTicks;
   private BeeParticle.State state;
   private int circleTicks;
-  private final int maxCircleTicks;
   private double circleAngle;
-
   // Handles the periodic "dip in and touch the flower" motion while circling.
   private int ticksUntilNextDip;
   private int dipTicks;
   private int dipDuration;
 
-  public BeeParticle(ClientLevel level, double x, double y, double z, ItemStack stack, BlockPos homePos, BlockPos flowerPos)
+  public BeeParticle(ClientLevel level, double x, double y, double z, ItemStack stack, BlockPos homePos,
+                     BlockPos flowerPos)
   {
     super(level, x, y, z);
     this.stack = stack;
@@ -138,7 +133,7 @@ public class BeeParticle extends Particle
   private void tickFlyTo(Vec3 target, Runnable onArrive)
   {
     Vec3 current = new Vec3(this.x, this.y, this.z);
-    Vec3 delta =  target.subtract(current);
+    Vec3 delta = target.subtract(current);
     double dist = delta.length();
     if (dist < 0.15)
     {
@@ -147,27 +142,30 @@ public class BeeParticle extends Particle
     }
     double speed = Mth.clamp(dist * 0.1, 0.02, 0.18);
     Vec3 step = delta.normalize().scale(speed);
-    this.setPos(x + step.x,  y + step.y + getWobble(), z + step.z);
+    this.setPos(x + step.x, y + step.y + getWobble(), z + step.z);
     this.xd = step.x;
     this.yd = step.y;
     this.zd = step.z;
   }
 
-  private double circleX() {
+  private double circleX()
+  {
     AABB bounds = flowerBounds();
     double centerX = (bounds.minX + bounds.maxX) * 0.5;
     double radiusX = (bounds.getXsize() * 0.5 + radiusMargin) * dipFactor();
     return centerX + Math.cos(circleAngle) * radiusX;
   }
 
-  private double circleY() {
+  private double circleY()
+  {
     AABB bounds = flowerBounds();
     double hoverY = bounds.maxY + radiusMargin * 0.5 + (Math.sqrt(circleAngle * 2.0) * 0.08);
     double touchY = Mth.lerp(0.25, bounds.minY, bounds.maxY);
     return Mth.lerp(dipFactor(), touchY, hoverY);
   }
 
-  private double circleZ() {
+  private double circleZ()
+  {
     AABB bounds = flowerBounds();
     double centerZ = (bounds.minZ + bounds.maxZ) * 0.5;
     double radiusZ = (bounds.getZsize() * 0.5 + radiusMargin) * dipFactor();
@@ -207,7 +205,8 @@ public class BeeParticle extends Particle
     }
   }
 
-  private void tickCircle() {
+  private void tickCircle()
+  {
     circleAngle += 0.12;
     updateDipState();
     this.setPos(circleX(), circleY() + getWobble(), circleZ());
@@ -239,11 +238,15 @@ public class BeeParticle extends Particle
     return new Vec3(this.xo, this.yo, this.zo).lerp(this.getPos(), a);
   }
 
+  private enum State
+  {TO_FLOWER, CIRCLING, RETURNING}
+
   public static class Provider implements ParticleProvider<BeeParticleOption>
   {
 
     @Override
-    public @Nullable Particle createParticle(BeeParticleOption beeParticleOption, ClientLevel clientLevel, double x, double y, double z, double xd, double yd, double zd, RandomSource random)
+    public @Nullable Particle createParticle(BeeParticleOption beeParticleOption, ClientLevel clientLevel, double x,
+                                             double y, double z, double xd, double yd, double zd, RandomSource random)
     {
       return new BeeParticle(clientLevel, x, y, z, beeParticleOption.stack(), beeParticleOption.homePos(), beeParticleOption.flowerPos());
     }

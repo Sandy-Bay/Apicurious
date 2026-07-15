@@ -51,11 +51,10 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
   }
 
   @Override
-  public void draw(CentrifugeCategory.Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY)
+  public void draw(CentrifugeCategory.Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics,
+                   double mouseX, double mouseY)
   {
-    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54)
-            .setTextureSize(107, 54)
-            .build();
+    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/centrifuge.png"), 0, 0, 107, 54).setTextureSize(107, 54).build();
     background.draw(guiGraphics);
   }
 
@@ -72,7 +71,8 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
   }
 
   @Override
-  public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull CentrifugeCategory.Recipe recipe, @NotNull IFocusGroup focuses)
+  public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull CentrifugeCategory.Recipe recipe,
+                        @NotNull IFocusGroup focuses)
   {
     builder.addInputSlot(1, 17).add(recipe.input);
     int x = 52;
@@ -81,12 +81,10 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     int j = 0;
     for (CentrifugeRecipe.CentrifugeOutput output : recipe.output)
     {
-      builder.addOutputSlot(x + j * 18, y + i * 18)
-              .add(output.output().create())
-              .addRichTooltipCallback((view, tooltip) -> {
-                tooltip.add(Component.translatable("apicurious.condition.chance")
-                        .append(NumberFormat.getPercentInstance().format(output.chance())));
-              });
+      builder.addOutputSlot(x + j * 18, y + i * 18).add(output.output().create()).addRichTooltipCallback((view, tooltip) ->
+      {
+        tooltip.add(Component.translatable("apicurious.condition.chance").append(NumberFormat.getPercentInstance().format(output.chance())));
+      });
       j++;
       if (j == 3)
       {
@@ -106,5 +104,8 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
     return recipe.key.identifier();
   }
 
-  public record Recipe(ResourceKey<CentrifugeRecipe> key, ItemStack input, int duration, List<CentrifugeRecipe.CentrifugeOutput> output) {}
+  public record Recipe(ResourceKey<CentrifugeRecipe> key, ItemStack input, int duration,
+                       List<CentrifugeRecipe.CentrifugeOutput> output)
+  {
+  }
 }

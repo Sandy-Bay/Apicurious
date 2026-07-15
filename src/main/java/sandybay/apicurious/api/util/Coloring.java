@@ -1,5 +1,7 @@
 package sandybay.apicurious.api.util;
 
+import net.minecraft.util.ARGB;
+
 import java.util.Objects;
 
 public class Coloring
@@ -22,14 +24,20 @@ public class Coloring
 
   public int getIntColor()
   {
-    return this.color;
+    return ARGB.opaque(color);
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     Coloring coloring = (Coloring) o;
     return color == coloring.color;
   }

@@ -35,7 +35,9 @@ public class ProductionData
   private Fertility fertility;
   private Pollination pollination;
 
-  public ProductionData(Holder<IAllele<?>> lifespanHolder, Holder<IAllele<?>> workcycleHolder, Holder<IAllele<?>> areaHolder, Holder<IAllele<?>> speedHolder, Holder<IAllele<?>> fertilityHolder, Holder<IAllele<?>> pollinationHolder)
+  public ProductionData(Holder<IAllele<?>> lifespanHolder, Holder<IAllele<?>> workcycleHolder,
+                        Holder<IAllele<?>> areaHolder, Holder<IAllele<?>> speedHolder,
+                        Holder<IAllele<?>> fertilityHolder, Holder<IAllele<?>> pollinationHolder)
   {
     this.lifespanHolder = lifespanHolder;
     this.workcycleHolder = workcycleHolder;
@@ -58,7 +60,10 @@ public class ProductionData
 
   public Lifespan getLifespan()
   {
-    if (lifespan == null && lifespanHolder.isBound()) {lifespan = (Lifespan) lifespanHolder.value();}
+    if (lifespan == null && lifespanHolder.isBound())
+    {
+      lifespan = (Lifespan) lifespanHolder.value();
+    }
     return lifespan;
   }
 
@@ -69,7 +74,10 @@ public class ProductionData
 
   public Area getArea()
   {
-    if (area == null && areaHolder.isBound()) {area = (Area) areaHolder.value();}
+    if (area == null && areaHolder.isBound())
+    {
+      area = (Area) areaHolder.value();
+    }
     return area;
   }
 
@@ -80,7 +88,10 @@ public class ProductionData
 
   public Speed getSpeed()
   {
-    if (speed == null && speedHolder.isBound()) {speed = (Speed) speedHolder.value();}
+    if (speed == null && speedHolder.isBound())
+    {
+      speed = (Speed) speedHolder.value();
+    }
     return speed;
   }
 
@@ -91,7 +102,10 @@ public class ProductionData
 
   public Fertility getFertility()
   {
-    if (fertility == null && fertilityHolder.isBound()) {fertility = (Fertility) fertilityHolder.value();}
+    if (fertility == null && fertilityHolder.isBound())
+    {
+      fertility = (Fertility) fertilityHolder.value();
+    }
     return fertility;
   }
 
@@ -102,7 +116,10 @@ public class ProductionData
 
   public Pollination getPollination()
   {
-    if (pollination == null && pollinationHolder.isBound()) {pollination = (Pollination) pollinationHolder.value();}
+    if (pollination == null && pollinationHolder.isBound())
+    {
+      pollination = (Pollination) pollinationHolder.value();
+    }
     return pollination;
   }
 
@@ -113,15 +130,24 @@ public class ProductionData
 
   public Workcycle getWorkcycle()
   {
-    if (workcycle == null && workcycleHolder.isBound()) {workcycle = (Workcycle) workcycleHolder.value();}
+    if (workcycle == null && workcycleHolder.isBound())
+    {
+      workcycle = (Workcycle) workcycleHolder.value();
+    }
     return workcycle;
   }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     ProductionData that = (ProductionData) o;
     return Objects.equals(getLifespan(), that.getLifespan()) && Objects.equals(getWorkcycle(), that.getWorkcycle()) && Objects.equals(getArea(), that.getArea()) && Objects.equals(getSpeed(), that.getSpeed()) && Objects.equals(getFertility(), that.getFertility()) && Objects.equals(getPollination(), that.getPollination());
   }

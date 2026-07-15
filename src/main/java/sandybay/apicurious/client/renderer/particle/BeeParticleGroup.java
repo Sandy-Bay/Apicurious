@@ -26,7 +26,7 @@ public class BeeParticleGroup extends ParticleGroup<BeeParticle>
     List<BeeParticleRenderState.Entry> entries = new ArrayList<>();
     for (BeeParticle beeParticle : this.particles)
     {
-      PoseStack pose =  new PoseStack();
+      PoseStack pose = new PoseStack();
       // normalizes the location of the particle
       pose.translate(beeParticle.getRenderPos(v).subtract(camera.position()));
       // Ensures the particle is always facing the camera

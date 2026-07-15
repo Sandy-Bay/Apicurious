@@ -54,8 +54,14 @@ public class VisualData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     VisualData that = (VisualData) o;
     return hasEffect == that.hasEffect && hasCustomRender == that.hasCustomRender && Objects.equals(beeColor, that.beeColor);
   }

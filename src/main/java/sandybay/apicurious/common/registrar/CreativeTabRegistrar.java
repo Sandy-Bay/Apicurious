@@ -58,8 +58,14 @@ public class CreativeTabRegistrar
         ResourceKey<IAllele<?>> rl = allele.key();
         if (rl.identifier().getPath().contains("species/"))
         {
-          if (rl.identifier().getPath().equals("undefined")) {return;}
-          if (rl.identifier().getPath().equals("debug") && !ApicuriousMainConfig.main_config.debug.get()) {return;}
+          if (rl.identifier().getPath().equals("undefined"))
+          {
+            return;
+          }
+          if (rl.identifier().getPath().equals("debug") && !ApicuriousMainConfig.main_config.debug.get())
+          {
+            return;
+          }
           List<ItemStack> bees = List.of(new ItemStack(ItemRegistrar.QUEEN.item()), new ItemStack(ItemRegistrar.PRINCESS.item()), new ItemStack(ItemRegistrar.DRONE.item()));
           BeeSpecies species = (BeeSpecies) allele.value();
           bees.forEach(stack ->

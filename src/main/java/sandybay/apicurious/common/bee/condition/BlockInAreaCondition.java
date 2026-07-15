@@ -35,9 +35,14 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block)) {return false;}
+    if (level == null || !(housing.getBlockState().getBlock() instanceof BaseHousingBlock block))
+    {
+      return false;
+    }
     if (housing.territory == null)
-    {housing.territory = block.getTerritory(housing.getInventory().getResource(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));}
+    {
+      housing.territory = block.getTerritory(housing.getInventory().getResource(0), housing.getBlockPos(), SimpleBlockHousingHelper.getFrames(housing));
+    }
     return housing.territory.stream().anyMatch(pos -> blocks.contains(level.getBlockState(pos).typeHolder()));
   }
 
@@ -45,11 +50,7 @@ public record BlockInAreaCondition(HolderSet<Block> blocks) implements IConditio
   public Component getDisplayText()
   {
     // Implemented: list the resource locations of the required blocks.
-    String blockList = blocks().stream()
-            .map(holder -> holder.unwrapKey()
-                    .map(key -> key.identifier().toString())
-                    .orElse("unknown"))
-            .collect(Collectors.joining(", "));
+    String blockList = blocks().stream().map(holder -> holder.unwrapKey().map(key -> key.identifier().toString()).orElse("unknown")).collect(Collectors.joining(", "));
     return Component.translatable("apicurious.condition.block_in_area", blockList);
   }
 }

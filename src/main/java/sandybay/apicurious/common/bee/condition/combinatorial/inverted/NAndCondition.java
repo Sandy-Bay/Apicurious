@@ -16,16 +16,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record NAndCondition(Holder<ICondition> first, Holder<ICondition> second) implements ICondition
 {
-  public static final MapCodec<NAndCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-          RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("first").forGetter(NAndCondition::first),
-          RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("second").forGetter(NAndCondition::second)
-  ).apply(instance, NAndCondition::new));
+  public static final MapCodec<NAndCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("first").forGetter(NAndCondition::first), RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("second").forGetter(NAndCondition::second)).apply(instance, NAndCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, NAndCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), NAndCondition::first,
-          ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), NAndCondition::second,
-          NAndCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, NAndCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), NAndCondition::first, ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), NAndCondition::second, NAndCondition::new);
 
   @Override
   public ConditionType getConditionType()

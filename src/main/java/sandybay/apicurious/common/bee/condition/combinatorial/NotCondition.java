@@ -16,15 +16,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record NotCondition(Holder<ICondition> condition) implements ICondition
 {
-  public static final MapCodec<NotCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-          RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("condition").forGetter(NotCondition::condition)
-  ).apply(instance, NotCondition::new));
+  public static final MapCodec<NotCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("condition").forGetter(NotCondition::condition)).apply(instance, NotCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, NotCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(
-          ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC),
-          NotCondition::condition,
-          NotCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, NotCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), NotCondition::condition, NotCondition::new);
 
   @Override
   public ConditionType getConditionType()

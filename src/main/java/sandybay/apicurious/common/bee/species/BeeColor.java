@@ -71,8 +71,14 @@ public class BeeColor implements IBeeColor
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     BeeColor beeColor = (BeeColor) o;
     return Objects.equals(outlineTint, beeColor.outlineTint) && Objects.equals(wingTint, beeColor.wingTint) && Objects.equals(bodyTint, beeColor.bodyTint);
   }

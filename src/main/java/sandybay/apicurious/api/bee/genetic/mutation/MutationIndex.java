@@ -14,7 +14,9 @@ final class MutationIndex
 {
   private static final Map<Registry<IMutation>, Map<Holder<IAllele<?>>, List<IMutation>>> CACHE = new WeakHashMap<>();
 
-  private MutationIndex() {}
+  private MutationIndex()
+  {
+  }
 
   static List<IMutation> candidatesFor(Registry<IMutation> mutations, Registry<IAllele<?>> alleles,
                                        Holder<IAllele<?>> first, Holder<IAllele<?>> second)
@@ -23,20 +25,28 @@ final class MutationIndex
 
     List<IMutation> forFirst = index.getOrDefault(first, List.of());
     List<IMutation> forSecond = index.getOrDefault(second, List.of());
-    if (forFirst.isEmpty()) {return forSecond;}
-    if (forSecond.isEmpty()) {return forFirst;}
+    if (forFirst.isEmpty())
+    {
+      return forSecond;
+    }
+    if (forSecond.isEmpty())
+    {
+      return forFirst;
+    }
     return Stream.concat(forFirst.stream(), forSecond.stream()).distinct().toList();
   }
 
-  private static Map<Holder<IAllele<?>>, List<IMutation>> build(Registry<IMutation> mutations, Registry<IAllele<?>> alleles)
+  private static Map<Holder<IAllele<?>>, List<IMutation>> build(Registry<IMutation> mutations,
+                                                                Registry<IAllele<?>> alleles)
   {
     Map<Holder<IAllele<?>>, List<IMutation>> index = new HashMap<>();
     for (Holder.Reference<IAllele<?>> allele : alleles.listElements().toList())
     {
-      List<IMutation> matching = mutations.stream()
-              .filter(mutation -> mutation.first().contains(allele) || mutation.second().contains(allele))
-              .toList();
-      if (!matching.isEmpty()) {index.put(allele, matching);}
+      List<IMutation> matching = mutations.stream().filter(mutation -> mutation.first().contains(allele) || mutation.second().contains(allele)).toList();
+      if (!matching.isEmpty())
+      {
+        index.put(allele, matching);
+      }
     }
     return index;
   }

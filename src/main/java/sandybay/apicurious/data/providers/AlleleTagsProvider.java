@@ -17,7 +17,8 @@ public abstract class AlleleTagsProvider extends TagsProvider<IAllele<?>>
     super(pOutput, ApicuriousRegistries.ALLELES, pLookupProvider, Apicurious.MODID);
   }
 
-  public AlleleTagsProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider, CompletableFuture<TagLookup<IAllele<?>>> pParentProvider)
+  public AlleleTagsProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider,
+                            CompletableFuture<TagLookup<IAllele<?>>> pParentProvider)
   {
     super(pOutput, ApicuriousRegistries.ALLELES, pLookupProvider, pParentProvider, Apicurious.MODID);
   }

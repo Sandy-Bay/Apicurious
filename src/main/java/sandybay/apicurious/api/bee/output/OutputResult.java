@@ -31,7 +31,9 @@ public record OutputResult(ItemStackTemplate output)
   {
     private ItemStackTemplate stack;
 
-    private Builder() {}
+    private Builder()
+    {
+    }
 
     public Builder withItemstack(ItemStackTemplate stack)
     {

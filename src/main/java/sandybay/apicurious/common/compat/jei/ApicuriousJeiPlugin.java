@@ -79,7 +79,10 @@ public class ApicuriousJeiPlugin implements IModPlugin
       @Override
       public @Nullable Object getSubtypeData(ItemStack stack, UidContext context)
       {
-        if (stack.isEmpty() || !stack.has(DataComponentRegistrar.GENOME)) return null;
+        if (stack.isEmpty() || !stack.has(DataComponentRegistrar.GENOME))
+        {
+          return null;
+        }
         return stack.get(DataComponentRegistrar.GENOME);
       }
     };
@@ -120,18 +123,21 @@ public class ApicuriousJeiPlugin implements IModPlugin
   private void removeDebugAndUndefinedBeesFromIngredientList()
   {
     ClientLevel level = Minecraft.getInstance().level;
-    if (level == null || jeiHelpers == null) return;
-    jeiHelpers.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, List.of(
-            BeeItem.getBeeWithSpecies(level, ApicuriousSpecies.DEBUG.species(), ItemRegistrar.QUEEN.item()),
-            BeeItem.getBeeWithSpecies(level, ApicuriousSpecies.UNDEFINED.species(), ItemRegistrar.QUEEN.item())
-    ));
+    if (level == null || jeiHelpers == null)
+    {
+      return;
+    }
+    jeiHelpers.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, List.of(BeeItem.getBeeWithSpecies(level, ApicuriousSpecies.DEBUG.species(), ItemRegistrar.QUEEN.item()), BeeItem.getBeeWithSpecies(level, ApicuriousSpecies.UNDEFINED.species(), ItemRegistrar.QUEEN.item())));
   }
 
   private List<BeeMutationCategory.Recipe> getBeeMutationRecipes()
   {
     List<BeeMutationCategory.Recipe> recipes = new ArrayList<>();
     ClientLevel level = Minecraft.getInstance().level;
-    if (level == null) return recipes;
+    if (level == null)
+    {
+      return recipes;
+    }
     Registry<IMutation> mutations = level.registryAccess().lookupOrThrow(ApicuriousRegistries.MUTATIONS);
     for (Map.Entry<ResourceKey<IMutation>, IMutation> mutation : mutations.entrySet().stream().toList())
     {
@@ -188,7 +194,10 @@ public class ApicuriousJeiPlugin implements IModPlugin
   {
     List<CentrifugeCategory.Recipe> recipes = new ArrayList<>();
     ClientLevel level = Minecraft.getInstance().level;
-    if (level == null) return recipes;
+    if (level == null)
+    {
+      return recipes;
+    }
     Registry<CentrifugeRecipe> recipeRegistry = level.registryAccess().lookupOrThrow(ApicuriousRegistries.CENTRIFUGE_RECIPES);
     recipeRegistry.entrySet().forEach(recipe ->
     {
@@ -202,7 +211,10 @@ public class ApicuriousJeiPlugin implements IModPlugin
   {
     List<BeeOutputCategory.Recipe> recipes = new ArrayList<>();
     ClientLevel level = Minecraft.getInstance().level;
-    if (level == null) return recipes;
+    if (level == null)
+    {
+      return recipes;
+    }
     Registry<IAllele<?>> alleles = level.registryAccess().lookupOrThrow(ApicuriousRegistries.ALLELES);
     alleles.entrySet().stream().filter(allele ->
     {

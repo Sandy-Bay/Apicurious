@@ -16,7 +16,10 @@ public class SimpleBlockHousingHelper
   {
     ItemResource stack = housing.getInventory().getResource(slot);
     Genome genome = stack.get(DataComponentRegistrar.GENOME);
-    if (genome == null) {return null;}
+    if (genome == null)
+    {
+      return null;
+    }
     return genome.getSpecies(active);
   }
 

@@ -41,7 +41,10 @@ public class AnalyzerMenu extends AbstractContainerMenu
    */
   private static final IdentificationListener listener = new IdentificationListener((menu, slot, stack) ->
   {
-    if (!(slot == BEE_SLOT || slot == HONEY_SLOT)) {return false;}
+    if (!(slot == BEE_SLOT || slot == HONEY_SLOT))
+    {
+      return false;
+    }
     ItemStack s1 = menu.getSlot(BEE_SLOT).getItem();
     ItemStack s2 = menu.getSlot(HONEY_SLOT).getItem();
 
@@ -50,7 +53,10 @@ public class AnalyzerMenu extends AbstractContainerMenu
     {
       return false;
     }
-    if (Boolean.TRUE.equals(s1.get(DataComponentRegistrar.IDENTIFIED))) {return false;}
+    if (Boolean.TRUE.equals(s1.get(DataComponentRegistrar.IDENTIFIED)))
+    {
+      return false;
+    }
 
     s2.shrink(1);
     s1.set(DataComponentRegistrar.IDENTIFIED, true);
@@ -81,17 +87,8 @@ public class AnalyzerMenu extends AbstractContainerMenu
     this(containerId, playerInventory, access, analyzerSlot, validate(playerInventory, analyzerSlot));
   }
 
-  private static ItemStacksResourceHandler validate(Inventory playerInventory, int analyzerSlot)
-  {
-    ItemStack analyzer = playerInventory.getItem(analyzerSlot);
-    if (!(analyzer.getItem() instanceof BeeAnalyzerItem)) throw new IllegalArgumentException("Item was not Analyzer Item!");
-
-    ItemStacksResourceHandler capability = (ItemStacksResourceHandler) analyzer.getCapability(Capabilities.Item.ITEM, null);
-    if (capability == null) throw new IllegalStateException("Analyzer Item had no ItemStacksResourceHandler capability!");
-    return capability;
-  }
-
-  private AnalyzerMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, int analyzerSlot, ItemStacksResourceHandler capability)
+  private AnalyzerMenu(int containerId, Inventory playerInventory, ContainerLevelAccess access, int analyzerSlot,
+                       ItemStacksResourceHandler capability)
   {
     super(MenuRegistrar.ANALYZER.get(), containerId);
     this.access = access;
@@ -105,6 +102,22 @@ public class AnalyzerMenu extends AbstractContainerMenu
     addInventorySlots(playerInventory);  // 2-28
     addHotbarSlots(playerInventory);     // 29-37
     this.addSlotListener(listener);
+  }
+
+  private static ItemStacksResourceHandler validate(Inventory playerInventory, int analyzerSlot)
+  {
+    ItemStack analyzer = playerInventory.getItem(analyzerSlot);
+    if (!(analyzer.getItem() instanceof BeeAnalyzerItem))
+    {
+      throw new IllegalArgumentException("Item was not Analyzer Item!");
+    }
+
+    ItemStacksResourceHandler capability = (ItemStacksResourceHandler) analyzer.getCapability(Capabilities.Item.ITEM, null);
+    if (capability == null)
+    {
+      throw new IllegalStateException("Analyzer Item had no ItemStacksResourceHandler capability!");
+    }
+    return capability;
   }
 
   /**
@@ -123,9 +136,25 @@ public class AnalyzerMenu extends AbstractContainerMenu
     return INVENTORY_START + (playerInventoryIndex - PLAYER_HOTBAR_SIZE);
   }
 
+  private static void returnOrDrop(Player player, ItemStack stack)
+  {
+    if (stack.isEmpty())
+    {
+      return;
+    }
+
+    boolean fullyAdded = player.getInventory().add(stack);
+    if (!fullyAdded || !stack.isEmpty())
+    {
+      player.drop(stack, false);
+    }
+  }
+
   private void addAnalyzerSlots(ItemStacksResourceHandler inventory)
   {
-    this.addSlot(new ResourceHandlerSlot(inventory, inventory::set, BEE_SLOT, 90, 111) {});
+    this.addSlot(new ResourceHandlerSlot(inventory, inventory::set, BEE_SLOT, 90, 111)
+    {
+    });
     this.addSlot(new ResourceHandlerSlot(inventory, inventory::set, HONEY_SLOT, 126, 111));
   }
 
@@ -227,23 +256,13 @@ public class AnalyzerMenu extends AbstractContainerMenu
     super.removed(player);
   }
 
-  private static void returnOrDrop(Player player, ItemStack stack)
-  {
-    if (stack.isEmpty()) {return;}
-
-    boolean fullyAdded = player.getInventory().add(stack);
-    if (!fullyAdded || !stack.isEmpty())
-    {
-      player.drop(stack, false);
-    }
-  }
-
   public static class IdentificationListener implements ContainerListener
   {
     public TriFunction<AbstractContainerMenu, Integer, ItemStack, Boolean> slotChanged;
     public TriFunction<AbstractContainerMenu, Integer, Integer, Boolean> dataChanged;
 
-    public IdentificationListener(TriFunction<AbstractContainerMenu, Integer, ItemStack, Boolean> slotChanged, TriFunction<AbstractContainerMenu, Integer, Integer, Boolean> dataChanged)
+    public IdentificationListener(TriFunction<AbstractContainerMenu, Integer, ItemStack, Boolean> slotChanged,
+                                  TriFunction<AbstractContainerMenu, Integer, Integer, Boolean> dataChanged)
     {
       this.slotChanged = slotChanged;
       this.dataChanged = dataChanged;

@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.animal.bee.Bee;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +64,8 @@ public class AnalyzerScreen extends AbstractContainerScreen<@NotNull AnalyzerMen
 
   @Override
   protected void extractLabels(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY)
-  {}
+  {
+  }
 
   @Override
   public void extractBackground(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pPartialTick)
@@ -95,20 +95,23 @@ public class AnalyzerScreen extends AbstractContainerScreen<@NotNull AnalyzerMen
 
   private void drawInformation(GuiGraphicsExtractor graphics, int x, int y, Genome genome, boolean active)
   {
-    if (genome == null) {return;}
+    if (genome == null)
+    {
+      return;
+    }
     IAllele<?> speciesValue = genome.getSpecies(active).value();
     BeeSpecies species = speciesValue instanceof BeeSpecies bs ? bs : null;
 
     switch (this.currentPage)
     {
       case 0:
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.species").withStyle(ChatFormatting.WHITE).append(genome.getSpecies(active).value().getReadableName()), x, x+85, y + 19);
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.lifespan").withStyle(ChatFormatting.WHITE).append(genome.getLifespan(active).value().getReadableName()), x, x+95, y + 29);
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.production").withStyle(ChatFormatting.WHITE).append(genome.getSpeed(active).value().getReadableName()), x, x+100, y + 39);
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.pollination").withStyle(ChatFormatting.WHITE).append(genome.getPollination(active).value().getReadableName()), x, x+95, y + 49);
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.flowers").withStyle(ChatFormatting.WHITE).append(genome.getFlowers(active).value().getReadableName()), x, x+95, y + 59);
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.fertility").withStyle(ChatFormatting.WHITE).append(genome.getFertility(active).value().getReadableName()), x, x+95, y + 69);
-        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.territory").withStyle(ChatFormatting.WHITE).append(genome.getArea(active).value().getReadableName()), x, x+95, y + 79);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.species").withStyle(ChatFormatting.WHITE).append(genome.getSpecies(active).value().getReadableName()), x, x + 85, y + 19);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.lifespan").withStyle(ChatFormatting.WHITE).append(genome.getLifespan(active).value().getReadableName()), x, x + 95, y + 29);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.production").withStyle(ChatFormatting.WHITE).append(genome.getSpeed(active).value().getReadableName()), x, x + 100, y + 39);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.pollination").withStyle(ChatFormatting.WHITE).append(genome.getPollination(active).value().getReadableName()), x, x + 95, y + 49);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.flowers").withStyle(ChatFormatting.WHITE).append(genome.getFlowers(active).value().getReadableName()), x, x + 95, y + 59);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.fertility").withStyle(ChatFormatting.WHITE).append(genome.getFertility(active).value().getReadableName()), x, x + 95, y + 69);
+        graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.territory").withStyle(ChatFormatting.WHITE).append(genome.getArea(active).value().getReadableName()), x, x + 95, y + 79);
         graphics.drawScrollingString(graphics.textRenderer(), this.font, Component.translatable("apicurious.tooltip.effect").withStyle(ChatFormatting.WHITE).append("NYI"), x, y + 89, 0);
         break;
       case 1:

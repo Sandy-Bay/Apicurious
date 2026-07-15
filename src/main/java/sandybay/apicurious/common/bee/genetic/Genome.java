@@ -15,7 +15,6 @@ import sandybay.apicurious.api.bee.genetic.allele.AlleleType;
 import sandybay.apicurious.api.bee.genetic.allele.IAllele;
 import sandybay.apicurious.api.register.AlleleTypeRegistrar;
 import sandybay.apicurious.api.util.GeneticHelper;
-import sandybay.apicurious.common.bee.species.BeeSpecies;
 
 import java.util.*;
 
@@ -109,9 +108,7 @@ public class Genome implements IGenome
     IAllele<?> value = species.value();
     if (!(value instanceof IDefaultGenomeProvider provider))
     {
-      throw new IllegalArgumentException(
-              "Expected holder " + species.getRegisteredName() + " to implement IDefaultGenomeProvider, but found " +
-                      value.getClass().getSimpleName() + " instead. Cannot build a default genome from this allele.");
+      throw new IllegalArgumentException("Expected holder " + species.getRegisteredName() + " to implement IDefaultGenomeProvider, but found " + value.getClass().getSimpleName() + " instead. Cannot build a default genome from this allele.");
     }
 
     Map<AlleleType<? extends IAllele<?>>, Genotype> updated = new HashMap<>(this.genome);
@@ -139,26 +136,79 @@ public class Genome implements IGenome
     return active ? genotype.getActive() : genotype.getInactive();
   }
 
-  public Holder<IAllele<?>> getSpecies(boolean active) { return getTrait(AlleleTypeRegistrar.SPECIES_TYPE.get(), active); }
-  public Holder<IAllele<?>> getArea(boolean active) { return getTrait(AlleleTypeRegistrar.AREA_TYPE.get(), active); }
-  public Holder<IAllele<?>> getFertility(boolean active) { return getTrait(AlleleTypeRegistrar.FERTILITY_TYPE.get(), active); }
-  public Holder<IAllele<?>> getFlowers(boolean active) { return getTrait(AlleleTypeRegistrar.FLOWERS_TYPE.get(), active); }
-  public Holder<IAllele<?>> getHumidityPreference(boolean active) { return getTrait(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get(), active); }
-  public Holder<IAllele<?>> getHumidityTolerance(boolean active) { return getTrait(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(), active); }
-  public Holder<IAllele<?>> getLifespan(boolean active) { return getTrait(AlleleTypeRegistrar.LIFESPAN_TYPE.get(), active); }
-  public Holder<IAllele<?>> getPollination(boolean active) { return getTrait(AlleleTypeRegistrar.POLLINATION_TYPE.get(), active); }
-  public Holder<IAllele<?>> getSpeed(boolean active) { return getTrait(AlleleTypeRegistrar.SPEED_TYPE.get(), active); }
-  public Holder<IAllele<?>> getTemperaturePreference(boolean active) { return getTrait(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get(), active); }
-  public Holder<IAllele<?>> getTemperatureTolerance(boolean active) { return getTrait(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get(), active); }
-  public Holder<IAllele<?>> getWorkcycle(boolean active) { return getTrait(AlleleTypeRegistrar.WORKCYCLE_TYPE.get(), active); }
+  public Holder<IAllele<?>> getSpecies(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.SPECIES_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getArea(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.AREA_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getFertility(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.FERTILITY_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getFlowers(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.FLOWERS_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getHumidityPreference(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.HUMIDITY_PREFERENCE_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getHumidityTolerance(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getLifespan(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.LIFESPAN_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getPollination(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.POLLINATION_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getSpeed(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.SPEED_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getTemperaturePreference(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.TEMPERATURE_PREFERENCE_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getTemperatureTolerance(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.TEMPERATURE_TOLERANCE_TYPE.get(), active);
+  }
+
+  public Holder<IAllele<?>> getWorkcycle(boolean active)
+  {
+    return getTrait(AlleleTypeRegistrar.WORKCYCLE_TYPE.get(), active);
+  }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    Genome genome1 = (Genome) o;
-    return Objects.equals(genome, genome1.genome);
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
+    Genome other = (Genome) o;
+    return Objects.equals(genome, other.genome);
   }
 
   @Override
@@ -167,4 +217,8 @@ public class Genome implements IGenome
     return Objects.hash(genome);
   }
 
+  public Genome copy()
+  {
+    return new Genome(this.genome);
+  }
 }

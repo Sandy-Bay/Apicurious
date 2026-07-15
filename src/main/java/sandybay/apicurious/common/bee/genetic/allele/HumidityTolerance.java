@@ -25,17 +25,9 @@ public class HumidityTolerance extends AbstractAllele<HumidityTolerance>
   public static final ResourceKey<IAllele<?>> HIGH_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/high"));
   public static final ResourceKey<IAllele<?>> MAXIMUM_TOLERANCE = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("humidity/tolerance/maximum"));
 
-  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-          Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier),
-          Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait),
-          Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)
-  ).apply(instance, HumidityTolerance::new));
+  public static final MapCodec<HumidityTolerance> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("toleranceModifier").forGetter(HumidityTolerance::getToleranceModifier), Codec.BOOL.fieldOf("isDominantTrait").forGetter(HumidityTolerance::isDominantTrait), Codec.STRING.fieldOf("humidityTolerance").forGetter(HumidityTolerance::getName)).apply(instance, HumidityTolerance::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier,
-          ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName,
-          HumidityTolerance::new);
+  public static final StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, HumidityTolerance::getToleranceModifier, ByteBufCodecs.BOOL, HumidityTolerance::isDominantTrait, ByteBufCodecs.STRING_UTF8, HumidityTolerance::getName, HumidityTolerance::new);
 
   private final int toleranceModifier;
 
@@ -45,13 +37,22 @@ public class HumidityTolerance extends AbstractAllele<HumidityTolerance>
     this.toleranceModifier = toleranceModifier;
   }
 
-  public int getToleranceModifier() { return toleranceModifier; }
+  public int getToleranceModifier()
+  {
+    return toleranceModifier;
+  }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (!super.equals(o)) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (!super.equals(o))
+    {
+      return false;
+    }
     HumidityTolerance that = (HumidityTolerance) o;
     return toleranceModifier == that.toleranceModifier;
   }
@@ -63,11 +64,20 @@ public class HumidityTolerance extends AbstractAllele<HumidityTolerance>
   }
 
   @Override
-  public MapCodec<HumidityTolerance> getCodec() { return CODEC; }
+  public MapCodec<HumidityTolerance> getCodec()
+  {
+    return CODEC;
+  }
 
   @Override
-  public StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> getStreamCodec() { return NETWORK_CODEC; }
+  public StreamCodec<RegistryFriendlyByteBuf, HumidityTolerance> getStreamCodec()
+  {
+    return NETWORK_CODEC;
+  }
 
   @Override
-  public AlleleType<HumidityTolerance> getTraitKey() { return AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get(); }
+  public AlleleType<HumidityTolerance> getTraitKey()
+  {
+    return AlleleTypeRegistrar.HUMIDITY_TOLERANCE_TYPE.get();
+  }
 }

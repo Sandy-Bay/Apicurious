@@ -29,16 +29,21 @@ public interface IMutation
 
   default boolean matchesSpeciesPair(Holder<IAllele<?>> firstParent, Holder<IAllele<?>> secondParent)
   {
-    return first().contains(firstParent) && second().contains(secondParent)
-            || first().contains(secondParent) && second().contains(firstParent);
+    return first().contains(firstParent) && second().contains(secondParent) || first().contains(secondParent) && second().contains(firstParent);
   }
 
   default boolean matches(SimpleBlockHousingBE housing)
   {
-    if (housing.getLevel() == null) {return false;}
+    if (housing.getLevel() == null)
+    {
+      return false;
+    }
     Holder<IAllele<?>> first = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 0, true);
     Holder<IAllele<?>> second = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 1, true);
-    if (first == null || second == null || first.is(second)) {return false;}
+    if (first == null || second == null || first.is(second))
+    {
+      return false;
+    }
     return matchesSpeciesPair(first, second);
   }
 
@@ -61,7 +66,10 @@ public interface IMutation
     float mutationChance = baseChance;
     for (ItemResource frame : frames)
     {
-      if (frame.isEmpty()) {continue;}
+      if (frame.isEmpty())
+      {
+        continue;
+      }
       IFrameItem item = (IFrameItem) frame.getItem();
       mutationChance = Math.clamp(mutationChance * item.getMutationChanceModifier(), 0.0f, 1.0f);
     }

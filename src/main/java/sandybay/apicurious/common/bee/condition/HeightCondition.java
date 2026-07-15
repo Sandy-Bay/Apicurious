@@ -33,8 +33,6 @@ public record HeightCondition(int yHeight, boolean above) implements ICondition
   @Override
   public Component getDisplayText()
   {
-    return above
-            ? Component.literal("Check if Y >= " + yHeight)
-            : Component.literal("Check if Y <= " + yHeight);
+    return above ? Component.literal("Check if Y >= " + yHeight) : Component.literal("Check if Y <= " + yHeight);
   }
 }

@@ -71,7 +71,8 @@ public class CentrifugeRecipeDefaults
     recipe(bootstrap, ItemRegistrar.MUCOUS_COMB, builder -> builder.withOutput(ItemRegistrar.HONEY_DROP.drop(), 0.75f).withOutput(Items.SLIME_BALL, 0.75f).withOutput(ItemRegistrar.BEESWAX.item(), 1f));
   }
 
-  public static void recipe(BootstrapContext<CentrifugeRecipe> bootstrap, ItemRegistrar.CombHolder holder, Consumer<CentrifugeRecipe.Builder> consumer)
+  public static void recipe(BootstrapContext<CentrifugeRecipe> bootstrap, ItemRegistrar.CombHolder holder,
+                            Consumer<CentrifugeRecipe.Builder> consumer)
   {
     CentrifugeRecipe.Builder builder = CentrifugeRecipe.recipe(holder.comb());
     consumer.accept(builder);

@@ -6,8 +6,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import sandybay.apicurious.common.worldgen.feature.config.GroundHiveConfiguration;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.common.worldgen.feature.config.GroundHiveConfiguration;
 
 public class GroundHiveFeature extends Feature<GroundHiveConfiguration>
 {

@@ -18,11 +18,7 @@ public record CombItemTinter(boolean isOutline) implements ItemTintSource
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
   {
-    if (stack.getItem() instanceof CombItem comb)
-    {
-      return isOutline() ? ARGB.opaque(comb.getOutline().getIntColor()) : ARGB.opaque(comb.getCells().getIntColor());
-    }
-    return ARGB.opaque(0xFFFFFFFF);
+    return stack.getItem() instanceof CombItem comb ? isOutline() ? ARGB.opaque(comb.getOutline().getIntColor()) : ARGB.opaque(comb.getCells().getIntColor()) : ARGB.opaque(0xFFFFFFFF);
   }
 
   @Override

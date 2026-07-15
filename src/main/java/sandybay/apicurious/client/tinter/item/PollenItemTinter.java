@@ -18,11 +18,7 @@ public record PollenItemTinter(boolean isHighLight) implements ItemTintSource
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
   {
-    if (stack.getItem() instanceof PollenItem pollenItem)
-    {
-      return isHighLight() ? ARGB.opaque(pollenItem.getPollenTint().getIntColor()) : ARGB.opaque(pollenItem.getPollenHighlight().getIntColor());
-    }
-    return ARGB.opaque(0xFFFFFFFF);
+    return stack.getItem() instanceof PollenItem pollenItem ? isHighLight() ? ARGB.opaque(pollenItem.getPollenTint().getIntColor()) : ARGB.opaque(pollenItem.getPollenHighlight().getIntColor()) : ARGB.opaque(0xFFFFFFFF);
   }
 
   @Override

@@ -29,7 +29,8 @@ public class EnvironmentalData
   private final boolean ignoresSky;
   private Flowers flowers;
 
-  private EnvironmentalData(Holder<IAllele<?>> flowersHolder, HumidityData humidityData, TemperatureData temperatureData, boolean ignoresRain, boolean ignoresSky)
+  private EnvironmentalData(Holder<IAllele<?>> flowersHolder, HumidityData humidityData,
+                            TemperatureData temperatureData, boolean ignoresRain, boolean ignoresSky)
   {
     this.flowersHolder = flowersHolder;
     this.humidityData = humidityData;
@@ -51,7 +52,10 @@ public class EnvironmentalData
 
   public Flowers getFlowers()
   {
-    if (flowers == null && flowersHolder.isBound()) {flowers = (Flowers) flowersHolder.value();}
+    if (flowers == null && flowersHolder.isBound())
+    {
+      flowers = (Flowers) flowersHolder.value();
+    }
     return flowers;
   }
 
@@ -78,8 +82,14 @@ public class EnvironmentalData
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     EnvironmentalData that = (EnvironmentalData) o;
     return ignoresRain == that.ignoresRain && ignoresSky == that.ignoresSky && Objects.equals(flowersHolder, that.flowersHolder) && Objects.equals(humidityData, that.humidityData) && Objects.equals(temperatureData, that.temperatureData);
   }

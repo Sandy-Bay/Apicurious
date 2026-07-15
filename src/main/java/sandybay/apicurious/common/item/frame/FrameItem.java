@@ -13,7 +13,8 @@ public class FrameItem extends Item implements IFrameItem
   private final float additionalPrincessModifier;
   private final TerritoryModifier territoryModifier;
 
-  public FrameItem(Properties pProperties, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier, TerritoryModifier territoryModifier)
+  public FrameItem(Properties pProperties, float lifespanModifier, float productionModifier, float mutationModifier,
+                   float additionalPrincessModifier, TerritoryModifier territoryModifier)
   {
     super(pProperties);
     this.lifespanModifier = lifespanModifier;

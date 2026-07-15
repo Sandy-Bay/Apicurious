@@ -31,7 +31,10 @@ public record ChanceCondition(float chance) implements ICondition
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) {return false;}
+    if (level == null)
+    {
+      return false;
+    }
     return level.getRandom().nextFloat() < chance();
   }
 

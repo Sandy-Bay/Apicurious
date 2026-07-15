@@ -159,7 +159,8 @@ public class ItemRegistrar
     ITEMS.register(bus);
   }
 
-  public static ItemHolder bee(String name, EnumBeeType beeType, Item.Properties props, BiFunction<Item.Properties, EnumBeeType, BeeItem> func)
+  public static ItemHolder bee(String name, EnumBeeType beeType, Item.Properties props,
+                               BiFunction<Item.Properties, EnumBeeType, BeeItem> func)
   {
     ResourceKey<Item> itemKey = create(name);
     DeferredHolder<Item, Item> bee = ITEMS.register(name, () -> func.apply(props.setId(itemKey), beeType));
@@ -210,7 +211,8 @@ public class ItemRegistrar
     return pollen(name, pollenTint, pollenHighlight, new Item.Properties());
   }
 
-  public static PollenHolder pollen(String name, Coloring pollenTint, Coloring pollenHighlight, Item.Properties properties)
+  public static PollenHolder pollen(String name, Coloring pollenTint, Coloring pollenHighlight,
+                                    Item.Properties properties)
   {
     ResourceKey<Item> itemKey = create(name);
     DeferredHolder<Item, PollenItem> product = ITEMS.register(name, () -> new PollenItem(properties.setId(itemKey), pollenTint, pollenHighlight));
@@ -231,7 +233,8 @@ public class ItemRegistrar
     return new FrameHolder(frameKey, frame);
   }
 
-  public static FrameHolder frame(String name, int durability, float lifespanModifier, float productionModifier, float mutationModifier, float additionalPrincessModifier)
+  public static FrameHolder frame(String name, int durability, float lifespanModifier, float productionModifier,
+                                  float mutationModifier, float additionalPrincessModifier)
   {
     ResourceKey<Item> itemKey = create(name + "_frame");
     DeferredHolder<Item, FrameItem> frame = ITEMS.register(name + "_frame", () -> new FrameItem(new Item.Properties().stacksTo(1).setId(itemKey).durability(durability), lifespanModifier, productionModifier, mutationModifier, additionalPrincessModifier, new TerritoryModifier(xz -> xz, y -> y)));
@@ -269,16 +272,28 @@ public class ItemRegistrar
     return ResourceKey.create(Registries.ITEM, Apicurious.createIdentifier(id));
   }
 
-  public record ItemHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, Item> item) {}
+  public record ItemHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, Item> item)
+  {
+  }
 
   public record CombHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, CombItem> comb,
-                           ResourceKey<CentrifugeRecipe> recipe) {}
+                           ResourceKey<CentrifugeRecipe> recipe)
+  {
+  }
 
-  public record DropHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, DropItem> drop) {}
+  public record DropHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, DropItem> drop)
+  {
+  }
 
-  public record FrameHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, FrameItem> frame) {}
+  public record FrameHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, FrameItem> frame)
+  {
+  }
 
-  public record PollenHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PollenItem> pollen) {}
+  public record PollenHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PollenItem> pollen)
+  {
+  }
 
-  public record PropolisHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PropolisItem> propolis) {}
+  public record PropolisHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PropolisItem> propolis)
+  {
+  }
 }

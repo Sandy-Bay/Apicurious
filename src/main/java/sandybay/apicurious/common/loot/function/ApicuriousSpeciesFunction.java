@@ -17,8 +17,8 @@ import sandybay.apicurious.common.item.BeeItem;
 
 public record ApicuriousSpeciesFunction(ResourceKey<IAllele<?>> speciesKey) implements LootItemFunction
 {
-  private static final Logger LOGGER = LogManager.getLogger(ApicuriousSpeciesFunction.class);
   public static final MapCodec<ApicuriousSpeciesFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(ResourceKey.codec(ApicuriousRegistries.ALLELES).fieldOf("speciesKey").forGetter(func -> func.speciesKey)).apply(instance, ApicuriousSpeciesFunction::new));
+  private static final Logger LOGGER = LogManager.getLogger(ApicuriousSpeciesFunction.class);
 
   public static Builder getBuilder(ResourceKey<IAllele<?>> speciesKey)
   {
@@ -37,21 +37,21 @@ public record ApicuriousSpeciesFunction(ResourceKey<IAllele<?>> speciesKey) impl
     if (stack.getItem() instanceof BeeItem)
     {
       Level level = context.getLevel();
-      level.registryAccess().lookup(ApicuriousRegistries.ALLELES)
-              .ifPresentOrElse(alleles -> {
-                IAllele<?> allele = alleles.getValue(speciesKey);
-                if (allele == null)
-                {
-                  LOGGER.warn("ApicuriousSpeciesFunction: no allele registered for key '{}'; leaving item stack unmodified.", speciesKey.identifier());
-                  return;
-                }
-                if (!(allele instanceof BeeSpecies species))
-                {
-                  LOGGER.warn("ApicuriousSpeciesFunction: allele for key '{}' is not a BeeSpecies (was {}); leaving item stack unmodified.", speciesKey.identifier(), allele.getClass().getName());
-                  return;
-                }
-                stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(level));
-              }, () -> LOGGER.warn("ApicuriousSpeciesFunction: allele registry '{}' is not available in this context; leaving item stack unmodified.", ApicuriousRegistries.ALLELES.identifier()));
+      level.registryAccess().lookup(ApicuriousRegistries.ALLELES).ifPresentOrElse(alleles ->
+      {
+        IAllele<?> allele = alleles.getValue(speciesKey);
+        if (allele == null)
+        {
+          LOGGER.warn("ApicuriousSpeciesFunction: no allele registered for key '{}'; leaving item stack unmodified.", speciesKey.identifier());
+          return;
+        }
+        if (!(allele instanceof BeeSpecies species))
+        {
+          LOGGER.warn("ApicuriousSpeciesFunction: allele for key '{}' is not a BeeSpecies (was {}); leaving item stack unmodified.", speciesKey.identifier(), allele.getClass().getName());
+          return;
+        }
+        stack.set(DataComponentRegistrar.GENOME, species.getSpeciesDefaultGenome(level));
+      }, () -> LOGGER.warn("ApicuriousSpeciesFunction: allele registry '{}' is not available in this context; leaving item stack unmodified.", ApicuriousRegistries.ALLELES.identifier()));
     }
     return stack;
   }

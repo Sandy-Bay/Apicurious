@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
@@ -86,8 +85,14 @@ public class Workcycle extends AbstractAllele<Workcycle>
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (!super.equals(o)) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (!super.equals(o))
+    {
+      return false;
+    }
     Workcycle that = (Workcycle) o;
     return Objects.equals(this.activeTimes, that.activeTimes);
   }
@@ -141,8 +146,14 @@ public class Workcycle extends AbstractAllele<Workcycle>
     @Override
     public boolean equals(Object o)
     {
-      if (this == o) {return true;}
-      if (o == null || getClass() != o.getClass()) {return false;}
+      if (this == o)
+      {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass())
+      {
+        return false;
+      }
       Interval interval = (Interval) o;
       return minTime == interval.minTime && maxTime == interval.maxTime;
     }

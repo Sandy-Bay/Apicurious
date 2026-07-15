@@ -26,7 +26,8 @@ public class ConfigurableItemStacksResourceHandler extends ItemStacksResourceHan
     this.insertPredicate = (stack, integer) -> true;
     this.extractPredicate = (stack, integer) -> true;
     this.onSlotChanged = (stack, integer) ->
-    {};
+    {
+    };
     this.slotAmountFilter = new HashMap<>();
     this.slotLimit = 64;
   }

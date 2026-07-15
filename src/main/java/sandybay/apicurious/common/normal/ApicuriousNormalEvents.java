@@ -15,6 +15,7 @@ public class ApicuriousNormalEvents
 
   /**
    * Credit goes to Thiakil :^I <3
+   *
    * @param event The entity tick event
    */
   public static void whyAreTheHorsesOnFire(EntityTickEvent.Post event)

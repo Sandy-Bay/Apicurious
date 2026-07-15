@@ -16,16 +16,9 @@ import sandybay.apicurious.common.block.housing.blockentity.SimpleBlockHousingBE
 
 public record XNOrCondition(Holder<ICondition> first, Holder<ICondition> second) implements ICondition
 {
-  public static final MapCodec<XNOrCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-          RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("first").forGetter(XNOrCondition::first),
-          RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("second").forGetter(XNOrCondition::second)
-  ).apply(instance, XNOrCondition::new));
+  public static final MapCodec<XNOrCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("first").forGetter(XNOrCondition::first), RegistryFileCodec.create(ApicuriousRegistries.CONDITIONS, ICondition.TYPED_CODEC).fieldOf("second").forGetter(XNOrCondition::second)).apply(instance, XNOrCondition::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, XNOrCondition> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), XNOrCondition::first,
-          ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), XNOrCondition::second,
-          XNOrCondition::new
-  );
+  public static final StreamCodec<RegistryFriendlyByteBuf, XNOrCondition> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), XNOrCondition::first, ByteBufCodecs.holder(ApicuriousRegistries.CONDITIONS, ICondition.NETWORK_TYPED_CODEC), XNOrCondition::second, XNOrCondition::new);
 
   @Override
   public ConditionType getConditionType()

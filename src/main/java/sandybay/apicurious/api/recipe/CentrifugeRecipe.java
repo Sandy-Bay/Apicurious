@@ -95,18 +95,27 @@ public record CentrifugeRecipe(ItemStackTemplate input, int duration, List<Centr
     public Builder withOutput(ItemStackTemplate output, float chance)
     {
       if (this.outputs.size() > 9)
-      {throw new IllegalArgumentException("There can be no more than 9 outputs for any given centrifuge recipe");}
+      {
+        throw new IllegalArgumentException("There can be no more than 9 outputs for any given centrifuge recipe");
+      }
       this.outputs.add(new CentrifugeOutput(output, chance));
       return this;
     }
 
     public CentrifugeRecipe build()
     {
-      if (this.input == null) {throw new IllegalArgumentException("Input for Centrifuge Recipe was empty!");}
+      if (this.input == null)
+      {
+        throw new IllegalArgumentException("Input for Centrifuge Recipe was empty!");
+      }
       if (this.duration <= 0)
-      {throw new IllegalArgumentException("Duration must be equal to or above 1 for Centrifuge Recipe");}
+      {
+        throw new IllegalArgumentException("Duration must be equal to or above 1 for Centrifuge Recipe");
+      }
       if (this.outputs.isEmpty() || this.outputs.size() > 9)
-      {throw new IllegalArgumentException("The amount of outputs for any given Centrifuge Recipe should been between 1 and 9 possible outputs");}
+      {
+        throw new IllegalArgumentException("The amount of outputs for any given Centrifuge Recipe should been between 1 and 9 possible outputs");
+      }
       return new CentrifugeRecipe(input, duration, outputs);
     }
   }

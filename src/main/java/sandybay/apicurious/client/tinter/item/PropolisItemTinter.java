@@ -16,11 +16,7 @@ public record PropolisItemTinter() implements ItemTintSource
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
   {
-    if (stack.getItem() instanceof PropolisItem propolisItem)
-    {
-      return ARGB.opaque(propolisItem.getTint().getIntColor());
-    }
-    return ARGB.opaque(0xFFFFFFFF);
+    return stack.getItem() instanceof PropolisItem propolisItem ? ARGB.opaque(propolisItem.getTint().getIntColor()) : ARGB.opaque(0xFFFFFFFF);
   }
 
   @Override

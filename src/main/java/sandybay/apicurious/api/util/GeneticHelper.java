@@ -9,7 +9,8 @@ import sandybay.apicurious.common.config.ApicuriousMainConfig;
 public class GeneticHelper
 {
 
-  public static <T extends IAllele<T>> Genotype getGenotypeFromParents(Genotype firstParent, Genotype secondParent, RandomSource random)
+  public static <T extends IAllele<T>> Genotype getGenotypeFromParents(Genotype firstParent, Genotype secondParent,
+                                                                       RandomSource random)
   {
     Holder<IAllele<?>> firstAllele = random.nextBoolean() ? firstParent.getActive() : firstParent.getInactive();
     Holder<IAllele<?>> secondAllele = random.nextBoolean() ? secondParent.getActive() : secondParent.getInactive();

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
@@ -47,8 +46,14 @@ public class Pollination extends AbstractAllele<Pollination>
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (!super.equals(o)) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (!super.equals(o))
+    {
+      return false;
+    }
     Pollination that = (Pollination) o;
     return pollinationChance == that.pollinationChance;
   }

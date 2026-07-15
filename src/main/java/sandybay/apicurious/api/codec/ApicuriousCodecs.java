@@ -10,18 +10,7 @@ import java.time.MonthDay;
 
 public class ApicuriousCodecs
 {
-  public static final Codec<MonthDay> MONTH_DAY_CODEC =
-          RecordCodecBuilder.create(instance -> instance.group(
-                  Codec.INT.fieldOf("month").forGetter(MonthDay::getMonthValue),
-                  Codec.INT.fieldOf("day").forGetter(MonthDay::getDayOfMonth)
-          ).apply(instance, MonthDay::of));
+  public static final Codec<MonthDay> MONTH_DAY_CODEC = RecordCodecBuilder.create(instance -> instance.group(Codec.INT.fieldOf("month").forGetter(MonthDay::getMonthValue), Codec.INT.fieldOf("day").forGetter(MonthDay::getDayOfMonth)).apply(instance, MonthDay::of));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, MonthDay> MONTH_DAY_STREAM_CODEC =
-          StreamCodec.composite(
-                  ByteBufCodecs.INT,
-                  MonthDay::getMonthValue,
-                  ByteBufCodecs.INT,
-                  MonthDay::getDayOfMonth,
-                  MonthDay::of
-          );
+  public static final StreamCodec<RegistryFriendlyByteBuf, MonthDay> MONTH_DAY_STREAM_CODEC = StreamCodec.composite(ByteBufCodecs.INT, MonthDay::getMonthValue, ByteBufCodecs.INT, MonthDay::getDayOfMonth, MonthDay::of);
 }

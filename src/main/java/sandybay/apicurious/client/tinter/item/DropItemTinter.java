@@ -19,11 +19,7 @@ public record DropItemTinter(boolean isHighlight) implements ItemTintSource
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
   {
-    if (stack.getItem() instanceof DropItem drop)
-    {
-      return isHighlight() ? ARGB.opaque(drop.getDropHighlight().getIntColor()) : ARGB.opaque(drop.getDropTint().getIntColor());
-    }
-    return ARGB.opaque(0xFFFFFFFF);
+    return stack.getItem() instanceof DropItem drop ? isHighlight() ? ARGB.opaque(drop.getDropHighlight().getIntColor()) : ARGB.opaque(drop.getDropTint().getIntColor()) : ARGB.opaque(0xFFFFFFFF);
   }
 
   @Override

@@ -12,12 +12,11 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
  */
 public record GroundHiveConfiguration(BlockStateProvider hive, boolean undergroundOnly) implements FeatureConfiguration
 {
-  public static final Codec<GroundHiveConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-          BlockStateProvider.CODEC.fieldOf("hive").forGetter(GroundHiveConfiguration::hive),
-          Codec.BOOL.optionalFieldOf("underground_only", false).forGetter(GroundHiveConfiguration::undergroundOnly)
-  ).apply(instance, GroundHiveConfiguration::new));
+  public static final Codec<GroundHiveConfiguration> CODEC = RecordCodecBuilder.create(instance -> instance.group(BlockStateProvider.CODEC.fieldOf("hive").forGetter(GroundHiveConfiguration::hive), Codec.BOOL.optionalFieldOf("underground_only", false).forGetter(GroundHiveConfiguration::undergroundOnly)).apply(instance, GroundHiveConfiguration::new));
 
-  /** Convenience constructor for the common surface case. */
+  /**
+   * Convenience constructor for the common surface case.
+   */
   public GroundHiveConfiguration(BlockStateProvider hive)
   {
     this(hive, false);

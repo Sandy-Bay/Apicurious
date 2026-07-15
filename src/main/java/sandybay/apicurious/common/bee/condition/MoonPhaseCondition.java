@@ -29,7 +29,10 @@ public record MoonPhaseCondition(int moonPhase) implements ICondition
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) {return false;}
+    if (level == null)
+    {
+      return false;
+    }
     return level.environmentAttributes().getDimensionValue(EnvironmentAttributes.MOON_PHASE).index() == moonPhase();
   }
 

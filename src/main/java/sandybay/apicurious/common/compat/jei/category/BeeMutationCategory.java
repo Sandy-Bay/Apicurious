@@ -61,11 +61,10 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
   }
 
   @Override
-  public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY)
+  public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX,
+                   double mouseY)
   {
-    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_mutation.png"), 0, 0, 116, 18)
-            .setTextureSize(116, 18)
-            .build();
+    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_mutation.png"), 0, 0, 116, 18).setTextureSize(116, 18).build();
     background.draw(guiGraphics);
   }
 
@@ -89,8 +88,7 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
     builder.addOutputSlot(99, 1).addItemStacks(recipe.output).addRichTooltipCallback((view, tooltip) ->
     {
       tooltip.add(Component.literal(""));
-      tooltip.add(Component.translatable("apicurious.condition.chance").withStyle(ChatFormatting.DARK_AQUA)
-              .append(Component.literal(DecimalFormat.getPercentInstance().format(recipe.chance)).withStyle(ChatFormatting.WHITE)));
+      tooltip.add(Component.translatable("apicurious.condition.chance").withStyle(ChatFormatting.DARK_AQUA).append(Component.literal(DecimalFormat.getPercentInstance().format(recipe.chance)).withStyle(ChatFormatting.WHITE)));
       if (!recipe.conditions.isEmpty())
       {
         tooltip.add(Component.translatable("apicurious.jei.tooltip.conditions").withStyle(ChatFormatting.GOLD));
@@ -102,6 +100,8 @@ public class BeeMutationCategory implements IRecipeCategory<BeeMutationCategory.
     });
   }
 
-  public record Recipe(ResourceKey<IMutation> key, List<ItemStack> first, List<ItemStack> second, float chance, List<ICondition> conditions,
-                       List<ItemStack> output) {}
+  public record Recipe(ResourceKey<IMutation> key, List<ItemStack> first, List<ItemStack> second, float chance,
+                       List<ICondition> conditions, List<ItemStack> output)
+  {
+  }
 }

@@ -41,7 +41,8 @@ public class CentrifugeMenu extends AbstractContainerMenu
     addDataSlots(containerData);
   }
 
-  public CentrifugeMenu(int pContainerId, Inventory playerInventory, ContainerLevelAccess access, CentrifugeBE centrifuge)
+  public CentrifugeMenu(int pContainerId, Inventory playerInventory, ContainerLevelAccess access,
+                        CentrifugeBE centrifuge)
   {
     super(MenuRegistrar.CENTRIFUGE.get(), pContainerId);
     this.access = access;
@@ -77,7 +78,10 @@ public class CentrifugeMenu extends AbstractContainerMenu
     {
       for (int j = 0; j < 9; j++)
       {
-        if (j + i * 9 + 9 == 36) {return;}
+        if (j + i * 9 + 9 == 36)
+        {
+          return;
+        }
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
       }
     }
@@ -191,8 +195,14 @@ public class CentrifugeMenu extends AbstractContainerMenu
     for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
     {
       Slot slot = slots.get(machineIndex);
-      if (!slot.mayPlace(stackToShift)) {continue;}
-      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) {return true;}
+      if (!slot.mayPlace(stackToShift))
+      {
+        continue;
+      }
+      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1))
+      {
+        return true;
+      }
     }
     return false;
   }

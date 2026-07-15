@@ -43,14 +43,19 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     this(type, containerId, playerInventory, ContainerLevelAccess.NULL, new ConfigurableItemStacksResourceHandler(12).setInputFilter((stack, slot) ->
     {
       if (slot == 0 && (stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() != EnumBeeType.DRONE))
-      {return true;}
+      {
+        return true;
+      }
       if (slot == 1 && stack.getItem() instanceof IBeeItem beeItem && beeItem.getBeeType() == EnumBeeType.DRONE)
-      {return true;}
+      {
+        return true;
+      }
       return (slot >= 2 && slot <= 4) && stack.getItem() instanceof IFrameItem;
     }).setSlotLimit(0, 1).setSlotLimit(2, 1).setSlotLimit(3, 1).setSlotLimit(4, 1), Lists.newArrayList());
   }
 
-  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ConfigurableItemStacksResourceHandler inventory, List<HousingError> errors)
+  public AbstractHousingMenu(MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access,
+                             ConfigurableItemStacksResourceHandler inventory, List<HousingError> errors)
   {
     super(type, containerId);
     this.access = access;
@@ -85,7 +90,10 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     {
       for (int j = 0; j < 9; j++)
       {
-        if (j + i * 9 + 9 == 36) {return;}
+        if (j + i * 9 + 9 == 36)
+        {
+          return;
+        }
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 108 + i * 18));
       }
     }
@@ -209,8 +217,14 @@ public abstract class AbstractHousingMenu extends AbstractContainerMenu
     for (int machineIndex = 0; machineIndex < numSlots - 9 * 4; machineIndex++)
     {
       Slot slot = slots.get(machineIndex);
-      if (!slot.mayPlace(stackToShift)) {continue;}
-      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1)) {return true;}
+      if (!slot.mayPlace(stackToShift))
+      {
+        continue;
+      }
+      if (shiftItemStack(stackToShift, machineIndex, machineIndex + 1))
+      {
+        return true;
+      }
     }
     return false;
   }

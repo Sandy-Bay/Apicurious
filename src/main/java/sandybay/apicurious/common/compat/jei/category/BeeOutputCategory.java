@@ -55,11 +55,10 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   }
 
   @Override
-  public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY)
+  public void draw(Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX,
+                   double mouseY)
   {
-    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_output.png"), 0, 0, 90, 96)
-            .setTextureSize(90, 96)
-            .build();
+    IDrawable background = iGuiHelper.drawableBuilder(Apicurious.createIdentifier("textures/gui/jei/bee_output.png"), 0, 0, 90, 96).setTextureSize(90, 96).build();
     background.draw(guiGraphics);
   }
 
@@ -128,5 +127,7 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
     }
   }
 
-  public record Recipe(ResourceKey<IAllele<?>> key, List<ItemStack> input, OutputTable output) {}
+  public record Recipe(ResourceKey<IAllele<?>> key, List<ItemStack> input, OutputTable output)
+  {
+  }
 }

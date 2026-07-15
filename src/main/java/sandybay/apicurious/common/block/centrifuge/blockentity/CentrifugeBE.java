@@ -53,6 +53,10 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   private static final int NO_WORK = -1;
 
   private final ConfigurableItemStacksResourceHandler inventory;
+  private ItemResource lastSeenInput = ItemResource.EMPTY;
+  private CentrifugeRecipe recipe;
+  private int work = NO_WORK;
+  private int maxWork;
   private final ContainerData containerData = new ContainerData()
   {
     @Override
@@ -78,12 +82,6 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
       return DATA_COUNT;
     }
   };
-
-  private ItemResource lastSeenInput = ItemResource.EMPTY;
-  private CentrifugeRecipe recipe;
-  private int work = NO_WORK;
-  private int maxWork;
-
   /**
    * Set after loading from NBT when a recipe was mid-progress. The recipe object itself
    * isn't persisted, so on the first tick after load we re-resolve it against whatever is
@@ -108,14 +106,20 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   @Override
   public AbstractContainerMenu createMenu(int containerId, @NotNull Inventory playerInventory, @NotNull Player player)
   {
-    if (getLevel() == null) {return null;}
+    if (getLevel() == null)
+    {
+      return null;
+    }
     return new CentrifugeMenu(containerId, playerInventory, ContainerLevelAccess.create(getLevel(), getBlockPos()), this);
   }
 
   @Override
   public void serverTick(Level level, BlockPos pos, BlockState state)
   {
-    if (getLevel() == null) {return;}
+    if (getLevel() == null)
+    {
+      return;
+    }
 
     if (pendingResume)
     {
@@ -143,7 +147,10 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
       return;
     }
 
-    if (!isWorking() || work <= 0) {return;}
+    if (!isWorking() || work <= 0)
+    {
+      return;
+    }
 
     work--;
     if (work == 0)
@@ -153,7 +160,9 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   }
 
   @Override
-  public void clientTick(Level level, BlockPos pos, BlockState state) {}
+  public void clientTick(Level level, BlockPos pos, BlockState state)
+  {
+  }
 
   private boolean isWorking()
   {
@@ -176,7 +185,10 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   {
     this.lastSeenInput = stack;
     this.recipe = findRecipe();
-    if (this.recipe == null) {return;}
+    if (this.recipe == null)
+    {
+      return;
+    }
     startWork();
   }
 
@@ -316,7 +328,10 @@ public class CentrifugeBE extends BlockEntity implements ITicker, MenuProvider
   {
     for (ItemStack output : outputs)
     {
-      if (!canInsertSingle(output, tx)) {return false;}
+      if (!canInsertSingle(output, tx))
+      {
+        return false;
+      }
     }
     return true;
   }

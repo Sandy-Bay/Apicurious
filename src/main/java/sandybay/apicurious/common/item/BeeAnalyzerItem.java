@@ -28,19 +28,16 @@ public class BeeAnalyzerItem extends Item
   public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
   {
     ItemStack stack = player.getItemInHand(hand);
-    if (!stack.has(DataComponents.CONTAINER)) {return InteractionResult.FAIL;}
+    if (!stack.has(DataComponents.CONTAINER))
+    {
+      return InteractionResult.FAIL;
+    }
 
     if (player instanceof ServerPlayer serverPlayer)
     {
-      int analyzerSlot = hand == InteractionHand.MAIN_HAND
-              ? player.getInventory().getSelectedSlot()
-              : Inventory.SLOT_OFFHAND;
+      int analyzerSlot = hand == InteractionHand.MAIN_HAND ? player.getInventory().getSelectedSlot() : Inventory.SLOT_OFFHAND;
 
-      serverPlayer.openMenu(
-              new SimpleMenuProvider(
-                      (containerId, playerInventory, pPlayer) -> new AnalyzerMenu(containerId, playerInventory, ContainerLevelAccess.NULL, analyzerSlot),
-                      Component.translatable("apicurious.menu.analyzer")),
-              buffer -> buffer.writeVarInt(analyzerSlot));
+      serverPlayer.openMenu(new SimpleMenuProvider((containerId, playerInventory, pPlayer) -> new AnalyzerMenu(containerId, playerInventory, ContainerLevelAccess.NULL, analyzerSlot), Component.translatable("apicurious.menu.analyzer")), buffer -> buffer.writeVarInt(analyzerSlot));
       return InteractionResult.CONSUME;
     }
     return InteractionResult.SUCCESS;

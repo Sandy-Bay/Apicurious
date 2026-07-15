@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.material.Fluids;
-import sandybay.apicurious.common.worldgen.feature.config.SubmergedHiveConfiguration;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.common.worldgen.feature.config.SubmergedHiveConfiguration;
 
 public class SubmergedHiveFeature extends Feature<SubmergedHiveConfiguration>
 {

@@ -19,14 +19,11 @@ public class FeatureRegistrar
 
   // Declared with their concrete feature type (not Feature<?>) so datagen can call .get() directly
   // without an unsafe downcast.
-  public static final DeferredHolder<Feature<?>, HangingHiveFeature> HANGING_HIVE =
-          FEATURES.register("hanging_hive", () -> new HangingHiveFeature(HangingHiveConfiguration.CODEC));
+  public static final DeferredHolder<Feature<?>, HangingHiveFeature> HANGING_HIVE = FEATURES.register("hanging_hive", () -> new HangingHiveFeature(HangingHiveConfiguration.CODEC));
 
-  public static final DeferredHolder<Feature<?>, GroundHiveFeature> GROUND_HIVE =
-          FEATURES.register("ground_hive", () -> new GroundHiveFeature(GroundHiveConfiguration.CODEC));
+  public static final DeferredHolder<Feature<?>, GroundHiveFeature> GROUND_HIVE = FEATURES.register("ground_hive", () -> new GroundHiveFeature(GroundHiveConfiguration.CODEC));
 
-  public static final DeferredHolder<Feature<?>, SubmergedHiveFeature> SUBMERGED_HIVE =
-          FEATURES.register("submerged_hive", () -> new SubmergedHiveFeature(SubmergedHiveConfiguration.CODEC));
+  public static final DeferredHolder<Feature<?>, SubmergedHiveFeature> SUBMERGED_HIVE = FEATURES.register("submerged_hive", () -> new SubmergedHiveFeature(SubmergedHiveConfiguration.CODEC));
 
   public static void register(IEventBus bus)
   {

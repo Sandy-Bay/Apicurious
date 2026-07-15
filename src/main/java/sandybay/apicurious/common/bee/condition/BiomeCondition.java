@@ -34,7 +34,10 @@ public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
-    if (housing.getLevel() == null) {return false;}
+    if (housing.getLevel() == null)
+    {
+      return false;
+    }
     Holder<Biome> biome = housing.getLevel().getBiome(housing.getBlockPos());
     return biomes().contains(biome);
   }
@@ -43,11 +46,7 @@ public record BiomeCondition(HolderSet<Biome> biomes) implements ICondition
   public Component getDisplayText()
   {
     // Implemented: list the resource locations of the required biomes.
-    String biomeList = biomes().stream()
-            .map(holder -> holder.unwrapKey()
-                    .map(key -> key.identifier().toString())
-                    .orElse("unknown"))
-            .collect(Collectors.joining(", "));
+    String biomeList = biomes().stream().map(holder -> holder.unwrapKey().map(key -> key.identifier().toString()).orElse("unknown")).collect(Collectors.joining(", "));
     return Component.translatable("apicurious.condition.biome", biomeList);
   }
 }

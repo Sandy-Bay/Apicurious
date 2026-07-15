@@ -5,8 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import sandybay.apicurious.common.worldgen.feature.config.HangingHiveConfiguration;
 import sandybay.apicurious.Apicurious;
+import sandybay.apicurious.common.worldgen.feature.config.HangingHiveConfiguration;
 
 public class HangingHiveFeature extends Feature<HangingHiveConfiguration>
 {

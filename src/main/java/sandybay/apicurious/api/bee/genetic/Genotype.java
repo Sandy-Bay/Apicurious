@@ -21,7 +21,7 @@ public record Genotype(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
 
   public static Genotype defaultOf(Holder<IAllele<?>> trait)
   {
-    return new Genotype(trait, trait);
+    return Genotype.of(trait, trait);
   }
 
   /**
@@ -32,9 +32,7 @@ public record Genotype(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
   {
     if (active.value().getTraitKey() != inactive.value().getTraitKey())
     {
-      throw new IllegalArgumentException(
-              "Attempted to create Genotype with mismatched allele types: " +
-                      active.value().getTraitKey() + " vs " + inactive.value().getTraitKey());
+      throw new IllegalArgumentException("Attempted to create Genotype with mismatched allele types: " + active.value().getTraitKey() + " vs " + inactive.value().getTraitKey());
     }
     return new Genotype(active, inactive);
   }
@@ -57,8 +55,14 @@ public record Genotype(Holder<IAllele<?>> active, Holder<IAllele<?>> inactive)
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     Genotype genotype = (Genotype) o;
     return Objects.equals(active, genotype.active) && Objects.equals(inactive, genotype.inactive);
   }

@@ -29,7 +29,8 @@ public class HumidityDefaults
     bootstrap.register(HumidityTolerance.MAXIMUM_TOLERANCE, humidityTolerance(5, false, "maximum"));
   }
 
-  private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
+  private static HumidityPreference humidityPreference(int humidity, TagKey<Biome> groupTag, boolean isDominantTrait,
+                                                       String name)
   {
     return new HumidityPreference(humidity, groupTag, isDominantTrait, AlleleNaming.key("preference.humidity", name));
   }

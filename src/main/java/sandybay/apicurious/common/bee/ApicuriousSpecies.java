@@ -161,9 +161,12 @@ public class ApicuriousSpecies
     return new KeyHolder(ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("species/" + name)), ResourceKey.create(ApicuriousRegistries.MUTATIONS, Apicurious.createIdentifier("mutations/" + name)), ResourceKey.create(ApicuriousRegistries.OUTPUT_TABLES, Apicurious.createIdentifier(name)));
   }
 
-  public static void init() {}
+  public static void init()
+  {
+  }
 
   public record KeyHolder(ResourceKey<IAllele<?>> species, ResourceKey<IMutation> mutation,
                           ResourceKey<OutputTable> output)
-  {}
+  {
+  }
 }

@@ -28,7 +28,8 @@ public class TemperatureDefaults
     bootstrap.register(TemperatureTolerance.MAXIMUM_TOLERANCE, temperatureTolerance(5, false, "maximum"));
   }
 
-  private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag, boolean isDominantTrait, String name)
+  private static TemperaturePreference temperaturePreference(int temperature, TagKey<Biome> groupTag,
+                                                             boolean isDominantTrait, String name)
   {
     return new TemperaturePreference(temperature, groupTag, isDominantTrait, AlleleNaming.key("preference.temperature", name));
   }

@@ -27,9 +27,7 @@ public class ApicuriousConfiguredFeatureProvider
     registerGround(bootstrap, ApicuriousFeatureKeys.CONFIGURED_ROCKY_HIVE, BlockRegistrar.ROCKY_HIVE.asBlock(), true);
     registerHanging(bootstrap, ApicuriousFeatureKeys.CONFIGURED_NETHER_HIVE_HANGING, BlockRegistrar.NETHER_HIVE.asBlock(), BlockTags.WART_BLOCKS, BlockTags.LOGS);
     registerGround(bootstrap, ApicuriousFeatureKeys.CONFIGURED_NETHER_HIVE_GROUND, BlockRegistrar.NETHER_HIVE.asBlock(), false);
-    bootstrap.register(ApicuriousFeatureKeys.CONFIGURED_WATER_HIVE, new ConfiguredFeature<>(
-            FeatureRegistrar.SUBMERGED_HIVE.get(), new SubmergedHiveConfiguration(BlockStateProvider.simple(BlockRegistrar.WATER_HIVE.asBlock()))
-    ));
+    bootstrap.register(ApicuriousFeatureKeys.CONFIGURED_WATER_HIVE, new ConfiguredFeature<>(FeatureRegistrar.SUBMERGED_HIVE.get(), new SubmergedHiveConfiguration(BlockStateProvider.simple(BlockRegistrar.WATER_HIVE.asBlock()))));
   }
 
   private static void registerHanging(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap,
@@ -39,21 +37,15 @@ public class ApicuriousConfiguredFeatureProvider
   }
 
   private static void registerHanging(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap,
-                                      ResourceKey<ConfiguredFeature<?, ?>> key, Block hiveBlock,
-                                      TagKey<Block> leafTag, TagKey<Block> logTag)
+                                      ResourceKey<ConfiguredFeature<?, ?>> key, Block hiveBlock, TagKey<Block> leafTag,
+                                      TagKey<Block> logTag)
   {
-    bootstrap.register(key, new ConfiguredFeature<>(
-            FeatureRegistrar.HANGING_HIVE.get(), new HangingHiveConfiguration(BlockStateProvider.simple(hiveBlock), leafTag, logTag, true)
-    ));
+    bootstrap.register(key, new ConfiguredFeature<>(FeatureRegistrar.HANGING_HIVE.get(), new HangingHiveConfiguration(BlockStateProvider.simple(hiveBlock), leafTag, logTag, true)));
   }
 
   private static void registerGround(BootstrapContext<ConfiguredFeature<?, ?>> bootstrap,
-                                     ResourceKey<ConfiguredFeature<?, ?>> key, Block hiveBlock,
-                                     boolean undergroundOnly)
+                                     ResourceKey<ConfiguredFeature<?, ?>> key, Block hiveBlock, boolean undergroundOnly)
   {
-    bootstrap.register(key, new ConfiguredFeature<>(
-            FeatureRegistrar.GROUND_HIVE.get(),
-            new GroundHiveConfiguration(BlockStateProvider.simple(hiveBlock), undergroundOnly)
-    ));
+    bootstrap.register(key, new ConfiguredFeature<>(FeatureRegistrar.GROUND_HIVE.get(), new GroundHiveConfiguration(BlockStateProvider.simple(hiveBlock), undergroundOnly)));
   }
 }

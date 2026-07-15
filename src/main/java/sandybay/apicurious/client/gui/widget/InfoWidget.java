@@ -45,7 +45,8 @@ public class InfoWidget extends AbstractWidget
   private boolean isOpen;
   private long lastUpdateTime = 0;
 
-  public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft, float red, float green, float blue, Identifier icon, List<Component> info)
+  public InfoWidget(int pX, int pY, int pWidth, int pHeight, int openSizeWidth, int openSizeHeight, boolean openLeft,
+                    float red, float green, float blue, Identifier icon, List<Component> info)
   {
     super(pX, pY, pWidth, pHeight, Component.empty());
     this.closedSizeWidth = pWidth;
@@ -93,7 +94,10 @@ public class InfoWidget extends AbstractWidget
     {
       if (width < openSizeWidth)
       {
-        if (openLeft) {setX(getX() - moveAmount);}
+        if (openLeft)
+        {
+          setX(getX() - moveAmount);
+        }
         width = Math.min(width + moveAmount, openSizeWidth);
       }
       else
@@ -114,12 +118,18 @@ public class InfoWidget extends AbstractWidget
     {
       if (width > closedSizeWidth)
       {
-        if (openLeft) {setX(getX() + moveAmount);}
+        if (openLeft)
+        {
+          setX(getX() + moveAmount);
+        }
         width = Math.max(width - moveAmount, closedSizeWidth);
       }
       else
       {
-        if (openLeft) {setX(defaultX);}
+        if (openLeft)
+        {
+          setX(defaultX);
+        }
         width = closedSizeWidth;
       }
 
@@ -196,13 +206,19 @@ public class InfoWidget extends AbstractWidget
     {
       this.width = openSizeWidth;
       this.height = openSizeHeight;
-      if (openLeft) {setX(defaultX - (openSizeWidth - closedSizeWidth));}
+      if (openLeft)
+      {
+        setX(defaultX - (openSizeWidth - closedSizeWidth));
+      }
     }
     else
     {
       this.width = closedSizeWidth;
       this.height = closedSizeHeight;
-      if (openLeft) {setX(defaultX);}
+      if (openLeft)
+      {
+        setX(defaultX);
+      }
     }
   }
 

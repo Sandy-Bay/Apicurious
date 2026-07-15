@@ -104,8 +104,14 @@ public class HumidityPreference extends AbstractAllele<HumidityPreference>
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (!super.equals(o)) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (!super.equals(o))
+    {
+      return false;
+    }
     HumidityPreference otherPreference = (HumidityPreference) o;
     return humidity == otherPreference.humidity && Objects.equals(groupTag, otherPreference.groupTag);
   }

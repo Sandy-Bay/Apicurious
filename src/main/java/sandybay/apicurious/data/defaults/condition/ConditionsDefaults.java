@@ -4,7 +4,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import sandybay.apicurious.api.condition.ICondition;
 import sandybay.apicurious.common.bee.condition.DateCondition;
 
-import java.time.LocalDate;
 import java.time.MonthDay;
 
 public class ConditionsDefaults

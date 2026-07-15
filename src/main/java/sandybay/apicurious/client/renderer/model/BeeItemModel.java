@@ -34,7 +34,9 @@ public record BeeItemModel(Identifier fallback) implements ItemModel
 {
 
   @Override
-  public void update(ItemStackRenderState state, ItemStack stack, ItemModelResolver resolver, ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner, int seed)
+  public void update(ItemStackRenderState state, ItemStack stack, ItemModelResolver resolver,
+                     ItemDisplayContext displayContext, @Nullable ClientLevel level, @Nullable ItemOwner owner,
+                     int seed)
   {
     if (!(stack.getItem() instanceof IBeeItem beeItem))
     {
@@ -90,6 +92,8 @@ public record BeeItemModel(Identifier fallback) implements ItemModel
     }
 
     @Override
-    public void resolveDependencies(Resolver resolver) {}
+    public void resolveDependencies(Resolver resolver)
+    {
+    }
   }
 }

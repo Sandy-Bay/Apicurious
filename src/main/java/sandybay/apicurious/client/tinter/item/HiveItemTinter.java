@@ -17,11 +17,7 @@ public record HiveItemTinter() implements ItemTintSource
   @Override
   public int calculate(ItemStack stack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity)
   {
-    if (stack.getItem() instanceof BlockItem blockItem)
-    {
-      return ARGB.opaque(ClientHelper.getHiveTint(blockItem.getBlock()));
-    }
-    return ARGB.opaque(0xFFFFFFFF);
+    return stack.getItem() instanceof BlockItem blockItem ? ARGB.opaque(ClientHelper.getHiveTint(blockItem.getBlock())) : ARGB.opaque(0xFFFFFFFF);
   }
 
   @Override

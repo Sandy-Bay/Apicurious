@@ -11,7 +11,8 @@ import java.util.Collection;
 public class JEICentrifugeContainerHandler implements IGuiContainerHandler<CentrifugeScreen>
 {
   @Override
-  public Collection<IGuiClickableArea> getGuiClickableAreas(CentrifugeScreen containerScreen, double guiMouseX, double guiMouseY)
+  public Collection<IGuiClickableArea> getGuiClickableAreas(CentrifugeScreen containerScreen, double guiMouseX,
+                                                            double guiMouseY)
   {
     Collection<IGuiClickableArea> areas = new ArrayList<>();
     areas.add(IGuiClickableArea.createBasic(69, 35, 22, 15, ApicuriousRecipeTypes.CENTRIFUGE));

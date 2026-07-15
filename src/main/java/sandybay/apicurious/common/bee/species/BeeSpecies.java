@@ -48,7 +48,8 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
 
   private Component readableName;
 
-  public BeeSpecies(ResourceKey<IAllele<?>> key, String name, VisualData visualData, ProductionData productionData, EnvironmentalData environmentalData, OutputData outputs, boolean isDominant)
+  public BeeSpecies(ResourceKey<IAllele<?>> key, String name, VisualData visualData, ProductionData productionData,
+                    EnvironmentalData environmentalData, OutputData outputs, boolean isDominant)
   {
     this.key = key;
     this.name = name;
@@ -110,7 +111,10 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
   @Override
   public Component getReadableName()
   {
-    if (readableName == null) {readableName = Component.translatable(this.name);}
+    if (readableName == null)
+    {
+      readableName = Component.translatable(this.name);
+    }
     return readableName;
   }
 
@@ -135,8 +139,14 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass())
+    {
+      return false;
+    }
     BeeSpecies species = (BeeSpecies) o;
     return Objects.equals(key, species.key) && Objects.equals(name, species.name) && Objects.equals(visualData, species.visualData) && Objects.equals(productionData, species.productionData) && Objects.equals(environmentalData, species.environmentalData) && Objects.equals(outputs, species.outputs);
   }
@@ -159,9 +169,7 @@ public class BeeSpecies implements IBeeSpecies, IAllele<BeeSpecies>, IDefaultGen
   public Genome getSpeciesDefaultGenome(HolderLookup.Provider provider)
   {
     Genome genome = new Genome();
-    Holder<IAllele<?>> holder = provider.lookupOrThrow(ApicuriousRegistries.ALLELES)
-            .get(getSpeciesKey())
-            .orElseThrow(() -> new IllegalStateException("Species " + getSpeciesKey() + " not found in registry"));
+    Holder<IAllele<?>> holder = provider.lookupOrThrow(ApicuriousRegistries.ALLELES).get(getSpeciesKey()).orElseThrow(() -> new IllegalStateException("Species " + getSpeciesKey() + " not found in registry"));
     genome.initializeDefaults(holder);
     return genome;
   }

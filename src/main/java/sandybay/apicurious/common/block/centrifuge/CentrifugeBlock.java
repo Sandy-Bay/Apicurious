@@ -28,7 +28,8 @@ public class CentrifugeBlock extends Block implements EntityBlock
   }
 
   @Override
-  protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult)
+  protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos,
+                                                      @NotNull Player player, @NotNull BlockHitResult hitResult)
   {
     if (level.isClientSide())
     {
@@ -51,7 +52,8 @@ public class CentrifugeBlock extends Block implements EntityBlock
 
   @Nullable
   @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> blockEntityType)
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state,
+                                                                @NotNull BlockEntityType<T> blockEntityType)
   {
     return (lvl, pos, blockState, blockEntity) ->
     {

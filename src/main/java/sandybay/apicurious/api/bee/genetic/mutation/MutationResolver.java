@@ -14,7 +14,9 @@ import java.util.Optional;
 
 public final class MutationResolver
 {
-  private MutationResolver() {}
+  private MutationResolver()
+  {
+  }
 
   /**
    * Resolves which mutation (if any) fires for the current parents in the housing.
@@ -24,23 +26,32 @@ public final class MutationResolver
    */
   public static IMutation resolve(Level level, SimpleBlockHousingBE housing)
   {
-    if (level == null) {return null;}
+    if (level == null)
+    {
+      return null;
+    }
     Holder<IAllele<?>> first = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 0, true);
     Holder<IAllele<?>> second = SimpleBlockHousingHelper.getSpeciesInSlot(housing, 1, true);
-    if (first == null || second == null || first.is(second)) {return null;}
+    if (first == null || second == null || first.is(second))
+    {
+      return null;
+    }
 
     Optional<Registry<IMutation>> mutationsLookup = level.registryAccess().lookup(ApicuriousRegistries.MUTATIONS);
     Optional<Registry<IAllele<?>>> allelesLookup = level.registryAccess().lookup(ApicuriousRegistries.ALLELES);
-    if (mutationsLookup.isEmpty() || allelesLookup.isEmpty()) {return null;}
+    if (mutationsLookup.isEmpty() || allelesLookup.isEmpty())
+    {
+      return null;
+    }
 
-    List<IMutation> candidates = MutationIndex.candidatesFor(mutationsLookup.get(), allelesLookup.get(), first, second).stream()
-            .filter(mutation -> mutation.matches(housing))
-            .sorted(Comparator.comparingDouble(IMutation::chance))
-            .toList();
+    List<IMutation> candidates = MutationIndex.candidatesFor(mutationsLookup.get(), allelesLookup.get(), first, second).stream().filter(mutation -> mutation.matches(housing)).sorted(Comparator.comparingDouble(IMutation::chance)).toList();
 
     for (IMutation candidate : candidates)
     {
-      if (candidate.rollSuccess(housing)) {return candidate;}
+      if (candidate.rollSuccess(housing))
+      {
+        return candidate;
+      }
     }
     return null;
   }

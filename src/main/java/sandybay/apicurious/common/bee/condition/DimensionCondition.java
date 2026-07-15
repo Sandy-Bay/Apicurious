@@ -34,18 +34,17 @@ public record DimensionCondition(HolderSet<DimensionType> dimensions) implements
   public boolean test(SimpleBlockHousingBE housing)
   {
     Level level = housing.getLevel();
-    if (level == null) {return false;}
+    if (level == null)
+    {
+      return false;
+    }
     return dimensions().contains(level.dimensionTypeRegistration());
   }
 
   @Override
   public Component getDisplayText()
   {
-    String dimensionList = dimensions().stream()
-            .map(holder -> holder.unwrapKey()
-                    .map(key -> key.identifier().toString())
-                    .orElse("unknown"))
-            .collect(Collectors.joining(", "));
+    String dimensionList = dimensions().stream().map(holder -> holder.unwrapKey().map(key -> key.identifier().toString()).orElse("unknown")).collect(Collectors.joining(", "));
     return Component.translatable("apicurious.condition.dimension", dimensionList);
   }
 

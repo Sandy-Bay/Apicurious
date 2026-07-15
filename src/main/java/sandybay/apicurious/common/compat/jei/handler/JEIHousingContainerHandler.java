@@ -14,7 +14,8 @@ import sandybay.apicurious.common.menu.BeeHousingMenu;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class JEIHousingContainerHandler<M extends AbstractContainerMenu, T extends AbstractContainerScreen<M>> implements IGuiContainerHandler<T>
+public class JEIHousingContainerHandler<M extends AbstractContainerMenu, T extends AbstractContainerScreen<M>>
+        implements IGuiContainerHandler<T>
 {
   @Override
   public Collection<IGuiClickableArea> getGuiClickableAreas(T containerScreen, double guiMouseX, double guiMouseY)

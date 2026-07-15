@@ -27,19 +27,9 @@ public class Area extends AbstractAllele<Area>
   public static final ResourceKey<IAllele<?>> LARGEST = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("area/largest"));
 
 
-  public static final MapCodec<Area> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-          Codec.INT.fieldOf("xzOffset").forGetter(Area::getXZOffset),
-          Codec.INT.fieldOf("yOffset").forGetter(Area::getYOffset),
-          Codec.BOOL.fieldOf("isDominantTrait").forGetter(Area::isDominantTrait),
-          Codec.STRING.fieldOf("name").forGetter(Area::getName)
-  ).apply(instance, Area::new));
+  public static final MapCodec<Area> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(Codec.INT.fieldOf("xzOffset").forGetter(Area::getXZOffset), Codec.INT.fieldOf("yOffset").forGetter(Area::getYOffset), Codec.BOOL.fieldOf("isDominantTrait").forGetter(Area::isDominantTrait), Codec.STRING.fieldOf("name").forGetter(Area::getName)).apply(instance, Area::new));
 
-  public static final StreamCodec<RegistryFriendlyByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(
-          ByteBufCodecs.INT, Area::getXZOffset,
-          ByteBufCodecs.INT, Area::getYOffset,
-          ByteBufCodecs.BOOL, Area::isDominantTrait,
-          ByteBufCodecs.STRING_UTF8, Area::getName,
-          Area::new);
+  public static final StreamCodec<RegistryFriendlyByteBuf, Area> NETWORK_CODEC = StreamCodec.composite(ByteBufCodecs.INT, Area::getXZOffset, ByteBufCodecs.INT, Area::getYOffset, ByteBufCodecs.BOOL, Area::isDominantTrait, ByteBufCodecs.STRING_UTF8, Area::getName, Area::new);
 
   private final int xzOffset;
   private final int yOffset;
@@ -51,14 +41,27 @@ public class Area extends AbstractAllele<Area>
     this.yOffset = yOffset;
   }
 
-  public int getXZOffset() { return xzOffset; }
-  public int getYOffset() { return yOffset; }
+  public int getXZOffset()
+  {
+    return xzOffset;
+  }
+
+  public int getYOffset()
+  {
+    return yOffset;
+  }
 
   @Override
   public boolean equals(Object o)
   {
-    if (this == o) {return true;}
-    if (!super.equals(o)) {return false;}
+    if (this == o)
+    {
+      return true;
+    }
+    if (!super.equals(o))
+    {
+      return false;
+    }
     Area area = (Area) o;
     return xzOffset == area.xzOffset && yOffset == area.yOffset;
   }
@@ -70,11 +73,20 @@ public class Area extends AbstractAllele<Area>
   }
 
   @Override
-  public MapCodec<Area> getCodec() { return CODEC; }
+  public MapCodec<Area> getCodec()
+  {
+    return CODEC;
+  }
 
   @Override
-  public StreamCodec<RegistryFriendlyByteBuf, Area> getStreamCodec() { return NETWORK_CODEC; }
+  public StreamCodec<RegistryFriendlyByteBuf, Area> getStreamCodec()
+  {
+    return NETWORK_CODEC;
+  }
 
   @Override
-  public AlleleType<Area> getTraitKey() { return AlleleTypeRegistrar.AREA_TYPE.get(); }
+  public AlleleType<Area> getTraitKey()
+  {
+    return AlleleTypeRegistrar.AREA_TYPE.get();
+  }
 }

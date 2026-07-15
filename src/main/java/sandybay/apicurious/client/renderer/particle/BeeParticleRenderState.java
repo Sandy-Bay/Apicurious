@@ -16,8 +16,6 @@ import java.util.List;
 
 public record BeeParticleRenderState(List<Entry> entries) implements ParticleGroupRenderState
 {
-  public record Entry(ItemModel model, ItemStack stack, PoseStack pose) {}
-
   @Override
   public void submit(SubmitNodeCollector collector, CameraRenderState cameraRenderState)
   {
@@ -27,5 +25,9 @@ public record BeeParticleRenderState(List<Entry> entries) implements ParticleGro
       entry.model().update(renderState, entry.stack(), Minecraft.getInstance().getItemModelResolver(), ItemDisplayContext.GROUND, Minecraft.getInstance().level, null, 0);
       renderState.submit(entry.pose(), collector, Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, 0);
     }
+  }
+
+  public record Entry(ItemModel model, ItemStack stack, PoseStack pose)
+  {
   }
 }
