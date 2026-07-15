@@ -11,10 +11,10 @@ public class WorkcycleDefaults
 {
   public static void defaults(BootstrapContext<IAllele<?>> bootstrap)
   {
-    bootstrap.register(Workcycle.MATUTINAL, workcycle(List.of(new Workcycle.Interval(4000, 10000)), true, "matutinal"));
-    bootstrap.register(Workcycle.DIURNAL, workcycle(List.of(new Workcycle.Interval(6000, 18000)), true, "diurnal"));
-    bootstrap.register(Workcycle.VESPERTINAL, workcycle(List.of(new Workcycle.Interval(14000, 20000)), true, "vespertinal"));
-    bootstrap.register(Workcycle.NOCTURNAL, workcycle(List.of(new Workcycle.Interval(18000, 24000), new Workcycle.Interval(0, 6000)), true, "nocturnal"));
+    bootstrap.register(Workcycle.MATUTINAL, workcycle(List.of(new Workcycle.Interval(22000, 24000), new Workcycle.Interval(0, 1000)), true, "matutinal"));
+    bootstrap.register(Workcycle.DIURNAL, workcycle(List.of(new Workcycle.Interval(1000, 11000)), true, "diurnal"));
+    bootstrap.register(Workcycle.VESPERTINAL, workcycle(List.of(new Workcycle.Interval(11000, 13000)), true, "vespertinal"));
+    bootstrap.register(Workcycle.NOCTURNAL, workcycle(List.of(new Workcycle.Interval(13000, 22000), new Workcycle.Interval(0, 6000)), true, "nocturnal"));
     bootstrap.register(Workcycle.ALWAYS, workcycle(List.of(new Workcycle.Interval(0, 24000)), false, "always"));
   }
 

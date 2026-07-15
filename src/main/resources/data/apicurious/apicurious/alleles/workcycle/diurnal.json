@@ -2,8 +2,8 @@
   "type": "apicurious:workcycle",
   "activeTimes": [
     {
-      "maxTime": 18000,
-      "minTime": 6000
+      "maxTime": 11000,
+      "minTime": 1000
     }
   ],
   "isDominantTrait": true,
