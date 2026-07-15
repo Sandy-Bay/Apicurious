@@ -24,25 +24,25 @@ public class Workcycle extends AbstractAllele<Workcycle>
 
   /**
    * Matutinal (Dawn Time)
-   * Bees will only produce between 4000 and 10000 time-wise.
+   * Bees will only produce between 22000 and 1000 time-wise.
    */
   public static final ResourceKey<IAllele<?>> MATUTINAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/matutinal"));
 
   /**
    * Diurnal (Day Time)
-   * Bees will only produce between 6000 and 18000 time-wise.
+   * Bees will only produce between 1000 and 11000 time-wise.
    */
   public static final ResourceKey<IAllele<?>> DIURNAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/diurnal"));
 
   /**
    * Vespertinal (Evening Time)
-   * Bees will only produce between 14000 and 20000 time-wise.
+   * Bees will only produce between 11000 and 13000 time-wise.
    */
   public static final ResourceKey<IAllele<?>> VESPERTINAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/vespertinal"));
 
   /**
    * Nocturnal (Night Time)
-   * Bees will only produce between 18000 and 6000 time-wise.
+   * Bees will only produce between 13000 and 22000 time-wise.
    */
   public static final ResourceKey<IAllele<?>> NOCTURNAL = ResourceKey.create(ApicuriousRegistries.ALLELES, Apicurious.createIdentifier("workcycle/nocturnal"));
 
