@@ -102,7 +102,7 @@ public class ApicuriousJeiPlugin implements IModPlugin
     this.jeiHelpers = registry.getJeiHelpers();
     registry.addRecipeCategories(new CentrifugeCategory(jeiHelpers.getGuiHelper()));
     registry.addRecipeCategories(new BeeOutputCategory(jeiHelpers.getGuiHelper()));
-    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    if (ApicuriousMainConfig.getShouldJEIMutations())
     {
       registry.addRecipeCategories(new BeeMutationCategory(jeiHelpers.getGuiHelper()));
     }
@@ -114,7 +114,7 @@ public class ApicuriousJeiPlugin implements IModPlugin
     removeDebugAndUndefinedBeesFromIngredientList();
     registration.addRecipes(ApicuriousRecipeTypes.CENTRIFUGE, getCentrifugeRecipes());
     registration.addRecipes(ApicuriousRecipeTypes.BEE_OUTPUTS, getBeeOutputRecipes());
-    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    if (ApicuriousMainConfig.getShouldJEIMutations())
     {
       registration.addRecipes(ApicuriousRecipeTypes.BEE_MUTATIONS, getBeeMutationRecipes());
     }

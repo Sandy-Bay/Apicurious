@@ -4,10 +4,6 @@
     {
       "maxTime": 22000,
       "minTime": 13000
-    },
-    {
-      "maxTime": 6000,
-      "minTime": 0
     }
   ],
   "isDominantTrait": true,

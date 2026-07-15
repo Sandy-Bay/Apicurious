@@ -21,7 +21,7 @@ public class JEIHousingContainerHandler<M extends AbstractContainerMenu, T exten
   public Collection<IGuiClickableArea> getGuiClickableAreas(T containerScreen, double guiMouseX, double guiMouseY)
   {
     Collection<IGuiClickableArea> areas = new ArrayList<>();
-    if (ApicuriousMainConfig.main_config.shouldJEIMutations.get())
+    if (ApicuriousMainConfig.getShouldJEIMutations())
     {
       areas.add(IGuiClickableArea.createBasic(getMutationAreaX(), getMutationAreaY(), getMutationAreaWidth(), getMutationAreaHeight(), ApicuriousRecipeTypes.BEE_MUTATIONS));
     }

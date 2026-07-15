@@ -164,7 +164,7 @@ public class AnalyzerMenu extends AbstractContainerMenu
     {
       for (int j = 0; j < 9; j++)
       {
-        this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 36 + j * 18, 138 + i * 18));
+        this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 36 + j * 18, 137 + i * 18));
       }
     }
   }
@@ -173,7 +173,7 @@ public class AnalyzerMenu extends AbstractContainerMenu
   {
     for (int k = 0; k < 9; k++)
     {
-      this.addSlot(new Slot(playerInventory, k, 36 + k * 18, 196));
+      this.addSlot(new Slot(playerInventory, k, 36 + k * 18, 195));
     }
   }
 

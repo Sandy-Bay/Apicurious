@@ -8,11 +8,6 @@ import sandybay.apicurious.common.config.ApicuriousMainConfig;
 
 public class ApicuriousNormalEvents
 {
-  public static void registerTotallyNormalEvents(IEventBus bus)
-  {
-    bus.addListener(ApicuriousNormalEvents::whyAreTheHorsesOnFire);
-  }
-
   /**
    * Credit goes to Thiakil :^I <3
    *
@@ -20,7 +15,7 @@ public class ApicuriousNormalEvents
    */
   public static void whyAreTheHorsesOnFire(EntityTickEvent.Post event)
   {
-    if (ApicuriousMainConfig.main_config.whyAreTheHorsesOnFire.get() && event.getEntity() instanceof Horse horse)
+    if (ApicuriousMainConfig.getWhyAreTheHorsesOnFire() && event.getEntity() instanceof Horse horse)
     {
       Level level = horse.level();
       int time = Math.toIntExact(level.getOverworldClockTime() % 24000);

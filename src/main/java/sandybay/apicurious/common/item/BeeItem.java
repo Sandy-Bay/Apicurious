@@ -78,7 +78,7 @@ public class BeeItem extends Item implements IBeeItem
   @Override
   public @NotNull Component getName(ItemStack stack)
   {
-    if (ApicuriousMainConfig.main_config.weDontTalkAboutThat.get() && getBeeType() == EnumBeeType.DRONE)
+    if (ApicuriousMainConfig.getWeDontTalkAboutThat() && getBeeType() == EnumBeeType.DRONE)
     {
       return Component.translatable("item.apicurious.drone.secret");
     }

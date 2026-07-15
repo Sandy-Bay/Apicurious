@@ -62,7 +62,7 @@ public class CreativeTabRegistrar
           {
             return;
           }
-          if (rl.identifier().getPath().equals("debug") && !ApicuriousMainConfig.main_config.debug.get())
+          if (rl.identifier().getPath().equals("debug") && !ApicuriousMainConfig.getDebug())
           {
             return;
           }
