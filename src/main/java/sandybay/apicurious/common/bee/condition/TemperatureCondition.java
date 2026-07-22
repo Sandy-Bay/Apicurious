@@ -31,11 +31,11 @@ public record TemperatureCondition(HolderSet<Biome> temperature) implements ICon
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
-    if (housing.getLevel() == null || housing.validation == null || housing.validation.helper == null)
+    if (housing.getLevel() == null || housing.validation == null || housing.validation.getHelper() == null)
     {
       return false;
     }
-    TagKey<Biome> temperatureAtPosition = housing.validation.helper.getTemperatureAtPosition(housing.getBlockPos());
+    TagKey<Biome> temperatureAtPosition = housing.validation.getHelper().getTemperatureAtPosition(housing.getBlockPos());
     if (temperatureAtPosition == null)
     {
       return false;

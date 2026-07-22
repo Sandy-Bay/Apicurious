@@ -4,10 +4,7 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import sandybay.apicurious.api.registry.ApicuriousRegistries;
-import sandybay.apicurious.data.defaults.CentrifugeRecipeDefaults;
-import sandybay.apicurious.data.defaults.FunctionsDefaults;
-import sandybay.apicurious.data.defaults.MutationDefaults;
-import sandybay.apicurious.data.defaults.OutputTableDefaults;
+import sandybay.apicurious.data.defaults.*;
 import sandybay.apicurious.data.defaults.allele.AlleleDefaults;
 import sandybay.apicurious.data.defaults.condition.ConditionsDefaults;
 import sandybay.apicurious.data.defaults.worldgen.ApicuriousBiomeModifiers;
@@ -29,6 +26,7 @@ public class ApicuriousDatapackRegistriesDefaults
     builder.add(Registries.CONFIGURED_FEATURE, ApicuriousConfiguredFeatureProvider::defaults);
     builder.add(Registries.PLACED_FEATURE, ApicuriousPlacedFeatureProvider::defaults);
     builder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ApicuriousBiomeModifiers::defaults);
+    builder.add(Registries.VILLAGER_TRADE, VillagerTradesDefaults::defaults);
     return builder;
   }
 }

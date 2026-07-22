@@ -120,9 +120,9 @@ public class ItemRegistrar
   public static final ItemHolder ASH = product("ash");
   public static final ItemHolder PEAT = product("peat");
   public static final ItemHolder PHOSPHOR = product("phosphor");
+  public static final ItemHolder COPPER_NUGGET = product("copper_nugget");
   public static final ItemHolder DIAMOND_NUGGET = product("diamond_nugget");
   public static final ItemHolder EMERALD_NUGGET = product("emerald_nugget");
-  public static final ItemHolder COPPER_NUGGET = product("copper_nugget");
   public static final PropolisHolder WATERY_PROPOLIS = propolis("watery_propolis", Coloring.fromHex("24B3C9"));
   public static final DropHolder RED_TINTED_DROP = drop("red_tinted_drop", Coloring.fromHex("FF0000"), Coloring.fromHex("CC4C4C"));
   public static final DropHolder YELLOW_TINTED_DROP = drop("yellow_tinted_drop", Coloring.fromHex("FFDD00"), Coloring.fromHex("E5E533"));
@@ -146,6 +146,7 @@ public class ItemRegistrar
 
   // Frames
   public static final FrameHolder UNTREATED_FRAME = frame("untreated", 80, 1.0f, 0.897f, 1.0f, 1.0f);
+  public static final ItemHolder  IMPREGNATED_STICK = item("impregnated_stick");
   public static final FrameHolder IMPREGNATED_FRAME = frame("impregnated", 240, 1.0f, 0.818f, 1.0f, 1.0f);
   public static final FrameHolder HEALING_FRAME = frame("healing", 240, 1.5f, 1.25f, 0.5f, 1.0f);
   public static final FrameHolder SOUL_FRAME = frame("soul", 240, 0.75f, 1.75f, 1.5f, 1.0f);
@@ -274,26 +275,44 @@ public class ItemRegistrar
 
   public record ItemHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, Item> item)
   {
+    public Item asItem() {
+      return item.get();
+    }
   }
 
   public record CombHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, CombItem> comb,
                            ResourceKey<CentrifugeRecipe> recipe)
   {
+    public Item asItem() {
+      return comb.get();
+    }
   }
 
   public record DropHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, DropItem> drop)
   {
+    public Item asItem() {
+      return drop.get();
+    }
   }
 
   public record FrameHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, FrameItem> frame)
   {
+    public Item asItem() {
+      return frame.get();
+    }
   }
 
   public record PollenHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PollenItem> pollen)
   {
+    public Item asItem() {
+      return pollen.get();
+    }
   }
 
   public record PropolisHolder(ResourceKey<Item> itemKey, DeferredHolder<Item, PropolisItem> propolis)
   {
+    public Item asItem() {
+      return propolis.get();
+    }
   }
 }

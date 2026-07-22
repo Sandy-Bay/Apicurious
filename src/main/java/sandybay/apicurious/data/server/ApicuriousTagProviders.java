@@ -1,11 +1,15 @@
 package sandybay.apicurious.data.server;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.VillagerTradeTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +20,7 @@ import sandybay.apicurious.api.util.ApicuriousTags;
 import sandybay.apicurious.common.bee.ApicuriousSpecies;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
+import sandybay.apicurious.data.defaults.VillagerTradesDefaults;
 import sandybay.apicurious.data.providers.AlleleTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
@@ -127,6 +132,25 @@ public class ApicuriousTagProviders
     protected void addTags(HolderLookup.Provider pProvider)
     {
       this.getOrCreateRawBuilder(ApicuriousTags.AlleleTags.BASELINE_BEE).addElement(ApicuriousSpecies.FOREST.species().identifier()).addElement(ApicuriousSpecies.MEADOW.species().identifier()).addElement(ApicuriousSpecies.MODEST.species().identifier()).addElement(ApicuriousSpecies.TROPICAL.species().identifier()).addElement(ApicuriousSpecies.WINTRY.species().identifier()).addElement(ApicuriousSpecies.MARSHY.species().identifier()).addElement(ApicuriousSpecies.ROCKY.species().identifier()).addElement(ApicuriousSpecies.WATER.species().identifier()).addElement(ApicuriousSpecies.NETHER.species().identifier()).addElement(ApicuriousSpecies.ENDER.species().identifier());
+    }
+  }
+
+  /**
+   * TODO: Replace this with a custom villager and building.
+   */
+  public static class VillagerTradeTagsProvider extends TagsProvider<VillagerTrade> {
+
+    public VillagerTradeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider)
+    {
+      super(output, Registries.VILLAGER_TRADE, lookupProvider, Apicurious.MODID);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider)
+    {
+      this.tag(VillagerTradeTags.FARMER_LEVEL_3).addOptional(VillagerTradesDefaults.PROVEN_FRAME_L3).addOptional(VillagerTradesDefaults.STEADFAST_DRONE_L3);
+      this.tag(VillagerTradeTags.FARMER_LEVEL_4).addOptional(VillagerTradesDefaults.PROVEN_FRAME_L4).addOptional(VillagerTradesDefaults.STEADFAST_DRONE_L4);
+      this.tag(VillagerTradeTags.FARMER_LEVEL_5).addOptional(VillagerTradesDefaults.PROVEN_FRAME_L5).addOptional(VillagerTradesDefaults.STEADFAST_DRONE_L5);
     }
   }
 }

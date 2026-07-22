@@ -31,11 +31,11 @@ public record HumidityCondition(HolderSet<Biome> humidity) implements ICondition
   @Override
   public boolean test(SimpleBlockHousingBE housing)
   {
-    if (housing.getLevel() == null || housing.validation == null || housing.validation.helper == null)
+    if (housing.getLevel() == null || housing.validation == null || housing.validation.getHelper() == null)
     {
       return false;
     }
-    TagKey<Biome> humidityAtPosition = housing.validation.helper.getHumidityAtPosition(housing.getBlockPos());
+    TagKey<Biome> humidityAtPosition = housing.validation.getHelper().getHumidityAtPosition(housing.getBlockPos());
     if (humidityAtPosition == null)
     {
       return false;

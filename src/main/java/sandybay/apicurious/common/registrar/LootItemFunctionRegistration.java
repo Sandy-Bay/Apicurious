@@ -1,4 +1,4 @@
-package sandybay.apicurious.data.server;
+package sandybay.apicurious.common.registrar;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;

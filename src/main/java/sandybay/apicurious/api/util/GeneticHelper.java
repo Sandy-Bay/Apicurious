@@ -26,7 +26,7 @@ public class GeneticHelper
     Holder<IAllele<?>> dominant = firstDominant ? firstAllele : secondAllele;
     Holder<IAllele<?>> recessive = firstDominant ? secondAllele : firstAllele;
 
-    boolean recessiveLeaksThrough = random.nextFloat() < ApicuriousMainConfig.main_config.recessiveLeakChance.get();
+    boolean recessiveLeaksThrough = random.nextFloat() < ApicuriousMainConfig.getRecessiveLeakChance();
     return recessiveLeaksThrough ? Genotype.of(recessive, dominant) : Genotype.of(dominant, recessive);
   }
 

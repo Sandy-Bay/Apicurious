@@ -26,6 +26,7 @@ public class ApicuriousDataGen
     event.createProvider(ApicuriousTagProviders.BlocksProvider::new);
     event.createProvider(ApicuriousTagProviders.ItemsProvider::new);
     event.createProvider(ApicuriousTagProviders.BiomesProvider::new);
+    event.createProvider(ApicuriousTagProviders.VillagerTradeTagsProvider::new);
     DatapackBuiltinEntriesProvider provider = event.createProvider((output, lookupProvider) -> new DatapackBuiltinEntriesProvider(output, lookupProvider, ApicuriousDatapackRegistriesDefaults.registerDataPackRegistryDefaults(), Set.of(Apicurious.MODID)));
     event.createProvider(output -> new ApicuriousTagProviders.AlleleProvider(output, provider.getRegistryProvider()));
   }

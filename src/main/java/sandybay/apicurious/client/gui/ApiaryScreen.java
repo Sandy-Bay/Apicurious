@@ -58,18 +58,15 @@ public class ApiaryScreen extends AbstractContainerScreen<@NotNull ApiaryMenu>
 
   public void updateErrorList()
   {
-    if (errorWidgets.isEmpty() || getMenu().getErrors().size() != errorWidgets.size())
-    {
-      errorWidgets.clear();
-      int y = topPos + 10;
-      int space = 27;
+    errorWidgets.clear();
+    int y = topPos + 10;
+    int space = 27;
 
-      for (HousingError error : getMenu().getErrors())
-      {
-        ErrorWidget errorWidget = new ErrorWidget(leftPos - 24, y, 25, 25, 120, 80, true, 1.0F, 0.1F, 0.1F, error);
-        errorWidgets.add(errorWidget);
-        y += space;
-      }
+    for (HousingError error : getMenu().getErrors())
+    {
+      ErrorWidget errorWidget = new ErrorWidget(leftPos - 24, y, 25, 25, 120, 80, true, 1.0F, 0.1F, 0.1F, error);
+      errorWidgets.add(errorWidget);
+      y += space;
     }
   }
 

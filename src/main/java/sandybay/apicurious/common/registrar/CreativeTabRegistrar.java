@@ -26,10 +26,10 @@ public class CreativeTabRegistrar
   public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Apicurious.MODID);
 
   // TODO: Replace Healing frame with Sieve once Sieve is fixed
-  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GENERAL_TAB = CREATIVE_MODE_TABS.register("apicurious", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.apicurious.general")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> new ItemStack(ItemRegistrar.HEALING_FRAME.frame().get())).displayItems((parameters, output) ->
+  public static final DeferredHolder<CreativeModeTab, CreativeModeTab> GENERAL_TAB = CREATIVE_MODE_TABS.register("apicurious", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.apicurious.general")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> new ItemStack(ItemRegistrar.HEALING_FRAME.asItem())).displayItems((parameters, output) ->
   {
-    output.accept(new ItemStack(ItemRegistrar.ANALYZER.item().get()));
-    output.accept(new ItemStack(ItemRegistrar.SIEVE.item().get()));
+    output.accept(new ItemStack(ItemRegistrar.ANALYZER.asItem()));
+    output.accept(new ItemStack(ItemRegistrar.SIEVE.asItem()));
     output.accept(BlockRegistrar.CENTRIFUGE.asItemStack());
     registerHousings(output);
     registerHives(output);

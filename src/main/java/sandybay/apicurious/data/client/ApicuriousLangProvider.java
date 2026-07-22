@@ -21,12 +21,12 @@ public class ApicuriousLangProvider extends LanguageProvider
   protected void addTranslations()
   {
     // Items
-    add(ItemRegistrar.DRONE.item().get(), "Drone");
+    add(ItemRegistrar.DRONE.asItem(), "Drone");
     add("item.apicurious.drone.secret", "Bruno");
-    add(ItemRegistrar.PRINCESS.item().get(), "Princess");
-    add(ItemRegistrar.QUEEN.item().get(), "Queen");
-    add(ItemRegistrar.SIEVE.item().get(), "Sieve");
-    add(ItemRegistrar.ANALYZER.item().get(), "Bee Analyzer");
+    add(ItemRegistrar.PRINCESS.asItem(), "Princess");
+    add(ItemRegistrar.QUEEN.asItem(), "Queen");
+    add(ItemRegistrar.SIEVE.asItem(), "Sieve");
+    add(ItemRegistrar.ANALYZER.asItem(), "Bee Analyzer");
 
     // Blocks
     add(BlockRegistrar.APIARY.asBlock(), "Apiary");
@@ -37,52 +37,52 @@ public class ApicuriousLangProvider extends LanguageProvider
     add(BlockRegistrar.CENTRIFUGE.asItem(), "Centrifuge");
 
     // Frames
-    add(ItemRegistrar.UNTREATED_FRAME.frame().get(), "Untreated Frame");
-    add(ItemRegistrar.IMPREGNATED_FRAME.frame().get(), "Impregnated Frame");
-    add(ItemRegistrar.HEALING_FRAME.frame().get(), "Healing Frame");
-    add(ItemRegistrar.SOUL_FRAME.frame().get(), "Soul Frame");
-    add(ItemRegistrar.RESTRAINT_FRAME.frame().get(), "Restraint Frame");
-    add(ItemRegistrar.PROVEN_FRAME.frame().get(), "Proven Frame");
-    add(ItemRegistrar.ROYAL_FRAME.frame().get(), "Royal Frame");
-    add(ItemRegistrar.CREATIVE_FRAME.frame().get(), "Creative Frame");
+    add(ItemRegistrar.UNTREATED_FRAME.asItem(), "Untreated Frame");
+    add(ItemRegistrar.IMPREGNATED_FRAME.asItem(), "Impregnated Frame");
+    add(ItemRegistrar.HEALING_FRAME.asItem(), "Healing Frame");
+    add(ItemRegistrar.SOUL_FRAME.asItem(), "Soul Frame");
+    add(ItemRegistrar.RESTRAINT_FRAME.asItem(), "Restraint Frame");
+    add(ItemRegistrar.PROVEN_FRAME.asItem(), "Proven Frame");
+    add(ItemRegistrar.ROYAL_FRAME.asItem(), "Royal Frame");
+    add(ItemRegistrar.CREATIVE_FRAME.asItem(), "Creative Frame");
 
     // Products
-    add(ItemRegistrar.BEESWAX.item().get(), "Beeswax");
-    add(ItemRegistrar.REFRACTORY_WAX.item().get(), "Refractory Wax");
-    add(ItemRegistrar.HONEY_DROP.drop().get(), "Honey Drop");
-    add(ItemRegistrar.HONEY_DEW.item().get(), "Honey Dew");
-    add(ItemRegistrar.ROYAL_JELLY.item().get(), "Royal Jelly");
-    add(ItemRegistrar.PROPOLIS.propolis().get(), "Propolis");
-    add(ItemRegistrar.SILKEN_PROPOLIS.propolis().get(), "Silken Propolis");
-    add(ItemRegistrar.SILK_WISP.item().get(), "Silk Wisp");
-    add(ItemRegistrar.POLLEN.pollen().get(), "Pollen");
-    add(ItemRegistrar.ICE_SHARD.item().get(), "Ice Shard");
-    add(ItemRegistrar.ASH.item().get(), "Ash");
-    add(ItemRegistrar.PEAT.item().get(), "Peat");
-    add(ItemRegistrar.PHOSPHOR.item().get(), "Phosphor");
-    add(ItemRegistrar.DIAMOND_NUGGET.item().get(), "Diamond Nugget");
-    add(ItemRegistrar.EMERALD_NUGGET.item().get(), "Emerald Nugget");
-    add(ItemRegistrar.COPPER_NUGGET.item().get(), "Copper Nugget");
-    add(ItemRegistrar.WATERY_PROPOLIS.propolis().get(), "Watery Propolis");
-    add(ItemRegistrar.RED_TINTED_DROP.drop().get(), "Red-Tinted Drop");
-    add(ItemRegistrar.YELLOW_TINTED_DROP.drop().get(), "Yellow-Tinted Drop");
-    add(ItemRegistrar.BLUE_TINTED_DROP.drop().get(), "Blue-Tinted Drop");
-    add(ItemRegistrar.GREEN_TINTED_DROP.drop().get(), "Green-Tinted Drop");
-    add(ItemRegistrar.BROWN_TINTED_DROP.drop().get(), "Brown-Tinted Drop");
-    add(ItemRegistrar.WHITE_TINTED_DROP.drop().get(), "White-Tinted Drop");
-    add(ItemRegistrar.BLACK_TINTED_DROP.drop().get(), "Black-Tinted Drop");
-    add(ItemRegistrar.ORANGE_TINTED_DROP.drop().get(), "Orange-Tinted Drop");
-    add(ItemRegistrar.CYAN_TINTED_DROP.drop().get(), "Cyan-Tinted Drop");
-    add(ItemRegistrar.PURPLE_TINTED_DROP.drop().get(), "Purple-Tinted Drop");
-    add(ItemRegistrar.GRAY_TINTED_DROP.drop().get(), "Gray-Tinted Drop");
-    add(ItemRegistrar.LIGHT_BLUE_TINTED_DROP.drop().get(), "Light Blue-Tinted Drop");
-    add(ItemRegistrar.PINK_TINTED_DROP.drop().get(), "Pink-Tinted Drop");
-    add(ItemRegistrar.LIME_TINTED_DROP.drop().get(), "Lime-Tinted Drop");
-    add(ItemRegistrar.LIGHT_GRAY_TINTED_DROP.drop().get(), "Light Gray-Tinted Drop");
-    add(ItemRegistrar.MAGENTA_TINTED_DROP.drop().get(), "Magenta-Tinted Drop");
-    add(ItemRegistrar.SALTPETER.item().get(), "Saltpeter");
-    add(ItemRegistrar.ACIDIC_DROP.drop().get(), "Acidic Drop");
-    add(ItemRegistrar.SULFUR.item().get(), "Sulfur");
+    add(ItemRegistrar.BEESWAX.asItem(), "Beeswax");
+    add(ItemRegistrar.REFRACTORY_WAX.asItem(), "Refractory Wax");
+    add(ItemRegistrar.HONEY_DROP.asItem(), "Honey Drop");
+    add(ItemRegistrar.HONEY_DEW.asItem(), "Honey Dew");
+    add(ItemRegistrar.ROYAL_JELLY.asItem(), "Royal Jelly");
+    add(ItemRegistrar.PROPOLIS.asItem(), "Propolis");
+    add(ItemRegistrar.SILKEN_PROPOLIS.asItem(), "Silken Propolis");
+    add(ItemRegistrar.SILK_WISP.asItem(), "Silk Wisp");
+    add(ItemRegistrar.POLLEN.asItem(), "Pollen");
+    add(ItemRegistrar.ICE_SHARD.asItem(), "Ice Shard");
+    add(ItemRegistrar.ASH.asItem(), "Ash");
+    add(ItemRegistrar.PEAT.asItem(), "Peat");
+    add(ItemRegistrar.PHOSPHOR.asItem(), "Phosphor");
+    add(ItemRegistrar.DIAMOND_NUGGET.asItem(), "Diamond Nugget");
+    add(ItemRegistrar.EMERALD_NUGGET.asItem(), "Emerald Nugget");
+    add(ItemRegistrar.COPPER_NUGGET.asItem(), "Copper Nugget");
+    add(ItemRegistrar.WATERY_PROPOLIS.asItem(), "Watery Propolis");
+    add(ItemRegistrar.RED_TINTED_DROP.asItem(), "Red-Tinted Drop");
+    add(ItemRegistrar.YELLOW_TINTED_DROP.asItem(), "Yellow-Tinted Drop");
+    add(ItemRegistrar.BLUE_TINTED_DROP.asItem(), "Blue-Tinted Drop");
+    add(ItemRegistrar.GREEN_TINTED_DROP.asItem(), "Green-Tinted Drop");
+    add(ItemRegistrar.BROWN_TINTED_DROP.asItem(), "Brown-Tinted Drop");
+    add(ItemRegistrar.WHITE_TINTED_DROP.asItem(), "White-Tinted Drop");
+    add(ItemRegistrar.BLACK_TINTED_DROP.asItem(), "Black-Tinted Drop");
+    add(ItemRegistrar.ORANGE_TINTED_DROP.asItem(), "Orange-Tinted Drop");
+    add(ItemRegistrar.CYAN_TINTED_DROP.asItem(), "Cyan-Tinted Drop");
+    add(ItemRegistrar.PURPLE_TINTED_DROP.asItem(), "Purple-Tinted Drop");
+    add(ItemRegistrar.GRAY_TINTED_DROP.asItem(), "Gray-Tinted Drop");
+    add(ItemRegistrar.LIGHT_BLUE_TINTED_DROP.asItem(), "Light Blue-Tinted Drop");
+    add(ItemRegistrar.PINK_TINTED_DROP.asItem(), "Pink-Tinted Drop");
+    add(ItemRegistrar.LIME_TINTED_DROP.asItem(), "Lime-Tinted Drop");
+    add(ItemRegistrar.LIGHT_GRAY_TINTED_DROP.asItem(), "Light Gray-Tinted Drop");
+    add(ItemRegistrar.MAGENTA_TINTED_DROP.asItem(), "Magenta-Tinted Drop");
+    add(ItemRegistrar.SALTPETER.asItem(), "Saltpeter");
+    add(ItemRegistrar.ACIDIC_DROP.asItem(), "Acidic Drop");
+    add(ItemRegistrar.SULFUR.asItem(), "Sulfur");
 
     // Misc
     add("apicurious.bee.shiftdown", "<Hold Shift for details>");
@@ -506,7 +506,7 @@ public class ApicuriousLangProvider extends LanguageProvider
 
   public void comb(ItemRegistrar.CombHolder item, String name)
   {
-    add(item.comb().get(), name + " Comb");
+    add(item.asItem(), name + " Comb");
   }
 
   public void error(String message, String translation)

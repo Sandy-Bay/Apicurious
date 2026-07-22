@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.data.tags.VillagerTradesTagsProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -39,13 +40,12 @@ import sandybay.apicurious.common.network.PacketHandler;
 import sandybay.apicurious.common.normal.ApicuriousNormalEvents;
 import sandybay.apicurious.common.registrar.*;
 import sandybay.apicurious.data.ApicuriousDataGen;
-import sandybay.apicurious.data.server.LootItemFunctionRegistration;
+import sandybay.apicurious.common.registrar.LootItemFunctionRegistration;
 
 /*
  Todo: Before MVP Alpha Release
   - Must Haves
-    - Hives
-      - Add WorldGen for Hives
+    - Final clean-up
  */
 /*
  TODO: Before MVP Beta Release

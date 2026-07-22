@@ -83,9 +83,6 @@ public class BeeOutputCategory implements IRecipeCategory<BeeOutputCategory.Reci
   @Override
   public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull Recipe recipe, @NotNull IFocusGroup focuses)
   {
-    // Queen/Princess/Drone morphs of the input species are all offered here
-    // (instead of a single Drone stack) so that clicking any of them in JEI
-    // or the player's inventory surfaces this output recipe.
     builder.addInputSlot(38, 4).addItemStacks(recipe.input);
     int x = 0;
     int y = 0;

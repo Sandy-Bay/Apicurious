@@ -75,7 +75,7 @@ public class CentrifugeCategory implements IRecipeCategory<CentrifugeCategory.Re
                         @NotNull IFocusGroup focuses)
   {
     builder.addInputSlot(1, 17).add(recipe.input);
-    int x = 52;
+    int x = 54;
     int y = 1;
     int i = 0;
     int j = 0;

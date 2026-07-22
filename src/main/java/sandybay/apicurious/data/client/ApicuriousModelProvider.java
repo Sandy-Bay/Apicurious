@@ -35,18 +35,18 @@ public class ApicuriousModelProvider extends ModelProvider
 
   private static void generateMisc(ItemModelGenerators itemModels)
   {
-    itemModels.itemModelOutput.accept(ItemRegistrar.SIEVE.item().get(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/sieve")));
-    ModelTemplates.FLAT_ITEM.create(ItemRegistrar.SIEVE.item().get(), TextureMapping.layer0(ItemRegistrar.SIEVE.item().get()), itemModels.modelOutput);
-    itemModels.itemModelOutput.accept(ItemRegistrar.ANALYZER.item().get(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/analyzer")));
-    ModelTemplates.FLAT_ITEM.create(ItemRegistrar.ANALYZER.item().get(), TextureMapping.layer0(ItemRegistrar.ANALYZER.item().get()), itemModels.modelOutput);
+    itemModels.itemModelOutput.accept(ItemRegistrar.SIEVE.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/sieve")));
+    ModelTemplates.FLAT_ITEM.create(ItemRegistrar.SIEVE.asItem(), TextureMapping.layer0(ItemRegistrar.SIEVE.asItem()), itemModels.modelOutput);
+    itemModels.itemModelOutput.accept(ItemRegistrar.ANALYZER.asItem(), ItemModelUtils.plainModel(Apicurious.createIdentifier("item/analyzer")));
+    ModelTemplates.FLAT_ITEM.create(ItemRegistrar.ANALYZER.asItem(), TextureMapping.layer0(ItemRegistrar.ANALYZER.asItem()), itemModels.modelOutput);
   }
 
   private static void generateBees(ItemModelGenerators itemModels)
   {
     // Item Models
-    itemModels.itemModelOutput.accept(ItemRegistrar.DRONE.item().get(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_drone")));
-    itemModels.itemModelOutput.accept(ItemRegistrar.PRINCESS.item().get(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_princess")));
-    itemModels.itemModelOutput.accept(ItemRegistrar.QUEEN.item().get(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_queen")));
+    itemModels.itemModelOutput.accept(ItemRegistrar.DRONE.asItem(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_drone")));
+    itemModels.itemModelOutput.accept(ItemRegistrar.PRINCESS.asItem(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_princess")));
+    itemModels.itemModelOutput.accept(ItemRegistrar.QUEEN.asItem(), new BeeItemModel.Unbaked(Apicurious.createIdentifier("species/default_queen")));
     itemModels.itemModelOutput.register(Apicurious.createIdentifier("species/default_drone"), new ClientItem(new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/species/default_bee"), Optional.empty(), List.of(new BeeItemTinter(true, false), new BeeItemTinter(false, true), new BeeItemTinter(false, false), new BeeItemTinter(false, false), new BeeItemTinter(false, false))), ClientItem.Properties.DEFAULT));
     itemModels.itemModelOutput.register(Apicurious.createIdentifier("species/default_princess"), new ClientItem(new CompositeModel.Unbaked(List.of(new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/species/default_bee"), Optional.empty(), List.of(new BeeItemTinter(true, false), new BeeItemTinter(false, true), new BeeItemTinter(false, false), new BeeItemTinter(false, false), new BeeItemTinter(false, false))), new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/species/princess_crown"), Optional.empty(), List.of())), Optional.empty()), ClientItem.Properties.DEFAULT));
     itemModels.itemModelOutput.register(Apicurious.createIdentifier("species/default_queen"), new ClientItem(new CompositeModel.Unbaked(List.of(new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/species/default_bee"), Optional.empty(), List.of(new BeeItemTinter(true, false), new BeeItemTinter(false, true), new BeeItemTinter(false, false), new BeeItemTinter(false, false), new BeeItemTinter(false, false))), new CuboidItemModelWrapper.Unbaked(Apicurious.createIdentifier("item/species/queen_crown"), Optional.empty(), List.of())), Optional.empty()), ClientItem.Properties.DEFAULT));

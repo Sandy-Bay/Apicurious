@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "apicurious:proven_frame_l3",
+      "required": false
+    },
+    {
+      "id": "apicurious:steadfast_drone_l3",
+      "required": false
+    }
+  ]
+}

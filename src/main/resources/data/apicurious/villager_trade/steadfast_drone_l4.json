@@ -1,0 +1,20 @@
+{
+  "additional_wants": {
+    "id": "apicurious:drone"
+  },
+  "given_item_modifiers": [
+    {
+      "function": "apicurious:species",
+      "speciesKey": "apicurious:species/steadfast"
+    }
+  ],
+  "gives": {
+    "id": "apicurious:drone"
+  },
+  "reputation_discount": 0.1,
+  "wants": {
+    "count": 8.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}
