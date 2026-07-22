@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "#c:gems/diamond",
+    "G": "#c:glass_panes",
+    "I": "#c:ingots/iron",
+    "R": "#c:dusts/redstone"
+  },
+  "pattern": [
+    "IGI",
+    "IGI",
+    "RDR"
+  ],
+  "result": {
+    "id": "apicurious:analyzer"
+  }
+}

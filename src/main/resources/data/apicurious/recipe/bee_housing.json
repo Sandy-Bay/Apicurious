@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "#c:chests/wooden",
+    "F": "#minecraft:wooden_fences",
+    "P": "#minecraft:planks",
+    "S": "#minecraft:wooden_slabs"
+  },
+  "pattern": [
+    "SSS",
+    "FCF",
+    "PPP"
+  ],
+  "result": {
+    "id": "apicurious:bee_housing"
+  }
+}

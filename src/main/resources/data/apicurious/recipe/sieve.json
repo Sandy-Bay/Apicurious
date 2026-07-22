@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": "minecraft:stick",
+    "W": "#minecraft:wool"
+  },
+  "pattern": [
+    "SWS",
+    "SSS",
+    " S "
+  ],
+  "result": {
+    "id": "apicurious:sieve"
+  }
+}

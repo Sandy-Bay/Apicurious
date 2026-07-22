@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_impregnated_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "apicurious:impregnated_stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "apicurious:impregnated_frame"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_impregnated_stick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "apicurious:impregnated_frame"
+    ]
+  }
+}

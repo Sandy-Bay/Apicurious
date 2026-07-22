@@ -1,6 +1,7 @@
 package sandybay.apicurious.data.server;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -10,10 +11,12 @@ import net.neoforged.neoforge.common.Tags;
 import sandybay.apicurious.common.registrar.BlockRegistrar;
 import sandybay.apicurious.common.registrar.ItemRegistrar;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ApicuriousRecipes extends RecipeProvider
 {
 
-  protected ApicuriousRecipes(HolderLookup.Provider registries, RecipeOutput output)
+  public ApicuriousRecipes(HolderLookup.Provider registries, RecipeOutput output)
   {
     super(registries, output);
   }
@@ -126,5 +129,22 @@ public class ApicuriousRecipes extends RecipeProvider
                 .save(output);
 
 
+  }
+
+  public static class Runner extends RecipeProvider.Runner {
+    public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+      super(output, lookupProvider);
+    }
+
+    @Override
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput output) {
+      return new ApicuriousRecipes(provider, output);
+    }
+
+    @Override
+    public String getName()
+    {
+      return "apicurious";
+    }
   }
 }

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "apicurious:impregnated_frame",
+    "minecraft:soul_sand"
+  ],
+  "result": {
+    "id": "apicurious:soul_frame"
+  }
+}

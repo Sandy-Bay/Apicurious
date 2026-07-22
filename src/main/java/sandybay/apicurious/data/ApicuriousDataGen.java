@@ -8,6 +8,7 @@ import sandybay.apicurious.data.client.ApicuriousLangProvider;
 import sandybay.apicurious.data.client.ApicuriousModelProvider;
 import sandybay.apicurious.data.server.ApicuriousDatapackRegistriesDefaults;
 import sandybay.apicurious.data.server.ApicuriousLootTables;
+import sandybay.apicurious.data.server.ApicuriousRecipes;
 import sandybay.apicurious.data.server.ApicuriousTagProviders;
 
 import java.util.Set;
@@ -23,6 +24,7 @@ public class ApicuriousDataGen
   public static void generateServerData(final GatherDataEvent.Server event)
   {
     event.createProvider(ApicuriousLootTables::new);
+    event.createProvider(ApicuriousRecipes.Runner::new);
     event.createProvider(ApicuriousTagProviders.BlocksProvider::new);
     event.createProvider(ApicuriousTagProviders.ItemsProvider::new);
     event.createProvider(ApicuriousTagProviders.BiomesProvider::new);
