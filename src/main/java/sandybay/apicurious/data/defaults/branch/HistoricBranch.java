@@ -18,6 +18,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class HistoricBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.ANCIENT.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.ANCIENT.species(), "ancient").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ANCIENT)).withProductionData(builder -> builder.withLifespan(Lifespan.ELONGATED).withPollination(Pollination.SLOW).withSpeed(Speed.SLOWER)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.ANCIENT.output())).build());
@@ -41,4 +42,5 @@ public class HistoricBranch
     bootstrap.register(ApicuriousSpecies.PREHISTORIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB.comb(), 0.3f));
     bootstrap.register(ApicuriousSpecies.RELIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ANCIENT_COMB.comb(), 0.3f));
   }
+   */
 }

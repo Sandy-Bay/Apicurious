@@ -19,6 +19,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AustereBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.MODEST.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MODEST.species(), "modest").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MODEST)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.CACTI).withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE).withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.MODEST.output())).build());
@@ -42,4 +43,5 @@ public class AustereBranch
     bootstrap.register(ApicuriousSpecies.AUSTERE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.PARCHED_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.5f)).withResult(result -> result.withResult(ItemRegistrar.POWDERY_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.HAZARDOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.UNSTABLE_COMB.comb(), 0.12f));
   }
+   */
 }

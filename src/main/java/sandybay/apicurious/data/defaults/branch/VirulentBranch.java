@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class VirulentBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.MALICIOUS.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MALICIOUS.species(), "malicious").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MALICIOUS)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.JUNGLE).withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.MALICIOUS.output())).build());
@@ -36,4 +37,5 @@ public class VirulentBranch
     bootstrap.register(ApicuriousSpecies.INFECTIOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.25f));
     bootstrap.register(ApicuriousSpecies.VIRULENT.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.12f)).withResult(result -> result.withResult(ItemRegistrar.VENOMOUS_COMB.comb().get()))).build());
   }
+   */
 }

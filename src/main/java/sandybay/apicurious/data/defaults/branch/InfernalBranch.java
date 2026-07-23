@@ -20,6 +20,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class InfernalBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.SINISTER.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.SINISTER.species(), "sinister").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.SINISTER)).withProductionData(builder -> builder.withSpeed(Speed.SLOWER).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.NETHER_STONE).withHumidityPreference(HumidityPreference.ARID).withTemperaturePreference(TemperaturePreference.HELLISH).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.SINISTER.output())).build());
@@ -43,4 +44,5 @@ public class InfernalBranch
     bootstrap.register(ApicuriousSpecies.FIENDISH.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.ASH.item().get()))).withPool(pool -> pool.when(new ChanceCondition(0.55f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.DEMONIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(Items.GLOWSTONE_DUST))).withPool(pool -> pool.when(new ChanceCondition(0.45f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.comb().get()))).build());
   }
+   */
 }

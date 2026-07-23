@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class MetallicBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.CUPRUM.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.CUPRUM.species(), "cuprum").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.CUPRUM)).withProductionData(builder -> builder.withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWEST).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.STONE).ignoresSky()).withOutputData(builder -> builder.withTable(ApicuriousSpecies.CUPRUM.output())).build());
@@ -36,4 +37,5 @@ public class MetallicBranch
     bootstrap.register(ApicuriousSpecies.FERRUS.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ROCKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.05f)).withResult(result -> result.withResult(ItemRegistrar.IRON_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.AURUM.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ROCKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.02f)).withResult(result -> result.withResult(ItemRegistrar.GOLD_COMB.comb().get()))).build());
   }
+   */
 }

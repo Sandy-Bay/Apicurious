@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class CausticBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.CORROSIVE.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.CORROSIVE.species(), "corrosive").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.CORROSIVE)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORT).withSpeed(Speed.FAST)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.JUNGLE).withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.CORROSIVE.output())).build());
@@ -36,4 +37,5 @@ public class CausticBranch
     bootstrap.register(ApicuriousSpecies.CAUSTIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.03f)).withResult(result -> result.withResult(ItemRegistrar.BRIMSTONE_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.ACIDIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.16f)).withResult(result -> result.withResult(ItemRegistrar.BRIMSTONE_COMB.comb().get()))).build());
   }
+   */
 }

@@ -15,6 +15,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class EndBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.ENDER.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.ENDER.species(), "ender").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ENDER)).withProductionData(builder -> builder.withArea(Area.LARGE).withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.LONGER).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.END_STONE).withTemperaturePreference(TemperaturePreference.COLD).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.ENDER.output())).build());
@@ -34,4 +35,5 @@ public class EndBranch
     bootstrap.register(ApicuriousSpecies.SPECTRAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB.comb(), 0.5f));
     bootstrap.register(ApicuriousSpecies.PHANTASMAL.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MYSTERIOUS_COMB.comb(), 0.4f));
   }
+   */
 }

@@ -15,6 +15,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class TropicalBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.TROPICAL.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.TROPICAL.species(), "tropical").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.TROPICAL)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.JUNGLE).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE).withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.TROPICAL.output())).build());
@@ -34,4 +35,5 @@ public class TropicalBranch
     bootstrap.register(ApicuriousSpecies.EXOTIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.3f));
     bootstrap.register(ApicuriousSpecies.EDENIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.2f));
   }
+   */
 }

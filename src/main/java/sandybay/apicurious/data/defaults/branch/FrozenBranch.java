@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class FrozenBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.WINTRY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.WINTRY.species(), "wintry").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WINTRY)).withProductionData(builder -> builder.withFertility(Fertility.MAXIMUM_FERTILITY).withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.SNOW).withTemperaturePreference(TemperaturePreference.ICY).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.WINTRY.output())).build());
@@ -41,4 +42,5 @@ public class FrozenBranch
     bootstrap.register(ApicuriousSpecies.FRIGID.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.FROZEN_COMB.comb(), 0.25f));
     bootstrap.register(ApicuriousSpecies.ABSOLUTE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.FROZEN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(ItemRegistrar.GLACIAL_COMB.comb().get()))).build());
   }
+   */
 }

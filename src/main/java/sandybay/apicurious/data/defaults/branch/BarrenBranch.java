@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class BarrenBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.ARID.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.ARID.species(), "arid").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.ARID)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.DEAD_BUSH).withHumidityPreference(HumidityPreference.ARID).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE).withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.ARID.output())).build());
@@ -42,4 +43,5 @@ public class BarrenBranch
     bootstrap.register(ApicuriousSpecies.GNAWING.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.DECOMPOSING.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.BARREN_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.DECOMPOSED_COMB.comb().get()))).build());
   }
+   */
 }

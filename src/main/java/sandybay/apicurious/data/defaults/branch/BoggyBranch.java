@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class BoggyBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.MARSHY.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MARSHY.species(), "marshy").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MARSHY)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOWER).withSpeed(Speed.SLOWEST)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.MUSHROOM).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.MARSHY.output())).build());
@@ -41,4 +42,5 @@ public class BoggyBranch
     bootstrap.register(ApicuriousSpecies.FUNGAL.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.MOSSY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(ItemRegistrar.FUNGAL_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.MIRY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MOSSY_COMB.comb(), 0.1f));
   }
+   */
 }

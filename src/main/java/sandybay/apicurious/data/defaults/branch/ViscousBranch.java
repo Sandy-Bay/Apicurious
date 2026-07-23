@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class ViscousBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.VISCOUS.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.VISCOUS.species(), "viscous").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.VISCOUS)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOW)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.JUNGLE).withTemperaturePreference(TemperaturePreference.HOT).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.VISCOUS.output())).build());
@@ -36,4 +37,5 @@ public class ViscousBranch
     bootstrap.register(ApicuriousSpecies.GLUTINOUS.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.SILKY_COMB.comb(), 0.25f));
     bootstrap.register(ApicuriousSpecies.STICKY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SILKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.MUCOUS_COMB.comb().get()))).build());
   }
+   */
 }

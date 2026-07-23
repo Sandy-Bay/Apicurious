@@ -18,6 +18,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class FossilisedBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.FOSSILISED.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.FOSSILISED.species(), "fossilised").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.FOSSILISED)).withProductionData(builder -> builder.withPollination(Pollination.SLOW).withSpeed(Speed.SLOWER)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.FOSSILISED.output())).build());
@@ -35,4 +36,5 @@ public class FossilisedBranch
     bootstrap.register(ApicuriousSpecies.FOSSILISED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ANCIENT_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.02f)).withResult(result -> result.withResult(ItemRegistrar.FOSSILISED_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.FORGOTTEN.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ANCIENT_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.02f)).withResult(result -> result.withResult(Items.ANCIENT_DEBRIS))).build());
   }
+   */
 }

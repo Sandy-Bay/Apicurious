@@ -18,6 +18,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AgrarianBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.RURAL.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.RURAL.species(), "rural").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.RURAL)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.FASTER).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.WHEAT)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.RURAL.output())).build());
@@ -38,5 +39,5 @@ public class AgrarianBranch
     bootstrap.register(ApicuriousSpecies.FARMERLY.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.WHEATEN_COMB.comb(), 0.27f));
     bootstrap.register(ApicuriousSpecies.AGRARIAN.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.WHEATEN_COMB.comb(), 0.35f));
   }
-
+   */
 }

@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class TimberedBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.WOODEN.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.WOODEN.species(), "wooden").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WOODEN)).withProductionData(builder -> builder.withFertility(Fertility.HIGH_FERTILITY).withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOWER).withSpeed(Speed.SLOWEST)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.WOOD)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.WOODEN.output())).build());
@@ -36,4 +37,5 @@ public class TimberedBranch
     bootstrap.register(ApicuriousSpecies.LUMBERED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.TIMBERED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DUSTY_COMB.comb().get()))).build());
   }
+   */
 }

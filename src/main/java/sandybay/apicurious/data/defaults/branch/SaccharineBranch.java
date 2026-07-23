@@ -19,6 +19,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class SaccharineBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.SWEETENED.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.SWEETENED.species(), "sweetened").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.SWEETENED)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.FASTER).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.SUGAR_CANE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.SWEETENED.output())).build());
@@ -36,4 +37,5 @@ public class SaccharineBranch
     bootstrap.register(ApicuriousSpecies.SWEETENED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(Items.HONEYCOMB))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(Items.SUGAR))).build());
     bootstrap.register(ApicuriousSpecies.SUGARY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(Items.HONEYCOMB))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(Items.SUGAR))).build());
   }
+   */
 }

@@ -21,6 +21,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class HeroicBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.VALIANT.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.VALIANT.species(), "valiant").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.VALIANT)).withProductionData(builder -> builder.withLifespan(Lifespan.LONG).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOW).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(EnvironmentalData.Builder::ignoresSky).withOutputData(builder -> builder.withTable(ApicuriousSpecies.VALIANT.output())).build());
@@ -39,4 +40,5 @@ public class HeroicBranch
     bootstrap.register(ApicuriousSpecies.STEADFAST.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.COCOA_COMB.comb(), 0.2f));
     bootstrap.register(ApicuriousSpecies.HEROIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(ItemRegistrar.COCOA_COMB.comb().get()))).build());
   }
+   */
 }

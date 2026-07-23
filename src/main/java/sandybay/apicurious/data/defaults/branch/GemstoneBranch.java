@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class GemstoneBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.DIAMANTINE.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.DIAMANTINE.species(), "diamantine").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.DIAMANTINE)).withProductionData(builder -> builder.withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.SHORT).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWEST).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.STONE).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE).ignoresSky().ignoresRain()).withOutputData(builder -> builder.withTable(ApicuriousSpecies.DIAMANTINE.output())).recessive().build());
@@ -33,4 +34,5 @@ public class GemstoneBranch
     bootstrap.register(ApicuriousSpecies.DIAMANTINE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ROCKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.01f)).withResult(result -> result.withResult(ItemRegistrar.DIAMOND_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.EMERALDINE.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ROCKY_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.04f)).withResult(result -> result.withResult(ItemRegistrar.EMERALD_COMB.comb().get()))).build());
   }
+   */
 }

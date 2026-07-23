@@ -19,6 +19,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class DyeBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.MAROON.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MAROON.species(), "maroon").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MAROON)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWEST)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.MAROON.output())).build());
@@ -78,4 +79,5 @@ public class DyeBranch
     bootstrap.register(ApicuriousSpecies.ASHEN.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.75f)).withResult(result -> result.withResult(Items.HONEYCOMB.builtInRegistryHolder().value()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.LIGHT_GRAY_TINTED_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.FUCHSIA.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.75f)).withResult(result -> result.withResult(Items.HONEYCOMB.builtInRegistryHolder().value()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.MAGENTA_TINTED_COMB.comb().get()))).build());
   }
+   */
 }

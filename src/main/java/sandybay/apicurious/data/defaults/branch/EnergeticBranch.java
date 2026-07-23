@@ -19,6 +19,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class EnergeticBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.EXCITED.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.EXCITED.species(), "excited").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.EXCITED)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWEST)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.REDSTONE).ignoresSky()).withOutputData(builder -> builder.withTable(ApicuriousSpecies.EXCITED.output())).build());
@@ -39,4 +40,5 @@ public class EnergeticBranch
     bootstrap.register(ApicuriousSpecies.ENERGETIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.ENERGETIC_COMB.comb(), 0.12f));
     bootstrap.register(ApicuriousSpecies.ECSTATIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(ItemRegistrar.ENERGETIC_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.08f)).withResult(result -> result.withResult(ItemRegistrar.STATIC_COMB.comb().get()))).build());
   }
+   */
 }

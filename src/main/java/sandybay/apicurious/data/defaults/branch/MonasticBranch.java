@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class MonasticBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.MONASTIC.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.MONASTIC.species(), "monastic").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.MONASTIC)).withProductionData(builder -> builder.withFertility(Fertility.LOW_FERTILITY).withLifespan(Lifespan.LONG).withPollination(Pollination.FASTER).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.WHEAT).withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE).withTemperatureTolerance(TemperatureTolerance.LOWEST_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.MONASTIC.output())).build());
@@ -35,4 +36,5 @@ public class MonasticBranch
     bootstrap.register(ApicuriousSpecies.SECLUDED.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MELLOW_COMB.comb(), 0.2f));
     bootstrap.register(ApicuriousSpecies.HERMITIC.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.MELLOW_COMB.comb(), 0.2f));
   }
+   */
 }

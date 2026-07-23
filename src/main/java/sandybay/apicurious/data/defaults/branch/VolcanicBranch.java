@@ -16,6 +16,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class VolcanicBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.NETHER.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.NETHER.species(), "nether").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.NETHER)).withProductionData(builder -> builder.withSpeed(Speed.SLOWER).withWorkCycle(Workcycle.ALWAYS)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.NETHER_STONE).withHumidityPreference(HumidityPreference.ARID).withTemperaturePreference(TemperaturePreference.HELLISH).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.NETHER.output())).build());
@@ -38,4 +39,5 @@ public class VolcanicBranch
     bootstrap.register(ApicuriousSpecies.VOLCANIC.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.SIMMERING_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.25f)).withResult(result -> result.withResult(ItemRegistrar.BLAZING_COMB.comb().get()))).build());
     bootstrap.register(ApicuriousSpecies.GLOWERING.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.GLOWING_COMB.comb(), 0.15f));
   }
+   */
 }

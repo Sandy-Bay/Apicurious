@@ -27,6 +27,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
    */
 public class FestiveBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.LEPORINE.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.LEPORINE.species(), "leporine").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.LEPORINE)).withProductionData(builder -> builder.withPollination(Pollination.SLOWEST).withSpeed(Speed.SLOWER)).withEnvironmentalData(builder -> builder.withHumidityTolerance(HumidityTolerance.LOWEST_TOLERANCE).withTemperatureTolerance(TemperatureTolerance.LOW_TOLERANCE)).withOutputData(builder -> builder.withTable(ApicuriousSpecies.LEPORINE.output())).recessive().build());
@@ -38,7 +39,7 @@ public class FestiveBranch
 
   public static void mutationsDefaults(BootstrapContext<IMutation> bootstrap)
   {
-    /*
+
     bootstrap.register(ApicuriousSpecies.LEPORINE.mutation(),
             mutation(bootstrap)
                     .withFirst(ApicuriousSpecies.FOREST)
@@ -48,7 +49,6 @@ public class FestiveBranch
                     .withOutput(ApicuriousSpecies.LEPORINE)
                     .build()
     );
-     */
     bootstrap.register(ApicuriousSpecies.MERRY.mutation(), mutation(bootstrap).withFirst(ApicuriousSpecies.FOREST.species()).withSecond(ApicuriousSpecies.WINTRY.species()).withChance(0.1f).withCondition(ConditionKeys.IS_CHRISTMAS).withOutput(ApicuriousSpecies.MERRY.species()).build());
     bootstrap.register(ApicuriousSpecies.TIPSY.mutation(), mutation(bootstrap).withFirst(ApicuriousSpecies.MEADOW.species()).withSecond(ApicuriousSpecies.WINTRY.species()).withChance(0.1f).withCondition(ConditionKeys.IS_NEW_YEARS).withOutput(ApicuriousSpecies.TIPSY.species()).build());
     bootstrap.register(ApicuriousSpecies.CELEBRATORY.mutation(), mutation(bootstrap).withFirst(ApicuriousSpecies.AUSTERE.species()).withSecond(ApicuriousSpecies.EXCITED.species()).withChance(0.05f).withOutput(ApicuriousSpecies.CELEBRATORY.species()).build());
@@ -63,4 +63,5 @@ public class FestiveBranch
     bootstrap.register(ApicuriousSpecies.CELEBRATORY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.PARCHED_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.2f)).withResult(result -> result.withResult(Items.GUNPOWDER))).build());
     bootstrap.register(ApicuriousSpecies.TRICKY.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.4f)).withResult(result -> result.withResult(Items.HONEYCOMB))).withPool(pool -> pool.when(new ChanceCondition(0.15f)).withResult(result -> result.withResult(Items.COOKIE))).withPool(pool -> pool.withResult(result -> result.when(new ChanceCondition(0.02f)).withResult(Blocks.ZOMBIE_HEAD.asItem()).withResult(Blocks.CREEPER_HEAD.asItem()).withResult(Blocks.SKELETON_SKULL.asItem()))).build());
   }
+  */
 }

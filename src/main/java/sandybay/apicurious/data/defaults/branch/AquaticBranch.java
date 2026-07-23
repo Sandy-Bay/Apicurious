@@ -17,6 +17,7 @@ import static sandybay.apicurious.data.defaults.MutationDefaults.mutation;
 
 public class AquaticBranch
 {
+  /*
   public static void speciesDefaults(BootstrapContext<IAllele<?>> bootstrap)
   {
     bootstrap.register(ApicuriousSpecies.WATER.species(), SpeciesDefaults.getSpeciesBuilder(bootstrap, ApicuriousSpecies.WATER.species(), "water").withVisualData(builder -> builder.withBeeColor(ApicuriousConstants.WATER)).withProductionData(builder -> builder.withLifespan(Lifespan.SHORTER).withPollination(Pollination.SLOW).withSpeed(Speed.SLOWEST)).withEnvironmentalData(builder -> builder.withFlowers(Flowers.LILY_PAD).withHumidityPreference(HumidityPreference.DAMP).withHumidityTolerance(HumidityTolerance.LOW_TOLERANCE).ignoresRain()).withOutputData(builder -> builder.withTable(ApicuriousSpecies.WATER.output())).build());
@@ -39,4 +40,5 @@ public class AquaticBranch
     bootstrap.register(ApicuriousSpecies.OCEAN.output(), OutputTableDefaults.simpleCombTable(ItemRegistrar.UNSTABLE_COMB.comb(), 0.3f));
     bootstrap.register(ApicuriousSpecies.STAINED.output(), OutputTableDefaults.custom().withPool(pool -> pool.when(new ChanceCondition(0.3f)).withResult(result -> result.withResult(ItemRegistrar.DAMP_COMB.comb().get()))).withPool(pool -> pool.when(new ChanceCondition(0.1f)).withResult(result -> result.withResult(Items.INK_SAC))).build());
   }
+   */
 }
